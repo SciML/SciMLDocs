@@ -1,5 +1,8 @@
-using SciMLBase, LinearSolve, NonlinearSolve
-using Documenter
+using SciMLDocs, Documenter
+
+# Ordering Matters!
+docsmodules = ["SciMLBase", "LinearSolve", "NonlinearSolve"]
+fullpages = Vector{Any}()
 
 function recursive_append(pages::AbstractArray{<:AbstractArray},str)
     map(recursive_append,pages,str)
@@ -18,7 +21,6 @@ end
 
 function recursive_append(pages::AbstractArray{<:String},str)
     for i in eachindex(pages) 
-        @show pages[i],1
         pages[i] = joinpath(str,pages[i])
     end
     pages
@@ -26,7 +28,6 @@ end
 
 function recursive_append(pages::AbstractArray{<:Pair{String,String}},str)
     for i in eachindex(pages) 
-        @show pages[i],2
         pages[i] = pages[i][1] => joinpath(str,pages[i][2])
     end
     pages
@@ -34,7 +35,6 @@ end
 
 function recursive_append(pages::AbstractArray{<:Any},str)
     for i in eachindex(pages) 
-        @show pages[i],3
         if pages[i] isa Pair
             pages[i] = pages[i][1] => joinpath(str,pages[i][2])
         elseif pages[i] isa String
@@ -44,69 +44,15 @@ function recursive_append(pages::AbstractArray{<:Any},str)
     pages
 end
 
-SciMLBase_pages=[
-    "Home" => "index.md",
-    "Interfaces" => Any[
-        "interfaces/Problems.md",
-        "interfaces/SciMLFunctions.md",
-        "interfaces/Algorithms.md",
-        "interfaces/Solutions.md",
-        "interfaces/Init_Solve.md",
-        "interfaces/Common_Keywords.md",
-        "interfaces/Differentiation.md",
-        "interfaces/PDE.md",
-    ],
-    "Fundamentals" => Any[
-        "fundamentals/FAQ.md"
-    ]
-]
-
-LinearSolve_pages=[
-    "Home" => "index.md",
-    "Tutorials" => Any[
-        "tutorials/linear.md"
-        "tutorials/caching_interface.md"
-    ],
-    "Basics" => Any[
-        "basics/LinearProblem.md",
-        "basics/common_solver_opts.md",
-        "basics/CachingAPI.md",
-        "basics/Preconditioners.md",
-        "basics/FAQ.md"
-    ],
-    "Solvers" => Any[
-        "solvers/solvers.md"
-    ],
-    "Advanced" => Any[
-        "advanced/developing.md"
-        "advanced/custom.md"
-    ]
-]
-
-NonlinearSolve_pages=[
-    "Home" => "index.md",
-    "Tutorials" => Any[
-        "tutorials/nonlinear.md",
-        "tutorials/iterator_interface.md"
-    ],
-    "Basics" => Any[
-        "basics/NonlinearProblem.md",
-        "basics/NonlinearFunctions.md",
-        "basics/FAQ.md"
-    ],
-    "Solvers" => Any[
-        "solvers/NonlinearSystemSolvers.md",
-        "solvers/BracketingSolvers.md"
-    ]
-]
-
-SciMLBase_pages = recursive_append(SciMLBase_pages,joinpath(pkgdir(SciMLBase),"docs","src"))
-LinearSolve_pages = recursive_append(LinearSolve_pages,joinpath(pkgdir(LinearSolve),"docs","src"))
-NonlinearSolve_pages = recursive_append(NonlinearSolve_pages,joinpath(pkgdir(NonlinearSolve),"docs","src"))
-
-fullpages = ["SciMLBase" => SciMLBase_pages,
-             "LinearSolve" => LinearSolve_pages,
-             "NonlinearSolve" => NonlinearSolve_pages]
+for mod in docsmodules
+    ex = quote
+        using $(Symbol(mod))
+        cp(joinpath(pkgdir($(Symbol(mod))),"docs","src"),joinpath(pkgdir(SciMLDocs),"docs","src","copies",$mod),force=true)
+        include(joinpath(pkgdir($(Symbol(mod))),"docs","pages.jl"))
+        push!(fullpages,$mod => recursive_append(pages,joinpath("copies",$mod)))
+    end
+    @eval $ex 
+end
 
 makedocs(
     sitename="The SciML Open Source Software Ecosystem",

@@ -1,24 +1,10 @@
-# LinearSolve.jl: High-Performance Unified Linear Solvers
+# The SciML Open Souce Software Ecoystem: Equation Solvers, Mixing Machine Learning and Classical Techniques
 
-LinearSolve.jl is a unified interface for the linear solving packages of
-Julia. It interfaces with other packages of the Julia ecosystem
-to make it easy to test alternative solver packages and pass small types to
-control algorithm swapping. It also interfaces with the
-[ModelingToolkit.jl](https://mtk.sciml.ai/dev/) world of symbolic modeling to
-allow for automatically generating high-performance code.
-
-Performance is key: the current methods are made to be highly performant on
-scalar and statically sized small problems, with options for large-scale systems.
-If you run into any performance issues, please file an issue.
-
-## Installation
-
-To install LinearSolve.jl, use the Julia package manager:
-
-```julia
-using Pkg
-Pkg.add("LinearSolve")
-```
+The SciML organization is an collection of tools for solving equations and modeling systems developed in the Julia
+programming language with bindings to other languages such as R and Python. The organization provides well-maintained 
+tools which compose together as a coherent ecosystem. It has a coherent development principle, unified APIs over
+large collections of equation solvers, pervasive differentiability and sensitivitiy analysis, and features many
+of the highest performance and parallel implementations one can find.
 
 ## Contributing
 
@@ -30,10 +16,3 @@ Pkg.add("LinearSolve")
     - [JuliaDiffEq](https://gitter.im/JuliaDiffEq/Lobby) on Gitter
     - on the [Julia Discourse forums](https://discourse.julialang.org)
     - see also [SciML Community page](https://sciml.ai/community/)
-
-## Roadmap
-
-Wrappers for every linear solver in the Julia language is on the roadmap. If
-there are any important ones that are missing that you would like to see added,
-please open an issue. The current algorithms should support automatic differentiation.
-Pre-defined preconditioners would be a welcome addition.
