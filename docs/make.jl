@@ -7,7 +7,6 @@ docsmodules = ["Interfaces" => ["SciMLBase"],
               "Modeling Tools" => ["ModelingToolkit"],
               "Utilities" => ["GlobalSensitivity", "Surrogates"],
               "Inverse Problems" => ["DiffEqSensitivity"],
-              "Machine Learning" => ["DiffEqFlux"],
 ]
 
 # Omitted for now:
@@ -20,7 +19,7 @@ docsmodules = ["Interfaces" => ["SciMLBase"],
 # Utilities => ExponentialUtilities QuasiMonteCarlo PoissonRandom
 # Uncertainty Quantification => DiffEqUncertainty PolyChaos
 # Symbolic Analysis => StructuralIdentifiability SymbolicNumericIntegration
-# Machine Learning => FastDEQ ReservoirComputing
+# Machine Learning => DiffEqFlux FastDEQ ReservoirComputing
 
 fullpages = Vector{Any}()
 allmods = Vector{Any}()
@@ -71,7 +70,7 @@ end
 
 for cat in docsmodules
     global catpage
-    
+
     catpage = Vector{Any}()
     for mod in cat[2]
         ex = quote
