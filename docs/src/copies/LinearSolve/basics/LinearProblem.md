@@ -1,5 +1,0 @@
-# Linear Problems
-
-```@docs
-LinearProblem
-```

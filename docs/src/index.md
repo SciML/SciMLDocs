@@ -1,4 +1,4 @@
-# The SciML Open Souce Software Ecoystem: Equation Solvers, Mixing Machine Learning and Classical Techniques
+# The SciML Open Souce Software Ecoystem
 
 The SciML organization is an collection of tools for solving equations and modeling systems developed in the Julia
 programming language with bindings to other languages such as R and Python. The organization provides well-maintained 
