@@ -2,6 +2,5 @@
 *.jl.cov
 *.jl.mem
 /docs/build/
-/docs/src/copies/*
 Manifest.toml
 *.swp
