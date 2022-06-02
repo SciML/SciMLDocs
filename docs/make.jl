@@ -69,9 +69,9 @@ function recursive_append(pages::AbstractArray{<:Any},str)
     pages
 end
 
-global catpage
-
 for cat in docsmodules
+    global catpage
+    
     catpage = Vector{Any}()
     for mod in cat[2]
         ex = quote
