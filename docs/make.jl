@@ -3,23 +3,24 @@ using Plots
 
 # Ordering Matters!
 docsmodules = ["Interfaces" => ["SciMLBase"],
-              "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "Integrals"],
-              "Modeling Tools" => ["ModelingToolkit"],
+              "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "Integrals", "Optimization"],
+              "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary"],
               "Utilities" => ["GlobalSensitivity", "Surrogates"],
               "Inverse Problems" => ["DiffEqSensitivity"],
+              "Machine Learning" => ["ReservoirComputing"],
 ]
 
 # Omitted for now:
 
 # Interfaces => SciMLOperators
-# Solvers => Optimization, NeuralOperators DifferentialEquations FEniCS DiffEqOperators HighDimPDE NeuralPDE, MethodOfLines 
+# Solvers => , NeuralOperators DifferentialEquations FEniCS DiffEqOperators HighDimPDE NeuralPDE, MethodOfLines 
 # ModelingTools => NBodySimulator ParameterizedFunctions Catalyst
 # Inverse Problems => DiffEqSensitivity DiffEqParamEstim DiffEqBayes MinimallyDisruptiveCurves
 # Array Tools => MultiScaleArrays, LabelledArrays, RecursiveArrayTools
 # Utilities => ExponentialUtilities QuasiMonteCarlo PoissonRandom
 # Uncertainty Quantification => DiffEqUncertainty PolyChaos
 # Symbolic Analysis => StructuralIdentifiability SymbolicNumericIntegration
-# Machine Learning => DiffEqFlux FastDEQ ReservoirComputing
+# Machine Learning => DiffEqFlux FastDEQ 
 
 fullpages = Vector{Any}()
 allmods = Vector{Any}()
