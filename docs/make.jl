@@ -3,7 +3,7 @@ using Plots
 
 # Ordering Matters!
 docsmodules = ["Interfaces" => ["SciMLBase"],
-              "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "Integrals", "Optimization"],
+              "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "Integrals", "Optimization", "NeuralOperators"],
               "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary"],
               "Utilities" => ["GlobalSensitivity", "Surrogates"],
               "Inverse Problems" => ["DiffEqSensitivity"],
@@ -13,9 +13,9 @@ docsmodules = ["Interfaces" => ["SciMLBase"],
 # Omitted for now:
 
 # Interfaces => SciMLOperators
-# Solvers => , NeuralOperators DifferentialEquations FEniCS DiffEqOperators HighDimPDE NeuralPDE, MethodOfLines 
+# Solvers => ,  DifferentialEquations FEniCS DiffEqOperators HighDimPDE NeuralPDE, MethodOfLines 
 # ModelingTools => NBodySimulator ParameterizedFunctions Catalyst
-# Inverse Problems => DiffEqSensitivity DiffEqParamEstim DiffEqBayes MinimallyDisruptiveCurves
+# Inverse Problems => DiffEqParamEstim DiffEqBayes MinimallyDisruptiveCurves
 # Array Tools => MultiScaleArrays, LabelledArrays, RecursiveArrayTools
 # Utilities => ExponentialUtilities QuasiMonteCarlo PoissonRandom
 # Uncertainty Quantification => DiffEqUncertainty PolyChaos
