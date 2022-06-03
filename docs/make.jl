@@ -7,7 +7,7 @@ docsmodules = ["Interfaces" => ["SciMLBase"],
               "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary"],
               "Utilities" => ["GlobalSensitivity", "Surrogates"],
               "Inverse Problems" => ["DiffEqSensitivity"],
-              "Machine Learning" => ["ReservoirComputing"],
+              #"Machine Learning" => ["ReservoirComputing"],
 ]
 
 # Omitted for now:
