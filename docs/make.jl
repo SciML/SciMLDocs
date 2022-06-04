@@ -5,9 +5,18 @@ using Plots
 docsmodules = ["Interfaces" => ["SciMLBase"],
               "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "Integrals", "Optimization", "NeuralOperators"],
               "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary"],
-              "Utilities" => ["GlobalSensitivity", "Surrogates"],
               "Inverse Problems" => ["DiffEqSensitivity", "DiffEqParamEstim", ],
+              "Utilities" => ["GlobalSensitivity", "Surrogates"],
               "Machine Learning" => ["DiffEqFlux"],
+]
+
+catpagestarts = [
+    Any["highlevels/interfaces.md"],
+    Any["highlevels/equation_solvers.md"],
+    Any["highlevels/modeling_tools.md"],
+    Any["highlevels/inverse_problems.md"],
+    Any["highlevels/utilities.md"],
+    Any["highlevels/machine_learning.md"],
 ]
 
 # Omitted for now:
@@ -69,10 +78,10 @@ function recursive_append(pages::AbstractArray{<:Any},str)
     pages
 end
 
-for cat in docsmodules
+for (i,cat) in emumerate(docsmodules)
     global catpage
+    catpage = catpagestarts[i]
 
-    catpage = Vector{Any}()
     for mod in cat[2]
         ex = quote
             using $(Symbol(mod))
