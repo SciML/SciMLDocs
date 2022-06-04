@@ -6,8 +6,8 @@ docsmodules = ["Interfaces" => ["SciMLBase"],
               "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "Integrals", "Optimization", "NeuralOperators"],
               "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary"],
               "Utilities" => ["GlobalSensitivity", "Surrogates"],
-              "Inverse Problems" => ["DiffEqSensitivity"],
-              #"Machine Learning" => ["ReservoirComputing"],
+              "Inverse Problems" => ["DiffEqSensitivity", "DiffEqParamEstim", ],
+              "Machine Learning" => ["DiffEqFlux"],
 ]
 
 # Omitted for now:
@@ -15,12 +15,12 @@ docsmodules = ["Interfaces" => ["SciMLBase"],
 # Interfaces => SciMLOperators
 # Solvers => ,  DifferentialEquations FEniCS DiffEqOperators HighDimPDE NeuralPDE, MethodOfLines 
 # ModelingTools => NBodySimulator ParameterizedFunctions Catalyst
-# Inverse Problems => DiffEqParamEstim DiffEqBayes MinimallyDisruptiveCurves
+# Inverse Problems =>  DiffEqBayes MinimallyDisruptiveCurves
 # Array Tools => MultiScaleArrays, LabelledArrays, RecursiveArrayTools
 # Utilities => ExponentialUtilities QuasiMonteCarlo PoissonRandom
 # Uncertainty Quantification => DiffEqUncertainty PolyChaos
 # Symbolic Analysis => StructuralIdentifiability SymbolicNumericIntegration
-# Machine Learning => DiffEqFlux FastDEQ 
+# Machine Learning => ReservoirComputing  FastDEQ 
 
 fullpages = Vector{Any}()
 allmods = Vector{Any}()
