@@ -5,14 +5,14 @@ using Plots
 docsmodules = [
               "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "Integrals", "Optimization", "NeuralOperators"],
               "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary"],
-              "Inverse Problems" => ["DiffEqSensitivity", "DiffEqParamEstim", ],
-              "AbstractArray Libraries" => ["SciMLBase"],
-              "Uncertainty Quantification" => ["SciMLBase"],
-              "Symbolic Analysis" => ["SciMLBase"],
+              "Inverse Problems" => ["DiffEqSensitivity", "DiffEqParamEstim"],
+              "AbstractArray Libraries" => [],
+              "Uncertainty Quantification" => [],
+              "Symbolic Analysis" => [],
               "Interfaces" => ["SciMLBase"],
               "Utilities" => ["GlobalSensitivity", "Surrogates"],
               "Machine Learning" => ["DiffEqFlux"],
-              "Developer Documentation" => ["SciMLBase"],
+              "Developer Documentation" => [],
 ]
 
 catpagestarts = [
