@@ -105,6 +105,8 @@ for (i,cat) in enumerate(docsmodules)
     push!(fullpages, cat[1] => catpage)
 end
 
+@show fullpages
+
 push!(allmods,Plots)
 
 makedocs(

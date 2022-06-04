@@ -12,6 +12,8 @@
 
 ## Distributions.jl
 
+## FFTW.jl
+
 ## SpecialFunctions.jl
 
 ## LoopVectorization.jl
