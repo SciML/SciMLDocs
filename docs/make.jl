@@ -78,7 +78,7 @@ function recursive_append(pages::AbstractArray{<:Any},str)
     pages
 end
 
-for (i,cat) in emumerate(docsmodules)
+for (i,cat) in enumerate(docsmodules)
     global catpage
     catpage = catpagestarts[i]
 
