@@ -6,18 +6,26 @@ docsmodules = [
               "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "Integrals", "Optimization", "NeuralOperators"],
               "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary", "Catalyst"],
               "Inverse Problems" => ["DiffEqSensitivity", "DiffEqParamEstim", ],
+              "AbstractArray Libraries" => [],
+              "Uncertainty Quantification" => [],
+              "Symbolic Analysis" => [],
               "Interfaces" => ["SciMLBase"],
               "Utilities" => ["GlobalSensitivity", "Surrogates"],
               "Machine Learning" => ["DiffEqFlux"],
+              "Developer Documentation" => [],
 ]
 
 catpagestarts = [
     Any["highlevels/equation_solvers.md"],
     Any["highlevels/modeling_tools.md"],
     Any["highlevels/inverse_problems.md"],
+    Any["highlevels/abstractarray_libraries.md"],
+    Any["highlevels/uncertainty_quantification.md"],
+    Any["highlevels/symbolic_analysis.md"],
     Any["highlevels/interfaces.md"],
     Any["highlevels/utilities.md"],
     Any["highlevels/machine_learning.md"],
+    Any["highlevels/developer_documentation.md"],
 ]
 
 # Omitted for now:
@@ -26,14 +34,14 @@ catpagestarts = [
 # Solvers => DifferentialEquations FEniCS DiffEqOperators HighDimPDE NeuralPDE, MethodOfLines DiffEqJump
 # ModelingTools => NBodySimulator ParameterizedFunctions 
 # Inverse Problems =>  DiffEqBayes MinimallyDisruptiveCurves
-# Array Tools => MultiScaleArrays, LabelledArrays, RecursiveArrayTools
+# AbstractArray Libraries => MultiScaleArrays, LabelledArrays, RecursiveArrayTools
 # Utilities => ExponentialUtilities QuasiMonteCarlo PoissonRandom DiffEqNoiseProcess
 # Uncertainty Quantification => DiffEqUncertainty PolyChaos
 # Symbolic Analysis => StructuralIdentifiability SymbolicNumericIntegration
 # Machine Learning => ReservoirComputing  FastDEQ
 # Extra Documentation => SciMLStyle COLPRAC 
 
-fullpages = Vector{Any}()
+fullpages = Any[["The SciML Open Souce Software Ecosystem" => "index.md"]]
 allmods = Vector{Any}()
 
 function recursive_append(pages::AbstractArray{<:AbstractArray},str)
@@ -100,7 +108,7 @@ end
 push!(allmods,Plots)
 
 makedocs(
-    sitename="The SciML Open Source Software Ecosystem",
+    sitename="SciML",
     authors="Chris Rackauckas",
     modules=identity.(allmods),
     clean=true,doctest=false,

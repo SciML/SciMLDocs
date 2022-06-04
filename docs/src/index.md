@@ -10,6 +10,27 @@ This documentation is made to pool together the docs of the various SciML librar
 to paint the overarching picture, establish development norms, and document the
 shared/common functionality.
 
+## SciML: Combining Scientific Computing and Machine Learning
+
+**SciML is not standard machine learning**, 
+[SciML is the combination of scientific computing techniques with machine learning](https://arxiv.org/abs/2001.04385).
+Thus the SciML organization is not an organization for machine learning libraries (see 
+[FluxML for machine learning in Julia](https://fluxml.ai/)), rather SciML is an organization dedicated to the
+development of scientific computing tools which work seamlessly in conjunction with next-generation machine
+learning workflows. This includes:
+
+- High performance and accurate tools for standard scientific computing modeling and simulation
+- Compatibility with differentiable programming and automatic differentiation
+- Tools for building complex multiscale models
+- Methods for handling inverse problems, model callibration, controls, and Bayesian analysis
+- Symbolic modeling tools for generating efficient code for numerical equation solvers
+- Methods for automatic discovery of (bio)physical equations
+
+and much more. For an overview of the broad goals of the SciML organization, watch:
+
+- [The Use and Practice of Scientific Machine Learning](https://www.youtube.com/watch?v=FihLyzdjN_8)
+- [State of SciML Scientific Machine Learning](https://www.youtube.com/watch?v=eSeY4K4bITI)
+
 ## Domains of SciML
 
 The SciML common interface covers the following domains:
@@ -43,23 +64,17 @@ The SciML common interface covers the following domains:
   - Physics-Informed Neural Networks (PINNs)
   - Integro-Differential Equations
   - Fractional Differential Equations
+- Data-driven modeling
+  - Discrete-time data-driven dynamical systems (`DiscreteDataDrivenProblem`)
+  - Continuous-time data-driven dynamical systems (`ContinuousDataDrivenProblem`)
+  - Symbolic regression (`DirectDataDrivenProblem`)
+- Uncertainty quantification and expected values (`ExpectationProblem`)
 
 The SciML common interface also includes
 [ModelingToolkit.jl](https://github.com/SciML/ModelingToolkit.jl)
 for defining such systems symbolically, allowing for optimizations like automated
 generation of parallel code, symbolic simplification, and generation of sparsity
 patterns.
-
-## Extended SciML Domain
-
-In addition to the purely numerical representations of mathematical objects, there are also
-sets of problem types associated with common mathematical algorithms. These are:
-
-- Data-driven modeling
-  - Discrete-time data-driven dynamical systems (`DiscreteDataDrivenProblem`)
-  - Continuous-time data-driven dynamical systems (`ContinuousDataDrivenProblem`)
-  - Symbolic regression (`DirectDataDrivenProblem`)
-- Uncertainty quantification and expected values (`ExpectationProblem`)
 
 ## Inverse Problems, Parameter Estimation, and Structural Identification
 
