@@ -76,10 +76,10 @@ for cat in docsmodules
     for mod in cat[2]
         ex = quote
             using $(Symbol(mod))
-            cp(joinpath(pkgdir($(Symbol(mod))),"docs","src"),joinpath(pkgdir(SciMLDocs),"docs","src","copies",$mod),force=true)
+            cp(joinpath(pkgdir($(Symbol(mod))),"docs","src"),joinpath(pkgdir(SciMLDocs),"docs","src","modules",$mod),force=true)
             include(joinpath(pkgdir($(Symbol(mod))),"docs","pages.jl"))
             push!(allmods,$(Symbol(mod)))
-            push!(catpage,$mod => recursive_append(pages,joinpath("copies",$mod)))
+            push!(catpage,$mod => recursive_append(pages,joinpath("modules",$mod)))
         end
         @eval $ex
     end
