@@ -2,34 +2,36 @@ using SciMLDocs, Documenter
 using Plots
 
 # Ordering Matters!
-docsmodules = ["Interfaces" => ["SciMLBase"],
+docsmodules = [
               "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "Integrals", "Optimization", "NeuralOperators"],
-              "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary"],
+              "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary", "Catalyst"],
               "Inverse Problems" => ["DiffEqSensitivity", "DiffEqParamEstim", ],
+              "Interfaces" => ["SciMLBase"],
               "Utilities" => ["GlobalSensitivity", "Surrogates"],
               "Machine Learning" => ["DiffEqFlux"],
 ]
 
 catpagestarts = [
-    Any["highlevels/interfaces.md"],
     Any["highlevels/equation_solvers.md"],
     Any["highlevels/modeling_tools.md"],
     Any["highlevels/inverse_problems.md"],
+    Any["highlevels/interfaces.md"],
     Any["highlevels/utilities.md"],
     Any["highlevels/machine_learning.md"],
 ]
 
 # Omitted for now:
 
-# Interfaces => SciMLOperators
-# Solvers => ,  DifferentialEquations FEniCS DiffEqOperators HighDimPDE NeuralPDE, MethodOfLines 
-# ModelingTools => NBodySimulator ParameterizedFunctions Catalyst
+# Interfaces => CommonSolve SciMLOperators
+# Solvers => DifferentialEquations FEniCS DiffEqOperators HighDimPDE NeuralPDE, MethodOfLines DiffEqJump
+# ModelingTools => NBodySimulator ParameterizedFunctions 
 # Inverse Problems =>  DiffEqBayes MinimallyDisruptiveCurves
 # Array Tools => MultiScaleArrays, LabelledArrays, RecursiveArrayTools
-# Utilities => ExponentialUtilities QuasiMonteCarlo PoissonRandom
+# Utilities => ExponentialUtilities QuasiMonteCarlo PoissonRandom DiffEqNoiseProcess
 # Uncertainty Quantification => DiffEqUncertainty PolyChaos
 # Symbolic Analysis => StructuralIdentifiability SymbolicNumericIntegration
-# Machine Learning => ReservoirComputing  FastDEQ 
+# Machine Learning => ReservoirComputing  FastDEQ
+# Extra Documentation => SciMLStyle COLPRAC 
 
 fullpages = Vector{Any}()
 allmods = Vector{Any}()

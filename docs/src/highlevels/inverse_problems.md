@@ -55,7 +55,7 @@ as flexible as direct usage of DiffEqFlux.jl or Turing.jl, DiffEqBayes.jl can
 be an approachable interface for those not familiar with Bayesian estimation,
 and provides a nice way to use Stan from pure Julia.
 
-## Third Party Tools of Note
+# Third Party Tools of Note
 
 ### Turing.jl
 
