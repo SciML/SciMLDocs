@@ -6,13 +6,13 @@ docsmodules = [
               "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "Integrals", "Optimization", "NeuralOperators"],
               "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary"],
               "Inverse Problems" => ["DiffEqSensitivity", "DiffEqParamEstim", ],
-              "AbstractArray Libraries" => [],
-              "Uncertainty Quantification" => [],
-              "Symbolic Analysis" => [],
+              "AbstractArray Libraries" => ["SciMLBase"],
+              "Uncertainty Quantification" => ["SciMLBase"],
+              "Symbolic Analysis" => ["SciMLBase"],
               "Interfaces" => ["SciMLBase"],
               "Utilities" => ["GlobalSensitivity", "Surrogates"],
               "Machine Learning" => ["DiffEqFlux"],
-              "Developer Documentation" => [],
+              "Developer Documentation" => ["SciMLBase"],
 ]
 
 catpagestarts = [
