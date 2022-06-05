@@ -44,7 +44,7 @@ catpagestarts = [
 # Machine Learning => ReservoirComputing  FastDEQ
 # Extra Documentation => SciMLStyle COLPRAC 
 
-fullpages = Any[Any["index.md"]]
+fullpages = Any["The SciML Open Souce Software Ecosystem" => Any["index.md"]]
 allmods = Vector{Any}()
 
 function recursive_append(pages::AbstractArray{<:AbstractArray},str)
