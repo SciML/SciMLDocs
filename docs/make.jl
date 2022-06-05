@@ -10,8 +10,8 @@ docsmodules = [
               "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary", "Catalyst"],
               "Inverse Problems" => ["DiffEqSensitivity", "DiffEqParamEstim"],
               "AbstractArray Libraries" => [],
-              "Uncertainty Quantification" => [],
-              "Symbolic Analysis" => [],
+              "Uncertainty Quantification" => ["PolyChaos"],
+              "Symbolic Analysis" => ["StructuralIdentifiability"],
               "Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],
               "Utilities" => ["GlobalSensitivity", "Surrogates"],
               "Machine Learning" => ["DiffEqFlux"],
@@ -41,8 +41,8 @@ catpagestarts = [
 # Inverse Problems =>  DiffEqBayes MinimallyDisruptiveCurves
 # AbstractArray Libraries => MultiScaleArrays, LabelledArrays, RecursiveArrayTools
 # Utilities => ExponentialUtilities QuasiMonteCarlo PoissonRandom DiffEqNoiseProcess
-# Uncertainty Quantification => DiffEqUncertainty PolyChaos
-# Symbolic Analysis => StructuralIdentifiability SymbolicNumericIntegration
+# Uncertainty Quantification => DiffEqUncertainty 
+# Symbolic Analysis =>  SymbolicNumericIntegration
 # Machine Learning => ReservoirComputing FastDEQ
 
 fullpages = Any["The SciML Open Souce Software Ecosystem" => Any["index.md"]]
@@ -124,7 +124,7 @@ push!(allmods,Plots)
 
 makedocs(
     sitename="SciML",
-    authors="Chris Rackauckas",
+    authors="The SciML Open Source Software Organization Contributors",
     modules=identity.(allmods),
     clean=true,doctest=false,
     format = Documenter.HTML(analytics = "UA-90474609-3",

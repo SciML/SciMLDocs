@@ -21,3 +21,5 @@
 ## GPUArrays.jl
 
 ## Tables.jl
+
+## EllipsisNotation.jl
