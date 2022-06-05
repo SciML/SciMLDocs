@@ -39,11 +39,11 @@ catpagestarts = [
 
 # Interfaces => SciMLParameters
 # Solvers => DifferentialEquations FEniCS DiffEqOperators HighDimPDE NeuralPDE, MethodOfLines DiffEqJump
-# ModelingTools => NBodySimulator ParameterizedFunctions 
+# ModelingTools => NBodySimulator ParameterizedFunctions
 # Inverse Problems =>  DiffEqBayes MinimallyDisruptiveCurves
-# AbstractArray Libraries => MultiScaleArrays, LabelledArrays, 
+# AbstractArray Libraries => MultiScaleArrays, LabelledArrays,
 # Utilities => ExponentialUtilities QuasiMonteCarlo PoissonRandom DiffEqNoiseProcess
-# Uncertainty Quantification => DiffEqUncertainty 
+# Uncertainty Quantification => DiffEqUncertainty
 # Symbolic Analysis => StructuralIdentifiability SymbolicNumericIntegration
 # Machine Learning => ReservoirComputing FastDEQ
 
@@ -66,21 +66,21 @@ function recursive_append(pages::AbstractArray{<:Pair{String,Any}},str)
 end
 
 function recursive_append(pages::AbstractArray{<:String},str)
-    for i in eachindex(pages) 
+    for i in eachindex(pages)
         pages[i] = joinpath(str,pages[i])
     end
     pages
 end
 
 function recursive_append(pages::AbstractArray{<:Pair{String,String}},str)
-    for i in eachindex(pages) 
+    for i in eachindex(pages)
         pages[i] = pages[i][1] => joinpath(str,pages[i][2])
     end
     pages
 end
 
 function recursive_append(pages::AbstractArray{<:Any},str)
-    for i in eachindex(pages) 
+    for i in eachindex(pages)
         if pages[i] isa Pair && pages[i][2] isa String
             pages[i] = pages[i][1] => joinpath(str,pages[i][2])
         elseif pages[i] isa Pair && pages[i][2] isa AbstractArray
@@ -105,7 +105,7 @@ for (i,cat) in enumerate(docsmodules)
             mkdir(mod)
             LibGit2.clone("https://github.com/SciML/$mod", mod)
             cp(joinpath(mod,"README.md"),joinpath(dir,"index.md"),force=true)
-            push!(catpage,mod => Any[joinpath("modules",mod,"index.md")])            
+            push!(catpage,mod => Any[joinpath("modules",mod,"index.md")])
         else
             ex = quote
                 using $(Symbol(mod))
@@ -124,6 +124,14 @@ end
 
 push!(allmods,Plots)
 
+mathengine = MathJax3(Dict(
+    :loader => Dict("load" => ["[tex]/require","[tex]/mathtools"]),
+    :tex => Dict(
+        "inlineMath" => [["\$","\$"], ["\\(","\\)"]],
+        "packages" => ["base", "ams", "autoload", "mathtools", "require"],
+    ),
+))
+
 makedocs(
     sitename="SciML",
     authors="The SciML Open Source Software Organization Contributors",
@@ -131,6 +139,7 @@ makedocs(
     clean=true,doctest=false,
     format = Documenter.HTML(analytics = "UA-90474609-3",
                              assets = ["assets/favicon.ico"],
+                             mathengine = mathengine,
                              canonical="https://docs.sciml.ai/stable/"),
     pages=fullpages
 )
