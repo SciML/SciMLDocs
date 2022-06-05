@@ -103,7 +103,7 @@ for (i,cat) in enumerate(docsmodules)
             mkdir(mod)
             LibGit2.clone("https://github.com/SciML/$mod", mod)
             cp(joinpath(mod,"README.md"),joinpath(dir,"index.md"),force=true)
-            push!(catpage,mod => Any[joinpath(dir,"index.md")])            
+            push!(catpage,mod => Any[joinpath("modules",mod,"index.md")])            
         else
             ex = quote
                 using $(Symbol(mod))
