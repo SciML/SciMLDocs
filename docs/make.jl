@@ -7,7 +7,7 @@ using Plots
 # Ordering Matters!
 docsmodules = [
               "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "Integrals", "Optimization", "NeuralOperators"],
-              "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary"],
+              "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary", "Catalyst"],
               "Inverse Problems" => ["DiffEqSensitivity", "DiffEqParamEstim"],
               "AbstractArray Libraries" => [],
               "Uncertainty Quantification" => [],
@@ -35,7 +35,7 @@ catpagestarts = [
 
 # Interfaces => CommonSolve SciMLOperators
 # Solvers => DifferentialEquations FEniCS DiffEqOperators HighDimPDE NeuralPDE, MethodOfLines DiffEqJump
-# ModelingTools => NBodySimulator ParameterizedFunctions Catalyst
+# ModelingTools => NBodySimulator ParameterizedFunctions 
 # Inverse Problems =>  DiffEqBayes MinimallyDisruptiveCurves
 # AbstractArray Libraries => MultiScaleArrays, LabelledArrays, RecursiveArrayTools
 # Utilities => ExponentialUtilities QuasiMonteCarlo PoissonRandom DiffEqNoiseProcess
