@@ -11,7 +11,7 @@ docsmodules = [
               "Inverse Problems" => ["DiffEqSensitivity", "DiffEqParamEstim"],
               "AbstractArray Libraries" => [],
               "Uncertainty Quantification" => ["PolyChaos"],
-              "Symbolic Analysis" => ["StructuralIdentifiability"],
+              "Symbolic Analysis" => [],
               "Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],
               "Utilities" => ["GlobalSensitivity", "Surrogates"],
               "Machine Learning" => ["DiffEqFlux"],
@@ -42,7 +42,7 @@ catpagestarts = [
 # AbstractArray Libraries => MultiScaleArrays, LabelledArrays, RecursiveArrayTools
 # Utilities => ExponentialUtilities QuasiMonteCarlo PoissonRandom DiffEqNoiseProcess
 # Uncertainty Quantification => DiffEqUncertainty 
-# Symbolic Analysis =>  SymbolicNumericIntegration
+# Symbolic Analysis => StructuralIdentifiability SymbolicNumericIntegration
 # Machine Learning => ReservoirComputing FastDEQ
 
 fullpages = Any["The SciML Open Souce Software Ecosystem" => Any["index.md"]]
