@@ -1,4 +1,4 @@
-using SciMLDocs, Documenter
+using SciMLDocs, Documenter, LibGit2
 
 # Make sure that plots don't throw a bunch of warnings / errors!
 ENV["GKSwstype"] = "100"
@@ -12,11 +12,13 @@ docsmodules = [
               "AbstractArray Libraries" => [],
               "Uncertainty Quantification" => [],
               "Symbolic Analysis" => [],
-              "Interfaces" => ["SciMLBase"],
+              "Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],
               "Utilities" => ["GlobalSensitivity", "Surrogates"],
               "Machine Learning" => ["DiffEqFlux"],
-              "Developer Documentation" => [],
+              "Developer Documentation" => ["SciMLStyle", "COLPRAC"],
 ]
+
+usereadme = ["SciMLStyle", "COLPRAC"]
 
 catpagestarts = [
     Any["highlevels/equation_solvers.md"],
@@ -33,7 +35,7 @@ catpagestarts = [
 
 # Omitted for now:
 
-# Interfaces => CommonSolve SciMLOperators
+# Interfaces => SciMLParameters
 # Solvers => DifferentialEquations FEniCS DiffEqOperators HighDimPDE NeuralPDE, MethodOfLines DiffEqJump
 # ModelingTools => NBodySimulator ParameterizedFunctions 
 # Inverse Problems =>  DiffEqBayes MinimallyDisruptiveCurves
@@ -41,8 +43,7 @@ catpagestarts = [
 # Utilities => ExponentialUtilities QuasiMonteCarlo PoissonRandom DiffEqNoiseProcess
 # Uncertainty Quantification => DiffEqUncertainty PolyChaos
 # Symbolic Analysis => StructuralIdentifiability SymbolicNumericIntegration
-# Machine Learning => ReservoirComputing  FastDEQ
-# Extra Documentation => SciMLStyle COLPRAC 
+# Machine Learning => ReservoirComputing FastDEQ
 
 fullpages = Any["The SciML Open Souce Software Ecosystem" => Any["index.md"]]
 allmods = Vector{Any}()
@@ -96,14 +97,23 @@ for (i,cat) in enumerate(docsmodules)
     catpage = catpagestarts[i]
 
     for mod in cat[2]
-        ex = quote
-            using $(Symbol(mod))
-            cp(joinpath(pkgdir($(Symbol(mod))),"docs","src"),joinpath(pkgdir(SciMLDocs),"docs","src","modules",$mod),force=true)
-            include(joinpath(pkgdir($(Symbol(mod))),"docs","pages.jl"))
-            push!(allmods,$(Symbol(mod)))
-            push!(catpage,$mod => recursive_append(pages,joinpath("modules",$mod)))
+        if mod in usereadme
+            dir = joinpath(pkgdir(SciMLDocs),"docs","src","modules",mod)
+            mkdir(dir)
+            mkdir(mod)
+            LibGit2.clone("https://github.com/SciML/$mod", mod)
+            cp(joinpath(mod,"README.md"),joinpath(dir,"index.md"),force=true)
+            push!(catpage,mod => Any[joinpath(dir,"index.md")])            
+        else
+            ex = quote
+                using $(Symbol(mod))
+                cp(joinpath(pkgdir($(Symbol(mod))),"docs","src"),joinpath(pkgdir(SciMLDocs),"docs","src","modules",$mod),force=true)
+                include(joinpath(pkgdir($(Symbol(mod))),"docs","pages.jl"))
+                push!(allmods,$(Symbol(mod)))
+                push!(catpage,$mod => recursive_append(pages,joinpath("modules",$mod)))
+            end
+            @eval $ex
         end
-        @eval $ex
     end
     push!(fullpages, cat[1] => catpage)
 end
