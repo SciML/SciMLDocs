@@ -15,6 +15,7 @@ docsmodules = [
               "Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],
               "Utilities" => ["GlobalSensitivity", "Surrogates"],
               "Machine Learning" => ["DiffEqFlux"],
+              "Learning Resources" => [],
               "Developer Documentation" => ["SciMLStyle", "COLPRAC"],
 ]
 
