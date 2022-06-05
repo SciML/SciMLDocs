@@ -15,7 +15,7 @@ present the relevant packages that facilitate parameter estimation, namely:
 We also provide information regarding the respective strengths of these packages
 so that you can easily decide which one suits your needs best.
 
-## SciMLSensitivity.jl
+## SciMLSensitivity.jl: Local Sensitivity Analysis and Automatic Differentiation Support for Solvers
 
 SciMLSensitivity.jl is the system for local sensitivity analysis which all other inverse problem
 methods rely on. This package defines the interactions between the equation solvers and automatic
@@ -27,7 +27,15 @@ controls analysis, and much more. As a lower level tool, this library is very ve
 and high-performance, giving all of the tools required but not directly providing a higher level
 interface.
 
-## DataDrivenDiffEq.jl
+!!! note
+
+    Sensitivity analysis is kept in a separate library from the solvers (SciMLSensitivity.jl), in
+    order to not require all equation solvers to have a dependency on all automatic differentiation
+    libraries. If automatic differentiation is applied to a solver library without importing
+    SciMLSensitivity.jl, an error is thrown letting the user know to import SciMLSensitivity.jl
+    for the functionality to exist.
+
+## DataDrivenDiffEq.jl: Data-Driven Modeling and Equation Discovery
 
 The distinguishing feature of this package is that its ultimate goal is to
 identify the differential equation model that generated the input data.
@@ -35,7 +43,7 @@ Depending on the user's needs, the package can provide structural identification
 of a given differential equation (output in a symbolic form) or structural
 estimation (output as a function for prediction purposes).
 
-## DiffEqParamEstim.jl
+## DiffEqParamEstim.jl: Simplified Parameter Estimation Interface
 
 This package is for simplified parameter estimation. While not as flexible of a
 system like DiffEqFlux.jl, it provides ready-made functions for doing standard
@@ -43,7 +51,7 @@ optmization procedures like L2 fitting and MAP estimates. Among other features,
 it allows for the optimization of parameters in ODEs, stochastic problems, and
 delay differential equations.
 
-## DiffEqBayes.jl
+## DiffEqBayes.jl: Simplified Bayesian Estimation Interface
 
 As the name suggests, this package has been designed to provide the estimation
 of differential equations parameters by means of Bayesian methods. It works in
@@ -57,7 +65,7 @@ and provides a nice way to use Stan from pure Julia.
 
 # Third Party Tools of Note
 
-### Turing.jl
+### Turing.jl: A Flexible Probabilistic Programming Language for Bayesian Analysis
 
 In the context of differential equations and parameter estimation, Turing.jl
 allows for a Bayesian estimation of differential equations (used in conjunction

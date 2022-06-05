@@ -200,5 +200,5 @@ There are too many to name here. Check out the
     - The #diffeq-bridged and #sciml-bridged channels in the
       [Julia Slack](https://julialang.org/slack/)
     - [JuliaDiffEq](https://gitter.im/JuliaDiffEq/Lobby) on Gitter
-    - On the Julia Discourse forums (look for the [modelingtoolkit tag](https://discourse.julialang.org/tag/modelingtoolkit)
+    - On the [Julia Discourse forums](https://discourse.julialang.org)
     - See also [SciML Community page](https://sciml.ai/community/)

@@ -9,7 +9,7 @@ docsmodules = [
               "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "Integrals", "Optimization", "NeuralOperators"],
               "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary", "Catalyst"],
               "Inverse Problems" => ["DiffEqSensitivity", "DiffEqParamEstim"],
-              "AbstractArray Libraries" => [],
+              "AbstractArray Libraries" => ["RecursiveArrayTools"],
               "Uncertainty Quantification" => ["PolyChaos"],
               "Symbolic Analysis" => [],
               "Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],
@@ -30,6 +30,7 @@ catpagestarts = [
     Any["highlevels/interfaces.md"],
     Any["highlevels/utilities.md"],
     Any["highlevels/machine_learning.md"],
+    Any["highlevels/learning_resources.md"],
     Any["highlevels/developer_documentation.md"],
 ]
 
@@ -39,7 +40,7 @@ catpagestarts = [
 # Solvers => DifferentialEquations FEniCS DiffEqOperators HighDimPDE NeuralPDE, MethodOfLines DiffEqJump
 # ModelingTools => NBodySimulator ParameterizedFunctions 
 # Inverse Problems =>  DiffEqBayes MinimallyDisruptiveCurves
-# AbstractArray Libraries => MultiScaleArrays, LabelledArrays, RecursiveArrayTools
+# AbstractArray Libraries => MultiScaleArrays, LabelledArrays, 
 # Utilities => ExponentialUtilities QuasiMonteCarlo PoissonRandom DiffEqNoiseProcess
 # Uncertainty Quantification => DiffEqUncertainty 
 # Symbolic Analysis => StructuralIdentifiability SymbolicNumericIntegration
