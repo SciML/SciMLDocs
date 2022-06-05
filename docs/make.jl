@@ -1,4 +1,7 @@
 using SciMLDocs, Documenter
+
+# Make sure that plots don't throw a bunch of warnings / errors!
+ENV["GKSwstype"] = "100"
 using Plots
 
 # Ordering Matters!
@@ -41,7 +44,7 @@ catpagestarts = [
 # Machine Learning => ReservoirComputing  FastDEQ
 # Extra Documentation => SciMLStyle COLPRAC 
 
-fullpages = Any[] # ["index.md"]
+fullpages = Any[Any["index.md"]]
 allmods = Vector{Any}()
 
 function recursive_append(pages::AbstractArray{<:AbstractArray},str)
