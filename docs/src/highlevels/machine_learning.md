@@ -26,7 +26,7 @@ doing machine learning using reservoir computing techniques, such as with method
 State Networks (ESNs). Its reservoir computing methods make it stabilized for usage with
 difficult equations like stiff dynamics, chaotic equations, and more.
 
-## FastDEQ.jl: Deep Equilibrium Models Made Fast
+## DeepEquilibriumNetworks.jl: Deep Equilibrium Models Made Fast
 
 [FastDEQ.jl](https://github.com/SciML/FastDEQ.jl) is a library of optimized layer implementations
 for Deep Equilibrium Models (DEQs). It uses special training techniques such as implicit-explicit

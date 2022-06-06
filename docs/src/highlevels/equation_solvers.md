@@ -45,7 +45,7 @@ for solving `NonlinearProblem`s. It includes:
 for solving `DEProblem`s. This includes:
 
 - Discrete equations (function maps, discrete stochastic (Gillespie/Markov)
-simulations) (`DiscreteProblem`)
+  simulations) (`DiscreteProblem`)
 - Ordinary differential equations (ODEs) (`ODEProblem`)
 - Split and Partitioned ODEs (Symplectic integrators, IMEX Methods) (`SplitODEProblem`)
 - Stochastic ordinary differential equations (SODEs or SDEs) (`SDEProblem`)
@@ -55,8 +55,10 @@ simulations) (`DiscreteProblem`)
 - Delay differential equations (DDEs) (`DDEProblem`)
 - Neutral, retarded, and algebraic delay differential equations (NDDEs, RDDEs, and DDAEs)
 - Stochastic delay differential equations (SDDEs) (`SDDEProblem`)
-- Experimental support for stochastic neutral, retarded, and algebraic delay differential equations (SNDDEs, SRDDEs, and SDDAEs)
-- Mixed discrete and continuous equations (Hybrid Equations, Jump Diffusions) (`DEProblem`s with callbacks and `JumpProblem`)
+- Experimental support for stochastic neutral, retarded, and algebraic delay 
+  differential equations (SNDDEs, SRDDEs, and SDDAEs)
+- Mixed discrete and continuous equations (Hybrid Equations, Jump Diffusions) 
+  (`DEProblem`s with callbacks and `JumpProblem`)
 
 The well-optimized DifferentialEquations solvers benchmark as some of the fastest
 implementations of classic algorithms. It also includes algorithms from recent
@@ -70,9 +72,10 @@ allowing for easy benchmarking to ensure you are using the fastest method possib
 DifferentialEquations.jl integrates with the Julia package sphere with:
 
 - GPU acceleration through CUDAnative.jl and CuArrays.jl
-- Automated sparsity detection with [SparsityDetection.jl](https://github.com/JuliaDiffEq/SparsityDetection.jl)
-- Automatic Jacobian coloring with [SparseDiffTools.jl](https://github.com/JuliaDiffEq/SparseDiffTools.jl), allowing for fast solutions
-  to problems with sparse or structured (Tridiagonal, Banded, BlockBanded, etc.) Jacobians
+- Automated sparsity detection with [Symbolics.jl](https://github.com/JuliaSymbolics/Symbolics.jl)
+- Automatic Jacobian coloring with [SparseDiffTools.jl](https://github.com/JuliaDiff/SparseDiffTools.jl), 
+  allowing for fast solutions to problems with sparse or structured (Tridiagonal, Banded, 
+  BlockBanded, etc.) Jacobians
 - Allowing the specification of linear solvers for maximal efficiency
 - Progress meter integration with the Juno IDE for estimated time to solution
 - Automatic plotting of time series and phase plots
@@ -91,16 +94,26 @@ optimization ecosystem, allowing one syntax to use all packages in a uniform man
 covers:
 
 - OptimizationBBO for [BlackBoxOptim.jl](https://github.com/robertfeldt/BlackBoxOptim.jl)
-- OptimizationEvolutionary for [Evolutionary.jl](https://github.com/wildart/Evolutionary.jl) (see also [this documentation](https://wildart.github.io/Evolutionary.jl/dev/))
+- OptimizationEvolutionary for [Evolutionary.jl](https://github.com/wildart/Evolutionary.jl) 
+  (see also [this documentation](https://wildart.github.io/Evolutionary.jl/dev/))
 - OptimizationGCMAES for [GCMAES.jl](https://github.com/AStupidBear/GCMAES.jl)
-- OptimizationMOI for [MathOptInterface.jl](https://github.com/jump-dev/MathOptInterface.jl) (usage of algorithm via MathOptInterface API; see also the API [documentation](https://jump.dev/MathOptInterface.jl/stable/))
-- OptimizationMetaheuristics for [Metaheuristics.jl](https://github.com/jmejia8/Metaheuristics.jl) (see also [this documentation](https://jmejia8.github.io/Metaheuristics.jl/stable/))
-- OptimizationMultistartOptimization for [MultistartOptimization.jl](https://github.com/tpapp/MultistartOptimization.jl) (see also [this documentation](https://juliahub.com/docs/MultistartOptimization/cVZvi/0.1.0/))
-- OptimizationNLopt for [NLopt.jl](https://github.com/JuliaOpt/NLopt.jl) (usage via the NLopt API; see also the available [algorithms](https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/))
-- OptimizationNOMAD for [NOMAD.jl](https://github.com/bbopt/NOMAD.jl) (see also [this documentation](https://bbopt.github.io/NOMAD.jl/stable/))
-- OptimizationNonconvex for [Nonconvex.jl](https://github.com/JuliaNonconvex/Nonconvex.jl) (see also [this documentation](https://julianonconvex.github.io/Nonconvex.jl/stable/))
+- OptimizationMOI for [MathOptInterface.jl](https://github.com/jump-dev/MathOptInterface.jl) 
+  (usage of algorithm via MathOptInterface API; see also the API 
+  [documentation](https://jump.dev/MathOptInterface.jl/stable/))
+- OptimizationMetaheuristics for [Metaheuristics.jl](https://github.com/jmejia8/Metaheuristics.jl) 
+  (see also [this documentation](https://jmejia8.github.io/Metaheuristics.jl/stable/))
+- OptimizationMultistartOptimization for [MultistartOptimization.jl](https://github.com/tpapp/MultistartOptimization.jl) 
+  (see also [this documentation](https://juliahub.com/docs/MultistartOptimization/cVZvi/0.1.0/))
+- OptimizationNLopt for [NLopt.jl](https://github.com/JuliaOpt/NLopt.jl) 
+  (usage via the NLopt API; see also the available 
+  [algorithms](https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/))
+- OptimizationNOMAD for [NOMAD.jl](https://github.com/bbopt/NOMAD.jl) (see also 
+  [this documentation](https://bbopt.github.io/NOMAD.jl/stable/))
+- OptimizationNonconvex for [Nonconvex.jl](https://github.com/JuliaNonconvex/Nonconvex.jl) (see 
+  also [this documentation](https://julianonconvex.github.io/Nonconvex.jl/stable/))
 - OptimizationQuadDIRECT for [QuadDIRECT.jl](https://github.com/timholy/QuadDIRECT.jl)
-- OptimizationSpeedMapping for [SpeedMapping.jl](https://github.com/NicolasL-S/SpeedMapping.jl) (see also [this documentation](https://nicolasl-s.github.io/SpeedMapping.jl/stable/))
+- OptimizationSpeedMapping for [SpeedMapping.jl](https://github.com/NicolasL-S/SpeedMapping.jl) 
+  (see also [this documentation](https://nicolasl-s.github.io/SpeedMapping.jl/stable/))
 
 ## Integrals.jl: Unified Interface for Numerical Integration
 

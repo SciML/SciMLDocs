@@ -8,15 +8,15 @@ using Plots
 docsmodules = [
               "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "Integrals", "Optimization"],
               "Partial Differential Equation Solvers" => ["NeuralOperators"],
-              "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary", "Catalyst"],
+              "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary", "Catalyst", "ParameterizedFunctions"],
               "Inverse Problems" => ["DiffEqSensitivity", "DiffEqParamEstim"],
-              "AbstractArray Libraries" => ["RecursiveArrayTools"],
+              "AbstractArray Libraries" => ["RecursiveArrayTools","LabelledArrays"],
               "Uncertainty Quantification" => ["PolyChaos"],
               "Simulation Analysis" => ["GlobalSensitivity"],
               "Symbolic Analysis" => [],
               "Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],              
-              "Numerical Utilities" => ["Surrogates"],
-              "Machine Learning" => ["DiffEqFlux"],
+              "Numerical Utilities" => ["Surrogates","PoissonRandom"],
+              "Machine Learning" => ["DiffEqFlux", "DeepEquilibriumNetworks"],
               "Learning Resources" => [],
               "Developer Documentation" => ["SciMLStyle", "COLPRAC"],
 ]
@@ -44,14 +44,14 @@ catpagestarts = [
 # Interfaces => SciMLParameters
 # Solvers => DifferentialEquations DiffEqJump
 # Partial Differential Equation Solvers => FEniCS DiffEqOperators HighDimPDE NeuralPDE MethodOfLines
-# ModelingTools => NBodySimulator ParameterizedFunctions 
+# ModelingTools => NBodySimulator  
 # Inverse Problems =>  DiffEqBayes
-# AbstractArray Libraries => MultiScaleArrays, LabelledArrays
+# AbstractArray Libraries => MultiScaleArrays, 
 # Simulation Analysis => MinimallyDisruptiveCurves
-# Numerical Utilities => ExponentialUtilities QuasiMonteCarlo PoissonRandom DiffEqNoiseProcess
+# Numerical Utilities => ExponentialUtilities QuasiMonteCarlo DiffEqNoiseProcess
 # Uncertainty Quantification => DiffEqUncertainty 
 # Symbolic Analysis => StructuralIdentifiability SymbolicNumericIntegration
-# Machine Learning => ReservoirComputing FastDEQ
+# Machine Learning => ReservoirComputing
 
 fullpages = Any["The SciML Open Souce Software Ecosystem" => Any["index.md"]]
 allmods = Vector{Any}()
