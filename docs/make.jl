@@ -7,7 +7,7 @@ using Plots
 # Ordering Matters!
 docsmodules = [
               "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "Integrals", "Optimization"],
-              "Partial Differential Equation Solvers" => ["NeuralOperators"],
+              "Partial Differential Equation Solvers" => ["NeuralPDE", "NeuralOperators"],
               "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary", "Catalyst", "ParameterizedFunctions"],
               "Inverse Problems" => ["DiffEqSensitivity", "DiffEqParamEstim"],
               "AbstractArray Libraries" => ["RecursiveArrayTools","LabelledArrays"],
@@ -16,7 +16,7 @@ docsmodules = [
               "Symbolic Analysis" => [],
               "Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],              
               "Numerical Utilities" => ["Surrogates","PoissonRandom","QuasiMonteCarlo"],
-              "Machine Learning" => ["DiffEqFlux", "DeepEquilibriumNetworks"],
+              "Machine Learning" => ["DiffEqFlux"],
               "Learning Resources" => [],
               "Developer Documentation" => ["SciMLStyle", "COLPRAC"],
 ]
@@ -43,15 +43,15 @@ catpagestarts = [
 
 # Interfaces => SciMLParameters
 # Solvers => DifferentialEquations DiffEqJump
-# Partial Differential Equation Solvers => FEniCS DiffEqOperators HighDimPDE NeuralPDE MethodOfLines
-# ModelingTools => NBodySimulator  
+# Partial Differential Equation Solvers => FEniCS DiffEqOperators HighDimPDE MethodOfLines
+# ModelingTools => NBodySimulator
 # Inverse Problems =>  DiffEqBayes
-# AbstractArray Libraries => MultiScaleArrays, 
+# AbstractArray Libraries => MultiScaleArrays
 # Simulation Analysis => MinimallyDisruptiveCurves
 # Numerical Utilities => ExponentialUtilities  DiffEqNoiseProcess
 # Uncertainty Quantification => DiffEqUncertainty 
 # Symbolic Analysis => StructuralIdentifiability SymbolicNumericIntegration
-# Machine Learning => ReservoirComputing
+# Machine Learning => ReservoirComputing DeepEquilibriumNetworks
 
 fullpages = Any["The SciML Open Souce Software Ecosystem" => Any["index.md"]]
 allmods = Vector{Any}()
