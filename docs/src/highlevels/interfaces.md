@@ -82,6 +82,13 @@ for GPU-based array types like [CUDA.jl's CuArray](https://github.com/JuliaGPU/C
 `x isa AbstractGPUArray` in order to find out if a user's operation is on the GPU and specialize
 computations.
 
+## RecipesBase.jl: Standard Plotting Recipe Interface
+
+[RecipesBase.jl](https://github.com/JuliaPlots/RecipesBase.jl) defines the common interface for
+plotting recipes, composable transformations of Julia data types into simpler data types for 
+visualization with libraries such as Plots.jl and Makie.jl. SciML libraries attempt to always
+include plot recipes wherever possible for ease of visualization.
+
 ## Tables.jl: Common Interface for Tablular Data Types
 
 [Tables.jl](https://github.com/JuliaData/Tables.jl) is a common interface for defining tabular data

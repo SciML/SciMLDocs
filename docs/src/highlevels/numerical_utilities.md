@@ -1,4 +1,4 @@
-# SciML Utility Libraries
+# SciML Numerical Utility Libraries
 
 ## Surrogates.jl: Easy Generation of Differentiable Surrogate Models
 
@@ -21,24 +21,6 @@ to computationally expensive simulations. It has the following high-dimensional 
 - Mixture of experts (Waiting GaussianMixtures package to work on v1.5)
 - Earth
 - Gradient Enhanced Kriging
-
-## GlobalSensitivity.jl: Global Sensitivity Analysis
-
-Derivatives calculate the local sensitivity of a model, i.e. the change in the simulation's outcome if
-one was to change the parameter with respect to some chosen part of the parameter space. But how does a
-simulation's output change "in general" with respect to a given parameter? That is what global sensitivity
-analysis (GSA) computes, and thus [GlobalSensitivity.jl](https://github.com/SciML/GlobalSensitivity.jl) is
-the way to answer that question. GlobalSensitivity.jl includes a wide array of methods, including:
-
-- Morris's method
-- Sobol's method
-- Regression methods (PCC, SRC, Pearson)
-- eFAST
-- Delta Moment-Independent method
-- Derivative-based Global Sensitivity Measures (DGSM)
-- EASI
-- Fractional Factorial method
-- Random Balance Design FAST method
 
 ## ExponentialUtilities.jl: Faster Matrix Exponentials
 
@@ -80,21 +62,23 @@ for Poisson processes, like chemical master equations.
 [PreallocationTools.jl](https://github.com/SciML/PreallocationTools.jl) is a library of tools for writing
 non-allocating code that interacts well with advanced features like automatic differentiation and symbolics.
 
+## RuntimeGeneratedFunctions.jl: Efficient Staged Programming in Julia
+
+[RuntimeGeneratedFunctions.jl](https://github.com/SciML/RuntimeGeneratedFunctions.jl) allows for staged
+programming in Julia, compiling functions at runtime with full optimizations. This is used by many libraries
+such as ModelingToolkit.jl to allow for runtime code generation for improved performance.
+
 # Third Party Libraries to Note
-
-## DynamicalSystems.jl: A Suite of Dynamical Systems Analysis
-
-[DynamicalSystems.jl](https://juliadynamics.github.io/DynamicalSystems.jl/latest/) is an entire ecosystem
-of dynamical systems analysis methods, for computing measures of chaos (dimension estimation, lyopunov coefficients),
-generating delay embeddings, and much more. It uses the SciML tools for its internal equation solving
-and thus shares much of its API, adding a layer of new tools for extended analyses.
-
-For more information, watch the [tutorial Introduction to DynamicalSystems.jl](https://www.youtube.com/watch?v=A8g9rdEfdNg).
 
 ## Distributions.jl: Representations of Probability Distributions
 
 [Distributions.jl](https://github.com/JuliaStats/Distributions.jl) is a library for defining distributions
 in Julia. It's used all throughout the SciML libraries for specifications of probability distributions.
+
+!!! note
+
+    For full compatibility with automatic differentiation, see 
+    [DistributionsAD.jl](https://github.com/TuringLang/DistributionsAD.jl)
 
 ## FFTW.jl: Fastest Fourier Transformation in the West
 
@@ -120,3 +104,58 @@ a set pool of threads for lower overhead. Note that Polyester does not compose w
 theading infrastructure, and thus one must take care to not compose two levels of Polyester as this will oversubscribe
 the computation and lead to performance degredation. Many SciML solvers have options to use Polyseter for threading
 to achieve the top performance.
+
+## Tullio.jl: Fast Tensor Calculations and Einstein Notation
+
+[Tullio.jl](https://github.com/mcabbott/Tullio.jl) is a library for fast tensor calculations with Einstein notation.
+It allows for defining operations which are compatible with automatic differentiation, GPUs, and more.
+
+## ParallelStencil.jl: High-Level Code for Parallelized Stencil Computations
+
+[ParallelStencil.jl](https://github.com/omlins/ParallelStencil.jl) is a library for writing high level code for
+parallelized stencil computations. It is [compatible with SciML equation solvers](https://github.com/omlins/ParallelStencil.jl/issues/29)
+and is thus a good way to generate GPU and distributed parallel model code.
+
+## DataInterpolations.jl: One-Dimensional Interpolations
+
+[DataInterpolations.jl](https://github.com/PumasAI/DataInterpolations.jl) is a library of one-dimensional interpolation
+schemes which are composable with automatic differentiation and the SciML ecosystem. It includes direct interpolation
+methods and regression techniques for handling noisy data. Its methods include:
+
+- `ConstantInterpolation(u,t)` - A piecewise constant interpolation.
+- `LinearInterpolation(u,t)` - A linear interpolation.
+- `QuadraticInterpolation(u,t)` - A quadratic interpolation.
+- `LagrangeInterpolation(u,t,n)` - A Lagrange interpolation of order `n`.
+- `QuadraticSpline(u,t)` - A quadratic spline interpolation.
+- `CubicSpline(u,t)` - A cubic spline interpolation.
+- `BSplineInterpolation(u,t,d,pVec,knotVec)` - An interpolation B-spline. 
+  This is a B-spline which hits each of the data points. The argument choices are:
+  	- `d` - degree of B-spline  
+  	- `pVec` - Symbol to Parameters Vector, `pVec = :Uniform` for uniform spaced parameters and 
+      `pVec = :ArcLen` for parameters generated by chord length method.  
+  	- `knotVec` - Symbol to Knot Vector, `knotVec = :Uniform` for uniform knot vector, 
+      `knotVec = :Average` for average spaced knot vector.
+- `BSplineApprox(u,t,d,h,pVec,knotVec)` - A regression B-spline which smooths the fitting curve. 
+  The argument choices are the same as the `BSplineInterpolation`, with the additional parameter 
+  `h<length(t)` which is the number of control points to use, with smaller `h` indicating more smoothing.
+- `Curvefit(u,t,m,p,alg)` - An interpolation which is done by fitting a user-given functional form 
+  `m(t,p)` where `p` is the vector of parameters. The user's input `p` is a an initial value for a 
+  least-square fitting, `alg` is the algorithm choice to use for optimize the cost function (sum of 
+  squared deviations) via `Optim.jl` and optimal `p`s are used in the interpolation.
+
+These interpolations match the SciML interfaces and have direct support for packages like ModelingToolkit.jl
+
+# Julia Utilities
+
+## StaticCompiler.jl
+
+[StaticCompiler.jl](https://github.com/tshort/StaticCompiler.jl) is a package for generating static binaries
+from Julia code. It only supports a subset of Julia, so not all equation solver algorithms are compatible
+with StaticCompiler.jl.
+
+## PackageCompiler.jl
+
+[PackageCompiler.jl](https://github.com/JuliaLang/PackageCompiler.jl) is a package for generating shared
+libraries from Julia code. It the entirety of Julia by bundling a system image with the Julia runtime, 
+thus it builds complete binaries that can hold all of the functionality of SciML. It can also be used
+to generate new system images to decrease startup times and remove JIT-compilation from SciML usage.

@@ -6,14 +6,16 @@ using Plots
 
 # Ordering Matters!
 docsmodules = [
-              "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "Integrals", "Optimization", "NeuralOperators"],
+              "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "Integrals", "Optimization"],
+              "Partial Differential Equation Solvers" => ["NeuralOperators"],
               "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary", "Catalyst"],
               "Inverse Problems" => ["DiffEqSensitivity", "DiffEqParamEstim"],
               "AbstractArray Libraries" => ["RecursiveArrayTools"],
               "Uncertainty Quantification" => ["PolyChaos"],
+              "Simulation Analysis" => ["GlobalSensitivity"],
               "Symbolic Analysis" => [],
-              "Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],
-              "Utilities" => ["GlobalSensitivity", "Surrogates"],
+              "Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],              
+              "Numerical Utilities" => ["Surrogates"],
               "Machine Learning" => ["DiffEqFlux"],
               "Learning Resources" => [],
               "Developer Documentation" => ["SciMLStyle", "COLPRAC"],
@@ -23,13 +25,15 @@ usereadme = ["SciMLStyle", "COLPRAC"]
 
 catpagestarts = [
     Any["highlevels/equation_solvers.md"],
+    Any["highlevels/partial_differential_equation_solvers.md"],
     Any["highlevels/modeling_tools.md"],
     Any["highlevels/inverse_problems.md"],
     Any["highlevels/abstractarray_libraries.md"],
     Any["highlevels/uncertainty_quantification.md"],
+    Any["highlevels/simulation_analysis.md"],
     Any["highlevels/symbolic_analysis.md"],
     Any["highlevels/interfaces.md"],
-    Any["highlevels/utilities.md"],
+    Any["highlevels/numerical_utilities.md"],
     Any["highlevels/machine_learning.md"],
     Any["highlevels/learning_resources.md"],
     Any["highlevels/developer_documentation.md"],
@@ -38,12 +42,14 @@ catpagestarts = [
 # Omitted for now:
 
 # Interfaces => SciMLParameters
-# Solvers => DifferentialEquations FEniCS DiffEqOperators HighDimPDE NeuralPDE, MethodOfLines DiffEqJump
-# ModelingTools => NBodySimulator ParameterizedFunctions
-# Inverse Problems =>  DiffEqBayes MinimallyDisruptiveCurves
-# AbstractArray Libraries => MultiScaleArrays, LabelledArrays,
-# Utilities => ExponentialUtilities QuasiMonteCarlo PoissonRandom DiffEqNoiseProcess
-# Uncertainty Quantification => DiffEqUncertainty
+# Solvers => DifferentialEquations DiffEqJump
+# Partial Differential Equation Solvers => FEniCS DiffEqOperators HighDimPDE NeuralPDE MethodOfLines
+# ModelingTools => NBodySimulator ParameterizedFunctions 
+# Inverse Problems =>  DiffEqBayes
+# AbstractArray Libraries => MultiScaleArrays, LabelledArrays
+# Simulation Analysis => MinimallyDisruptiveCurves
+# Numerical Utilities => ExponentialUtilities QuasiMonteCarlo PoissonRandom DiffEqNoiseProcess
+# Uncertainty Quantification => DiffEqUncertainty 
 # Symbolic Analysis => StructuralIdentifiability SymbolicNumericIntegration
 # Machine Learning => ReservoirComputing FastDEQ
 

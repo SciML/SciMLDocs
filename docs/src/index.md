@@ -109,69 +109,6 @@ all of the problem domains. Underlying high level ideas include:
   the out-of-place form is for compatibility with tooling like static arrays and
   some reverse-mode automatic differentiation systems.
 
-## User-Facing Solver Libraries
-
-- [DifferentialEquations.jl](https://diffeq.sciml.ai/stable/)
-    - Multi-package interface of high performance numerical solvers of
-      differential equations
-- [ModelingToolkit.jl](https://mtk.sciml.ai/stable/)
-    - The symbolic modeling package which implements the SciML symbolic common
-      interface.
-- [LinearSolve.jl](https://github.com/SciML/LinearSolvers.jl)
-    - Multi-package interface for specifying linear solvers (direct, sparse,
-      and iterative), along with tools for caching and preconditioners
-      for use in large-scale modeling.
-- [NonlinearSolve.jl](https://github.com/SciML/NonlinearSolve.jl)
-    - High performance numerical solving of nonlinear systems.
-- [Integrals.jl](https://github.com/SciML/Integrals.jl)
-    - Multi-package interface for high performance, batched, and parallelized 
-      numerical quadrature.
-- [Optimization.jl](https://github.com/SciML/Optimization.jl)
-    - Multi-package interface for numerical solving of optimization problems.
-- [NeuralPDE.jl](https://github.com/SciML/NeuralPDE.jl)
-    - Physics-Informed Neural Network (PINN) package for transforming partial
-      differential equations into optimization problems.
-- [DiffEqOperators.jl](https://github.com/SciML/DiffEqOperators.jl)
-    - Automated finite difference method (FDM) package for transforming partial
-      differential equations into nonlinear problems and ordinary differential
-      equations.
-- [DiffEqFlux.jl](https://github.com/SciML/DiffEqFlux.jl)
-    - High level package for scientific machine learning applications, such as
-      neural and universal differential equations, solving of inverse problems,
-      parameter estimation, nonlinear optimal control, and more.
-- [DataDrivenDiffEq.jl](https://github.com/SciML/DataDrivenDiffEq.jl)
-    - Multi-package interface for data-driven modeling, Koopman dynamic mode
-      decomposition, symbolic regression/sparsification, and automated model
-      discovery.
-- [DiffEqUncertainty.jl](https://github.com/SciML/DiffEqUncertainty.jl)
-    - Extension to the dynamical modeling tools for performing uncertainty
-      quantification and calculating expectations.
- 
-## Interface Implementation Libraries
-
-- [SciMLBase.jl](https://github.com/SciML/SciMLBase.jl)
-    - The core package defining the interface which is consumed by the modeling
-      and solver packages.
-- [DiffEqBase.jl](https://github.com/SciML/DiffEqBase.jl)
-    - The core package defining the extended interface which is consumed by the
-      differential equation solver packages.
-- [DiffEqSensitivity.jl](https://github.com/SciML/DiffEqSensitivity.jl)
-    - A package which pools together the definition of derivative overloads to
-      define the common `sensealg` automatic differentiation interface.
-- [DiffEqNoiseProcess.jl](https://github.com/SciML/DiffEqNoiseProcess.jl)
-    - A package which defines the stochastic `AbstractNoiseProcess` interface
-      for the SciML ecosystem.
-- [RecursiveArrayTools.jl](https://github.com/SciML/RecursiveArrayTools.jl)
-    - A package which defines the underlying `AbstractVectorOfArray` structure
-      used as the output for all time series results.
-- [ArrayInterface.jl](https://github.com/JuliaArrays/ArrayInterface.jl)
-    - The package which defines the extended `AbstractArray` interface employed
-      throughout the SciML ecosystem.
-
-## Using-Facing Modeling Libraries
-
-There are too many to name here and this will be populated when there is time!
-
 ## Flowchart Example for PDE-Constrained Optimal Control
 
 The following example showcases how the pieces of the common interface connect to solve a problem
@@ -186,10 +123,23 @@ that mixes inference, symbolics, and numerics.
 - [diffeqpy](https://github.com/SciML/diffeqpy)
     - Solving differential equations in Python using DifferentialEquations.jl
 
-## Solver Libraries
+## Note About Third Party Libraries
 
-There are too many to name here. Check out the
-[SciML Organization Github Page](https://github.com/SciML) for details.
+The SciML documentation references and recommends many third party libraries for improving ones
+modeling, simulation, and analysis workflow in Julia. Take these as a positive affirmation of the
+quality of these libraries, as these library are commonly tested against by SciML developers and
+are in contact with the development teams of these groups. It also documents the libraries which
+are commonly chosen by SciML as dependencies.
+**Do not take omissions as negative affirmations against a given library**, i.e. a library left off
+of the list by SciML is not a negative endorsement. Rather, it means that compatbility with SciML
+is untested, SciML developers may have a personal preference for another choice, or SciML developers
+may be simply unaware of the library's existance. If one would like to add a third party library
+to the SciML documentation, open a pull request with the requested text. 
+
+Note that the libraries in this documentation are only those that are meant to be used in the SciML
+extended universe of modeling, simulation, and analysis and thus there are many high quality libraries
+in other domains (machine learning, data science, etc.) which are purposefully not included. For
+an overview of the Julia package ecosystem, see [the JuliaHub Search Engine](https://juliahub.com/ui/Home).
 
 ## Contributing
 

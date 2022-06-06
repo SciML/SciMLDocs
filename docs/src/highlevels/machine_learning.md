@@ -50,6 +50,15 @@ solvers (i.e. `Flux.destructure`), Lux.jl's explicit design merries very easily 
 SciML equation solver libraries. For this reason, SciML's library are also heavily tested with
 Lux to ensure compatability with neural network definitions from here.
 
+## SimpleChains.jl: Fast Small-Scale Machine Learning
+
+[SimpleChains.jl](https://github.com/PumasAI/SimpleChains.jl) is a library specialized for
+small-scale machine learning. It uses non-allocating mutating forms to be highly efficient
+for the cases where matrix multiplication kernels are not able to overcome the common overheads
+of machine learning libraries. Thus for SciML cases with small neural networks (<100 node layesr) 
+and non-batched usage (many/most use cases), SimpleChains.jl can be the fastest choice for the
+neural network definitions.
+
 ## NNLib.jl: Neural Network Primitives with Multiple Backends
 
 [NNLib.jl](https://github.com/FluxML/NNlib.jl) is the core library which defines the handling
@@ -57,6 +66,18 @@ of common functions, like `conv` and how they map to device accelerators such as
 cudnn. This library can thus be used to directly grab many of the core functions used in
 machine learning, such as common activation functions and gather/scatter operations, without
 depending on the given style of any machine learning library.
+
+## GeometricFlux.jl: Geometric Deep Learning and Graph Neural Networks
+
+[GeometricFlux.jl](https://github.com/FluxML/GeometricFlux.jl) is a library for graph neural
+networks and geometric deep learning. It is the one that is used and tested by the SciML
+developers for mixing with equation solver applications.
+
+## AbstractGPs.jl: Fast and Flexible Gaussian Processes
+
+[AbstractGPs.jl](https://github.com/JuliaGaussianProcesses/AbstractGPs.jl) is the fast and
+flexible Gaussian Process library that is used by the SciML packages and recommended
+for downstream usage.
 
 ## MLDatasets.jl: Common Machine Learning Datasets
 
