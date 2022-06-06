@@ -5,3 +5,7 @@
 /docs/src/modules
 Manifest.toml
 *.swp
+
+# vscode stuff
+.vscode
+.vscode/*
