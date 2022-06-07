@@ -5,26 +5,29 @@ ENV["GKSwstype"] = "100"
 using Plots
 
 Pkg.develop(url="https://github.com/SciML/DiffEqDocs.jl")
+Pkg.develop(url="https://github.com/SciML/DiffEqDevDocs.jl")
 
 # Ordering Matters!
 docsmodules = [
               "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals", "Optimization"],
-              "Partial Differential Equation Solvers" => ["MethodOfLines", "NeuralPDE", "NeuralOperators", "DiffEqOperators"],
-              "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary", "Catalyst", "ParameterizedFunctions"],
+              "Partial Differential Equation Solvers" => ["MethodOfLines", "NeuralPDE", "NeuralOperators", 
+                                                          "FEniCS", "DiffEqOperators"],
+              "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary", "Catalyst", 
+                                   "NBodySimulator", "ParameterizedFunctions"],
               "Inverse Problems" => ["DiffEqSensitivity", "DiffEqParamEstim"],
               "AbstractArray Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
               "Uncertainty Quantification" => ["PolyChaos"],
               "Simulation Analysis" => ["GlobalSensitivity"],
-              "Symbolic Analysis" => [],
+              "Symbolic Analysis" => ["SymbolicNumericIntegration"],
               "Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],              
               "Numerical Utilities" => ["Surrogates", "ExponentialUtilities", "DiffEqNoiseProcess", 
                                         "PoissonRandom", "QuasiMonteCarlo"],
               "Machine Learning" => ["DiffEqFlux"],
               "Learning Resources" => [],
-              "Developer Documentation" => ["SciMLStyle", "COLPRAC"],
+              "Developer Documentation" => ["SciMLStyle", "COLPRAC", "DiffEqDevDocs"],
 ]
 
-usereadme = ["SciMLStyle", "COLPRAC"]
+usereadme = ["FEniCS", "NBodySimulator", "SymbolicNumericIntegration", "SciMLStyle", "COLPRAC"]
 
 catpagestarts = [
     Any["highlevels/equation_solvers.md"],
@@ -46,12 +49,11 @@ catpagestarts = [
 
 # Interfaces => SciMLParameters
 # Solvers => DiffEqJump
-# Partial Differential Equation Solvers => FEniCS HighDimPDE 
-# ModelingTools => NBodySimulator
+# Partial Differential Equation Solvers =>  HighDimPDE 
 # Inverse Problems =>  DiffEqBayes
 # Simulation Analysis => MinimallyDisruptiveCurves
 # Uncertainty Quantification => DiffEqUncertainty 
-# Symbolic Analysis => StructuralIdentifiability SymbolicNumericIntegration
+# Symbolic Analysis => StructuralIdentifiability 
 # Machine Learning => ReservoirComputing DeepEquilibriumNetworks
 
 fullpages = Any["The SciML Open Souce Software Ecosystem" => "index.md"]
@@ -122,6 +124,8 @@ for (i,cat) in enumerate(docsmodules)
 
                 if $mod == "DiffEqDocs"
                     push!(catpage,"DifferentialEquations" => recursive_append(pages,joinpath("modules",$mod)))
+                elseif $mod == "DiffEqDevDocs"
+                    push!(catpage,"\*DiffEq Developer Documentation" => recursive_append(pages,joinpath("modules",$mod)))
                 else
                     push!(catpage,$mod => recursive_append(pages,joinpath("modules",$mod)))
                 end
