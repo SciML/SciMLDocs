@@ -4,11 +4,11 @@ using SciMLDocs, Documenter, LibGit2, Pkg
 ENV["GKSwstype"] = "100"
 using Plots
 
-Pkg.develop(url="https://github.com/SciML/DiffEqDocs.jl")
+#Pkg.develop(url="https://github.com/SciML/DiffEqDocs.jl")
 
 # Ordering Matters!
 docsmodules = [
-              "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals", "Optimization"],
+              "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "Integrals", "Optimization"],
               "Partial Differential Equation Solvers" => ["MethodOfLines", "NeuralPDE", "NeuralOperators", 
                                                           "FEniCS", "DiffEqOperators"],
               "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary", "Catalyst", 
@@ -47,7 +47,7 @@ catpagestarts = [
 # Omitted for now:
 
 # Interfaces => SciMLParameters
-# Solvers => DiffEqJump
+# Solvers => DifferentialEquations DiffEqJump
 # Partial Differential Equation Solvers =>  HighDimPDE 
 # Inverse Problems =>  DiffEqBayes
 # Simulation Analysis => MinimallyDisruptiveCurves
