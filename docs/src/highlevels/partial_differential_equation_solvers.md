@@ -65,11 +65,11 @@ as ordinary differential equations for the SciML equation solvers.
 of partial differential equations, particularly notable for its use of conforming and
 nonconforming finite element (FEM) discretizations.
 
-## Trixi.jl: Automated Finite Volume Discretizations for Hyperbolic Equations
+## Trixi.jl: Adaptive High-Order Numerical Simulations of Hyperbolic Equations
 
 [Trixi.jl](https://github.com/trixi-framework/Trixi.jl) is a package for numerical simulation
 of hyperbolic conservation laws, i.e. a large set of hyperbolic partial differential equations,
-which interfaces and uses the SciML equation solvers for many internal steps.
+which interfaces and uses the SciML ordinary differential equation solvers.
 
 ## VoronoiFVM.jl: Tools for the Voronoi Finite Volume Discretizations
 
