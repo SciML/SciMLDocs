@@ -143,7 +143,7 @@ methods and regression techniques for handling noisy data. Its methods include:
   least-square fitting, `alg` is the algorithm choice to use for optimize the cost function (sum of 
   squared deviations) via `Optim.jl` and optimal `p`s are used in the interpolation.
 
-These interpolations match the SciML interfaces and have direct support for packages like ModelingToolkit.jl
+These interpolations match the SciML interfaces and have direct support for packages like ModelingToolkit.jl.
 
 # Julia Utilities
 

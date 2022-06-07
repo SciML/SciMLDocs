@@ -42,7 +42,7 @@ to compute an approximate uncertain output. Measurements.jl uses a dictionary-ba
 approach to keep track of correlations to improve the accuracy over naive implementations,
 though note that linear error propagation theory still has some major issues handling
 some types of equations 
-[as described in detail in the MonteCarloMeasurements.jl documentation](https://baggepinnen.github.io/MonteCarloMeasurements.jl/v1.0/comparison/)
+[as described in detail in the MonteCarloMeasurements.jl documentation](https://baggepinnen.github.io/MonteCarloMeasurements.jl/v1.0/comparison/).
 
 ## MonteCarloMeasurements.jl: Automated Monte Carlo Error Propogation
 

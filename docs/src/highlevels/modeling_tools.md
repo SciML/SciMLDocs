@@ -2,7 +2,7 @@
 
 While in theory one can build perfect code for all models from scratch, in practice 
 many scientists and engineers need or want some help! The SciML modeling tools
-provide a higher level interface over the equation solvers which help the translation
+provide a higher level interface over the equation solvers which helps the translation
 from good models to good simulations in a way that abstracts away the mathematical
 and computational details without giving up performance.
 
