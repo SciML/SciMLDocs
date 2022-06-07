@@ -134,6 +134,7 @@ for (i,cat) in enumerate(docsmodules)
             cp(joinpath(mod,"docs","src"),joinpath(dir),force=true)
             cp(joinpath(mod,"docs","pages.jl"),joinpath(dir),force=true)
             include(joinpath(pwd(),mod,"docs","pages.jl"))
+            @show readdir(dir)
             push!(catpage,docspackagenames[mod] => recursive_append(pages,joinpath("modules",mod)))
         else
             ex = quote
