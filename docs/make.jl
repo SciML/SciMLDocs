@@ -44,7 +44,8 @@ docspackage = ["DiffEqDocs", "DiffEqDevDocs"]
 docspackagenames = Dict("DiffEqDocs" => "DifferentialEquations", "DiffEqDevDocs" => "DiffEq Developer Documentation")
 
 usereadme = ["FEniCS", "NBodySimulator", "SymbolicNumericIntegration", "SciMLStyle", "COLPRAC", 
-             "DataInterpolations", "FFTW", "RuntimeGeneratedFunctions", "MuladdMacro"]
+             "DataInterpolations", "FFTW", "RuntimeGeneratedFunctions", "MuladdMacro",
+             "SBMLToolkit", "CellMLToolkit"]
              
 readmeurls = Dict(
     "FEniCS" => "https://github.com/SciML/FEniCS.jl",
@@ -56,6 +57,8 @@ readmeurls = Dict(
     "RuntimeGeneratedFunctions" => "https://github.com/SciML/RuntimeGeneratedFunctions.jl",
     "MuladdMacro" => "https://github.com/SciML/MuladdMacro.jl",
     "FFTW" => "https://github.com/JuliaMath/FFTW.jl",
+    "SBMLToolkit" => "https://github.com/SciML/SBMLToolkit.jl",
+    "CellMLToolkit" => "https://github.com/SciML/CellMLToolkit.jl"
 )
 
 

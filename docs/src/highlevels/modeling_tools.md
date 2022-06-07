@@ -64,16 +64,19 @@ symbolic fast Jacobian, gradient, etc. functions for you.
 
 # Model Import Libraries
 
-## SBMLToolbox.jl: SBML Import
+## SBMLToolkit.jl: SBML Import
 
-[SBMLToolbox.jl](https://github.com/SciML/SBMLToolkit.jl) is a library for reading 
+[SBMLToolkit.jl](https://github.com/SciML/SBMLToolkit.jl) is a library for reading 
 [SBML files](https://synonym.caltech.edu/#:~:text=What%20is%20SBML%3F,field%20of%20the%20life%20sciences.)
-into the standard formats for Catalyst.jl and ModelingToolkit.jl.
+into the standard formats for Catalyst.jl and ModelingToolkit.jl. There are more than one thousand biological
+models available in the the [BioModels Repository](https://www.ebi.ac.uk/biomodels/).
 
-## CellMLToolbox.jl: CellML Import
+## CellMLToolkit.jl: CellML Import
 
-[CellMLToolbox.jl](https://github.com/SciML/CellMLToolbox.jl) is a library for reading 
+[CellMLToolkit.jl](https://github.com/SciML/CellMLToolkit.jl) is a library for reading 
 [CellML files](https://www.cellml.org/) into the standard formats for ModelingToolkit.jl.
+There are several hundred biological models available in the the
+[CellML Model Repository](https://models.cellml.org/cellml).
 
 ## ReactionNetworkImporters.jl: BioNetGen Import
 
