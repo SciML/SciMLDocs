@@ -123,7 +123,7 @@ for (i,cat) in enumerate(docsmodules)
             dir = joinpath(pkgdir(SciMLDocs),"docs","src","modules",mod)
             mkdir(dir)
             mkdir(mod)
-            LibGit2.clone(readmeurls[mod])
+            LibGit2.clone(readmeurls[mod], mod)
             cp(joinpath(mod,"README.md"),joinpath(dir,"index.md"),force=true)
             push!(catpage,mod => Any[joinpath("modules",mod,"index.md")])
         elseif mod in docspackage
