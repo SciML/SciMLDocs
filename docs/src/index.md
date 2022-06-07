@@ -1,9 +1,9 @@
-# The SciML Open Souce Software Ecosystem
+# The SciML Open Source Software Ecosystem
 
-The SciML organization is an collection of tools for solving equations and modeling systems developed in the Julia
+The SciML organization is a collection of tools for solving equations and modeling systems developed in the Julia
 programming language with bindings to other languages such as R and Python. The organization provides well-maintained 
 tools which compose together as a coherent ecosystem. It has a coherent development principle, unified APIs over
-large collections of equation solvers, pervasive differentiability and sensitivitiy analysis, and features many
+large collections of equation solvers, pervasive differentiability and sensitivity analysis, and features many
 of the highest performance and parallel implementations one can find.
 
 This documentation is made to pool together the docs of the various SciML libraries
@@ -22,7 +22,7 @@ learning workflows. This includes:
 - High performance and accurate tools for standard scientific computing modeling and simulation
 - Compatibility with differentiable programming and automatic differentiation
 - Tools for building complex multiscale models
-- Methods for handling inverse problems, model callibration, controls, and Bayesian analysis
+- Methods for handling inverse problems, model calibration, controls, and Bayesian analysis
 - Symbolic modeling tools for generating efficient code for numerical equation solvers
 - Methods for automatic discovery of (bio)physical equations
 
@@ -79,7 +79,7 @@ patterns.
 ## Inverse Problems, Parameter Estimation, and Structural Identification
 
 We note that parameter estimation and inverse problems are solved directly on their
-constituant problem types using tools like [DiffEqFlux.jl](https://github.com/SciML/DiffEqFlux.jl).
+constituent problem types using tools like [DiffEqFlux.jl](https://github.com/SciML/DiffEqFlux.jl).
 Thus for example, there is no `ODEInverseProblem`, and instead `ODEProblem` is used to
 find the parameters `p` that solve the inverse problem.
 
@@ -127,13 +127,13 @@ that mixes inference, symbolics, and numerics.
 
 The SciML documentation references and recommends many third party libraries for improving ones
 modeling, simulation, and analysis workflow in Julia. Take these as a positive affirmation of the
-quality of these libraries, as these library are commonly tested against by SciML developers and
+quality of these libraries, as these libraries are commonly tested against by SciML developers and
 are in contact with the development teams of these groups. It also documents the libraries which
 are commonly chosen by SciML as dependencies.
 **Do not take omissions as negative affirmations against a given library**, i.e. a library left off
-of the list by SciML is not a negative endorsement. Rather, it means that compatbility with SciML
+of the list by SciML is not a negative endorsement. Rather, it means that compatibility with SciML
 is untested, SciML developers may have a personal preference for another choice, or SciML developers
-may be simply unaware of the library's existance. If one would like to add a third party library
+may be simply unaware of the library's existence. If one would like to add a third party library
 to the SciML documentation, open a pull request with the requested text. 
 
 Note that the libraries in this documentation are only those that are meant to be used in the SciML
