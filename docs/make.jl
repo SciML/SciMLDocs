@@ -125,7 +125,7 @@ for (i,cat) in enumerate(docsmodules)
                 if $mod == "DiffEqDocs"
                     push!(catpage,"DifferentialEquations" => recursive_append(pages,joinpath("modules",$mod)))
                 elseif $mod == "DiffEqDevDocs"
-                    push!(catpage,"\*DiffEq Developer Documentation" => recursive_append(pages,joinpath("modules",$mod)))
+                    push!(catpage,"*DiffEq Developer Documentation" => recursive_append(pages,joinpath("modules",$mod)))
                 else
                     push!(catpage,$mod => recursive_append(pages,joinpath("modules",$mod)))
                 end
