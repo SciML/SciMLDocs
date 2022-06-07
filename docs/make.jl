@@ -26,7 +26,7 @@ docsmodules = [
               "Developer Documentation" => ["SciMLStyle", "COLPRAC"],
 ]
 
-usereadme = ["FEniCS", "NBodySimulator", "SymbolicNumericIntegration", "SciMLStyle", "COLPRAC"]
+usereadme = ["FEniCS.jl", "NBodySimulator.jl", "SymbolicNumericIntegration.jl", "SciMLStyle", "COLPRAC"]
 
 catpagestarts = [
     Any["highlevels/equation_solvers.md"],
