@@ -1,21 +1,24 @@
-using SciMLDocs, Documenter, LibGit2
+using SciMLDocs, Documenter, LibGit2, Pkg
 
 # Make sure that plots don't throw a bunch of warnings / errors!
 ENV["GKSwstype"] = "100"
 using Plots
 
+Pkg.develop(url="https://github.com/SciML/DiffEqDocs.jl")
+
 # Ordering Matters!
 docsmodules = [
-              "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "Integrals", "Optimization"],
-              "Partial Differential Equation Solvers" => ["NeuralPDE", "NeuralOperators"],
+              "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals", "Optimization"],
+              "Partial Differential Equation Solvers" => ["MethodOfLines", "NeuralPDE", "NeuralOperators", "DiffEqOperators"],
               "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary", "Catalyst", "ParameterizedFunctions"],
               "Inverse Problems" => ["DiffEqSensitivity", "DiffEqParamEstim"],
-              "AbstractArray Libraries" => ["RecursiveArrayTools","LabelledArrays","MultiScaleArrays"],
+              "AbstractArray Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
               "Uncertainty Quantification" => ["PolyChaos"],
               "Simulation Analysis" => ["GlobalSensitivity"],
               "Symbolic Analysis" => [],
               "Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],              
-              "Numerical Utilities" => ["Surrogates","ExponentialUtilities","DiffEqNoiseProcess","PoissonRandom","QuasiMonteCarlo"],
+              "Numerical Utilities" => ["Surrogates", "ExponentialUtilities", "DiffEqNoiseProcess", 
+                                        "PoissonRandom", "QuasiMonteCarlo"],
               "Machine Learning" => ["DiffEqFlux"],
               "Learning Resources" => [],
               "Developer Documentation" => ["SciMLStyle", "COLPRAC"],
@@ -42,13 +45,11 @@ catpagestarts = [
 # Omitted for now:
 
 # Interfaces => SciMLParameters
-# Solvers => DifferentialEquations DiffEqJump
-# Partial Differential Equation Solvers => FEniCS DiffEqOperators HighDimPDE MethodOfLines
+# Solvers => DiffEqJump
+# Partial Differential Equation Solvers => FEniCS HighDimPDE 
 # ModelingTools => NBodySimulator
 # Inverse Problems =>  DiffEqBayes
-# AbstractArray Libraries => 
 # Simulation Analysis => MinimallyDisruptiveCurves
-# Numerical Utilities => 
 # Uncertainty Quantification => DiffEqUncertainty 
 # Symbolic Analysis => StructuralIdentifiability SymbolicNumericIntegration
 # Machine Learning => ReservoirComputing DeepEquilibriumNetworks
@@ -118,7 +119,12 @@ for (i,cat) in enumerate(docsmodules)
                 cp(joinpath(pkgdir($(Symbol(mod))),"docs","src"),joinpath(pkgdir(SciMLDocs),"docs","src","modules",$mod),force=true)
                 include(joinpath(pkgdir($(Symbol(mod))),"docs","pages.jl"))
                 push!(allmods,$(Symbol(mod)))
-                push!(catpage,$mod => recursive_append(pages,joinpath("modules",$mod)))
+
+                if $mod == "DiffEqDocs"
+                    push!(catpage,"DifferentialEquations" => recursive_append(pages,joinpath("modules",$mod)))
+                else
+                    push!(catpage,$mod => recursive_append(pages,joinpath("modules",$mod)))
+                end
             end
             @eval $ex
         end
