@@ -35,7 +35,7 @@ problem types for specifying problems in these domains.
 [NeuralOperators.jl](https://github.com/SciML/NeuralOperators.jl) is a library for
 operator learning based PDE solvers. This includes techniques like:
 
-- Fourier Nerual Operators (FNO)
+- Fourier Neural Operators (FNO)
 - Deep Operator Networks (DeepONets)
 - Markov Neural Operators (MNO)
 
