@@ -4,6 +4,21 @@ using SciMLDocs, Documenter, LibGit2, Pkg
 ENV["GKSwstype"] = "100"
 using Plots
 
+using DiffEqProblemLibrary, OrdinaryDiffEq
+
+ODEProblemLibrary = DiffEqProblemLibrary.ODEProblemLibrary
+ODEProblemLibrary.importodeproblems()
+
+SDEProblemLibrary = DiffEqProblemLibrary.SDEProblemLibrary
+SDEProblemLibrary.importsdeproblems()
+
+DDEProblemLibrary = DiffEqProblemLibrary.DDEProblemLibrary
+DDEProblemLibrary.importddeproblems()
+
+DAEProblemLibrary = DiffEqProblemLibrary.DAEProblemLibrary
+DAEProblemLibrary.importdaeproblems()
+
+
 # Ordering Matters!
 docsmodules = [
               "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals", "Optimization"],
@@ -134,7 +149,7 @@ for (i,cat) in enumerate(docsmodules)
 
             cp(joinpath(mod,"docs","pages.jl"),dir,force=true)
             include(joinpath(pwd(),mod,"docs","pages.jl"))
-            
+
             cp(joinpath(mod,"docs","src"),dir,force=true)
             @show readdir(dir)
             push!(catpage,docspackagenames[mod] => recursive_append(pages,joinpath("modules",mod)))
@@ -154,7 +169,7 @@ end
 
 @show fullpages
 
-push!(allmods,Plots)
+append!(allmods,[Plots,DiffEqProblemLibrary,ODEProblemLibrary,SDEProblemLibrary,DDEProblemLibrary,DAEProblemLibrary,OrdinaryDiffEq])
 
 mathengine = MathJax3(Dict(
     :loader => Dict("load" => ["[tex]/require","[tex]/mathtools"]),
