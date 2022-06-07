@@ -10,12 +10,12 @@ docsmodules = [
               "Partial Differential Equation Solvers" => ["NeuralPDE", "NeuralOperators"],
               "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary", "Catalyst", "ParameterizedFunctions"],
               "Inverse Problems" => ["DiffEqSensitivity", "DiffEqParamEstim"],
-              "AbstractArray Libraries" => ["RecursiveArrayTools","LabelledArrays"],
+              "AbstractArray Libraries" => ["RecursiveArrayTools","LabelledArrays","MultiScaleArrays"],
               "Uncertainty Quantification" => ["PolyChaos"],
               "Simulation Analysis" => ["GlobalSensitivity"],
               "Symbolic Analysis" => [],
               "Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],              
-              "Numerical Utilities" => ["Surrogates","PoissonRandom","QuasiMonteCarlo"],
+              "Numerical Utilities" => ["Surrogates","ExponentialUtilities","DiffEqNoiseProcess","PoissonRandom","QuasiMonteCarlo"],
               "Machine Learning" => ["DiffEqFlux"],
               "Learning Resources" => [],
               "Developer Documentation" => ["SciMLStyle", "COLPRAC"],
@@ -46,14 +46,14 @@ catpagestarts = [
 # Partial Differential Equation Solvers => FEniCS DiffEqOperators HighDimPDE MethodOfLines
 # ModelingTools => NBodySimulator
 # Inverse Problems =>  DiffEqBayes
-# AbstractArray Libraries => MultiScaleArrays
+# AbstractArray Libraries => 
 # Simulation Analysis => MinimallyDisruptiveCurves
-# Numerical Utilities => ExponentialUtilities  DiffEqNoiseProcess
+# Numerical Utilities => 
 # Uncertainty Quantification => DiffEqUncertainty 
 # Symbolic Analysis => StructuralIdentifiability SymbolicNumericIntegration
 # Machine Learning => ReservoirComputing DeepEquilibriumNetworks
 
-fullpages = Any["The SciML Open Souce Software Ecosystem" => Any["index.md"]]
+fullpages = Any["The SciML Open Souce Software Ecosystem" => "index.md"]
 allmods = Vector{Any}()
 
 function recursive_append(pages::AbstractArray{<:AbstractArray},str)
