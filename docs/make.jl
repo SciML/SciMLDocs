@@ -34,7 +34,7 @@ docsmodules = [
               "Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],              
               "Numerical Utilities" => ["Surrogates", "ExponentialUtilities", "DiffEqNoiseProcess", 
                                         "PoissonRandom", "QuasiMonteCarlo", "DataInterpolations",
-                                        "FFTW"],
+                                        "FFTW", "RuntimeGeneratedFunctions", "MuladdMacro"],
               "Machine Learning" => ["DiffEqFlux"],
               "Learning Resources" => [],
               "Developer Documentation" => ["SciMLStyle", "COLPRAC", "DiffEqDevDocs"],
@@ -51,6 +51,8 @@ readmeurls = Dict(
     "SciMLStyle" => "https://github.com/SciML/SciMLStyle",
     "COLPRAC" => "https://github.com/SciML/ColPrac",
     "DataInterpolations" => "https://github.com/PumasAI/DataInterpolations.jl",
+    "RuntimeGeneratedFunctions" => "https://github.com/SciML/RuntimeGeneratedFunctions.jl",
+    "MuladdMacro" => "https://github.com/SciML/MuladdMacro.jl",
     "FFTW" => "https://github.com/JuliaMath/FFTW.jl",
 )
 

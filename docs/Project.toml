@@ -1,4 +1,5 @@
 [deps]
+BenchmarkTools = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
 Catalyst = "479239e8-5488-4da2-87a7-35f2df7eef83"
 CommonSolve = "38540f10-b2f7-11e9-35d8-d573e4eb0ff2"
 DataDrivenDiffEq = "2445eb08-9709-466a-b3fc-47e12bd697a2"
@@ -42,3 +43,4 @@ SciMLDocs = "9802be14-e95c-4933-b545-e41021dbf0cf"
 SciMLOperators = "c0aeaf25-5076-4817-a8d5-81caf7dfa961"
 SpecialFunctions = "276daf66-3868-5448-9aa4-cd146d93841b"
 Surrogates = "6fc51010-71bc-11e9-0e15-a3fcc6593c49"
+Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
