@@ -1,14 +1,12 @@
-using SciMLDocs, Documenter, LibGit2
+using SciMLDocs, Documenter, LibGit2, Pkg
 
 # Make sure that plots don't throw a bunch of warnings / errors!
 ENV["GKSwstype"] = "100"
 using Plots
 
-#Pkg.develop(url="https://github.com/SciML/DiffEqDocs.jl")
-
 # Ordering Matters!
 docsmodules = [
-              "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "Integrals", "Optimization"],
+              "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals", "Optimization"],
               "Partial Differential Equation Solvers" => ["MethodOfLines", "NeuralPDE", "NeuralOperators", 
                                                           "FEniCS.jl", "DiffEqOperators"],
               "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary", "Catalyst", 
@@ -23,8 +21,11 @@ docsmodules = [
                                         "PoissonRandom", "QuasiMonteCarlo"],
               "Machine Learning" => ["DiffEqFlux"],
               "Learning Resources" => [],
-              "Developer Documentation" => ["SciMLStyle", "COLPRAC"],
+              "Developer Documentation" => ["SciMLStyle", "COLPRAC", "DiffEqDevDocs"],
 ]
+
+docspackage = ["DiffEqDocs", "DiffEqDevDocs"]
+docspackagenames = Dict("DiffEqDocs" => "DifferentialEquations", "DiffEqDevDocs" => "DiffEq Developer Documentation")
 
 usereadme = ["FEniCS.jl", "NBodySimulator.jl", "SymbolicNumericIntegration.jl", "SciMLStyle", "COLPRAC"]
 
@@ -47,14 +48,13 @@ catpagestarts = [
 # Omitted for now:
 
 # Interfaces => SciMLParameters
-# Solvers => DifferentialEquations DiffEqJump
-# Partial Differential Equation Solvers =>  HighDimPDE 
+# Solvers => DiffEqJump
+# Partial Differential Equation Solvers =>  HighDimPDE
 # Inverse Problems =>  DiffEqBayes
 # Simulation Analysis => MinimallyDisruptiveCurves
 # Uncertainty Quantification => DiffEqUncertainty 
 # Symbolic Analysis => StructuralIdentifiability 
 # Machine Learning => ReservoirComputing DeepEquilibriumNetworks
-# DiffEqDevDocs
 
 fullpages = Any["The SciML Open Souce Software Ecosystem" => "index.md"]
 allmods = Vector{Any}()
@@ -115,20 +115,21 @@ for (i,cat) in enumerate(docsmodules)
             LibGit2.clone("https://github.com/SciML/$mod", mod)
             cp(joinpath(mod,"README.md"),joinpath(dir,"index.md"),force=true)
             push!(catpage,mod => Any[joinpath("modules",mod,"index.md")])
+        elseif mod in docspackage
+            dir = joinpath(pkgdir(SciMLDocs),"docs","src","modules",mod)
+            mkdir(dir)
+            mkdir(mod)
+            LibGit2.clone("https://github.com/SciML/$mod", mod)
+            cp(joinpath(mod,"docs","src"),joinpath(dir),force=true)
+            include(joinpath(dir),"docs","pages.jl")
+            push!(catpage,docspackagenames[mod] => recursive_append(pages,joinpath("modules",mod)))
         else
             ex = quote
                 using $(Symbol(mod))
                 cp(joinpath(pkgdir($(Symbol(mod))),"docs","src"),joinpath(pkgdir(SciMLDocs),"docs","src","modules",$mod),force=true)
                 include(joinpath(pkgdir($(Symbol(mod))),"docs","pages.jl"))
                 push!(allmods,$(Symbol(mod)))
-
-                if $mod == "DiffEqDocs"
-                    push!(catpage,"DifferentialEquations" => recursive_append(pages,joinpath("modules",$mod)))
-                elseif $mod == "DiffEqDevDocs"
-                    push!(catpage,"*DiffEq Developer Documentation" => recursive_append(pages,joinpath("modules",$mod)))
-                else
-                    push!(catpage,$mod => recursive_append(pages,joinpath("modules",$mod)))
-                end
+                push!(catpage,$mod => recursive_append(pages,joinpath("modules",$mod)))
             end
             @eval $ex
         end
