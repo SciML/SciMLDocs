@@ -8,17 +8,18 @@ using Plots
 docsmodules = [
               "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals", "Optimization"],
               "Partial Differential Equation Solvers" => ["MethodOfLines", "NeuralPDE", "NeuralOperators", 
-                                                          "FEniCS.jl", "DiffEqOperators"],
+                                                          "FEniCS", "DiffEqOperators"],
               "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary", "Catalyst", 
-                                   "NBodySimulator.jl", "ParameterizedFunctions"],
+                                   "NBodySimulator", "ParameterizedFunctions"],
               "Inverse Problems" => ["DiffEqSensitivity", "DiffEqParamEstim"],
               "AbstractArray Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
               "Uncertainty Quantification" => ["PolyChaos"],
               "Simulation Analysis" => ["GlobalSensitivity"],
-              "Symbolic Analysis" => ["SymbolicNumericIntegration.jl"],
+              "Symbolic Analysis" => ["SymbolicNumericIntegration"],
               "Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],              
               "Numerical Utilities" => ["Surrogates", "ExponentialUtilities", "DiffEqNoiseProcess", 
-                                        "PoissonRandom", "QuasiMonteCarlo"],
+                                        "PoissonRandom", "QuasiMonteCarlo", "DataInterpolations",
+                                        "FFTW"],
               "Machine Learning" => ["DiffEqFlux"],
               "Learning Resources" => [],
               "Developer Documentation" => ["SciMLStyle", "COLPRAC", "DiffEqDevDocs"],
@@ -27,7 +28,17 @@ docsmodules = [
 docspackage = ["DiffEqDocs", "DiffEqDevDocs"]
 docspackagenames = Dict("DiffEqDocs" => "DifferentialEquations", "DiffEqDevDocs" => "DiffEq Developer Documentation")
 
-usereadme = ["FEniCS.jl", "NBodySimulator.jl", "SymbolicNumericIntegration.jl", "SciMLStyle", "COLPRAC"]
+usereadme = ["FEniCS", "NBodySimulator", "SymbolicNumericIntegration", "SciMLStyle", "COLPRAC", "DataInterpolations", "FFTW"]
+readmeurls = Dict(
+    "FEniCS" => "https://github.com/SciML/FEniCS.jl",
+    "NBodySimulator" => "https://github.com/SciML/NBodySimulator.jl",
+    "SymbolicNumericIntegration" => "https://github.com/SciML/SymbolicNumericIntegration.jl",
+    "SciMLStyle" => "https://github.com/SciML/SciMLStyle",
+    "COLPRAC" => "https://github.com/SciML/ColPrac",
+    "DataInterpolations" => "https://github.com/PumasAI/DataInterpolations.jl",
+    "FFTW" => "https://github.com/JuliaMath/FFTW.jl",
+)
+
 
 catpagestarts = [
     Any["highlevels/equation_solvers.md"],
@@ -112,7 +123,7 @@ for (i,cat) in enumerate(docsmodules)
             dir = joinpath(pkgdir(SciMLDocs),"docs","src","modules",mod)
             mkdir(dir)
             mkdir(mod)
-            LibGit2.clone("https://github.com/SciML/$mod", mod)
+            LibGit2.clone(readmeurls(mod))
             cp(joinpath(mod,"README.md"),joinpath(dir,"index.md"),force=true)
             push!(catpage,mod => Any[joinpath("modules",mod,"index.md")])
         elseif mod in docspackage
@@ -121,7 +132,7 @@ for (i,cat) in enumerate(docsmodules)
             mkdir(mod)
             LibGit2.clone("https://github.com/SciML/$mod.jl", mod)
             cp(joinpath(mod,"docs","src"),joinpath(dir),force=true)
-            include(joinpath(dir),"docs","pages.jl")
+            include(joinpath(dir,"docs","pages.jl"))
             push!(catpage,docspackagenames[mod] => recursive_append(pages,joinpath("modules",mod)))
         else
             ex = quote
