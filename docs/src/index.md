@@ -44,7 +44,7 @@ The SciML common interface covers the following domains:
 - Integrals (quadrature) (`QuadratureProblem`)
 - Differential Equations
   - Discrete equations (function maps, discrete stochastic (Gillespie/Markov)
-    simulations) (`DiscreteProblem`)
+    simulations) (`DiscreteProblem` and `JumpProblem`)
   - Ordinary differential equations (ODEs) (`ODEProblem`)
   - Split and Partitioned ODEs (Symplectic integrators, IMEX Methods) (`SplitODEProblem`)
   - Stochastic ordinary differential equations (SODEs or SDEs) (`SDEProblem`)
