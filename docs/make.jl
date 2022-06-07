@@ -5,7 +5,6 @@ ENV["GKSwstype"] = "100"
 using Plots
 
 Pkg.develop(url="https://github.com/SciML/DiffEqDocs.jl")
-Pkg.develop(url="https://github.com/SciML/DiffEqDevDocs.jl")
 
 # Ordering Matters!
 docsmodules = [
@@ -24,7 +23,7 @@ docsmodules = [
                                         "PoissonRandom", "QuasiMonteCarlo"],
               "Machine Learning" => ["DiffEqFlux"],
               "Learning Resources" => [],
-              "Developer Documentation" => ["SciMLStyle", "COLPRAC", "DiffEqDevDocs"],
+              "Developer Documentation" => ["SciMLStyle", "COLPRAC"],
 ]
 
 usereadme = ["FEniCS", "NBodySimulator", "SymbolicNumericIntegration", "SciMLStyle", "COLPRAC"]
@@ -55,6 +54,7 @@ catpagestarts = [
 # Uncertainty Quantification => DiffEqUncertainty 
 # Symbolic Analysis => StructuralIdentifiability 
 # Machine Learning => ReservoirComputing DeepEquilibriumNetworks
+# DiffEqDevDocs
 
 fullpages = Any["The SciML Open Souce Software Ecosystem" => "index.md"]
 allmods = Vector{Any}()
