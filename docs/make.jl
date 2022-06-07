@@ -1,4 +1,4 @@
-using SciMLDocs, Documenter, LibGit2, Pkg
+using SciMLDocs, Documenter, LibGit2
 
 # Make sure that plots don't throw a bunch of warnings / errors!
 ENV["GKSwstype"] = "100"
