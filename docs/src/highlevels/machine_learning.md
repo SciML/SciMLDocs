@@ -6,7 +6,7 @@ are integrated into the equation solvers.
 
 ## DiffEqFlux.jl: High Level Pre-Built Architectures for Implicit Deep Learning
 
-[DiffEqFlux.jl](https://github.com/SciML/DiffEqFlux.jl) is a library of pre-built archiectures
+[DiffEqFlux.jl](https://github.com/SciML/DiffEqFlux.jl) is a library of pre-built architectures
 for implicit deep learning, including layer definitions for methods like:
 
 - [Neural Ordinary Differential Equations (Neural ODEs)](https://arxiv.org/abs/1806.07366)
@@ -40,7 +40,7 @@ using the optimized and flexible SciML libraries under the hood.
 [Flux.jl](https://github.com/FluxML/Flux.jl) is the most popular machine learning library in the
 Julia programming language. SciML's libraries are heavily tested with it and its automatic
 differentiation engine [Zygote.jl](https://github.com/FluxML/Zygote.jl) for composability and
-compatability.
+compatibility.
 
 ## Lux.jl: Explicitly Parameterized Neural Networks in Julia
 
@@ -48,14 +48,14 @@ compatability.
 neural networks. Thus while alternative interfaces are required to use Flux with many equation
 solvers (i.e. `Flux.destructure`), Lux.jl's explicit design merries very easily with the
 SciML equation solver libraries. For this reason, SciML's library are also heavily tested with
-Lux to ensure compatability with neural network definitions from here.
+Lux to ensure compatibility with neural network definitions from here.
 
 ## SimpleChains.jl: Fast Small-Scale Machine Learning
 
 [SimpleChains.jl](https://github.com/PumasAI/SimpleChains.jl) is a library specialized for
 small-scale machine learning. It uses non-allocating mutating forms to be highly efficient
 for the cases where matrix multiplication kernels are not able to overcome the common overheads
-of machine learning libraries. Thus for SciML cases with small neural networks (<100 node layesr) 
+of machine learning libraries. Thus for SciML cases with small neural networks (<100 node layers) 
 and non-batched usage (many/most use cases), SimpleChains.jl can be the fastest choice for the
 neural network definitions.
 

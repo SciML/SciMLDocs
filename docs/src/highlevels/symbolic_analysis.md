@@ -59,4 +59,4 @@ then SymbolicUtils.jl is the library from which the new symbolic types can be im
 [SIAN.jl](https://github.com/alexeyovchinnikov/SIAN-Julia) is a structural identifiability analysis
 package which uses an entirely different algorithm from StructuralIdentifiability.jl. For information
 on the differences bewteen the two approaches, see 
-[the Structural Identifiability Tools in Julia tutoral](https://www.youtube.com/watch?v=jg1DME3cwjg)
+[the Structural Identifiability Tools in Julia tutoral](https://www.youtube.com/watch?v=jg1DME3cwjg).

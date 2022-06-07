@@ -21,7 +21,7 @@ the solution to the PDE.
 
 ## FEniCS.jl: Wrappers for the Finite Element Method (FEM)
 
-[FEniCS.jl](https://github.com/SciML/FEniCS.jl) is a wrapper for the popular FEniCS.jl
+[FEniCS.jl](https://github.com/SciML/FEniCS.jl) is a wrapper for the popular FEniCS
 finite element method library.
 
 ## HighDimPDE.jl: Scientific Machine Learning for Special High Dimensional PDE Forms

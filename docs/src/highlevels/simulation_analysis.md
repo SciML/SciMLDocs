@@ -28,7 +28,7 @@ finding relationships between parameters of models, finding the curves on which 
 ## DynamicalSystems.jl: A Suite of Dynamical Systems Analysis
 
 [DynamicalSystems.jl](https://juliadynamics.github.io/DynamicalSystems.jl/latest/) is an entire ecosystem
-of dynamical systems analysis methods, for computing measures of chaos (dimension estimation, lyopunov coefficients),
+of dynamical systems analysis methods, for computing measures of chaos (dimension estimation, Lyapunov coefficients),
 generating delay embeddings, and much more. It uses the SciML tools for its internal equation solving
 and thus shares much of its API, adding a layer of new tools for extended analyses.
 
@@ -56,7 +56,7 @@ control systems.
 
 [Plots.jl](https://github.com/JuliaPlots/Plots.jl) is the current standard plotting system for the SciML ecosystem.
 SciML types attempt to include plot recipes for as many types as possible, allowing for automatic visualization with
-the Plots.jl system. All current tutorials and documentation default to using Plots.jl
+the Plots.jl system. All current tutorials and documentation default to using Plots.jl.
 
 ## Makie.jl
 
