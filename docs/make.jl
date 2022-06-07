@@ -131,9 +131,11 @@ for (i,cat) in enumerate(docsmodules)
             mkdir(dir)
             mkdir(mod)
             LibGit2.clone("https://github.com/SciML/$mod.jl", mod)
-            cp(joinpath(mod,"docs","src"),dir,force=true)
+
             cp(joinpath(mod,"docs","pages.jl"),dir,force=true)
             include(joinpath(pwd(),mod,"docs","pages.jl"))
+            
+            cp(joinpath(mod,"docs","src"),dir,force=true)
             @show readdir(dir)
             push!(catpage,docspackagenames[mod] => recursive_append(pages,joinpath("modules",mod)))
         else
