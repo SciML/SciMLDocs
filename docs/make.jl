@@ -34,7 +34,7 @@ docsmodules = [
               "Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],              
               "Numerical Utilities" => ["Surrogates", "ExponentialUtilities", "DiffEqNoiseProcess", 
                                         "PoissonRandom", "QuasiMonteCarlo", "DataInterpolations",
-                                        "FFTW", "RuntimeGeneratedFunctions", "MuladdMacro"],
+                                        "FFTW", "RuntimeGeneratedFunctions", "MuladdMacro",],
               "Machine Learning" => ["DiffEqFlux"],
               "Learning Resources" => [],
               "Developer Documentation" => ["SciMLStyle", "COLPRAC", "DiffEqDevDocs"],
@@ -43,7 +43,9 @@ docsmodules = [
 docspackage = ["DiffEqDocs", "DiffEqDevDocs"]
 docspackagenames = Dict("DiffEqDocs" => "DifferentialEquations", "DiffEqDevDocs" => "DiffEq Developer Documentation")
 
-usereadme = ["FEniCS", "NBodySimulator", "SymbolicNumericIntegration", "SciMLStyle", "COLPRAC", "DataInterpolations", "FFTW"]
+usereadme = ["FEniCS", "NBodySimulator", "SymbolicNumericIntegration", "SciMLStyle", "COLPRAC", 
+             "DataInterpolations", "FFTW", "RuntimeGeneratedFunctions", "MuladdMacro"]
+             
 readmeurls = Dict(
     "FEniCS" => "https://github.com/SciML/FEniCS.jl",
     "NBodySimulator" => "https://github.com/SciML/NBodySimulator.jl",
