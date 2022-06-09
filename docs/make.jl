@@ -43,14 +43,12 @@ docsmodules = [
 docspackage = ["DiffEqDocs", "DiffEqDevDocs"]
 docspackagenames = Dict("DiffEqDocs" => "DifferentialEquations", "DiffEqDevDocs" => "DiffEq Developer Documentation")
 
-usereadme = ["FEniCS", "NBodySimulator", "SymbolicNumericIntegration", "SciMLStyle", "COLPRAC", 
+usereadme = ["FEniCS", "SciMLStyle", "COLPRAC", 
              "DataInterpolations", "FFTW", "RuntimeGeneratedFunctions", "MuladdMacro",
              "SBMLToolkit", "CellMLToolkit"]
              
 readmeurls = Dict(
     "FEniCS" => "https://github.com/SciML/FEniCS.jl",
-    "NBodySimulator" => "https://github.com/SciML/NBodySimulator.jl",
-    "SymbolicNumericIntegration" => "https://github.com/SciML/SymbolicNumericIntegration.jl",
     "SciMLStyle" => "https://github.com/SciML/SciMLStyle",
     "COLPRAC" => "https://github.com/SciML/ColPrac",
     "DataInterpolations" => "https://github.com/PumasAI/DataInterpolations.jl",
