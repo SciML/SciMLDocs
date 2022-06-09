@@ -1,6 +1,6 @@
 # Equation Solvers Overview
 
-The SciML Equation Solvers cover a large set of `SciMLProblem`s with `SciMLAlgorhtm`s
+The SciML Equation Solvers cover a large set of `SciMLProblem`s with `SciMLAlgorithm`s
 that are efficient, numerically stable, and flexible. These methods tie into libraries
 like SciMLSensitivity.jl to be fully differentiable and compatible with machine
 learning pipelines, and are designed for integration with applications like parameter
@@ -30,7 +30,7 @@ for solving `LinearProblem`s. It includes:
 [NonlinearSolve.jl](https://github.com/SciML/NonlinearSolve.jl) is the canonical library
 for solving `NonlinearProblem`s. It includes:
 
-- Fast non-allocating implementations on static arrays of common methdos (Newton-Rhapson)
+- Fast non-allocating implementations on static arrays of common methods (Newton-Rhapson)
 - Bracketing methods (Bisection, Falsi) for methods with known upper and lower bounds
 - Wrappers to common other solvers (NLsolve.jl, MINPACK, KINSOL from Sundials) for trust
   region methods, line search based approaches, etc.
