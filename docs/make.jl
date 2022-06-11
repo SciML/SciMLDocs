@@ -35,7 +35,7 @@ docsmodules = [
               "Numerical Utilities" => ["Surrogates", "ExponentialUtilities", "DiffEqNoiseProcess", 
                                         "PoissonRandom", "QuasiMonteCarlo", "DataInterpolations",
                                         "FFTW", "RuntimeGeneratedFunctions", "MuladdMacro",],
-              "Machine Learning" => ["DiffEqFlux"],
+              "Machine Learning" => ["DiffEqFlux","DeepEquilibriumNetworks"],
               "Learning Resources" => [],
               "Developer Documentation" => ["SciMLStyle", "COLPRAC", "DiffEqDevDocs"],
 ]
@@ -85,7 +85,7 @@ catpagestarts = [
 # Simulation Analysis => MinimallyDisruptiveCurves
 # Uncertainty Quantification => DiffEqUncertainty 
 # Symbolic Analysis => StructuralIdentifiability 
-# Machine Learning => ReservoirComputing DeepEquilibriumNetworks
+# Machine Learning => ReservoirComputing
 
 fullpages = Any["The SciML Open Souce Software Ecosystem" => "index.md"]
 allmods = Vector{Any}()
