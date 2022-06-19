@@ -59,6 +59,7 @@ Below is a simplification of the user-facing packages for use in scientific comp
 |Fast Fourier Transform|[FFTW](https://github.com/JuliaMath/FFTW.jl)|
 
 |Partial Differential Equation Discretizations|Associated Julia packages|
+| --- | --- |
 |Finite Differences|[MethodOfLines](https://methodoflines.sciml.ai/dev/)|
 |Finite Volume|[Trixi](https://github.com/trixi-framework/Trixi.jl)|
 |Finite Element|[Gridap](https://github.com/gridap/Gridap.jl)|
