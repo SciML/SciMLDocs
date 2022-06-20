@@ -26,7 +26,7 @@ docsmodules = [
                                                           "FEniCS", "DiffEqOperators"],
               "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary", "Catalyst", 
                                    "NBodySimulator", "ParameterizedFunctions"],
-              "Inverse Problems" => ["DiffEqSensitivity", "DiffEqParamEstim"],
+              "Inverse Problems" => ["DiffEqSensitivity", "DiffEqParamEstim", "DiffEqBayes"],
               "AbstractArray Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
               "Uncertainty Quantification" => ["PolyChaos"],
               "Simulation Analysis" => ["GlobalSensitivity"],
