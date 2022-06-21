@@ -34,7 +34,7 @@ docsmodules = [
     "AbstractArray Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
     "Uncertainty Quantification" => ["PolyChaos"],
     "Simulation Analysis" => ["GlobalSensitivity"],
-    "Symbolic Analysis" => ["SymbolicNumericIntegration"],
+    "Symbolic Analysis" => ["StructuralIdentifiability", "SymbolicNumericIntegration"],
     "Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],
     "Numerical Utilities" => ["Surrogates", "ExponentialUtilities", "DiffEqNoiseProcess",
         "PoissonRandom", "QuasiMonteCarlo", "DataInterpolations",
