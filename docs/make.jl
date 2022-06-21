@@ -18,10 +18,11 @@ DDEProblemLibrary.importddeproblems()
 DAEProblemLibrary = DiffEqProblemLibrary.DAEProblemLibrary
 DAEProblemLibrary.importdaeproblems()
 
+using DiffEqDevTools # Needed for tableaus
 
 # Ordering Matters!
 docsmodules = [
-              "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals", "Optimization"],
+              "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals", "Optimization", "DiffEqJump"],
               "Partial Differential Equation Solvers" => ["MethodOfLines", "NeuralPDE", "NeuralOperators", 
                                                           "FEniCS", "DiffEqOperators"],
               "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary", "Catalyst", 
@@ -79,9 +80,7 @@ catpagestarts = [
 # Omitted for now:
 
 # Interfaces => SciMLParameters
-# Solvers => DiffEqJump
 # Partial Differential Equation Solvers =>  HighDimPDE
-# Inverse Problems =>  DiffEqBayes
 # Simulation Analysis => MinimallyDisruptiveCurves
 # Uncertainty Quantification => DiffEqUncertainty 
 # Symbolic Analysis => StructuralIdentifiability 

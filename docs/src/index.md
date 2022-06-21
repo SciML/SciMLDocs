@@ -31,6 +31,44 @@ and much more. For an overview of the broad goals of the SciML organization, wat
 - [The Use and Practice of Scientific Machine Learning](https://www.youtube.com/watch?v=FihLyzdjN_8)
 - [State of SciML Scientific Machine Learning](https://www.youtube.com/watch?v=eSeY4K4bITI)
 
+## Overview of Scientific Computing in Julia with SciML
+
+Below is a simplification of the user-facing packages for use in scientific computing and SciML workflows.
+
+|Workflow Element|Associated Julia packages|
+| --- | --- |
+|Plotting|[Plots\*](https://docs.juliaplots.org/stable/)|
+|Sparse matrix|[SparseArrays\*](https://docs.julialang.org/en/v1/stdlib/SparseArrays/#Sparse-Arrays)|
+|Interpolation/approximation|[DataInterpolations\*](https://github.com/PumasAI/DataInterpolations.jl), [ApproxFun\*](https://juliaapproximation.github.io/ApproxFun.jl/stable/)|
+|Linear system / least squares|[LinearSolve](http://linearsolve.sciml.ai/dev/)|
+|Nonlinear system / rootfinding|[NonlinearSolve](https://nonlinearsolve.sciml.ai/)|
+|Polynomial roots|[Polynomials\*](https://juliamath.github.io/Polynomials.jl/stable/#Root-finding-1)|
+|Integration|[Integrals](https://integrals.sciml.ai/)|
+|Nonlinear Optimization|[Optimization](https://optimization.sciml.ai/)|
+|Other Optimization (linear, quadratic, convex, etc.)|[JuMP\*](https://github.com/jump-dev/JuMP.jl)|
+|[Initial-value problem](https://diffeq.sciml.ai/latest/tutorials/ode_example/#ode_example)|[DifferentialEquations](https://diffeq.sciml.ai/latest/)|
+|[Boundary-value problem](https://diffeq.sciml.ai/latest/tutorials/bvp_example/#Boundary-Value-Problems)|[DifferentialEquations](https://diffeq.sciml.ai/latest/)|
+|Continuous-Time Markov Chains (Poisson Jumps), Jump Diffusions|[DiffEqJump](https://github.com/SciML/DiffEqJump.jl)|
+|Finite differences|[FiniteDifferences\*](https://juliadiff.org/FiniteDifferences.jl/latest/), [FiniteDiff\*](https://github.com/JuliaDiff/FiniteDiff.jl)|
+|Automatic Differentiation|[ForwardDiff\*](https://github.com/JuliaDiff/ForwardDiff.jl), [Enzyme\*](https://github.com/EnzymeAD/Enzyme.jl), [DiffEqSensitivity](https://sensitivity.sciml.ai/dev/)
+|Bayesian Modeling|[Turing\*](https://turing.ml/stable/)|
+|Deep Learning|[Flux\*](https://fluxml.ai/)|
+|Acausal Modeling / DAEs|[ModelingToolkit](https://mtk.sciml.ai/dev/)|
+|Chemical Reaction Networks|[Catalyst](https://catalyst.sciml.ai/dev/)|
+|Symbolic Computing|[Symbolics](https://symbolics.juliasymbolics.org/dev/)|
+|Fast Fourier Transform|[FFTW\*](https://github.com/JuliaMath/FFTW.jl)|
+
+|Partial Differential Equation Discretizations|Associated Julia packages|
+| --- | --- |
+|Finite Differences|[MethodOfLines](https://methodoflines.sciml.ai/dev/)|
+|Discontinuous Galerkin|[Trixi\*](https://github.com/trixi-framework/Trixi.jl)|
+|Finite Element|[Gridap\*](https://github.com/gridap/Gridap.jl)|
+|Physics-Informed Neural Networks|[NeuralPDE](https://neuralpde.sciml.ai/dev/)|
+|Neural Operators|[NeuralOperators](https://github.com/SciML/NeuralOperators.jl)|
+
+\* Denotes a non-SciML package that is heavily tested against as part of SciML workflows and 
+has frequent collaboration with the SciML developers.
+
 ## Domains of SciML
 
 The SciML common interface covers the following domains:
