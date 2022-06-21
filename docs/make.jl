@@ -196,6 +196,6 @@ makedocs(
 )
 
 deploydocs(;
-    repo="github.com/SciML/SciMLDocs.jl",
+    repo="github.com/SciML/SciMLDocs",
     devbranch="main",
 )
