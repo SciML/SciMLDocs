@@ -51,7 +51,7 @@ Below is a simplification of the user-facing packages for use in scientific comp
 |Continuous-Time Markov Chains (Poisson Jumps), Jump Diffusions|[DiffEqJump](https://github.com/SciML/DiffEqJump.jl)|
 |Finite differences|[FiniteDifferences\*](https://juliadiff.org/FiniteDifferences.jl/latest/), [FiniteDiff\*](https://github.com/JuliaDiff/FiniteDiff.jl)|
 |Automatic Differentiation|[ForwardDiff\*](https://github.com/JuliaDiff/ForwardDiff.jl), [Enzyme\*](https://github.com/EnzymeAD/Enzyme.jl), [DiffEqSensitivity](https://sensitivity.sciml.ai/dev/)
-|Bayesian Inference|[Turing\*](https://turing.ml/stable/)|
+|Bayesian Modeling|[Turing\*](https://turing.ml/stable/)|
 |Deep Learning|[Flux\*](https://fluxml.ai/)|
 |Acausal Modeling / DAEs|[ModelingToolkit](https://mtk.sciml.ai/dev/)|
 |Chemical Reaction Networks|[Catalyst](https://catalyst.sciml.ai/dev/)|
@@ -61,7 +61,7 @@ Below is a simplification of the user-facing packages for use in scientific comp
 |Partial Differential Equation Discretizations|Associated Julia packages|
 | --- | --- |
 |Finite Differences|[MethodOfLines](https://methodoflines.sciml.ai/dev/)|
-|Finite Volume|[Trixi\*](https://github.com/trixi-framework/Trixi.jl)|
+|Discontinuous Galerkin|[Trixi\*](https://github.com/trixi-framework/Trixi.jl)|
 |Finite Element|[Gridap\*](https://github.com/gridap/Gridap.jl)|
 |Physics-Informed Neural Networks|[NeuralPDE](https://neuralpde.sciml.ai/dev/)|
 |Neural Operators|[NeuralOperators](https://github.com/SciML/NeuralOperators.jl)|
