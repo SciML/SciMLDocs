@@ -23,7 +23,7 @@ using DiffEqDevTools # Needed for tableaus
 # Ordering Matters!
 docsmodules = [
               "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals", "Optimization", "DiffEqJump"],
-              "Partial Differential Equation Solvers" => ["MethodOfLines", "NeuralPDE", "NeuralOperators", 
+              "Partial Differential Equation Solvers" => ["MethodOfLines", "NeuralPDE", "HighDimPDE", "NeuralOperators", 
                                                           "FEniCS", "DiffEqOperators"],
               "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary", "Catalyst", 
                                    "NBodySimulator", "ParameterizedFunctions"],
