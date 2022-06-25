@@ -173,7 +173,7 @@ end
 
 @show fullpages
 
-append!(allmods,[Plots,DiffEqProblemLibrary,ODEProblemLibrary,SDEProblemLibrary,DDEProblemLibrary,DAEProblemLibrary,OrdinaryDiffEq])
+append!(allmods,[Plots,DiffEqDevTools,DiffEqProblemLibrary,ODEProblemLibrary,SDEProblemLibrary,DDEProblemLibrary,DAEProblemLibrary,OrdinaryDiffEq])
 
 mathengine = MathJax3(Dict(
     :loader => Dict("load" => ["[tex]/require","[tex]/mathtools"]),
