@@ -177,7 +177,7 @@ end
 
 @show fullpages
 
-append!(allmods, [Plots, DiffEqBase, DiffEqDevToos, DiffEqProblemLibrary, ODEProblemLibrary,
+append!(allmods, [Plots, DiffEqBase, DiffEqDevTools, DiffEqProblemLibrary, ODEProblemLibrary,
                   SDEProblemLibrary, DDEProblemLibrary, DAEProblemLibrary, OrdinaryDiffEq])
 
 mathengine = MathJax3(Dict(
