@@ -126,9 +126,9 @@ covers:
 - Cubature methods (both `h` and `p` cubature)
 - Adaptive Monte Carlo methods
 
-## DiffEqJump.jl: Unified Interface for Jump Processes
+## JumpProcesses.jl: Unified Interface for Jump Processes
 
-[DiffEqJump.jl](https://github.com/SciML/DiffEqJump.jl) is the library for Poisson jump
+[JumpProcesses.jl](https://github.com/SciML/JumpProcesses.jl) is the library for Poisson jump
 processes, also known as chemical master equations or Gillespie simulations, for simulating
 chemical reaction networks and other applications. It allows for solving with many methods,
 including:
@@ -158,12 +158,12 @@ including:
   usually offer performance as good as `Direct`, and for some systems can offer
   substantially better performance. (Requires dependency graph, see below.)
 
-The design of DiffEqJump.jl composes with DifferentialEquations.jl, allowing for
+The design of JumpProcesses.jl composes with DifferentialEquations.jl, allowing for
 discrete stochastic chemical reactions to be easily mixed with differential
 equation models, allowing for simulation of hybrid systems, jump diffusions,
 and differential equations driven by Levy processes.
 
-In addition, DiffEqJump's interfaces allow for solving with regular jump methods, 
+In addition, JumpProcesses's interfaces allow for solving with regular jump methods, 
 such as adaptive Tau-Leaping. 
 
 # Third Party Libraries to Note
