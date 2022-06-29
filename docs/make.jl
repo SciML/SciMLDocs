@@ -24,7 +24,7 @@ using DiffEqBase
 # Ordering Matters!
 docsmodules = [
     "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals",
-                           "Optimization", "DiffEqJump"],
+                           "Optimization", "JumpProcesses"],
     "Partial Differential Equation Solvers" => ["MethodOfLines", "NeuralPDE",
                                                 "NeuralOperators", "FEniCS",
                                                 "DiffEqOperators"],
