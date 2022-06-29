@@ -48,7 +48,7 @@ Below is a simplification of the user-facing packages for use in scientific comp
 |Other Optimization (linear, quadratic, convex, etc.)|[JuMP\*](https://github.com/jump-dev/JuMP.jl)|
 |[Initial-value problem](https://diffeq.sciml.ai/latest/tutorials/ode_example/#ode_example)|[DifferentialEquations](https://diffeq.sciml.ai/latest/)|
 |[Boundary-value problem](https://diffeq.sciml.ai/latest/tutorials/bvp_example/#Boundary-Value-Problems)|[DifferentialEquations](https://diffeq.sciml.ai/latest/)|
-|Continuous-Time Markov Chains (Poisson Jumps), Jump Diffusions|[DiffEqJump](https://github.com/SciML/DiffEqJump.jl)|
+|Continuous-Time Markov Chains (Poisson Jumps), Jump Diffusions|[JumpProcesses](https://github.com/SciML/JumpProcesses.jl)|
 |Finite differences|[FiniteDifferences\*](https://juliadiff.org/FiniteDifferences.jl/latest/), [FiniteDiff\*](https://github.com/JuliaDiff/FiniteDiff.jl)|
 |Automatic Differentiation|[ForwardDiff\*](https://github.com/JuliaDiff/ForwardDiff.jl), [Enzyme\*](https://github.com/EnzymeAD/Enzyme.jl), [DiffEqSensitivity](https://sensitivity.sciml.ai/dev/)
 |Bayesian Modeling|[Turing\*](https://turing.ml/stable/)|
