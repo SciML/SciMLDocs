@@ -48,7 +48,7 @@ Below is a simplification of the user-facing packages for use in scientific comp
 |Other Optimization (linear, quadratic, convex, etc.)|[JuMP\*](https://github.com/jump-dev/JuMP.jl)|
 |[Initial-value problem](https://diffeq.sciml.ai/latest/tutorials/ode_example/#ode_example)|[DifferentialEquations](https://diffeq.sciml.ai/latest/)|
 |[Boundary-value problem](https://diffeq.sciml.ai/latest/tutorials/bvp_example/#Boundary-Value-Problems)|[DifferentialEquations](https://diffeq.sciml.ai/latest/)|
-|Continuous-Time Markov Chains (Poisson Jumps), Jump Diffusions|[DiffEqJump](https://github.com/SciML/DiffEqJump.jl)|
+|Continuous-Time Markov Chains (Poisson Jumps), Jump Diffusions|[JumpProcesses](https://github.com/SciML/JumpProcesses.jl)|
 |Finite differences|[FiniteDifferences\*](https://juliadiff.org/FiniteDifferences.jl/latest/), [FiniteDiff\*](https://github.com/JuliaDiff/FiniteDiff.jl)|
 |Automatic Differentiation|[ForwardDiff\*](https://github.com/JuliaDiff/ForwardDiff.jl), [Enzyme\*](https://github.com/EnzymeAD/Enzyme.jl), [DiffEqSensitivity](https://sensitivity.sciml.ai/dev/)
 |Bayesian Modeling|[Turing\*](https://turing.ml/stable/)|
@@ -65,6 +65,7 @@ Below is a simplification of the user-facing packages for use in scientific comp
 |Finite Element|[Gridap\*](https://github.com/gridap/Gridap.jl)|
 |Physics-Informed Neural Networks|[NeuralPDE](https://neuralpde.sciml.ai/dev/)|
 |Neural Operators|[NeuralOperators](https://github.com/SciML/NeuralOperators.jl)|
+|High Dimensional Deep Learning|[HighDimPDE](https://github.com/SciML/HighDimPDE.jl)|
 
 \* Denotes a non-SciML package that is heavily tested against as part of SciML workflows and 
 has frequent collaboration with the SciML developers.
@@ -102,6 +103,8 @@ The SciML common interface covers the following domains:
   - Physics-Informed Neural Networks (PINNs)
   - Integro-Differential Equations
   - Fractional Differential Equations
+- Specialized Forms 
+  - Partial Integro-Differential Equations (PIPDEProblem)
 - Data-driven modeling
   - Discrete-time data-driven dynamical systems (`DiscreteDataDrivenProblem`)
   - Continuous-time data-driven dynamical systems (`ContinuousDataDrivenProblem`)
@@ -116,10 +119,12 @@ patterns.
 
 ## Inverse Problems, Parameter Estimation, and Structural Identification
 
-We note that parameter estimation and inverse problems are solved directly on their
-constituent problem types using tools like [DiffEqFlux.jl](https://github.com/SciML/DiffEqFlux.jl).
+Parameter estimation and inverse problems are solved directly on their
+constituent problem types using tools like [SciMLSensitivity.jl](https://github.com/SciML/SciMLSensitivity.jl).
 Thus for example, there is no `ODEInverseProblem`, and instead `ODEProblem` is used to
-find the parameters `p` that solve the inverse problem.
+find the parameters `p` that solve the inverse problem. Check out the SciMLSensitivity
+documentation for a discussion on connections to automatic differentiation, optimization,
+and adjoints.
 
 ## Common Interface High Level
 
@@ -184,9 +189,11 @@ an overview of the Julia package ecosystem, see [the JuliaHub Search Engine](htt
 - Please refer to the
   [SciML ColPrac: Contributor's Guide on Collaborative Practices for Community Packages](https://github.com/SciML/ColPrac/blob/master/README.md)
   for guidance on PRs, issues, and other matters relating to contributing to SciML.
+- See the [SciML Style Guide](https://github.com/SciML/SciMLStyle) for common coding practices and other style decisions.
 - There are a few community forums:
     - The #diffeq-bridged and #sciml-bridged channels in the
       [Julia Slack](https://julialang.org/slack/)
-    - [JuliaDiffEq](https://gitter.im/JuliaDiffEq/Lobby) on Gitter
+    - The #diffeq-bridged and #sciml-bridged channels in the
+      [Julia Zulip](https://julialang.zulipchat.com/#narrow/stream/279055-sciml-bridged)
     - On the [Julia Discourse forums](https://discourse.julialang.org)
     - See also [SciML Community page](https://sciml.ai/community/)
