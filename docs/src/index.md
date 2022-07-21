@@ -120,7 +120,8 @@ patterns.
 ## Inverse Problems, Parameter Estimation, and Structural Identification
 
 Parameter estimation and inverse problems are solved directly on their
-constituent problem types using tools like [SciMLSensitivity.jl](https://github.com/SciML/SciMLSensitivity.jl).
+constituent problem types using tools like 
+[SciMLSensitivity.jl](https://github.com/SciML/SciMLSensitivity.jl).
 Thus for example, there is no `ODEInverseProblem`, and instead `ODEProblem` is used to
 find the parameters `p` that solve the inverse problem. Check out the SciMLSensitivity
 documentation for a discussion on connections to automatic differentiation, optimization,
@@ -131,10 +132,10 @@ and adjoints.
 The SciML interface is common as the usage of arguments is standardized across
 all of the problem domains. Underlying high level ideas include:
 
-- All domains use the same interface of defining a `SciMLProblem` which is then
-  solved via `solve(prob,alg;kwargs)`, where `alg` is a `SciMLAlgorithm`. The
+- All domains use the same interface of defining a `AbstractSciMLProblem` which is then
+  solved via `solve(prob,alg;kwargs)`, where `alg` is a `AbstractSciMLAlgorithm`. The
   keyword argument namings are standardized across the organization.
-- `SciMLProblem`s are generally defined by a `SciMLFunction` which can define
+- `AbstractSciMLProblem`s are generally defined by a `AbstractSciMLFunction` which can define
   extra details about a model function, such as its analytical Jacobian, its
   sparsity patterns and so on.
 - There is an organization-wide method for defining linear and nonlinear solvers
