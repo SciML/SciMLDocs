@@ -27,7 +27,7 @@ docsmodules = [
                            "Optimization", "JumpProcesses"],
     "Partial Differential Equation Solvers" => ["MethodOfLines", "NeuralPDE",
                                                 "NeuralOperators", "FEniCS",
-                                                "DiffEqOperators"],
+                                                "HighDimPDE", "DiffEqOperators"],
     "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary", "Catalyst",
         "NBodySimulator", "ParameterizedFunctions"],
     "Inverse Problems" => ["SciMLSensitivity", "DiffEqParamEstim", "DiffEqBayes"],
