@@ -70,6 +70,8 @@ Below is a simplification of the user-facing packages for use in scientific comp
 \* Denotes a non-SciML package that is heavily tested against as part of SciML workflows and 
 has frequent collaboration with the SciML developers.
 
+![SciML Mind Map](https://user-images.githubusercontent.com/1814174/181920182-ea52f6c9-6afc-47f9-92dd-2b174513e3db.svg)
+
 ## Domains of SciML
 
 The SciML common interface covers the following domains:
