@@ -48,9 +48,9 @@ docspackage = ["DiffEqDocs", "DiffEqDevDocs", "SciMLBenchmarksOutput"]
 docspackagenames = Dict("DiffEqDocs" => "DifferentialEquations",
                         "DiffEqDevDocs" => "DiffEq Developer Documentation",
                         "SciMLBenchmarksOutput" => "The SciML Benchmarks")
-docspackage_hasjl = ["DiffEqDocs" => true,
-                     "DiffEqDevDocs" => true,
-                     "SciMLBenchmarksOutput" => false]
+docspackage_hasjl = Dict("DiffEqDocs" => true,
+                         "DiffEqDevDocs" => true,
+                         "SciMLBenchmarksOutput" => false)
 
 usereadme = ["FEniCS", "SciMLStyle", "COLPRAC",
     "DataInterpolations", "FFTW", "RuntimeGeneratedFunctions", "MuladdMacro",
