@@ -21,7 +21,6 @@ DAEProblemLibrary.importdaeproblems()
 using DiffEqDevTools # Needed for tableaus
 using DiffEqBase
 
-
 # Ordering Matters!
 docsmodules = [
     "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals",
