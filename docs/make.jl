@@ -40,13 +40,17 @@ docsmodules = [
         "PoissonRandom", "QuasiMonteCarlo", "DataInterpolations",
         "FFTW", "RuntimeGeneratedFunctions", "MuladdMacro",],
     "Machine Learning" => ["DiffEqFlux","DeepEquilibriumNetworks"],
-    "Learning Resources" => [],
+    "Extra Resources" => ["SciMLBenchmarksOutput"],
     "Developer Documentation" => ["SciMLStyle", "COLPRAC", "DiffEqDevDocs"],
 ]
 
-docspackage = ["DiffEqDocs", "DiffEqDevDocs"]
+docspackage = ["DiffEqDocs", "DiffEqDevDocs", "SciMLBenchmarksOutput"]
 docspackagenames = Dict("DiffEqDocs" => "DifferentialEquations",
-                        "DiffEqDevDocs" => "DiffEq Developer Documentation")
+                        "DiffEqDevDocs" => "DiffEq Developer Documentation",
+                        "SciMLBenchmarksOutput" => "The SciML Benchmarks")
+docspackage_hasjl = Dict("DiffEqDocs" => true,
+                         "DiffEqDevDocs" => true,
+                         "SciMLBenchmarksOutput" => false)
 
 usereadme = ["FEniCS", "SciMLStyle", "COLPRAC",
     "DataInterpolations", "FFTW", "RuntimeGeneratedFunctions", "MuladdMacro",
@@ -144,7 +148,12 @@ for (i, cat) in enumerate(docsmodules)
             dir = joinpath(pkgdir(SciMLDocs), "docs", "src", "modules", mod)
             mkdir(dir)
             mkdir(mod)
-            LibGit2.clone("https://github.com/SciML/$mod.jl", mod)
+
+            if docspackage_hasjl[mod]
+                LibGit2.clone("https://github.com/SciML/$mod.jl", mod)
+            else
+                LibGit2.clone("https://github.com/SciML/$mod", mod)
+            end
 
             cp(joinpath(mod, "docs", "pages.jl"), dir, force=true)
             include(joinpath(pwd(), mod, "docs", "pages.jl"))
