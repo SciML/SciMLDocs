@@ -85,14 +85,6 @@ catpagestarts = [
     Any["highlevels/developer_documentation.md"],
 ]
 
-# Omitted for now:
-
-# Interfaces => SciMLParameters
-# Partial Differential Equation Solvers =>  HighDimPDE
-# Simulation Analysis => MinimallyDisruptiveCurves
-# Uncertainty Quantification => DiffEqUncertainty
-# Machine Learning => ReservoirComputing
-
 fullpages = Any["The SciML Open Souce Software Ecosystem"=>"index.md"]
 allmods = Vector{Any}()
 
