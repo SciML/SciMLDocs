@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Bidkhori2012 Work-Precision Diagrams · SciML</title><script async src="https://www.googletagmanager.com/gtag/js?id=UA-90474609-3"></script><script>  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-90474609-3', {'page_path': location.pathname + location.search + location.hash});
+</script><script data-outdated-warner src="../../../../assets/warner.js"></script><link rel="canonical" href="https://docs.sciml.ai/stable/modules/SciMLBenchmarksOutput/Bio/Bidkhori2012/"/><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.045/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.24/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../../assets/documenter.js"></script><script src="../../../../siteinfo.js"></script><script src="../../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../../assets/themeswap.js"></script><link href="../../../../assets/favicon.ico" rel="icon" type="image/x-icon"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../../../"><img src="../../../../assets/logo.png" alt="SciML logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../../../../">SciML</a></span></div><form class="docs-search" action="../../../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../../../">The SciML Open Souce Software Ecosystem</a></li><li><span class="tocitem">Equation Solvers</span><ul><li><a class="tocitem" href="../../../../highlevels/equation_solvers/">Equation Solvers Overview</a></li><li><input class="collapse-toggle" id="menuitem-2-2" type="checkbox"/><label class="tocitem" for="menuitem-2-2"><span class="docs-label">LinearSolve</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../LinearSolve/">Home</a></li><li><input class="collapse-toggle" id="menuitem-2-2-2" type="checkbox"/><label class="tocitem" for="menuitem-2-2-2"><span class="docs-label">Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../LinearSolve/tutorials/linear/">Solving Linear Systems in Julia</a></li><li><a class="tocitem" href="../../../LinearSolve/tutorials/caching_interface/">Linear Solve with Caching Interface</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-2-3" type="checkbox"/><label class="tocitem" for="menuitem-2-2-3"><span class="docs-label">Basics</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../LinearSolve/basics/LinearProblem/">Linear Problems</a></li><li><a class="tocitem" href="../../../LinearSolve/basics/common_solver_opts/">Common Solver Options (Keyword Arguments for Solve)</a></li><li><a class="tocitem" href="../../../LinearSolve/basics/CachingAPI/">Caching Interface API Functions</a></li><li><a class="tocitem" href="../../../LinearSolve/basics/Preconditioners/">Preconditioners</a></li><li><a class="tocitem" href="../../../LinearSolve/basics/FAQ/">Frequently Asked Questions</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-2-4" type="checkbox"/><label class="tocitem" for="menuitem-2-2-4"><span class="docs-label">Solvers</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../LinearSolve/solvers/solvers/">Linear System Solvers</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-2-5" type="checkbox"/><label class="tocitem" for="menuitem-2-2-5"><span class="docs-label">Advanced</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../LinearSolve/advanced/developing/">Developing New Linear Solvers</a></li><li><a class="tocitem" href="../../../LinearSolve/advanced/custom/">Passing in a Custom Linear Solver</a></li></ul></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-3" type="checkbox"/><label class="tocitem" for="menuitem-2-3"><span class="docs-label">NonlinearSolve</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../NonlinearSolve/">Home</a></li><li><input class="collapse-toggle" id="menuitem-2-3-2" type="checkbox"/><label class="tocitem" for="menuitem-2-3-2"><span class="docs-label">Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../NonlinearSolve/tutorials/nonlinear/">Solving Nonlinear Systems</a></li><li><a class="tocitem" href="../../../NonlinearSolve/tutorials/iterator_interface/">Nonlinear Solver Iterator Interface</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-3-3" type="checkbox"/><label class="tocitem" for="menuitem-2-3-3"><span class="docs-label">Basics</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../NonlinearSolve/basics/NonlinearProblem/">Nonlinear Problems</a></li><li><a class="tocitem" href="../../../NonlinearSolve/basics/NonlinearFunctions/">NonlinearFunctions and Jacobian Types</a></li><li><a class="tocitem" href="../../../NonlinearSolve/basics/FAQ/">Frequently Asked Questions</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-3-4" type="checkbox"/><label class="tocitem" for="menuitem-2-3-4"><span class="docs-label">Solvers</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../NonlinearSolve/solvers/NonlinearSystemSolvers/">Nonlinear System Solvers</a></li><li><a class="tocitem" href="../../../NonlinearSolve/solvers/BracketingSolvers/">Bracketing Solvers</a></li></ul></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-4" type="checkbox"/><label class="tocitem" for="menuitem-2-4"><span class="docs-label">DifferentialEquations</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DiffEqDocs/">DifferentialEquations.jl: Scientific Machine Learning (SciML) Enabled Simulation and Estimation</a></li><li><input class="collapse-toggle" id="menuitem-2-4-2" type="checkbox"/><label class="tocitem" for="menuitem-2-4-2"><span class="docs-label">Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DiffEqDocs/tutorials/ode_example/">Ordinary Differential Equations</a></li><li><a class="tocitem" href="../../../DiffEqDocs/tutorials/faster_ode_example/">Code Optimization for Differential Equations</a></li><li><a class="tocitem" href="../../../DiffEqDocs/tutorials/advanced_ode_example/">Solving Large Stiff Equations</a></li><li><a class="tocitem" href="../../../DiffEqDocs/tutorials/sde_example/">Stochastic Differential Equations</a></li><li><a class="tocitem" href="../../../DiffEqDocs/tutorials/rode_example/">Random Ordinary Differential Equations</a></li><li><a class="tocitem" href="../../../DiffEqDocs/tutorials/dde_example/">Delay Differential Equations</a></li><li><a class="tocitem" href="../../../DiffEqDocs/tutorials/dae_example/">Differential Algebraic Equations</a></li><li><a class="tocitem" href="../../../DiffEqDocs/tutorials/discrete_stochastic_example/">Continuous-Time Jump Processes and Gillespie Methods</a></li><li><a class="tocitem" href="../../../DiffEqDocs/tutorials/jump_diffusion/">Jump Diffusion Equations</a></li><li><a class="tocitem" href="../../../DiffEqDocs/tutorials/bvp_example/">Boundary Value Problems</a></li><li><a class="tocitem" href="../../../DiffEqDocs/tutorials/additional/">Additional Tutorials</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-4-3" type="checkbox"/><label class="tocitem" for="menuitem-2-4-3"><span class="docs-label">Basics</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DiffEqDocs/basics/overview/">Overview of DifferentialEquations.jl</a></li><li><a class="tocitem" href="../../../DiffEqDocs/basics/common_solver_opts/">Common Solver Options (Solve Keyword Arguments)</a></li><li><a class="tocitem" href="../../../DiffEqDocs/basics/solution/">Solution Handling</a></li><li><a class="tocitem" href="../../../DiffEqDocs/basics/plot/">Plot Functions</a></li><li><a class="tocitem" href="../../../DiffEqDocs/basics/integrator/">Integrator Interface</a></li><li><a class="tocitem" href="../../../DiffEqDocs/basics/problem/">Problem Interface</a></li><li><a class="tocitem" href="../../../DiffEqDocs/basics/faq/">Frequently Asked Questions</a></li><li><a class="tocitem" href="../../../DiffEqDocs/basics/compatibility_chart/">Solver Compatibility Chart</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-4-4" type="checkbox"/><label class="tocitem" for="menuitem-2-4-4"><span class="docs-label">Problem Types</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DiffEqDocs/types/discrete_types/">Discrete Problems</a></li><li><a class="tocitem" href="../../../DiffEqDocs/types/ode_types/">ODE Problems</a></li><li><a class="tocitem" href="../../../DiffEqDocs/types/nonautonomous_linear_ode/">Non-autonomous Linear ODE / Lie Group Problems</a></li><li><a class="tocitem" href="../../../DiffEqDocs/types/dynamical_types/">Dynamical, Hamiltonian and 2nd Order ODE Problems</a></li><li><a class="tocitem" href="../../../DiffEqDocs/types/split_ode_types/">Split ODE Problems</a></li><li><a class="tocitem" href="../../../DiffEqDocs/types/steady_state_types/">Steady State Problems</a></li><li><a class="tocitem" href="../../../DiffEqDocs/types/bvp_types/">BVP Problems</a></li><li><a class="tocitem" href="../../../DiffEqDocs/types/sde_types/">SDE Problems</a></li><li><a class="tocitem" href="../../../DiffEqDocs/types/sdae_types/">SDAE Problems</a></li><li><a class="tocitem" href="../../../DiffEqDocs/types/rode_types/">RODE Problems</a></li><li><a class="tocitem" href="../../../DiffEqDocs/types/dde_types/">DDE Problems</a></li><li><a class="tocitem" href="../../../DiffEqDocs/types/sdde_types/">SDDE Problems</a></li><li><a class="tocitem" href="../../../DiffEqDocs/types/dae_types/">DAE Problems</a></li><li><a class="tocitem" href="../../../DiffEqDocs/types/jump_types/">Jump Problems</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-4-5" type="checkbox"/><label class="tocitem" for="menuitem-2-4-5"><span class="docs-label">Solver Algorithms</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DiffEqDocs/solvers/discrete_solve/">Discrete Solvers</a></li><li><a class="tocitem" href="../../../DiffEqDocs/solvers/ode_solve/">ODE Solvers</a></li><li><a class="tocitem" href="../../../DiffEqDocs/solvers/nonautonomous_linear_ode/">Non-autonomous Linear ODE / Lie Group ODE Solvers</a></li><li><a class="tocitem" href="../../../DiffEqDocs/solvers/dynamical_solve/">Dynamical, Hamiltonian, and 2nd Order ODE Solvers</a></li><li><a class="tocitem" href="../../../DiffEqDocs/solvers/split_ode_solve/">Split ODE Solvers</a></li><li><a class="tocitem" href="../../../DiffEqDocs/solvers/steady_state_solve/">Steady State Solvers</a></li><li><a class="tocitem" href="../../../DiffEqDocs/solvers/bvp_solve/">BVP Solvers</a></li><li><a class="tocitem" href="../../../DiffEqDocs/solvers/jump_solve/">Jump Problem and Jump Diffusion Solvers</a></li><li><a class="tocitem" href="../../../DiffEqDocs/solvers/sde_solve/">SDE Solvers</a></li><li><a class="tocitem" href="../../../DiffEqDocs/solvers/sdae_solve/">SDAE Solvers</a></li><li><a class="tocitem" href="../../../DiffEqDocs/solvers/rode_solve/">RODE Solvers</a></li><li><a class="tocitem" href="../../../DiffEqDocs/solvers/dde_solve/">DDE Solvers</a></li><li><a class="tocitem" href="../../../DiffEqDocs/solvers/sdde_solve/">SDDE Solvers</a></li><li><a class="tocitem" href="../../../DiffEqDocs/solvers/dae_solve/">DAE Solvers</a></li><li><a class="tocitem" href="../../../DiffEqDocs/solvers/benchmarks/">Solver Benchmarks</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-4-6" type="checkbox"/><label class="tocitem" for="menuitem-2-4-6"><span class="docs-label">Additional Features</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DiffEqDocs/features/performance_overloads/">Jacobians, Gradients, etc.</a></li><li><a class="tocitem" href="../../../DiffEqDocs/features/diffeq_arrays/">DiffEq-Specific Array Types</a></li><li><a class="tocitem" href="../../../DiffEqDocs/features/diffeq_operator/">DiffEqOperators</a></li><li><a class="tocitem" href="../../../DiffEqDocs/features/noise_process/">Noise Processes</a></li><li><a class="tocitem" href="../../../DiffEqDocs/features/linear_nonlinear/">Specifying (Non)Linear Solvers and Preconditioners</a></li><li><a class="tocitem" href="../../../DiffEqDocs/features/callback_functions/">Event Handling and Callback Functions</a></li><li><a class="tocitem" href="../../../DiffEqDocs/features/callback_library/">Callback Library</a></li><li><a class="tocitem" href="../../../DiffEqDocs/features/ensemble/">Parallel Ensemble Simulations</a></li><li><a class="tocitem" href="../../../DiffEqDocs/features/io/">I/O: Saving and Loading Solution Data</a></li><li><a class="tocitem" href="../../../DiffEqDocs/features/low_dep/">Low Dependency Usage</a></li><li><a class="tocitem" href="../../../DiffEqDocs/features/progress_bar/">Progress Bar Integration</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-4-7" type="checkbox"/><label class="tocitem" for="menuitem-2-4-7"><span class="docs-label">Analysis Tools</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DiffEqDocs/analysis/parameterized_functions/">ParameterizedFunctions</a></li><li><a class="tocitem" href="../../../DiffEqDocs/analysis/parameter_estimation/">Parameter Estimation and Bayesian Analysis</a></li><li><a class="tocitem" href="../../../DiffEqDocs/analysis/bifurcation/">Bifurcation Analysis</a></li><li><a class="tocitem" href="../../../DiffEqDocs/analysis/sensitivity/">Local Sensitivity Analysis (Automatic Differentiation)</a></li><li><a class="tocitem" href="../../../DiffEqDocs/analysis/global_sensitivity/">Global Sensitivity Analysis</a></li><li><a class="tocitem" href="../../../DiffEqDocs/analysis/uncertainty_quantification/">Uncertainty Quantification</a></li><li><a class="tocitem" href="../../../DiffEqDocs/analysis/neural_networks/">Neural Networks</a></li><li><a class="tocitem" href="../../../DiffEqDocs/analysis/dev_and_test/">Algorithm Development and Testing</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-4-8" type="checkbox"/><label class="tocitem" for="menuitem-2-4-8"><span class="docs-label">Domain Modeling Tools</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DiffEqDocs/models/multiscale/">Multi-Scale Models</a></li><li><a class="tocitem" href="../../../DiffEqDocs/models/physical/">Physical Models</a></li><li><a class="tocitem" href="../../../DiffEqDocs/models/financial/">Financial Models</a></li><li><a class="tocitem" href="../../../DiffEqDocs/models/chemical_reactions/">Chemical Reactions</a></li><li><a class="tocitem" href="../../../DiffEqDocs/models/external_modeling/">External Modeling Packages</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-4-9" type="checkbox"/><label class="tocitem" for="menuitem-2-4-9"><span class="docs-label">Extra Details</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DiffEqDocs/extras/timestepping/">Timestepping Method Descriptions</a></li></ul></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-5" type="checkbox"/><label class="tocitem" for="menuitem-2-5"><span class="docs-label">Integrals</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../Integrals/">Home</a></li><li><input class="collapse-toggle" id="menuitem-2-5-2" type="checkbox"/><label class="tocitem" for="menuitem-2-5-2"><span class="docs-label">Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../Integrals/tutorials/numerical_integrals/">Numerically Solving Integrals</a></li><li><a class="tocitem" href="../../../Integrals/tutorials/differentiating_integrals/">Differentiating Integrals</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-5-3" type="checkbox"/><label class="tocitem" for="menuitem-2-5-3"><span class="docs-label">Basics</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../Integrals/basics/IntegralProblem/">Integral Problems</a></li><li><a class="tocitem" href="../../../Integrals/basics/solve/">Common Solver Options (Solve Keyword Arguments)</a></li><li><a class="tocitem" href="../../../Integrals/basics/FAQ/">Frequently Asked Questions</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-5-4" type="checkbox"/><label class="tocitem" for="menuitem-2-5-4"><span class="docs-label">Solvers</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../Integrals/solvers/IntegralSolvers/">Integral Solver Algorithms</a></li></ul></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-6" type="checkbox"/><label class="tocitem" for="menuitem-2-6"><span class="docs-label">Optimization</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../Optimization/">Optimization.jl: A Unified Optimization Package</a></li><li><input class="collapse-toggle" id="menuitem-2-6-2" type="checkbox"/><label class="tocitem" for="menuitem-2-6-2"><span class="docs-label">Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../Optimization/tutorials/intro/">Basic usage</a></li><li><a class="tocitem" href="../../../Optimization/tutorials/rosenbrock/">Solving the Rosenbrock Problem in &gt;10 Ways</a></li><li><a class="tocitem" href="../../../Optimization/tutorials/minibatch/">Data Iterators and Minibatching</a></li><li><a class="tocitem" href="../../../Optimization/tutorials/symbolic/">Symbolic Problem Building with ModelingToolkit</a></li><li><a class="tocitem" href="../../../Optimization/tutorials/constraints/">Using Equality and Inequality Constraints</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-6-3" type="checkbox"/><label class="tocitem" for="menuitem-2-6-3"><span class="docs-label">API</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../Optimization/API/optimization_problem/">Defining OptimizationProblems</a></li><li><a class="tocitem" href="../../../Optimization/API/optimization_function/">OptimizationFunction</a></li><li><a class="tocitem" href="../../../Optimization/API/solve/">Common Solver Options (Solve Keyword Arguments)</a></li><li><a class="tocitem" href="../../../Optimization/API/modelingtoolkit/">ModelingToolkit Integration</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-6-4" type="checkbox"/><label class="tocitem" for="menuitem-2-6-4"><span class="docs-label">Optimizer Packages</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../Optimization/optimization_packages/blackboxoptim/">BlackBoxOptim.jl</a></li><li><a class="tocitem" href="../../../Optimization/optimization_packages/cmaevolutionstrategy/">CMAEvolutionStrategy.jl</a></li><li><a class="tocitem" href="../../../Optimization/optimization_packages/evolutionary/">Evolutionary.jl</a></li><li><a class="tocitem" href="../../../Optimization/optimization_packages/flux/">Flux.jl</a></li><li><a class="tocitem" href="../../../Optimization/optimization_packages/gcmaes/">GCMAES.jl</a></li><li><a class="tocitem" href="../../../Optimization/optimization_packages/mathoptinterface/">MathOptInterface.jl</a></li><li><a class="tocitem" href="../../../Optimization/optimization_packages/multistartoptimization/">MultistartOptimization.jl</a></li><li><a class="tocitem" href="../../../Optimization/optimization_packages/metaheuristics/">Metaheuristics.jl</a></li><li><a class="tocitem" href="../../../Optimization/optimization_packages/nomad/">NOMAD.jl</a></li><li><a class="tocitem" href="../../../Optimization/optimization_packages/nlopt/">NLopt.jl</a></li><li><a class="tocitem" href="../../../Optimization/optimization_packages/nonconvex/">Nonconvex.jl</a></li><li><a class="tocitem" href="../../../Optimization/optimization_packages/optim/">Optim.jl</a></li><li><a class="tocitem" href="../../../Optimization/optimization_packages/optimisers/">Optimisers.jl</a></li><li><a class="tocitem" href="../../../Optimization/optimization_packages/quaddirect/">QuadDIRECT.jl</a></li></ul></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-7" type="checkbox"/><label class="tocitem" for="menuitem-2-7"><span class="docs-label">JumpProcesses</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../JumpProcesses/">Home</a></li><li><input class="collapse-toggle" id="menuitem-2-7-2" type="checkbox"/><label class="tocitem" for="menuitem-2-7-2"><span class="docs-label">Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../JumpProcesses/tutorials/simple_poisson_process/">Simple Poisson Processes in JumpProcesses</a></li><li><a class="tocitem" href="../../../JumpProcesses/tutorials/discrete_stochastic_example/">Continuous-Time Jump Processes and Gillespie Methods</a></li><li><a class="tocitem" href="../../../JumpProcesses/tutorials/jump_diffusion/">Piecewise Deterministic Markov Processes and Jump Diffusion Equations</a></li></ul></li><li><a class="tocitem" href="../../../JumpProcesses/faq/">FAQ</a></li><li><input class="collapse-toggle" id="menuitem-2-7-4" type="checkbox"/><label class="tocitem" for="menuitem-2-7-4"><span class="docs-label">Type Documentation</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../JumpProcesses/jump_types/">Jump types and JumpProblem</a></li><li><a class="tocitem" href="../../../JumpProcesses/jump_solve/">Jump solvers</a></li></ul></li><li><a class="tocitem" href="../../../JumpProcesses/api/">API</a></li></ul></li></ul></li><li><span class="tocitem">Partial Differential Equation Solvers</span><ul><li><a class="tocitem" href="../../../../highlevels/partial_differential_equation_solvers/">Partial Differential Equation (PDE) Solvers Overview</a></li><li><input class="collapse-toggle" id="menuitem-3-2" type="checkbox"/><label class="tocitem" for="menuitem-3-2"><span class="docs-label">MethodOfLines</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../MethodOfLines/">MethodOfLines.jl: Automated Finite Difference for Physics-Informed Learning</a></li><li><input class="collapse-toggle" id="menuitem-3-2-2" type="checkbox"/><label class="tocitem" for="menuitem-3-2-2"><span class="docs-label">Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../MethodOfLines/tutorials/brusselator/">Tutorial</a></li><li><a class="tocitem" href="../../../MethodOfLines/tutorials/heat/">Solving the Heat Equation</a></li><li><a class="tocitem" href="../../../MethodOfLines/tutorials/params/">Adding parameters</a></li><li><a class="tocitem" href="../../../MethodOfLines/tutorials/heatss/">Steady State Heat Equation - No Time Dependance - NonlinearProblem</a></li><li><a class="tocitem" href="../../../MethodOfLines/tutorials/sispde/">Steady state of SIS (suspected-infected-suspected) reaction-diffusion  model</a></li><li><a class="tocitem" href="../../../MethodOfLines/tutorials/icbc_sampled/">Initial and Boundary Conditions with sampled/measured Data</a></li></ul></li><li><a class="tocitem" href="../../../MethodOfLines/MOLFiniteDifference/">MOLFiniteDifference</a></li><li><a class="tocitem" href="../../../MethodOfLines/get_grid/">Grid and Solution Retrieval</a></li><li><a class="tocitem" href="../../../MethodOfLines/boundary_conditions/">Boundary Conditions</a></li><li><a class="tocitem" href="../../../MethodOfLines/nonuniform/">Non-Uniform Rectilinear Grids</a></li><li><a class="tocitem" href="../../../MethodOfLines/curvilinear_grids/">Curvilinear Grids</a></li><li><a class="tocitem" href="../../../MethodOfLines/howitworks/">How it Works</a></li><li><a class="tocitem" href="../../../MethodOfLines/devnotes/">Notes for Developers: Implement a Scheme</a></li><li><input class="collapse-toggle" id="menuitem-3-2-10" type="checkbox"/><label class="tocitem" for="menuitem-3-2-10"><span class="docs-label">Generated Examples</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../MethodOfLines/generated/bruss_code/">Generated Code for the Brusselator Equation</a></li><li><a class="tocitem" href="../../../MethodOfLines/generated/bruss_ode_eqs/">Generated ODE system for the Brusselator Equation</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-2-11" type="checkbox"/><label class="tocitem" for="menuitem-3-2-11"><span class="docs-label">API Reference</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../MethodOfLines/api/discretization/">Discretization</a></li><li><a class="tocitem" href="../../../MethodOfLines/api/utils/">Utilities</a></li></ul></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-3" type="checkbox"/><label class="tocitem" for="menuitem-3-3"><span class="docs-label">NeuralPDE</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../NeuralPDE/">NeuralPDE.jl: Automatic Physics-Informed Neural Networks (PINNs)</a></li><li><input class="collapse-toggle" id="menuitem-3-3-2" type="checkbox"/><label class="tocitem" for="menuitem-3-3-2"><span class="docs-label">ODE PINN Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../NeuralPDE/tutorials/ode/">Introduction to NeuralPDE for ODEs</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-3-3" type="checkbox"/><label class="tocitem" for="menuitem-3-3-3"><span class="docs-label">PDE PINN Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../NeuralPDE/tutorials/pdesystem/">Introduction to NeuralPDE for PDEs</a></li><li><a class="tocitem" href="../../../NeuralPDE/tutorials/gpu/">Using GPUs</a></li><li><a class="tocitem" href="../../../NeuralPDE/tutorials/systems/">Defining Systems of PDEs</a></li><li><a class="tocitem" href="../../../NeuralPDE/tutorials/constraints/">Imposing Constraints</a></li><li><a class="tocitem" href="../../../NeuralPDE/tutorials/low_level/">The symbolic_discretize Interface</a></li><li><a class="tocitem" href="../../../NeuralPDE/tutorials/param_estim/">Optimising Parameters (Solving Inverse Problems)</a></li><li><a class="tocitem" href="../../../NeuralPDE/tutorials/integro_diff/">Solving Integro Differential Equations</a></li><li><a class="tocitem" href="../../../NeuralPDE/tutorials/neural_adapter/">Transfer Learning with Neural Adapter</a></li><li><a class="tocitem" href="../../../NeuralPDE/tutorials/derivative_neural_network/">The Derivative Neural Network Approximation</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-3-4" type="checkbox"/><label class="tocitem" for="menuitem-3-3-4"><span class="docs-label">Extended Examples</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../NeuralPDE/examples/wave/">1D Wave Equation with Dirichlet boundary conditions</a></li><li><a class="tocitem" href="../../../NeuralPDE/examples/3rd/">ODE with a 3rd-Order Derivative</a></li><li><a class="tocitem" href="../../../NeuralPDE/examples/ks/">Kuramoto–Sivashinsky equation</a></li><li><a class="tocitem" href="../../../NeuralPDE/examples/heterogeneous/">PDEs with Dependent Variables on Heterogeneous Domains</a></li><li><a class="tocitem" href="../../../NeuralPDE/examples/linear_parabolic/">Linear parabolic system of PDEs</a></li><li><a class="tocitem" href="../../../NeuralPDE/examples/nonlinear_elliptic/">Nonlinear elliptic system of PDEs</a></li><li><a class="tocitem" href="../../../NeuralPDE/examples/nonlinear_hyperbolic/">Nonlinear hyperbolic system of PDEs</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-3-5" type="checkbox"/><label class="tocitem" for="menuitem-3-3-5"><span class="docs-label">Manual</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../NeuralPDE/manual/ode/">ODE-Specialized Physics-Informed Neural Network (PINN) Solver</a></li><li><a class="tocitem" href="../../../NeuralPDE/manual/pinns/"><code>PhysicsInformedNN</code> Discretizer for PDESystems</a></li><li><a class="tocitem" href="../../../NeuralPDE/manual/training_strategies/">Training Strategies</a></li><li><a class="tocitem" href="../../../NeuralPDE/manual/adaptive_losses/">Adaptive Loss Functions</a></li><li><a class="tocitem" href="../../../NeuralPDE/manual/logging/">Logging Utilities</a></li><li><a class="tocitem" href="../../../NeuralPDE/manual/neural_adapters/">Transfer Learning with neural_adapter</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-3-6" type="checkbox"/><label class="tocitem" for="menuitem-3-3-6"><span class="docs-label">Developer Documentation</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../NeuralPDE/developer/debugging/">Debugging PINN Solutions</a></li></ul></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-4" type="checkbox"/><label class="tocitem" for="menuitem-3-4"><span class="docs-label">NeuralOperators</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../NeuralOperators/">Home</a></li><li><a class="tocitem" href="../../../NeuralOperators/introduction/">Introduction</a></li><li><a class="tocitem" href="../../../NeuralOperators/apis/">APIs</a></li><li><a class="tocitem" href="../../../NeuralOperators/references/">References</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-5" type="checkbox"/><label class="tocitem" for="menuitem-3-5"><span class="docs-label">FEniCS</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../FEniCS/">FEniCS.jl</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-6" type="checkbox"/><label class="tocitem" for="menuitem-3-6"><span class="docs-label">HighDimPDE</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../HighDimPDE/">Home</a></li><li><a class="tocitem" href="../../../HighDimPDE/getting_started/">Getting started</a></li><li><input class="collapse-toggle" id="menuitem-3-6-3" type="checkbox"/><label class="tocitem" for="menuitem-3-6-3"><span class="docs-label">Solver Algorithms</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../HighDimPDE/MLP/">The <code>MLP</code> algorithm</a></li><li><a class="tocitem" href="../../../HighDimPDE/DeepSplitting/">The <code>DeepSplitting</code> algorithm</a></li></ul></li><li><a class="tocitem" href="../../../HighDimPDE/Feynman_Kac/">Feynman Kac formula</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-7" type="checkbox"/><label class="tocitem" for="menuitem-3-7"><span class="docs-label">DiffEqOperators</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DiffEqOperators/">DiffEqOperators.jl: Linear operators for Scientific Machine Learning</a></li><li><input class="collapse-toggle" id="menuitem-3-7-2" type="checkbox"/><label class="tocitem" for="menuitem-3-7-2"><span class="docs-label">Operator Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DiffEqOperators/operator_tutorials/kdv/">Solving KdV Solitons with Upwinding Operators</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-7-3" type="checkbox"/><label class="tocitem" for="menuitem-3-7-3"><span class="docs-label">Operators</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DiffEqOperators/operators/operator_overview/">Operator Overview</a></li><li><a class="tocitem" href="../../../DiffEqOperators/operators/derivative_operators/">Derivative Operators</a></li><li><a class="tocitem" href="../../../DiffEqOperators/operators/vector_calculus_operators/">Vector Calculus Operators</a></li><li><a class="tocitem" href="../../../DiffEqOperators/operators/vector_jacobian_product/">Vector-Jacobian Product Operators</a></li><li><a class="tocitem" href="../../../DiffEqOperators/operators/jacobian_vector_product/">Jacobian-Vector Product Operators</a></li><li><a class="tocitem" href="../../../DiffEqOperators/operators/matrix_free_operators/">Matrix-Free Operators</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-7-4" type="checkbox"/><label class="tocitem" for="menuitem-3-7-4"><span class="docs-label">Nonlinear Derivatives</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DiffEqOperators/nonlinear_derivatives/nonlinear_diffusion/">Nonlinear Diffusion</a></li></ul></li></ul></li></ul></li><li><span class="tocitem">Modeling Tools</span><ul><li><a class="tocitem" href="../../../../highlevels/modeling_tools/">SciML Modeling Libraries</a></li><li><input class="collapse-toggle" id="menuitem-4-2" type="checkbox"/><label class="tocitem" for="menuitem-4-2"><span class="docs-label">ModelingToolkit</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../ModelingToolkit/">Home</a></li><li><input class="collapse-toggle" id="menuitem-4-2-2" type="checkbox"/><label class="tocitem" for="menuitem-4-2-2"><span class="docs-label">Symbolic Modeling Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../ModelingToolkit/tutorials/ode_modeling/">Composing Ordinary Differential Equations</a></li><li><a class="tocitem" href="../../../ModelingToolkit/tutorials/spring_mass/">Component-Based Modeling a Spring-Mass System</a></li><li><a class="tocitem" href="../../../ModelingToolkit/tutorials/acausal_components/">Acausal Component-Based Modeling the RC Circuit</a></li><li><a class="tocitem" href="../../../ModelingToolkit/tutorials/higher_order/">Automatic Transformation of Nth Order ODEs to 1st Order ODEs</a></li><li><a class="tocitem" href="../../../ModelingToolkit/tutorials/tearing_parallelism/">Exposing More Parallelism By Tearing Algebraic Equations in ODESystems</a></li><li><a class="tocitem" href="../../../ModelingToolkit/tutorials/nonlinear/">Modeling Nonlinear Systems</a></li><li><a class="tocitem" href="../../../ModelingToolkit/tutorials/optimization/">Modeling Optimization Problems</a></li><li><a class="tocitem" href="../../../ModelingToolkit/tutorials/stochastic_diffeq/">Modeling with Stochasticity</a></li><li><a class="tocitem" href="../../../ModelingToolkit/tutorials/parameter_identifiability/">Parameter Identifiability in ODE Models</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-2-3" type="checkbox"/><label class="tocitem" for="menuitem-4-2-3"><span class="docs-label">ModelingToolkitize Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../ModelingToolkit/mtkitize_tutorials/modelingtoolkitize/">Automatically Accelerating ODEProblem Code</a></li><li><a class="tocitem" href="../../../ModelingToolkit/mtkitize_tutorials/modelingtoolkitize_index_reduction/">Automated Index Reduction of DAEs</a></li><li><a class="tocitem" href="../../../ModelingToolkit/mtkitize_tutorials/sparse_jacobians/">Automated Sparse Analytical Jacobians</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-2-4" type="checkbox"/><label class="tocitem" for="menuitem-4-2-4"><span class="docs-label">Basics</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../ModelingToolkit/basics/AbstractSystem/">The AbstractSystem Interface</a></li><li><a class="tocitem" href="../../../ModelingToolkit/basics/ContextualVariables/">Contextual Variable Types</a></li><li><a class="tocitem" href="../../../ModelingToolkit/basics/Variable_metadata/">Symbolic metadata</a></li><li><a class="tocitem" href="../../../ModelingToolkit/basics/Composition/">Composing Models and Building Reusable Components</a></li><li><a class="tocitem" href="../../../ModelingToolkit/basics/Validation/">Model Validation and Units</a></li><li><a class="tocitem" href="../../../ModelingToolkit/basics/DependencyGraphs/">Dependency Graphs</a></li><li><a class="tocitem" href="../../../ModelingToolkit/basics/FAQ/">Frequently Asked Questions</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-2-5" type="checkbox"/><label class="tocitem" for="menuitem-4-2-5"><span class="docs-label">System Types</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../ModelingToolkit/systems/ODESystem/">ODESystem</a></li><li><a class="tocitem" href="../../../ModelingToolkit/systems/SDESystem/">SDESystem</a></li><li><a class="tocitem" href="../../../ModelingToolkit/systems/JumpSystem/">JumpSystem</a></li><li><a class="tocitem" href="../../../ModelingToolkit/systems/NonlinearSystem/">NonlinearSystem</a></li><li><a class="tocitem" href="../../../ModelingToolkit/systems/OptimizationSystem/">OptimizationSystem</a></li><li><a class="tocitem" href="../../../ModelingToolkit/systems/PDESystem/">PDESystem</a></li></ul></li><li><a class="tocitem" href="../../../ModelingToolkit/comparison/">Comparison of ModelingToolkit vs Equation-Based and Block Modeling Languages</a></li><li><a class="tocitem" href="../../../ModelingToolkit/internals/">Internal Details</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-3" type="checkbox"/><label class="tocitem" for="menuitem-4-3"><span class="docs-label">ModelingToolkitStandardLibrary</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../ModelingToolkitStandardLibrary/">ModelingToolkitStandardLibrary.jl: A Standard Library for ModelingToolkit</a></li><li><input class="collapse-toggle" id="menuitem-4-3-2" type="checkbox"/><label class="tocitem" for="menuitem-4-3-2"><span class="docs-label">Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../ModelingToolkitStandardLibrary/tutorials/rc_circuit/">RC Circuit</a></li><li><a class="tocitem" href="../../../ModelingToolkitStandardLibrary/tutorials/custom_component/">Custom Components</a></li><li><a class="tocitem" href="../../../ModelingToolkitStandardLibrary/tutorials/thermal_model/">Thermal Conduction Model</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-3-3" type="checkbox"/><label class="tocitem" for="menuitem-4-3-3"><span class="docs-label">API</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../ModelingToolkitStandardLibrary/API/blocks/">Basic Blocks</a></li><li><a class="tocitem" href="../../../ModelingToolkitStandardLibrary/API/electrical/">Electrical Components</a></li><li><a class="tocitem" href="../../../ModelingToolkitStandardLibrary/API/magnetic/">Magnetic Components</a></li><li><a class="tocitem" href="../../../ModelingToolkitStandardLibrary/API/mechanical/">Mechanical Components</a></li><li><a class="tocitem" href="../../../ModelingToolkitStandardLibrary/API/thermal/">Thermal Components</a></li></ul></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-4" type="checkbox"/><label class="tocitem" for="menuitem-4-4"><span class="docs-label">Catalyst</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../Catalyst/">Home</a></li><li><input class="collapse-toggle" id="menuitem-4-4-2" type="checkbox"/><label class="tocitem" for="menuitem-4-4-2"><span class="docs-label">Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../Catalyst/tutorials/using_catalyst/">Using Catalyst</a></li><li><a class="tocitem" href="../../../Catalyst/tutorials/dsl/">The Reaction DSL</a></li><li><a class="tocitem" href="../../../Catalyst/tutorials/reaction_systems/">Programmatic Construction of Symbolic Reaction Systems</a></li><li><a class="tocitem" href="../../../Catalyst/tutorials/basic_examples/">Basic Chemical Reaction Network Examples</a></li><li><a class="tocitem" href="../../../Catalyst/tutorials/compositional_modeling/">Compositional Modeling of Reaction Systems</a></li><li><a class="tocitem" href="../../../Catalyst/tutorials/symbolic_stoich/">Parametric Stoichiometry</a></li><li><a class="tocitem" href="../../../Catalyst/tutorials/reaction_network_representation/">Network Analysis in Catalyst</a></li><li><a class="tocitem" href="../../../Catalyst/tutorials/bifurcation_diagram/">Bifurcation Diagrams</a></li><li><a class="tocitem" href="../../../Catalyst/tutorials/parameter_estimation/">Parameter Estimation</a></li><li><a class="tocitem" href="../../../Catalyst/tutorials/generating_reactions_programmatically/">Smoluchowski Coagulation Equation</a></li></ul></li><li><a class="tocitem" href="../../../Catalyst/faqs/">FAQs</a></li><li><input class="collapse-toggle" id="menuitem-4-4-4" type="checkbox"/><label class="tocitem" for="menuitem-4-4-4"><span class="docs-label">API</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../Catalyst/api/catalyst_api/">Catalyst.jl API</a></li></ul></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-5" type="checkbox"/><label class="tocitem" for="menuitem-4-5"><span class="docs-label">NBodySimulator</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../NBodySimulator/">Home</a></li><li><a class="tocitem" href="../../../NBodySimulator/examples/">Examples</a></li><li><a class="tocitem" href="../../../NBodySimulator/nbodysimulator/">API</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-6" type="checkbox"/><label class="tocitem" for="menuitem-4-6"><span class="docs-label">ParameterizedFunctions</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../ParameterizedFunctions/">Home</a></li><li><a class="tocitem" href="../../../ParameterizedFunctions/ode_def/">The ode_def macro</a></li></ul></li></ul></li><li><span class="tocitem">Inverse Problems</span><ul><li><a class="tocitem" href="../../../../highlevels/inverse_problems/">Parameter Estimation, Bayesian Analysis, and Inverse Problems Overview</a></li><li><input class="collapse-toggle" id="menuitem-5-2" type="checkbox"/><label class="tocitem" for="menuitem-5-2"><span class="docs-label">SciMLSensitivity</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../SciMLSensitivity/">SciMLSensitivity.jl: Automatic Differentiation and Adjoints for (Differential) Equation Solvers</a></li><li><input class="collapse-toggle" id="menuitem-5-2-2" type="checkbox"/><label class="tocitem" for="menuitem-5-2-2"><span class="docs-label">Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><input class="collapse-toggle" id="menuitem-5-2-2-1" type="checkbox"/><label class="tocitem" for="menuitem-5-2-2-1"><span class="docs-label">Differentiating Ordinary Differential Equations (ODE) Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../SciMLSensitivity/ad_examples/differentiating_ode/">Differentiating an ODE Solution with Automatic Differentiation</a></li><li><a class="tocitem" href="../../../SciMLSensitivity/ad_examples/direct_sensitivity/">Direct Sensitivity Analysis Functionality</a></li><li><a class="tocitem" href="../../../SciMLSensitivity/ad_examples/adjoint_continuous_functional/">Adjoint Sensitivity Analysis of Continuous Functionals</a></li><li><a class="tocitem" href="../../../SciMLSensitivity/ad_examples/chaotic_ode/">Sensitivity analysis for chaotic systems (shadowing methods)</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5-2-2-2" type="checkbox"/><label class="tocitem" for="menuitem-5-2-2-2"><span class="docs-label">Fitting Ordinary Differential Equation (ODE) Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../SciMLSensitivity/ode_fitting/optimization_ode/">Optimization of Ordinary Differential Equations</a></li><li><a class="tocitem" href="../../../SciMLSensitivity/ode_fitting/stiff_ode_fit/">Parameter Estimation on Highly Stiff Systems</a></li><li><a class="tocitem" href="../../../SciMLSensitivity/ode_fitting/exogenous_input/">Handling Exogenous Input Signals</a></li><li><a class="tocitem" href="../../../SciMLSensitivity/ode_fitting/data_parallel/">Data-Parallel Multithreaded, Distributed, and Multi-GPU Batching</a></li><li><a class="tocitem" href="../../../SciMLSensitivity/ode_fitting/prediction_error_method/">Prediction error method (PEM)</a></li><li><a class="tocitem" href="../../../SciMLSensitivity/ode_fitting/second_order_adjoints/">Newton and Hessian-Free Newton-Krylov with Second Order Adjoint Sensitivity Analysis</a></li><li><a class="tocitem" href="../../../SciMLSensitivity/ode_fitting/second_order_neural/">Neural Second Order Ordinary Differential Equation</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5-2-2-3" type="checkbox"/><label class="tocitem" for="menuitem-5-2-2-3"><span class="docs-label">Training Techniques and Tips</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../SciMLSensitivity/training_tips/local_minima/">Strategies to Avoid Local Minima</a></li><li><a class="tocitem" href="../../../SciMLSensitivity/training_tips/divergence/">Handling Divergent and Unstable Trajectories</a></li><li><a class="tocitem" href="../../../SciMLSensitivity/training_tips/multiple_nn/">Simultaneous Fitting of Multiple Neural Networks</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5-2-2-4" type="checkbox"/><label class="tocitem" for="menuitem-5-2-2-4"><span class="docs-label">Neural Ordinary Differential Equation (Neural ODE) Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../SciMLSensitivity/neural_ode/neural_ode_flux/">Neural Ordinary Differential Equations with Flux</a></li><li><a class="tocitem" href="../../../SciMLSensitivity/neural_ode/neural_gde/">Neural Graph Differential Equations</a></li><li><a class="tocitem" href="../../../SciMLSensitivity/neural_ode/minibatch/">Training a Neural Ordinary Differential Equation with Mini-Batching</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5-2-2-5" type="checkbox"/><label class="tocitem" for="menuitem-5-2-2-5"><span class="docs-label">Stochastic Differential Equation (SDE) Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../SciMLSensitivity/sde_fitting/optimization_sde/">Optimization of Stochastic Differential Equations</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5-2-2-6" type="checkbox"/><label class="tocitem" for="menuitem-5-2-2-6"><span class="docs-label">Delay Differential Equation (DDE) Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../SciMLSensitivity/dde_fitting/delay_diffeq/">Delay Differential Equations</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5-2-2-7" type="checkbox"/><label class="tocitem" for="menuitem-5-2-2-7"><span class="docs-label">Differential-Algebraic Equation (DAE) Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../SciMLSensitivity/dae_fitting/physical_constraints/">Enforcing Physical Constraints via Universal Differential-Algebraic Equations</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5-2-2-8" type="checkbox"/><label class="tocitem" for="menuitem-5-2-2-8"><span class="docs-label">Partial Differential Equation (PDE) Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../SciMLSensitivity/pde_fitting/pde_constrained/">Partial Differential Equation (PDE) Constrained Optimization</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5-2-2-9" type="checkbox"/><label class="tocitem" for="menuitem-5-2-2-9"><span class="docs-label">Hybrid and Jump Equation Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../SciMLSensitivity/hybrid_jump_fitting/hybrid_diffeq/">Training Neural Networks in Hybrid Differential Equations</a></li><li><a class="tocitem" href="../../../SciMLSensitivity/hybrid_jump_fitting/bouncing_ball/">Bouncing Ball Hybrid ODE Optimization</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5-2-2-10" type="checkbox"/><label class="tocitem" for="menuitem-5-2-2-10"><span class="docs-label">Bayesian Estimation Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../SciMLSensitivity/bayesian/turing_bayesian/">Bayesian Estimation of Differential Equations with Probabilistic Programming</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5-2-2-11" type="checkbox"/><label class="tocitem" for="menuitem-5-2-2-11"><span class="docs-label">Optimal and Model Predictive Control Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../SciMLSensitivity/optimal_control/optimal_control/">Solving Optimal Control Problems with Universal Differential Equations</a></li><li><a class="tocitem" href="../../../SciMLSensitivity/optimal_control/feedback_control/">Universal Differential Equations for Neural Feedback Control</a></li><li><a class="tocitem" href="../../../SciMLSensitivity/optimal_control/SDE_control/">Controlling Stochastic Differential Equations</a></li></ul></li></ul></li><li><input class="collapse-toggle" id="menuitem-5-2-3" type="checkbox"/><label class="tocitem" for="menuitem-5-2-3"><span class="docs-label">Manual and APIs</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../SciMLSensitivity/manual/differential_equation_sensitivities/">Sensitivity Algorithms for Differential Equations with Automatic Differentiation (AD)</a></li><li><a class="tocitem" href="../../../SciMLSensitivity/manual/nonlinear_solve_sensitivities/">Sensitivity Algorithms for Nonlinear Problems with Automatic Differentiation (AD)</a></li><li><a class="tocitem" href="../../../SciMLSensitivity/manual/direct_forward_sensitivity/">Direct Forward Sensitivity Analysis of ODEs</a></li><li><a class="tocitem" href="../../../SciMLSensitivity/manual/direct_adjoint_sensitivities/">Direct Adjoint Sensitivities of Differential Equations</a></li></ul></li><li><a class="tocitem" href="../../../SciMLSensitivity/Benchmark/">Benchmarks</a></li><li><a class="tocitem" href="../../../SciMLSensitivity/sensitivity_math/">Sensitivity Math Details</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5-3" type="checkbox"/><label class="tocitem" for="menuitem-5-3"><span class="docs-label">DiffEqParamEstim</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DiffEqParamEstim/">DiffEqParamEstim.jl: Parameter Estimation for Differential Equations</a></li><li><input class="collapse-toggle" id="menuitem-5-3-2" type="checkbox"/><label class="tocitem" for="menuitem-5-3-2"><span class="docs-label">Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DiffEqParamEstim/tutorials/ODE_inference/">Optimization-Based ODE Parameter Estimation</a></li><li><a class="tocitem" href="../../../DiffEqParamEstim/tutorials/global_optimization/">Global Optimization via NLopt</a></li><li><a class="tocitem" href="../../../DiffEqParamEstim/tutorials/jump/">Using JuMP with DiffEqParamEstim</a></li><li><a class="tocitem" href="../../../DiffEqParamEstim/tutorials/generalized_likelihood/">Generalized Likelihood Inference</a></li><li><a class="tocitem" href="../../../DiffEqParamEstim/tutorials/stochastic_evaluations/">Parameter Estimation for Stochastic Differential Equations and Ensembles</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5-3-3" type="checkbox"/><label class="tocitem" for="menuitem-5-3-3"><span class="docs-label">Methods</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DiffEqParamEstim/methods/recommended_methods/">Recommended Methods</a></li><li><a class="tocitem" href="../../../DiffEqParamEstim/methods/optimization_based_methods/">Optimization-Based Methods</a></li><li><a class="tocitem" href="../../../DiffEqParamEstim/methods/collocation_loss/">Two Stage method (Non-Parametric Collocation)</a></li><li><a class="tocitem" href="../../../DiffEqParamEstim/methods/alternative_objectives/">Alternative Objective Functions</a></li></ul></li></ul></li><li><input class="collapse-toggle" id="menuitem-5-4" type="checkbox"/><label class="tocitem" for="menuitem-5-4"><span class="docs-label">DiffEqBayes</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DiffEqBayes/">DiffEqBayes.jl: Bayesian Parameter Estimation for Differential Equations</a></li><li><a class="tocitem" href="../../../DiffEqBayes/methods/">Methods</a></li><li><a class="tocitem" href="../../../DiffEqBayes/examples/">Examples</a></li></ul></li></ul></li><li><span class="tocitem">AbstractArray Libraries</span><ul><li><a class="tocitem" href="../../../../highlevels/abstractarray_libraries/">AbstractArray Libraries</a></li><li><input class="collapse-toggle" id="menuitem-6-2" type="checkbox"/><label class="tocitem" for="menuitem-6-2"><span class="docs-label">RecursiveArrayTools</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../RecursiveArrayTools/">Home</a></li><li><a class="tocitem" href="../../../RecursiveArrayTools/array_types/">Recursive Array Types</a></li><li><a class="tocitem" href="../../../RecursiveArrayTools/recursive_array_functions/">Recursive Array Functions</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-6-3" type="checkbox"/><label class="tocitem" for="menuitem-6-3"><span class="docs-label">LabelledArrays</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../LabelledArrays/">Home</a></li><li><a class="tocitem" href="../../../LabelledArrays/Example_dsl/">Example: Nice DiffEq Syntax Without A DSL</a></li><li><a class="tocitem" href="../../../LabelledArrays/SLArrays/">SLArrays</a></li><li><a class="tocitem" href="../../../LabelledArrays/LArrays/">LArrays</a></li><li><a class="tocitem" href="../../../LabelledArrays/NamedTuples_relation/">Relation to NamedTuples</a></li><li><a class="tocitem" href="../../../LabelledArrays/Note_labelled_slices/">Note: Labelled slices</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-6-4" type="checkbox"/><label class="tocitem" for="menuitem-6-4"><span class="docs-label">MultiScaleArrays</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../MultiScaleArrays/">Home</a></li><li><a class="tocitem" href="../../../MultiScaleArrays/multiscalearray/">API</a></li></ul></li></ul></li><li><span class="tocitem">Uncertainty Quantification</span><ul><li><a class="tocitem" href="../../../../highlevels/uncertainty_quantification/">Uncertainty Quantification Overview</a></li><li><input class="collapse-toggle" id="menuitem-7-2" type="checkbox"/><label class="tocitem" for="menuitem-7-2"><span class="docs-label">PolyChaos</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../PolyChaos/">Overview</a></li><li><a class="tocitem" href="../../../PolyChaos/type_hierarchy/">Type Hierarchy</a></li><li><input class="collapse-toggle" id="menuitem-7-2-3" type="checkbox"/><label class="tocitem" for="menuitem-7-2-3"><span class="docs-label">Usage</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../PolyChaos/numerical_integration/">Numerical Integration</a></li><li><a class="tocitem" href="../../../PolyChaos/quadrature_rules/">Quadrature Rules</a></li><li><a class="tocitem" href="../../../PolyChaos/orthogonal_polynomials_canonical/">Univariate Monic Orthogonal Polynomials</a></li><li><a class="tocitem" href="../../../PolyChaos/gaussian_mixture_model/">Gaussian Mixture Models</a></li><li><a class="tocitem" href="../../../PolyChaos/multiple_discretization/">Multiple Discretization</a></li><li><a class="tocitem" href="../../../PolyChaos/scalar_products/">Computation of Scalar Products</a></li><li><input class="collapse-toggle" id="menuitem-7-2-3-7" type="checkbox"/><label class="tocitem" for="menuitem-7-2-3-7"><span class="docs-label">Polynomial Chaos</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../PolyChaos/pce_tutorial/">Basic Usage</a></li><li><a class="tocitem" href="../../../PolyChaos/chi_squared_k1/">Chi Squared, One DOF</a></li><li><a class="tocitem" href="../../../PolyChaos/chi_squared_k_greater1/">Chi Squared, Several DOFs</a></li><li><a class="tocitem" href="../../../PolyChaos/random_ode/">Random ODE</a></li></ul></li><li><a class="tocitem" href="../../../PolyChaos/DCsOPF/">Optimal Power Flow</a></li></ul></li><li><a class="tocitem" href="../../../PolyChaos/math/">Mathematical Background</a></li><li><a class="tocitem" href="../../../PolyChaos/functions/">Functions</a></li></ul></li></ul></li><li><span class="tocitem">Simulation Analysis</span><ul><li><a class="tocitem" href="../../../../highlevels/simulation_analysis/">SciML Simulation Analysis Utilities</a></li><li><input class="collapse-toggle" id="menuitem-8-2" type="checkbox"/><label class="tocitem" for="menuitem-8-2"><span class="docs-label">GlobalSensitivity</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../GlobalSensitivity/">GlobalSensitivity.jl: Global Sensitivity Analysis (GSA)</a></li><li><input class="collapse-toggle" id="menuitem-8-2-2" type="checkbox"/><label class="tocitem" for="menuitem-8-2-2"><span class="docs-label">Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../GlobalSensitivity/tutorials/parallelized_gsa/">Parallelized Morris and Sobol Sensitivity Analysis of an ODE</a></li><li><a class="tocitem" href="../../../GlobalSensitivity/tutorials/juliacon21/">Global Sensitivity Analysis of the Lotka-Volterra model</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-8-2-3" type="checkbox"/><label class="tocitem" for="menuitem-8-2-3"><span class="docs-label">Methods</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../GlobalSensitivity/methods/morris/">Morris Method</a></li><li><a class="tocitem" href="../../../GlobalSensitivity/methods/sobol/">Sobol Method</a></li><li><a class="tocitem" href="../../../GlobalSensitivity/methods/regression/">Regression Method</a></li><li><a class="tocitem" href="../../../GlobalSensitivity/methods/efast/">eFAST Method</a></li><li><a class="tocitem" href="../../../GlobalSensitivity/methods/delta/">Delta Moment-Independent Method</a></li><li><a class="tocitem" href="../../../GlobalSensitivity/methods/dgsm/">Derivative based Global Sensitivity Measure Method</a></li><li><a class="tocitem" href="../../../GlobalSensitivity/methods/easi/">EASI Method</a></li><li><a class="tocitem" href="../../../GlobalSensitivity/methods/fractional/">Fractional Factorial Method</a></li><li><a class="tocitem" href="../../../GlobalSensitivity/methods/rbdfast/">Random Balance Design FAST Method</a></li></ul></li></ul></li></ul></li><li><span class="tocitem">Symbolic Analysis</span><ul><li><a class="tocitem" href="../../../../highlevels/symbolic_analysis/">SciML Symbolic Analysis Libraries</a></li><li><input class="collapse-toggle" id="menuitem-9-2" type="checkbox"/><label class="tocitem" for="menuitem-9-2"><span class="docs-label">StructuralIdentifiability</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../StructuralIdentifiability/">Home</a></li><li><input class="collapse-toggle" id="menuitem-9-2-2" type="checkbox"/><label class="tocitem" for="menuitem-9-2-2"><span class="docs-label">Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../StructuralIdentifiability/tutorials/local_identifiability/">Local Identifiability of Differential Models</a></li><li><a class="tocitem" href="../../../StructuralIdentifiability/tutorials/global_identifiability/">Global Identifiability of Differential Models</a></li><li><a class="tocitem" href="../../../StructuralIdentifiability/tutorials/using_modeling_toolkit/">Using <code>ModelingToolkit.jl</code> With <code>StructuralIdentifiability.jl</code></a></li></ul></li><li><input class="collapse-toggle" id="menuitem-9-2-3" type="checkbox"/><label class="tocitem" for="menuitem-9-2-3"><span class="docs-label">Basics</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../StructuralIdentifiability/input/input/">Parsing input ODE system</a></li><li><a class="tocitem" href="../../../StructuralIdentifiability/identifiability/identifiability/">ָFunctions to Assess Parameter Identifiability</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-9-2-4" type="checkbox"/><label class="tocitem" for="menuitem-9-2-4"><span class="docs-label">Library</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../StructuralIdentifiability/utils/local_identifiability/">Local Identifiability Tools</a></li><li><a class="tocitem" href="../../../StructuralIdentifiability/utils/global_identifiability/">Global Identifiability Tools</a></li><li><a class="tocitem" href="../../../StructuralIdentifiability/utils/elimination/">Elimination</a></li><li><a class="tocitem" href="../../../StructuralIdentifiability/utils/ode/">ODE Tools</a></li><li><a class="tocitem" href="../../../StructuralIdentifiability/utils/power_series_utils/">Power Series Tools</a></li><li><a class="tocitem" href="../../../StructuralIdentifiability/utils/primality/">Primality Chekcs</a></li><li><a class="tocitem" href="../../../StructuralIdentifiability/utils/wronskian/">Wronskian Tools</a></li><li><a class="tocitem" href="../../../StructuralIdentifiability/ioequations/ioequations/">Input-Output Equation tools</a></li><li><a class="tocitem" href="../../../StructuralIdentifiability/utils/util/">Other Utilities</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-9-2-5" type="checkbox"/><label class="tocitem" for="menuitem-9-2-5"><span class="docs-label">Export</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../StructuralIdentifiability/export/export/">Exporting to Other Systems</a></li></ul></li></ul></li><li><input class="collapse-toggle" id="menuitem-9-3" type="checkbox"/><label class="tocitem" for="menuitem-9-3"><span class="docs-label">SymbolicNumericIntegration</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../SymbolicNumericIntegration/">Home</a></li><li><a class="tocitem" href="../../../SymbolicNumericIntegration/symbolicnumericintegration/">API</a></li></ul></li></ul></li><li><span class="tocitem">Interfaces</span><ul><li><a class="tocitem" href="../../../../highlevels/interfaces/">The SciML Interface Libraries</a></li><li><input class="collapse-toggle" id="menuitem-10-2" type="checkbox"/><label class="tocitem" for="menuitem-10-2"><span class="docs-label">SciMLBase</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../SciMLBase/">Home</a></li><li><input class="collapse-toggle" id="menuitem-10-2-2" type="checkbox"/><label class="tocitem" for="menuitem-10-2-2"><span class="docs-label">Interfaces</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../SciMLBase/interfaces/Problems/">SciMLProblems</a></li><li><a class="tocitem" href="../../../SciMLBase/interfaces/SciMLFunctions/">SciMLFunctions (Jacobians, Sparsity, Etc.)</a></li><li><a class="tocitem" href="../../../SciMLBase/interfaces/Algorithms/">SciMLAlgorithms</a></li><li><a class="tocitem" href="../../../SciMLBase/interfaces/Solutions/">SciMLSolutions</a></li><li><a class="tocitem" href="../../../SciMLBase/interfaces/Init_Solve/">The SciML init and solve Functions</a></li><li><a class="tocitem" href="../../../SciMLBase/interfaces/Common_Keywords/">Common Keyword Arguments</a></li><li><a class="tocitem" href="../../../SciMLBase/interfaces/Differentiation/">Automatic Differentiation and Sensitivity Algorithms (Adjoints)</a></li><li><a class="tocitem" href="../../../SciMLBase/interfaces/PDE/">The PDE Definition Interface</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-10-2-3" type="checkbox"/><label class="tocitem" for="menuitem-10-2-3"><span class="docs-label">Fundamentals</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../SciMLBase/fundamentals/FAQ/">Frequently Asked Questions</a></li></ul></li></ul></li><li><input class="collapse-toggle" id="menuitem-10-3" type="checkbox"/><label class="tocitem" for="menuitem-10-3"><span class="docs-label">SciMLOperators</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../SciMLOperators/">Home</a></li><li><a class="tocitem" href="../../../SciMLOperators/interface/">The AbstractSciMLOperator Interface</a></li><li><a class="tocitem" href="../../../SciMLOperators/premade_operators/">Premade SciMLOperators</a></li><li><a class="tocitem" href="../../../SciMLOperators/tutorials/fftw/">Wrap a Fourier transform with SciMLOperators</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-10-4" type="checkbox"/><label class="tocitem" for="menuitem-10-4"><span class="docs-label">CommonSolve</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../CommonSolve/">The Common Solve Interface</a></li></ul></li></ul></li><li><span class="tocitem">Numerical Utilities</span><ul><li><a class="tocitem" href="../../../../highlevels/numerical_utilities/">SciML Numerical Utility Libraries</a></li><li><input class="collapse-toggle" id="menuitem-11-2" type="checkbox"/><label class="tocitem" for="menuitem-11-2"><span class="docs-label">Surrogates</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../Surrogates/">Overview</a></li><li><input class="collapse-toggle" id="menuitem-11-2-2" type="checkbox"/><label class="tocitem" for="menuitem-11-2-2"><span class="docs-label">Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../Surrogates/tutorials/">Basics</a></li><li><a class="tocitem" href="../../../Surrogates/radials/">Radials</a></li><li><a class="tocitem" href="../../../Surrogates/kriging/">Kriging</a></li><li><a class="tocitem" href="../../../Surrogates/abstractgps/">Gaussian Process</a></li><li><a class="tocitem" href="../../../Surrogates/lobachevsky/">Lobachevsky</a></li><li><a class="tocitem" href="../../../Surrogates/LinearSurrogate/">Linear</a></li><li><a class="tocitem" href="../../../Surrogates/InverseDistance/">InverseDistance</a></li><li><a class="tocitem" href="../../../Surrogates/randomforest/">RandomForest</a></li><li><a class="tocitem" href="../../../Surrogates/secondorderpoly/">SecondOrderPolynomial</a></li><li><a class="tocitem" href="../../../Surrogates/neural/">NeuralSurrogate</a></li><li><a class="tocitem" href="../../../Surrogates/wendland/">Wendland</a></li><li><a class="tocitem" href="../../../Surrogates/polychaos/">Polynomial Chaos</a></li><li><a class="tocitem" href="../../../Surrogates/variablefidelity/">Variable Fidelity</a></li><li><a class="tocitem" href="../../../Surrogates/gek/">Gradient Enhanced Kriging</a></li><li><a class="tocitem" href="../../../Surrogates/gekpls/">GEKPLS</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-11-2-3" type="checkbox"/><label class="tocitem" for="menuitem-11-2-3"><span class="docs-label">User guide</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../Surrogates/samples/">Samples</a></li><li><a class="tocitem" href="../../../Surrogates/surrogate/">Surrogates</a></li><li><a class="tocitem" href="../../../Surrogates/optimizations/">Optimization</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-11-2-4" type="checkbox"/><label class="tocitem" for="menuitem-11-2-4"><span class="docs-label">Benchmarks</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../Surrogates/sphere_function/">Sphere function</a></li><li><a class="tocitem" href="../../../Surrogates/lp/">Lp norm</a></li><li><a class="tocitem" href="../../../Surrogates/rosenbrock/">Rosenbrock</a></li><li><a class="tocitem" href="../../../Surrogates/tensor_prod/">Tensor product</a></li><li><a class="tocitem" href="../../../Surrogates/cantilever/">Cantilever beam</a></li><li><a class="tocitem" href="../../../Surrogates/water_flow/">Water Flow function</a></li><li><a class="tocitem" href="../../../Surrogates/welded_beam/">Welded beam function</a></li><li><a class="tocitem" href="../../../Surrogates/BraninFunction/">Branin function</a></li><li><a class="tocitem" href="../../../Surrogates/ackley/">Ackley function</a></li><li><a class="tocitem" href="../../../Surrogates/gramacylee/">Gramacy &amp; Lee Function</a></li><li><a class="tocitem" href="../../../Surrogates/Salustowicz/">Salustowicz Benchmark</a></li><li><a class="tocitem" href="../../../Surrogates/multi_objective_opt/">Multi objective optimization</a></li></ul></li><li><a class="tocitem" href="../../../Surrogates/contributing/">Contributing</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-11-3" type="checkbox"/><label class="tocitem" for="menuitem-11-3"><span class="docs-label">ExponentialUtilities</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../ExponentialUtilities/">Home</a></li><li><a class="tocitem" href="../../../ExponentialUtilities/matrix_exponentials/">Matrix Exponentials</a></li><li><a class="tocitem" href="../../../ExponentialUtilities/expv/">Expv: Matrix Exponentials Times Vectors</a></li><li><a class="tocitem" href="../../../ExponentialUtilities/arnoldi/">Arnoldi Iteration</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-11-4" type="checkbox"/><label class="tocitem" for="menuitem-11-4"><span class="docs-label">DiffEqNoiseProcess</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DiffEqNoiseProcess/">Home</a></li><li><a class="tocitem" href="../../../DiffEqNoiseProcess/noise_processes/">Classic Noise Processes</a></li><li><a class="tocitem" href="../../../DiffEqNoiseProcess/abstract_noise_processes/">Abstract Noise Processes</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-11-5" type="checkbox"/><label class="tocitem" for="menuitem-11-5"><span class="docs-label">PoissonRandom</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../PoissonRandom/">Home</a></li><li><a class="tocitem" href="../../../PoissonRandom/pois_rand/">Poisson Random API</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-11-6" type="checkbox"/><label class="tocitem" for="menuitem-11-6"><span class="docs-label">QuasiMonteCarlo</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../QuasiMonteCarlo/">Home</a></li><li><a class="tocitem" href="../../../QuasiMonteCarlo/samplers/">Sampler APIs</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-11-7" type="checkbox"/><label class="tocitem" for="menuitem-11-7"><span class="docs-label">DataInterpolations</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DataInterpolations/">DataInterpolations.jl</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-11-8" type="checkbox"/><label class="tocitem" for="menuitem-11-8"><span class="docs-label">FFTW</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../FFTW/">FFTW.jl</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-11-9" type="checkbox"/><label class="tocitem" for="menuitem-11-9"><span class="docs-label">RuntimeGeneratedFunctions</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../RuntimeGeneratedFunctions/">RuntimeGeneratedFunctions.jl</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-11-10" type="checkbox"/><label class="tocitem" for="menuitem-11-10"><span class="docs-label">MuladdMacro</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../MuladdMacro/">MuladdMacro.jl</a></li></ul></li></ul></li><li><span class="tocitem">Machine Learning</span><ul><li><a class="tocitem" href="../../../../highlevels/machine_learning/">SciML Machine Learning Libraries Overview</a></li><li><input class="collapse-toggle" id="menuitem-12-2" type="checkbox"/><label class="tocitem" for="menuitem-12-2"><span class="docs-label">DiffEqFlux</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DiffEqFlux/">DiffEqFlux.jl: High Level Scientific Machine Learning (SciML) Pre-Built Architectures</a></li><li><input class="collapse-toggle" id="menuitem-12-2-2" type="checkbox"/><label class="tocitem" for="menuitem-12-2-2"><span class="docs-label">Differential Equation Machine Learning Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DiffEqFlux/examples/neural_ode/">Neural Ordinary Differential Equations</a></li><li><a class="tocitem" href="../../../DiffEqFlux/examples/GPUs/">Neural ODEs on GPUs</a></li><li><a class="tocitem" href="../../../DiffEqFlux/examples/mnist_neural_ode/">GPU-based MNIST Neural ODE Classifier</a></li><li><a class="tocitem" href="../../../DiffEqFlux/examples/mnist_conv_neural_ode/">Convolutional Neural ODE MNIST Classifier on GPU</a></li><li><a class="tocitem" href="../../../DiffEqFlux/examples/augmented_neural_ode/">Augmented Neural Ordinary Differential Equations</a></li><li><a class="tocitem" href="../../../DiffEqFlux/examples/neural_sde/">Neural Stochastic Differential Equations With Method of Moments</a></li><li><a class="tocitem" href="../../../DiffEqFlux/examples/collocation/">Smoothed Collocation for Fast Two-Stage Training</a></li><li><a class="tocitem" href="../../../DiffEqFlux/examples/normalizing_flows/">Continuous Normalizing Flows</a></li><li><a class="tocitem" href="../../../DiffEqFlux/examples/hamiltonian_nn/">Hamiltonian Neural Network</a></li><li><a class="tocitem" href="../../../DiffEqFlux/examples/tensor_layer/">Physics-Informed Machine Learning (PIML) with TensorLayer</a></li><li><a class="tocitem" href="../../../DiffEqFlux/examples/multiple_shooting/">Multiple Shooting</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-12-2-3" type="checkbox"/><label class="tocitem" for="menuitem-12-2-3"><span class="docs-label">Layer APIs</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DiffEqFlux/layers/BasisLayers/">Classical Basis Layers</a></li><li><a class="tocitem" href="../../../DiffEqFlux/layers/TensorLayer/">Tensor Product Layer</a></li><li><a class="tocitem" href="../../../DiffEqFlux/layers/CNFLayer/">Continuous Normalizing Flows Layer</a></li><li><a class="tocitem" href="../../../DiffEqFlux/layers/SplineLayer/">Spline Layer</a></li><li><a class="tocitem" href="../../../DiffEqFlux/layers/NeuralDELayers/">Neural Differential Equation Layers</a></li><li><a class="tocitem" href="../../../DiffEqFlux/layers/HamiltonianNN/">Hamiltonian Neural Network Layer</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-12-2-4" type="checkbox"/><label class="tocitem" for="menuitem-12-2-4"><span class="docs-label">Utility Function APIs</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DiffEqFlux/utilities/Collocation/">Smoothed Collocation</a></li><li><a class="tocitem" href="../../../DiffEqFlux/utilities/MultipleShooting/">Multiple Shooting Functionality</a></li></ul></li></ul></li><li><input class="collapse-toggle" id="menuitem-12-3" type="checkbox"/><label class="tocitem" for="menuitem-12-3"><span class="docs-label">DeepEquilibriumNetworks</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DeepEquilibriumNetworks/">Home</a></li><li><input class="collapse-toggle" id="menuitem-12-3-2" type="checkbox"/><label class="tocitem" for="menuitem-12-3-2"><span class="docs-label">Manual</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DeepEquilibriumNetworks/manual/solvers/">Dynamical Systems</a></li><li><a class="tocitem" href="../../../DeepEquilibriumNetworks/manual/nlsolve/">Non Linear Solvers</a></li><li><a class="tocitem" href="../../../DeepEquilibriumNetworks/manual/deqs/">DEQ Layers</a></li><li><a class="tocitem" href="../../../DeepEquilibriumNetworks/manual/misc/">Miscellaneous</a></li></ul></li><li><a class="tocitem" href="../../../DeepEquilibriumNetworks/references/">References</a></li></ul></li></ul></li><li><span class="tocitem">Extra Resources</span><ul><li><a class="tocitem" href="../../../../highlevels/learning_resources/">Curated Learning, Teaching, and Training Resouces</a></li><li><input class="collapse-toggle" id="menuitem-13-2" type="checkbox" checked/><label class="tocitem" for="menuitem-13-2"><span class="docs-label">The SciML Benchmarks</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../">SciMLBenchmarks</a></li><li><input class="collapse-toggle" id="menuitem-13-2-2" type="checkbox"/><label class="tocitem" for="menuitem-13-2-2"><span class="docs-label">Multi-Language Wrapper Benchmarks</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../MultiLanguage/ode_wrapper_packages/">ODE Solver Multi-Language Wrapper Package Work-Precision Benchmarks (MATLAB, SciPy, Julia, deSolve (R))</a></li><li><a class="tocitem" href="../../MultiLanguage/special_benchmarks/">Special Multi-Language Differential Equation Solver Comparison Benchmarks</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-13-2-3" type="checkbox"/><label class="tocitem" for="menuitem-13-2-3"><span class="docs-label">Non-Stiff Ordinary Differential Equations</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../NonStiffODE/FitzhughNagumo_wpd/">Fitzhugh-Nagumo Work-Precision Diagrams</a></li><li><a class="tocitem" href="../../NonStiffODE/LotkaVolterra_wpd/">Lotka-Volterra Work-Precision Diagrams</a></li><li><a class="tocitem" href="../../NonStiffODE/Pleiades_wpd/">Pleiades Work-Precision Diagrams</a></li><li><a class="tocitem" href="../../NonStiffODE/RigidBody_wpd/">Rigid Body Work-Precision Diagrams</a></li><li><a class="tocitem" href="../../NonStiffODE/ThreeBody_wpd/">Three Body Work-Precision Diagrams</a></li><li><a class="tocitem" href="../../NonStiffODE/linear_wpd/">100 Independent Linear Work-Precision Diagrams</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-13-2-4" type="checkbox"/><label class="tocitem" for="menuitem-13-2-4"><span class="docs-label">Stiff Ordinary Differential Equations</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../StiffODE/Bruss/">Brusselator Work-Precision Diagrams for parallel extrapolation methods</a></li><li><a class="tocitem" href="../../StiffODE/Hires/">HIRES Work-Precision Diagrams</a></li><li><a class="tocitem" href="../../StiffODE/Orego/">OREGO Work-Precision Diagrams</a></li><li><a class="tocitem" href="../../StiffODE/Pollution/">POLLU Work-Precision Diagrams</a></li><li><a class="tocitem" href="../../StiffODE/ROBER/">ROBER Work-Precision Diagrams</a></li><li><a class="tocitem" href="../../StiffODE/VanDerPol/">VanDerPol Work-Precision Diagrams</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-13-2-5" type="checkbox" checked/><label class="tocitem" for="menuitem-13-2-5"><span class="docs-label">Biological Differential Equations</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../BCR/">BCR Work-Precision Diagrams</a></li><li class="is-active"><a class="tocitem" href>Bidkhori2012 Work-Precision Diagrams</a><ul class="internal"><li class="toplevel"><a class="tocitem" href="#Defining-the-reaction-system"><span>Defining the reaction system</span></a></li><li><a class="tocitem" href="#Picture-of-the-solution"><span>Picture of the solution</span></a></li><li><a class="tocitem" href="#Generate-Test-Solution"><span>Generate Test Solution</span></a></li><li><a class="tocitem" href="#Setups"><span>Setups</span></a></li><li><a class="tocitem" href="#Automatic-Jacobian-Solves"><span>Automatic Jacobian Solves</span></a></li><li><a class="tocitem" href="#Analytical-Jacobian"><span>Analytical Jacobian</span></a></li><li><a class="tocitem" href="#Sparse-Jacobian"><span>Sparse Jacobian</span></a></li><li><a class="tocitem" href="#Appendix"><span>Appendix</span></a></li></ul></li></ul></li><li><input class="collapse-toggle" id="menuitem-13-2-6" type="checkbox"/><label class="tocitem" for="menuitem-13-2-6"><span class="docs-label">Differential-Algebraic Equations (DAEs)</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../DAE/ChemicalAkzoNobel/">Chemical Akzo Nobel Differential-Algebraic Equation (DAE) Work-Precision Diagrams</a></li><li><a class="tocitem" href="../../DAE/OregoDAE/">OREGO Differential-Algebraic Equation (DAE) Work-Precision Diagrams</a></li><li><a class="tocitem" href="../../DAE/ROBERDAE/">ROBER Differential-Algebraic Equation (DAE) Work-Precision Diagrams</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-13-2-7" type="checkbox"/><label class="tocitem" for="menuitem-13-2-7"><span class="docs-label">Method of Lines Partial Differential Equations (PDEs)</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../MOLPDE/allen_cahn_spectral_wpd/">Allen-Cahn Pseudospectral Methods Work-Precision Diagrams</a></li><li><a class="tocitem" href="../../MOLPDE/burgers_fdm_wpd/">Burger&#39;s Finite Difference Methods Work-Precision Diagrams</a></li><li><a class="tocitem" href="../../MOLPDE/burgers_spectral_wpd/">Burgers Pseudospectral Methods Work-Precision Diagrams</a></li><li><a class="tocitem" href="../../MOLPDE/ks_spectral_wpd/">KS Pseudospectral Methods Work-Precision Diagrams</a></li></ul></li><li><span class="tocitem">Dynamical ODEs (Hamiltonian and Second Order)</span></li><li><input class="collapse-toggle" id="menuitem-13-2-9" type="checkbox"/><label class="tocitem" for="menuitem-13-2-9"><span class="docs-label">N-Body Problem Benchmarks</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../NBodySimulator/acceleration_functions/">Acceleration function benchmarks</a></li><li><a class="tocitem" href="../../NBodySimulator/liquid_argon/">Liquid argon benchmarks</a></li></ul></li><li><span class="tocitem">Non-Stiff Stochastic Differential Equations</span></li><li><input class="collapse-toggle" id="menuitem-13-2-11" type="checkbox"/><label class="tocitem" for="menuitem-13-2-11"><span class="docs-label">Stiff Stochastic Differential Equations</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../StiffSDE/Oval2LongRun/">Oval2 Long Run</a></li><li><a class="tocitem" href="../../StiffSDE/Oval2LongTimes/">Oval2 Long Times</a></li><li><a class="tocitem" href="../../StiffSDE/Oval2Timings/">Oval2 Timings</a></li><li><a class="tocitem" href="../../StiffSDE/QuadraticStiffness/">Quadratic Stiffness Benchmarks</a></li><li><a class="tocitem" href="../../StiffSDE/StochasticHeat/">Stochastic Heat Equation Benchmarks</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-13-2-12" type="checkbox"/><label class="tocitem" for="menuitem-13-2-12"><span class="docs-label">Non-Stiff Delay Differential Equations</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../NonStiffDDE/Mackey_Glass_wpd/">Mackey and Glass Work-Precision Diagrams</a></li><li><a class="tocitem" href="../../NonStiffDDE/Wheldon_Kirk_Finlay_wpd/">Wheldon, Kirk, and Finlay Work-Precision Diagrams</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-13-2-13" type="checkbox"/><label class="tocitem" for="menuitem-13-2-13"><span class="docs-label">Stiff Delay Differential equations</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../StiffDDE/QuorumSensing/">Quorum Sensing Work-Precision Diagrams</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-13-2-14" type="checkbox"/><label class="tocitem" for="menuitem-13-2-14"><span class="docs-label">Jump Process Equations (Gillespie Benchmarks)</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../Jumps/Diffusion_CTRW/">Diffusion Model</a></li><li><a class="tocitem" href="../../Jumps/Mendes_multistate_example/">Mendes Multistate Model</a></li><li><a class="tocitem" href="../../Jumps/NegFeedback_GeneExpr/">Negative Feedback Gene Expression Model</a></li><li><a class="tocitem" href="../../Jumps/NegFeedback_GeneExpr_Marchetti/">Negative Feedback Marchetti Model</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-13-2-15" type="checkbox"/><label class="tocitem" for="menuitem-13-2-15"><span class="docs-label">Parameter Estimation and Inverse Problem Benchmarks</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../ParameterEstimation/DiffEqBayesFitzHughNagumo/">Fitzhugh-Nagumo Bayesian Parameter Estimation Benchmarks</a></li><li><a class="tocitem" href="../../ParameterEstimation/DiffEqBayesLotkaVolterra/">Lotka-Volterra Bayesian Parameter Estimation Benchmarks</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-13-2-16" type="checkbox"/><label class="tocitem" for="menuitem-13-2-16"><span class="docs-label">Physics-Informed Neural Network (Neural Network PDE Solver) Cost Function Benchmarks</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../PINNErrorsVsTime/allen_cahn_et/">Allen-Cahn PDE Physics-Informed Neural Network (PINN) Loss Function Error vs Time Benchmarks</a></li><li><a class="tocitem" href="../../PINNErrorsVsTime/diffusion_et/">Diffusion PDE Physics-Informed Neural Network (PINN) Loss Function Error vs Time Benchmarks</a></li><li><a class="tocitem" href="../../PINNErrorsVsTime/hamilton_jacobi_et/">Hamilton-Jacobi PDE Physics-Informed Neural Network (PINN) Loss Function Error vs Time Benchmarks</a></li><li><a class="tocitem" href="../../PINNErrorsVsTime/level_set_et/">Level Set PDE Physics-Informed Neural Network (PINN) Loss Function Error vs Time Benchmarks</a></li><li><a class="tocitem" href="../../PINNErrorsVsTime/nernst_planck_et/">Nernst-Planck PDE Physics-Informed Neural Network (PINN) Loss Function Error vs Time Benchmarks</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-13-2-17" type="checkbox"/><label class="tocitem" for="menuitem-13-2-17"><span class="docs-label">Physics-Informed Neural Network (Neural Network PDE Solver) Optimizer Benchmarks</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../PINNOptimizers/1d_diffusion/">Diffusion Equation Physics-Informed Neural Network (PINN) Optimizer Benchmarks</a></li><li><a class="tocitem" href="../../PINNOptimizers/1d_poisson_nernst_planck/">Nernst-Planck Equation Physics-Informed Neural Network (PINN) Optimizer Benchmarks</a></li><li><a class="tocitem" href="../../PINNOptimizers/allen_cahn/">Allen-Cahn Equation Physics-Informed Neural Network (PINN) Optimizer Benchmarks</a></li><li><a class="tocitem" href="../../PINNOptimizers/burgers_equation/">Berger&#39;s Equation Physics-Informed Neural Network (PINN) Optimizer Benchmarks</a></li><li><a class="tocitem" href="../../PINNOptimizers/hamilton_jacobi/">Hamilton-Jacobi PDE Physics-Informed Neural Network (PINN) Optimizer Benchmarks</a></li><li><a class="tocitem" href="../../PINNOptimizers/poisson/">Poisson PDE Physics-Informed Neural Network (PINN) Optimizer Benchmarks</a></li></ul></li><li><span class="tocitem">SDE Adaptivity Benchmarks</span></li></ul></li></ul></li><li><span class="tocitem">Developer Documentation</span><ul><li><a class="tocitem" href="../../../../highlevels/developer_documentation/">Developer Documentation</a></li><li><input class="collapse-toggle" id="menuitem-14-2" type="checkbox"/><label class="tocitem" for="menuitem-14-2"><span class="docs-label">SciMLStyle</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../SciMLStyle/">SciML Style Guide for Julia</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-14-3" type="checkbox"/><label class="tocitem" for="menuitem-14-3"><span class="docs-label">COLPRAC</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../COLPRAC/">ColPrac: Contributor&#39;s Guide on Collaborative Practices for Community Packages</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-14-4" type="checkbox"/><label class="tocitem" for="menuitem-14-4"><span class="docs-label">DiffEq Developer Documentation</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DiffEqDevDocs/">Home</a></li><li><input class="collapse-toggle" id="menuitem-14-4-2" type="checkbox"/><label class="tocitem" for="menuitem-14-4-2"><span class="docs-label">Contributor Guide</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DiffEqDevDocs/contributing/ecosystem_overview/">Ecosystem Overview</a></li><li><a class="tocitem" href="../../../DiffEqDevDocs/contributing/adding_packages/">Adding a new package to the common interface</a></li><li><a class="tocitem" href="../../../DiffEqDevDocs/contributing/adding_algorithms/">Adding Algorithms</a></li><li><a class="tocitem" href="../../../DiffEqDevDocs/contributing/defining_problems/">Developing A New Problem</a></li><li><a class="tocitem" href="../../../DiffEqDevDocs/contributing/diffeq_internals/">The DiffEq Internals</a></li><li><a class="tocitem" href="../../../DiffEqDevDocs/contributing/type_traits/">Type Traits</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-14-4-3" type="checkbox"/><label class="tocitem" for="menuitem-14-4-3"><span class="docs-label">Algorithm Development Tools</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DiffEqDevDocs/alg_dev/test_problems/">Test Problems</a></li><li><a class="tocitem" href="../../../DiffEqDevDocs/alg_dev/convergence/">Convergence Simulations</a></li><li><a class="tocitem" href="../../../DiffEqDevDocs/alg_dev/benchmarks/">Benchmark Suite</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-14-4-4" type="checkbox"/><label class="tocitem" for="menuitem-14-4-4"><span class="docs-label">Internal Documentation</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../../DiffEqDevDocs/internals/notes_on_algorithms/">Notes on Algorithms</a></li><li><a class="tocitem" href="../../../DiffEqDevDocs/internals/tableaus/">ODE Tableaus</a></li></ul></li></ul></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Extra Resources</a></li><li><a class="is-disabled">The SciML Benchmarks</a></li><li><a class="is-disabled">Biological Differential Equations</a></li><li class="is-active"><a href>Bidkhori2012 Work-Precision Diagrams</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Bidkhori2012 Work-Precision Diagrams</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/SciML/SciMLDocs/blob/main/docs/src/modules/SciMLBenchmarksOutput/Bio/Bidkhori2012.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="Bidkhori2012-Work-Precision-Diagrams"><a class="docs-heading-anchor" href="#Bidkhori2012-Work-Precision-Diagrams">Bidkhori2012 Work-Precision Diagrams</a><a id="Bidkhori2012-Work-Precision-Diagrams-1"></a><a class="docs-heading-anchor-permalink" href="#Bidkhori2012-Work-Precision-Diagrams" title="Permalink"></a></h1><p>The following benchmark is of 109 ODEs and 188 parameters that describe a stiff SBML model, modelling the EGFR signalling between normal and NSCLC cells <a href="https://doi.org/10.1371/journal.pone.0048004">Bidkhori et al.</a>. It is referenced from <a href="https://www.ebi.ac.uk/biomodels/curation/index">Biomodels Database</a>, and the model was parsed to Julia are finally to ODEs using <a href="https://github.com/SciML/ModelingToolkit.jl">ModelingToolkit</a>.</p><pre><code class="language-julia hljs">using DiffEqBase, OrdinaryDiffEq, Catalyst, ReactionNetworkImporters,
+      Sundials, Plots, DiffEqDevTools, ODEInterface, ODEInterfaceDiffEq,
+      LSODA, TimerOutputs, LinearAlgebra, ModelingToolkit, BenchmarkTools, JLD2
+
+gr()
+
+par = load(joinpath(@__DIR__, &quot;params_Bidkhori2012.jld2&quot;))</code></pre><pre><code class="nohighlight hljs">Dict{String, Any} with 188 entries:
+  &quot;reaction_mw3994e898_7232_4b70_9c58_b3476e8655f5_mw3676a900_b098_4… =&gt; 10
+.0
+  &quot;reaction_mw26fdabae_323b_4a78_b134_4c2eb70ea6a7_mw8b269d52_eda9_4… =&gt; 0.
+2
+  &quot;reaction_mw584a64d0_560a_4297_9882_80cb4eff73f3_mwdf20ff60_f0b7_4… =&gt; 0.
+05
+  &quot;reaction_mw5c806b00_59a1_491e_99a1_2c932b2d5d7a_mw5a798f7a_b4eb_4… =&gt; 20
+.0
+  &quot;reaction_mw45d92b79_0656_4795_87d0_7a465949ca43_mwba545ecf_c7d4_4… =&gt; 1.
+0
+  &quot;reaction_mwaa65a34e_fabf_4d6d_ae0b_f1d08b068f33_mw2eed2db0_ba78_4… =&gt; 0.
+01833
+  &quot;reaction_mwc5aae1f8_52e4_4bcd_b044_3768f90b7b19_mwba77a9ba_078d_4… =&gt; 0.
+2
+  &quot;reaction_mwd3a36af9_3ccc_4bb1_9867_3b9823ba4ac8_mw901b5284_bdae_4… =&gt; 0.
+09
+  &quot;reaction_mw0a51fbf0_409b_4b45_b4ac_0220af4c4e3c_mw0b6eb5f7_b133_4… =&gt; 0.
+01
+  &quot;reaction_mwb49058ff_2997_4187_abe7_4dce4ccf6ff4_mw432640ec_11b9_4… =&gt; 2.
+9
+  &quot;reaction_mw0dd5a91d_d76c_494e_9dd6_57f2836aaa19_mw8ed5885f_774e_4… =&gt; 0.
+001
+  &quot;reaction_mw9544e67b_b6d0_4941_b7e0_ecd4f400a335_mwb0744746_88a2_4… =&gt; 0.
+2661
+  &quot;reaction_mwcf9f1b1d_e19a_4fa8_85ba_8f17e2cec730_mw1ddaf9f4_dcab_4… =&gt; 0.
+0426
+  &quot;reaction_mwbb77e3d6_6065_4344_9361_e30c03514f4e_mw7e09242b_bd80_4… =&gt; 20
+2.9
+  &quot;reaction_mw5c806b00_59a1_491e_99a1_2c932b2d5d7a_mw54178365_18c1_4… =&gt; 0.
+1
+  &quot;reaction_mw602726ea_89ee_41b8_bda6_e2811bb42c1d_mw2e0b4751_7227_4… =&gt; 5.
+0
+  &quot;reaction_mw85e457d1_73f8_4236_bb61_a128d300003f_mw97b9ab43_02ae_4… =&gt; 0.
+005
+  &quot;reaction_mw7bb43f0a_c87e_41ff_8a43_cdf45c8f05e6_mwd12a67b3_6d98_4… =&gt; 2.
+661
+  &quot;reaction_mwa67e40c1_693d_4214_adc8_b2f2b71cef12_mw575f7f49_3663_4… =&gt; 10
+0.0
+  ⋮                                                                   =&gt; ⋮</code></pre><h1 id="Defining-the-reaction-system"><a class="docs-heading-anchor" href="#Defining-the-reaction-system">Defining the reaction system</a><a id="Defining-the-reaction-system-1"></a><a class="docs-heading-anchor-permalink" href="#Defining-the-reaction-system" title="Permalink"></a></h1><pre><code class="language-julia hljs">function sbml_model!(du, u, p, t)
+    # assignmentRule: variable = mwa6994523_5d45_4000_af0c_3e94073bf183
+    u88 = u[80] + u[79]
+
+    reaction_mwa67e40c1_693d_4214_adc8_b2f2b71cef12 = p[&quot;reaction_mwa67e40c1_693d_4214_adc8_b2f2b71cef12_mw575f7f49_3663_47f1_b492_5b92c1c4345d&quot;] * u[1] * u[2] - p[&quot;reaction_mwa67e40c1_693d_4214_adc8_b2f2b71cef12_mw53c64fd3_9a1c_4947_a734_74a73554964c&quot;] * u[3]
+
+    reaction_mw877cd1e3_b48b_42e8_ab23_682dd893fd9d = p[&quot;reaction_mw877cd1e3_b48b_42e8_ab23_682dd893fd9d_mw8cfaf07f_dabe_45de_93cc_ef2c7fd31104&quot;] * u[3] * u[3] - p[&quot;reaction_mw877cd1e3_b48b_42e8_ab23_682dd893fd9d_mwab52aceb_4b19_4317_b2da_97ccbb973dab&quot;] * u[4]
+
+    reaction_mw413c6d45_ab23_4d3e_87b3_a8ed4629b923 = p[&quot;reaction_mw413c6d45_ab23_4d3e_87b3_a8ed4629b923_mw6b97a1ec_2cba_4bce_96f7_ec1d0fa2d16c&quot;] * u[4]
+
+    reaction_mwf61e086d_0345_4d4c_b91d_0b105e543d04 = p[&quot;reaction_mwf61e086d_0345_4d4c_b91d_0b105e543d04_mwf1697f55_a3f4_4fb6_ae1d_f96f09ad1daa&quot;] * u[5] * u[7] - p[&quot;reaction_mwf61e086d_0345_4d4c_b91d_0b105e543d04_mw880a5942_7549_4466_bd19_0e1768a3a533&quot;] * u[8]
+
+    reaction_mw91f49311_efdc_47c6_b8b8_a619e042d644 = p[&quot;reaction_mw91f49311_efdc_47c6_b8b8_a619e042d644_mw7e889122_d26c_4d09_bae4_d313b992dc8e&quot;] * u[5] * u[9] - p[&quot;reaction_mw91f49311_efdc_47c6_b8b8_a619e042d644_mwff6f49f7_268a_4f08_8d36_3ad8449d7472&quot;] * u[10]
+
+    reaction_mw974c39f5_b82e_44b3_abec_7a724f46c526 = p[&quot;reaction_mw974c39f5_b82e_44b3_abec_7a724f46c526_mwe645e76e_bb00_4c22_b25e_a2e77a6aada2&quot;] * u[8]
+
+    reaction_mw9544e67b_b6d0_4941_b7e0_ecd4f400a335 = p[&quot;reaction_mw9544e67b_b6d0_4941_b7e0_ecd4f400a335_mwb0744746_88a2_488e_a483_266747a044c6&quot;] * u[10]
+
+    reaction_mw486c5261_3d03_4589_a1e9_978b62ad2dfe = p[&quot;reaction_mw486c5261_3d03_4589_a1e9_978b62ad2dfe_mw9e24066c_51a5_4c7a_af7c_4656155a4eb0&quot;] * u[11] - p[&quot;reaction_mw486c5261_3d03_4589_a1e9_978b62ad2dfe_mwab1ef4d4_2acc_4fa2_b07c_fac51fb7bfaf&quot;] * u[5] * u[12]
+
+    reaction_mw2cf8a809_63d8_4717_91fc_070516e6f3db = p[&quot;reaction_mw2cf8a809_63d8_4717_91fc_070516e6f3db_mwc4824ff0_2b51_4d66_ad48_1145f670a6e1&quot;] * u[12] * u[9] - p[&quot;reaction_mw2cf8a809_63d8_4717_91fc_070516e6f3db_mw0f1d282f_1c6b_455c_8254_3760632c6ecc&quot;] * u[13]
+
+    reaction_mweda6a945_fb5d_4d99_9958_11b2b2840308 = p[&quot;reaction_mweda6a945_fb5d_4d99_9958_11b2b2840308_mw0aa92e25_f9aa_461e_92b8_23b1b5b3ab92&quot;] * u[13]
+
+    reaction_mwd4bf58ea_70c9_43ea_a831_1fcde130ba28 = p[&quot;reaction_mwd4bf58ea_70c9_43ea_a831_1fcde130ba28_mw2a4ed8a2_fce4_44a4_adb9_edc24a06b4e1&quot;] * u[12]
+
+    reaction_mw4817365e_a33b_451f_bee1_de748377ede2 = p[&quot;reaction_mw4817365e_a33b_451f_bee1_de748377ede2_mwe879a9ac_4b8d_4c9a_a157_a3751761cf63&quot;] * u[11] * u[14] - p[&quot;reaction_mw4817365e_a33b_451f_bee1_de748377ede2_mwa18578d7_236f_4939_baca_52259e38fe15&quot;] * u[15]
+
+    reaction_mw03998474_934b_4e4a_8c0c_ca359e402ac2 = p[&quot;reaction_mw03998474_934b_4e4a_8c0c_ca359e402ac2_mw289fed85_e6ee_43e6_a69f_77b5f487a452&quot;] * u[15] * u[9] - p[&quot;reaction_mw03998474_934b_4e4a_8c0c_ca359e402ac2_mw8768b5c7_b227_4825_aa55_a525b0d915c2&quot;] * u[16]
+
+    reaction_mw7bb43f0a_c87e_41ff_8a43_cdf45c8f05e6 = p[&quot;reaction_mw7bb43f0a_c87e_41ff_8a43_cdf45c8f05e6_mwd12a67b3_6d98_40e9_a54b_282a577498eb&quot;] * u[16]
+
+    reaction_mwd9262331_e35a_4614_943a_89bcf8a492e3 = p[&quot;reaction_mwd9262331_e35a_4614_943a_89bcf8a492e3_mw6ac313e2_e8a9_42a9_b13a_27e55c1012a2&quot;] * u[15] * u[17] - p[&quot;reaction_mwd9262331_e35a_4614_943a_89bcf8a492e3_mw93f832d7_eefb_43dd_853c_a0d7a76023cf&quot;] * u[18]
+
+    reaction_mwc5f121dc_d27d_4c3d_90f2_67d0adaf144a = p[&quot;reaction_mwc5f121dc_d27d_4c3d_90f2_67d0adaf144a_mwbb727dc5_30e8_45f4_9d15_3b34be5c1e93&quot;] * u[14] * u[17] - p[&quot;reaction_mwc5f121dc_d27d_4c3d_90f2_67d0adaf144a_mw7ae1ee96_563e_4684_bc9a_8f4ef373620e&quot;] * u[20]
+
+    reaction_mw23a29b42_9813_4e46_b8ae_966e3215e6dc = p[&quot;reaction_mw23a29b42_9813_4e46_b8ae_966e3215e6dc_mwbc5340b6_06b7_4081_bd0c_e7a397f06a92&quot;] * u[11] * u[20] - p[&quot;reaction_mw23a29b42_9813_4e46_b8ae_966e3215e6dc_mw0df80c0e_c32b_4f90_99bd_e8f90e4c8109&quot;] * u[18]
+
+    reaction_mw0e459167_515b_4c4d_8b67_bf0a5b3e9d61 = p[&quot;reaction_mw0e459167_515b_4c4d_8b67_bf0a5b3e9d61_mwc585e0e4_b7e7_4290_8a6d_10fcd9759a2d&quot;] * u[5] * u[14] - p[&quot;reaction_mw0e459167_515b_4c4d_8b67_bf0a5b3e9d61_mwf44d37d0_fe7f_4e47_bf10_1e734fbc3391&quot;] * u[21]
+
+    reaction_mwc52e0f9b_1e0c_46ca_8d18_f05ef4a080cb = p[&quot;reaction_mwc52e0f9b_1e0c_46ca_8d18_f05ef4a080cb_mw3d564c3c_aa54_4c16_90be_662cfcbf8bc8&quot;] * u[21] * u[9] - p[&quot;reaction_mwc52e0f9b_1e0c_46ca_8d18_f05ef4a080cb_mw371642bb_3836_4ded_93a5_68fa9b464896&quot;] * u[22]
+
+    reaction_mw4f89bf6c_8691_41a6_a1ac_13e6aa8c4b93 = p[&quot;reaction_mw4f89bf6c_8691_41a6_a1ac_13e6aa8c4b93_mw736e4a7b_4a25_4d32_b96b_b088e3bd41e7&quot;] * u[22]
+
+    reaction_mw35f71989_f89b_4440_b1a4_ebc7b4cc18b2 = p[&quot;reaction_mw35f71989_f89b_4440_b1a4_ebc7b4cc18b2_mw084cd67b_f328_48a7_8e16_1d6256c8c137&quot;] * u[21] * u[17] - p[&quot;reaction_mw35f71989_f89b_4440_b1a4_ebc7b4cc18b2_mw43f177dc_f522_4dd1_b8e5_21b2b8fdfdba&quot;] * u[23]
+
+    reaction_mwd0d92dd4_81b7_4385_bfd7_5de82e193ecd = p[&quot;reaction_mwd0d92dd4_81b7_4385_bfd7_5de82e193ecd_mwfa6a58ab_0ca5_4c05_92b0_870593ac135d&quot;] * u[5] * u[20] - p[&quot;reaction_mwd0d92dd4_81b7_4385_bfd7_5de82e193ecd_mwb9547c37_09b7_4258_95ab_8039d4088298&quot;] * u[23]
+
+    reaction_mwbb77e3d6_6065_4344_9361_e30c03514f4e = p[&quot;reaction_mwbb77e3d6_6065_4344_9361_e30c03514f4e_mw7e09242b_bd80_4af0_90c8_e0cddace89fe&quot;] * u[18] * u[25] - p[&quot;reaction_mwbb77e3d6_6065_4344_9361_e30c03514f4e_mw2dfc8a19_1792_4e12_af38_8bfbda31a577&quot;] * u[26]
+
+    reaction_mw921ee820_1dbb_4b5f_866c_87da620d8f89 = p[&quot;reaction_mw921ee820_1dbb_4b5f_866c_87da620d8f89_mw553c0b3c_af7f_4309_8c61_0f1e2c32347c&quot;] * u[27]
+
+    reaction_mw0bcfad86_59b9_42ff_bcb7_fbb44845049d = p[&quot;reaction_mw0bcfad86_59b9_42ff_bcb7_fbb44845049d_mwfc146e94_8070_4727_8416_fb55829068cb&quot;] * u[26]
+
+    reaction_mwe9b50ac7_dac3_4eba_b1db_b3fd392d8fb7 = p[&quot;reaction_mwe9b50ac7_dac3_4eba_b1db_b3fd392d8fb7_mw26688d02_8ab9_4123_89c4_022b981cb72c&quot;] * u[28]
+
+    reaction_mw934c3638_603e_4ff0_a763_68f9405fa01f = p[&quot;reaction_mw934c3638_603e_4ff0_a763_68f9405fa01f_mw5639395a_a5cd_46dd_81b8_30fe72400a2e&quot;] * u[23] * u[25] - p[&quot;reaction_mw934c3638_603e_4ff0_a763_68f9405fa01f_mw9cc637fe_d9ca_47d2_a4dc_66009d458094&quot;] * u[28]
+
+    reaction_mw3c617363_649b_4460_a694_36f7a3127a62 = p[&quot;reaction_mw3c617363_649b_4460_a694_36f7a3127a62_mw19173345_925d_427b_8658_add0978e5931&quot;] * u[27] * u[29] - p[&quot;reaction_mw3c617363_649b_4460_a694_36f7a3127a62_mw9f6790d7_19ce_41d9_b4de_a1658c047501&quot;] * u[30]
+
+    reaction_mwf31259aa_32b7_4104_be70_045297b9a512 = p[&quot;reaction_mwf31259aa_32b7_4104_be70_045297b9a512_mw23e16d40_acbb_4658_a336_be5d0b0dd86a&quot;] * u[30]
+
+    reaction_mw0a51fbf0_409b_4b45_b4ac_0220af4c4e3c = p[&quot;reaction_mw0a51fbf0_409b_4b45_b4ac_0220af4c4e3c_mw10c97b8e_72aa_4f56_b3b9_c94baad7e213&quot;] * u[5] * u[29] - p[&quot;reaction_mw0a51fbf0_409b_4b45_b4ac_0220af4c4e3c_mw0b6eb5f7_b133_4b3d_bf15_9fd6c2e9332d&quot;] * u[31]
+
+    reaction_mw33baddbd_a23f_45bb_b126_0ba60bbf6c53 = p[&quot;reaction_mw33baddbd_a23f_45bb_b126_0ba60bbf6c53_mwe483687f_b591_4c42_9abc_7ea9f47470bf&quot;] * u[31] * u[27] - p[&quot;reaction_mw33baddbd_a23f_45bb_b126_0ba60bbf6c53_mwcf964aba_9db6_46c5_b687_beafc5d89169&quot;] * u[32]
+
+    reaction_mw652570eb_c9d3_499b_b877_61d360b10980 = p[&quot;reaction_mw652570eb_c9d3_499b_b877_61d360b10980_mwb881f20a_cf8a_493a_aa84_59ee90f26dd9&quot;] * u[32]
+
+    reaction_mwc5aae1f8_52e4_4bcd_b044_3768f90b7b19 = p[&quot;reaction_mwc5aae1f8_52e4_4bcd_b044_3768f90b7b19_mwb4c6ed27_c7ec_438f_bafd_4a09a9f356f1&quot;] * u[31] * u[9] - p[&quot;reaction_mwc5aae1f8_52e4_4bcd_b044_3768f90b7b19_mwba77a9ba_078d_4ec6_a8b8_d7042a2cefe7&quot;] * u[33]
+
+    reaction_mw642ac312_2ee7_4e66_8f3e_e2da2bb6412a = p[&quot;reaction_mw642ac312_2ee7_4e66_8f3e_e2da2bb6412a_mwe1743f7b_ca2c_47d4_91d7_aed2748d98c5&quot;] * u[33]
+
+    reaction_mw584a64d0_560a_4297_9882_80cb4eff73f3 = p[&quot;reaction_mw584a64d0_560a_4297_9882_80cb4eff73f3_mw9f1dbbe6_8aa3_4180_bcea_04343649d7ba&quot;] * u[34] * u[27] - p[&quot;reaction_mw584a64d0_560a_4297_9882_80cb4eff73f3_mwdf20ff60_f0b7_4c2a_b393_586ec1337e67&quot;] * u[35]
+
+    reaction_mw42c97708_4f85_45a8_9141_d0ae529409ca = p[&quot;reaction_mw42c97708_4f85_45a8_9141_d0ae529409ca_mw91f2ca92_9556_4fb8_ae12_0b72f3e3f261&quot;] * u[35]
+
+    reaction_mwaa65a34e_fabf_4d6d_ae0b_f1d08b068f33 = p[&quot;reaction_mwaa65a34e_fabf_4d6d_ae0b_f1d08b068f33_mw77c60377_28ae_4aad_b911_5768fc8b824f&quot;] * u[36] * u[37] - p[&quot;reaction_mwaa65a34e_fabf_4d6d_ae0b_f1d08b068f33_mw2eed2db0_ba78_435b_b2c8_ee91efdba1b4&quot;] * u[38]
+
+    reaction_mw1bd186cf_4762_480a_b70d_d7a775462398 = p[&quot;reaction_mw1bd186cf_4762_480a_b70d_d7a775462398_mw7e974605_8d9c_4250_8f69_072aab1f24f7&quot;] * u[38]
+
+    reaction_mwf5573ddf_ad7f_478a_a784_557a9cddaaf2 = p[&quot;reaction_mwf5573ddf_ad7f_478a_a784_557a9cddaaf2_mw11cdaca9_941c_4a59_ba2a_3bfeafb65aeb&quot;] * u[36] * u[39] - p[&quot;reaction_mwf5573ddf_ad7f_478a_a784_557a9cddaaf2_mw58c37b3e_91e7_445e_846e_77cd0b2320af&quot;] * u[40]
+
+    reaction_mwb49058ff_2997_4187_abe7_4dce4ccf6ff4 = p[&quot;reaction_mwb49058ff_2997_4187_abe7_4dce4ccf6ff4_mw432640ec_11b9_484d_ba26_415538ab9a10&quot;] * u[40]
+
+    reaction_mw8301b154_9463_4516_b4c5_c8f8b68691fe = p[&quot;reaction_mw8301b154_9463_4516_b4c5_c8f8b68691fe_mw11bb74b8_d908_46f0_ac4d_06e8dd1aa5ae&quot;] * u[41] * u[42] - p[&quot;reaction_mw8301b154_9463_4516_b4c5_c8f8b68691fe_mwb44117f5_20b2_495e_adf3_3467cd119fd6&quot;] * u[43]
+
+    reaction_mwf95f743d_6108_49fe_8ffd_bdcc1a9f9a8d = p[&quot;reaction_mwf95f743d_6108_49fe_8ffd_bdcc1a9f9a8d_mwa4c71b8d_fb74_465b_b76e_cec4e4c95484&quot;] * u[43]
+
+    reaction_mw51d9d6b8_f0c0_4763_9d11_9be61b5cf5c9 = p[&quot;reaction_mw51d9d6b8_f0c0_4763_9d11_9be61b5cf5c9_mwc40b3165_cc16_4f78_86b5_e34f2731dcbb&quot;] * u[41] * u[44] - p[&quot;reaction_mw51d9d6b8_f0c0_4763_9d11_9be61b5cf5c9_mw8bff2fe0_b582_4020_8f05_83f14451b1c0&quot;] * u[45]
+
+    reaction_mw6fd24d16_f57d_46c6_82f5_3f00759fa16b = p[&quot;reaction_mw6fd24d16_f57d_46c6_82f5_3f00759fa16b_mw3d07dc22_f821_49a5_9712_820ba9592353&quot;] * u[45]
+
+    reaction_mw9c208e18_c70d_4231_af0b_ad17cd0bba2d = p[&quot;reaction_mw9c208e18_c70d_4231_af0b_ad17cd0bba2d_mwa8f70790_9f44_4548_988e_49d13016d2f1&quot;] * u[36] * u[47] - p[&quot;reaction_mw9c208e18_c70d_4231_af0b_ad17cd0bba2d_mwaad540b6_783e_4576_8862_ad522fd897db&quot;] * u[48]
+
+    reaction_mw87711dc1_43d7_40fc_b9e9_a24e2f92419d = p[&quot;reaction_mw87711dc1_43d7_40fc_b9e9_a24e2f92419d_mwfbc395b5_05b8_4e27_9696_c3ba52edaf74&quot;] * u[48]
+
+    reaction_mw4b445876_bdce_42d0_867b_fd3c74128a6b = p[&quot;reaction_mw4b445876_bdce_42d0_867b_fd3c74128a6b_mwc489f472_68ce_44e7_aad1_f8d2f6dda4ff&quot;] * u[41] * u[49] - p[&quot;reaction_mw4b445876_bdce_42d0_867b_fd3c74128a6b_mw56f1bdc0_66fd_47c0_806a_beeaf123e2f2&quot;] * u[50]
+
+    reaction_mw40950d59_1012_4361_8418_73e25758e367 = p[&quot;reaction_mw40950d59_1012_4361_8418_73e25758e367_mwa17c895f_29d8_4977_a99f_cf9bf6216785&quot;] * u[50]
+
+    reaction_mwbfa79c95_487d_4c6f_b437_9e579451a419 = p[&quot;reaction_mwbfa79c95_487d_4c6f_b437_9e579451a419_mwafd23622_952d_44b3_a437_4aa12422add7&quot;] * u[39] * u[49] - p[&quot;reaction_mwbfa79c95_487d_4c6f_b437_9e579451a419_mw9d9a7d08_b19a_44f1_a806_151597049345&quot;] * u[51]
+
+    reaction_mwa4b69c77_6226_46da_b78c_3e6027d0be41 = p[&quot;reaction_mwa4b69c77_6226_46da_b78c_3e6027d0be41_mwac85fd83_4e73_43f1_9c42_01773349d50f&quot;] * u[51]
+
+    reaction_mwf8bb22e2_5aa3_4c25_a022_a266b1856a48 = p[&quot;reaction_mwf8bb22e2_5aa3_4c25_a022_a266b1856a48_mwd23d026b_c5b7_4742_aab9_b9beb18ec9bc&quot;] * u[46] * u[52] - p[&quot;reaction_mwf8bb22e2_5aa3_4c25_a022_a266b1856a48_mwf4c4d7a7_1498_4f6c_9d72_cd5cb012146c&quot;] * u[54]
+
+    reaction_mw61305f93_7b2d_4a2d_8d16_f7be026d8671 = p[&quot;reaction_mw61305f93_7b2d_4a2d_8d16_f7be026d8671_mwe3e5abe4_9f92_43eb_92e4_cea771f5bf14&quot;] * u[54]
+
+    reaction_mwcc31b497_6c50_446c_bbc2_6c5739507252 = p[&quot;reaction_mwcc31b497_6c50_446c_bbc2_6c5739507252_mwa617804d_95cc_4197_a39b_264a2c66b5a3&quot;] * u[53]
+
+    reaction_mw1d8c2435_bb85_4352_a25f_82033250579e = p[&quot;reaction_mw1d8c2435_bb85_4352_a25f_82033250579e_mw254868f8_c9fb_493c_bc1d_807cc83c18e6&quot;] * u[44] * u[52] - p[&quot;reaction_mw1d8c2435_bb85_4352_a25f_82033250579e_mw78a41659_4abc_4614_9e83_38cbfe1c5262&quot;] * u[53]
+
+    reaction_mw8dec1159_1925_45d9_af25_3cb709a5017c = p[&quot;reaction_mw8dec1159_1925_45d9_af25_3cb709a5017c_mwbc2119ce_ade3_4e2a_a3bc_a29cd77adf72&quot;] * u[46] * u[18] - p[&quot;reaction_mw8dec1159_1925_45d9_af25_3cb709a5017c_mw54b0e5e9_710f_438e_a8d3_749c594667bc&quot;] * u[55]
+
+    reaction_mwcf9f1b1d_e19a_4fa8_85ba_8f17e2cec730 = p[&quot;reaction_mwcf9f1b1d_e19a_4fa8_85ba_8f17e2cec730_mw1ddaf9f4_dcab_4dc2_a6fa_5ce85b9d7a3a&quot;] * u[55]
+
+    reaction_mwa5c135b4_77e2_4411_98e1_2000c39d4b30 = p[&quot;reaction_mwa5c135b4_77e2_4411_98e1_2000c39d4b30_mw60892818_7ef4_4f65_8003_9700a708c66c&quot;] * u[46] * u[23] - p[&quot;reaction_mwa5c135b4_77e2_4411_98e1_2000c39d4b30_mw6843d346_6e9f_43d5_97f6_1059f164aa16&quot;] * u[57]
+
+    reaction_mw4685274a_2b55_429f_927f_3fd863592af6 = p[&quot;reaction_mw4685274a_2b55_429f_927f_3fd863592af6_mwdaa378da_64fe_4ea4_b79d_c25733837b9f&quot;] * u[57]
+
+    reaction_mw8e331e43_16b4_478d_880b_d5a3244540e4 = p[&quot;reaction_mw8e331e43_16b4_478d_880b_d5a3244540e4_mw3f5e2165_9bb6_4ac3_992e_50943dd2ea05&quot;] * u[56]
+
+    reaction_mw47dee769_daa0_4af4_978a_5ab17e504c2f = p[&quot;reaction_mw47dee769_daa0_4af4_978a_5ab17e504c2f_mwe49ede89_014e_40f2_acfd_0d1a0cd11fe7&quot;] * u[58]
+
+    reaction_mwbd8a133e_1b70_44e8_bef8_78b14141166b = p[&quot;reaction_mwbd8a133e_1b70_44e8_bef8_78b14141166b_mw90873203_7a5d_4fca_a789_5e989ff0c999&quot;] * u[18] * u[6] - p[&quot;reaction_mwbd8a133e_1b70_44e8_bef8_78b14141166b_mw92d81b3b_fa59_4637_8540_8cb8482490d9&quot;] * u[19]
+
+    reaction_mw3a87ca5a_845d_4ac4_8806_e343cbbfc630 = p[&quot;reaction_mw3a87ca5a_845d_4ac4_8806_e343cbbfc630_mwcc2a950d_261b_4fd7_9c08_9f3c194ba09d&quot;] * u[19] * u[60] - p[&quot;reaction_mw3a87ca5a_845d_4ac4_8806_e343cbbfc630_mw1351daea_68be_404a_b7b0_105920ff3371&quot;] * u[59]
+
+    reaction_mw363a5271_1f51_4d5e_87a7_42ea25cb5657 = p[&quot;reaction_mw363a5271_1f51_4d5e_87a7_42ea25cb5657_mwc6b3c76f_af7b_488c_8751_28f1d9ab90a1&quot;] * u[59]
+
+    reaction_mw6bee0112_92dc_4169_9109_2633772b3aa4 = p[&quot;reaction_mw6bee0112_92dc_4169_9109_2633772b3aa4_mwf9c81339_e73a_45b5_a714_0854b718d44f&quot;] * u[23] * u[6] - p[&quot;reaction_mw6bee0112_92dc_4169_9109_2633772b3aa4_mw587125c7_6092_4627_9cdd_2415b77a8307&quot;] * u[24]
+
+    reaction_mwbac9e6ff_2df1_45eb_b3f4_4cae74c64014 = p[&quot;reaction_mwbac9e6ff_2df1_45eb_b3f4_4cae74c64014_mwa575cf96_3d57_4222_ac71_bd17006ef035&quot;] * u[24] * u[60] - p[&quot;reaction_mwbac9e6ff_2df1_45eb_b3f4_4cae74c64014_mwf7658bc6_acb6_411e_ae2c_9d8de7738d5f&quot;] * u[61]
+
+    reaction_mweb93165f_cf03_48f1_b035_59d79e324314 = p[&quot;reaction_mweb93165f_cf03_48f1_b035_59d79e324314_mwa137184a_0eb0_4bcb_971c_8e19231b2c07&quot;] * u[61]
+
+    reaction_mw85e457d1_73f8_4236_bb61_a128d300003f = p[&quot;reaction_mw85e457d1_73f8_4236_bb61_a128d300003f_mwfa680314_051c_4b10_afc9_7e7fbee49e3f&quot;] * u[5] * u[6] - p[&quot;reaction_mw85e457d1_73f8_4236_bb61_a128d300003f_mw97b9ab43_02ae_4e42_a524_6b781633a255&quot;] * u[62]
+
+    reaction_mw6b159c8f_eee0_4337_b711_2e230c9e2cf6 = p[&quot;reaction_mw6b159c8f_eee0_4337_b711_2e230c9e2cf6_mwcc0d3fcd_9b9e_4390_b588_e57b57d89d22&quot;] * u[62] * u[60] - p[&quot;reaction_mw6b159c8f_eee0_4337_b711_2e230c9e2cf6_mw56f1be7e_e303_4a72_be17_5bd08e3eb1f2&quot;] * u[63]
+
+    reaction_mwc9b3b248_3290_452a_9b7c_8fdada3e6687 = p[&quot;reaction_mwc9b3b248_3290_452a_9b7c_8fdada3e6687_mw1decb177_5075_41f3_a348_ca13b8f4497e&quot;] * u[63]
+
+    reaction_mw77484632_4e33_468a_9937_24e9bfd0e17d = p[&quot;reaction_mw77484632_4e33_468a_9937_24e9bfd0e17d_mw001b8124_b461_482a_8c8e_30bffc6718f7&quot;] * u[5] * u[64] - p[&quot;reaction_mw77484632_4e33_468a_9937_24e9bfd0e17d_mw40eca7d6_80b2_4926_9c2f_330422db0814&quot;] * u[65]
+
+    reaction_mw2c5858f3_0988_49b0_a94a_057853b84e91 = p[&quot;reaction_mw2c5858f3_0988_49b0_a94a_057853b84e91_mwf3d00ca5_89dc_4693_92ec_a47db8150144&quot;] * u[65] - p[&quot;reaction_mw2c5858f3_0988_49b0_a94a_057853b84e91_mw91a84697_3231_4fa6_b6ff_d69ee86056dc&quot;] * u[66]
+
+    reaction_mwd3a36af9_3ccc_4bb1_9867_3b9823ba4ac8 = p[&quot;reaction_mwd3a36af9_3ccc_4bb1_9867_3b9823ba4ac8_mw901b5284_bdae_4040_b77d_10f1ec267f06&quot;] * u[65] - p[&quot;reaction_mwd3a36af9_3ccc_4bb1_9867_3b9823ba4ac8_mw94cadd24_0432_4f89_a6fc_96cb0475c44e&quot;] * u[5] * u[67]
+
+    reaction_mw9f000f29_2512_4d4a_9dd9_e59aaf296d31 = p[&quot;reaction_mw9f000f29_2512_4d4a_9dd9_e59aaf296d31_mw688106ee_719d_4995_b1a0_faeefdb0af5a&quot;] * u[68] * u[67] - p[&quot;reaction_mw9f000f29_2512_4d4a_9dd9_e59aaf296d31_mw85c8ff7d_8d7c_4403_8a58_4996a3e6ac28&quot;] * u[69]
+
+    reaction_mw837b5ad7_4a8c_4c55_94ff_0fdd63048044 = p[&quot;reaction_mw837b5ad7_4a8c_4c55_94ff_0fdd63048044_mw4f6f44d9_408e_49b2_bedf_d34b2448725e&quot;] * u[69]
+
+    reaction_mwd15926b3_069a_4b16_a6fc_c0c15083d621 = p[&quot;reaction_mwd15926b3_069a_4b16_a6fc_c0c15083d621_mwd3e2533f_8d57_407c_834d_e0dde30b7f4a&quot;] * u[70] - p[&quot;reaction_mwd15926b3_069a_4b16_a6fc_c0c15083d621_mwbd416b7b_f9b6_4464_b9e8_be4ac001d13d&quot;] * u[68] * u[64]
+
+    reaction_mw3a5e0932_d50f_4fe6_b8cb_0ad649f305b0 = p[&quot;reaction_mw3a5e0932_d50f_4fe6_b8cb_0ad649f305b0_mw64664eb9_353a_4f1d_a8dc_e22bcb06e2c2&quot;] * u[67] * u[71] - p[&quot;reaction_mw3a5e0932_d50f_4fe6_b8cb_0ad649f305b0_mw0573df9d_f365_40b7_83d4_3846a05aefdc&quot;] * u[72]
+
+    reaction_mw5dcc8719_3180_4bd0_8797_08e256131961 = p[&quot;reaction_mw5dcc8719_3180_4bd0_8797_08e256131961_mw134431c3_e8e5_4375_89a0_2c51a03d65dd&quot;] * u[72]
+
+    reaction_mw376b0685_ef73_4fcc_94af_2ada24cf8a8b = p[&quot;reaction_mw376b0685_ef73_4fcc_94af_2ada24cf8a8b_mw22510791_ef7e_4373_907c_9eecbc8adda7&quot;] * u[74] * u[73] - p[&quot;reaction_mw376b0685_ef73_4fcc_94af_2ada24cf8a8b_mwf59d397b_cfee_4a84_9279_134cc951db8c&quot;] * u[75]
+
+    reaction_mwcc7cfa9c_4945_403a_938e_b237c371a5ef = p[&quot;reaction_mwcc7cfa9c_4945_403a_938e_b237c371a5ef_mwe2aded94_f2b5_4513_8670_71a86abf7968&quot;] * u[75] * u[76] - p[&quot;reaction_mwcc7cfa9c_4945_403a_938e_b237c371a5ef_mw8d6eacb6_7184_4564_8cde_53e93add2146&quot;] * u[77]
+
+    reaction_mw98da32e0_b061_40c5_9d32_40744134f3fa = p[&quot;reaction_mw98da32e0_b061_40c5_9d32_40744134f3fa_mw3c3648cb_6d56_4d9d_be47_129483778fd6&quot;] * u[77]
+
+    reaction_mw31369230_1f14_45bd_be02_a44a275c6e31 = p[&quot;reaction_mw31369230_1f14_45bd_be02_a44a275c6e31_mw98405e53_330b_4a64_a700_a62bb3f21426&quot;] * u[78] - p[&quot;reaction_mw31369230_1f14_45bd_be02_a44a275c6e31_mw11f8de84_6639_486d_bf17_8f7021f54b66&quot;] * u[79] * u[76]
+
+    reaction_mw12311a84_3f8d_40c6_8b14_961a8a58d1b6 = p[&quot;reaction_mw12311a84_3f8d_40c6_8b14_961a8a58d1b6_mw65e1222f_39ad_4a29_ae76_04b7d591af38&quot;] * u[79] - p[&quot;reaction_mw12311a84_3f8d_40c6_8b14_961a8a58d1b6_mw11e520e6_b1f1_4802_af71_92a2bd9cb644&quot;] * u[80] * u[73]
+
+    reaction_mwf3d393e9_ae09_4eab_a39a_ed0eef0f54bc = p[&quot;reaction_mwf3d393e9_ae09_4eab_a39a_ed0eef0f54bc_mw6a4e035b_11a7_4155_9a78_cfba13631cb1&quot;] * u[81]
+
+    reaction_mw2698f402_d00b_451e_8b22_93a322fe9a92 = p[&quot;reaction_mw2698f402_d00b_451e_8b22_93a322fe9a92_mw6eebbe41_cf28_46e8_930c_26f50e08d602&quot;] * u[82] - p[&quot;reaction_mw2698f402_d00b_451e_8b22_93a322fe9a92_mw751c2663_d807_482f_991b_c8032cb6d996&quot;] * u[74] * u[83]
+
+    reaction_mw028e8b3e_b531_4466_9c3a_e3fcf7fc9be9 = p[&quot;reaction_mw028e8b3e_b531_4466_9c3a_e3fcf7fc9be9_mwd2d0b340_bbdb_40bd_9eac_992a2a402b94&quot;] * u[80] * u[83] - p[&quot;reaction_mw028e8b3e_b531_4466_9c3a_e3fcf7fc9be9_mwb1b46773_a218_4f99_a000_a98fbc1275d7&quot;] * u[81]
+
+    reaction_mwc5e0c166_6a3a_4913_9ed1_dafe97bdb371 = p[&quot;reaction_mwc5e0c166_6a3a_4913_9ed1_dafe97bdb371_mw193f2553_1ab3_4b07_9b4b_201ee9e08c96&quot;] * u[79] * u[83] - p[&quot;reaction_mwc5e0c166_6a3a_4913_9ed1_dafe97bdb371_mwb7292ff5_dd13_41aa_b9b8_2c0c75d35fb1&quot;] * u[84]
+
+    reaction_mw94b3bae0_4da9_4358_a5ac_a46a5cbf621b = p[&quot;reaction_mw94b3bae0_4da9_4358_a5ac_a46a5cbf621b_mwf4069175_b898_4633_ac1e_20f44431c36a&quot;] * u[84]
+
+    reaction_mw362ca1b3_224a_42fb_a14b_6ff467748a5e = p[&quot;reaction_mw362ca1b3_224a_42fb_a14b_6ff467748a5e_mw6d852e8c_c64a_4926_80c4_781a9c04b20e&quot;] * u[85] - p[&quot;reaction_mw362ca1b3_224a_42fb_a14b_6ff467748a5e_mw4d614bfc_3e20_450e_8890_6326afd0a0d7&quot;] * u[75] * u[83]
+
+    reaction_mw3994e898_7232_4b70_9c58_b3476e8655f5 = p[&quot;reaction_mw3994e898_7232_4b70_9c58_b3476e8655f5_mw3676a900_b098_4a74_a511_e15984ca0cd2&quot;] * u[78] * u[83] - p[&quot;reaction_mw3994e898_7232_4b70_9c58_b3476e8655f5_mwf68a0726_94b5_4be1_933f_1ac48053601d&quot;] * u[86]
+
+    reaction_mw75acd2d1_3fdf_4c3f_8d99_6d62f825d5e2 = p[&quot;reaction_mw75acd2d1_3fdf_4c3f_8d99_6d62f825d5e2_mwb4f0353c_d140_44cc_ab75_566fcc2909c5&quot;] * u[86]
+
+    reaction_mw4a334f7d_9bce_4690_b623_a427ed66a174 = p[&quot;reaction_mw4a334f7d_9bce_4690_b623_a427ed66a174_mw6165953d_ce44_4b21_a18a_c401c04993f1&quot;] * u[87] - p[&quot;reaction_mw4a334f7d_9bce_4690_b623_a427ed66a174_mw99a30aef_212a_4577_bcfd_8c5764057cca&quot;] * u[77] * u[83]
+
+    reaction_mw950485f2_4463_4309_a4e4_cc81d16ffb7f = p[&quot;reaction_mw950485f2_4463_4309_a4e4_cc81d16ffb7f_mw94b0216f_3353_4b36_b9b7_fd34a0510b08&quot;] * u88 * u[36] / (p[&quot;reaction_mw950485f2_4463_4309_a4e4_cc81d16ffb7f_mw2034bbe7_27cc_410c_9870_1f8a5986dfa5&quot;] + u[36])
+
+    reaction_mw62f71309_e066_47d2_9b99_01f78a51c218 = p[&quot;reaction_mw62f71309_e066_47d2_9b99_01f78a51c218_mw0cea56f3_1cdb_410e_a5a4_f3635ba5c94b&quot;] * u[89]
+
+    reaction_mwe8647e48_f4a9_40f4_9b32_f89ded572e01 = p[&quot;reaction_mwe8647e48_f4a9_40f4_9b32_f89ded572e01_mw50a0e884_a88c_46a7_b985_788868bc1029&quot;] * u[5] * u[90] - p[&quot;reaction_mwe8647e48_f4a9_40f4_9b32_f89ded572e01_mw2c88e0e2_e9c3_4e4c_bb2e_b0cd1f6420f4&quot;] * u[91]
+
+    reaction_mw65b9e026_bc6c_4c94_8b37_8b9acdf50c8a = p[&quot;reaction_mw65b9e026_bc6c_4c94_8b37_8b9acdf50c8a_mw95e2190d_8e39_419b_ad26_7cc141f7b87b&quot;] * u[91]
+
+    reaction_mw1c9d29fa_bff4_4d2f_9d5f_f1791e4882a3 = p[&quot;reaction_mw1c9d29fa_bff4_4d2f_9d5f_f1791e4882a3_mw76d68ace_272d_4178_bba2_74dfdf260c70&quot;] * u[5] * u[92] - p[&quot;reaction_mw1c9d29fa_bff4_4d2f_9d5f_f1791e4882a3_mwe37b936f_7781_4a01_b59b_96bd7db0c49e&quot;] * u[93]
+
+    reaction_mwad97bd5a_3dae_49d9_990b_2e6574740618 = p[&quot;reaction_mwad97bd5a_3dae_49d9_990b_2e6574740618_mwb6701ead_d3f2_4eb3_8b08_341cea49a4b2&quot;] * u[92] * u[94] - p[&quot;reaction_mwad97bd5a_3dae_49d9_990b_2e6574740618_mwa5016035_3f9f_44fc_9f69_1d7a0155eb36&quot;] * u[95]
+
+    reaction_mwe9988e4a_083c_4f8e_b154_3e599c9307b0 = p[&quot;reaction_mwe9988e4a_083c_4f8e_b154_3e599c9307b0_mw26164d03_adda_4a21_b5ac_59e1d5a8d8ab&quot;] * u[95]
+
+    reaction_mwf8bacf1a_6c1a_49b6_b344_2d3bd404a735 = p[&quot;reaction_mwf8bacf1a_6c1a_49b6_b344_2d3bd404a735_mw9fe16c2b_7271_4e4f_b6de_c149721a3198&quot;] * u[92] * u[92] - p[&quot;reaction_mwf8bacf1a_6c1a_49b6_b344_2d3bd404a735_mw74ea5b55_ead0_4b6f_8da0_fd1dcf7e231d&quot;] * u[97]
+
+    reaction_mwc9b945cf_3a14_4bd9_b253_7064498c75e2 = p[&quot;reaction_mwc9b945cf_3a14_4bd9_b253_7064498c75e2_mw8cbe6595_6f16_4704_afe2_0dd043a175fa&quot;] * u[97] * u[94] - p[&quot;reaction_mwc9b945cf_3a14_4bd9_b253_7064498c75e2_mw21d22acd_ddd4_4794_9700_52201984f75b&quot;] * u[96]
+
+    reaction_mw75c6078f_fb76_4ca9_9fdd_e221e3ba57ad = p[&quot;reaction_mw75c6078f_fb76_4ca9_9fdd_e221e3ba57ad_mw81384973_14a0_4498_ab21_f70666d46d7f&quot;] * u[96]
+
+    reaction_mw177fa7b0_f0be_4c3e_8b47_2ac4e13159a2 = p[&quot;reaction_mw177fa7b0_f0be_4c3e_8b47_2ac4e13159a2_mw9f1a7f64_0b37_42df_9dd5_e1a44efdcbba&quot;] * u[90] * u[92] - p[&quot;reaction_mw177fa7b0_f0be_4c3e_8b47_2ac4e13159a2_mw366e6f17_4081_4cdc_9fa5_0aeb354d692c&quot;] * u[98]
+
+    reaction_mwec4127b5_6bcf_4128_aff4_a6b3c470f690 = p[&quot;reaction_mwec4127b5_6bcf_4128_aff4_a6b3c470f690_mw1df2caba_8e41_4fe5_a1b5_7777eb98ed1c&quot;] * u[97]
+
+    reaction_mw5c806b00_59a1_491e_99a1_2c932b2d5d7a = p[&quot;reaction_mw5c806b00_59a1_491e_99a1_2c932b2d5d7a_mw5a798f7a_b4eb_4a27_b413_4ff3956b90e9&quot;] * u[100] * u[100] - p[&quot;reaction_mw5c806b00_59a1_491e_99a1_2c932b2d5d7a_mw54178365_18c1_47e0_94ee_6b96582c52ef&quot;] * u[99]
+
+    reaction_mw26fdabae_323b_4a78_b134_4c2eb70ea6a7 = p[&quot;reaction_mw26fdabae_323b_4a78_b134_4c2eb70ea6a7_mw1ff4e75e_fce5_4a7a_907b_05df4981f80b&quot;] * u[99] * u[101] - p[&quot;reaction_mw26fdabae_323b_4a78_b134_4c2eb70ea6a7_mw8b269d52_eda9_4dd1_8616_ebcf29c971fa&quot;] * u[102]
+
+    reaction_mw3b0c171c_6d60_41ca_8193_83cd5e6c188c = p[&quot;reaction_mw3b0c171c_6d60_41ca_8193_83cd5e6c188c_mw90b25c4b_ad1a_4ee5_ae20_c60451484516&quot;] * u[102]
+
+    reaction_mwc38a99c8_74cf_49f2_a16b_f6610ca1a0a7 = p[&quot;reaction_mwc38a99c8_74cf_49f2_a16b_f6610ca1a0a7_mwa0806e7a_a90d_4187_9c37_6d9ea569a447&quot;] * u[104] * u[100] - p[&quot;reaction_mwc38a99c8_74cf_49f2_a16b_f6610ca1a0a7_mw95cb9071_56e2_447d_b7c7_59ac96baa623&quot;] * u[103]
+
+    reaction_mw45d92b79_0656_4795_87d0_7a465949ca43 = p[&quot;reaction_mw45d92b79_0656_4795_87d0_7a465949ca43_mwba545ecf_c7d4_4a6c_8c47_9e91f052d5a9&quot;] * u[100] * u[101] - p[&quot;reaction_mw45d92b79_0656_4795_87d0_7a465949ca43_mw01c5ceef_57a1_4baa_b2cd_fd39e9588a10&quot;] * u[105]
+
+    reaction_mwb71945c2_03a8_4fad_a995_e1caeee98525 = p[&quot;reaction_mwb71945c2_03a8_4fad_a995_e1caeee98525_mw7aba6db3_c7ec_4192_bb5e_0ac4b466c1a5&quot;] * u[105]
+
+    reaction_mwd189238c_e8f9_40be_b4ea_18a42bba1b4f = p[&quot;reaction_mwd189238c_e8f9_40be_b4ea_18a42bba1b4f_mw31eb851a_c381_419d_b694_f158b7f5cfb6&quot;] * u[104]
+
+    reaction_mwcb637bf1_7618_4d8a_ab5c_399145ecf1df = p[&quot;reaction_mwcb637bf1_7618_4d8a_ab5c_399145ecf1df_mwe09b67b9_0d2a_4b82_91ef_5284216beb94&quot;] * u[91] * u[6] - p[&quot;reaction_mwcb637bf1_7618_4d8a_ab5c_399145ecf1df_mw77a6c207_ff8c_463c_9b4e_8a7d96652b79&quot;] * u[106]
+
+    reaction_mw401dde7e_c0a1_4780_b6cc_8f98681c862e = p[&quot;reaction_mw401dde7e_c0a1_4780_b6cc_8f98681c862e_mw1df53838_48e5_4331_9084_3790409ad5ff&quot;] * u[106] * u[60] - p[&quot;reaction_mw401dde7e_c0a1_4780_b6cc_8f98681c862e_mwe4573b2c_5f99_40d0_9f9e_c238caa5ccbe&quot;] * u[107]
+
+    reaction_mw0dd5a91d_d76c_494e_9dd6_57f2836aaa19 = p[&quot;reaction_mw0dd5a91d_d76c_494e_9dd6_57f2836aaa19_mw8ed5885f_774e_48a0_9338_fe8cdd512023&quot;] * u[107]
+
+    reaction_mwb205f533_4013_406b_8a4b_691ec3949555 = p[&quot;reaction_mwb205f533_4013_406b_8a4b_691ec3949555_mwa6ef5f75_f152_414d_811c_dd037d4b3ca1&quot;] * u[65] * u[6] - p[&quot;reaction_mwb205f533_4013_406b_8a4b_691ec3949555_mwee51df1b_3f69_43f8_a1d5_5a8c5d0215f2&quot;] * u[108]
+
+    reaction_mw602726ea_89ee_41b8_bda6_e2811bb42c1d = p[&quot;reaction_mw602726ea_89ee_41b8_bda6_e2811bb42c1d_mw2e0b4751_7227_4815_bf6f_fa5e2370b1d3&quot;] * u[108] * u[60] - p[&quot;reaction_mw602726ea_89ee_41b8_bda6_e2811bb42c1d_mwa8eec8e9_74b9_4afc_b6db_1116fe48e858&quot;] * u[109]
+
+    reaction_mwfab3a9ec_b094_44f0_bd59_12ac56ca1c99 = p[&quot;reaction_mwfab3a9ec_b094_44f0_bd59_12ac56ca1c99_mwc3426c7e_3452_4507_9189_4b83ab147bdd&quot;] * u[109]
+
+    reaction_mw4fceada8_6eb0_4230_a083_b2ab094d2961 = p[&quot;reaction_mw4fceada8_6eb0_4230_a083_b2ab094d2961_mw9cafad09_6002_46e1_8336_bb91c3716d70&quot;] * u[73]
+
+    # Species:   id = mwe2fff28d_182c_4a1c_9882_f17774c0958a; name = EGF; affected by kineticLaw
+    du[1] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mwa67e40c1_693d_4214_adc8_b2f2b71cef12))
+
+    # Species:   id = mw93907b2d_53db_4080_9e3f_3eb304441ab9; name = EGFR; affected by kineticLaw
+    du[2] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mwa67e40c1_693d_4214_adc8_b2f2b71cef12) + (1.0 * reaction_mw47dee769_daa0_4af4_978a_5ab17e504c2f))
+
+    # Species:   id = mw7eacabf9_d68c_491a_aba2_ec0809a8ecc8; name = EGF-EGFR; affected by kineticLaw
+    du[3] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwa67e40c1_693d_4214_adc8_b2f2b71cef12) + (-1.0 * reaction_mw877cd1e3_b48b_42e8_ab23_682dd893fd9d) + (-1.0 * reaction_mw877cd1e3_b48b_42e8_ab23_682dd893fd9d))
+
+    # Species:   id = mwa8f2e7b2_0927_4ab4_a817_dddc43bb4fa3; name = EGF-EGFR2; affected by kineticLaw
+    du[4] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw877cd1e3_b48b_42e8_ab23_682dd893fd9d) + (-1.0 * reaction_mw413c6d45_ab23_4d3e_87b3_a8ed4629b923) + (1.0 * reaction_mw9544e67b_b6d0_4941_b7e0_ecd4f400a335) + (1.0 * reaction_mw7bb43f0a_c87e_41ff_8a43_cdf45c8f05e6) + (1.0 * reaction_mw4f89bf6c_8691_41a6_a1ac_13e6aa8c4b93) + (1.0 * reaction_mw642ac312_2ee7_4e66_8f3e_e2da2bb6412a))
+
+    # Species:   id = mwbfcf6773_1915_432c_b1d2_1f246094cc74; name = pEGF-EGFR2; affected by kineticLaw
+    du[5] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw413c6d45_ab23_4d3e_87b3_a8ed4629b923) + (-1.0 * reaction_mwf61e086d_0345_4d4c_b91d_0b105e543d04) + (-1.0 * reaction_mw91f49311_efdc_47c6_b8b8_a619e042d644) + (1.0 * reaction_mw486c5261_3d03_4589_a1e9_978b62ad2dfe) + (-1.0 * reaction_mw0e459167_515b_4c4d_8b67_bf0a5b3e9d61) + (-1.0 * reaction_mwd0d92dd4_81b7_4385_bfd7_5de82e193ecd) + (-1.0 * reaction_mw0a51fbf0_409b_4b45_b4ac_0220af4c4e3c) + (1.0 * reaction_mwcf9f1b1d_e19a_4fa8_85ba_8f17e2cec730) + (1.0 * reaction_mw4685274a_2b55_429f_927f_3fd863592af6) + (-1.0 * reaction_mw85e457d1_73f8_4236_bb61_a128d300003f) + (-1.0 * reaction_mw77484632_4e33_468a_9937_24e9bfd0e17d) + (1.0 * reaction_mwd3a36af9_3ccc_4bb1_9867_3b9823ba4ac8) + (-1.0 * reaction_mwe8647e48_f4a9_40f4_9b32_f89ded572e01) + (1.0 * reaction_mw65b9e026_bc6c_4c94_8b37_8b9acdf50c8a) + (-1.0 * reaction_mw1c9d29fa_bff4_4d2f_9d5f_f1791e4882a3))
+
+    # Species:   id = mw19122f7d_f92e_4dc0_922f_6b681db65b0b; name = cbl; affected by kineticLaw
+    du[6] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mwbd8a133e_1b70_44e8_bef8_78b14141166b) + (1.0 * reaction_mw363a5271_1f51_4d5e_87a7_42ea25cb5657) + (-1.0 * reaction_mw6bee0112_92dc_4169_9109_2633772b3aa4) + (1.0 * reaction_mweb93165f_cf03_48f1_b035_59d79e324314) + (-1.0 * reaction_mw85e457d1_73f8_4236_bb61_a128d300003f) + (1.0 * reaction_mwc9b3b248_3290_452a_9b7c_8fdada3e6687) + (-1.0 * reaction_mwcb637bf1_7618_4d8a_ab5c_399145ecf1df) + (1.0 * reaction_mw0dd5a91d_d76c_494e_9dd6_57f2836aaa19) + (-1.0 * reaction_mwb205f533_4013_406b_8a4b_691ec3949555))
+
+    # Species:   id = mw3c2e1b43_29ca_491a_93e9_c723a993d6fb; name = Shc; affected by kineticLaw
+    du[7] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mwf61e086d_0345_4d4c_b91d_0b105e543d04) + (1.0 * reaction_mweda6a945_fb5d_4d99_9958_11b2b2840308) + (1.0 * reaction_mwd4bf58ea_70c9_43ea_a831_1fcde130ba28))
+
+    # Species:   id = mw5198d3c2_879c_4f0d_b4f8_cd40efe0b1cf; name = pEGF-EGFR2-Shc; affected by kineticLaw
+    du[8] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwf61e086d_0345_4d4c_b91d_0b105e543d04) + (-1.0 * reaction_mw974c39f5_b82e_44b3_abec_7a724f46c526))
+
+    # Species:   id = mwe57c3282_5935_405c_8c0b_7fadb7a5de17; name = SHP; affected by kineticLaw
+    du[9] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mw91f49311_efdc_47c6_b8b8_a619e042d644) + (1.0 * reaction_mw9544e67b_b6d0_4941_b7e0_ecd4f400a335) + (-1.0 * reaction_mw2cf8a809_63d8_4717_91fc_070516e6f3db) + (1.0 * reaction_mweda6a945_fb5d_4d99_9958_11b2b2840308) + (-1.0 * reaction_mw03998474_934b_4e4a_8c0c_ca359e402ac2) + (1.0 * reaction_mw7bb43f0a_c87e_41ff_8a43_cdf45c8f05e6) + (-1.0 * reaction_mwc52e0f9b_1e0c_46ca_8d18_f05ef4a080cb) + (1.0 * reaction_mw4f89bf6c_8691_41a6_a1ac_13e6aa8c4b93) + (-1.0 * reaction_mwc5aae1f8_52e4_4bcd_b044_3768f90b7b19) + (1.0 * reaction_mw642ac312_2ee7_4e66_8f3e_e2da2bb6412a))
+
+    # Species:   id = mw954e8fcb_ac0a_459d_8878_f19080208a17; name = pEGF-EGFR2-SHP2; affected by kineticLaw
+    du[10] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw91f49311_efdc_47c6_b8b8_a619e042d644) + (-1.0 * reaction_mw9544e67b_b6d0_4941_b7e0_ecd4f400a335))
+
+    # Species:   id = mwa98802cb_c977_4fe0_9e67_5000904c2c36; name = pEGF-EGFR2-pShc; affected by kineticLaw
+    du[11] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw974c39f5_b82e_44b3_abec_7a724f46c526) + (-1.0 * reaction_mw486c5261_3d03_4589_a1e9_978b62ad2dfe) + (-1.0 * reaction_mw4817365e_a33b_451f_bee1_de748377ede2) + (-1.0 * reaction_mw23a29b42_9813_4e46_b8ae_966e3215e6dc))
+
+    # Species:   id = mwa0349407_8187_48fc_9e94_5698ccc4e06d; name = pShc; affected by kineticLaw
+    du[12] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw486c5261_3d03_4589_a1e9_978b62ad2dfe) + (-1.0 * reaction_mw2cf8a809_63d8_4717_91fc_070516e6f3db) + (-1.0 * reaction_mwd4bf58ea_70c9_43ea_a831_1fcde130ba28) + (1.0 * reaction_mw7bb43f0a_c87e_41ff_8a43_cdf45c8f05e6) + (1.0 * reaction_mwcf9f1b1d_e19a_4fa8_85ba_8f17e2cec730) + (1.0 * reaction_mw363a5271_1f51_4d5e_87a7_42ea25cb5657))
+
+    # Species:   id = mwf9999977_6f0e_4e35_9b73_75587f3448e9; name = pShc-SHP2; affected by kineticLaw
+    du[13] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw2cf8a809_63d8_4717_91fc_070516e6f3db) + (-1.0 * reaction_mweda6a945_fb5d_4d99_9958_11b2b2840308))
+
+    # Species:   id = mwf430a579_ecbf_48ba_80c2_06e455808f2a; name = Grb2; affected by kineticLaw
+    du[14] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mw4817365e_a33b_451f_bee1_de748377ede2) + (1.0 * reaction_mw7bb43f0a_c87e_41ff_8a43_cdf45c8f05e6) + (-1.0 * reaction_mwc5f121dc_d27d_4c3d_90f2_67d0adaf144a) + (-1.0 * reaction_mw0e459167_515b_4c4d_8b67_bf0a5b3e9d61) + (1.0 * reaction_mw4f89bf6c_8691_41a6_a1ac_13e6aa8c4b93) + (1.0 * reaction_mwcf9f1b1d_e19a_4fa8_85ba_8f17e2cec730) + (1.0 * reaction_mw4685274a_2b55_429f_927f_3fd863592af6))
+
+    # Species:   id = mw504578d8_96c3_471f_8a7e_8c14e7535d3d; name = pEGF-EGFR2-pShc-Grb2; affected by kineticLaw
+    du[15] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw4817365e_a33b_451f_bee1_de748377ede2) + (-1.0 * reaction_mw03998474_934b_4e4a_8c0c_ca359e402ac2) + (-1.0 * reaction_mwd9262331_e35a_4614_943a_89bcf8a492e3))
+
+    # Species:   id = mw45ab688a_6467_4a3e_a779_2118fa84d69e; name = pEGF-EGFR2-pShc-Grb2-SHP2; affected by kineticLaw
+    du[16] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw03998474_934b_4e4a_8c0c_ca359e402ac2) + (-1.0 * reaction_mw7bb43f0a_c87e_41ff_8a43_cdf45c8f05e6))
+
+    # Species:   id = mw9dcaa655_a755_426e_a3fa_1ad7c3c45575; name = SOS; affected by kineticLaw
+    du[17] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mwd9262331_e35a_4614_943a_89bcf8a492e3) + (-1.0 * reaction_mwc5f121dc_d27d_4c3d_90f2_67d0adaf144a) + (-1.0 * reaction_mw35f71989_f89b_4440_b1a4_ebc7b4cc18b2) + (1.0 * reaction_mw8e331e43_16b4_478d_880b_d5a3244540e4))
+
+    # Species:   id = mwfbda4e09_0cbb_49bc_ae69_f88b7a79ed21; name = pEGF-EGFR2-pShc-Grb2-SOS; affected by kineticLaw
+    du[18] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwd9262331_e35a_4614_943a_89bcf8a492e3) + (1.0 * reaction_mw23a29b42_9813_4e46_b8ae_966e3215e6dc) + (-1.0 * reaction_mwbb77e3d6_6065_4344_9361_e30c03514f4e) + (1.0 * reaction_mw0bcfad86_59b9_42ff_bcb7_fbb44845049d) + (-1.0 * reaction_mw8dec1159_1925_45d9_af25_3cb709a5017c) + (-1.0 * reaction_mwbd8a133e_1b70_44e8_bef8_78b14141166b))
+
+    # Species:   id = mwb1bc2058_e6d8_4680_9e6c_d27bb366cde0; name = pEGF-EGFR2-pShc-Grb2-SOS-cbl; affected by kineticLaw
+    du[19] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwbd8a133e_1b70_44e8_bef8_78b14141166b) + (-1.0 * reaction_mw3a87ca5a_845d_4ac4_8806_e343cbbfc630))
+
+    # Species:   id = mw1093b3af_1864_4ba3_a541_6009a9921282; name = Grb2-SOS; affected by kineticLaw
+    du[20] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwc5f121dc_d27d_4c3d_90f2_67d0adaf144a) + (-1.0 * reaction_mw23a29b42_9813_4e46_b8ae_966e3215e6dc) + (-1.0 * reaction_mwd0d92dd4_81b7_4385_bfd7_5de82e193ecd) + (1.0 * reaction_mw363a5271_1f51_4d5e_87a7_42ea25cb5657) + (1.0 * reaction_mweb93165f_cf03_48f1_b035_59d79e324314))
+
+    # Species:   id = mwd9462e5b_a272_4b66_ab66_fde9266b1a43; name = pEGF-EGFR2-Grb2; affected by kineticLaw
+    du[21] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw0e459167_515b_4c4d_8b67_bf0a5b3e9d61) + (-1.0 * reaction_mwc52e0f9b_1e0c_46ca_8d18_f05ef4a080cb) + (-1.0 * reaction_mw35f71989_f89b_4440_b1a4_ebc7b4cc18b2))
+
+    # Species:   id = mw925b938a_fe73_4664_ba6f_e72e57780891; name = pEGF-EGFR2-Grb2-SHP2; affected by kineticLaw
+    du[22] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwc52e0f9b_1e0c_46ca_8d18_f05ef4a080cb) + (-1.0 * reaction_mw4f89bf6c_8691_41a6_a1ac_13e6aa8c4b93))
+
+    # Species:   id = mwf8cc7834_bf4f_4ccd_8235_d0890badf0f6; name = pEGF-EGFR2-Grb2-SOS; affected by kineticLaw
+    du[23] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw35f71989_f89b_4440_b1a4_ebc7b4cc18b2) + (1.0 * reaction_mwd0d92dd4_81b7_4385_bfd7_5de82e193ecd) + (1.0 * reaction_mwe9b50ac7_dac3_4eba_b1db_b3fd392d8fb7) + (-1.0 * reaction_mw934c3638_603e_4ff0_a763_68f9405fa01f) + (-1.0 * reaction_mwa5c135b4_77e2_4411_98e1_2000c39d4b30) + (-1.0 * reaction_mw6bee0112_92dc_4169_9109_2633772b3aa4))
+
+    # Species:   id = mw481cd12b_61ba_44e5_93bf_8b88c6c4a4e7; name = pEGF-EGFR2-Grb2-SOS-cbl; affected by kineticLaw
+    du[24] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw6bee0112_92dc_4169_9109_2633772b3aa4) + (-1.0 * reaction_mwbac9e6ff_2df1_45eb_b3f4_4cae74c64014))
+
+    # Species:   id = mw8f5a7b5c_ca4c_4a4c_85b1_e5d640c426bf; name = Ras-GDP; affected by kineticLaw
+    du[25] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mwbb77e3d6_6065_4344_9361_e30c03514f4e) + (1.0 * reaction_mw921ee820_1dbb_4b5f_866c_87da620d8f89) + (-1.0 * reaction_mw934c3638_603e_4ff0_a763_68f9405fa01f) + (1.0 * reaction_mwf31259aa_32b7_4104_be70_045297b9a512) + (1.0 * reaction_mw652570eb_c9d3_499b_b877_61d360b10980))
+
+    # Species:   id = mwf40d6176_abfc_4a30_886f_83a19fcffc48; name = pEGF-EGFR2-pShc-Grb2-SOS-Ras-GDP; affected by kineticLaw
+    du[26] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwbb77e3d6_6065_4344_9361_e30c03514f4e) + (-1.0 * reaction_mw0bcfad86_59b9_42ff_bcb7_fbb44845049d))
+
+    # Species:   id = mwa54a9c38_c98b_45e5_8432_4119fb777e44; name = Ras-GTP; affected by kineticLaw
+    du[27] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mw921ee820_1dbb_4b5f_866c_87da620d8f89) + (1.0 * reaction_mw0bcfad86_59b9_42ff_bcb7_fbb44845049d) + (1.0 * reaction_mwe9b50ac7_dac3_4eba_b1db_b3fd392d8fb7) + (-1.0 * reaction_mw3c617363_649b_4460_a694_36f7a3127a62) + (-1.0 * reaction_mw33baddbd_a23f_45bb_b126_0ba60bbf6c53) + (-1.0 * reaction_mw584a64d0_560a_4297_9882_80cb4eff73f3) + (1.0 * reaction_mw42c97708_4f85_45a8_9141_d0ae529409ca))
+
+    # Species:   id = mw28464aad_8013_4a23_ae09_a406954859a6; name = pEGF-EGFR2-Grb2-SOS-Ras-GDP; affected by kineticLaw
+    du[28] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mwe9b50ac7_dac3_4eba_b1db_b3fd392d8fb7) + (1.0 * reaction_mw934c3638_603e_4ff0_a763_68f9405fa01f))
+
+    # Species:   id = mw7cff9a0e_094d_498e_bf7f_7b162c61d63a; name = Ras-GAP; affected by kineticLaw
+    du[29] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mw3c617363_649b_4460_a694_36f7a3127a62) + (1.0 * reaction_mwf31259aa_32b7_4104_be70_045297b9a512) + (-1.0 * reaction_mw0a51fbf0_409b_4b45_b4ac_0220af4c4e3c) + (1.0 * reaction_mw642ac312_2ee7_4e66_8f3e_e2da2bb6412a))
+
+    # Species:   id = mwdf82303e_323f_4c51_a858_56a59233cd98; name = Ras-GTP-Ras-GAP; affected by kineticLaw
+    du[30] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw3c617363_649b_4460_a694_36f7a3127a62) + (-1.0 * reaction_mwf31259aa_32b7_4104_be70_045297b9a512))
+
+    # Species:   id = mwd39388fd_4f85_4d1c_b2a3_37857c595a2d; name = pEGF-EGFR2-Ras-GAP; affected by kineticLaw
+    du[31] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw0a51fbf0_409b_4b45_b4ac_0220af4c4e3c) + (-1.0 * reaction_mw33baddbd_a23f_45bb_b126_0ba60bbf6c53) + (1.0 * reaction_mw652570eb_c9d3_499b_b877_61d360b10980) + (-1.0 * reaction_mwc5aae1f8_52e4_4bcd_b044_3768f90b7b19))
+
+    # Species:   id = mwd7bf31ba_b05c_4c45_bb2f_6a2468a2a507; name = pEGF-EGFR2-Ras-GAP-Ras-GTP; affected by kineticLaw
+    du[32] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw33baddbd_a23f_45bb_b126_0ba60bbf6c53) + (-1.0 * reaction_mw652570eb_c9d3_499b_b877_61d360b10980))
+
+    # Species:   id = mwbf5cb039_b830_4282_aa22_a3dda6272ec1; name = pEGF-EGFR2-Ras-GAP-SHP2; affected by kineticLaw
+    du[33] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwc5aae1f8_52e4_4bcd_b044_3768f90b7b19) + (-1.0 * reaction_mw642ac312_2ee7_4e66_8f3e_e2da2bb6412a))
+
+    # Species:   id = mw66ac98c4_7e7b_4071_954d_43eb17584220; name = Raf1; affected by kineticLaw
+    du[34] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mw584a64d0_560a_4297_9882_80cb4eff73f3) + (1.0 * reaction_mw87711dc1_43d7_40fc_b9e9_a24e2f92419d))
+
+    # Species:   id = mw83de7813_4941_45a6_a320_a551165bf22a; name = Raf1-Ras-GTP; affected by kineticLaw
+    du[35] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw584a64d0_560a_4297_9882_80cb4eff73f3) + (-1.0 * reaction_mw42c97708_4f85_45a8_9141_d0ae529409ca))
+
+    # Species:   id = mwaff92910_ed3d_40b9_a29c_e4866167e828; name = Raf1active; affected by kineticLaw
+    du[36] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw42c97708_4f85_45a8_9141_d0ae529409ca) + (-1.0 * reaction_mwaa65a34e_fabf_4d6d_ae0b_f1d08b068f33) + (1.0 * reaction_mw1bd186cf_4762_480a_b70d_d7a775462398) + (-1.0 * reaction_mwf5573ddf_ad7f_478a_a784_557a9cddaaf2) + (1.0 * reaction_mwb49058ff_2997_4187_abe7_4dce4ccf6ff4) + (-1.0 * reaction_mw9c208e18_c70d_4231_af0b_ad17cd0bba2d) + (-1.0 * reaction_mw950485f2_4463_4309_a4e4_cc81d16ffb7f) + (1.0 * reaction_mw62f71309_e066_47d2_9b99_01f78a51c218))
+
+    # Species:   id = mw0834731b_0477_4217_a53b_30cef851191b; name = MEK; affected by kineticLaw
+    du[37] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mwaa65a34e_fabf_4d6d_ae0b_f1d08b068f33) + (1.0 * reaction_mwa4b69c77_6226_46da_b78c_3e6027d0be41))
+
+    # Species:   id = mw4628f984_eb87_4922_9760_4975095ce6eb; name = Raf1active-MEK; affected by kineticLaw
+    du[38] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwaa65a34e_fabf_4d6d_ae0b_f1d08b068f33) + (-1.0 * reaction_mw1bd186cf_4762_480a_b70d_d7a775462398))
+
+    # Species:   id = mw9b25f809_18a1_4c14_8f4b_cf18e6d93c28; name = pMEK; affected by kineticLaw
+    du[39] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw1bd186cf_4762_480a_b70d_d7a775462398) + (-1.0 * reaction_mwf5573ddf_ad7f_478a_a784_557a9cddaaf2) + (1.0 * reaction_mw40950d59_1012_4361_8418_73e25758e367) + (-1.0 * reaction_mwbfa79c95_487d_4c6f_b437_9e579451a419))
+
+    # Species:   id = mw12ba4000_d452_420c_be63_96d2848aca32; name = Raf1active-pMEK; affected by kineticLaw
+    du[40] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwf5573ddf_ad7f_478a_a784_557a9cddaaf2) + (-1.0 * reaction_mwb49058ff_2997_4187_abe7_4dce4ccf6ff4))
+
+    # Species:   id = mwf816df4c_4593_4d23_990f_0d7c15ddde5d; name = ppMEK; affected by kineticLaw
+    du[41] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwb49058ff_2997_4187_abe7_4dce4ccf6ff4) + (-1.0 * reaction_mw8301b154_9463_4516_b4c5_c8f8b68691fe) + (1.0 * reaction_mwf95f743d_6108_49fe_8ffd_bdcc1a9f9a8d) + (-1.0 * reaction_mw51d9d6b8_f0c0_4763_9d11_9be61b5cf5c9) + (1.0 * reaction_mw6fd24d16_f57d_46c6_82f5_3f00759fa16b) + (-1.0 * reaction_mw4b445876_bdce_42d0_867b_fd3c74128a6b))
+
+    # Species:   id = mw7e23b961_186b_47a0_a8b5_5e9957766792; name = ERK; affected by kineticLaw
+    du[42] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mw8301b154_9463_4516_b4c5_c8f8b68691fe) + (1.0 * reaction_mwcc31b497_6c50_446c_bbc2_6c5739507252))
+
+    # Species:   id = mwcedf8ecd_67bd_4b91_aa04_d58782dec2a4; name = ppMEK-ERK; affected by kineticLaw
+    du[43] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw8301b154_9463_4516_b4c5_c8f8b68691fe) + (-1.0 * reaction_mwf95f743d_6108_49fe_8ffd_bdcc1a9f9a8d))
+
+    # Species:   id = mwcc894c94_0ddf_42cc_913e_cdcc4d471d94; name = pERK; affected by kineticLaw
+    du[44] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwf95f743d_6108_49fe_8ffd_bdcc1a9f9a8d) + (-1.0 * reaction_mw51d9d6b8_f0c0_4763_9d11_9be61b5cf5c9) + (1.0 * reaction_mw61305f93_7b2d_4a2d_8d16_f7be026d8671) + (-1.0 * reaction_mw1d8c2435_bb85_4352_a25f_82033250579e))
+
+    # Species:   id = mw6cb74b27_ffef_49bb_8ffb_622d552caa9e; name = ppMEK-pERK; affected by kineticLaw
+    du[45] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw51d9d6b8_f0c0_4763_9d11_9be61b5cf5c9) + (-1.0 * reaction_mw6fd24d16_f57d_46c6_82f5_3f00759fa16b))
+
+    # Species:   id = mwd784228d_0cb5_468a_ac70_02d8f04b3d9c; name = ppERK; affected by kineticLaw
+    du[46] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw6fd24d16_f57d_46c6_82f5_3f00759fa16b) + (-1.0 * reaction_mwf8bb22e2_5aa3_4c25_a022_a266b1856a48) + (-1.0 * reaction_mw8dec1159_1925_45d9_af25_3cb709a5017c) + (1.0 * reaction_mwcf9f1b1d_e19a_4fa8_85ba_8f17e2cec730) + (-1.0 * reaction_mwa5c135b4_77e2_4411_98e1_2000c39d4b30) + (1.0 * reaction_mw4685274a_2b55_429f_927f_3fd863592af6))
+
+    # Species:   id = mwbaaeb210_4806_4076_9d60_219f4ed945b6; name = Pase; affected by kineticLaw
+    du[47] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mw9c208e18_c70d_4231_af0b_ad17cd0bba2d) + (1.0 * reaction_mw87711dc1_43d7_40fc_b9e9_a24e2f92419d))
+
+    # Species:   id = mw19a33ad5_5ba4_46c7_84eb_c1287f02bcd5; name = Raf1active-Pase; affected by kineticLaw
+    du[48] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw9c208e18_c70d_4231_af0b_ad17cd0bba2d) + (-1.0 * reaction_mw87711dc1_43d7_40fc_b9e9_a24e2f92419d))
+
+    # Species:   id = mwf9e2a044_7774_400b_a74e_a111b4a21f30; name = Pase2; affected by kineticLaw
+    du[49] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mw4b445876_bdce_42d0_867b_fd3c74128a6b) + (1.0 * reaction_mw40950d59_1012_4361_8418_73e25758e367) + (-1.0 * reaction_mwbfa79c95_487d_4c6f_b437_9e579451a419) + (1.0 * reaction_mwa4b69c77_6226_46da_b78c_3e6027d0be41))
+
+    # Species:   id = mwcb572fe2_c3ac_40e7_8141_da7d55fce18a; name = ppMEK-Pase2; affected by kineticLaw
+    du[50] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw4b445876_bdce_42d0_867b_fd3c74128a6b) + (-1.0 * reaction_mw40950d59_1012_4361_8418_73e25758e367))
+
+    # Species:   id = mwa0acc0ac_5fac_4a42_a3be_e36db44994b0; name = pMEK-Pase2; affected by kineticLaw
+    du[51] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwbfa79c95_487d_4c6f_b437_9e579451a419) + (-1.0 * reaction_mwa4b69c77_6226_46da_b78c_3e6027d0be41))
+
+    # Species:   id = mwd087f76b_65dc_47f1_ba21_c43774457686; name = Pase3; affected by kineticLaw
+    du[52] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mwf8bb22e2_5aa3_4c25_a022_a266b1856a48) + (1.0 * reaction_mw61305f93_7b2d_4a2d_8d16_f7be026d8671) + (1.0 * reaction_mwcc31b497_6c50_446c_bbc2_6c5739507252) + (-1.0 * reaction_mw1d8c2435_bb85_4352_a25f_82033250579e))
+
+    # Species:   id = mw35f5adaa_d1c0_433c_817d_76e317f4cb15; name = pERK-Pase3; affected by kineticLaw
+    du[53] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mwcc31b497_6c50_446c_bbc2_6c5739507252) + (1.0 * reaction_mw1d8c2435_bb85_4352_a25f_82033250579e))
+
+    # Species:   id = mwa7e3103a_6394_472c_b0f4_8ed527f68604; name = ppERK-Pase3; affected by kineticLaw
+    du[54] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwf8bb22e2_5aa3_4c25_a022_a266b1856a48) + (-1.0 * reaction_mw61305f93_7b2d_4a2d_8d16_f7be026d8671))
+
+    # Species:   id = mw5babe3d5_a9af_4dfd_ac01_35474ef64af2; name = ppERK-pEGF-EGFR2-pShc-Grb2-SOS; affected by kineticLaw
+    du[55] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw8dec1159_1925_45d9_af25_3cb709a5017c) + (-1.0 * reaction_mwcf9f1b1d_e19a_4fa8_85ba_8f17e2cec730))
+
+    # Species:   id = mw31ac308f_da36_4f73_830f_67f3e5b945d9; name = pSOS; affected by kineticLaw
+    du[56] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwcf9f1b1d_e19a_4fa8_85ba_8f17e2cec730) + (1.0 * reaction_mw4685274a_2b55_429f_927f_3fd863592af6) + (-1.0 * reaction_mw8e331e43_16b4_478d_880b_d5a3244540e4))
+
+    # Species:   id = mw31261227_9cd6_4059_a0bb_04dbf4888080; name = ppERK-pEGF-EGFR2-Grb2-SOS; affected by kineticLaw
+    du[57] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwa5c135b4_77e2_4411_98e1_2000c39d4b30) + (-1.0 * reaction_mw4685274a_2b55_429f_927f_3fd863592af6))
+
+    # Species:   id = mw0a0ca6ba_cb28_44c7_a0c0_1593cb720966; name = ProEGFR; affected by kineticLaw
+    du[58] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mw47dee769_daa0_4af4_978a_5ab17e504c2f))
+
+    # Species:   id = mw06b8aada_c92a_48eb_8ee7_af3778cfe62f; name = pEGF-EGFR2-pShc-Grb2-SOS-cbl-EPn; affected by kineticLaw
+    du[59] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw3a87ca5a_845d_4ac4_8806_e343cbbfc630) + (-1.0 * reaction_mw363a5271_1f51_4d5e_87a7_42ea25cb5657))
+
+    # Species:   id = mwb2366216_0b3c_4f28_8303_fec92c68dd57; name = EPn; affected by kineticLaw
+    du[60] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mw3a87ca5a_845d_4ac4_8806_e343cbbfc630) + (1.0 * reaction_mw363a5271_1f51_4d5e_87a7_42ea25cb5657) + (-1.0 * reaction_mwbac9e6ff_2df1_45eb_b3f4_4cae74c64014) + (1.0 * reaction_mweb93165f_cf03_48f1_b035_59d79e324314) + (-1.0 * reaction_mw6b159c8f_eee0_4337_b711_2e230c9e2cf6) + (1.0 * reaction_mwc9b3b248_3290_452a_9b7c_8fdada3e6687) + (-1.0 * reaction_mw401dde7e_c0a1_4780_b6cc_8f98681c862e) + (1.0 * reaction_mw0dd5a91d_d76c_494e_9dd6_57f2836aaa19) + (-1.0 * reaction_mw602726ea_89ee_41b8_bda6_e2811bb42c1d) + (1.0 * reaction_mwfab3a9ec_b094_44f0_bd59_12ac56ca1c99))
+
+    # Species:   id = mw1d5948e7_5504_4224_9d71_227911b4f1ee; name = pEGF-EGFR2-Grb2-SOS-cbl-EPn; affected by kineticLaw
+    du[61] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwbac9e6ff_2df1_45eb_b3f4_4cae74c64014) + (-1.0 * reaction_mweb93165f_cf03_48f1_b035_59d79e324314))
+
+    # Species:   id = mwec1b368b_8f73_47eb_9636_9956389836eb; name = pEGF-EGFR2-cbl; affected by kineticLaw
+    du[62] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw85e457d1_73f8_4236_bb61_a128d300003f) + (-1.0 * reaction_mw6b159c8f_eee0_4337_b711_2e230c9e2cf6))
+
+    # Species:   id = mwa455ec7e_1a12_4659_95a2_a5695d09ca60; name = pEGF-EGFR2-cbl-EPn; affected by kineticLaw
+    du[63] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw6b159c8f_eee0_4337_b711_2e230c9e2cf6) + (-1.0 * reaction_mwc9b3b248_3290_452a_9b7c_8fdada3e6687))
+
+    # Species:   id = mw2ba1db9a_4483_44fa_a3a2_b4a5ea66898c; name = PI3K; affected by kineticLaw
+    du[64] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mw77484632_4e33_468a_9937_24e9bfd0e17d) + (1.0 * reaction_mwd15926b3_069a_4b16_a6fc_c0c15083d621) + (1.0 * reaction_mwfab3a9ec_b094_44f0_bd59_12ac56ca1c99))
+
+    # Species:   id = mw0dc4e5eb_4366_4799_bebc_cfcffe5c06f5; name = pEGF-EGFR2-PI3K; affected by kineticLaw
+    du[65] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw77484632_4e33_468a_9937_24e9bfd0e17d) + (-1.0 * reaction_mw2c5858f3_0988_49b0_a94a_057853b84e91) + (-1.0 * reaction_mwd3a36af9_3ccc_4bb1_9867_3b9823ba4ac8) + (-1.0 * reaction_mwb205f533_4013_406b_8a4b_691ec3949555))
+
+    # Species:   id = mw1e591998_65c0_484e_8a3b_537a38d94de1; name = pEGF-EGFR2-pPI3K; affected by kineticLaw
+    du[66] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw2c5858f3_0988_49b0_a94a_057853b84e91))
+
+    # Species:   id = mw78e207c4_4faf_4b48_8e22_1ee666e9cc4c; name = pPI3K; affected by kineticLaw
+    du[67] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwd3a36af9_3ccc_4bb1_9867_3b9823ba4ac8) + (-1.0 * reaction_mw9f000f29_2512_4d4a_9dd9_e59aaf296d31) + (-1.0 * reaction_mw3a5e0932_d50f_4fe6_b8cb_0ad649f305b0) + (1.0 * reaction_mw5dcc8719_3180_4bd0_8797_08e256131961))
+
+    # Species:   id = mwfc4a9c3d_3ebb_4033_8b7d_f4d7613d2078; name = TP4; affected by kineticLaw
+    du[68] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mw9f000f29_2512_4d4a_9dd9_e59aaf296d31) + (1.0 * reaction_mwd15926b3_069a_4b16_a6fc_c0c15083d621))
+
+    # Species:   id = mwbd6bb050_89bd_41df_8cea_d2e1fb77bafe; name = TP4-pPI3K; affected by kineticLaw
+    du[69] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw9f000f29_2512_4d4a_9dd9_e59aaf296d31) + (-1.0 * reaction_mw837b5ad7_4a8c_4c55_94ff_0fdd63048044))
+
+    # Species:   id = mw7033dfd6_53c5_433b_a132_f8cb34dea20f; name = TP4-PI3K; affected by kineticLaw
+    du[70] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw837b5ad7_4a8c_4c55_94ff_0fdd63048044) + (-1.0 * reaction_mwd15926b3_069a_4b16_a6fc_c0c15083d621))
+
+    # Species:   id = mwb561d9f3_a9ed_4bdb_8d40_87be5cc3237a; name = PIP2; affected by kineticLaw
+    du[71] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mw3a5e0932_d50f_4fe6_b8cb_0ad649f305b0) + (1.0 * reaction_mw4fceada8_6eb0_4230_a083_b2ab094d2961))
+
+    # Species:   id = mw014cc419_b720_4b90_9192_2ec6e706c87d; name = pPI3K-PIP2; affected by kineticLaw
+    du[72] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw3a5e0932_d50f_4fe6_b8cb_0ad649f305b0) + (-1.0 * reaction_mw5dcc8719_3180_4bd0_8797_08e256131961))
+
+    # Species:   id = mwd7f41594_8377_4e2e_9528_45d5a82ffdb4; name = PIP3; affected by kineticLaw
+    du[73] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw5dcc8719_3180_4bd0_8797_08e256131961) + (-1.0 * reaction_mw376b0685_ef73_4fcc_94af_2ada24cf8a8b) + (1.0 * reaction_mw12311a84_3f8d_40c6_8b14_961a8a58d1b6) + (-1.0 * reaction_mw4fceada8_6eb0_4230_a083_b2ab094d2961))
+
+    # Species:   id = mwcef73e0e_d195_4077_ae71_723664ee1602; name = Akt; affected by kineticLaw
+    du[74] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mw376b0685_ef73_4fcc_94af_2ada24cf8a8b) + (1.0 * reaction_mw2698f402_d00b_451e_8b22_93a322fe9a92))
+
+    # Species:   id = mw62bf5275_ce02_4e86_b3b6_3f87a335e1de; name = Aktm; affected by kineticLaw
+    du[75] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw376b0685_ef73_4fcc_94af_2ada24cf8a8b) + (-1.0 * reaction_mwcc7cfa9c_4945_403a_938e_b237c371a5ef) + (1.0 * reaction_mw362ca1b3_224a_42fb_a14b_6ff467748a5e))
+
+    # Species:   id = mw6e01967b_3e2a_433d_bec6_9f9cf3ba243c; name = PDK1; affected by kineticLaw
+    du[76] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mwcc7cfa9c_4945_403a_938e_b237c371a5ef) + (1.0 * reaction_mw31369230_1f14_45bd_be02_a44a275c6e31))
+
+    # Species:   id = mw6353aa36_d4a4_4254_8a1f_1f7f571d4233; name = Aktm-PDK1; affected by kineticLaw
+    du[77] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwcc7cfa9c_4945_403a_938e_b237c371a5ef) + (-1.0 * reaction_mw98da32e0_b061_40c5_9d32_40744134f3fa) + (1.0 * reaction_mw4a334f7d_9bce_4690_b623_a427ed66a174))
+
+    # Species:   id = mwc1935afc_56b1_4a87_923c_ae6d82455d80; name = pAktm-PDK1; affected by kineticLaw
+    du[78] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw98da32e0_b061_40c5_9d32_40744134f3fa) + (-1.0 * reaction_mw31369230_1f14_45bd_be02_a44a275c6e31) + (-1.0 * reaction_mw3994e898_7232_4b70_9c58_b3476e8655f5))
+
+    # Species:   id = mw3d81860d_d786_4fcc_b8bb_64f1a2d7739d; name = pAktm; affected by kineticLaw
+    du[79] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw31369230_1f14_45bd_be02_a44a275c6e31) + (-1.0 * reaction_mw12311a84_3f8d_40c6_8b14_961a8a58d1b6) + (-1.0 * reaction_mwc5e0c166_6a3a_4913_9ed1_dafe97bdb371))
+
+    # Species:   id = mw16796ffe_4764_4a9f_942e_149f42c1cd28; name = pAkt; affected by kineticLaw
+    du[80] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw12311a84_3f8d_40c6_8b14_961a8a58d1b6) + (-1.0 * reaction_mw028e8b3e_b531_4466_9c3a_e3fcf7fc9be9))
+
+    # Species:   id = mwa6e82fc9_a0ce_461c_93c8_17f3c807c1a1; name = pAkt-Takt; affected by kineticLaw
+    du[81] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mwf3d393e9_ae09_4eab_a39a_ed0eef0f54bc) + (1.0 * reaction_mw028e8b3e_b531_4466_9c3a_e3fcf7fc9be9))
+
+    # Species:   id = mw236a3250_4c96_4f6e_b94c_ab3d12852801; name = Akt-Takt; affected by kineticLaw
+    du[82] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwf3d393e9_ae09_4eab_a39a_ed0eef0f54bc) + (-1.0 * reaction_mw2698f402_d00b_451e_8b22_93a322fe9a92))
+
+    # Species:   id = mw11a8b702_b8ac_4513_b4aa_063e51089812; name = Takt; affected by kineticLaw
+    du[83] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw2698f402_d00b_451e_8b22_93a322fe9a92) + (-1.0 * reaction_mw028e8b3e_b531_4466_9c3a_e3fcf7fc9be9) + (-1.0 * reaction_mwc5e0c166_6a3a_4913_9ed1_dafe97bdb371) + (1.0 * reaction_mw362ca1b3_224a_42fb_a14b_6ff467748a5e) + (-1.0 * reaction_mw3994e898_7232_4b70_9c58_b3476e8655f5) + (1.0 * reaction_mw4a334f7d_9bce_4690_b623_a427ed66a174))
+
+    # Species:   id = mw1a0cb97a_b657_430b_963c_92217f643081; name = pAktm-Takt; affected by kineticLaw
+    du[84] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwc5e0c166_6a3a_4913_9ed1_dafe97bdb371) + (-1.0 * reaction_mw94b3bae0_4da9_4358_a5ac_a46a5cbf621b))
+
+    # Species:   id = mw9b937ca3_0d82_46d5_8f5a_0f9701002797; name = Aktm-Takt; affected by kineticLaw
+    du[85] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw94b3bae0_4da9_4358_a5ac_a46a5cbf621b) + (-1.0 * reaction_mw362ca1b3_224a_42fb_a14b_6ff467748a5e))
+
+    # Species:   id = mw57a44eb0_ace7_4294_905a_219e87d3c281; name = pAktm-PDK1-Takt; affected by kineticLaw
+    du[86] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw3994e898_7232_4b70_9c58_b3476e8655f5) + (-1.0 * reaction_mw75acd2d1_3fdf_4c3f_8d99_6d62f825d5e2))
+
+    # Species:   id = mwd746a5d5_5e65_4a4c_9f84_0e4a3cb7d2fc; name = Aktm-PDK1-Takt; affected by kineticLaw
+    du[87] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw75acd2d1_3fdf_4c3f_8d99_6d62f825d5e2) + (-1.0 * reaction_mw4a334f7d_9bce_4690_b623_a427ed66a174))
+
+    # Species:   id = mwa6994523_5d45_4000_af0c_3e94073bf183, name = pAkt_total, defined in a rule 	du[88] = u[88]
+
+    # Species:   id = mwdf92bdc0_f426_45b0_9ad0_876521f41312; name = pRaf1active; affected by kineticLaw
+    du[89] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw950485f2_4463_4309_a4e4_cc81d16ffb7f) + (-1.0 * reaction_mw62f71309_e066_47d2_9b99_01f78a51c218))
+
+    # Species:   id = mw13abe2a6_9905_40e5_8c23_3fc8834b572a; name = STAT3c; affected by kineticLaw
+    du[90] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mwe8647e48_f4a9_40f4_9b32_f89ded572e01) + (1.0 * reaction_mwe9988e4a_083c_4f8e_b154_3e599c9307b0) + (-1.0 * reaction_mw177fa7b0_f0be_4c3e_8b47_2ac4e13159a2) + (1.0 * reaction_mwd189238c_e8f9_40be_b4ea_18a42bba1b4f) + (1.0 * reaction_mw0dd5a91d_d76c_494e_9dd6_57f2836aaa19))
+
+    # Species:   id = mw2fd710a6_7fe2_4484_bca6_59c187bade8b; name = pEGF-EGFR2-STAT3c; affected by kineticLaw
+    du[91] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwe8647e48_f4a9_40f4_9b32_f89ded572e01) + (-1.0 * reaction_mw65b9e026_bc6c_4c94_8b37_8b9acdf50c8a) + (-1.0 * reaction_mwcb637bf1_7618_4d8a_ab5c_399145ecf1df))
+
+    # Species:   id = mwb6a9aa2c_62e7_410f_9c33_dbe36dfcc4af; name = pSTAT3c; affected by kineticLaw
+    du[92] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw65b9e026_bc6c_4c94_8b37_8b9acdf50c8a) + (-1.0 * reaction_mw1c9d29fa_bff4_4d2f_9d5f_f1791e4882a3) + (-1.0 * reaction_mwad97bd5a_3dae_49d9_990b_2e6574740618) + (-1.0 * reaction_mwf8bacf1a_6c1a_49b6_b344_2d3bd404a735) + (-1.0 * reaction_mwf8bacf1a_6c1a_49b6_b344_2d3bd404a735) + (-1.0 * reaction_mw177fa7b0_f0be_4c3e_8b47_2ac4e13159a2))
+
+    # Species:   id = mw341082a0_8017_4cc7_9d00_b1211a196072; name = pEGF-EGFR2-pSTAT3c; affected by kineticLaw
+    du[93] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw1c9d29fa_bff4_4d2f_9d5f_f1791e4882a3))
+
+    # Species:   id = mwcea1f1c1_2f85_4af1_98ea_ef14cf580c09; name = PP1; affected by kineticLaw
+    du[94] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mwad97bd5a_3dae_49d9_990b_2e6574740618) + (1.0 * reaction_mwe9988e4a_083c_4f8e_b154_3e599c9307b0) + (-1.0 * reaction_mwc9b945cf_3a14_4bd9_b253_7064498c75e2) + (1.0 * reaction_mw75c6078f_fb76_4ca9_9fdd_e221e3ba57ad))
+
+    # Species:   id = mwdc34472c_a6f9_4002_951d_e0e8da64eb42; name = pSTAT3c-PP1; affected by kineticLaw
+    du[95] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwad97bd5a_3dae_49d9_990b_2e6574740618) + (-1.0 * reaction_mwe9988e4a_083c_4f8e_b154_3e599c9307b0))
+
+    # Species:   id = mw472d5cb9_120e_4f60_bbae_1ae2552837dd; name = pSTAT3c-pSTAT3c-PP1; affected by kineticLaw
+    du[96] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwc9b945cf_3a14_4bd9_b253_7064498c75e2) + (-1.0 * reaction_mw75c6078f_fb76_4ca9_9fdd_e221e3ba57ad))
+
+    # Species:   id = mw4f575c55_7dff_45d7_94ad_cda9621d5b63; name = pSTAT3c-pSTAT3c; affected by kineticLaw
+    du[97] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwf8bacf1a_6c1a_49b6_b344_2d3bd404a735) + (-1.0 * reaction_mwc9b945cf_3a14_4bd9_b253_7064498c75e2) + (-1.0 * reaction_mwec4127b5_6bcf_4128_aff4_a6b3c470f690))
+
+    # Species:   id = mwd2c465fb_eea7_499a_8ea4_f318a64cb9ee; name = STAT3c-pSTAT3c; affected by kineticLaw
+    du[98] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw75c6078f_fb76_4ca9_9fdd_e221e3ba57ad) + (1.0 * reaction_mw177fa7b0_f0be_4c3e_8b47_2ac4e13159a2))
+
+    # Species:   id = mw4110f531_7513_4786_8896_7c9d969ff558; name = pSTAT3n-pSTAT3n; affected by kineticLaw
+    du[99] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwec4127b5_6bcf_4128_aff4_a6b3c470f690) + (1.0 * reaction_mw5c806b00_59a1_491e_99a1_2c932b2d5d7a) + (-1.0 * reaction_mw26fdabae_323b_4a78_b134_4c2eb70ea6a7))
+
+    # Species:   id = mwe3fd7f65_b0d1_44d9_b6f3_d2f7d332f664; name = pSTAT3n; affected by kineticLaw
+    du[100] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mw5c806b00_59a1_491e_99a1_2c932b2d5d7a) + (-1.0 * reaction_mw5c806b00_59a1_491e_99a1_2c932b2d5d7a) + (-1.0 * reaction_mwc38a99c8_74cf_49f2_a16b_f6610ca1a0a7) + (-1.0 * reaction_mw45d92b79_0656_4795_87d0_7a465949ca43))
+
+    # Species:   id = mw0e1be972_fded_4bff_a93d_091ec942485f; name = PP2; affected by kineticLaw
+    du[101] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mw26fdabae_323b_4a78_b134_4c2eb70ea6a7) + (1.0 * reaction_mw3b0c171c_6d60_41ca_8193_83cd5e6c188c) + (-1.0 * reaction_mw45d92b79_0656_4795_87d0_7a465949ca43) + (1.0 * reaction_mwb71945c2_03a8_4fad_a995_e1caeee98525))
+
+    # Species:   id = mw0facb8f2_95cf_4ddf_a959_b24ba64f320b; name = pSTAT3n-pSTAT3n-PP2; affected by kineticLaw
+    du[102] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw26fdabae_323b_4a78_b134_4c2eb70ea6a7) + (-1.0 * reaction_mw3b0c171c_6d60_41ca_8193_83cd5e6c188c))
+
+    # Species:   id = mw9686f53e_d343_45fd_b441_9c992219546a; name = STAT3n-pSTAT3n; affected by kineticLaw
+    du[103] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw3b0c171c_6d60_41ca_8193_83cd5e6c188c) + (1.0 * reaction_mwc38a99c8_74cf_49f2_a16b_f6610ca1a0a7))
+
+    # Species:   id = mw960bddeb_e567_46dd_b2f3_ed5e6a5c7972; name = STAT3n; affected by kineticLaw
+    du[104] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((-1.0 * reaction_mwc38a99c8_74cf_49f2_a16b_f6610ca1a0a7) + (1.0 * reaction_mwb71945c2_03a8_4fad_a995_e1caeee98525) + (-1.0 * reaction_mwd189238c_e8f9_40be_b4ea_18a42bba1b4f))
+
+    # Species:   id = mw8c85ff7f_6368_4b11_a2ed_ce83481b55e6; name = pSTAT3n-PP2; affected by kineticLaw
+    du[105] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw45d92b79_0656_4795_87d0_7a465949ca43) + (-1.0 * reaction_mwb71945c2_03a8_4fad_a995_e1caeee98525))
+
+    # Species:   id = mw548c81c2_c626_4df8_9177_a1a6fc3d4ce8; name = pEGF-EGFR2-STAT3c-cbl; affected by kineticLaw
+    du[106] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwcb637bf1_7618_4d8a_ab5c_399145ecf1df) + (-1.0 * reaction_mw401dde7e_c0a1_4780_b6cc_8f98681c862e))
+
+    # Species:   id = mw142e6dc4_ec15_459d_a184_6b20be04f08d; name = pEGF-EGFR2-STAT3c-cbl-EPn; affected by kineticLaw
+    du[107] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw401dde7e_c0a1_4780_b6cc_8f98681c862e) + (-1.0 * reaction_mw0dd5a91d_d76c_494e_9dd6_57f2836aaa19))
+
+    # Species:   id = mw2c47ae3f_06d9_40ec_a252_535db0ae5caa; name = pEGF-EGFR2-PI3K-cbl; affected by kineticLaw
+    du[108] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mwb205f533_4013_406b_8a4b_691ec3949555) + (-1.0 * reaction_mw602726ea_89ee_41b8_bda6_e2811bb42c1d))
+
+    # Species:   id = mwd32d108b_49c2_4df2_9b67_d6c6b84f54b9; name = pEGF-EGFR2-PI3K-cbl-EPn; affected by kineticLaw
+    du[109] = (1 / (p[&quot;compartment_mw1637dd35_5f09_4a8d_bb7f_58717cdf1612&quot;])) * ((1.0 * reaction_mw602726ea_89ee_41b8_bda6_e2811bb42c1d) + (-1.0 * reaction_mwfab3a9ec_b094_44f0_bd59_12ac56ca1c99))
+
+end
+
+u0=zeros(109)
+u0[1] = 0.0081967
+u0[2] = 0.3
+u0[3] = 0.0
+u0[4] = 0.0
+u0[5] = 0.0
+u0[6] = 0.8
+u0[7] = 1.0
+u0[8] = 0.0
+u0[9] = 0.1
+u0[10] = 0.0
+u0[11] = 0.0
+u0[12] = 0.0
+u0[13] = 0.0
+u0[14] = 1.0
+u0[15] = 0.0
+u0[16] = 0.0
+u0[17] = 0.3
+u0[18] = 0.0
+u0[19] = 0.0
+u0[20] = 0.0
+u0[21] = 0.0
+u0[22] = 0.0
+u0[23] = 0.0
+u0[24] = 0.0
+u0[25] = 0.15
+u0[26] = 0.0
+u0[27] = 0.0
+u0[28] = 0.0
+u0[29] = 0.1
+u0[30] = 0.0
+u0[31] = 0.0
+u0[32] = 0.0
+u0[33] = 0.0
+u0[34] = 0.5
+u0[35] = 0.0
+u0[36] = 0.0
+u0[37] = 0.68
+u0[38] = 0.0
+u0[39] = 0.0
+u0[40] = 0.0
+u0[41] = 0.0
+u0[42] = 0.4
+u0[43] = 0.0
+u0[44] = 0.0
+u0[45] = 0.0
+u0[46] = 0.0
+u0[47] = 0.5
+u0[48] = 0.0
+u0[49] = 0.02
+u0[50] = 0.0
+u0[51] = 0.0
+u0[52] = 0.002
+u0[53] = 0.0
+u0[54] = 0.0
+u0[55] = 0.0
+u0[56] = 0.0
+u0[57] = 0.0
+u0[58] = 1.0
+u0[59] = 0.0
+u0[60] = 0.5
+u0[61] = 0.0
+u0[62] = 0.0
+u0[63] = 0.0
+u0[64] = 0.2
+u0[65] = 0.0
+u0[66] = 0.0
+u0[67] = 0.0
+u0[68] = 0.2
+u0[69] = 0.0
+u0[70] = 0.0
+u0[71] = 0.5
+u0[72] = 0.0
+u0[73] = 0.0
+u0[74] = 0.1
+u0[75] = 0.0
+u0[76] = 0.1
+u0[77] = 0.0
+u0[78] = 0.0
+u0[79] = 0.0
+u0[80] = 0.0
+u0[81] = 0.0
+u0[82] = 0.0
+u0[83] = 0.1
+u0[84] = 0.0
+u0[85] = 0.0
+u0[86] = 0.0
+u0[87] = 0.0
+u0[88] = 0.0
+u0[89] = 0.0
+u0[90] = 1.0
+u0[91] = 0.0
+u0[92] = 0.0
+u0[93] = 0.0
+u0[94] = 0.5
+u0[95] = 0.0
+u0[96] = 0.0
+u0[97] = 0.0
+u0[98] = 0.0
+u0[99] = 0.0
+u0[100] = 0.0
+u0[101] = 0.6
+u0[102] = 0.0
+u0[103] = 0.0
+u0[104] = 0.0
+u0[105] = 0.0
+u0[106] = 0.0
+u0[107] = 0.0
+u0[108] = 0.0
+u0[109] = 0.0
+
+tspan = (0.0,100.0)
+
+prob = ODEProblem(sbml_model!, u0, tspan, par)
+
+sys = modelingtoolkitize(prob)
+
+sys = structural_simplify(sys)
+
+
+const to = TimerOutput()
+
+@timeit to &quot;ODEProb No Jac&quot; oprob = ODEProblem(sys, Float64[], tspan, Float64[])
+@timeit to &quot;ODEProb DenseJac&quot; densejacprob = ODEProblem(sys, Float64[], tspan, Float64[], jac=true)</code></pre><pre><code class="nohighlight hljs">ODEProblem with uType Vector{Float64} and tType Float64. In-place: true
+timespan: (0.0, 100.0)
+u0: 109-element Vector{Float64}:
+ 0.0081967
+ 0.3
+ 0.0
+ 0.0
+ 0.0
+ 0.8
+ 1.0
+ 0.0
+ 0.1
+ 0.0
+ ⋮
+ 0.6
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0</code></pre><pre><code class="language-julia hljs">@timeit to &quot;ODEProb SparseJac&quot; sparsejacprob = ODEProblem(sys, Float64[], tspan, Float64[], jac=true, sparse=true)
+show(to)</code></pre><pre><code class="nohighlight hljs">──────────────────────────────────────────────────────────────────────────
+────
+                                      Time                    Allocations  
+    
+                             ───────────────────────   ────────────────────
+────
+      Tot / % measured:           1.50s /  99.6%            383MiB /  99.9%
+    
+
+ Section             ncalls     time    %tot     avg     alloc    %tot     
+ avg
+ ──────────────────────────────────────────────────────────────────────────
+────
+ ODEProb DenseJac         1    1.24s   83.4%   1.24s    310MiB   81.1%   31
+0MiB
+ ODEProb SparseJac        1    217ms   14.5%   217ms   60.5MiB   15.8%  60.
+5MiB
+ ODEProb No Jac           1   31.4ms    2.1%  31.4ms   11.8MiB    3.1%  11.
+8MiB
+ ──────────────────────────────────────────────────────────────────────────
+────</code></pre><pre><code class="language-julia hljs">@show numspecies(sys) # Number of ODEs
+@show numreactions(sys) # Apprx. number of terms in the ODE
+@show length(parameters(sys)) # Number of Parameters</code></pre><pre><code class="nohighlight hljs">numspecies(sys) = 109
+numreactions(sys) = 109
+length(parameters(sys)) = 188
+188</code></pre><h2 id="Picture-of-the-solution"><a class="docs-heading-anchor" href="#Picture-of-the-solution">Picture of the solution</a><a id="Picture-of-the-solution-1"></a><a class="docs-heading-anchor-permalink" href="#Picture-of-the-solution" title="Permalink"></a></h2><pre><code class="language-julia hljs">sol = solve(oprob, CVODE_BDF())
+plot(sol, legend=false, fmt=:png)</code></pre><p><img src="../figures/Bidkhori2012_5_1.png" alt/></p><p>For these benchmarks we will be using the time-series error with these saving points since the final time point is not well-indicative of the solution behavior (capturing the oscillation is the key!).</p><h2 id="Generate-Test-Solution"><a class="docs-heading-anchor" href="#Generate-Test-Solution">Generate Test Solution</a><a id="Generate-Test-Solution-1"></a><a class="docs-heading-anchor-permalink" href="#Generate-Test-Solution" title="Permalink"></a></h2><pre><code class="language-julia hljs">@time sol = solve(oprob, CVODE_BDF(), abstol=1/10^14, reltol=1/10^14)
+test_sol  = TestSolution(sol)</code></pre><pre><code class="nohighlight hljs">0.023398 seconds (22.23 k allocations: 4.367 MiB)
+retcode: Success
+Interpolation: 3rd order Hermite
+t: nothing
+u: nothing</code></pre><h2 id="Setups"><a class="docs-heading-anchor" href="#Setups">Setups</a><a id="Setups-1"></a><a class="docs-heading-anchor-permalink" href="#Setups" title="Permalink"></a></h2><pre><code class="language-julia hljs">
+abstols = 1.0 ./ 10.0 .^ (9:13)
+reltols = 1.0 ./ 10.0 .^ (6:10)
+
+setups = [
+            Dict(:alg=&gt;CVODE_BDF()),
+            Dict(:alg=&gt;KenCarp4()),
+            Dict(:alg=&gt;Rodas4()),
+            Dict(:alg=&gt;QNDF()),
+            Dict(:alg=&gt;lsoda()),
+            Dict(:alg=&gt;radau()),
+            Dict(:alg=&gt;seulex()),
+            Dict(:alg=&gt;ImplicitEulerExtrapolation(min_order = 8, init_order = 9,threading = OrdinaryDiffEq.PolyesterThreads())),
+            Dict(:alg=&gt;ImplicitEulerExtrapolation(min_order = 8, init_order = 9,threading = false)),
+            Dict(:alg=&gt;ImplicitEulerBarycentricExtrapolation(min_order = 7, init_order = 8,threading = OrdinaryDiffEq.PolyesterThreads())),
+            Dict(:alg=&gt;ImplicitEulerBarycentricExtrapolation(min_order = 7, init_order = 8,threading = false)),
+            Dict(:alg=&gt;ImplicitHairerWannerExtrapolation(init_order = 5,threading = OrdinaryDiffEq.PolyesterThreads())),
+            Dict(:alg=&gt;ImplicitHairerWannerExtrapolation(init_order = 5, threading = false)),
+            ]
+
+solnames = [&quot;CVODE_BDF&quot;,&quot;KenCarp4&quot;,&quot;Rodas4&quot;,&quot;QNDF&quot;,&quot;lsoda&quot;,&quot;radau&quot;,&quot;seulex&quot;,&quot;ImplEulerExtpl (threaded)&quot;, &quot;ImplEulerExtpl (non-threaded)&quot;,
+            &quot;ImplEulerBaryExtpl (threaded)&quot;,&quot;ImplEulerBaryExtpl (non-threaded)&quot;,&quot;ImplHWExtpl (threaded)&quot;,&quot;ImplHWExtpl (non-threaded)&quot;]</code></pre><pre><code class="nohighlight hljs">13-element Vector{String}:
+ &quot;CVODE_BDF&quot;
+ &quot;KenCarp4&quot;
+ &quot;Rodas4&quot;
+ &quot;QNDF&quot;
+ &quot;lsoda&quot;
+ &quot;radau&quot;
+ &quot;seulex&quot;
+ &quot;ImplEulerExtpl (threaded)&quot;
+ &quot;ImplEulerExtpl (non-threaded)&quot;
+ &quot;ImplEulerBaryExtpl (threaded)&quot;
+ &quot;ImplEulerBaryExtpl (non-threaded)&quot;
+ &quot;ImplHWExtpl (threaded)&quot;
+ &quot;ImplHWExtpl (non-threaded)&quot;</code></pre><h2 id="Automatic-Jacobian-Solves"><a class="docs-heading-anchor" href="#Automatic-Jacobian-Solves">Automatic Jacobian Solves</a><a id="Automatic-Jacobian-Solves-1"></a><a class="docs-heading-anchor-permalink" href="#Automatic-Jacobian-Solves" title="Permalink"></a></h2><p>First we test using auto-generated Jacobians (finite difference)</p><pre><code class="language-julia hljs">wp = WorkPrecisionSet(oprob,abstols,reltols,setups;
+                      names = solnames,appxsol=test_sol,save_everystep=false,maxiters=Int(1e5),numruns=10)
+
+plot(wp, title = &quot;Implicit Methods: SBML Model&quot;,legend=:outertopleft,size = (1000,500),
+     xticks = 10.0 .^ (-15:1:1),
+     yticks = 10.0 .^ (-6:0.3:5),
+     bottom_margin= 5Plots.mm)</code></pre><p><img src="../figures/Bidkhori2012_8_1.png" alt/></p><h2 id="Analytical-Jacobian"><a class="docs-heading-anchor" href="#Analytical-Jacobian">Analytical Jacobian</a><a id="Analytical-Jacobian-1"></a><a class="docs-heading-anchor-permalink" href="#Analytical-Jacobian" title="Permalink"></a></h2><p>Now we test using the generated analytic Jacobian function.</p><pre><code class="language-julia hljs">setups = [
+            Dict(:alg=&gt;CVODE_BDF()),
+            Dict(:alg=&gt;KenCarp4()),
+            Dict(:alg=&gt;Rodas4()),
+            Dict(:alg=&gt;QNDF()),
+            #Dict(:alg=&gt;lsoda()),
+            #Dict(:alg=&gt;radau()),
+            #Dict(:alg=&gt;seulex()),
+            Dict(:alg=&gt;ImplicitEulerExtrapolation(min_order = 8, init_order = 9,threading = OrdinaryDiffEq.PolyesterThreads())),
+            Dict(:alg=&gt;ImplicitEulerExtrapolation(min_order = 8, init_order = 9,threading = false)),
+            Dict(:alg=&gt;ImplicitEulerBarycentricExtrapolation(min_order = 7, init_order = 8,threading = OrdinaryDiffEq.PolyesterThreads())),
+            Dict(:alg=&gt;ImplicitEulerBarycentricExtrapolation(min_order = 7, init_order = 8,threading = false)),
+            Dict(:alg=&gt;ImplicitHairerWannerExtrapolation(init_order = 5,threading = OrdinaryDiffEq.PolyesterThreads())),
+            Dict(:alg=&gt;ImplicitHairerWannerExtrapolation(init_order = 5, threading = false)),
+            ]
+
+solnames = [&quot;CVODE_BDF&quot;,&quot;KenCarp4&quot;,&quot;Rodas4&quot;,&quot;QNDF&quot;,&quot;ImplEulerExtpl (threaded)&quot;, &quot;ImplEulerExtpl (non-threaded)&quot;,
+            &quot;ImplEulerBaryExtpl (threaded)&quot;,&quot;ImplEulerBaryExtpl (non-threaded)&quot;,&quot;ImplHWExtpl (threaded)&quot;,&quot;ImplHWExtpl (non-threaded)&quot;]
+
+wp = WorkPrecisionSet(densejacprob,abstols,reltols,setups;
+                      names = solnames,appxsol=test_sol,save_everystep=false,maxiters=Int(1e5),numruns=10)
+
+plot(wp, title = &quot;Implicit Methods: SBML Model&quot;,legend=:outertopleft,size = (1000,500),
+     xticks = 10.0 .^ (-15:1:1),
+     yticks = 10.0 .^ (-6:0.3:5),
+     bottom_margin= 5Plots.mm)</code></pre><p><img src="../figures/Bidkhori2012_9_1.png" alt/></p><h2 id="Sparse-Jacobian"><a class="docs-heading-anchor" href="#Sparse-Jacobian">Sparse Jacobian</a><a id="Sparse-Jacobian-1"></a><a class="docs-heading-anchor-permalink" href="#Sparse-Jacobian" title="Permalink"></a></h2><p>Finally we test using the generated sparse analytic Jacobian function.</p><pre><code class="language-julia hljs">setups = [
+            #Dict(:alg=&gt;CVODE_BDF()), #Fails!
+            Dict(:alg=&gt;KenCarp4(autodiff = false)),
+            Dict(:alg=&gt;Rodas4(autodiff = false)),
+            Dict(:alg=&gt;QNDF(autodiff = false)),
+            #Dict(:alg=&gt;lsoda()),
+            #Dict(:alg=&gt;radau()),
+            #Dict(:alg=&gt;seulex()),
+            Dict(:alg=&gt;ImplicitEulerExtrapolation(autodiff = false,min_order = 8, init_order = 9,threading = OrdinaryDiffEq.PolyesterThreads())),
+            Dict(:alg=&gt;ImplicitEulerExtrapolation(autodiff = false,min_order = 8, init_order = 9,threading = false)),
+            Dict(:alg=&gt;ImplicitEulerBarycentricExtrapolation(autodiff = false,min_order = 7, init_order = 8,threading = OrdinaryDiffEq.PolyesterThreads())),
+            Dict(:alg=&gt;ImplicitEulerBarycentricExtrapolation(autodiff = false,min_order = 7, init_order = 8,threading = false)),
+            Dict(:alg=&gt;ImplicitHairerWannerExtrapolation(autodiff = false,init_order = 5,threading = OrdinaryDiffEq.PolyesterThreads())),
+            Dict(:alg=&gt;ImplicitHairerWannerExtrapolation(autodiff = false,init_order = 5, threading = false)),
+            ]
+
+solnames = [&quot;KenCarp4&quot;,&quot;Rodas4&quot;,&quot;QNDF&quot;,&quot;ImplEulerExtpl (threaded)&quot;, &quot;ImplEulerExtpl (non-threaded)&quot;,
+            &quot;ImplEulerBaryExtpl (threaded)&quot;,&quot;ImplEulerBaryExtpl (non-threaded)&quot;,&quot;ImplHWExtpl (threaded)&quot;,&quot;ImplHWExtpl (non-threaded)&quot;]
+
+wp = WorkPrecisionSet(sparsejacprob ,abstols,reltols,setups;
+                      names = solnames,appxsol=test_sol,save_everystep=false,maxiters=Int(1e5),numruns=10)
+
+plot(wp, title = &quot;Implicit Methods: SBML Model&quot;,legend=:outertopleft,size = (1000,500),
+     xticks = 10.0 .^ (-15:1:1),
+     yticks = 10.0 .^ (-6:0.3:5),
+     bottom_margin= 5Plots.mm)</code></pre><pre><code class="nohighlight hljs">Error: MethodError: no method matching OrdinaryDiffEq.WOperator(::SciMLBase
+.ODEFunction{true, ModelingToolkit.var&quot;#f#413&quot;{RuntimeGeneratedFunctions.Ru
+ntimeGeneratedFunction{(:ˍ₋arg1, :ˍ₋arg2, :t), ModelingToolkit.var&quot;#_RGF_Mo
+dTag&quot;, ModelingToolkit.var&quot;#_RGF_ModTag&quot;, (0x75581383, 0x0cc6d39f, 0x1b16cd
+1d, 0xc0fa3879, 0xeab235ba)}, RuntimeGeneratedFunctions.RuntimeGeneratedFun
+ction{(:ˍ₋out, :ˍ₋arg1, :ˍ₋arg2, :t), ModelingToolkit.var&quot;#_RGF_ModTag&quot;, Mo
+delingToolkit.var&quot;#_RGF_ModTag&quot;, (0xf3fb62c3, 0xf11ae604, 0x0980c0b7, 0x9ce
+490ce, 0xb23005ca)}}, LinearAlgebra.UniformScaling{Bool}, Nothing, Nothing,
+ ModelingToolkit.var&quot;#_jac#417&quot;{RuntimeGeneratedFunctions.RuntimeGeneratedF
+unction{(:ˍ₋arg1, :ˍ₋arg2, :t), ModelingToolkit.var&quot;#_RGF_ModTag&quot;, Modeling
+Toolkit.var&quot;#_RGF_ModTag&quot;, (0xdb70b50a, 0x03c18997, 0xeb7802f2, 0x265fac3f,
+ 0xbd9d1419)}, RuntimeGeneratedFunctions.RuntimeGeneratedFunction{(:ˍ₋out, 
+:ˍ₋arg1, :ˍ₋arg2, :t), ModelingToolkit.var&quot;#_RGF_ModTag&quot;, ModelingToolkit.v
+ar&quot;#_RGF_ModTag&quot;, (0xfacef9ca, 0x4f784e53, 0x4ecec2b2, 0x433a3cf6, 0x271218
+a4)}}, Nothing, Nothing, SparseArrays.SparseMatrixCSC{Float64, Int64}, Noth
+ing, Nothing, Nothing, Nothing, Vector{Symbol}, Symbol, ModelingToolkit.var
+&quot;#480#generated_observed#420&quot;{Bool, ModelingToolkit.ODESystem, Dict{Any, An
+y}}, Nothing}, ::Float64, ::Bool)</code></pre><h2 id="Appendix"><a class="docs-heading-anchor" href="#Appendix">Appendix</a><a id="Appendix-1"></a><a class="docs-heading-anchor-permalink" href="#Appendix" title="Permalink"></a></h2><p>These benchmarks are a part of the SciMLBenchmarks.jl repository, found at: <a href="https://github.com/SciML/SciMLBenchmarks.jl">https://github.com/SciML/SciMLBenchmarks.jl</a>. For more information on high-performance scientific machine learning, check out the SciML Open Source Software Organization <a href="https://sciml.ai">https://sciml.ai</a>.</p><p>To locally run this benchmark, do the following commands:</p><pre><code class="nohighlight hljs">using SciMLBenchmarks
+SciMLBenchmarks.weave_file(&quot;benchmarks/Bio&quot;,&quot;Bidkhori2012.jmd&quot;)</code></pre><p>Computer Information:</p><pre><code class="nohighlight hljs">Julia Version 1.7.3
+Commit 742b9abb4d (2022-05-06 12:58 UTC)
+Platform Info:
+  OS: Linux (x86_64-pc-linux-gnu)
+  CPU: AMD EPYC 7502 32-Core Processor
+  WORD_SIZE: 64
+  LIBM: libopenlibm
+  LLVM: libLLVM-12.0.1 (ORCJIT, znver2)
+Environment:
+  JULIA_CPU_THREADS = 128
+  BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
+  JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/5b300254-1738-4989-ae0a-f4d2d937f953
+</code></pre><p>Package Information:</p><pre><code class="nohighlight hljs">      Status `/cache/build/exclusive-amdci1-0/julialang/scimlbenchmarks-dot-jl/benchmarks/Bio/Project.toml`
+  [6e4b80f9] BenchmarkTools v1.3.1
+  [479239e8] Catalyst v12.1.2
+  [2b5f629d] DiffEqBase v6.94.3
+  [f3b72e0c] DiffEqDevTools v2.30.0
+  [033835bb] JLD2 v0.4.22
+  [7f56f5a3] LSODA v0.7.0
+  [961ee093] ModelingToolkit v8.17.0
+  [54ca160b] ODEInterface v0.5.0
+  [09606e27] ODEInterfaceDiffEq v3.10.1
+  [1dea7af3] OrdinaryDiffEq v6.19.0
+  [91a5bcdd] Plots v1.31.4
+  [b4db0fb7] ReactionNetworkImporters v0.13.4
+  [31c91b34] SciMLBenchmarks v0.1.0
+  [c3572dad] Sundials v4.9.4
+  [a759f4b9] TimerOutputs v0.5.20</code></pre><p>And the full manifest:</p><pre><code class="nohighlight hljs">      Status `/cache/build/exclusive-amdci1-0/julialang/scimlbenchmarks-dot-jl/benchmarks/Bio/Manifest.toml`
+  [c3fe647b] AbstractAlgebra v0.27.0
+  [1520ce14] AbstractTrees v0.4.2
+  [79e6a3ab] Adapt v3.3.3
+  [dce04be8] ArgCheck v2.3.0
+  [ec485272] ArnoldiMethod v0.2.0
+  [4fba245c] ArrayInterface v6.0.20
+  [30b0a656] ArrayInterfaceCore v0.1.14
+  [6ba088a2] ArrayInterfaceGPUArrays v0.2.1
+  [015c0d05] ArrayInterfaceOffsetArrays v0.1.6
+  [b0d46f97] ArrayInterfaceStaticArrays v0.1.4
+  [dd5226c6] ArrayInterfaceStaticArraysCore v0.1.0
+  [15f4f7f2] AutoHashEquals v0.2.0
+  [198e06fe] BangBang v0.3.36
+  [9718e550] Baselet v0.1.1
+  [6e4b80f9] BenchmarkTools v1.3.1
+  [e2ed5e7c] Bijections v0.1.4
+  [9e28174c] BinDeps v1.0.2
+  [62783981] BitTwiddlingConvenienceFunctions v0.1.4
+  [fa961155] CEnum v0.4.2
+  [2a0fbf3d] CPUSummary v0.1.25
+  [00ebfdb7] CSTParser v3.3.6
+  [49dc2e85] Calculus v0.5.1
+  [479239e8] Catalyst v12.1.2
+  [d360d2e6] ChainRulesCore v1.15.3
+  [9e997f8a] ChangesOfVariables v0.1.4
+  [fb6a15b2] CloseOpenIntervals v0.1.10
+  [944b1d66] CodecZlib v0.7.0
+  [35d6a980] ColorSchemes v3.19.0
+  [3da002f7] ColorTypes v0.11.4
+  [c3611d14] ColorVectorSpace v0.9.9
+  [5ae59095] Colors v0.12.8
+  [861a8166] Combinatorics v1.0.2
+  [a80b9123] CommonMark v0.8.6
+  [38540f10] CommonSolve v0.2.1
+  [bbf7d656] CommonSubexpressions v0.3.0
+  [34da2185] Compat v3.45.0
+  [b152e2b5] CompositeTypes v0.1.2
+  [a33af91c] CompositionsBase v0.1.1
+  [8f4d0f93] Conda v1.7.0
+  [187b0558] ConstructionBase v1.4.0
+  [d38c429a] Contour v0.6.2
+  [adafc99b] CpuId v0.3.0
+  [a8cc5b0e] Crayons v4.1.1
+  [9a962f9c] DataAPI v1.10.0
+  [864edb3b] DataStructures v0.18.13
+  [e2d170a0] DataValueInterfaces v1.0.0
+  [244e2a9f] DefineSingletons v0.1.2
+  [b429d917] DensityInterface v0.4.0
+  [2b5f629d] DiffEqBase v6.94.3
+  [459566f4] DiffEqCallbacks v2.23.1
+  [f3b72e0c] DiffEqDevTools v2.30.0
+  [77a26b50] DiffEqNoiseProcess v5.12.0
+  [163ba53b] DiffResults v1.0.3
+  [b552c78f] DiffRules v1.11.0
+  [b4f34e82] Distances v0.10.7
+  [31c24e10] Distributions v0.25.66
+  [ffbed154] DocStringExtensions v0.8.6
+  [5b8099bc] DomainSets v0.5.11
+  [fa6b7ba4] DualNumbers v0.6.8
+  [7c1d4256] DynamicPolynomials v0.4.5
+  [d4d017d3] ExponentialUtilities v1.18.0
+  [e2ba6199] ExprTools v0.1.8
+  [c87230d0] FFMPEG v0.4.1
+  [7034ab61] FastBroadcast v0.2.1
+  [9aa1b823] FastClosures v0.3.2
+  [29a986be] FastLapackInterface v1.1.0
+  [5789e2e9] FileIO v1.14.0
+  [1a297f60] FillArrays v0.13.2
+  [6a86dc24] FiniteDiff v2.13.1
+  [53c48c17] FixedPointNumbers v0.8.4
+  [59287772] Formatting v0.4.2
+  [f6369f11] ForwardDiff v0.10.30
+  [069b7b12] FunctionWrappers v1.1.2
+  [46192b85] GPUArraysCore v0.1.0
+  [28b8d3ca] GR v0.66.0
+  [c145ed77] GenericSchur v0.5.3
+  [5c1252a2] GeometryBasics v0.4.2
+  [d7ba0133] Git v1.2.1
+  [86223c79] Graphs v1.7.1
+  [42e2da0e] Grisu v1.0.2
+  [0b43b601] Groebner v0.2.8
+  [d5909c97] GroupsCore v0.4.0
+  [cd3eb016] HTTP v1.2.0
+  [eafb193a] Highlights v0.4.5
+  [3e5b6fbb] HostCPUFeatures v0.1.8
+  [34004b35] HypergeometricFunctions v0.3.11
+  [7073ff75] IJulia v1.23.3
+  [615f187c] IfElse v0.1.1
+  [d25df0c9] Inflate v0.1.2
+  [83e8ac13] IniFile v0.5.1
+  [22cec73e] InitialValues v0.3.1
+  [18e54dd8] IntegerMathUtils v0.1.0
+  [8197267c] IntervalSets v0.7.1
+  [3587e190] InverseFunctions v0.1.7
+  [92d709cd] IrrationalConstants v0.1.1
+  [c8e1da08] IterTools v1.4.0
+  [42fd0dbc] IterativeSolvers v0.9.2
+  [82899510] IteratorInterfaceExtensions v1.0.0
+  [033835bb] JLD2 v0.4.22
+  [692b3bcd] JLLWrappers v1.4.1
+  [682c06a0] JSON v0.21.3
+  [98e50ef6] JuliaFormatter v1.0.7
+  [ccbc3e58] JumpProcesses v9.0.1
+  [ef3ab10e] KLU v0.3.0
+  [ba0b0d4f] Krylov v0.8.2
+  [0b1a1467] KrylovKit v0.5.4
+  [7f56f5a3] LSODA v0.7.0
+  [b964fa9f] LaTeXStrings v1.3.0
+  [2ee39098] LabelledArrays v1.11.1
+  [23fbe1c1] Latexify v0.15.16
+  [10f19ff3] LayoutPointers v0.1.10
+  [d3d80556] LineSearches v7.1.1
+  [7ed4a6bd] LinearSolve v1.23.0
+  [2ab3a3ac] LogExpFunctions v0.3.16
+  [e6f89c97] LoggingExtras v0.4.9
+  [bdcacae8] LoopVectorization v0.12.120
+  [1914dd2f] MacroTools v0.5.9
+  [d125e4d3] ManualMemory v0.1.8
+  [739be429] MbedTLS v1.1.1
+  [442fdcdd] Measures v0.3.1
+  [e9d8d322] Metatheory v1.3.4
+  [128add7d] MicroCollections v0.1.2
+  [e1d29d7a] Missings v1.0.2
+  [961ee093] ModelingToolkit v8.17.0
+  [46d2c3a1] MuladdMacro v0.2.2
+  [102ac46a] MultivariatePolynomials v0.4.6
+  [ffc61752] Mustache v1.0.14
+  [d8a4904e] MutableArithmetics v1.0.4
+  [d41bc354] NLSolversBase v7.8.2
+  [2774e3e8] NLsolve v4.5.1
+  [77ba4419] NaNMath v0.3.7
+  [8913a72c] NonlinearSolve v0.3.21
+  [54ca160b] ODEInterface v0.5.0
+  [09606e27] ODEInterfaceDiffEq v3.10.1
+  [6fe1bfb0] OffsetArrays v1.12.7
+  [429524aa] Optim v1.7.0
+  [bac558e1] OrderedCollections v1.4.1
+  [1dea7af3] OrdinaryDiffEq v6.19.0
+  [90014a1f] PDMats v0.11.16
+  [d96e819e] Parameters v0.12.3
+  [69de0a69] Parsers v2.3.2
+  [ccf2f8ad] PlotThemes v3.0.0
+  [995b91a9] PlotUtils v1.3.0
+  [91a5bcdd] Plots v1.31.4
+  [e409e4f3] PoissonRandom v0.4.1
+  [f517fe37] Polyester v0.6.14
+  [1d0040c9] PolyesterWeave v0.1.7
+  [85a6dd25] PositiveFactorizations v0.2.4
+  [d236fae5] PreallocationTools v0.4.0
+  [21216c6a] Preferences v1.3.0
+  [27ebfcd6] Primes v0.5.3
+  [1fd47b50] QuadGK v2.4.2
+  [74087812] Random123 v1.5.0
+  [fb686558] RandomExtensions v0.4.3
+  [e6cf234a] RandomNumbers v1.5.3
+  [b4db0fb7] ReactionNetworkImporters v0.13.4
+  [3cdcf5f2] RecipesBase v1.2.1
+  [01d81517] RecipesPipeline v0.6.2
+  [731186ca] RecursiveArrayTools v2.31.2
+  [f2c3362d] RecursiveFactorization v0.2.11
+  [189a3867] Reexport v1.2.2
+  [42d2dcc6] Referenceables v0.1.2
+  [05181044] RelocatableFolders v0.1.3
+  [ae029012] Requires v1.3.0
+  [ae5879a3] ResettableStacks v1.1.1
+  [79098fc4] Rmath v0.7.0
+  [47965b36] RootedTrees v1.2.1
+  [7e49a35a] RuntimeGeneratedFunctions v0.5.3
+  [3cdde19b] SIMDDualNumbers v0.1.1
+  [94e857df] SIMDTypes v0.1.0
+  [476501e8] SLEEFPirates v0.6.33
+  [0bca4576] SciMLBase v1.43.0
+  [31c91b34] SciMLBenchmarks v0.1.0
+  [6c6a2e73] Scratch v1.1.1
+  [efcf1570] Setfield v0.8.2
+  [992d4aef] Showoff v1.0.3
+  [777ac1f9] SimpleBufferStream v1.1.0
+  [699a6c99] SimpleTraits v0.9.4
+  [b85f4697] SoftGlobalScope v1.1.0
+  [a2af1166] SortingAlgorithms v1.0.1
+  [47a9eef4] SparseDiffTools v1.24.0
+  [276daf66] SpecialFunctions v2.1.7
+  [171d559e] SplittablesBase v0.1.14
+  [aedffcd0] Static v0.7.6
+  [90137ffa] StaticArrays v1.5.2
+  [1e83bf80] StaticArraysCore v1.0.1
+  [82ae8749] StatsAPI v1.4.0
+  [2913bbd2] StatsBase v0.33.19
+  [4c63d2b9] StatsFuns v1.0.1
+  [7792a7ef] StrideArraysCore v0.3.15
+  [69024149] StringEncodings v0.3.5
+  [09ab397b] StructArrays v0.6.11
+  [c3572dad] Sundials v4.9.4
+  [d1185830] SymbolicUtils v0.19.11
+  [0c5d862f] Symbolics v4.9.0
+  [3783bdb8] TableTraits v1.0.1
+  [bd369af6] Tables v1.7.0
+  [62fd8b95] TensorCore v0.1.1
+  [8ea1fca8] TermInterface v0.2.3
+  [8290d209] ThreadingUtilities v0.5.0
+  [ac1d9e8a] ThreadsX v0.1.10
+  [a759f4b9] TimerOutputs v0.5.20
+  [0796e94c] Tokenize v0.5.24
+  [3bb67fe8] TranscodingStreams v0.9.6
+  [28d57a85] Transducers v0.4.73
+  [a2a6695c] TreeViews v0.3.0
+  [d5829a12] TriangularSolve v0.1.12
+  [30578b45] URIParser v0.4.1
+  [5c2747f8] URIs v1.4.0
+  [3a884ed6] UnPack v1.0.2
+  [1cfade01] UnicodeFun v0.4.1
+  [1986cc42] Unitful v1.11.0
+  [41fe7b60] Unzip v0.1.2
+  [3d5dd08c] VectorizationBase v0.21.43
+  [81def892] VersionParsing v1.3.0
+  [19fa3120] VertexSafeGraphs v0.2.0
+  [44d3d7a6] Weave v0.10.10
+  [ddb6d928] YAML v0.4.7
+  [c2297ded] ZMQ v1.2.1
+  [700de1a5] ZygoteRules v0.2.2
+  [6e34b625] Bzip2_jll v1.0.8+0
+  [83423d85] Cairo_jll v1.16.1+1
+  [5ae413db] EarCut_jll v2.2.3+0
+  [2e619515] Expat_jll v2.4.8+0
+  [b22a6f82] FFMPEG_jll v4.4.2+0
+  [a3f928ae] Fontconfig_jll v2.13.93+0
+  [d7e528f0] FreeType2_jll v2.10.4+0
+  [559328eb] FriBidi_jll v1.0.10+0
+  [0656b61e] GLFW_jll v3.3.6+0
+  [d2c73de3] GR_jll v0.66.0+0
+  [78b55507] Gettext_jll v0.21.0+0
+  [f8c6e375] Git_jll v2.34.1+0
+  [7746bdde] Glib_jll v2.68.3+2
+  [3b182d85] Graphite2_jll v1.3.14+0
+  [2e76f6c2] HarfBuzz_jll v2.8.1+1
+  [aacddb02] JpegTurbo_jll v2.1.2+0
+  [c1c5ebd0] LAME_jll v3.100.1+0
+  [88015f11] LERC_jll v3.0.0+1
+  [aae0fff6] LSODA_jll v0.1.1+0
+  [dd4b983a] LZO_jll v2.10.1+0
+  [e9f186c6] Libffi_jll v3.2.2+1
+  [d4300ac3] Libgcrypt_jll v1.8.7+0
+  [7e76a0d4] Libglvnd_jll v1.3.0+3
+  [7add5ba3] Libgpg_error_jll v1.42.0+0
+  [94ce4f54] Libiconv_jll v1.16.1+1
+  [4b2f31a3] Libmount_jll v2.35.0+0
+  [89763e89] Libtiff_jll v4.4.0+0
+  [38a345b3] Libuuid_jll v2.36.0+0
+  [c771fb93] ODEInterface_jll v0.0.1+0
+  [e7412a2a] Ogg_jll v1.3.5+1
+  [458c3c95] OpenSSL_jll v1.1.17+0
+  [efe28fd5] OpenSpecFun_jll v0.5.5+0
+  [91d4177d] Opus_jll v1.3.2+0
+  [2f80f16e] PCRE_jll v8.44.0+0
+  [30392449] Pixman_jll v0.40.1+0
+  [ea2cea3b] Qt5Base_jll v5.15.3+1
+  [f50d1b31] Rmath_jll v0.3.0+0
+  [fb77eaff] Sundials_jll v5.2.0+1
+  [a2964d1f] Wayland_jll v1.19.0+0
+  [2381bf8a] Wayland_protocols_jll v1.25.0+0
+  [02c8fc9c] XML2_jll v2.9.14+0
+  [aed1982a] XSLT_jll v1.1.34+0
+  [4f6342f7] Xorg_libX11_jll v1.6.9+4
+  [0c0b7dd1] Xorg_libXau_jll v1.0.9+4
+  [935fb764] Xorg_libXcursor_jll v1.2.0+4
+  [a3789734] Xorg_libXdmcp_jll v1.1.3+4
+  [1082639a] Xorg_libXext_jll v1.3.4+4
+  [d091e8ba] Xorg_libXfixes_jll v5.0.3+4
+  [a51aa0fd] Xorg_libXi_jll v1.7.10+4
+  [d1454406] Xorg_libXinerama_jll v1.1.4+4
+  [ec84b674] Xorg_libXrandr_jll v1.5.2+4
+  [ea2f1a96] Xorg_libXrender_jll v0.9.10+4
+  [14d82f49] Xorg_libpthread_stubs_jll v0.1.0+3
+  [c7cfdc94] Xorg_libxcb_jll v1.13.0+3
+  [cc61e674] Xorg_libxkbfile_jll v1.1.0+4
+  [12413925] Xorg_xcb_util_image_jll v0.4.0+1
+  [2def613f] Xorg_xcb_util_jll v0.4.0+1
+  [975044d2] Xorg_xcb_util_keysyms_jll v0.4.0+1
+  [0d47668e] Xorg_xcb_util_renderutil_jll v0.3.9+1
+  [c22f9ab0] Xorg_xcb_util_wm_jll v0.4.1+1
+  [35661453] Xorg_xkbcomp_jll v1.4.2+4
+  [33bec58e] Xorg_xkeyboard_config_jll v2.27.0+4
+  [c5fb5394] Xorg_xtrans_jll v1.4.0+3
+  [8f1865be] ZeroMQ_jll v4.3.4+0
+  [3161d3a3] Zstd_jll v1.5.2+0
+  [a4ae2306] libaom_jll v3.4.0+0
+  [0ac62f75] libass_jll v0.15.1+0
+  [f638f0a6] libfdk_aac_jll v2.0.2+0
+  [b53b4c65] libpng_jll v1.6.38+0
+  [a9144af2] libsodium_jll v1.0.20+0
+  [f27f6e37] libvorbis_jll v1.3.7+1
+  [1270edf5] x264_jll v2021.5.5+0
+  [dfaa095f] x265_jll v3.5.0+0
+  [d8fb68d0] xkbcommon_jll v0.9.1+5
+  [0dad84c5] ArgTools
+  [56f22d72] Artifacts
+  [2a0f44e3] Base64
+  [ade2ca70] Dates
+  [8bb1440f] DelimitedFiles
+  [8ba89e20] Distributed
+  [f43a241f] Downloads
+  [7b1f6079] FileWatching
+  [9fa8497b] Future
+  [b77e0a4c] InteractiveUtils
+  [b27032c2] LibCURL
+  [76f85450] LibGit2
+  [8f399da3] Libdl
+  [37e2e46d] LinearAlgebra
+  [56ddb016] Logging
+  [d6f4376e] Markdown
+  [a63ad114] Mmap
+  [ca575930] NetworkOptions
+  [44cfe95a] Pkg
+  [de0858da] Printf
+  [9abbd945] Profile
+  [3fa0cd96] REPL
+  [9a3f8284] Random
+  [ea8e919c] SHA
+  [9e88b42a] Serialization
+  [1a1011a3] SharedArrays
+  [6462fe0b] Sockets
+  [2f01184e] SparseArrays
+  [10745b16] Statistics
+  [4607b0f0] SuiteSparse
+  [fa267f1f] TOML
+  [a4e569a6] Tar
+  [8dfed614] Test
+  [cf7118a7] UUIDs
+  [4ec0a83e] Unicode
+  [e66e0078] CompilerSupportLibraries_jll
+  [deac9b47] LibCURL_jll
+  [29816b5a] LibSSH2_jll
+  [c8ffd9c3] MbedTLS_jll
+  [14a3606d] MozillaCACerts_jll
+  [4536629a] OpenBLAS_jll
+  [05823500] OpenLibm_jll
+  [efcefdf7] PCRE2_jll
+  [bea87d4a] SuiteSparse_jll
+  [83775a58] Zlib_jll
+  [8e850b90] libblastrampoline_jll v3.1.0+2
+  [8e850ede] nghttp2_jll
+  [3f19e933] p7zip_jll</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../BCR/">« BCR Work-Precision Diagrams</a><a class="docs-footer-nextpage" href="../../DAE/ChemicalAkzoNobel/">Chemical Akzo Nobel Differential-Algebraic Equation (DAE) Work-Precision Diagrams »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.22 on <span class="colophon-date" title="Sunday 31 July 2022 18:55">Sunday 31 July 2022</span>. Using Julia version 1.7.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
