@@ -40,13 +40,14 @@ docsmodules = [
         "PoissonRandom", "QuasiMonteCarlo", "DataInterpolations",
         "FFTW", "RuntimeGeneratedFunctions", "MuladdMacro",],
     "Machine Learning" => ["DiffEqFlux","DeepEquilibriumNetworks"],
-    "Learning Resources" => [],
+    "Extra Resources" => ["SciMLBenchmarksOutput"],
     "Developer Documentation" => ["SciMLStyle", "COLPRAC", "DiffEqDevDocs"],
 ]
 
-docspackage = ["DiffEqDocs", "DiffEqDevDocs"]
+docspackage = ["DiffEqDocs", "DiffEqDevDocs", "SciMLBenchmarksOutput"]
 docspackagenames = Dict("DiffEqDocs" => "DifferentialEquations",
-                        "DiffEqDevDocs" => "DiffEq Developer Documentation")
+                        "DiffEqDevDocs" => "DiffEq Developer Documentation",
+                        "SciMLBenchmarksOutput" => "The SciML Benchmarks")
 
 usereadme = ["FEniCS", "SciMLStyle", "COLPRAC",
     "DataInterpolations", "FFTW", "RuntimeGeneratedFunctions", "MuladdMacro",
@@ -86,7 +87,7 @@ catpagestarts = [
 # Interfaces => SciMLParameters
 # Partial Differential Equation Solvers =>  HighDimPDE
 # Simulation Analysis => MinimallyDisruptiveCurves
-# Uncertainty Quantification => DiffEqUncertainty 
+# Uncertainty Quantification => DiffEqUncertainty
 # Machine Learning => ReservoirComputing
 
 fullpages = Any["The SciML Open Souce Software Ecosystem"=>"index.md"]
