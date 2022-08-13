@@ -40,17 +40,18 @@ docsmodules = [
         "PoissonRandom", "QuasiMonteCarlo", "DataInterpolations",
         "FFTW", "RuntimeGeneratedFunctions", "MuladdMacro",],
     "Machine Learning" => ["DiffEqFlux","DeepEquilibriumNetworks"],
-    "Extra Resources" => ["SciMLBenchmarksOutput"],
+    "Extra Resources" => ["SciMLTutorialsOutput", "SciMLBenchmarksOutput"],
     "Developer Documentation" => ["SciMLStyle", "COLPRAC", "DiffEqDevDocs"],
 ]
 
-docspackage = ["DiffEqDocs", "DiffEqDevDocs", "SciMLBenchmarksOutput"]
+docspackage = ["DiffEqDocs", "DiffEqDevDocs", "SciMLBenchmarksOutput", "SciMLTutorialsOutput"]
 docspackagenames = Dict("DiffEqDocs" => "DifferentialEquations",
                         "DiffEqDevDocs" => "DiffEq Developer Documentation",
-                        "SciMLBenchmarksOutput" => "The SciML Benchmarks")
+                        "SciMLBenchmarksOutput" => "The SciML Benchmarks",
+                        "SciMLTutorialsOutput" => "Extended SciML Tutorials and Learning Materials")
 docspackage_hasjl = Dict("DiffEqDocs" => true,
                          "DiffEqDevDocs" => true,
-                         "SciMLBenchmarksOutput" => false)
+                         "SciMLTutorialsOutput" => false)
 
 usereadme = ["FEniCS", "SciMLStyle", "COLPRAC",
     "DataInterpolations", "FFTW", "RuntimeGeneratedFunctions", "MuladdMacro",
