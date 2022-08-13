@@ -24,11 +24,14 @@ the solution to the PDE.
 [FEniCS.jl](https://github.com/SciML/FEniCS.jl) is a wrapper for the popular FEniCS
 finite element method library.
 
-## HighDimPDE.jl: Scientific Machine Learning for Special High Dimensional PDE Forms
+## HighDimPDE.jl:  High-dimensional PDE Solvers
 
-[HighDimPDE.jl](https://github.com/SciML/HighDimPDE.jl) is a library of methods for
-high-dimensional non-local parabolic partial differential equations. It uses special
-problem types for specifying problems in these domains.
+[HighDimPDE.jl](https://github.com/SciML/HighDimPDE.jl) is a partial differential equation
+solver library which implements algorithms that break down the curse of dimensionality 
+to solve the equations. It implements deep-learning based and Picard-iteration based methods
+to approximately solve high-dimensional, nonlinear, non-local PDEs in up to 10,000 dimensions. 
+Its cons are accuracy: high-dimensional solvers are stochastic, and might result in wrong solutions
+if the solver meta-parameters are not appropriate.
 
 ## NeuralOperators.jl: (Fourier) Neural Operators and DeepONets for PDE Solving
 
