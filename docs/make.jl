@@ -51,6 +51,7 @@ docspackagenames = Dict("DiffEqDocs" => "DifferentialEquations",
                         "SciMLTutorialsOutput" => "Extended SciML Tutorials and Learning Materials")
 docspackage_hasjl = Dict("DiffEqDocs" => true,
                          "DiffEqDevDocs" => true,
+                         "SciMLBenchmarksOutput" => false,
                          "SciMLTutorialsOutput" => false)
 
 usereadme = ["FEniCS", "SciMLStyle", "COLPRAC",
