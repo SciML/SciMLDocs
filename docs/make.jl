@@ -37,9 +37,9 @@ docsmodules = [
     "Symbolic Analysis" => ["StructuralIdentifiability", "SymbolicNumericIntegration"],
     "Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],
     "Numerical Utilities" => ["Surrogates", "ExponentialUtilities", "DiffEqNoiseProcess",
-        "PoissonRandom", "QuasiMonteCarlo", "DataInterpolations",
-        "FFTW", "RuntimeGeneratedFunctions", "MuladdMacro",],
-    "Machine Learning" => ["DiffEqFlux","DeepEquilibriumNetworks"],
+    "PoissonRandom", "QuasiMonteCarlo", "DataInterpolations",
+    "FFTW", "RuntimeGeneratedFunctions", "MuladdMacro",],
+    "Machine Learning" => ["DiffEqFlux","DeepEquilibriumNetworks","ReservoirComputing"],
     "Extra Resources" => ["SciMLTutorialsOutput", "SciMLBenchmarksOutput"],
     "Developer Documentation" => ["SciMLStyle", "COLPRAC", "DiffEqDevDocs"],
 ]
@@ -87,7 +87,7 @@ catpagestarts = [
     Any["highlevels/developer_documentation.md"],
 ]
 
-fullpages = Any["The SciML Open Souce Software Ecosystem"=>"index.md"]
+fullpages = Any["The SciML Open Souce Software Ecosystem" => "index.md"]
 allmods = Vector{Any}()
 
 function recursive_append(pages::AbstractArray{<:AbstractArray}, str)
