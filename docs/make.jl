@@ -37,20 +37,22 @@ docsmodules = [
     "Symbolic Analysis" => ["StructuralIdentifiability", "SymbolicNumericIntegration"],
     "Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],
     "Numerical Utilities" => ["Surrogates", "ExponentialUtilities", "DiffEqNoiseProcess",
-        "PoissonRandom", "QuasiMonteCarlo", "DataInterpolations",
-        "FFTW", "RuntimeGeneratedFunctions", "MuladdMacro",],
+    "PoissonRandom", "QuasiMonteCarlo", "DataInterpolations",
+    "FFTW", "RuntimeGeneratedFunctions", "MuladdMacro",],
     "Machine Learning" => ["DiffEqFlux","DeepEquilibriumNetworks","ReservoirComputing"],
-    "Extra Resources" => ["SciMLBenchmarksOutput"],
+    "Extra Resources" => ["SciMLTutorialsOutput", "SciMLBenchmarksOutput"],
     "Developer Documentation" => ["SciMLStyle", "COLPRAC", "DiffEqDevDocs"],
 ]
 
-docspackage = ["DiffEqDocs", "DiffEqDevDocs", "SciMLBenchmarksOutput"]
+docspackage = ["DiffEqDocs", "DiffEqDevDocs", "SciMLBenchmarksOutput", "SciMLTutorialsOutput"]
 docspackagenames = Dict("DiffEqDocs" => "DifferentialEquations",
                         "DiffEqDevDocs" => "DiffEq Developer Documentation",
-                        "SciMLBenchmarksOutput" => "The SciML Benchmarks")
+                        "SciMLBenchmarksOutput" => "The SciML Benchmarks",
+                        "SciMLTutorialsOutput" => "Extended SciML Tutorials and Learning Materials")
 docspackage_hasjl = Dict("DiffEqDocs" => true,
                          "DiffEqDevDocs" => true,
-                         "SciMLBenchmarksOutput" => false)
+                         "SciMLBenchmarksOutput" => false,
+                         "SciMLTutorialsOutput" => false)
 
 usereadme = ["FEniCS", "SciMLStyle", "COLPRAC",
     "DataInterpolations", "FFTW", "RuntimeGeneratedFunctions", "MuladdMacro",
