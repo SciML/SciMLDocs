@@ -4,19 +4,10 @@ using SciMLDocs, Documenter, LibGit2, Pkg
 ENV["GKSwstype"] = "100"
 using Plots
 
-using DiffEqProblemLibrary, OrdinaryDiffEq
+using OrdinaryDiffEq
 
-ODEProblemLibrary = DiffEqProblemLibrary.ODEProblemLibrary
-ODEProblemLibrary.importodeproblems()
-
-SDEProblemLibrary = DiffEqProblemLibrary.SDEProblemLibrary
-SDEProblemLibrary.importsdeproblems()
-
-DDEProblemLibrary = DiffEqProblemLibrary.DDEProblemLibrary
-DDEProblemLibrary.importddeproblems()
-
-DAEProblemLibrary = DiffEqProblemLibrary.DAEProblemLibrary
-DAEProblemLibrary.importdaeproblems()
+import ODEProblemLibrary, SDEProblemLibrary, DDEProblemLibrary, JumpProblemLibrary,
+       DAEProblemLibrary
 
 using DiffEqDevTools # Needed for tableaus
 using DiffEqBase
@@ -179,7 +170,7 @@ end
 
 @show fullpages
 
-append!(allmods, [Plots, DiffEqBase, DiffEqDevTools, DiffEqProblemLibrary, ODEProblemLibrary,
+append!(allmods, [Plots, DiffEqBase, DiffEqDevTools, ODEProblemLibrary, JumpProblemLibrary,
                   SDEProblemLibrary, DDEProblemLibrary, DAEProblemLibrary, OrdinaryDiffEq])
 
 mathengine = MathJax3(Dict(
