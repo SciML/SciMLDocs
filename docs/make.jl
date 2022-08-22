@@ -19,7 +19,7 @@ docsmodules = [
     "Partial Differential Equation Solvers" => ["MethodOfLines", "NeuralPDE",
                                                 "NeuralOperators", "FEniCS",
                                                 "HighDimPDE", "DiffEqOperators"],
-    "Modeling Tools" => ["DiffEqCallbacks", "ModelingToolkit", "ModelingToolkitStandardLibrary", 
+    "Modeling Tools" => ["DiffEqCallbacks", "ModelingToolkit", "ModelingToolkitStandardLibrary",
         "Catalyst", "NBodySimulator", "ParameterizedFunctions"],
     "Inverse Problems" => ["SciMLSensitivity", "DiffEqParamEstim", "DiffEqBayes"],
     "AbstractArray Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
@@ -136,6 +136,18 @@ for (i, cat) in enumerate(docsmodules)
             mkdir(mod)
             LibGit2.clone(readmeurls[mod], mod)
             cp(joinpath(mod, "README.md"), joinpath(dir, "index.md"), force=true)
+
+            filecontents = readlines(joinpath(dir, "index.md"))
+
+            open(joinpath(dir, "index.md"), "w") do output
+                println(output, "```@meta")
+                println(output, "EditURL = \"$(readmeurls[mod])/edit/master/README.md\"")
+                println(output, "```")
+                for line in filecontents
+                    println(output, line)
+                end
+            end
+
             push!(catpage, mod => Any[joinpath("modules", mod, "index.md")])
         elseif mod in docspackage
             dir = joinpath(pkgdir(SciMLDocs), "docs", "src", "modules", mod)
