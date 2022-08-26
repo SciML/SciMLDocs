@@ -126,7 +126,7 @@ covers:
 - Cubature methods (both `h` and `p` cubature)
 - Adaptive Monte Carlo methods
 
-## JumpProcesses.jl: Unified Interface for Jump Processes
+## JumpProcesses.jl: Stochastic Simulation Algorithms for Jump Processes, Jump-ODEs, and Jump-Diffusions
 
 [JumpProcesses.jl](https://github.com/SciML/JumpProcesses.jl) is the library for Poisson jump
 processes, also known as chemical master equations or Gillespie simulations, for simulating
