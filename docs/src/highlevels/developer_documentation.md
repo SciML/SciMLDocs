@@ -11,8 +11,8 @@ will help you learn and do the rest!**
 
 If you need any help contributing, please feel welcome joining our community channels.
 
+- The diffeq-bridged and sciml-bridged channels in the [Julia Zulip Chat](https://julialang.zulipchat.com/)
 - The #diffeq-bridged and #sciml-bridged channels in the [Julia Slack](https://julialang.org/slack/)
-- [JuliaDiffEq](https://gitter.im/JuliaDiffEq/Lobby) on Gitter
 - On the [Julia Discourse forums](https://discourse.julialang.org)
 - See also [SciML Community page](https://sciml.ai/community/)
 
@@ -25,7 +25,9 @@ To get started contributing to SciML, check out the following resources:
 - [Developing Julia Packages](https://www.youtube.com/watch?v=QVmU29rCjaA)
 - [Getting Started with Julia (for Experienced Programmers)](https://www.youtube.com/watch?v=-lJK92bEKow)
 
-## SciMLStyle: The SciML Style Guide for Julia
+## SciMLStyle: The SciML Style Guide for Julia 
+
+[![SciML Code Style](https://img.shields.io/static/v1?label=code%20style&message=SciML&color=9558b2&labelColor=389826)](https://github.com/SciML/SciMLStyle)
 
 This is a style guide for how to program in Julia for SciML contributions. It describes
 everything one needs to know, from preferred naming schemes of functions to fundamental
@@ -35,15 +37,10 @@ knoweldge and adherance to the style guide is not required for contributions!
 
 ## COLPRAC: Contributor's Guide on Collaborative Practices for Community Packages
 
+[![ColPrac: Contributor's Guide on Collaborative Practices for Community Packages](https://img.shields.io/badge/ColPrac-Contributor's%20Guide-blueviolet)](https://github.com/SciML/ColPrac)
+
 What are the rules for when PRs should be merged? What are the rules for whether to tag
 a major, minor, or patch release? All of these development rules are defined in COLPRAC.
-
-## DiffEq Developer Documentation
-
-There are many solver libraries which share similar internals, such as OrdinaryDiffEq.jl,
-StochasticDiffEq.jl, and DelayDiffEq.jl. This section of the documentation describes the
-internal systems of these packages and how they are used to quickly write efficient
-solvers.
 
 # Third Party Libraries to Note
 
