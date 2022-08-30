@@ -42,6 +42,13 @@ knoweldge and adherance to the style guide is not required for contributions!
 What are the rules for when PRs should be merged? What are the rules for whether to tag
 a major, minor, or patch release? All of these development rules are defined in COLPRAC.
 
+## DiffEq Developer Documentation
+
+There are many solver libraries which share similar internals, such as OrdinaryDiffEq.jl,
+StochasticDiffEq.jl, and DelayDiffEq.jl. This section of the documentation describes the
+internal systems of these packages and how they are used to quickly write efficient
+solvers.
+
 # Third Party Libraries to Note
 
 ## Documenter.jl
