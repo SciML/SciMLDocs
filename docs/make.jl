@@ -1,16 +1,5 @@
 using SciMLDocs, Documenter, LibGit2, Pkg
-
-# Make sure that plots don't throw a bunch of warnings / errors!
-ENV["GKSwstype"] = "100"
-using Plots
-
-using OrdinaryDiffEq
-
-import ODEProblemLibrary, SDEProblemLibrary, DDEProblemLibrary, JumpProblemLibrary,
-       DAEProblemLibrary
-
-using DiffEqDevTools # Needed for tableaus
-using DiffEqBase
+using MultiDocumenter
 
 # Ordering Matters!
 docsmodules = [
@@ -61,74 +50,26 @@ readmeurls = Dict(
     "CellMLToolkit" => "https://github.com/SciML/CellMLToolkit.jl"
 )
 
-
-catpagestarts = [
-    Any["highlevels/equation_solvers.md"],
-    Any["highlevels/partial_differential_equation_solvers.md"],
-    Any["highlevels/modeling_tools.md"],
-    Any["highlevels/inverse_problems.md"],
-    Any["highlevels/abstractarray_libraries.md"],
-    Any["highlevels/uncertainty_quantification.md"],
-    Any["highlevels/simulation_analysis.md"],
-    Any["highlevels/symbolic_analysis.md"],
-    Any["highlevels/interfaces.md"],
-    Any["highlevels/numerical_utilities.md"],
-    Any["highlevels/machine_learning.md"],
-    Any["highlevels/learning_resources.md"],
-    Any["highlevels/developer_documentation.md"],
+highlevelpages = [
+    "The SciML Open Souce Software Ecosystem" => "index.md",
+    "highlevels/equation_solvers.md",
+    "highlevels/partial_differential_equation_solvers.md",
+    "highlevels/modeling_tools.md",
+    "highlevels/inverse_problems.md",
+    "highlevels/abstractarray_libraries.md",
+    "highlevels/uncertainty_quantification.md",
+    "highlevels/simulation_analysis.md",
+    "highlevels/symbolic_analysis.md",
+    "highlevels/interfaces.md",
+    "highlevels/numerical_utilities.md",
+    "highlevels/machine_learning.md",
+    "highlevels/learning_resources.md",
+    "highlevels/developer_documentation.md",
 ]
 
-fullpages = Any["The SciML Open Souce Software Ecosystem" => "index.md"]
-allmods = Vector{Any}()
-
-function recursive_append(pages::AbstractArray{<:AbstractArray}, str)
-    map(recursive_append, pages, str)
-end
-
-function recursive_append(pages::AbstractArray{<:Pair{String,Any}}, str)
-    for i in eachindex(pages)
-        if pages[i][2] isa AbstractArray
-            pages[i] = pages[i][1] => recursive_append(pages[i][2], str)
-        elseif pages[i][2] isa String
-            pages[i] = pages[i][1] => joinpath(str, pages[i][2])
-        end
-    end
-    pages
-end
-
-function recursive_append(pages::AbstractArray{<:String}, str)
-    for i in eachindex(pages)
-        pages[i] = joinpath(str, pages[i])
-    end
-    pages
-end
-
-function recursive_append(pages::AbstractArray{<:Pair{String,String}}, str)
-    for i in eachindex(pages)
-        pages[i] = pages[i][1] => joinpath(str, pages[i][2])
-    end
-    pages
-end
-
-function recursive_append(pages::AbstractArray{<:Any}, str)
-    for i in eachindex(pages)
-        if pages[i] isa Pair && pages[i][2] isa String
-            pages[i] = pages[i][1] => joinpath(str, pages[i][2])
-        elseif pages[i] isa Pair && pages[i][2] isa AbstractArray
-            pages[i] = pages[i][1] => recursive_append(pages[i][2], str)
-        elseif pages[i] isa String
-            pages[i] = joinpath(str, pages[i])
-        else
-            error("wait what?")
-        end
-    end
-    pages
-end
+docs = []
 
 for (i, cat) in enumerate(docsmodules)
-    global catpage
-    catpage = catpagestarts[i]
-
     for mod in cat[2]
         if mod in usereadme
             dir = joinpath(pkgdir(SciMLDocs), "docs", "src", "modules", mod)
@@ -138,62 +79,47 @@ for (i, cat) in enumerate(docsmodules)
             cp(joinpath(mod, "README.md"), joinpath(dir, "index.md"), force=true)
             push!(catpage, mod => Any[joinpath("modules", mod, "index.md")])
         elseif mod in docspackage
-            dir = joinpath(pkgdir(SciMLDocs), "docs", "src", "modules", mod)
-            mkdir(dir)
-            mkdir(mod)
-
             if docspackage_hasjl[mod]
-                LibGit2.clone("https://github.com/SciML/$mod.jl", mod)
+                push!(docs,("https://github.com/SciML/$mod.jl.git", "gh-pages") => MultiDocumenter.MultiDocRef(
+                    upstream = joinpath(clonedir, "Documenter"),
+                    path = "doc",
+                    name = docspackagenames[mod],
+                ))
             else
-                LibGit2.clone("https://github.com/SciML/$mod", mod)
+                push!(docs,("https://github.com/SciML/$mod.git", "gh-pages") => MultiDocumenter.MultiDocRef(
+                    upstream = joinpath(clonedir, "Documenter"),
+                    path = "doc",
+                    name = mod,
+                ))
             end
-
-            cp(joinpath(mod, "docs", "pages.jl"), dir, force=true)
-            include(joinpath(pwd(), mod, "docs", "pages.jl"))
-
-            cp(joinpath(mod, "docs", "src"), dir, force=true)
-            @show readdir(dir)
-            push!(catpage, docspackagenames[mod] => recursive_append(pages, joinpath("modules", mod)))
         else
-            ex = quote
-                using $(Symbol(mod))
-                cp(joinpath(pkgdir($(Symbol(mod))), "docs", "src"), joinpath(pkgdir(SciMLDocs), "docs", "src", "modules", $mod), force=true)
-                include(joinpath(pkgdir($(Symbol(mod))), "docs", "pages.jl"))
-                push!(allmods, $(Symbol(mod)))
-                push!(catpage, $mod => recursive_append(pages, joinpath("modules", $mod)))
-            end
-            @eval $ex
+            push!(docs,("https://github.com/SciML/$mod.jl.git", "gh-pages") => MultiDocumenter.MultiDocRef(
+                upstream = joinpath(clonedir, "Documenter"),
+                path = "doc",
+                name = mod,
+            ))
         end
     end
-    push!(fullpages, cat[1] => catpage)
 end
 
-@show fullpages
+clonedir = mktempdir()
 
-append!(allmods, [Plots, DiffEqBase, DiffEqDevTools, ODEProblemLibrary, JumpProblemLibrary,
-                  SDEProblemLibrary, DDEProblemLibrary, DAEProblemLibrary, OrdinaryDiffEq])
+# using SSH for cloning is suggested when you're dealing with private repos, because
+# an ssh-agent will handle your keys for you
+# prefix = "git@github.com:"
+prefix = "https://github.com/"
 
-mathengine = MathJax3(Dict(
-    :loader => Dict("load" => ["[tex]/require", "[tex]/mathtools"]),
-    :tex => Dict(
-        "inlineMath" => [["\$", "\$"], ["\\(", "\\)"]],
-        "packages" => ["base", "ams", "autoload", "mathtools", "require"],
-    ),
-))
+for ((remote, branch), docref) in docs
+    run(`git clone --depth 1 $prefix$remote --branch $branch --single-branch $(docref.upstream)`)
+end
 
-makedocs(
-    sitename="SciML",
-    authors="The SciML Open Source Software Organization Contributors",
-    modules=identity.(allmods),
-    clean=true, doctest=false,
-    format=Documenter.HTML(analytics="UA-90474609-3",
-        assets=["assets/favicon.ico"],
-        mathengine=mathengine,
-        canonical="https://docs.sciml.ai/stable/"),
-    pages=fullpages
-)
+outpath = joinpath(@__DIR__, "out")
 
-deploydocs(;
-    repo="github.com/SciML/SciMLDocs",
-    devbranch="main"
+MultiDocumenter.make(
+    outpath,
+    collect(last.(docs));
+    search_engine = MultiDocumenter.SearchConfig(
+        index_versions = ["stable"],
+        engine = MultiDocumenter.FlexSearch
+    )
 )
