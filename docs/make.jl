@@ -5,7 +5,7 @@ clonedir = mktempdir()
 
 # Ordering Matters!
 docsmodules = [
-    "SciML" => ["SciMLDocs"],
+    #"SciML" => ["SciMLDocs"],
     "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals",
                            "Optimization", "JumpProcesses"],
     "Partial Differential Equation Solvers" => ["MethodOfLines", "NeuralPDE",
