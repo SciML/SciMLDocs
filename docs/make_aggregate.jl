@@ -54,6 +54,7 @@ for (i, cat) in enumerate(docsmodules)
 end
 
 outpath = joinpath(@__DIR__, "out")
+mkdir(outpath)
 
 MultiDocumenter.make(
     outpath,
