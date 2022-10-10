@@ -1,6 +1,6 @@
-using SciMLDocs, Documenter
+using Documenter
 
-makedocs(sitename = "SciMLDocs.jl",
+makedocs(sitename = "Overview of SciML",
          authors = "Chris Rackauckas",
          modules = Module[],
          clean = true, doctest = false,

@@ -1,4 +1,4 @@
-using SciMLDocs, Documenter, LibGit2, Pkg
+using Documenter, LibGit2, Pkg
 using MultiDocumenter
 
 clonedir = mktempdir()
