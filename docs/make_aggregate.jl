@@ -33,6 +33,7 @@ fixnames = Dict("SciMLDocs" => "The SciML Open Souce Software Ecosystem",
                 "SciMLBenchmarksOutput" => "The SciML Benchmarks",
                 "SciMLTutorialsOutput" => "Extended SciML Tutorials and Learning Materials")
 hasnojl = ["SciMLBenchmarksOutput", "SciMLTutorialsOutput", "COLPRAC", "SciMLStyle"]
+usemain = ["SciMLBenchmarksOutput", "SciMLTutorialsOutput"]
 
 docs = Any[
     MultiDocumenter.MultiDocRef(
@@ -56,6 +57,7 @@ for (i, cat) in enumerate(docsmodules)
             path = mod,
             name = mod in keys(fixnames) ? fixnames[mod] : mod,
             giturl = url,
+            branch = mod ∈ usemain ? "main" : "gh-pages"
         ))
     end
     push!(docs, MultiDocumenter.DropdownNav(cat[1], docsites))
