@@ -66,8 +66,7 @@ end
 outpath = mktempdir()
 
 MultiDocumenter.make(
-    outpath,
-    docs;
+    outpath, docs;
     search_engine = MultiDocumenter.SearchConfig(
         index_versions = ["stable"],
         engine = MultiDocumenter.FlexSearch
