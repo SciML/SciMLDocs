@@ -82,7 +82,7 @@ for group in docsmodules
                 branch = mod ∈ usemain ? "main" : "gh-pages"
             ))
         end
-        push!(docgroups, MultiDocumenter.DropdownNav(cat[1], docsites))
+        push!(docgroups, MultiDocumenter.Column(cat[1], docsites))
     end
     push!(docs, MultiDocumenter.MegaDropdownNav(group[1], docgroups))
 end
