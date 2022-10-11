@@ -64,7 +64,6 @@ docs = Any[
 
 for group in docsmodules
     docgroups = []
-    @show group
     for cat in group[2]
         docsites = []
         for mod in cat[2]
