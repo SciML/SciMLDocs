@@ -19,12 +19,12 @@ docsmodules = [
     "Simulation Analysis" => ["GlobalSensitivity", "StructuralIdentifiability"],
     "Machine Learning" => ["Surrogates","DiffEqFlux","DeepEquilibriumNetworks",
                             "ReservoirComputing"],
-    "Numerical Utilities" => ["ExponentialUtilities", "DiffEqNoiseProcess",
-    "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro",
-    "SymbolicNumericIntegration"],
-    "Extra Resources" => ["SciMLTutorialsOutput", "SciMLBenchmarksOutput"],
-    "Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],
-    "Developer Documentation" => ["SciMLStyle", "COLPRAC", "DiffEqDevDocs"],
+    #"Numerical Utilities" => ["ExponentialUtilities", "DiffEqNoiseProcess",
+    #"PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro",
+    #"SymbolicNumericIntegration"],
+    #"Extra Resources" => ["SciMLTutorialsOutput", "SciMLBenchmarksOutput"],
+    #"Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],
+    #"Developer Documentation" => ["SciMLStyle", "COLPRAC", "DiffEqDevDocs"],
 ]
 
 fixnames = Dict("SciMLDocs" => "The SciML Open Souce Software Ecosystem",
