@@ -8,21 +8,21 @@ docsmodules = [
     #"Home" => ["SciMLDocs"],
     "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals",
                            "Optimization", "JumpProcesses"],
-    "Partial Differential Equation Solvers" => ["MethodOfLines", "NeuralPDE",
+    "Partial Differential Equations" => ["MethodOfLines", "NeuralPDE",
                                                 "NeuralOperators", "FEniCS",
                                                 "HighDimPDE", "DiffEqOperators"],
-    "Modeling Tools" => ["DiffEqCallbacks", "ModelingToolkit", "ModelingToolkitStandardLibrary",
-        "Catalyst", "NBodySimulator", "ParameterizedFunctions"],
+    "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary", "Catalyst",
+                        "DiffEqCallbacks", "NBodySimulator", "ParameterizedFunctions"],
     "Inverse Problems" => ["SciMLSensitivity", "DiffEqParamEstim", "DiffEqBayes"],
     "AbstractArray Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
     "Uncertainty Quantification" => ["PolyChaos"],
-    "Simulation Analysis" => ["GlobalSensitivity"],
-    "Symbolic Analysis" => ["StructuralIdentifiability", "SymbolicNumericIntegration"],
-    "Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],
-    "Numerical Utilities" => ["Surrogates", "ExponentialUtilities", "DiffEqNoiseProcess",
-    "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro",],
+    "Simulation Analysis" => ["GlobalSensitivity", "StructuralIdentifiability"],
     "Machine Learning" => ["DiffEqFlux","DeepEquilibriumNetworks","ReservoirComputing"],
+    "Numerical Utilities" => ["Surrogates", "ExponentialUtilities", "DiffEqNoiseProcess",
+    "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro",
+    "SymbolicNumericIntegration"],
     "Extra Resources" => ["SciMLTutorialsOutput", "SciMLBenchmarksOutput"],
+    "Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],
     "Developer Documentation" => ["SciMLStyle", "COLPRAC", "DiffEqDevDocs"],
 ]
 
@@ -34,12 +34,12 @@ fixnames = Dict("SciMLDocs" => "The SciML Open Souce Software Ecosystem",
 hasnojl = ["SciMLBenchmarksOutput", "SciMLTutorialsOutput", "COLPRAC", "SciMLStyle"]
 
 docs = Any[
-    push!(docsites,MultiDocumenter.MultiDocRef(
+    MultiDocumenter.MultiDocRef(
         upstream = joinpath(clonedir, "Documenter"),
         path = "SciMLDocs",
         name = "Home",
         giturl = "https://github.com/SciML/SciMLDocs.git",
-    ))
+    )
 ]
 
 for (i, cat) in enumerate(docsmodules)
