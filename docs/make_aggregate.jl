@@ -23,6 +23,8 @@ docsmodules = [
     "Array Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
     ]],
 
+    #=
+
     ["Simulation Analysis" => [
     "Uncertainty Quantification" => ["PolyChaos"],
     "Parameter Analysis" => ["GlobalSensitivity", "StructuralIdentifiability"],
@@ -42,6 +44,7 @@ docsmodules = [
     ]],
 
     "Extra Resources" => ["SciMLTutorialsOutput", "SciMLBenchmarksOutput"],
+    =#
 ]
 
 fixnames = Dict("SciMLDocs" => "The SciML Open Souce Software Ecosystem",
