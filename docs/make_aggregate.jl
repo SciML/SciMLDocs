@@ -5,7 +5,7 @@ clonedir = mktempdir()
 
 # Ordering Matters!
 docsmodules = [
-    #"SciML" => ["SciMLDocs"],
+    #"Home" => ["SciMLDocs"],
     "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals",
                            "Optimization", "JumpProcesses"],
     "Partial Differential Equation Solvers" => ["MethodOfLines", "NeuralPDE",
@@ -33,7 +33,14 @@ fixnames = Dict("SciMLDocs" => "The SciML Open Souce Software Ecosystem",
                 "SciMLTutorialsOutput" => "Extended SciML Tutorials and Learning Materials")
 hasnojl = ["SciMLBenchmarksOutput", "SciMLTutorialsOutput", "COLPRAC", "SciMLStyle"]
 
-docs = []
+docs = Any[
+    push!(docsites,MultiDocumenter.MultiDocRef(
+        upstream = joinpath(clonedir, "Documenter"),
+        path = "SciMLDocs",
+        name = "Home",
+        giturl = "https://github.com/SciML/SciMLDocs.git",
+    ))
+]
 
 for (i, cat) in enumerate(docsmodules)
     docsites = []
