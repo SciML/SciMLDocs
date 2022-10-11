@@ -22,8 +22,6 @@ docsmodules = [
     "Array Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
     ],
 
-    #=
-
     "Simulation Analysis" => [
     "Uncertainty Quantification" => ["PolyChaos"],
     "Parameter Analysis" => ["GlobalSensitivity", "StructuralIdentifiability"],
@@ -42,6 +40,7 @@ docsmodules = [
     "Developer Documentation" => ["SciMLStyle", "COLPRAC", "DiffEqDevDocs"],
     ],
 
+    #=
     "Extra Resources" => ["SciMLTutorialsOutput", "SciMLBenchmarksOutput"],
     =#
 ]
