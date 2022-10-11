@@ -31,7 +31,7 @@ fixnames = Dict("SciMLDocs" => "The SciML Open Souce Software Ecosystem",
                 "DiffEqDocs" => "DifferentialEquations",
                 "DiffEqDevDocs" => "DiffEq Developer Documentation",
                 "SciMLBenchmarksOutput" => "The SciML Benchmarks",
-                "SciMLTutorialsOutput" => "Extended SciML Tutorials and Learning Materials")
+                "SciMLTutorialsOutput" => "Extended SciML Tutorials")
 hasnojl = ["SciMLBenchmarksOutput", "SciMLTutorialsOutput", "COLPRAC", "SciMLStyle"]
 usemain = ["SciMLBenchmarksOutput", "SciMLTutorialsOutput"]
 
