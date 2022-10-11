@@ -1,4 +1,4 @@
-# AbstractArray Libraries
+# SciML Array Libraries
 
 ## RecursiveArrayTools.jl: Arrays of Arrays and Even Deeper
 
@@ -15,7 +15,7 @@ the timeseries solution types being `AbstractVectorOfArray`.
 
 ## LabelledArrays.jl: Named Variables in Arrays without Overhead
 
-Sometimes you want to use a full domain-specific language like 
+Sometimes you want to use a full domain-specific language like
 [ModelingToolkit](https://github.com/SciML/ModelingToolkit.jl). Other times, you wish arrays
 just had a slightly nicer syntax. Don't you wish you could write the Lorenz equations like:
 

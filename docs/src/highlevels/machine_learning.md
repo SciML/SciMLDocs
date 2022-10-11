@@ -4,6 +4,29 @@ While SciML is not an ecosystem for machine learning, SciML has many libraries f
 machine learning with its equation solver libraries and machine learning libraries which
 are integrated into the equation solvers.
 
+## Surrogates.jl: Easy Generation of Differentiable Surrogate Models
+
+[Surrogates.jl](https://github.com/SciML/Surrogates.jl) is a library for generating surrogate
+approximations to computationally expensive simulations. It has the following
+high-dimensional function approximators:
+
+- Kriging
+- Kriging using Stheno
+- Radial Basis
+- Wendland
+- Linear
+- Second Order Polynomial
+- Support Vector Machines (Wait for LIBSVM resolution)
+- Neural Networks
+- Random Forests
+- Lobachevsky splines
+- Inverse-distance
+- Polynomial expansions
+- Variable fidelity
+- Mixture of experts (Waiting GaussianMixtures package to work on v1.5)
+- Earth
+- Gradient Enhanced Kriging
+
 ## DiffEqFlux.jl: High Level Pre-Built Architectures for Implicit Deep Learning
 
 [DiffEqFlux.jl](https://github.com/SciML/DiffEqFlux.jl) is a library of pre-built architectures
@@ -55,7 +78,7 @@ Lux to ensure compatibility with neural network definitions from here.
 [SimpleChains.jl](https://github.com/PumasAI/SimpleChains.jl) is a library specialized for
 small-scale machine learning. It uses non-allocating mutating forms to be highly efficient
 for the cases where matrix multiplication kernels are not able to overcome the common overheads
-of machine learning libraries. Thus for SciML cases with small neural networks (<100 node layers) 
+of machine learning libraries. Thus for SciML cases with small neural networks (<100 node layers)
 and non-batched usage (many/most use cases), SimpleChains.jl can be the fastest choice for the
 neural network definitions.
 
@@ -92,11 +115,11 @@ making writing common machine learning pipelines easier. This includes functiona
 
 - An extensible dataset interface  (`numobs` and `getobs`).
 - Data iteration and dataloaders (`eachobs` and `DataLoader`).
-- Lazy data views (`obsview`). 
+- Lazy data views (`obsview`).
 - Resampling procedures (`undersample` and `oversample`).
-- Train/test splits (`splitobs`) 
+- Train/test splits (`splitobs`)
 - Data partitioning and aggregation tools (`batch`, `unbatch`, `chunk`, `group_counts`, `group_indices`).
 - Folds for cross-validation (`kfolds`, `leavepout`).
 - Datasets lazy tranformations (`mapobs`, `filterobs`, `groupobs`, `joinobs`, `shuffleobs`).
-- Toy datasets for demonstration purpose. 
+- Toy datasets for demonstration purpose.
 - Other data handling utilities (`flatten`, `normalise`, `unsqueeze`, `stack`, `unstack`).

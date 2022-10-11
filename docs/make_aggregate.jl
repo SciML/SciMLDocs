@@ -14,11 +14,12 @@ docsmodules = [
     "Modeling Tools" => ["ModelingToolkit", "ModelingToolkitStandardLibrary", "Catalyst",
                         "DiffEqCallbacks", "NBodySimulator", "ParameterizedFunctions"],
     "Inverse Problems" => ["SciMLSensitivity", "DiffEqParamEstim", "DiffEqBayes"],
-    "AbstractArray Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
+    "Array Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
     "Uncertainty Quantification" => ["PolyChaos"],
     "Simulation Analysis" => ["GlobalSensitivity", "StructuralIdentifiability"],
-    "Machine Learning" => ["DiffEqFlux","DeepEquilibriumNetworks","ReservoirComputing"],
-    "Numerical Utilities" => ["Surrogates", "ExponentialUtilities", "DiffEqNoiseProcess",
+    "Machine Learning" => ["Surrogates","DiffEqFlux","DeepEquilibriumNetworks",
+                            "ReservoirComputing"],
+    "Numerical Utilities" => ["ExponentialUtilities", "DiffEqNoiseProcess",
     "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro",
     "SymbolicNumericIntegration"],
     "Extra Resources" => ["SciMLTutorialsOutput", "SciMLBenchmarksOutput"],
@@ -68,7 +69,9 @@ MultiDocumenter.make(
     search_engine = MultiDocumenter.SearchConfig(
         index_versions = ["stable"],
         engine = MultiDocumenter.FlexSearch
-    )
+    ),
+    brand_image = MultiDocumenter.BrandImage("https://docs.sciml.ai",
+                                             joinpath(@__DIR__,"assets","logo.png"))
 )
 
 gitroot = normpath(joinpath(@__DIR__, ".."))

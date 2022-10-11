@@ -1,4 +1,4 @@
-# Partial Differential Equation (PDE) Solvers Overview
+# SciML Partial Differential Equations (PDE) Overview
 
 ## NeuralPDE.jl: Physics-Informed Neural Network (PINN) PDE Solvers
 
@@ -27,9 +27,9 @@ finite element method library.
 ## HighDimPDE.jl:  High-dimensional PDE Solvers
 
 [HighDimPDE.jl](https://github.com/SciML/HighDimPDE.jl) is a partial differential equation
-solver library which implements algorithms that break down the curse of dimensionality 
+solver library which implements algorithms that break down the curse of dimensionality
 to solve the equations. It implements deep-learning based and Picard-iteration based methods
-to approximately solve high-dimensional, nonlinear, non-local PDEs in up to 10,000 dimensions. 
+to approximately solve high-dimensional, nonlinear, non-local PDEs in up to 10,000 dimensions.
 Its cons are accuracy: high-dimensional solvers are stochastic, and might result in wrong solutions
 if the solver meta-parameters are not appropriate.
 

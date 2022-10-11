@@ -1,4 +1,4 @@
-# Equation Solvers Overview
+# SciML Equation Solvers Overview
 
 The SciML Equation Solvers cover a large set of `SciMLProblem`s with `SciMLAlgorithm`s
 that are efficient, numerically stable, and flexible. These methods tie into libraries
@@ -55,9 +55,9 @@ for solving `DEProblem`s. This includes:
 - Delay differential equations (DDEs) (`DDEProblem`)
 - Neutral, retarded, and algebraic delay differential equations (NDDEs, RDDEs, and DDAEs)
 - Stochastic delay differential equations (SDDEs) (`SDDEProblem`)
-- Experimental support for stochastic neutral, retarded, and algebraic delay 
+- Experimental support for stochastic neutral, retarded, and algebraic delay
   differential equations (SNDDEs, SRDDEs, and SDDAEs)
-- Mixed discrete and continuous equations (Hybrid Equations, Jump Diffusions) 
+- Mixed discrete and continuous equations (Hybrid Equations, Jump Diffusions)
   (`DEProblem`s with callbacks and `JumpProblem`)
 
 The well-optimized DifferentialEquations solvers benchmark as some of the fastest
@@ -73,8 +73,8 @@ DifferentialEquations.jl integrates with the Julia package sphere with:
 
 - GPU acceleration through CUDAnative.jl and CuArrays.jl
 - Automated sparsity detection with [Symbolics.jl](https://github.com/JuliaSymbolics/Symbolics.jl)
-- Automatic Jacobian coloring with [SparseDiffTools.jl](https://github.com/JuliaDiff/SparseDiffTools.jl), 
-  allowing for fast solutions to problems with sparse or structured (Tridiagonal, Banded, 
+- Automatic Jacobian coloring with [SparseDiffTools.jl](https://github.com/JuliaDiff/SparseDiffTools.jl),
+  allowing for fast solutions to problems with sparse or structured (Tridiagonal, Banded,
   BlockBanded, etc.) Jacobians
 - Allowing the specification of linear solvers for maximal efficiency
 - Progress meter integration with the Juno IDE for estimated time to solution
@@ -94,31 +94,31 @@ optimization ecosystem, allowing one syntax to use all packages in a uniform man
 covers:
 
 - OptimizationBBO for [BlackBoxOptim.jl](https://github.com/robertfeldt/BlackBoxOptim.jl)
-- OptimizationEvolutionary for [Evolutionary.jl](https://github.com/wildart/Evolutionary.jl) 
+- OptimizationEvolutionary for [Evolutionary.jl](https://github.com/wildart/Evolutionary.jl)
   (see also [this documentation](https://wildart.github.io/Evolutionary.jl/dev/))
 - OptimizationGCMAES for [GCMAES.jl](https://github.com/AStupidBear/GCMAES.jl)
-- OptimizationMOI for [MathOptInterface.jl](https://github.com/jump-dev/MathOptInterface.jl) 
-  (usage of algorithm via MathOptInterface API; see also the API 
+- OptimizationMOI for [MathOptInterface.jl](https://github.com/jump-dev/MathOptInterface.jl)
+  (usage of algorithm via MathOptInterface API; see also the API
   [documentation](https://jump.dev/MathOptInterface.jl/stable/))
-- OptimizationMetaheuristics for [Metaheuristics.jl](https://github.com/jmejia8/Metaheuristics.jl) 
+- OptimizationMetaheuristics for [Metaheuristics.jl](https://github.com/jmejia8/Metaheuristics.jl)
   (see also [this documentation](https://jmejia8.github.io/Metaheuristics.jl/stable/))
-- OptimizationMultistartOptimization for [MultistartOptimization.jl](https://github.com/tpapp/MultistartOptimization.jl) 
+- OptimizationMultistartOptimization for [MultistartOptimization.jl](https://github.com/tpapp/MultistartOptimization.jl)
   (see also [this documentation](https://juliahub.com/docs/MultistartOptimization/cVZvi/0.1.0/))
-- OptimizationNLopt for [NLopt.jl](https://github.com/JuliaOpt/NLopt.jl) 
-  (usage via the NLopt API; see also the available 
+- OptimizationNLopt for [NLopt.jl](https://github.com/JuliaOpt/NLopt.jl)
+  (usage via the NLopt API; see also the available
   [algorithms](https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/))
-- OptimizationNOMAD for [NOMAD.jl](https://github.com/bbopt/NOMAD.jl) (see also 
+- OptimizationNOMAD for [NOMAD.jl](https://github.com/bbopt/NOMAD.jl) (see also
   [this documentation](https://bbopt.github.io/NOMAD.jl/stable/))
-- OptimizationNonconvex for [Nonconvex.jl](https://github.com/JuliaNonconvex/Nonconvex.jl) (see 
+- OptimizationNonconvex for [Nonconvex.jl](https://github.com/JuliaNonconvex/Nonconvex.jl) (see
   also [this documentation](https://julianonconvex.github.io/Nonconvex.jl/stable/))
 - OptimizationQuadDIRECT for [QuadDIRECT.jl](https://github.com/timholy/QuadDIRECT.jl)
-- OptimizationSpeedMapping for [SpeedMapping.jl](https://github.com/NicolasL-S/SpeedMapping.jl) 
+- OptimizationSpeedMapping for [SpeedMapping.jl](https://github.com/NicolasL-S/SpeedMapping.jl)
   (see also [this documentation](https://nicolasl-s.github.io/SpeedMapping.jl/stable/))
 
 ## Integrals.jl: Unified Interface for Numerical Integration
 
 [Integrals.jl](https://github.com/SciML/Integrals.jl) is the canonical library
-for solving `IntegralsProblem`s. It includes wrappers of most of the Julia quadrature 
+for solving `IntegralsProblem`s. It includes wrappers of most of the Julia quadrature
 ecosystem, allowing one syntax to use all packages in a uniform manner. This
 covers:
 
@@ -141,13 +141,13 @@ including:
   performance than `Direct`. (Requires dependency graph, see below.)
 - `DirectFW`: the Gillespie Direct method SSA with `FunctionWrappers`. This
   aggregator uses a different internal storage format for collections of
-  `ConstantRateJumps`. 
+  `ConstantRateJumps`.
 - `FRM`: the Gillespie first reaction method SSA. `Direct` should generally
   offer better performance and be preferred to `FRM`.
 - `FRMFW`: the Gillespie first reaction method SSA with `FunctionWrappers`.
 - *`NRM`*: The Gibson-Bruck Next Reaction Method. For some reaction network
    structures this may offer better performance than `Direct` (for example,
-   large, linear chains of reactions). (Requires dependency graph, see below.) 
+   large, linear chains of reactions). (Requires dependency graph, see below.)
 - *`RSSA`*: The Rejection SSA (RSSA) method of Thanh et al. With `RSSACR`, for
   very large reaction networks it often offers the best performance of all
   methods. (Requires dependency graph, see below.)
@@ -163,15 +163,15 @@ discrete stochastic chemical reactions to be easily mixed with differential
 equation models, allowing for simulation of hybrid systems, jump diffusions,
 and differential equations driven by Levy processes.
 
-In addition, JumpProcesses's interfaces allow for solving with regular jump methods, 
-such as adaptive Tau-Leaping. 
+In addition, JumpProcesses's interfaces allow for solving with regular jump methods,
+such as adaptive Tau-Leaping.
 
 # Third Party Libraries to Note
 
 ## JuMP.jl: Julia for Mathematical Programming
 
 While Optimization.jl is the preferred library for nonlinear optimization, for all
-other forms of optimization 
+other forms of optimization
 [Julia for Mathematical Programming (JuMP)](https://github.com/jump-dev/JuMP.jl) is
 the star. JuMP is the leading choice in Julia for doing:
 
