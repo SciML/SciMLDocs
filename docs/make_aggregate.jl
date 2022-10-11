@@ -60,7 +60,7 @@ for (i, cat) in enumerate(docsmodules)
     push!(docs, MultiDocumenter.DropdownNav(cat[1], docsites))
 end
 
-outpath = joinpath(@__DIR__, "out")
+outpath = mktempdir()
 
 MultiDocumenter.make(
     outpath,
@@ -73,7 +73,7 @@ MultiDocumenter.make(
 
 gitroot = normpath(joinpath(@__DIR__, ".."))
 run(`git pull`)
-outbranch = "gh-pages"
+outbranch = "aggregate-pages"
 has_outbranch = true
 if !success(`git checkout $outbranch`)
     has_outbranch = false
