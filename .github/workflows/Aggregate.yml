@@ -6,6 +6,7 @@ on:
 jobs:
   aggregate:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v2
       - uses: julia-actions/setup-julia@v1
