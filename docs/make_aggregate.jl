@@ -36,7 +36,7 @@ hasnojl = ["SciMLBenchmarksOutput", "SciMLTutorialsOutput", "COLPRAC", "SciMLSty
 
 docs = Any[
     MultiDocumenter.MultiDocRef(
-        upstream = joinpath(clonedir, "Documenter"),
+        upstream = joinpath(clonedir, "Home"),
         path = "SciMLDocs",
         name = "Home",
         giturl = "https://github.com/SciML/SciMLDocs.git",
@@ -52,7 +52,7 @@ for (i, cat) in enumerate(docsmodules)
             "https://github.com/SciML/$mod.jl.git"
         end
         push!(docsites,MultiDocumenter.MultiDocRef(
-            upstream = joinpath(clonedir, "Documenter"),
+            upstream = joinpath(clonedir, mod),
             path = mod,
             name = mod in keys(fixnames) ? fixnames[mod] : mod,
             giturl = url,
