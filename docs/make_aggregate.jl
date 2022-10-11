@@ -5,7 +5,7 @@ clonedir = mktempdir()
 
 # Ordering Matters!
 docsmodules = [
-    ["Solvers" => [
+    "Solvers" => [
     "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals",
                            "Optimization", "JumpProcesses"],
     "Inverse Problems and Parameter Estimation" => [
@@ -14,34 +14,34 @@ docsmodules = [
                                         "NeuralOperators", "FEniCS",
                                         "HighDimPDE", "DiffEqOperators"],
 
-    ]],
+    ],
 
-    ["Modeling Tools" => [
+    "Modeling Tools" => [
     "Modeling Languages" => ["ModelingToolkit", "Catalyst", "NBodySimulator",
                              "ParameterizedFunctions"],
     "Pre-Built Model Libraries" => ["ModelingToolkitStandardLibrary", "DiffEqCallbacks"],
     "Array Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
-    ]],
+    ],
 
     #=
 
-    ["Simulation Analysis" => [
+    "Simulation Analysis" => [
     "Uncertainty Quantification" => ["PolyChaos"],
     "Parameter Analysis" => ["GlobalSensitivity", "StructuralIdentifiability"],
-    ]],
+    ],
 
-    ["Machine Learning" => [
+    "Machine Learning" => [
         "Implicit Layer Deep Learning" => ["DiffEqFlux","DeepEquilibriumNetworks"],
         "Robust Function Learning" => ["Surrogates", "ReservoirComputing"],
         "Symbolic Learning" => ["DataDrivenDiffEq", "SymbolicNumericIntegration"],
-    ]],
+    ],
 
-    ["Developer Tools" => [
+    "Developer Tools" => [
     "Numerical Utilities" => ["ExponentialUtilities", "DiffEqNoiseProcess",
         "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro"],
     "High-Level Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],
     "Developer Documentation" => ["SciMLStyle", "COLPRAC", "DiffEqDevDocs"],
-    ]],
+    ],
 
     "Extra Resources" => ["SciMLTutorialsOutput", "SciMLBenchmarksOutput"],
     =#
@@ -66,6 +66,7 @@ docs = Any[
 
 for group in docsmodules
     docgroups = []
+    @show group
     for cat in group[2]
         docsites = []
         for mod in cat[2]
