@@ -8,16 +8,12 @@ docsmodules = [
     "Solvers" => [
     "Equation Solvers" => ["LinearSolve", "NonlinearSolve", #="DiffEqDocs",=# "Integrals",
                            "Optimization", "JumpProcesses"],
-    #"Inverse Problems and Parameter Estimation" => [
-    #                                "SciMLSensitivity", "DiffEqParamEstim", "DiffEqBayes"],
-    #"Partial Differential Equations" => ["MethodOfLines", "NeuralPDE",
-    #                                    "NeuralOperators", "FEniCS",
-    #                                    "HighDimPDE", "DiffEqOperators"],
-
+    "Inverse Problems and Parameter Estimation" => [
+                                    "SciMLSensitivity", "DiffEqParamEstim", "DiffEqBayes"],
+    "Partial Differential Equations" => ["MethodOfLines", "NeuralPDE",
+                                        "NeuralOperators", "FEniCS",
+                                        "HighDimPDE", "DiffEqOperators"],
     ],
-
-    #=
-
 
     "Modeling Tools" => [
     "Modeling Languages" => ["ModelingToolkit", "Catalyst", "NBodySimulator",
@@ -25,6 +21,8 @@ docsmodules = [
     "Pre-Built Model Libraries" => ["ModelingToolkitStandardLibrary", "DiffEqCallbacks"],
     "Array Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
     ],
+
+    #=
 
     "Simulation Analysis" => [
     "Uncertainty Quantification" => ["PolyChaos"],
