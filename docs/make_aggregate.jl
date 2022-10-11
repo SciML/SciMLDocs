@@ -66,7 +66,7 @@ MultiDocumenter.make(
 
 gitroot = normpath(joinpath(@__DIR__, ".."))
 run(`git pull`)
-outbranch = "gh-pages"
+outbranch = "aggregate-pages"
 has_outbranch = true
 if !success(`git checkout $outbranch`)
     has_outbranch = false
