@@ -22,10 +22,12 @@ docsmodules = [
     "Array Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
     ],
 
+    #=
     "Simulation Analysis" => [
     "Uncertainty Quantification" => ["PolyChaos"],
     "Parameter Analysis" => ["GlobalSensitivity", "StructuralIdentifiability"],
     ],
+    =#
 
     "Machine Learning" => [
         "Implicit Layer Deep Learning" => ["DiffEqFlux","DeepEquilibriumNetworks"],
