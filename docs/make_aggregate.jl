@@ -58,7 +58,7 @@ docsmodules = [
     #"Third-Party Interfaces" => ["ArrayInterface", #= "Adapt", =# "AbstractFFTs", "GPUArrays",
     #                             #= "RecipesBase", =# "Tables", ]
     "Developer Documentation" => ["SciMLStyle", "COLPRAC", "DiffEqDevDocs"],
-    "Extra Resources" => ["SciMLTutorialsOutput", "SciMLBenchmarksOutput"],
+    #"Extra Resources" => ["SciMLTutorialsOutput", "SciMLBenchmarksOutput"],
     ],
 ]
 
@@ -97,6 +97,7 @@ external_urls = Dict(
     "Lux" => "https://github.com/avik-pal/Lux.jl",
     "SimpleChains" => "https://github.com/PumasAI/SimpleChains.jl",
     "NNlib" => "https://github.com/FluxML/NNlib.jl",
+    "SymbolicRegression" => "https://github.com/MilesCranmer/SymbolicRegression.jl",
     "FFTW" => "https://github.com/JuliaMath/FFTW.jl",
     "DataInterpolations" => "https://github.com/PumasAI/DataInterpolations.jl",
     "Distributions" => "https://github.com/JuliaStats/Distributions.jl",
@@ -159,7 +160,7 @@ MultiDocumenter.make(
 open(joinpath(outpath,"CNAME"), "w") do io
     write(io, "docs.sciml.ai")
 end
-cp(joinpath(@__DIR__,"assets","logo.png"),brandimagepath)
+cp(joinpath(@__DIR__,"src","assets","logo.png"),brandimagepath)
 
 gitroot = normpath(joinpath(@__DIR__, ".."))
 run(`git pull`)
