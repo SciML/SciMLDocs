@@ -154,7 +154,7 @@ MultiDocumenter.make(
         index_versions = ["stable"],
         engine = MultiDocumenter.FlexSearch
     ),
-    brand_image = MultiDocumenter.BrandImage("https://docs.sciml.ai",
+    brand_image = MultiDocumenter.BrandImage("SciMLDocs",
                                              joinpath("assets","logo.png"))
 )
 
