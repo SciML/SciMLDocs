@@ -40,8 +40,8 @@ docsmodules = [
     ],
 
     "Machine Learning" => [
+         "Function Approximation" => ["Surrogates", "ReservoirComputing"],
      #   "Implicit Layer Deep Learning" => ["DiffEqFlux","DeepEquilibriumNetworks"],
-        "Function Approximation" => ["Surrogates", "ReservoirComputing"],
      #   "Symbolic Learning" => ["DataDrivenDiffEq", "SymbolicNumericIntegration"],
      # "Third-Party Deep Learning" => ["Flux", "Lux", "SimpleChains", "NNlib"],
      # "Third-Party Symbolic Learning" => ["SymbolicRegression"]

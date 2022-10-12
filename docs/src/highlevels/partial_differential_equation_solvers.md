@@ -1,4 +1,4 @@
-# Partial Differential Equation (PDE) Solvers
+# Partial Differential Equations (PDE)
 
 ## NeuralPDE.jl: Physics-Informed Neural Network (PINN) PDE Solvers
 
