@@ -11,7 +11,7 @@ docsmodules = [
     #"Inverse Problems / Estimation" => [
     #                                "SciMLSensitivity", "DiffEqParamEstim", "DiffEqBayes"],
     "PDE Solvers" => ["MethodOfLines", "NeuralPDE",
-                      "NeuralOperators", "FEniCS",
+    #                  "NeuralOperators", "FEniCS",
                       "HighDimPDE", "DiffEqOperators"],
     #"Third-Party PDE Solvers" => ["Trixi", "Gridap", "ApproxFun", "VoronoiFVM"]
     ],
@@ -54,7 +54,7 @@ docsmodules = [
     #"Third-Party Numerical Utilities" => ["FFTW", #= "DataInterpolations",=# "Distributions",
     #                                      "SpecialFunctions", "LoopVectorization",
     #                                      "Polyester", "Tullio"]
-    "High-Level Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],
+    #"High-Level Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],
     #"Third-Party Interfaces" => ["ArrayInterface", #= "Adapt", =# "AbstractFFTs", "GPUArrays",
     #                             #= "RecipesBase", =# "Tables", ]
     "Developer Documentation" => ["SciMLStyle", "COLPRAC", "DiffEqDevDocs"],

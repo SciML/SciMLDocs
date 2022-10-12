@@ -1,23 +1,24 @@
-# The SciML Open Source Software Ecosystem
+# SciML: Differentiable Modeling and Simulation Combined with Machine Learning
 
-The SciML organization is a collection of tools for solving equations and modeling systems developed in the Julia
-programming language with bindings to other languages such as R and Python. The organization provides well-maintained 
-tools which compose together as a coherent ecosystem. It has a coherent development principle, unified APIs over
-large collections of equation solvers, pervasive differentiability and sensitivity analysis, and features many
-of the highest performance and parallel implementations one can find.
+The SciML organization is a collection of tools for solving equations and modeling systems
+developed in the Julia programming language with bindings to other languages such as R and
+Python. The organization provides well-maintained tools which compose together as a
+coherent ecosystem. It has a coherent development principle, unified APIs over large
+collections of equation solvers, pervasive differentiability and sensitivity analysis, and
+features many of the highest performance and parallel implementations one can find.
 
 This documentation is made to pool together the docs of the various SciML libraries
 to paint the overarching picture, establish development norms, and document the
 shared/common functionality.
 
-## SciML: Combining Scientific Computing and Machine Learning
+## SciML: Combining High-Performance Scientific Computing and Machine Learning
 
-**SciML is not standard machine learning**, 
+**SciML is not standard machine learning**,
 [SciML is the combination of scientific computing techniques with machine learning](https://arxiv.org/abs/2001.04385).
-Thus the SciML organization is not an organization for machine learning libraries (see 
-[FluxML for machine learning in Julia](https://fluxml.ai/)), rather SciML is an organization dedicated to the
-development of scientific computing tools which work seamlessly in conjunction with next-generation machine
-learning workflows. This includes:
+Thus the SciML organization is not an organization for machine learning libraries (see
+[FluxML for machine learning in Julia](https://fluxml.ai/)), rather SciML is an organization
+dedicated to the development of scientific computing tools which work seamlessly in
+conjunction with next-generation machine learning workflows. This includes:
 
 - High performance and accurate tools for standard scientific computing modeling and simulation
 - Compatibility with differentiable programming and automatic differentiation
@@ -31,9 +32,10 @@ and much more. For an overview of the broad goals of the SciML organization, wat
 - [The Use and Practice of Scientific Machine Learning](https://www.youtube.com/watch?v=FihLyzdjN_8)
 - [State of SciML Scientific Machine Learning](https://www.youtube.com/watch?v=eSeY4K4bITI)
 
-## Overview of Scientific Computing in Julia with SciML
+## Overview of Computational Science in Julia with SciML
 
-Below is a simplification of the user-facing packages for use in scientific computing and SciML workflows.
+Below is a simplification of the user-facing packages for use in scientific computing and
+SciML workflows.
 
 |Workflow Element|Associated Julia packages|
 | --- | --- |
@@ -67,7 +69,7 @@ Below is a simplification of the user-facing packages for use in scientific comp
 |Neural Operators|[NeuralOperators](https://github.com/SciML/NeuralOperators.jl)|
 |High Dimensional Deep Learning|[HighDimPDE](https://github.com/SciML/HighDimPDE.jl)|
 
-\* Denotes a non-SciML package that is heavily tested against as part of SciML workflows and 
+\* Denotes a non-SciML package that is heavily tested against as part of SciML workflows and
 has frequent collaboration with the SciML developers.
 
 ![SciML Mind Map](https://user-images.githubusercontent.com/1814174/181920182-ea52f6c9-6afc-47f9-92dd-2b174513e3db.svg)
@@ -105,7 +107,7 @@ The SciML common interface covers the following domains:
   - Physics-Informed Neural Networks (PINNs)
   - Integro-Differential Equations
   - Fractional Differential Equations
-- Specialized Forms 
+- Specialized Forms
   - Partial Integro-Differential Equations (PIPDEProblem)
 - Data-driven modeling
   - Discrete-time data-driven dynamical systems (`DiscreteDataDrivenProblem`)
@@ -122,7 +124,7 @@ patterns.
 ## Inverse Problems, Parameter Estimation, and Structural Identification
 
 Parameter estimation and inverse problems are solved directly on their
-constituent problem types using tools like 
+constituent problem types using tools like
 [SciMLSensitivity.jl](https://github.com/SciML/SciMLSensitivity.jl).
 Thus for example, there is no `ODEInverseProblem`, and instead `ODEProblem` is used to
 find the parameters `p` that solve the inverse problem. Check out the SciMLSensitivity
@@ -180,7 +182,7 @@ are commonly chosen by SciML as dependencies.
 of the list by SciML is not a negative endorsement. Rather, it means that compatibility with SciML
 is untested, SciML developers may have a personal preference for another choice, or SciML developers
 may be simply unaware of the library's existence. If one would like to add a third party library
-to the SciML documentation, open a pull request with the requested text. 
+to the SciML documentation, open a pull request with the requested text.
 
 Note that the libraries in this documentation are only those that are meant to be used in the SciML
 extended universe of modeling, simulation, and analysis and thus there are many high quality libraries
