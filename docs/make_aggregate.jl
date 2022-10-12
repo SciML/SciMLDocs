@@ -8,8 +8,8 @@ docsmodules = [
     "Solvers" => [
     "Equation Solvers" => ["LinearSolve", "NonlinearSolve", #="DiffEqDocs",=# "Integrals",
                            "Optimization", "JumpProcesses"],
-    "Inverse Problems and Parameter Estimation" => [
-                                    "SciMLSensitivity", "DiffEqParamEstim", "DiffEqBayes"],
+    #"Inverse Problems and Parameter Estimation" => [
+    #                                "SciMLSensitivity", "DiffEqParamEstim", "DiffEqBayes"],
     "Partial Differential Equations" => ["MethodOfLines", "NeuralPDE",
                                         "NeuralOperators", "FEniCS",
                                         "HighDimPDE", "DiffEqOperators"],
@@ -18,26 +18,24 @@ docsmodules = [
     "Modeling Tools" => [
     "Modeling Languages" => ["ModelingToolkit", "Catalyst", "NBodySimulator",
                              "ParameterizedFunctions"],
-    "Pre-Built Model Libraries" => ["ModelingToolkitStandardLibrary", "DiffEqCallbacks"],
-    "Array Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
+    #"Pre-Built Model Libraries" => ["ModelingToolkitStandardLibrary", "DiffEqCallbacks"],
+    #"Array Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
     ],
 
-    #=
     "Simulation Analysis" => [
     "Uncertainty Quantification" => ["PolyChaos"],
-    "Parameter Analysis" => ["GlobalSensitivity", "StructuralIdentifiability"],
+    #"Parameter Analysis" => ["GlobalSensitivity", "StructuralIdentifiability"],
     ],
-    =#
 
     "Machine Learning" => [
-        "Implicit Layer Deep Learning" => ["DiffEqFlux","DeepEquilibriumNetworks"],
+     #   "Implicit Layer Deep Learning" => ["DiffEqFlux","DeepEquilibriumNetworks"],
         "Robust Function Learning" => ["Surrogates", "ReservoirComputing"],
-        "Symbolic Learning" => ["DataDrivenDiffEq", "SymbolicNumericIntegration"],
+     #   "Symbolic Learning" => ["DataDrivenDiffEq", "SymbolicNumericIntegration"],
     ],
 
     "Developer Tools" => [
-    "Numerical Utilities" => ["ExponentialUtilities", "DiffEqNoiseProcess",
-        "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro"],
+    #"Numerical Utilities" => ["ExponentialUtilities", "DiffEqNoiseProcess",
+    #    "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro"],
     "High-Level Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],
     "Developer Documentation" => ["SciMLStyle", "COLPRAC", "DiffEqDevDocs"],
     ],
