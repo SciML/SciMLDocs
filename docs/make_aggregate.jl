@@ -149,12 +149,13 @@ outpath = mktempdir()
 
 MultiDocumenter.make(
     outpath, docs;
+    assets_dir = "docs/src/assets",
     search_engine = MultiDocumenter.SearchConfig(
         index_versions = ["stable"],
         engine = MultiDocumenter.FlexSearch
     ),
-    brand_image = MultiDocumenter.BrandImage("https://docs.sciml.ai",
-                                            joinpath(@__DIR__,"src","assets","logo.png"))
+    brand_image = MultiDocumenter.BrandImage("SciMLDocs",
+                                             joinpath("assets","logo.png"))
 )
 
 gitroot = normpath(joinpath(@__DIR__, ".."))
