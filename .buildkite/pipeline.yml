@@ -12,9 +12,9 @@ steps:
       - JuliaCI/julia#v1:
           version: "1.8"
     command: |
-    # Install dependencies
-    julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
-    # Aggregate and Deploy
-    git config user.name buildkite
-    git config user.email julia@buildkite.com
-    julia --project=docs/ docs/make_aggregate.jl
+      # Install dependencies
+      julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
+      # Aggregate and Deploy
+      git config user.name buildkite
+      git config user.email julia@buildkite.com
+      julia --project=docs/ docs/make_aggregate.jl
