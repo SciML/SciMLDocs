@@ -176,7 +176,7 @@ end
 for file in readdir(outpath)
     cp(joinpath(outpath, file), joinpath(gitroot, file))
 end
-open(joinpath(outpath,"CNAME"), "w") do io
+open(joinpath(gitroot,"CNAME"), "w") do io
     write(io, "docs.sciml.ai")
 end
 run(`git add .`)
