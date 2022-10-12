@@ -114,7 +114,7 @@ external_urls = Dict(
 docs = Any[
     MultiDocumenter.MultiDocRef(
         upstream = joinpath(clonedir, "Home"),
-        path = "SciMLDocs",
+        path = "Overview",
         name = "Home",
         giturl = "https://github.com/SciML/SciMLDocs.git",
     )
