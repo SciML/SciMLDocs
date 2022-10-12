@@ -16,7 +16,7 @@ makedocs(sitename = "Overview of Julia's SciML",
                                   assets = ["assets/favicon.ico"],
                                   canonical = "https://scimldocs.sciml.ai/stable/"),
          pages = [
-            "SciML: Open Souce Software for Scientific Machine Learning" => "index.md",
+            "SciML: Open Source Software for Scientific Machine Learning" => "index.md",
             "Solvers" => ["highlevels/equation_solvers.md",
                           "highlevels/inverse_problems.md",
                           "highlevels/partial_differential_equation_solvers.md"],
