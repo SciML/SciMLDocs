@@ -1,4 +1,4 @@
-# SciML Array Libraries
+# Modeling Array Libraries
 
 ## RecursiveArrayTools.jl: Arrays of Arrays and Even Deeper
 

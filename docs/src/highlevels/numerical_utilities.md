@@ -46,11 +46,12 @@ non-allocating code that interacts well with advanced features like automatic di
 programming in Julia, compiling functions at runtime with full optimizations. This is used by many libraries
 such as ModelingToolkit.jl to allow for runtime code generation for improved performance.
 
-## SymbolicNumericIntegration.jl: Symbolic Integration via Numerical Methods
+## EllipsisNotation.jl: Implementation of Ellipsis Array Slicing
 
-[SymbolicNumericIntegration.jl](https://github.com/SciML/SymbolicNumericIntegration.jl)
-is a package computing the solution to symbolic integration problem using numerical methods
-(numerical integration mixed with sparse regression).
+[EllipsisNotation.jl](https://github.com/ChrisRackauckas/EllipsisNotation.jl) defines the ellipsis
+array slicing notation for Julia. It uses `..` as a catch all for "all dimensions", allow for indexing
+like `[..,1]` to mean "[:,:,:,1]` on four dimensional arrays, in a way that is generic to the number
+of dimensions in the underlying array.
 
 # Third Party Libraries to Note
 
@@ -66,38 +67,42 @@ in Julia. It's used all throughout the SciML libraries for specifications of pro
 
 ## FFTW.jl: Fastest Fourier Transformation in the West
 
-[FFTW.jl](https://github.com/JuliaMath/FFTW.jl) is the preferred library for fast Fourier Transformations
-on the CPU.
+[FFTW.jl](https://github.com/JuliaMath/FFTW.jl) is the preferred library for fast Fourier
+Transformations on the CPU.
 
 ## SpecialFunctions.jl: Implementations of Mathematical Special Functions
 
-[SpecialFunctions.jl](https://github.com/JuliaMath/SpecialFunctions.jl) is a library of implementations of
-special functions, like Bessel functions and error functions (`erf`). This library is compatible with
-automatic differentiation.
+[SpecialFunctions.jl](https://github.com/JuliaMath/SpecialFunctions.jl) is a library of
+implementations of special functions, like Bessel functions and error functions (`erf`).
+This library is compatible with automatic differentiation.
 
 ## LoopVectorization.jl: Automated Loop Acceleator
 
-[LoopVectorization.jl](https://github.com/JuliaSIMD/LoopVectorization.jl) is a library which provides the `@turbo`
-and `@tturbo` macros for accelerating the computation of loops. This can be used to accelerating the model
-functions sent to the equation solvers, for example, accelerating handwritten PDE discretizations.
+[LoopVectorization.jl](https://github.com/JuliaSIMD/LoopVectorization.jl) is a library which
+provides the `@turbo` and `@tturbo` macros for accelerating the computation of loops. This
+can be used to accelerating the model functions sent to the equation solvers, for example,
+accelerating handwritten PDE discretizations.
 
 ## Polyester.jl: Cheap Threads
 
-[Polyester.jl](https://github.com/JuliaSIMD/Polyester.jl) is a cheaper version of threads for Julia which use
-a set pool of threads for lower overhead. Note that Polyester does not compose with the standard Julia composable
-theading infrastructure, and thus one must take care to not compose two levels of Polyester as this will oversubscribe
-the computation and lead to performance degredation. Many SciML solvers have options to use Polyseter for threading
-to achieve the top performance.
+[Polyester.jl](https://github.com/JuliaSIMD/Polyester.jl) is a cheaper version of threads for
+Julia which use a set pool of threads for lower overhead. Note that Polyester does not
+compose with the standard Julia composable theading infrastructure, and thus one must take
+care to not compose two levels of Polyester as this will oversubscribe the computation and
+lead to performance degredation. Many SciML solvers have options to use Polyseter for
+threading to achieve the top performance.
 
 ## Tullio.jl: Fast Tensor Calculations and Einstein Notation
 
-[Tullio.jl](https://github.com/mcabbott/Tullio.jl) is a library for fast tensor calculations with Einstein notation.
-It allows for defining operations which are compatible with automatic differentiation, GPUs, and more.
+[Tullio.jl](https://github.com/mcabbott/Tullio.jl) is a library for fast tensor calculations
+with Einstein notation. It allows for defining operations which are compatible with
+automatic differentiation, GPUs, and more.
 
 ## ParallelStencil.jl: High-Level Code for Parallelized Stencil Computations
 
-[ParallelStencil.jl](https://github.com/omlins/ParallelStencil.jl) is a library for writing high level code for
-parallelized stencil computations. It is [compatible with SciML equation solvers](https://github.com/omlins/ParallelStencil.jl/issues/29)
+[ParallelStencil.jl](https://github.com/omlins/ParallelStencil.jl) is a library for writing
+high level code forparallelized stencil computations. It is
+[compatible with SciML equation solvers](https://github.com/omlins/ParallelStencil.jl/issues/29)
 and is thus a good way to generate GPU and distributed parallel model code.
 
 ## DataInterpolations.jl: One-Dimensional Interpolations

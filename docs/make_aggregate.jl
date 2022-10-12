@@ -8,41 +8,58 @@ docsmodules = [
     "Solvers" => [
     "Equation Solvers" => ["LinearSolve", "NonlinearSolve", #="DiffEqDocs",=# "Integrals",
                            "Optimization", "JumpProcesses"],
-    #"Inverse Problems and Parameter Estimation" => [
+    #"Inverse Problems / Estimation" => [
     #                                "SciMLSensitivity", "DiffEqParamEstim", "DiffEqBayes"],
-    "Partial Differential Equations" => ["MethodOfLines", "NeuralPDE",
-                                        "NeuralOperators", "FEniCS",
-                                        "HighDimPDE", "DiffEqOperators"],
+    "PDE Solvers" => ["MethodOfLines", "NeuralPDE",
+                      "NeuralOperators", "FEniCS",
+                      "HighDimPDE", "DiffEqOperators"],
+    #"Third-Party PDE Solvers" => ["Trixi", "Gridap", "ApproxFun", "VoronoiFVM"]
     ],
 
-    "Modeling Tools" => [
+    "Modeling" => [
     "Modeling Languages" => ["ModelingToolkit", "Catalyst", "NBodySimulator",
                              "ParameterizedFunctions"],
-    #"Pre-Built Model Libraries" => ["ModelingToolkitStandardLibrary", "DiffEqCallbacks"],
+    #"Model Libraries and Importers" => ["ModelingToolkitStandardLibrary", "DiffEqCallbacks",
+    #                                    "CellMLToolkit", "SBMLToolkit",
+    #                                    "ReactionNetworkImporters"],
+    #"Symbolic Tools" => ["Symbolics", "SymbolicUtils", "MetaTheory"],
     #"Array Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
+    #"Third-Party Array Libraries" => ["ComponentArrays", "StaticArrays", "BandedArrays",
+    #                                  "FillArrays", "BlockBandedArrays"]
     ],
 
-    "Simulation Analysis" => [
-    "Uncertainty Quantification" => ["PolyChaos"],
+    "Analysis" => [
+    #"Plots and Visualization" => ["Plots", "Makie"]
     #"Parameter Analysis" => ["GlobalSensitivity", "StructuralIdentifiability"],
+    "Uncertainty Quantification" => ["PolyChaos", #= "SciMLExpectations" =#],
+    #"Third-Party Uncertainty Quantification" => ["Measurements", "MonteCarloMeasurements",
+    #                                             "ProbNumDiffEq", "TaylorIntegration",
+    #                                             "IntervalArithmetic"],
+    #"Third-Party Parameter Analysis => ["BifurcationKit", "ReachabilityAnalysis",
+    #                                   "ControlSystems", "DynamicalSystems"],
     ],
 
     "Machine Learning" => [
      #   "Implicit Layer Deep Learning" => ["DiffEqFlux","DeepEquilibriumNetworks"],
-        "Robust Function Learning" => ["Surrogates", "ReservoirComputing"],
+        "Function Approximation" => ["Surrogates", "ReservoirComputing"],
      #   "Symbolic Learning" => ["DataDrivenDiffEq", "SymbolicNumericIntegration"],
+     # "Third-Party Deep Learning" => ["Flux", "Lux", "SimpleChains", "NNLib"],
+     # "Third-Party Symbolic Learning" => ["SymbolicRegression"]
     ],
 
     "Developer Tools" => [
     #"Numerical Utilities" => ["ExponentialUtilities", "DiffEqNoiseProcess",
+    #    "PreallocationTools", "EllipsisNotation",
     #    "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro"],
+    #"Third-Party Numerical Utilities" => ["FFTW", "DataInterpolations", "Distributions",
+    #                                      "SpecialFunctions", "LoopVectorization",
+    #                                      "Polyester", "Tullio"]
     "High-Level Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],
+    #"Third-Party Interfaces" => ["ArrayInterface", "Adapt", "AbstractFFTs", "GPUArrays",
+    #                             "RecipesBase", "Tables", ]
     "Developer Documentation" => ["SciMLStyle", "COLPRAC", "DiffEqDevDocs"],
-    ],
-
-    #=
     "Extra Resources" => ["SciMLTutorialsOutput", "SciMLBenchmarksOutput"],
-    =#
+    ],
 ]
 
 fixnames = Dict("SciMLDocs" => "The SciML Open Souce Software Ecosystem",

@@ -1,4 +1,4 @@
-# [Parameter Estimation, Bayesian Analysis, and Inverse Problems Overview](@id parameter_estimation)
+# [Parameter Estimation, Bayesian Analysis, and Inverse Problems](@id parameter_estimation)
 
 Parameter estimation for models and equations, also known as dynamic data analysis,
 solving the inverse problem, or Bayesian posterior estimation (when done probabilistically),
@@ -55,9 +55,9 @@ delay differential equations.
 
 As the name suggests, this package has been designed to provide the estimation
 of differential equations parameters by means of Bayesian methods. It works in
-conjunction with [Turing.jl](https://turing.ml/), 
-[CmdStan.jl](https://github.com/StanJulia/CmdStan.jl), 
-[DynamicHMC.jl](https://github.com/tpapp/DynamicHMC.jl), and 
+conjunction with [Turing.jl](https://turing.ml/),
+[CmdStan.jl](https://github.com/StanJulia/CmdStan.jl),
+[DynamicHMC.jl](https://github.com/tpapp/DynamicHMC.jl), and
 [ApproxBayes.jl](https://github.com/marcjwilliams1/ApproxBayes.jl). While not
 as flexible as direct usage of DiffEqFlux.jl or Turing.jl, DiffEqBayes.jl can
 be an approachable interface for those not familiar with Bayesian estimation,
@@ -72,7 +72,7 @@ allows for a Bayesian estimation of differential equations (used in conjunction
 with the high-level package DiffEqBayes.jl). For more examples on combining
 Turing.jl with DiffEqBayes.jl, see the documentation below. It is important
 to note that Turing.jl can also perform Bayesian estimation without relying on
-DiffEqBayes.jl (for an example, consult 
+DiffEqBayes.jl (for an example, consult
 [this](https://turing.ml/stable/tutorials/10-bayesian-differential-equations/) tutorial).
 
 ## Topopt.jl: Topology Optimization in Julia
@@ -110,8 +110,8 @@ can be incompatible with Enzyme. Enzyme.jl is quickly becoming the new standard 
 ## Zygote.jl: Julia-Level Source-to-Source Reverse Mode Automatic Differentiation
 
 [Zygote.jl](https://github.com/FluxML/Zygote.jl) is the current standard user-level reverse-mode automatic
-differentiation library for the SciML solvers. User-level means that many library tutorials, like in  
-SciMLSensitivity.jl and DiffEqFlux.jl, are written showcase user code using Zygote.jl. This is because 
+differentiation library for the SciML solvers. User-level means that many library tutorials, like in
+SciMLSensitivity.jl and DiffEqFlux.jl, are written showcase user code using Zygote.jl. This is because
 Zygote.jl is the AD engine associated with the Flux machine learning library. However, Zygote.jl has many
 limitations which limits its performance in equation solver contexts, such as an inability to handle mutation
 and introducing many small allocations and type-instabilities. For this reason, the SciML equation

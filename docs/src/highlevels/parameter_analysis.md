@@ -1,4 +1,4 @@
-# SciML Simulation Analysis Utilities
+# Parameter Analysis Utilities
 
 ## GlobalSensitivity.jl: Global Sensitivity Analysis
 
@@ -42,6 +42,13 @@ finding relationships between parameters of models, finding the curves on which 
 
 # Third Party Libraries to Note
 
+## SIAN.jl: Structural Identifiability Analyzer
+
+[SIAN.jl](https://github.com/alexeyovchinnikov/SIAN-Julia) is a structural identifiability analysis
+package which uses an entirely different algorithm from StructuralIdentifiability.jl. For information
+on the differences bewteen the two approaches, see
+[the Structural Identifiability Tools in Julia tutoral](https://www.youtube.com/watch?v=jg1DME3cwjg).
+
 ## DynamicalSystems.jl: A Suite of Dynamical Systems Analysis
 
 [DynamicalSystems.jl](https://juliadynamics.github.io/DynamicalSystems.jl/latest/) is an entire ecosystem
@@ -66,54 +73,3 @@ possible outcomes from a dynamical system.
 
 [ControlSystems.jl](https://github.com/JuliaControl/ControlSystems.jl) is a library for building and analyzing
 control systems.
-
-# Recommended Plotting and Visualization Libraries
-
-## Plots.jl
-
-[Plots.jl](https://github.com/JuliaPlots/Plots.jl) is the current standard plotting system for the SciML ecosystem.
-SciML types attempt to include plot recipes for as many types as possible, allowing for automatic visualization with
-the Plots.jl system. All current tutorials and documentation default to using Plots.jl.
-
-## Makie.jl
-
-[Makie.jl](https://makie.juliaplots.org/stable/) is a high-performance interactive plotting system for the Julia
-programming language. It's planned to be the default plotting system used by the SciML organization in the near future.
-
-# JuliaSymbolics
-
-[JuliaSymbolics](https://juliasymbolics.org/) is a sister organization of SciML. It spawned
-out of the symbolic modeling tools being developed within SciML
-([ModelingToolkit.jl](https://github.com/SciML/ModelingToolkit.jl)) to become its own
-organization dedicated to building a fully-featured Julia-based Computer Algebra System (CAS).
-As such, the two organizations are closely aligned in terms of its developer community and
-many of the SciML libraries use Symbolics.jl extensively.
-
-## Symbolics.jl: The Computer Algebra System (CAS) of the Julia Programming Language
-
-[Symbolics.jl](https://github.com/JuliaSymbolics/Symbolics.jl) is the CAS of the Julia programming
-language. If something needs to be done symbolically, most likely Symbolics.jl is the answer.
-
-## MetaTheory.jl: E-Graphs to Automate Symbolic Transformations
-
-[Metatheory.jl](https://github.com/JuliaSymbolics/MetaTheory.jl) is a library for defining e-graph
-rewriters for use on the common symbolic interface. This can be used to do all sorts of analysis
-and code transformations, such as improving code performance, numerical stability, and more.
-See [Automated Code Optimization with E-Graphs](https://arxiv.org/abs/2112.14714) for more details.
-
-## SymbolicUtils.jl: Define Your Own Computer Algebra System
-
-[SymbolicUtils.jl](https://github.com/JuliaSymbolics/SymbolicUtils.jl) is the underlying utility
-library and rule-based rewriting language on which Symbolics.jl is developed. Symbolics.jl is
-standardized type and rule definitions built using SymbolicUtils.jl. However, if non-standard
-types are required, such as [symbolic computing over Fock algebras](https://github.com/qojulia/QuantumCumulants.jl),
-then SymbolicUtils.jl is the library from which the new symbolic types can be implemented.
-
-# Third Party Libraries to Note
-
-## SIAN.jl: Structural Identifiability Analyzer
-
-[SIAN.jl](https://github.com/alexeyovchinnikov/SIAN-Julia) is a structural identifiability analysis
-package which uses an entirely different algorithm from StructuralIdentifiability.jl. For information
-on the differences bewteen the two approaches, see
-[the Structural Identifiability Tools in Julia tutoral](https://www.youtube.com/watch?v=jg1DME3cwjg).

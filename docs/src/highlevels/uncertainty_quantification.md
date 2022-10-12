@@ -17,19 +17,15 @@ deriving the PCE-expanded equations by hand, PolyChaos.jl does this at the compi
 using Julia's multiple dispatch, giving a high-performance implementation to a normally
 complex and tedious mathematical transformation.
 
-## DiffEqUncertainty.jl: Fast Calculations of Expectations of Equation Solutions
+## SciMLExpectations.jl: Fast Calculations of Expectations of Equation Solutions
 
-[DiffEqUncertainty.jl](https://github.com/SciML/DiffEqUncertainty.jl) is a library for
+[SciMLExpectations.jl](https://github.com/SciML/SciMLExpectations.jl) is a library for
 accelerating the calculation of expectations of equation solutions with respect to
 input probability distributions, allowing for applications like robust optimization
 with respect to uncertainty. It uses Koopman operator techniques to calculate these
 expectations without requiring the propagation of uncertainties through a solver,
 effectively performing the adjoint of uncertainty quantification and being much more
 efficient in the process.
-
-Additionally, DiffEqUncertainty.jl has the ProbInts method for generating stochastic
-equations to mimic the error distribution of an ODE solver in order to quantify with 
-respect to numerical error.
 
 # Third Party Libraries to Note
 
@@ -41,7 +37,7 @@ and are pushed through calculations using a normal distribution approximation in
 to compute an approximate uncertain output. Measurements.jl uses a dictionary-based
 approach to keep track of correlations to improve the accuracy over naive implementations,
 though note that linear error propagation theory still has some major issues handling
-some types of equations 
+some types of equations
 [as described in detail in the MonteCarloMeasurements.jl documentation](https://baggepinnen.github.io/MonteCarloMeasurements.jl/v1.0/comparison/).
 
 ## MonteCarloMeasurements.jl: Automated Monte Carlo Error Propogation

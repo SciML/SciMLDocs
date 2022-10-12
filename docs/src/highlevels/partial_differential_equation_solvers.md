@@ -1,4 +1,4 @@
-# SciML Partial Differential Equations (PDE) Overview
+# Partial Differential Equation (PDE) Solvers
 
 ## NeuralPDE.jl: Physics-Informed Neural Network (PINN) PDE Solvers
 

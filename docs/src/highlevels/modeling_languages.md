@@ -1,6 +1,6 @@
-# SciML Modeling Libraries
+# Modeling Languages
 
-While in theory one can build perfect code for all models from scratch, in practice 
+While in theory one can build perfect code for all models from scratch, in practice
 many scientists and engineers need or want some help! The SciML modeling tools
 provide a higher level interface over the equation solvers which helps the translation
 from good models to good simulations in a way that abstracts away the mathematical
@@ -26,30 +26,21 @@ then used by all of the other modeling tools. As such, when using other modeling
 the reference for all of the things that can be done with the symbolic representation is simply
 ModelingToolkit.jl.
 
-## ModelingToolkitStandardLibrary.jl: A Standard Library for ModelingToolkit
-
-Given the composable nature of acausal modeling systems, it's helpful to not have to define
-every component from scratch and instead build off a common base of standard components.
-ModelingToolkitStandardLibrary.jl is that library. It provides components for standard models
-to start building everything from circuits and engines to robots.
-
-![](https://user-images.githubusercontent.com/1814174/172000112-3579f5cf-c370-48c2-8047-558fbc46aeb6.png)
-
 ## Catalyst.jl: Chemical Reaction Networks (CRN), Systems Biology, and Quantiative Systems Pharmacology (QSP) Modeling
 
-[Catalyst.jl](https://github.com/SciML/Catalyst.jl) is a modeling interface for efficient simulation 
-of chemical master equation representations chemical reaction networks and other systems models. 
-It uses a highly intuitive chemical reaction syntax interface which generates all of the extra 
-functionality necessary for the fastest use with DiffEqJump.jl and DifferentialEquations.jl. Its 
-`ReactionSystem` type is a programmable extension of the ModelingToolkit `AbstractSystem` interface, 
+[Catalyst.jl](https://github.com/SciML/Catalyst.jl) is a modeling interface for efficient simulation
+of chemical master equation representations chemical reaction networks and other systems models.
+It uses a highly intuitive chemical reaction syntax interface which generates all of the extra
+functionality necessary for the fastest use with DiffEqJump.jl and DifferentialEquations.jl. Its
+`ReactionSystem` type is a programmable extension of the ModelingToolkit `AbstractSystem` interface,
 meaning that complex reaction systems can be generated through code.
 
-For an overview of the library, see 
+For an overview of the library, see
 [Modeling Biochemical Systems with Catalyst.jl - Samuel Isaacson](https://www.youtube.com/watch?v=5p1PJE5A5Jw)
 
 ## NBodySimulator.jl: A differentiable simulator for N-body problems, including astrophysical and molecular dynamics
 
-[NBodySimulator.jl](https://github.com/SciML/NBodySimulator.jl) is differentiable simulator for N-body problems, 
+[NBodySimulator.jl](https://github.com/SciML/NBodySimulator.jl) is differentiable simulator for N-body problems,
 including astrophysical and molecular dynamics. It uses the DifferentialEquations.jl solvers, allowing for one to
 choose between a large variety of symplectic integration schemes. It implements many of the thermostats required for
 doing standard molecular dynamics approximations.
@@ -61,28 +52,6 @@ doing standard molecular dynamics approximations.
 This image that went viral is actually runnable code from [ParameterizedFunctions.jl](https://github.com/SciML/ParameterizedFunctions.jl).
 Define equations and models using a very simple high level syntax and let the code generation tools build
 symbolic fast Jacobian, gradient, etc. functions for you.
-
-# Model Import Libraries
-
-## SBMLToolkit.jl: SBML Import
-
-[SBMLToolkit.jl](https://github.com/SciML/SBMLToolkit.jl) is a library for reading 
-[SBML files](https://synonym.caltech.edu/#:~:text=What%20is%20SBML%3F,field%20of%20the%20life%20sciences.)
-into the standard formats for Catalyst.jl and ModelingToolkit.jl. There are more than one thousand biological
-models available in the the [BioModels Repository](https://www.ebi.ac.uk/biomodels/).
-
-## CellMLToolkit.jl: CellML Import
-
-[CellMLToolkit.jl](https://github.com/SciML/CellMLToolkit.jl) is a library for reading 
-[CellML files](https://www.cellml.org/) into the standard formats for ModelingToolkit.jl.
-There are several hundred biological models available in the the
-[CellML Model Repository](https://models.cellml.org/cellml).
-
-## ReactionNetworkImporters.jl: BioNetGen Import
-
-[ReactionNetworkImporters.jl](https://github.com/SciML/ReactionNetworkImporters.jl) is a library 
-for reading [BioNetGen files](https://bionetgen.org/) into the standard formats for Catalyst.jl
-and ModelingToolkit.jl.
 
 # Third Party Tools of Note
 
@@ -116,6 +85,6 @@ generation of dynamical models using a Category theory based approach.
 
 ## Agents.jl: Agent-Based Modeling Framework in Julia
 
-If one wants to do agent-based modeling in Julia, 
+If one wants to do agent-based modeling in Julia,
 [Agents.jl](https://github.com/JuliaDynamics/Agents.jl) is the go-to library. It's fast and flexible,
 making it a solid foundation for any agent-based model.

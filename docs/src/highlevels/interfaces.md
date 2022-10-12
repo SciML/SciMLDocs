@@ -33,7 +33,7 @@ when both export.
 
 [Static.jl](https://github.com/SciML/Static.jl) is a set of statically parameterized types
 for performing operations in a statically-defined (compiler-optimized) way with respect
-to values. 
+to values.
 
 ## DiffEqBase.jl: A Library of Shared Components for Differential Equation Solvers
 
@@ -57,7 +57,7 @@ like `findstructralnz` to get the structural non-zeros of arbtirary sparse and s
 
 [Adapt.jl](https://github.com/JuliaGPU/Adapt.jl) makes it possible to write code that is generic
 to the compute devices, i.e. code that works on both CPUs and GPUs. It defines the `adapt` function
-which acts like `convert(T, x)`, but without the restriction of returning a `T`. This allows you to 
+which acts like `convert(T, x)`, but without the restriction of returning a `T`. This allows you to
 "convert" wrapper types like `Adjoint` to be GPU compatible (for example) without throwing away the wrapper.
 
 Example usage:
@@ -68,7 +68,7 @@ adapt(CuArray, ::Adjoint{Array})::Adjoint{CuArray}
 
 ## AbstractFFTs.jl: High Level Shared Interface for Fast Fourier Transformation Libraries
 
-[AbstractFFTs.jl](https://github.com/JuliaMath/AbstractFFTs.jl) defines the common interface for 
+[AbstractFFTs.jl](https://github.com/JuliaMath/AbstractFFTs.jl) defines the common interface for
 Fast Fourier Transformations (FFTs) in Julia. Similar to SciMLBase.jl, AbstractFFTs.jl is not a
 solver library but instead a shared API which is extended by solver libraries such as
 [FFTW.jl](https://github.com/JuliaMath/FFTW.jl). Code written using AbstractFFTs.jl can be made
@@ -85,7 +85,7 @@ computations.
 ## RecipesBase.jl: Standard Plotting Recipe Interface
 
 [RecipesBase.jl](https://github.com/JuliaPlots/RecipesBase.jl) defines the common interface for
-plotting recipes, composable transformations of Julia data types into simpler data types for 
+plotting recipes, composable transformations of Julia data types into simpler data types for
 visualization with libraries such as Plots.jl and Makie.jl. SciML libraries attempt to always
 include plot recipes wherever possible for ease of visualization.
 
@@ -95,10 +95,3 @@ include plot recipes wherever possible for ease of visualization.
 structures, such as [DataFrames.jl](https://github.com/JuliaData/DataFrames.jl). SciML's libraries
 extend the Tables.jl interface to allow for automated conversions into data frame libraries without
 explicit dependence on any singular implementation.
-
-## EllipsisNotation.jl: Implementation of Ellipsis Array Slicing
-
-[EllipsisNotation.jl](https://github.com/ChrisRackauckas/EllipsisNotation.jl) defines the ellipsis
-array slicing notation for Julia. It uses `..` as a catch all for "all dimensions", allow for indexing
-like `[..,1]` to mean "[:,:,:,1]` on four dimensional arrays, in a way that is generic to the number
-of dimensions in the underlying array.
