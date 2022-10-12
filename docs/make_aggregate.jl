@@ -146,7 +146,6 @@ for group in docsmodules
 end
 
 outpath = mktempdir()
-brandimagepath = joinpath(outpath, "brandimage.png")
 
 MultiDocumenter.make(
     outpath, docs;
@@ -154,13 +153,13 @@ MultiDocumenter.make(
         index_versions = ["stable"],
         engine = MultiDocumenter.FlexSearch
     ),
-    brand_image = MultiDocumenter.BrandImage("https://docs.sciml.ai", brandimagepath)
+    brand_image = MultiDocumenter.BrandImage("https://docs.sciml.ai",
+                                            joinpath(@__DIR__,"src","assets","logo.png"))
 )
 
 open(joinpath(outpath,"CNAME"), "w") do io
     write(io, "docs.sciml.ai")
 end
-cp(joinpath(@__DIR__,"src","assets","logo.png"),brandimagepath)
 
 gitroot = normpath(joinpath(@__DIR__, ".."))
 run(`git pull`)
