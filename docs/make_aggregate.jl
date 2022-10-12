@@ -157,10 +157,6 @@ MultiDocumenter.make(
                                             joinpath(@__DIR__,"src","assets","logo.png"))
 )
 
-open(joinpath(outpath,"CNAME"), "w") do io
-    write(io, "docs.sciml.ai")
-end
-
 gitroot = normpath(joinpath(@__DIR__, ".."))
 run(`git pull`)
 outbranch = "aggregate-pages"
@@ -178,6 +174,9 @@ for file in readdir(gitroot; join = true)
 end
 for file in readdir(outpath)
     cp(joinpath(outpath, file), joinpath(gitroot, file))
+end
+open(joinpath(outpath,"CNAME"), "w") do io
+    write(io, "docs.sciml.ai")
 end
 run(`git add .`)
 if success(`git commit -m 'Aggregate documentation'`)
