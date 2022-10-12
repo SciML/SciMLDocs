@@ -1,64 +1,74 @@
 using Documenter, LibGit2, Pkg
 using MultiDocumenter
 
-clonedir = mktempdir()
+clonedir = joinpath(@__DIR__, "clones")
+# clonedir = mktempdir()
 
 # Ordering Matters!
 docsmodules = [
     "Solvers" => [
-    "Equation Solvers" => ["LinearSolve", "NonlinearSolve", #="DiffEqDocs",=# "Integrals",
+    "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals",
                            "Optimization", "JumpProcesses"],
-    #"Inverse Problems / Estimation" => [
-    #                                "SciMLSensitivity", "DiffEqParamEstim", "DiffEqBayes"],
+    "Inverse Problems / Estimation" => [
+                                   "SciMLSensitivity", "DiffEqParamEstim", "DiffEqBayes"],
     "PDE Solvers" => ["MethodOfLines", "NeuralPDE",
-    #                  "NeuralOperators", "FEniCS",
+                     "NeuralOperators", "FEniCS",
                       "HighDimPDE", "DiffEqOperators"],
-    #"Third-Party PDE Solvers" => ["Trixi", "Gridap", "ApproxFun", "VoronoiFVM"]
+    "Third-Party PDE Solvers" => ["Trixi", "Gridap", "ApproxFun", "VoronoiFVM"]
     ],
 
     "Modeling" => [
     "Modeling Languages" => ["ModelingToolkit", "Catalyst", "NBodySimulator",
                              "ParameterizedFunctions"],
-    #"Model Libraries and Importers" => ["ModelingToolkitStandardLibrary", "DiffEqCallbacks",
-    #                                    "CellMLToolkit", "SBMLToolkit",
-    #                                    "ReactionNetworkImporters"],
-    #"Symbolic Tools" => ["Symbolics", "SymbolicUtils", "MetaTheory"],
-    #"Array Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
-    #"Third-Party Array Libraries" => ["ComponentArrays", "StaticArrays", "FillArrays",
-    #                                  "BandedMatrices", "BlockBandedMatrices"]
+    "Model Libraries and Importers" => ["ModelingToolkitStandardLibrary", "DiffEqCallbacks",
+                                       #="CellMLToolkit", =# "SBMLToolkit",
+                                       #="ReactionNetworkImporters"=#],
+    "Symbolic Tools" => ["Symbolics", "SymbolicUtils", "MetaTheory"],
+    "Array Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
+    "Third-Party Array Libraries" => ["ComponentArrays", "StaticArrays", #"FillArrays",
+                                     "BandedMatrices", "BlockBandedMatrices"]
     ],
 
     "Analysis" => [
-    #"Plots and Visualization" => ["PlotDocs", "Makie"]
-    #"Parameter Analysis" => ["GlobalSensitivity", "StructuralIdentifiability"],
-    "Uncertainty Quantification" => ["PolyChaos", #= "SciMLExpectations" =#],
-    #"Third-Party Uncertainty Quantification" => ["Measurements", "MonteCarloMeasurements",
-    #                                             "ProbNumDiffEq", "TaylorIntegration",
-    #                                             "IntervalArithmetic"],
-    #"Third-Party Parameter Analysis => ["DynamicalSystems", "BifurcationKit",
-    #                                   "ControlSystems", "ReachabilityAnalysis"],
+    "Plots and Visualization" => [
+        # "PlotDocs",
+        "Makie"],
+    "Parameter Analysis" => ["GlobalSensitivity", "StructuralIdentifiability"],
+    "Uncertainty Quantification" => ["PolyChaos",  "SciMLExpectations" ],
+    "Third-Party Uncertainty Quantification" => ["Measurements", "MonteCarloMeasurements",
+                                                "ProbNumDiffEq", "TaylorIntegration",
+                                                "IntervalArithmetic"],
+    "Third-Party Parameter Analysis" => ["DynamicalSystems", "BifurcationKit",
+                                      "ControlSystems", "ReachabilityAnalysis"],
     ],
 
     "Machine Learning" => [
-     #   "Implicit Layer Deep Learning" => ["DiffEqFlux","DeepEquilibriumNetworks"],
+       "Implicit Layer Deep Learning" => ["DiffEqFlux","DeepEquilibriumNetworks"],
         "Function Approximation" => ["Surrogates", "ReservoirComputing"],
-     #   "Symbolic Learning" => ["DataDrivenDiffEq", "SymbolicNumericIntegration"],
-     # "Third-Party Deep Learning" => ["Flux", "Lux", "SimpleChains", "NNlib"],
-     # "Third-Party Symbolic Learning" => ["SymbolicRegression"]
+       "Symbolic Learning" => ["DataDrivenDiffEq", "SymbolicNumericIntegration"],
+     "Third-Party Deep Learning" => ["Flux", "Lux", "SimpleChains", #="NNlib"=#],
+     "Third-Party Symbolic Learning" => ["SymbolicRegression"]
     ],
 
     "Developer Tools" => [
-    #"Numerical Utilities" => ["ExponentialUtilities", "DiffEqNoiseProcess",
-    #    "PreallocationTools", "EllipsisNotation",
-    #    "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro"],
-    #"Third-Party Numerical Utilities" => ["FFTW", #= "DataInterpolations",=# "Distributions",
-    #                                      "SpecialFunctions", "LoopVectorization",
-    #                                      "Polyester", "Tullio"]
-    #"High-Level Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],
-    #"Third-Party Interfaces" => ["ArrayInterface", #= "Adapt", =# "AbstractFFTs", "GPUArrays",
-    #                             #= "RecipesBase", =# "Tables", ]
+    "Numerical Utilities" => ["ExponentialUtilities", "DiffEqNoiseProcess",
+       #"PreallocationTools", "EllipsisNotation",
+       "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro"],
+    "Third-Party Numerical Utilities" => ["FFTW",
+                                          # "DataInterpolations",
+                                         "Distributions",
+                                         "SpecialFunctions", "LoopVectorization",
+                                         "Polyester",
+                                         # "Tullio"
+                                         ],
+    "High-Level Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],
+    "Third-Party Interfaces" => ["ArrayInterface",
+                                # "Adapt",
+                                "AbstractFFTs", "GPUArrays",
+                                #"RecipesBase",
+                                 "Tables", ],
     "Developer Documentation" => ["SciMLStyle", "COLPRAC", "DiffEqDevDocs"],
-    #"Extra Resources" => ["SciMLTutorialsOutput", "SciMLBenchmarksOutput"],
+    "Extra Resources" => ["SciMLTutorialsOutput", "SciMLBenchmarksOutput"],
     ],
 ]
 
@@ -77,6 +87,8 @@ external_urls = Dict(
     "ApproxFun" => "https://github.com/JuliaApproximation/ApproxFun.jl",
     "VoronoiFVM" => "https://github.com/j-fu/VoronoiFVM.jl",
     "Symbolics" => "https://github.com/JuliaSymbolics/Symbolics.jl",
+    "SymbolicUtils" => "https://github.com/JuliaSymbolics/SymbolicUtils.jl",
+    "MetaTheory" => "https://github.com/JuliaSymbolics/MetaTheory.jl",
     "ComponentArrays" => "https://github.com/jonniedie/ComponentArrays.jl",
     "StaticArrays" => "https://github.com/JuliaArrays/StaticArrays.jl",
     "FillArrays" => "https://github.com/JuliaArrays/FillArrays.jl",
@@ -145,49 +157,15 @@ for group in docsmodules
     push!(docs, MultiDocumenter.MegaDropdownNav(group[1], docgroups))
 end
 
-outpath = mktempdir()
+outpath = joinpath(@__DIR__, "out")
 
 MultiDocumenter.make(
     outpath, docs;
+    assets_dir = joinpath(@__DIR__, "assets"),
     search_engine = MultiDocumenter.SearchConfig(
         index_versions = ["stable"],
-        engine = MultiDocumenter.FlexSearch
+        engine = MultiDocumenter.FlexSearch,
+        lowfi = true
     ),
-    brand_image = MultiDocumenter.BrandImage("https://docs.sciml.ai",
-                                            joinpath(@__DIR__,"src","assets","logo.png"))
+    brand_image = MultiDocumenter.BrandImage("SciMLDocs", "assets/logo.png")
 )
-
-open(joinpath(outpath,"CNAME"), "w") do io
-    write(io, "docs.sciml.ai")
-end
-
-gitroot = normpath(joinpath(@__DIR__, ".."))
-run(`git pull`)
-outbranch = "aggregate-pages"
-has_outbranch = true
-if !success(`git checkout $outbranch`)
-    has_outbranch = false
-    if !success(`git switch --orphan $outbranch`)
-        @error "Cannot create new orphaned branch $outbranch."
-        exit(1)
-    end
-end
-for file in readdir(gitroot; join = true)
-    endswith(file, ".git") && continue
-    rm(file; force = true, recursive = true)
-end
-for file in readdir(outpath)
-    cp(joinpath(outpath, file), joinpath(gitroot, file))
-end
-run(`git add .`)
-if success(`git commit -m 'Aggregate documentation'`)
-    @info "Pushing updated documentation."
-    if has_outbranch
-        run(`git push`)
-    else
-        run(`git push -u origin $outbranch`)
-    end
-    run(`git checkout main`)
-else
-    @info "No changes to aggregated documentation."
-end

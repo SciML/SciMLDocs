@@ -2,6 +2,8 @@
 *.jl.cov
 *.jl.mem
 /docs/build/
+/docs/clones/
+/docs/out/
 /docs/src/modules
 Manifest.toml
 *.swp
