@@ -11,7 +11,7 @@ This documentation is made to pool together the docs of the various SciML librar
 to paint the overarching picture, establish development norms, and document the
 shared/common functionality.
 
-## SciML: Combining High-Performance Scientific Computing and Machine Learning
+### SciML: Combining High-Performance Scientific Computing and Machine Learning
 
 **SciML is not standard machine learning**,
 [SciML is the combination of scientific computing techniques with machine learning](https://arxiv.org/abs/2001.04385).
@@ -74,7 +74,7 @@ has frequent collaboration with the SciML developers.
 
 ![SciML Mind Map](https://user-images.githubusercontent.com/1814174/181920182-ea52f6c9-6afc-47f9-92dd-2b174513e3db.svg)
 
-## Domains of SciML
+### Domains of SciML
 
 The SciML common interface covers the following domains:
 
@@ -121,7 +121,7 @@ for defining such systems symbolically, allowing for optimizations like automate
 generation of parallel code, symbolic simplification, and generation of sparsity
 patterns.
 
-## Inverse Problems, Parameter Estimation, and Structural Identification
+### Inverse Problems, Parameter Estimation, and Structural Identification
 
 Parameter estimation and inverse problems are solved directly on their
 constituent problem types using tools like
@@ -131,7 +131,7 @@ find the parameters `p` that solve the inverse problem. Check out the SciMLSensi
 documentation for a discussion on connections to automatic differentiation, optimization,
 and adjoints.
 
-## Common Interface High Level
+## Common Interface High Level Overview
 
 The SciML interface is common as the usage of arguments is standardized across
 all of the problem domains. Underlying high level ideas include:
@@ -157,21 +157,21 @@ all of the problem domains. Underlying high level ideas include:
   the out-of-place form is for compatibility with tooling like static arrays and
   some reverse-mode automatic differentiation systems.
 
-## Flowchart Example for PDE-Constrained Optimal Control
+### Flowchart Example for PDE-Constrained Optimal Control
 
 The following example showcases how the pieces of the common interface connect to solve a problem
 that mixes inference, symbolics, and numerics.
 
 ![](https://user-images.githubusercontent.com/1814174/126318252-1e4152df-e6e2-42a3-8669-f8608f81a095.png)
 
-## External Binding Libraries
+### External Binding Libraries
 
 - [diffeqr](https://github.com/SciML/diffeqr)
     - Solving differential equations in R using DifferentialEquations.jl with ModelingToolkit for JIT compilation and GPU-acceleration
 - [diffeqpy](https://github.com/SciML/diffeqpy)
     - Solving differential equations in Python using DifferentialEquations.jl
 
-## Note About Third Party Libraries
+### Note About Third Party Libraries
 
 The SciML documentation references and recommends many third party libraries for improving ones
 modeling, simulation, and analysis workflow in Julia. Take these as a positive affirmation of the
@@ -189,16 +189,19 @@ extended universe of modeling, simulation, and analysis and thus there are many 
 in other domains (machine learning, data science, etc.) which are purposefully not included. For
 an overview of the Julia package ecosystem, see [the JuliaHub Search Engine](https://juliahub.com/ui/Home).
 
-## Contributing
+## Community Channels and Contributor Guides
+
+The main [SciML Community channels](https://sciml.ai/community/) are as follows:
+
+- The [Julia Discourse forums](https://discourse.julialang.org)
+- The #diffeq-bridged and #sciml-bridged channels in the
+    [Julia Slack](https://julialang.org/slack/)
+- The #diffeq-bridged and #sciml-bridged channels in the
+    [Julia Zulip](https://julialang.zulipchat.com/#narrow/stream/279055-sciml-bridged)
+
+For contributor guides:
 
 - Please refer to the
   [SciML ColPrac: Contributor's Guide on Collaborative Practices for Community Packages](https://github.com/SciML/ColPrac/blob/master/README.md)
   for guidance on PRs, issues, and other matters relating to contributing to SciML.
 - See the [SciML Style Guide](https://github.com/SciML/SciMLStyle) for common coding practices and other style decisions.
-- There are a few community forums:
-    - The #diffeq-bridged and #sciml-bridged channels in the
-      [Julia Slack](https://julialang.org/slack/)
-    - The #diffeq-bridged and #sciml-bridged channels in the
-      [Julia Zulip](https://julialang.zulipchat.com/#narrow/stream/279055-sciml-bridged)
-    - On the [Julia Discourse forums](https://discourse.julialang.org)
-    - See also [SciML Community page](https://sciml.ai/community/)

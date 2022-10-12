@@ -48,6 +48,7 @@ docsmodules = [
        "Symbolic Learning" => ["DataDrivenDiffEq", "SymbolicNumericIntegration"],
      "Third-Party Deep Learning" => ["Flux", "Lux", "SimpleChains", #="NNlib"=#],
      "Third-Party Symbolic Learning" => ["SymbolicRegression"]
+
     ],
 
     "Developer Tools" => [
@@ -126,7 +127,7 @@ external_urls = Dict(
 docs = Any[
     MultiDocumenter.MultiDocRef(
         upstream = joinpath(clonedir, "Home"),
-        path = "SciMLDocs",
+        path = "Overview",
         name = "Home",
         giturl = "https://github.com/SciML/SciMLDocs.git",
     )
@@ -167,5 +168,6 @@ MultiDocumenter.make(
         engine = MultiDocumenter.FlexSearch,
         lowfi = true
     ),
+
     brand_image = MultiDocumenter.BrandImage("SciMLDocs", "assets/logo.png")
 )

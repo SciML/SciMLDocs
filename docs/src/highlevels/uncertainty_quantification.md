@@ -1,4 +1,4 @@
-# Uncertainty Quantification Overview
+# Uncertainty Quantification
 
 There's always uncertainty in our models. Whether it's in the form of the model's equations
 or in the model's parameters, the uncertainty in our simulation's output often needs to be

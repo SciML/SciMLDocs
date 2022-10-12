@@ -1,4 +1,4 @@
-# SciML Equation Solvers Overview
+# Equation Solvers
 
 The SciML Equation Solvers cover a large set of `SciMLProblem`s with `SciMLAlgorithm`s
 that are efficient, numerically stable, and flexible. These methods tie into libraries
