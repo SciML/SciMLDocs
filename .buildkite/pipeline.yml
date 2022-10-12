@@ -1,0 +1,20 @@
+agents:
+  queue: "juliaecosystem"
+  sandbox.jl: true
+
+steps:
+  - label: "Aggregate"
+    branches: "main release-* v*"
+    env:
+      - GITHUB_TOKEN: ${GITHUB_TOKEN?} # For authentication with GitHub Actions token
+      - DOCUMENTER_KEY: ${DOCUMENTER_KEY?} # For authentication with SSH deploy key
+    plugins:
+      - JuliaCI/julia#v1:
+          version: "1.8"
+    command: |
+    # Install dependencies
+    julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
+    # Aggregate and Deploy
+    git config user.name github-actions
+    git config user.email github-actions@github.com
+    julia --project=docs/ docs/make_aggregate.jl
