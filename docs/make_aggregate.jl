@@ -15,6 +15,7 @@ docsmodules = [
                       "HighDimPDE", "DiffEqOperators"],
     #"Third-Party PDE Solvers" => ["Trixi", "Gridap", "ApproxFun", "VoronoiFVM"]
     ],
+    # LowRankIntegrators.jl
 
     "Modeling" => [
     "Modeling Languages" => ["ModelingToolkit", "Catalyst", "NBodySimulator",
@@ -22,7 +23,8 @@ docsmodules = [
     #"Model Libraries and Importers" => ["ModelingToolkitStandardLibrary", "DiffEqCallbacks",
     #                                    "CellMLToolkit", "SBMLToolkit",
     #                                    "ReactionNetworkImporters"],
-    #"Symbolic Tools" => ["Symbolics", "SymbolicUtils", "MetaTheory"],
+    #"Symbolic Tools" => ["ModelOrderReduction", "Symbolics", "SymbolicUtils", "MetaTheory"],
+    #"Third-Party Symbolic Tools" => ["MomentClosure"]
     #"Array Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
     #"Third-Party Array Libraries" => ["ComponentArrays", "StaticArrays", "FillArrays",
     #                                  "BandedMatrices", "BlockBandedMatrices"]
