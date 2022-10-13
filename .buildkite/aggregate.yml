@@ -1,0 +1,23 @@
+steps:
+  - label: "Aggregate"
+    plugins:
+      - staticfloat/cryptic#v2:
+          variables:
+            - DOCUMENTER_KEY="U2FsdGVkX19DLnOPN602R0+khZZhqmzA9vZqp0zX4xfvgQp3ofG3wUC6CYMi1OUPfcEhO8zwkxNrcGYV6rKRu8nkoI+FkIK76jfE7NstLexmQ+N9inpu9dFAQIzDXFcwI/1KDHloV7h8QKj+47qT4Gt/kNM3Ey1AgDSMhksJF/ngBGTL8DHrELJdqxaqe2kJwkWLk8/Cbam7mVP1zQS/yFHVxEvUOL/IfkuGFYZCPab+4SCQaQ3S6mtuiCKoLxGTN4TBdcJz61NkB23mWNO79CSEVOuBVi2dObLJJn3ZSu9rLOk44T0kVw1nQKx9usoeimRa0dudFB/GFW20UfwDQI7ycO3k36g1qFj9N2RXXUAVCrLzjuN3zSemQXU1H54weRm1++yx24LoKdw1ma5bmvYcSnltb2W1ByeFSWlN3tS7YOwH5O/rkGwMdVQi05Wtj/UPME+4CIYMgOSkRXGUClYk61TwPLrJoV+0q4o/9Lae2onWKdDHlyuxsIrN1Z9UhU3wZ4lHSqHa2BE98IQu/p4MW2x6NU1X6mS5H4wv//Xx5gU+hmTeUQMAxjfMzigAB4bZiciCzNDTooR7r2ChC34K9shUZeS55GAqx8hpRS7nGgH33WyGkB0JQqpDT7wPdG80xYOwNnjLyb63Wg1YdK1aNbry3PM1rpY/cCQLxd2m+JkDjI5dPgeuW0mXaX9w94Zz6EXhtG9vFCWAGmp2aTdaaaQrxLmzlKU7zUygMeF2QKt1PXaMFOJEjHl9wqsfsvT2YTxzAFxuPSF+XulC1Q=="
+      - staticfloat/ssh-agent:
+          keyvars:
+            - "DOCUMENTER_KEY"
+      - JuliaCI/julia#v1:
+          version: "1.8"
+
+    command: |
+      # Install dependencies
+      julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
+      # Aggregate and Deploy
+      git config user.name buildkite
+      git config user.email julia@buildkite.com
+      julia --project=docs/ docs/make_aggregate.jl
+
+    agents:
+      queue: "juliaecosystem"
+      sandbox.jl: true
