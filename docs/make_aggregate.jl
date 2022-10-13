@@ -162,7 +162,7 @@ outpath = joinpath(@__DIR__, "out")
 
 MultiDocumenter.make(
     outpath, docs;
-    assets_dir = joinpath(@__DIR__, "assets"),
+    assets_dir = joinpath(@__DIR__, "src", "assets"),
     search_engine = MultiDocumenter.SearchConfig(
         index_versions = ["stable"],
         engine = MultiDocumenter.FlexSearch,
