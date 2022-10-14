@@ -30,8 +30,8 @@ makedocs(sitename = "Overview of Julia's SciML",
                     "comparisons/cppfortran.md",
                 ],
             ],
-            "What is SciML?" => "overview.md",
-            ["Solvers" => ["highlevels/equation_solvers.md",
+            "What is SciML?" => ["overview.md",
+            "Solvers" => ["highlevels/equation_solvers.md",
                           "highlevels/inverse_problems.md",
                           "highlevels/partial_differential_equation_solvers.md"],
             "Modeling Tools" => ["highlevels/modeling_languages.md",
@@ -47,7 +47,7 @@ makedocs(sitename = "Overview of Julia's SciML",
             "Developer Tools" => ["highlevels/numerical_utilities.md",
                                   "highlevels/interfaces.md",
                                   "highlevels/developer_documentation.md"],
-            "Extra Learning Resources" => ["highlevels/learning_resources.md"],]
-        ])
+            "Extra Learning Resources" => ["highlevels/learning_resources.md"],
+        ]])
 
 deploydocs(repo = "github.com/SciML/SciMLDocs")
