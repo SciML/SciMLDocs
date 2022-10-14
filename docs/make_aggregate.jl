@@ -159,37 +159,3 @@ MultiDocumenter.make(
     brand_image = MultiDocumenter.BrandImage("https://sciml.ai",
                                              joinpath("assets","logo.png"))
 )
-
-gitroot = normpath(joinpath(@__DIR__, ".."))
-run(`git pull`)
-outbranch = "aggregate-pages"
-has_outbranch = true
-if !success(`git checkout $outbranch`)
-    has_outbranch = false
-    if !success(`git switch --orphan $outbranch`)
-        @error "Cannot create new orphaned branch $outbranch."
-        exit(1)
-    end
-end
-for file in readdir(gitroot; join = true)
-    endswith(file, ".git") && continue
-    rm(file; force = true, recursive = true)
-end
-for file in readdir(outpath)
-    cp(joinpath(outpath, file), joinpath(gitroot, file))
-end
-open(joinpath(gitroot,"CNAME"), "w") do io
-    write(io, "docs.sciml.ai")
-end
-run(`git add .`)
-if success(`git commit -m 'Aggregate documentation'`)
-    @info "Pushing updated documentation."
-    if has_outbranch
-        run(`git push`)
-    else
-        run(`git push -u origin $outbranch`)
-    end
-    run(`git checkout main`)
-else
-    @info "No changes to aggregated documentation."
-end
