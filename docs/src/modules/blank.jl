@@ -1,1 +1,0 @@
-# This is required for the copies folder to exist

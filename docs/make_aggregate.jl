@@ -5,17 +5,6 @@ clonedir = mktempdir()
 
 # Ordering Matters!
 docsmodules = [
-    "Solvers" => [
-    "Equation Solvers" => ["LinearSolve", "NonlinearSolve", #="DiffEqDocs",=# "Integrals",
-                           "Optimization", "JumpProcesses"],
-    #"Inverse Problems / Estimation" => [
-    #                                "SciMLSensitivity", "DiffEqParamEstim", "DiffEqBayes"],
-    "PDE Solvers" => ["MethodOfLines", "NeuralPDE",
-    #                  "NeuralOperators", "FEniCS",
-                      "HighDimPDE", "DiffEqOperators"],
-    #"Third-Party PDE Solvers" => ["Trixi", "Gridap", "ApproxFun", "VoronoiFVM"]
-    ],
-    # LowRankIntegrators.jl
 
     "Modeling" => [
     "Modeling Languages" => ["ModelingToolkit", "Catalyst", "NBodySimulator",
@@ -29,6 +18,18 @@ docsmodules = [
     #"Third-Party Array Libraries" => ["ComponentArrays", "StaticArrays", "FillArrays",
     #                                  "BandedMatrices", "BlockBandedMatrices"]
     ],
+
+    "Solvers" => [
+    "Equation Solvers" => ["LinearSolve", "NonlinearSolve", #="DiffEqDocs",=# "Integrals",
+                           "Optimization", "JumpProcesses"],
+    #"Inverse Problems / Estimation" => [
+    #                                "SciMLSensitivity", "DiffEqParamEstim", "DiffEqBayes"],
+    "PDE Solvers" => ["MethodOfLines", "NeuralPDE",
+    #                  "NeuralOperators", "FEniCS",
+                      "HighDimPDE", "DiffEqOperators"],
+    #"Third-Party PDE Solvers" => ["Trixi", "Gridap", "ApproxFun", "VoronoiFVM"]
+    ],
+    # LowRankIntegrators.jl
 
     "Analysis" => [
     #"Plots and Visualization" => ["PlotDocs", "Makie"]
