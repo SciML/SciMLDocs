@@ -148,7 +148,7 @@ for group in docsmodules
     push!(docs, MultiDocumenter.MegaDropdownNav(group[1], docgroups))
 end
 
-outpath = mktempdir()
+outpath = joinpath(@__DIR__, "build")
 
 MultiDocumenter.make(
     outpath, docs;

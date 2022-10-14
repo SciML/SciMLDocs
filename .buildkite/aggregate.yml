@@ -1,5 +1,9 @@
+env:
+  MULTI_DOCUMENTATION_TARBALL_NAME: "sciml-docs-multi-documentation--sha-${BUILDKITE_COMMIT}.tar.gz"
+
 steps:
-  - label: "Aggregate and Deploy Documentation"
+  - label: "Aggregate and Build Documentation"
+    key: "build-multi-documentation"
     env:
       # This is a child pipeline, so we MUST put this here to inherit privileges from the parent pipeline.
       BUILDKITE_PLUGIN_CRYPTIC_BASE64_SIGNED_JOB_ID_SECRET: ${BUILDKITE_PLUGIN_CRYPTIC_BASE64_SIGNED_JOB_ID_SECRET?}
@@ -21,6 +25,39 @@ steps:
       git config user.name buildkite
       git config user.email julia@buildkite.com
       julia --project=docs/ docs/make_aggregate.jl
+      echo "--- Tarballing multi-documentation build"
+      tar -czf "$${MULTI_DOCUMENTATION_TARBALL_NAME}" docs/build
+
+    artifact_paths:
+      - ${MULTI_DOCUMENTATION_TARBALL_NAME}
+
+    agents:
+      queue: "juliaecosystem"
+      arch: "x86_64"
+      sandbox.jl: true
+
+  - label: "Deploy Documentation"
+    depends_on: "build-multi-documentation"
+    env:
+      # This is a child pipeline, so we MUST put this here to inherit privileges from the parent pipeline.
+      BUILDKITE_PLUGIN_CRYPTIC_BASE64_SIGNED_JOB_ID_SECRET: ${BUILDKITE_PLUGIN_CRYPTIC_BASE64_SIGNED_JOB_ID_SECRET?}
+
+    plugins:
+      - staticfloat/cryptic#v2:
+          variables:
+            - AWS_ACCESS_KEY_ID="U2FsdGVkX18nb+58Cye6uiwqKWSAGyOEWrYLKweK4Q53ddgK2pTVEqkHU2BoK6I/"
+            - AWS_SECRET_ACCESS_KEY="U2FsdGVkX19+nbEWwrTaTzZEhaHzAh7kcOSE4IkAr8ICPyVFFumUAIhPH7uiw5rmMVgOR48yPh6futBcvT/sbw=="
+      - JuliaCI/julia#v1:
+          version: "1.8"
+      - staticfloat/sandbox#v1:
+          rootfs_url: "https://github.com/JuliaCI/rootfs-images/releases/download/v5.45/aws_uploader.x86_64.tar.gz"
+          rootfs_treehash: "8f1a718279b12f889395723b856fc868a8890dfa"
+          verbose: true
+
+    command: |
+      buildkite-agent artifact download "$${MULTI_DOCUMENTATION_TARBALL_NAME}" .
+      tar -xf "$${MULTI_DOCUMENTATION_TARBALL_NAME}"
+      aws s3 sync --acl=public-read docs/build s3://docs.sciml.ai
 
     agents:
       queue: "juliaecosystem"
