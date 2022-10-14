@@ -9,12 +9,12 @@ docsmodules = [
     "Modeling" => [
     "Modeling Languages" => ["ModelingToolkit", "Catalyst", "NBodySimulator",
                              "ParameterizedFunctions"],
-    #"Model Libraries and Importers" => ["ModelingToolkitStandardLibrary", "DiffEqCallbacks",
-    #                                    "CellMLToolkit", "SBMLToolkit",
-    #                                    #="ReactionNetworkImporters"=#],
-    #"Symbolic Tools" => ["ModelOrderReduction", "Symbolics", "SymbolicUtils", "MetaTheory"],
-    #"Third-Party Symbolic Tools" => ["MomentClosure"]
-    #"Array Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
+    "Model Libraries and Importers" => ["ModelingToolkitStandardLibrary", "DiffEqCallbacks",
+                                        #="CellMLToolkit",=# "SBMLToolkit",
+                                        #="ReactionNetworkImporters"=#],
+    "Symbolic Tools" => ["ModelOrderReduction", "Symbolics", #="SymbolicUtils", "MetaTheory"=#],
+    #"Third-Party Symbolic Tools" => ["MomentClosure"],
+    "Array Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
     #"Third-Party Array Libraries" => ["ComponentArrays", "StaticArrays", "FillArrays",
     #                                  "BandedMatrices", "BlockBandedMatrices"]
     ],
@@ -22,8 +22,8 @@ docsmodules = [
     "Solvers" => [
     "Equation Solvers" => ["LinearSolve", "NonlinearSolve", #="DiffEqDocs",=# "Integrals",
                            "Optimization", "JumpProcesses"],
-    #"Inverse Problems / Estimation" => [
-    #                                "SciMLSensitivity", "DiffEqParamEstim", "DiffEqBayes"],
+    "Inverse Problems / Estimation" => [
+                                    "SciMLSensitivity", "DiffEqParamEstim", "DiffEqBayes"],
     "PDE Solvers" => ["MethodOfLines", "NeuralPDE",
     #                  "NeuralOperators", "FEniCS",
                       "HighDimPDE", "DiffEqOperators"],
@@ -33,7 +33,7 @@ docsmodules = [
 
     "Analysis" => [
     #"Plots and Visualization" => ["PlotDocs", "Makie"]
-    #"Parameter Analysis" => ["GlobalSensitivity", "StructuralIdentifiability"],
+    "Parameter Analysis" => ["GlobalSensitivity", "StructuralIdentifiability"],
     "Uncertainty Quantification" => ["PolyChaos", #= "SciMLExpectations" =#],
     #"Third-Party Uncertainty Quantification" => ["Measurements", "MonteCarloMeasurements",
     #                                             "ProbNumDiffEq", "TaylorIntegration",
@@ -44,24 +44,24 @@ docsmodules = [
 
     "Machine Learning" => [
          "Function Approximation" => ["Surrogates", "ReservoirComputing"],
-     #   "Implicit Layer Deep Learning" => ["DiffEqFlux","DeepEquilibriumNetworks"],
-     #   "Symbolic Learning" => ["DataDrivenDiffEq", "SymbolicNumericIntegration"],
+         "Implicit Layer Deep Learning" => ["DiffEqFlux","DeepEquilibriumNetworks"],
+         "Symbolic Learning" => ["DataDrivenDiffEq", "SymbolicNumericIntegration"],
      # "Third-Party Deep Learning" => ["Flux", "Lux", "SimpleChains", "NNlib"],
      # "Third-Party Symbolic Learning" => ["SymbolicRegression"]
     ],
 
     "Developer Tools" => [
-    #"Numerical Utilities" => ["ExponentialUtilities", "DiffEqNoiseProcess",
-    #    "PreallocationTools", "EllipsisNotation",
-    #    "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro"],
+    "Numerical Utilities" => ["ExponentialUtilities", "DiffEqNoiseProcess",
+        #="PreallocationTools", "EllipsisNotation",=#
+        "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro"],
     #"Third-Party Numerical Utilities" => ["FFTW", #= "DataInterpolations",=# "Distributions",
     #                                      "SpecialFunctions", "LoopVectorization",
     #                                      "Polyester", "Tullio"]
-    #"High-Level Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],
+    "High-Level Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],
     #"Third-Party Interfaces" => ["ArrayInterface", #= "Adapt", =# "AbstractFFTs", "GPUArrays",
     #                             #= "RecipesBase", =# "Tables", ]
     "Developer Documentation" => ["SciMLStyle", "COLPRAC", "DiffEqDevDocs"],
-    #"Extra Resources" => ["SciMLTutorialsOutput", "SciMLBenchmarksOutput"],
+    "Extra Resources" => ["SciMLTutorialsOutput", "SciMLBenchmarksOutput"],
     ],
 ]
 
