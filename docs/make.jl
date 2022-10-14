@@ -18,16 +18,16 @@ makedocs(sitename = "Overview of Julia's SciML",
          pages = [
             "SciML: Open Source Software for Scientific Machine Learning with Julia" => "index.md",
             "Getting Started" => [
-                "getting_started.md",
+                "getting_started/getting_started.md",
                 "New User Tutorials" => [
-                    "installation.md",
-                    "first_sim.md",
+                    "getting_started/installation.md",
+                    "getting_started/first_sim.md",
                 ],
                 "Comparison With Other Tools" => [
-                    "scipy.md",
-                    "matlab.md",
-                    "r.md",
-                    "cppfortran.md",
+                    "comparisons/scipy.md",
+                    "comparisons/matlab.md",
+                    "comparisons/r.md",
+                    "comparisons/cppfortran.md",
                 ],
             ],
             "What is SciML?" => "overview.md",

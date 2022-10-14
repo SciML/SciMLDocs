@@ -1,4 +1,4 @@
-# [Introduction to Julia's SciML for the C++/Fortran User](@id cppfortran)
+# [Getting Started with Julia's SciML for the C++/Fortran User](@id cppfortran)
 
 You don't need help if you're a Fortran guru. I'm just kidding, you're not a Lisp developer.
 If you're coming from C++ or Fortran, you may be familiar with similar high-performance
@@ -59,6 +59,11 @@ out with Julia's SciML are:
   of missing physical laws using neural networks embedded in differentiable simulations](https://arxiv.org/abs/2001.04385)? Julia's SciML is the ecosystem with the tooling to integrate machine
   learning into the traditional high-performance scientific computing domains, from
   multiphysics simulations to partial differential equations.
+
+In this plot, `Sundials`/`Hairer` in purple/red represent C++/Fortrans most commonly used
+solvers:
+
+![](https://user-images.githubusercontent.com/1814174/195836404-ea69730e-69a4-4bf0-8d12-f57d5b8fce21.PNG)
 
 ## Why SciML? Some Technical Details
 

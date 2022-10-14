@@ -1,4 +1,4 @@
-# [Overview of the SciML Software Ecosystem](@id overview)
+# [Detailed Overview of the SciML Software Ecosystem](@id overview)
 
 ## SciML: Combining High-Performance Scientific Computing and Machine Learning
 
