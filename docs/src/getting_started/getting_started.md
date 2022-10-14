@@ -15,10 +15,10 @@ Interested?
 
 * [How do I install SciML software?](@ref installation)
 * [Build and run your first simulation](@ref first_sim)
-* [Solve your first optimization problem]()
-* [Fit a simulation to a dataset]()
-* [Find the root of an equation (i.e. solve f(x)=0)]()
-* [Numerically approximate an integral]()
+* [Solve your first optimization problem](@ref first_opt)
+* [Fit a simulation to a dataset](@ref fit_simulation)
+* [Find the root of an equation (i.e. solve f(x)=0)](@ref find_root)
+* [Numerically approximate an integral](@ref integral_approx)
 
 ## Coming from...
 
