@@ -17,6 +17,20 @@ makedocs(sitename = "Overview of Julia's SciML",
                                   canonical = "https://docs.sciml.ai/stable/"),
          pages = [
             "SciML: Open Source Software for Scientific Machine Learning with Julia" => "index.md",
+            "Getting Started" => [
+                "getting_started/getting_started.md",
+                "New User Tutorials" => [
+                    "getting_started/installation.md",
+                    "getting_started/first_sim.md",
+                ],
+                "Comparison With Other Tools" => [
+                    "comparisons/python.md",
+                    "comparisons/matlab.md",
+                    "comparisons/r.md",
+                    "comparisons/cppfortran.md",
+                ],
+            ],
+            "What is SciML?" => ["overview.md",
             "Solvers" => ["highlevels/equation_solvers.md",
                           "highlevels/inverse_problems.md",
                           "highlevels/partial_differential_equation_solvers.md"],
@@ -34,6 +48,6 @@ makedocs(sitename = "Overview of Julia's SciML",
                                   "highlevels/interfaces.md",
                                   "highlevels/developer_documentation.md"],
             "Extra Learning Resources" => ["highlevels/learning_resources.md"],
-        ])
+        ]])
 
 deploydocs(repo = "github.com/SciML/SciMLDocs")

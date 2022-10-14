@@ -5,6 +5,20 @@ clonedir = mktempdir()
 
 # Ordering Matters!
 docsmodules = [
+
+    "Modeling" => [
+    "Modeling Languages" => ["ModelingToolkit", "Catalyst", "NBodySimulator",
+                             "ParameterizedFunctions"],
+    #"Model Libraries and Importers" => ["ModelingToolkitStandardLibrary", "DiffEqCallbacks",
+    #                                    "CellMLToolkit", "SBMLToolkit",
+    #                                    #="ReactionNetworkImporters"=#],
+    #"Symbolic Tools" => ["ModelOrderReduction", "Symbolics", "SymbolicUtils", "MetaTheory"],
+    #"Third-Party Symbolic Tools" => ["MomentClosure"]
+    #"Array Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
+    #"Third-Party Array Libraries" => ["ComponentArrays", "StaticArrays", "FillArrays",
+    #                                  "BandedMatrices", "BlockBandedMatrices"]
+    ],
+
     "Solvers" => [
     "Equation Solvers" => ["LinearSolve", "NonlinearSolve", #="DiffEqDocs",=# "Integrals",
                            "Optimization", "JumpProcesses"],
@@ -16,19 +30,6 @@ docsmodules = [
     #"Third-Party PDE Solvers" => ["Trixi", "Gridap", "ApproxFun", "VoronoiFVM"]
     ],
     # LowRankIntegrators.jl
-
-    "Modeling" => [
-    "Modeling Languages" => ["ModelingToolkit", "Catalyst", "NBodySimulator",
-                             "ParameterizedFunctions"],
-    #"Model Libraries and Importers" => ["ModelingToolkitStandardLibrary", "DiffEqCallbacks",
-    #                                    "CellMLToolkit", "SBMLToolkit",
-    #                                    "ReactionNetworkImporters"],
-    #"Symbolic Tools" => ["ModelOrderReduction", "Symbolics", "SymbolicUtils", "MetaTheory"],
-    #"Third-Party Symbolic Tools" => ["MomentClosure"]
-    #"Array Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
-    #"Third-Party Array Libraries" => ["ComponentArrays", "StaticArrays", "FillArrays",
-    #                                  "BandedMatrices", "BlockBandedMatrices"]
-    ],
 
     "Analysis" => [
     #"Plots and Visualization" => ["PlotDocs", "Makie"]
