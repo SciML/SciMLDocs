@@ -10,7 +10,7 @@ docsmodules = [
     "Modeling Languages" => ["ModelingToolkit", "Catalyst", "NBodySimulator",
                              "ParameterizedFunctions"],
     "Model Libraries and Importers" => ["ModelingToolkitStandardLibrary", "DiffEqCallbacks",
-                                        "CellMLToolkit", "SBMLToolkit",
+                                        #="CellMLToolkit",=# "SBMLToolkit",
                                         #="ReactionNetworkImporters"=#],
     "Symbolic Tools" => ["ModelOrderReduction", "Symbolics", "SymbolicUtils", "MetaTheory"],
     #"Third-Party Symbolic Tools" => ["MomentClosure"],
