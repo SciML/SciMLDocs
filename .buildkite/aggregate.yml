@@ -1,5 +1,5 @@
 steps:
-  - label: "Aggregate"
+  - label: "Aggregate and Deploy Documentation"
     env:
       # This is a child pipeline, so we MUST put this here to inherit privileges from the parent pipeline.
       BUILDKITE_PLUGIN_CRYPTIC_BASE64_SIGNED_JOB_ID_SECRET: ${BUILDKITE_PLUGIN_CRYPTIC_BASE64_SIGNED_JOB_ID_SECRET?}
@@ -24,4 +24,5 @@ steps:
 
     agents:
       queue: "juliaecosystem"
+      arch: "x86_64"
       sandbox.jl: true
