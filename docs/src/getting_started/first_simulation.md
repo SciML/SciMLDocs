@@ -37,7 +37,7 @@ number of animals at each time?
 
 ## Solution as Copy-Pastable Code
 
-```@examples
+```@example
 using ModelingToolkit, DifferentialEquations, Plots
 
 # Define our state variables: state(t) = initial condition
