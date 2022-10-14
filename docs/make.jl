@@ -24,7 +24,7 @@ makedocs(sitename = "Overview of Julia's SciML",
                     "getting_started/first_sim.md",
                 ],
                 "Comparison With Other Tools" => [
-                    "comparisons/scipy.md",
+                    "comparisons/python.md",
                     "comparisons/matlab.md",
                     "comparisons/r.md",
                     "comparisons/cppfortran.md",

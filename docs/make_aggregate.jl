@@ -11,7 +11,7 @@ docsmodules = [
                              "ParameterizedFunctions"],
     #"Model Libraries and Importers" => ["ModelingToolkitStandardLibrary", "DiffEqCallbacks",
     #                                    "CellMLToolkit", "SBMLToolkit",
-    #                                    "ReactionNetworkImporters"],
+    #                                    #="ReactionNetworkImporters"=#],
     #"Symbolic Tools" => ["ModelOrderReduction", "Symbolics", "SymbolicUtils", "MetaTheory"],
     #"Third-Party Symbolic Tools" => ["MomentClosure"]
     #"Array Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
