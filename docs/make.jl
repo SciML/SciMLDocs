@@ -4,6 +4,16 @@ using Documenter
 ENV["GKSwstype"] = "100"
 using Plots
 
+mathengine = MathJax3(Dict(:loader => Dict("load" => ["[tex]/require", "[tex]/mathtools"]),
+                           :tex => Dict("inlineMath" => [["\$", "\$"], ["\\(", "\\)"]],
+                                        "packages" => [
+                                            "base",
+                                            "ams",
+                                            "autoload",
+                                            "mathtools",
+                                            "require",
+                                        ])))
+
 makedocs(sitename = "Overview of Julia's SciML",
          authors = "Chris Rackauckas",
          modules = Module[],
@@ -18,7 +28,8 @@ makedocs(sitename = "Overview of Julia's SciML",
          ],
          format = Documenter.HTML(analytics = "UA-90474609-3",
                                   assets = ["assets/favicon.ico"],
-                                  canonical = "https://docs.sciml.ai/stable/"),
+                                  canonical = "https://docs.sciml.ai/stable/",
+                                  mathengine = mathengine),
          pages = [
             "SciML: Open Source Software for Scientific Machine Learning with Julia" => "index.md",
             "Getting Started" => [
