@@ -15,7 +15,7 @@ docsmodules = [
     "Symbolic Tools" => ["ModelOrderReduction", "Symbolics", #="SymbolicUtils", "MetaTheory"=#],
     "Third-Party Symbolic Tools" => ["MomentClosure"],
     "Array Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
-    "Third-Party Array Libraries" => ["ComponentArrays", "StaticArrays", "FillArrays",
+    "Third-Party Array Libraries" => ["ComponentArrays", "StaticArrays", #="FillArrays",=#
                                       "BandedMatrices", "BlockBandedMatrices"]
     ],
 
