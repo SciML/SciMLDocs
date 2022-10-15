@@ -56,7 +56,7 @@ docsmodules = [
         "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro"],
     "Third-Party Numerical Utilities" => ["FFTW", #= "DataInterpolations",=# "Distributions",
                                           "SpecialFunctions", "LoopVectorization",
-                                          "Polyester", "Tullio"],
+                                          "Polyester", #="Tullio"=#],
     "High-Level Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],
     "Third-Party Interfaces" => ["ArrayInterface", #= "Adapt", =# "AbstractFFTs", "GPUArrays",
                                  #= "RecipesBase", =# "Tables", ],
