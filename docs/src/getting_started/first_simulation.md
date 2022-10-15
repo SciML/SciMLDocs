@@ -22,7 +22,7 @@ The equation that defines the evolution of the species is given as follows:
 
 ```math
 \begin{align}
-\frac{dx}{dt} &= \alpha x - \beta x y
+\frac{dx}{dt} &= \alpha x - \beta x y\\
 \frac{dy}{dt} &= -\gamma y + \delta x y
 \end{align}
 ```
@@ -94,19 +94,43 @@ To start, let's add these packages [as demonstrated in the installation tutorial
 
 Now we're ready. Let's load in these packages:
 
-```julia
+```@example first_sim
 using ModelingToolkit, DifferentialEquations, Plots
 ```
 
-### Step 2: Define our ODE System
+### Step 2: Define our ODE Equations
 
-```julia
+Now let's define our ODEs. We use the `ModelingToolkit.@variabes` statement to declare
+our variables. We have the independent variable time `t`, and then define our 3 state
+variables:
+
+```@example first_sim
 # Define our state variables: state(t) = initial condition
 @variables t x(t)=1 y(t)=1 z(t)=2
+```
 
+Notice here that we use the form `state = default`, where on the right-hand side the default
+value of a state is interpreted to be its initial condition. This is then done similarly
+for parameters, where the default value is now the parameter value:
+
+```@example first_sim
 # Define our parameters
 @parameters α=1.5 β=1.0 γ=3.0 δ=1.0
+```
 
+Next we define our set of differential equations. We need to first tell it what to
+differentiate with respect to, here the independent variable `t`, do define the `Differential`
+operator `D`. Then once we have the operator, we apply that into the equations.
+
+!!! note
+
+    Note that in ModelingToolkit and Symbolics, `~` is used for equation equality. This is
+    separate from `=` which is the "assignment operator" in the Julia programming language.
+    For example, `x = x + 1` is a valid assignment in a programming language, and it is
+    invalid for that to represent "equality", which is the reason why a separate operator
+    is used!
+
+```julia
 # Define our differential: takes the derivative with respect to `t`
 D = Differential(t)
 
@@ -116,31 +140,111 @@ eqs = [
     D(y) ~ -γ*y + δ*x*y
     z ~ x + y
 ]
+```
 
+Notice that in the display it will automatically generate LaTeX. If one is interested in
+generating this LaTeX locally, one can simply do:
+
+```julia
+using Latexify # add the package first
+latexify(eqs)
+```
+
+## Step 3: Define the ODEProblem
+
+Now we bring these pieces together. In ModelingToolkit, we can bring these pieces together
+to represent an `ODESystem` with the following:
+
+```@example first_sim
 # Bring these pieces together into an ODESystem with independent variable t
 @named sys = ODESystem(eqs,t)
+```
 
+Next, we want to simplify this into a standard ODE system. Notice that in our equations
+we have an algebraic equation `z ~ x + y`. This is not a differential equation but an
+algebraic equation, and thus we call this set of equations a Differential-Algebraic Equation
+(DAE). The symbolic system of ModelingToolkit can eliminate such equations to return simpler
+forms to numerically approximate. Let's tell it to simplify the system using
+`structural_simplify`:
+
+```@example first_sim
 # Symbolically Simplify the System
 simpsys = structural_simplify(sys)
+```
 
+Notice that what is returned is another `ODESystem`, but now with the simplified set of
+equations. `z` has been turned into an "observable", i.e. a state that is not computed
+but can be constructed on-demand. This is one of the ways that SciML reaches its speed:
+you can have 100,000 equations, but solve only 1,000 to then automatically reconstruct
+the full set. Here, it's just 3 equations to 2, but as models get more complex the
+symbolic system will find ever more clever interactions!
+
+Now that we have simplified our system, let's turn it into a numerical problem to
+approximate. This is done with the `ODEProblem` constructor, that transforms it from
+a symbolic `ModelingToolkit` representation to a numerical `DifferentialEquations`
+representation. We need to tell it the numerical details now:
+
+1. Whether to override any of the default values for the initial conditions and parameters.
+2. What is the initial time point.
+3. How long to integrate it for.
+
+In this case, we will use the default values for all our variables, so we will pass a
+blank override `[]`. If for example we did want to change the initial condition of `x`
+to `2.0` and `α` to `4.0`, we would do `[x => 2.0, α => 4.0]`. Then secondly we pass a
+tuple for the time span, `(0.0,10.0)` meaning start at `0.0` and end at `10.0`. This looks
+like:
+
+```@example first_sim
 # Convert from a symbolic to a numerical problem to simulate
 tspan = (0.0,10.0)
 prob = ODEProblem(simpsys, [], tspan)
 ```
 
-### Step 3: Solve the ODE System
+### Step 4: Solve the ODE System
 
-```julia
+Now we solve the ODE system. Julia's SciML solvers have a defaulting system that can
+automatically determine an appropriate solver for a given system, so we can just tell it
+to solve:
+
+```@example first_sim
 # Solve the ODE
 sol = solve(prob)
 ```
 
-### Step 4: Visualize the Solution
+### Step 5: Visualize the Solution
 
-```julia
+Now let's visualize the solution! Notice that our solution only has two states. If we
+recall, the simplified system only has two states: `z` was symbolically eliminated. We
+can access any of the values, even the eliminated values, using the symbolic variable
+as the index. For example:
+
+```@example first_sim
+sol[z]
+```
+
+returns the time series of the observable `z` at time points corresponding to `sol.t`.
+We can use this with the automated plotting functionality. First let's create a plot of
+`x` and `y` over time using `plot(sol)` which will plot all of the states. Then next,
+we will explicitly tell it to make a plot with the index being `z`, i.e. `idxs=z`.
+
+!!! note
+
+    Note that one can pass an array of indices as well, so `idxs=[x,y,z]` would make a plot
+    with all three lines together!
+
+```@example first_sim
 # Plot the solution
 p1 = plot(sol,title = "Rabbits vs Wolves")
 p2 = plot(sol,idxs=z,title = "Total Animals")
+```
 
+Finally, let's make a plot where we merge these two plot elements. To do so, we can take our
+two plot objects, `p1` and `p2`, and make a plot with both of them. Then we tell Plots to
+do a layout of `(2,1)`, or 2 rows and 1 columns. Let's see what happens when we bring these
+together:
+
+```@example first_sim
 plot(p1,p2,layout=(2,1))
 ```
+
+And tada, we have a full analysis of our ecosystem!
