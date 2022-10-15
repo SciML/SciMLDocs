@@ -130,7 +130,7 @@ operator `D`. Then once we have the operator, we apply that into the equations.
     invalid for that to represent "equality", which is the reason why a separate operator
     is used!
 
-```julia
+```@example first_sim
 # Define our differential: takes the derivative with respect to `t`
 D = Differential(t)
 

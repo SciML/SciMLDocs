@@ -1,5 +1,9 @@
 using Documenter
 
+# Make sure that plots don't throw a bunch of warnings / errors!
+ENV["GKSwstype"] = "100"
+using Plots
+
 makedocs(sitename = "Overview of Julia's SciML",
          authors = "Chris Rackauckas",
          modules = Module[],
