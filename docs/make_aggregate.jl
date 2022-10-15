@@ -46,7 +46,7 @@ docsmodules = [
          "Function Approximation" => ["Surrogates", "ReservoirComputing"],
          "Implicit Layer Deep Learning" => ["DiffEqFlux","DeepEquilibriumNetworks"],
          "Symbolic Learning" => ["DataDrivenDiffEq", "SymbolicNumericIntegration"],
-      "Third-Party Deep Learning" => ["Flux", "Lux", "SimpleChains", "NNlib"],
+      "Third-Party Deep Learning" => ["Flux", "Lux", "SimpleChains"],
       "Third-Party Symbolic Learning" => ["SymbolicRegression"]
     ],
 
