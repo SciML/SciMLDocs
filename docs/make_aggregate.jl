@@ -75,6 +75,7 @@ hasnojl = ["SciMLBenchmarksOutput", "SciMLTutorialsOutput", "COLPRAC", "SciMLSty
 usemain = ["SciMLBenchmarksOutput", "SciMLTutorialsOutput"]
 
 external_urls = Dict(
+    "MomentClosure" => "https://github.com/augustinas1/MomentClosure.jl",
     "Trixi" => "https://github.com/trixi-framework/Trixi.jl",
     "Gridap" => "https://github.com/gridap/Gridap.jl",
     "ApproxFun" => "https://github.com/JuliaApproximation/ApproxFun.jl",
