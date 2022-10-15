@@ -1,5 +1,12 @@
 [deps]
+DifferentialEquations = "0c46a032-eb83-5123-abaf-570d42b7fbaa"
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+Integrals = "de52edbc-65ea-441a-8357-d3a637375a31"
 LibGit2 = "76f85450-5226-5b5a-8eaa-529ad045b433"
+ModelingToolkit = "961ee093-0014-501f-94e3-6117800e7a78"
 MultiDocumenter = "87ed4bf0-c935-4a67-83c3-2a03bee4197c"
+NonlinearSolve = "8913a72c-1f9b-4ce2-8d82-65094dcecaec"
+Optimization = "7f7a1694-90dd-40f0-9382-eb1efda571ba"
+OptimizationNLopt = "4e6fcdb7-1186-4e1f-a706-475e75c168bb"
+Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
 Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"

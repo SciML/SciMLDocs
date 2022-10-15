@@ -1,4 +1,4 @@
-# [Getting Started with SciML](@id getting_started)
+# [Getting Started with Julia's SciML](@id getting_started)
 
 ## Quickly: What is Julia's SciML Ecosystem?
 
