@@ -166,6 +166,18 @@ end
 
 outpath = joinpath(@__DIR__, "build")
 
+analytics_script = """
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q3FE4BYYHQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Q3FE4BYYHQ');
+</script>
+"""
+
 MultiDocumenter.make(
     outpath, docs;
     assets_dir = "docs/src/assets",
@@ -173,6 +185,7 @@ MultiDocumenter.make(
         index_versions = ["stable"],
         engine = MultiDocumenter.FlexSearch
     ),
+    custom_scripts = [analytics_script],
     brand_image = MultiDocumenter.BrandImage("https://sciml.ai",
                                              joinpath("assets","logo.png"))
 )
