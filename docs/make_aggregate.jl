@@ -24,7 +24,7 @@ docsmodules = [
     "Modeling" => [
     "Modeling Languages" => ["ModelingToolkit", "Catalyst", "NBodySimulator",
                              "ParameterizedFunctions"],
-    "Model Libraries and Importers" => ["ModelingToolkitStandardLibrary", #="DiffEqCallbacks",=#
+    "Model Libraries and Importers" => ["ModelingToolkitStandardLibrary", #="DiffEqCallbacks", size issue=#
                                         #="CellMLToolkit",=# "SBMLToolkit",
                                         #="ReactionNetworkImporters"=#],
     "Symbolic Tools" => ["ModelOrderReduction", "Symbolics", #="SymbolicUtils", "MetaTheory"=#],
@@ -39,10 +39,10 @@ docsmodules = [
                            "Optimization", "JumpProcesses"],
     "Inverse Problems / Estimation" => [
                                     "SciMLSensitivity", "DiffEqParamEstim", "DiffEqBayes"],
-    "PDE Solvers" => ["MethodOfLines", "NeuralPDE",
+    "PDE Solvers" => ["MethodOfLines", #="NeuralPDE", size issue =#
                       "NeuralOperators", "FEniCS",
                       "HighDimPDE", "DiffEqOperators"],
-    "Third-Party PDE Solvers" => [#="Trixi",=# "Gridap", "ApproxFun", "VoronoiFVM"]
+    "Third-Party PDE Solvers" => [#="Trixi", size issue =# "Gridap", "ApproxFun", "VoronoiFVM"]
     ],
     # LowRankIntegrators.jl
 
@@ -53,7 +53,7 @@ docsmodules = [
     "Third-Party Uncertainty Quantification" => ["Measurements", "MonteCarloMeasurements",
                                                  "ProbNumDiffEq", "TaylorIntegration",
                                                  "IntervalArithmetic"],
-    "Third-Party Parameter Analysis" => [#="DynamicalSystems",=# "BifurcationKit",
+    "Third-Party Parameter Analysis" => [#="DynamicalSystems", size issue =# "BifurcationKit",
                                        "ControlSystems", "ReachabilityAnalysis"],
     ],
 
@@ -76,7 +76,7 @@ docsmodules = [
     "Third-Party Interfaces" => ["ArrayInterface", #= "Adapt", =# "AbstractFFTs", "GPUArrays",
                                  #= "RecipesBase", =# "Tables", ],
     "Developer Documentation" => ["SciMLStyle", "COLPRAC", "DiffEqDevDocs"],
-    #"Extra Resources" => ["SciMLTutorialsOutput", "SciMLBenchmarksOutput"],
+    #"Extra Resources" => ["SciMLTutorialsOutput", "SciMLBenchmarksOutput"], size issue
     ],
 ]
 
