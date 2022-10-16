@@ -39,15 +39,15 @@ docsmodules = [
                            "Optimization", "JumpProcesses"],
     "Inverse Problems / Estimation" => [
                                     "SciMLSensitivity", "DiffEqParamEstim", "DiffEqBayes"],
-    "PDE Solvers" => ["MethodOfLines", #="NeuralPDE",=#
+    "PDE Solvers" => ["MethodOfLines", "NeuralPDE",
                       "NeuralOperators", "FEniCS",
                       "HighDimPDE", "DiffEqOperators"],
-    "Third-Party PDE Solvers" => [#="Trixi",=# "Gridap", "ApproxFun", "VoronoiFVM"]
+    "Third-Party PDE Solvers" => ["Trixi", "Gridap", "ApproxFun", "VoronoiFVM"]
     ],
     # LowRankIntegrators.jl
 
     "Analysis" => [
-    #"Plots and Visualization" => [#="PlotDocs",=# "Makie"],
+    "Plots and Visualization" => ["PlotDocs", "Makie"],
     "Parameter Analysis" => ["GlobalSensitivity", "StructuralIdentifiability"],
     "Uncertainty Quantification" => ["PolyChaos", #= "SciMLExpectations" =#],
     "Third-Party Uncertainty Quantification" => ["Measurements", "MonteCarloMeasurements",
@@ -58,7 +58,7 @@ docsmodules = [
     ],
 
     "Machine Learning" => [
-         "Function Approximation" => [#="Surrogates",=# "ReservoirComputing"],
+         "Function Approximation" => ["Surrogates", "ReservoirComputing"],
          "Implicit Layer Deep Learning" => ["DiffEqFlux","DeepEquilibriumNetworks"],
          "Symbolic Learning" => ["DataDrivenDiffEq", "SymbolicNumericIntegration"],
       "Third-Party Deep Learning" => ["Flux", "Lux", "SimpleChains"],
@@ -70,7 +70,7 @@ docsmodules = [
         #="PreallocationTools", "EllipsisNotation",=#
         "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro"],
     "Third-Party Numerical Utilities" => ["FFTW", #= "DataInterpolations",=# "Distributions",
-                                          "SpecialFunctions", #="LoopVectorization",=#
+                                          "SpecialFunctions", "LoopVectorization",
                                           "Polyester", #="Tullio"=#],
     "High-Level Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],
     "Third-Party Interfaces" => ["ArrayInterface", #= "Adapt", =# "AbstractFFTs", "GPUArrays",
