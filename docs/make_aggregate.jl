@@ -35,7 +35,7 @@ docsmodules = [
     ],
 
     "Solvers" => [
-    "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals",
+    "Equation Solvers" => ["LinearSolve", "NonlinearSolve", #="DiffEqDocs", size issue=# "Integrals",
                            "Optimization", #="JumpProcesses" size issue=#],
     "Inverse Problems / Estimation" => [
                                     "SciMLSensitivity", "DiffEqParamEstim", "DiffEqBayes"],
