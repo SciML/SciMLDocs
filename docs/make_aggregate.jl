@@ -36,7 +36,7 @@ docsmodules = [
 
     "Solvers" => [
     "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals",
-                           "Optimization", "JumpProcesses"],
+                           "Optimization", #="JumpProcesses" size issue=#],
     "Inverse Problems / Estimation" => [
                                     "SciMLSensitivity", "DiffEqParamEstim", "DiffEqBayes"],
     "PDE Solvers" => ["MethodOfLines", #="NeuralPDE", size issue =#
