@@ -76,7 +76,7 @@ docsmodules = [
     "Third-Party Interfaces" => ["ArrayInterface", #= "Adapt", =# "AbstractFFTs", "GPUArrays",
                                  #= "RecipesBase", =# "Tables", ],
     "Developer Documentation" => ["SciMLStyle", "COLPRAC", "DiffEqDevDocs"],
-    #"Extra Resources" => ["SciMLTutorialsOutput", "SciMLBenchmarksOutput"], size issue
+    "Extra Resources" => ["SciMLTutorialsOutput", "SciMLBenchmarksOutput"],
     ],
 ]
 
