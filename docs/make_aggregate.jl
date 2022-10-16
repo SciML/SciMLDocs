@@ -42,7 +42,7 @@ docsmodules = [
     "PDE Solvers" => ["MethodOfLines", "NeuralPDE",
                       "NeuralOperators", "FEniCS",
                       "HighDimPDE", "DiffEqOperators"],
-    "Third-Party PDE Solvers" => ["Trixi", "Gridap", "ApproxFun", "VoronoiFVM"]
+    "Third-Party PDE Solvers" => [#="Trixi",=# "Gridap", "ApproxFun", "VoronoiFVM"]
     ],
     # LowRankIntegrators.jl
 
