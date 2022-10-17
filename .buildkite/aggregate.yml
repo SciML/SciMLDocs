@@ -55,7 +55,7 @@ steps:
     command: |
       buildkite-agent artifact download "$${MULTI_DOCUMENTATION_TARBALL_NAME}" .
       tar -xf "$${MULTI_DOCUMENTATION_TARBALL_NAME}"
-      aws s3 sync --size-only --delete --acl=public-read docs/build s3://docs.sciml.ai --cache-control max-age=600
+      aws s3 sync --delete --acl=public-read docs/build s3://docs.sciml.ai --cache-control max-age=600
 
     agents:
       queue: "juliaecosystem"
