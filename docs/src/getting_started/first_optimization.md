@@ -44,7 +44,7 @@ p  = [1.0,100.0]
 prob = OptimizationProblem(L, u0, p, lb = [-1.0,-1.0], ub = [1.0,1.0])
 
 # Solve the optimization problem
-sol = solve(prob,LD_BFGS())
+sol = solve(prob,LD_LBFGS())
 
 # Analyze the solution
 @show sol.u, L(sol.u,p)
