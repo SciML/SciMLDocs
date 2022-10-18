@@ -1,9 +1,5 @@
-env:
-  MULTI_DOCUMENTATION_TARBALL_NAME: "sciml-docs-multi-documentation--sha-${BUILDKITE_COMMIT}.tar.gz"
-
 steps:
-  - label: "Aggregate and Build Documentation"
-    key: "build-multi-documentation"
+  - label: "Build and Deploy Documentation"
     env:
       # This is a child pipeline, so we MUST put this here to inherit privileges from the parent pipeline.
       BUILDKITE_PLUGIN_CRYPTIC_BASE64_SIGNED_JOB_ID_SECRET: ${BUILDKITE_PLUGIN_CRYPTIC_BASE64_SIGNED_JOB_ID_SECRET?}
@@ -11,50 +7,27 @@ steps:
     plugins:
       - staticfloat/cryptic#v2:
           variables:
+            - AWS_ACCESS_KEY_ID="U2FsdGVkX18h85CJAJTEJ8zXd7CrctZHYX4n/yM2xL9uXO0kgRE/kJr8vEHnOOV1"
+            - AWS_SECRET_ACCESS_KEY="U2FsdGVkX1/DUFypInOLTE2YAWldcX/k3TeDAg7VUDujeRgU4GTeEgCOMCMRI1tIQRa8UjR/GXm9Y5lIT56iPQ=="
             - DOCUMENTER_KEY="U2FsdGVkX19DLnOPN602R0+khZZhqmzA9vZqp0zX4xfvgQp3ofG3wUC6CYMi1OUPfcEhO8zwkxNrcGYV6rKRu8nkoI+FkIK76jfE7NstLexmQ+N9inpu9dFAQIzDXFcwI/1KDHloV7h8QKj+47qT4Gt/kNM3Ey1AgDSMhksJF/ngBGTL8DHrELJdqxaqe2kJwkWLk8/Cbam7mVP1zQS/yFHVxEvUOL/IfkuGFYZCPab+4SCQaQ3S6mtuiCKoLxGTN4TBdcJz61NkB23mWNO79CSEVOuBVi2dObLJJn3ZSu9rLOk44T0kVw1nQKx9usoeimRa0dudFB/GFW20UfwDQI7ycO3k36g1qFj9N2RXXUAVCrLzjuN3zSemQXU1H54weRm1++yx24LoKdw1ma5bmvYcSnltb2W1ByeFSWlN3tS7YOwH5O/rkGwMdVQi05Wtj/UPME+4CIYMgOSkRXGUClYk61TwPLrJoV+0q4o/9Lae2onWKdDHlyuxsIrN1Z9UhU3wZ4lHSqHa2BE98IQu/p4MW2x6NU1X6mS5H4wv//Xx5gU+hmTeUQMAxjfMzigAB4bZiciCzNDTooR7r2ChC34K9shUZeS55GAqx8hpRS7nGgH33WyGkB0JQqpDT7wPdG80xYOwNnjLyb63Wg1YdK1aNbry3PM1rpY/cCQLxd2m+JkDjI5dPgeuW0mXaX9w94Zz6EXhtG9vFCWAGmp2aTdaaaQrxLmzlKU7zUygMeF2QKt1PXaMFOJEjHl9wqsfsvT2YTxzAFxuPSF+XulC1Q=="
       - staticfloat/ssh-agent:
           keyvars:
             - "DOCUMENTER_KEY"
       - JuliaCI/julia#v1:
           version: "1.8"
+      - staticfloat/sandbox#v1:
+          rootfs_url: "https://github.com/JuliaCI/rootfs-images/releases/download/v5.45/aws_uploader.x86_64.tar.gz"
+          rootfs_treehash: "8f1a718279b12f889395723b856fc868a8890dfa"
+          verbose: true
+          workspaces:
+            # Include `/cache` so that `julia` install can properly cache its Julia downloads
+            - "/cache:/cache"
 
     command: |
       julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
       git config user.name buildkite
       git config user.email julia@buildkite.com
       julia --project=docs/ docs/make_aggregate.jl
-      echo "--- Tarballing multi-documentation build"
-      tar -czf "$${MULTI_DOCUMENTATION_TARBALL_NAME}" docs/build
-
-    artifact_paths:
-      - ${MULTI_DOCUMENTATION_TARBALL_NAME}
-
-    agents:
-      queue: "juliaecosystem"
-      arch: "x86_64"
-      sandbox.jl: true
-
-  - label: "Deploy Documentation"
-    depends_on: "build-multi-documentation"
-    env:
-      # This is a child pipeline, so we MUST put this here to inherit privileges from the parent pipeline.
-      BUILDKITE_PLUGIN_CRYPTIC_BASE64_SIGNED_JOB_ID_SECRET: ${BUILDKITE_PLUGIN_CRYPTIC_BASE64_SIGNED_JOB_ID_SECRET?}
-
-    plugins:
-      - staticfloat/cryptic#v2:
-          variables:
-            - AWS_ACCESS_KEY_ID="U2FsdGVkX18nb+58Cye6uiwqKWSAGyOEWrYLKweK4Q53ddgK2pTVEqkHU2BoK6I/"
-            - AWS_SECRET_ACCESS_KEY="U2FsdGVkX19+nbEWwrTaTzZEhaHzAh7kcOSE4IkAr8ICPyVFFumUAIhPH7uiw5rmMVgOR48yPh6futBcvT/sbw=="
-      - JuliaCI/julia#v1:
-          version: "1.8"
-      - staticfloat/sandbox#v1:
-          rootfs_url: "https://github.com/JuliaCI/rootfs-images/releases/download/v5.45/aws_uploader.x86_64.tar.gz"
-          rootfs_treehash: "8f1a718279b12f889395723b856fc868a8890dfa"
-          verbose: true
-
-    command: |
-      buildkite-agent artifact download "$${MULTI_DOCUMENTATION_TARBALL_NAME}" .
-      tar -xf "$${MULTI_DOCUMENTATION_TARBALL_NAME}"
       aws s3 sync --delete --acl=public-read docs/build s3://docs.sciml.ai --cache-control max-age=600
 
     agents:
