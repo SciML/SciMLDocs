@@ -43,8 +43,8 @@ steps:
     plugins:
       - staticfloat/cryptic#v2:
           variables:
-            - AWS_ACCESS_KEY_ID="U2FsdGVkX18nb+58Cye6uiwqKWSAGyOEWrYLKweK4Q53ddgK2pTVEqkHU2BoK6I/"
-            - AWS_SECRET_ACCESS_KEY="U2FsdGVkX19+nbEWwrTaTzZEhaHzAh7kcOSE4IkAr8ICPyVFFumUAIhPH7uiw5rmMVgOR48yPh6futBcvT/sbw=="
+            - AWS_ACCESS_KEY_ID="U2FsdGVkX18h85CJAJTEJ8zXd7CrctZHYX4n/yM2xL9uXO0kgRE/kJr8vEHnOOV1"
+            - AWS_SECRET_ACCESS_KEY="U2FsdGVkX1/DUFypInOLTE2YAWldcX/k3TeDAg7VUDujeRgU4GTeEgCOMCMRI1tIQRa8UjR/GXm9Y5lIT56iPQ=="
       - JuliaCI/julia#v1:
           version: "1.8"
       - staticfloat/sandbox#v1:
