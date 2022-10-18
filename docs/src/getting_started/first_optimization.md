@@ -66,14 +66,14 @@ L(u,p) = (p[1] - u[1])^2 + p[2] * (u[2] - u[1]^2)^2
 ```@example first_opt
 u0 = zeros(2)
 p  = [1.0,100.0]
-prob = OptimizationProblem(rosenbrock, u0, p, lb = [-1.0,-1.0], ub = [1.0,1.0])
+prob = OptimizationProblem(L, u0, p, lb = [-1.0,-1.0], ub = [1.0,1.0])
 ```
 
 ## Step 3: Solve the Optimization Problem
 
 ```@example first_opt
 # Solve the optimization problem
-sol = solve(prob,LN_BFGS())
+sol = solve(prob,NLopt.LD_LBFGS())
 ```
 
 ## Step 4: Analyze the Solution
