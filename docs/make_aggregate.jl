@@ -35,11 +35,11 @@ docsmodules = [
     ],
 
     "Solvers" => [
-    "Equation Solvers" => ["LinearSolve", "NonlinearSolve", #="DiffEqDocs", size issue=# "Integrals",
-                           "Optimization", #="JumpProcesses" size issue=#],
+    "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals",
+                           "Optimization", "JumpProcesses"],
     "Inverse Problems / Estimation" => [
                                     "SciMLSensitivity", "DiffEqParamEstim", "DiffEqBayes"],
-    "PDE Solvers" => ["MethodOfLines", #="NeuralPDE", size issue =#
+    "PDE Solvers" => ["MethodOfLines", "NeuralPDE",
                       "NeuralOperators", "FEniCS",
                       "HighDimPDE", "DiffEqOperators"],
     #"Third-Party PDE Solvers" => [#="Trixi", size issue =# "Gridap", "ApproxFun", "VoronoiFVM"]
@@ -58,7 +58,7 @@ docsmodules = [
     ],
 
     "Machine Learning" => [
-         "Function Approximation" => [#="Surrogates",=# "ReservoirComputing"],
+         "Function Approximation" => ["Surrogates", "ReservoirComputing"],
          "Implicit Layer Deep Learning" => ["DiffEqFlux","DeepEquilibriumNetworks"],
          "Symbolic Learning" => ["DataDrivenDiffEq", "SymbolicNumericIntegration"],
       "Third-Party Deep Learning" => [#="Flux",=# #= "Lux", =# "SimpleChains"],
