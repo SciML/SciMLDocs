@@ -68,7 +68,7 @@ The following chart will help you get quickly acquainted with Julia's SciML Tool
 |`scipy.interpolate`|[DataInterpolations](https://github.com/PumasAI/DataInterpolations.jl)|
 |`scipy.fft`|[FFTW](https://github.com/JuliaMath/FFTW.jl)|
 |`scipy.linalg`|[Julia's Built-In Linear Algebra](https://docs.julialang.org/en/v1/stdlib/LinearAlgebra/)|
-|`scipy.sparse|[SparseArrays](https://docs.julialang.org/en/v1/stdlib/SparseArrays/#Sparse-Arrays), [ARPACK](https://github.com/JuliaLinearAlgebra/Arpack.jl)|
+|`scipy.sparse`|[SparseArrays](https://docs.julialang.org/en/v1/stdlib/SparseArrays/#Sparse-Arrays), [ARPACK](https://github.com/JuliaLinearAlgebra/Arpack.jl)|
 |`odeint`/`solve_ivp`|[DifferentialEquations](https://diffeq.sciml.ai/latest/)|
 |`scipy.integrate.solve_bvp`|[Boundary-value problem](https://diffeq.sciml.ai/latest/tutorials/bvp_example/#Boundary-Value-Problems)|
 |PyTorch|[Flux](https://fluxml.ai/), [Lux](http://lux.csail.mit.edu/stable/)|
