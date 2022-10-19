@@ -24,7 +24,7 @@ docsmodules = [
     "Modeling" => [
     "Modeling Languages" => ["ModelingToolkit", "Catalyst", "NBodySimulator",
                              "ParameterizedFunctions"],
-    "Model Libraries and Importers" => ["ModelingToolkitStandardLibrary", #="DiffEqCallbacks", size issue=#
+    "Model Libraries and Importers" => ["ModelingToolkitStandardLibrary", "DiffEqCallbacks",
                                         #="CellMLToolkit",=# "SBMLToolkit",
                                         #="ReactionNetworkImporters"=#],
     "Symbolic Tools" => ["ModelOrderReduction", "Symbolics", #="SymbolicUtils", "MetaTheory"=#],
@@ -42,7 +42,7 @@ docsmodules = [
     "PDE Solvers" => ["MethodOfLines", "NeuralPDE",
                       "NeuralOperators", "FEniCS",
                       "HighDimPDE", "DiffEqOperators"],
-    #"Third-Party PDE Solvers" => [#="Trixi", size issue =# "Gridap", "ApproxFun", "VoronoiFVM"]
+    "Third-Party PDE Solvers" => ["Trixi", "Gridap", "ApproxFun", "VoronoiFVM"]
     ],
     # LowRankIntegrators.jl
 
