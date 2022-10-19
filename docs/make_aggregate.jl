@@ -53,7 +53,7 @@ docsmodules = [
     "Third-Party Uncertainty Quantification" => ["Measurements", "MonteCarloMeasurements",
                                                  "ProbNumDiffEq", "TaylorIntegration",
                                                  "IntervalArithmetic"],
-    "Third-Party Parameter Analysis" => [#="DynamicalSystems", size issue =# "BifurcationKit",
+    "Third-Party Parameter Analysis" => ["DynamicalSystems", "BifurcationKit",
                                        "ControlSystems", "ReachabilityAnalysis"],
     ],
 
@@ -61,7 +61,7 @@ docsmodules = [
          "Function Approximation" => ["Surrogates", "ReservoirComputing"],
          "Implicit Layer Deep Learning" => ["DiffEqFlux","DeepEquilibriumNetworks"],
          "Symbolic Learning" => ["DataDrivenDiffEq", "SymbolicNumericIntegration"],
-      "Third-Party Deep Learning" => [#="Flux",=# #= "Lux", =# "SimpleChains"],
+      "Third-Party Deep Learning" => ["Flux", "Lux", "SimpleChains"],
       "Third-Party Symbolic Learning" => ["SymbolicRegression"]
     ],
 
