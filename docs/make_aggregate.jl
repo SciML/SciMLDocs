@@ -25,7 +25,7 @@ docsmodules = [
     "Modeling Languages" => ["ModelingToolkit", "Catalyst", "NBodySimulator",
                              "ParameterizedFunctions"],
     "Model Libraries and Importers" => ["ModelingToolkitStandardLibrary", "DiffEqCallbacks",
-                                        #="CellMLToolkit",=# "SBMLToolkit",
+                                        "CellMLToolkit", "SBMLToolkit",
                                         #="ReactionNetworkImporters"=#],
     "Symbolic Tools" => ["ModelOrderReduction", "Symbolics", #="SymbolicUtils", "MetaTheory"=#],
     "Third-Party Symbolic Tools" => ["MomentClosure"],
@@ -42,14 +42,14 @@ docsmodules = [
     "PDE Solvers" => ["MethodOfLines", "NeuralPDE",
                       "NeuralOperators", "FEniCS",
                       "HighDimPDE", "DiffEqOperators"],
-    "Third-Party PDE Solvers" => ["Trixi", "Gridap", "ApproxFun", "VoronoiFVM"]
+    "Third-Party PDE Solvers" => ["LowRankIntegrators", "Trixi", "Gridap", "ApproxFun", "VoronoiFVM"]
     ],
     # LowRankIntegrators.jl
 
     "Analysis" => [
-    #"Plots and Visualization" => ["PlotDocs", "Makie"],
+    "Plots and Visualization" => ["PlotDocs", "Makie"],
     "Parameter Analysis" => ["GlobalSensitivity", "StructuralIdentifiability"],
-    "Uncertainty Quantification" => ["PolyChaos", #= "SciMLExpectations" =#],
+    "Uncertainty Quantification" => ["PolyChaos", "SciMLExpectations"],
     "Third-Party Uncertainty Quantification" => ["Measurements", "MonteCarloMeasurements",
                                                  "ProbNumDiffEq", "TaylorIntegration",
                                                  "IntervalArithmetic"],
@@ -90,6 +90,7 @@ hasnojl = ["SciMLBenchmarksOutput", "SciMLTutorialsOutput", "COLPRAC", "SciMLSty
 usemain = ["SciMLBenchmarksOutput", "SciMLTutorialsOutput"]
 
 external_urls = Dict(
+    "LowRankIntegrators" => "https://github.com/FHoltorf/LowRankIntegrators.jl",
     "MomentClosure" => "https://github.com/augustinas1/MomentClosure.jl",
     "Trixi" => "https://github.com/trixi-framework/Trixi.jl",
     "Gridap" => "https://github.com/gridap/Gridap.jl",
