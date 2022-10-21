@@ -43,5 +43,5 @@ There are several hundred biological models available in the the
 ## ReactionNetworkImporters.jl: BioNetGen Import
 
 [ReactionNetworkImporters.jl](https://github.com/SciML/ReactionNetworkImporters.jl) is a library
-for reading [BioNetGen files](https://bionetgen.org/) into the standard formats for Catalyst.jl
-and ModelingToolkit.jl.
+for reading [BioNetGen .net files](https://bionetgen.org/) and various stoichiometry matrix representations 
+into the standard formats for Catalyst.jl and ModelingToolkit.jl.
