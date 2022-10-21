@@ -51,7 +51,7 @@ docsmodules = [
     # LowRankIntegrators.jl
 
     "Analysis" => [
-    "Plots and Visualization" => ["PlotDocs", "Makie"],
+    "Plots and Visualization" => [#="PlotDocs",=# "Makie"],
     "Parameter Analysis" => ["GlobalSensitivity", "StructuralIdentifiability"],
     "Uncertainty Quantification" => ["PolyChaos", "SciMLExpectations"],
     "Third-Party Uncertainty Quantification" => ["Measurements", "MonteCarloMeasurements",
