@@ -16,7 +16,11 @@ Surrogates
 LoopVectorization
 SciMLTutorials
 SciMLBenchmarks
+
+No space:
+Agents
 =#
+
 
 # Ordering Matters!
 docsmodules = [
@@ -90,6 +94,7 @@ hasnojl = ["SciMLBenchmarksOutput", "SciMLTutorialsOutput", "COLPRAC", "SciMLSty
 usemain = ["SciMLBenchmarksOutput", "SciMLTutorialsOutput"]
 
 external_urls = Dict(
+    "Agents" => "https://github.com/JuliaDynamics/Agents.jl",
     "LowRankIntegrators" => "https://github.com/FHoltorf/LowRankIntegrators.jl",
     "MomentClosure" => "https://github.com/augustinas1/MomentClosure.jl",
     "Trixi" => "https://github.com/trixi-framework/Trixi.jl",
