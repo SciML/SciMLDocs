@@ -79,7 +79,7 @@ docsmodules = [
     "High-Level Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],
     "Third-Party Interfaces" => ["ArrayInterface", #= "Adapt", =# "AbstractFFTs", "GPUArrays",
                                  #= "RecipesBase", =# "Tables", ],
-    "Developer Documentation" => ["SciMLStyle", "COLPRAC", "DiffEqDevDocs"],
+    "Developer Documentation" => ["SciMLStyle", "ColPrac", "DiffEqDevDocs"],
     "Extra Resources" => ["SciMLTutorialsOutput", "SciMLBenchmarksOutput"],
     ],
 ]
@@ -90,7 +90,7 @@ fixnames = Dict("SciMLDocs" => "The SciML Open Souce Software Ecosystem",
                 "PlotDocs" => "Plots",
                 "SciMLBenchmarksOutput" => "The SciML Benchmarks",
                 "SciMLTutorialsOutput" => "Extended SciML Tutorials")
-hasnojl = ["SciMLBenchmarksOutput", "SciMLTutorialsOutput", "COLPRAC", "SciMLStyle"]
+hasnojl = ["SciMLBenchmarksOutput", "SciMLTutorialsOutput", "ColPrac", "SciMLStyle"]
 usemain = ["SciMLBenchmarksOutput", "SciMLTutorialsOutput"]
 
 external_urls = Dict(
