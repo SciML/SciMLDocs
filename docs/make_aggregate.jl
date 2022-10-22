@@ -53,20 +53,20 @@ docsmodules = [
     "Analysis" => [
     "Plots and Visualization" => [#="PlotDocs",=# "Makie"],
     "Parameter Analysis" => ["GlobalSensitivity", "StructuralIdentifiability"],
+    "Third-Party Parameter Analysis" => ["DynamicalSystems", "BifurcationKit",
+                                         "ControlSystems", "ReachabilityAnalysis"],
     "Uncertainty Quantification" => ["PolyChaos", "SciMLExpectations"],
     "Third-Party Uncertainty Quantification" => ["Measurements", "MonteCarloMeasurements",
                                                  "ProbNumDiffEq", "TaylorIntegration",
                                                  "IntervalArithmetic"],
-    "Third-Party Parameter Analysis" => ["DynamicalSystems", "BifurcationKit",
-                                       "ControlSystems", "ReachabilityAnalysis"],
     ],
 
     "Machine Learning" => [
          "Function Approximation" => ["Surrogates", "ReservoirComputing"],
          "Implicit Layer Deep Learning" => ["DiffEqFlux","DeepEquilibriumNetworks"],
+         "Third-Party Implicit Layer Deep Learning" => ["Flux", "Lux", "SimpleChains"],
          "Symbolic Learning" => ["DataDrivenDiffEq", "SymbolicNumericIntegration"],
-      "Third-Party Deep Learning" => ["Flux", "Lux", "SimpleChains"],
-      "Third-Party Symbolic Learning" => ["SymbolicRegression"]
+         "Third-Party Symbolic Learning" => ["SymbolicRegression"]
     ],
 
     "Developer Tools" => [
