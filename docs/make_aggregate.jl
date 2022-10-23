@@ -41,7 +41,7 @@ docsmodules = [
     "Solvers" => [
     "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals",
                            "Optimization", "JumpProcesses"],
-    "Third-Party Equation Solvers" => ["LowRankIntegrators", "FractionalDiffEq", "ManifoldDiffEq"]
+    "Third-Party Equation Solvers" => ["LowRankIntegrators", "FractionalDiffEq", "ManifoldDiffEq"],
     "Inverse Problems / Estimation" => [
                                     "SciMLSensitivity", "DiffEqParamEstim", "DiffEqBayes"],
     "PDE Solvers" => ["MethodOfLines", "NeuralPDE",
