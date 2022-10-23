@@ -41,14 +41,14 @@ docsmodules = [
     "Solvers" => [
     "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals",
                            "Optimization", "JumpProcesses"],
+    "Third-Party Equation Solvers" => ["LowRankIntegrators", "FractionalDiffEq", "ManifoldDiffEq"]
     "Inverse Problems / Estimation" => [
                                     "SciMLSensitivity", "DiffEqParamEstim", "DiffEqBayes"],
     "PDE Solvers" => ["MethodOfLines", "NeuralPDE",
                       "NeuralOperators", "FEniCS",
                       "HighDimPDE", "DiffEqOperators"],
-    "Third-Party PDE Solvers" => ["LowRankIntegrators", "Trixi", "Gridap", "ApproxFun", "VoronoiFVM"]
+    "Third-Party PDE Solvers" => ["Trixi", "Gridap", "ApproxFun", "VoronoiFVM"]
     ],
-    # LowRankIntegrators.jl
 
     "Analysis" => [
     "Plots and Visualization" => [#="PlotDocs",=# "Makie"],
@@ -94,6 +94,8 @@ hasnojl = ["SciMLBenchmarksOutput", "SciMLTutorialsOutput", "ColPrac", "SciMLSty
 usemain = ["SciMLBenchmarksOutput", "SciMLTutorialsOutput"]
 
 external_urls = Dict(
+    "ManifoldDiffEq" => "https://github.com/JuliaManifolds/ManifoldDiffEq.jl",
+    "FractionalDiffEq" => "https://github.com/SciFracX/FractionalDiffEq.jl",
     "Agents" => "https://github.com/JuliaDynamics/Agents.jl",
     "LowRankIntegrators" => "https://github.com/FHoltorf/LowRankIntegrators.jl",
     "MomentClosure" => "https://github.com/augustinas1/MomentClosure.jl",
