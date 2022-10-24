@@ -48,7 +48,7 @@ such as ModelingToolkit.jl to allow for runtime code generation for improved per
 
 ## EllipsisNotation.jl: Implementation of Ellipsis Array Slicing
 
-[EllipsisNotation.jl](https://github.com/ChrisRackauckas/EllipsisNotation.jl) defines the ellipsis
+[EllipsisNotation.jl](https://github.com/SciML/EllipsisNotation.jl) defines the ellipsis
 array slicing notation for Julia. It uses `..` as a catch all for "all dimensions", allow for indexing
 like `[..,1]` to mean "[:,:,:,1]` on four dimensional arrays, in a way that is generic to the number
 of dimensions in the underlying array.
