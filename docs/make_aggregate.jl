@@ -66,16 +66,18 @@ docsmodules = [
          "Implicit Layer Deep Learning" => ["DiffEqFlux","DeepEquilibriumNetworks"],
          "Third-Party Implicit Layer Deep Learning" => ["Flux", "Lux", "SimpleChains"],
          "Symbolic Learning" => ["DataDrivenDiffEq", "SymbolicNumericIntegration"],
-         "Third-Party Symbolic Learning" => ["SymbolicRegression"]
+         "Third-Party Symbolic Learning" => ["SymbolicRegression"],
+         "Third-Party Differentiation Tooling" => ["SparseDiffTools", "FiniteDiff", "ForwardDiff",
+                                                   "Zygote", "Enzyme"]
     ],
 
     "Developer Tools" => [
     "Numerical Utilities" => ["ExponentialUtilities", "DiffEqNoiseProcess",
-        #="PreallocationTools", "EllipsisNotation",=#
+        #="PreallocationTools",=# "EllipsisNotation",
         "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro"],
     "Third-Party Numerical Utilities" => ["FFTW", #= "DataInterpolations",=# "Distributions",
                                           "SpecialFunctions", "LoopVectorization",
-                                          "Polyester", #="Tullio"=#],
+                                          "Polyester", "SparseDiffTools", #="Tullio"=#],
     "High-Level Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],
     "Third-Party Interfaces" => ["ArrayInterface", #= "Adapt", =# "AbstractFFTs", "GPUArrays",
                                  #= "RecipesBase", =# "Tables", ],
@@ -94,6 +96,11 @@ hasnojl = ["SciMLBenchmarksOutput", "SciMLTutorialsOutput", "ColPrac", "SciMLSty
 usemain = ["SciMLBenchmarksOutput", "SciMLTutorialsOutput"]
 
 external_urls = Dict(
+    "Enzyme" => "https://github.com/EnzymeAD/Enzyme.jl",
+    "Zygote" => "https://github.com/FluxML/Zygote.jl",
+    "FiniteDiff" => "https://github.com/JuliaDiff/FiniteDiff.jl",
+    "ForwardDiff" => "https://github.com/JuliaDiff/ForwardDiff.jl",
+    "SparseDiffTools" => "https://github.com/JuliaDiff/SparseDiffTools.jl",
     "ManifoldDiffEq" => "https://github.com/JuliaManifolds/ManifoldDiffEq.jl",
     "FractionalDiffEq" => "https://github.com/SciFracX/FractionalDiffEq.jl",
     "Agents" => "https://github.com/JuliaDynamics/Agents.jl",
