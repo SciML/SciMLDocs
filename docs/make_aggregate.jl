@@ -3,25 +3,6 @@ using MultiDocumenter
 
 clonedir = mktempdir()
 
-#=
-Big ones:
-DiffEqCallbacks
-DiffEqDocs
-JumpProcesses
-NeuralPDE
-Trixi
-Makie
-DynamicalSystems
-Surrogates
-LoopVectorization
-SciMLTutorials
-SciMLBenchmarks
-
-No space:
-Agents
-=#
-
-
 # Ordering Matters!
 docsmodules = [
 
@@ -32,7 +13,7 @@ docsmodules = [
                                         "CellMLToolkit", "SBMLToolkit",
                                         "ReactionNetworkImporters"],
     "Symbolic Tools" => ["ModelOrderReduction", "Symbolics", #="SymbolicUtils", "MetaTheory"=#],
-    "Third-Party Symbolic Tools" => ["MomentClosure"],
+    "Third-Party Modeling Tools" => ["MomentClosure", "Agents"],
     "Array Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
     "Third-Party Array Libraries" => ["ComponentArrays", "StaticArrays", #="FillArrays",=#
                                       "BandedMatrices", "BlockBandedMatrices"]
