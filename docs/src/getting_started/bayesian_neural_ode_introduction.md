@@ -51,7 +51,7 @@ end
 
 ```
 
-## Step 4: Step 4: Now we start integrating the Bayesian estimation workflow as prescribed by the AdvancedHMC interface with the NeuralODE defined above
+## Step 4: Now we start integrating the Bayesian estimation workflow as prescribed by the AdvancedHMC interface with the NeuralODE defined above
 
 The Advanced HMC interface requires us to specify: (a) the hamiltonian log density and its gradient , (b) the sampler and (c) the step size adaptor function.
 
