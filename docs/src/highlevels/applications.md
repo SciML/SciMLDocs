@@ -34,7 +34,7 @@ The link to the above studies can be found in this blog post: https://medium.com
 
 - Autonomous discovery of unknown reaction pathways from data by chemical reaction neural network (https://arxiv.org/pdf/2002.09062.pdf)
 
-## Pharmocometrics
+## Pharmacometrics
 
 - Accelerated predictive healthcare analytics with Pumas, a high performance pharmaceutical modeling and simulation platform
 
