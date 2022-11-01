@@ -55,7 +55,7 @@ docsmodules = [
 
     "Developer Tools" => [
     "Numerical Utilities" => ["ExponentialUtilities", "DiffEqNoiseProcess",
-        #="PreallocationTools",=# "EllipsisNotation",
+        "PreallocationTools", "EllipsisNotation",
         "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro"],
     "Third-Party Numerical Utilities" => ["FFTW", #= "DataInterpolations",=# "Distributions",
                                           "SpecialFunctions", "LoopVectorization",
