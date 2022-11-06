@@ -13,7 +13,8 @@ docsmodules = [
                                         "CellMLToolkit", "SBMLToolkit",
                                         "ReactionNetworkImporters"],
     "Symbolic Tools" => ["ModelOrderReduction", "Symbolics", #="SymbolicUtils", "MetaTheory"=#],
-    "Third-Party Modeling Tools" => ["MomentClosure", "Agents"],
+    "Third-Party Modeling Tools" => ["MomentClosure", "Agents", "Unitful", "ReactionMechanismSimulator",
+                                     "FiniteStateProjection", "AlgebraicPetri", "QuantumOptics"],
     "Array Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
     "Third-Party Array Libraries" => ["ComponentArrays", "StaticArrays", #="FillArrays",=#
                                       "BandedMatrices", "BlockBandedMatrices"]
@@ -125,6 +126,11 @@ external_urls = Dict(
     "AbstractFFTs" => "https://github.com/JuliaMath/AbstractFFTs.jl",
     "GPUArrays" => "https://github.com/JuliaGPU/GPUArrays.jl",
     "Tables" => "https://github.com/JuliaData/Tables.jl",
+    "Unitful" => "https://github.com/PainterQubits/Unitful.jl",
+    "ReactionMechanismSimulator" => "https://github.com/ReactionMechanismGenerator/ReactionMechanismSimulator.jl",
+    "FiniteStateProjection" => "https://github.com/kaandocal/FiniteStateProjection.jl",
+    "AlgebraicPetri" => "https://github.com/AlgebraicJulia/AlgebraicPetri.jl",
+    "QuantumOptics" => "https://github.com/qojulia/QuantumOptics.jl",
 )
 
 docs = Any[
