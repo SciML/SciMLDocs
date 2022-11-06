@@ -127,7 +127,7 @@ external_urls = Dict(
     "GPUArrays" => "https://github.com/JuliaGPU/GPUArrays.jl",
     "Tables" => "https://github.com/JuliaData/Tables.jl",
     "Unitful" => "https://github.com/PainterQubits/Unitful.jl",
-    "ReactionMechanismSimulator" => "https://github.com/ReactionMechanismGenerator/",
+    "ReactionMechanismSimulator" => "https://github.com/ReactionMechanismGenerator/ReactionMechanismSimulator.jl",
     "FiniteStateProjection" => "https://github.com/kaandocal/FiniteStateProjection.jl",
     "AlgebraicPetri" => "https://github.com/AlgebraicJulia/AlgebraicPetri.jl",
 )
