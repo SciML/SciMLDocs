@@ -126,10 +126,10 @@ external_urls = Dict(
     "AbstractFFTs" => "https://github.com/JuliaMath/AbstractFFTs.jl",
     "GPUArrays" => "https://github.com/JuliaGPU/GPUArrays.jl",
     "Tables" => "https://github.com/JuliaData/Tables.jl",
-    "Unitful" => "https://github.com/PainterQubits/Unitful.jl"
-    "ReactionMechanismSimulator" => "https://github.com/ReactionMechanismGenerator/"
-    "FiniteStateProjection" => "https://github.com/kaandocal/FiniteStateProjection.jl"
-    "AlgebraicPetri" => "https://github.com/AlgebraicJulia/AlgebraicPetri.jl"
+    "Unitful" => "https://github.com/PainterQubits/Unitful.jl",
+    "ReactionMechanismSimulator" => "https://github.com/ReactionMechanismGenerator/",
+    "FiniteStateProjection" => "https://github.com/kaandocal/FiniteStateProjection.jl",
+    "AlgebraicPetri" => "https://github.com/AlgebraicJulia/AlgebraicPetri.jl",
 )
 
 docs = Any[
