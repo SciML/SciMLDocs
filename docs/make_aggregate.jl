@@ -13,7 +13,7 @@ docsmodules = [
                                         "CellMLToolkit", "SBMLToolkit",
                                         "ReactionNetworkImporters"],
     "Symbolic Tools" => ["ModelOrderReduction", "Symbolics", #="SymbolicUtils", "MetaTheory"=#],
-    "Third-Party Modeling Tools" => ["MomentClosure", "Agents", "Unitful"],
+    "Third-Party Modeling Tools" => ["MomentClosure", "Agents", "Unitful", "ReactionMechanismSimulator"],
     "Array Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
     "Third-Party Array Libraries" => ["ComponentArrays", "StaticArrays", #="FillArrays",=#
                                       "BandedMatrices", "BlockBandedMatrices"]
@@ -126,6 +126,7 @@ external_urls = Dict(
     "GPUArrays" => "https://github.com/JuliaGPU/GPUArrays.jl",
     "Tables" => "https://github.com/JuliaData/Tables.jl",
     "Unitful" => "https://github.com/PainterQubits/Unitful.jl"
+    "ReactionMechanismSimulator" => "https://github.com/ReactionMechanismGenerator/"
 )
 
 docs = Any[
