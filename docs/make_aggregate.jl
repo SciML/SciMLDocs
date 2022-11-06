@@ -13,7 +13,8 @@ docsmodules = [
                                         "CellMLToolkit", "SBMLToolkit",
                                         "ReactionNetworkImporters"],
     "Symbolic Tools" => ["ModelOrderReduction", "Symbolics", #="SymbolicUtils", "MetaTheory"=#],
-    "Third-Party Modeling Tools" => ["MomentClosure", "Agents", "Unitful", "ReactionMechanismSimulator"],
+    "Third-Party Modeling Tools" => ["MomentClosure", "Agents", "Unitful", "ReactionMechanismSimulator",
+                                     "FiniteStateProjection"],
     "Array Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
     "Third-Party Array Libraries" => ["ComponentArrays", "StaticArrays", #="FillArrays",=#
                                       "BandedMatrices", "BlockBandedMatrices"]
@@ -127,6 +128,7 @@ external_urls = Dict(
     "Tables" => "https://github.com/JuliaData/Tables.jl",
     "Unitful" => "https://github.com/PainterQubits/Unitful.jl"
     "ReactionMechanismSimulator" => "https://github.com/ReactionMechanismGenerator/"
+    "FiniteStateProjection" => "https://github.com/kaandocal/FiniteStateProjection.jl"
 )
 
 docs = Any[
