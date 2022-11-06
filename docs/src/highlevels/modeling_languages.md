@@ -99,13 +99,6 @@ allow for directly solving the weak form of the stochastic model.
 [AlgebraicPetri.jl](https://docs.sciml.ai/AlgebraicPetri/stable/) is a library for automating the intuitive
 generation of dynamical models using a Category theory based approach.
 
-## BioEnergeticFoodWebs.jl: Bioenergetic model of food webs
-
-Simulations of biomass flows in food webs is required to understand the ties betweeen
-the structure and function of ecological communities.
-[BioEnergeticFoodWebs.jl](https://docs.sciml.ai/BioEnergeticFoodWebs/stable/) provides a robustly tested,
-well-documented, computationally efficient common interface for the simulation of bio-energetic systems in food webs.
-
 ## QuantumOptics.jl: Simulating quantum systems.
 
 [QuantumOptics.jl](https://docs.sciml.ai/QuantumOptics/stable/) makes it easy to simulate various kinds of quantum systems.
