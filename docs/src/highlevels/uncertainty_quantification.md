@@ -5,7 +5,7 @@ or in the model's parameters, the uncertainty in our simulation's output often n
 quantified. The following tools automate this process.
 
 For Measurements.jl vs MonteCarloMeasurements.jl vs Intervals.jl, and the relation to other
-methods, see [the Uncertainty Programming chapter of the SciML Book](https://book.sciml.ai/notes/19/).
+methods, see [the Uncertainty Programming chapter of the SciML Book](https://book.sciml.ai/notes/19-Uncertainty_Programming-Generalized_Uncertainty_Quantification/).
 
 ## PolyChaos.jl: Intrusive Polynomial Chaos Expansions Made Unintrusive
 
