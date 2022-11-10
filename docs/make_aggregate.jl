@@ -50,7 +50,7 @@ docsmodules = [
          "Third-Party Implicit Layer Deep Learning" => ["Flux", "Lux", "SimpleChains"],
          "Symbolic Learning" => ["DataDrivenDiffEq", "SymbolicNumericIntegration"],
          "Third-Party Symbolic Learning" => ["SymbolicRegression"],
-         "Third-Party Differentiation Tooling" => ["SparseDiffTools", #="FiniteDiff",=# "ForwardDiff",
+         "Third-Party Differentiation Tooling" => ["SparseDiffTools", "FiniteDiff", "ForwardDiff",
                                                    "Zygote", "Enzyme"]
     ],
 
