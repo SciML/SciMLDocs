@@ -47,7 +47,7 @@ compatibility.
 
 [Lux.jl](https://github.com/avik-pal/Lux.jl) is a library for fully explicitly parameterized
 neural networks. Thus while alternative interfaces are required to use Flux with many equation
-solvers (i.e. `Flux.destructure`), Lux.jl's explicit design merries very easily with the
+solvers (i.e. `Flux.destructure`), Lux.jl's explicit design marries very easily with the
 SciML equation solver libraries. For this reason, SciML's library are also heavily tested with
 Lux to ensure compatibility with neural network definitions from here.
 
@@ -63,7 +63,7 @@ neural network definitions.
 ## NNLib.jl: Neural Network Primitives with Multiple Backends
 
 [NNLib.jl](https://github.com/FluxML/NNlib.jl) is the core library which defines the handling
-of common functions, like `conv` and how they map to device accelerators such as the NVIDA
+of common functions, like `conv` and how they map to device accelerators such as the NVIDIA
 cudnn. This library can thus be used to directly grab many of the core functions used in
 machine learning, such as common activation functions and gather/scatter operations, without
 depending on the given style of any machine learning library.
@@ -84,7 +84,7 @@ for downstream usage.
 
 [MLDatasets.jl](https://github.com/JuliaML/MLDatasets.jl)  is a common interface for
 accessing common machine learning datasets. For example, if you want to run a test on
-MNIST data, MLDatasets is the quicket way to obtain it.
+MNIST data, MLDatasets is the quickest way to obtain it.
 
 ## MLUtils.jl: Utility Functions for Machine Learning Pipelines
 

@@ -18,7 +18,7 @@ calculations in a fast and numerically-stable way.
 ## QuasiMonteCarlo.jl: Fast Quasi-Random Number Generation
 
 [QuasiMonteCarlo.jl](https://github.com/SciML/QuasiMonteCarlo.jl) is a library for fast generation of
-ow discrepency Quasi-Monte Carlo samples, using methods like:
+ow discrepancy Quasi-Monte Carlo samples, using methods like:
 
 * `GridSample(dx)` where the grid is given by `lb:dx[i]:ub` in the ith direction.
 * `UniformSample` for uniformly distributed random numbers.
@@ -76,7 +76,7 @@ Transformations on the CPU.
 implementations of special functions, like Bessel functions and error functions (`erf`).
 This library is compatible with automatic differentiation.
 
-## LoopVectorization.jl: Automated Loop Acceleator
+## LoopVectorization.jl: Automated Loop Accelerator
 
 [LoopVectorization.jl](https://github.com/JuliaSIMD/LoopVectorization.jl) is a library which
 provides the `@turbo` and `@tturbo` macros for accelerating the computation of loops. This
@@ -87,9 +87,9 @@ accelerating handwritten PDE discretizations.
 
 [Polyester.jl](https://github.com/JuliaSIMD/Polyester.jl) is a cheaper version of threads for
 Julia which use a set pool of threads for lower overhead. Note that Polyester does not
-compose with the standard Julia composable theading infrastructure, and thus one must take
+compose with the standard Julia composable threading infrastructure, and thus one must take
 care to not compose two levels of Polyester as this will oversubscribe the computation and
-lead to performance degredation. Many SciML solvers have options to use Polyseter for
+lead to performance degradation. Many SciML solvers have options to use Polyseter for
 threading to achieve the top performance.
 
 ## Tullio.jl: Fast Tensor Calculations and Einstein Notation

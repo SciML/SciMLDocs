@@ -23,7 +23,7 @@ out with Julia's SciML are:
   [ModelingToolkit](https://github.com/SciML/ModelingToolkit.jl) can automate symbolic
   simplifications which
   [improve the stability and performance of numerical solvers](https://www.youtube.com/watch?v=ZFoQihr3xLs).
-  On complex models, even the best handwritten C++/Fortran code is orders of mangitude behind
+  On complex models, even the best handwritten C++/Fortran code is orders of magnitude behind
   the code that symbolic tearing algorithms can achieve!
 * **Composable Library Components** - In C++/Fortran environments, every package feels like
   a silo. Arrays made for PETSc cannot easily be used in Trilinos, and converting Sundials
@@ -138,7 +138,7 @@ highlight include:
 
 To really highlight how JIT compilation and automatic differentiation integration can
 change algorithms, let's look at the problem of differentiating an ODE solver. As is
-[derived an discusssed in detail at a seminar with the American Statistical Association](https://www.youtube.com/watch?v=Xwh42RhB7O4),
+[derived an discussed in detail at a seminar with the American Statistical Association](https://www.youtube.com/watch?v=Xwh42RhB7O4),
 there are many ways to implement well-known "adjoint" methods which are required for
 performance. Each has different stability and performance trade-offs, and
 [Julia's SciML is the only system to systemically offer all of the trade-off options](https://sensitivity.sciml.ai/stable/manual/differential_equation_sensitivities/). In many cases,

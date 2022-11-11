@@ -23,7 +23,7 @@ quickly building up complex differential equation models. It includes:
 * Callbacks for enforcing domain constraints, positivity, and manifolds
 * Timed callbacks for periodic dosing, preseting of tstops, and more
 * Callbacks for determining and terminating at steady state
-* Callbacks for controling stepsizes and enforcing CFL conditions
+* Callbacks for controlling stepsizes and enforcing CFL conditions
 * Callbacks for quantifying uncertainty with respect to numerical errors
 
 ## SBMLToolkit.jl: SBML Import

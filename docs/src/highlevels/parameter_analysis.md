@@ -46,7 +46,7 @@ finding relationships between parameters of models, finding the curves on which 
 
 [SIAN.jl](https://github.com/alexeyovchinnikov/SIAN-Julia) is a structural identifiability analysis
 package which uses an entirely different algorithm from StructuralIdentifiability.jl. For information
-on the differences bewteen the two approaches, see
+on the differences between the two approaches, see
 [the Structural Identifiability Tools in Julia tutoral](https://www.youtube.com/watch?v=jg1DME3cwjg).
 
 ## DynamicalSystems.jl: A Suite of Dynamical Systems Analysis
@@ -60,7 +60,7 @@ For more information, watch the [tutorial Introduction to DynamicalSystems.jl](h
 
 ## BifurcationKit.jl
 
-[BifucationKit.jl](https://github.com/rveltz/BifurcationKit.jl) is a tool for performing bifurcation analysis.
+[BifurcationKit.jl](https://github.com/rveltz/BifurcationKit.jl) is a tool for performing bifurcation analysis.
 It uses and composes with many SciML equation solvers.
 
 ## ReachabilityAnalysis.jl

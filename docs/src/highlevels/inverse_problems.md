@@ -22,8 +22,8 @@ methods rely on. This package defines the interactions between the equation solv
 differentiation, defining fast overloads for forward and adjoint (reverse) sensitivity analysis
 for fast gradient and Jacobian calculations with respect to model inputs. Its documentation covers
 how to use direct differentiation of equation solvers in conjunction with tools like Optimization.jl
-to perform model callibration of ODEs against data, PDE-constrained optimization, nonlinear optimal
-controls analysis, and much more. As a lower level tool, this library is very versitile, feature-rich,
+to perform model calibration of ODEs against data, PDE-constrained optimization, nonlinear optimal
+controls analysis, and much more. As a lower level tool, this library is very versatile, feature-rich,
 and high-performance, giving all of the tools required but not directly providing a higher level
 interface.
 
@@ -47,7 +47,7 @@ estimation (output as a function for prediction purposes).
 
 This package is for simplified parameter estimation. While not as flexible of a
 system like DiffEqFlux.jl, it provides ready-made functions for doing standard
-optmization procedures like L2 fitting and MAP estimates. Among other features,
+optimization procedures like L2 fitting and MAP estimates. Among other features,
 it allows for the optimization of parameters in ODEs, stochastic problems, and
 delay differential equations.
 

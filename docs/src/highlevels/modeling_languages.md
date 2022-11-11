@@ -26,7 +26,7 @@ then used by all of the other modeling tools. As such, when using other modeling
 the reference for all of the things that can be done with the symbolic representation is simply
 ModelingToolkit.jl.
 
-## Catalyst.jl: Chemical Reaction Networks (CRN), Systems Biology, and Quantiative Systems Pharmacology (QSP) Modeling
+## Catalyst.jl: Chemical Reaction Networks (CRN), Systems Biology, and Quantitative Systems Pharmacology (QSP) Modeling
 
 [Catalyst.jl](https://docs.sciml.ai/Catalyst/stable/) is a modeling interface for efficient simulation
 of chemical master equation representations chemical reaction networks and other systems models.
@@ -90,7 +90,7 @@ from chemical components to quickly build realistic models of chemical systems.
 ## FiniteStateProjection.jl: Direct Solution of Chemical Master Equations
 
 [FiniteStateProjection.jl](https://docs.sciml.ai/FiniteStateProjection/dev/) is a library for finite state
-projection direct solving of the chemical master equation. It automatically converts the Catayst `ReactionSystem`
+projection direct solving of the chemical master equation. It automatically converts the Catalyst `ReactionSystem`
 definitions into ModelingToolkit `ODESystem` representations for the evolution of probability distributions to
 allow for directly solving the weak form of the stochastic model.
 

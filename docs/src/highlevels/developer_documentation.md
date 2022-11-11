@@ -4,7 +4,7 @@ For uniformity and clarity, the SciML Open Source Software Organization has many
 well-defined rules and practices for its development. However, we stress one
 important principle:
 
-**Do not be detered from contributing if you think you do not know everything. No
+**Do not be deterred from contributing if you think you do not know everything. No
 one knows everything. These rules and styles are designed for iterative contributions.
 Open pull requests and contribute what you can with what you know, and the maintainers
 will help you learn and do the rest!**
@@ -33,7 +33,7 @@ This is a style guide for how to program in Julia for SciML contributions. It de
 everything one needs to know, from preferred naming schemes of functions to fundamental
 dogmas for designing traits. We stress that this style guide is meant to be comprehensive
 for the sake of designing automatic formatters and teaching desired rules, but complete
-knoweldge and adherance to the style guide is not required for contributions!
+knowledge and adherence to the style guide is not required for contributions!
 
 ## COLPRAC: Contributor's Guide on Collaborative Practices for Community Packages
 
