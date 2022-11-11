@@ -40,7 +40,7 @@ though note that linear error propagation theory still has some major issues han
 some types of equations
 [as described in detail in the MonteCarloMeasurements.jl documentation](https://baggepinnen.github.io/MonteCarloMeasurements.jl/v1.0/comparison/).
 
-## MonteCarloMeasurements.jl: Automated Monte Carlo Error Propogation
+## MonteCarloMeasurements.jl: Automated Monte Carlo Error Propagation
 
 [MonteCarloMeasurements.jl](https://github.com/baggepinnen/MonteCarloMeasurements.jl)
 is a library for automating the uncertainty quantification of equation solution using
@@ -50,7 +50,7 @@ calculate a representative set of possible solutions. Note that Monte Carlo tech
 can be expensive but are exact, in the sense that as the number of sample points increases
 to infinity it will compute a correct approximation of the output uncertainty.
 
-## ProbNumDiffEq.jl: Probabilstic Numerics Based Differential Equation Solvers
+## ProbNumDiffEq.jl: Probabilistic Numerics Based Differential Equation Solvers
 
 [ProbNumDiffEq.jl](https://github.com/nathanaelbosch/ProbNumDiffEq.jl) is a a set of
 probabilistic numerical ODE solvers which compute the solution of a differential
@@ -70,6 +70,6 @@ interval bound of possible solutions with respect to numerical approximation err
 [IntervalArithmetic.jl](https://github.com/JuliaIntervals/IntervalArithmetic.jl) is a
 library for performing interval arithmetic calculations on arbitrary Julia code. Interval
 arithmetic computes rigorous computations with respect to finite-precision floating point
-arithmetic, i.e. its intervals are guarenteed to include the true solution. However,
+arithmetic, i.e. its intervals are guaranteed to include the true solution. However,
 interval arithmetic intervals can grow at exponential rates in many problems, thus being
 unsuitable for analyses in many equation solver contexts.

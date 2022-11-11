@@ -3,7 +3,7 @@
 Implicit layer deep learning is a field which uses implicit rules, such as differential
 equations and nonlinear solvers, to define the layers of neural networks. This field has
 brought the potential to automatically optimize network depth and improve training
-performance. SciML's differentiable solver ecosystem is specifically designed to accomodate
+performance. SciML's differentiable solver ecosystem is specifically designed to accommodate
 implicit layer methodologies, and provides libraries with pre-built layers for common
 methods.
 
@@ -16,7 +16,7 @@ for implicit deep learning, including layer definitions for methods like:
 - [Collocation-Based Neural ODEs (Neural ODEs without a solver, by far the fastest way!)](https://www.degruyter.com/document/doi/10.1515/sagmb-2020-0025/html)
 - [Multiple Shooting Neural Ordinary Differential Equations](https://arxiv.org/abs/2109.06786)
 - [Neural Stochastic Differential Equations (Neural SDEs)](https://arxiv.org/abs/1907.07587)
-- [Neural Differential-Algebriac Equations (Neural DAEs)](https://arxiv.org/abs/2001.04385)
+- [Neural Differential-Algebraic Equations (Neural DAEs)](https://arxiv.org/abs/2001.04385)
 - [Neural Delay Differential Equations (Neural DDEs)](https://arxiv.org/abs/2001.04385)
 - [Augmented Neural ODEs](https://arxiv.org/abs/1904.01681)
 - [Hamiltonian Neural Networks (with specialized second order and symplectic integrators)](https://arxiv.org/abs/1906.01563)

@@ -130,7 +130,7 @@ and memory performance.
 
 Banded matrices show up in many equation solver contexts, such as the Jacobians of many
 partial differential equations. While the base `SparseMatrixCSC` sparse matrix type can
-represent such matices, [BandedMatrices.jl](https://github.com/JuliaMatrices/BandedMatrices.jl)
+represent such matrices, [BandedMatrices.jl](https://github.com/JuliaMatrices/BandedMatrices.jl)
 is a specialized format specifically for BandedMatrices which can be used to greatly
 improve performance of operations on a banded matrix.
 
@@ -138,6 +138,6 @@ improve performance of operations on a banded matrix.
 
 Block banded matrices show up in many equation solver contexts, such as the Jacobians of many
 systems of partial differential equations. While the base `SparseMatrixCSC` sparse matrix type can
-represent such matices, [BlockBandedMatrices.jl](https://github.com/JuliaMatrices/BlockBandedMatrices.jl)
+represent such matrices, [BlockBandedMatrices.jl](https://github.com/JuliaMatrices/BlockBandedMatrices.jl)
 is a specialized format specifically for BlockBandedMatrices which can be used to greatly
 improve performance of operations on a block-banded matrix.

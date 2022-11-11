@@ -62,7 +62,7 @@ basis sets, such as Chebyshev functions and Fourier decompositions, making it ea
 to represent spectral and pseudospectral discretizations of partial differential equations
 as ordinary differential equations for the SciML equation solvers.
 
-## Gridap.jl: Julia-Basd Tools for Finite Element Discretizations
+## Gridap.jl: Julia-Based Tools for Finite Element Discretizations
 
 [Gridap.jl](https://github.com/gridap/Gridap.jl) is a package for grid-based approximation
 of partial differential equations, particularly notable for its use of conforming and

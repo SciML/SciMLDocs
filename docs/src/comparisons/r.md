@@ -19,11 +19,11 @@ is the ecosystem for doing this with Julia.
   and stick them into a nonlinear solver. Take
   [a package for Intel GPU arrays](https://github.com/JuliaGPU/oneAPI.jl) and stick it into
   the differential equation solver to use specialized hardware acceleration.
-* **A Global Harmonious Documentation for Scientific Computing** - R's documenation for
+* **A Global Harmonious Documentation for Scientific Computing** - R's documentation for
   scientific computing is scattered in a bunch of individual packages where the developers
   do not talk to each other! This not only leads to documentation differences but also
   "style" differences: one package uses `tol` while the other uses `atol`. With Julia's
-  SciML, the whole ecosystem is considered together, and inconsitencies are handled at the
+  SciML, the whole ecosystem is considered together, and inconsistencies are handled at the
   global level. The goal is to be working in one environment with one language.
 * **Easier High-Performance and Parallel Computing** - With Julia's ecosystem,
   [CUDA](https://github.com/JuliaGPU/CUDA.jl) will automatically install of the required
@@ -72,5 +72,5 @@ The following chart will help you get quickly acquainted with Julia's SciML Tool
 
 Check out [this R-Bloggers blog post on diffeqr](https://www.r-bloggers.com/2020/08/gpu-accelerated-ode-solving-in-r-with-julia-the-language-of-libraries/), a package which
 uses [ModelingToolkit](https://mtk.sciml.ai/dev/) to translate R code to Julia, and achieves
-**350x acceleation over R's popular deSolve** ODE solver package. But when the solve is
+**350x acceleration over R's popular deSolve** ODE solver package. But when the solve is
 done purely in Julia, it achieves **2777x acceleration over deSolve**!

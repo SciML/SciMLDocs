@@ -51,7 +51,7 @@ which extend the Julia Base `AbstractArray` interface, giving a much larger set 
 to allow for writing high-performance generic code over all array types. For example, functions
 include `can_change_size` to know if an `AbstractArray` type is compatible with `resize!`,
 `fast_scalar_indexing` to know whether direct scalar indexing `A[i]` is optimized, and functions
-like `findstructralnz` to get the structural non-zeros of arbtirary sparse and structured matrices.
+like `findstructralnz` to get the structural non-zeros of arbitrary sparse and structured matrices.
 
 ## Adapt.jl: Conversion to Allow Chip-Generic Programs
 
@@ -89,7 +89,7 @@ plotting recipes, composable transformations of Julia data types into simpler da
 visualization with libraries such as Plots.jl and Makie.jl. SciML libraries attempt to always
 include plot recipes wherever possible for ease of visualization.
 
-## Tables.jl: Common Interface for Tablular Data Types
+## Tables.jl: Common Interface for Tabular Data Types
 
 [Tables.jl](https://github.com/JuliaData/Tables.jl) is a common interface for defining tabular data
 structures, such as [DataFrames.jl](https://github.com/JuliaData/DataFrames.jl). SciML's libraries

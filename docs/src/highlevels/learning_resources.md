@@ -1,4 +1,4 @@
-# Curated Learning, Teaching, and Training Resouces
+# Curated Learning, Teaching, and Training Resources
 
 While the SciML documentation is made to be comprehensive, there will always be
 good alternative resources. The purpose of this section of the documentation
@@ -10,7 +10,7 @@ to use the SciML Open Source Software libraries.
 [SciMLTutorials.jl](https://github.com/SciML/SciMLTutorials.jl) is an extended set
 of tutorials for the SciML open source software organization. It contains many complete
 workflow examples on large-scale problems that may be too large or complex for normal
-documenation, but good materials for users to learn from.
+documentation, but good materials for users to learn from.
 
 ## JuliaCon and SciMLCon Videos
 

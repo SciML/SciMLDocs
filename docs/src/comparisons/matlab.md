@@ -18,7 +18,7 @@ ecosystem!
   [QuantEcon MATLAB-Python-Julia Cheatsheet](https://cheatsheets.quantecon.org/)
 * **Package Management and Versioning** - [Julia's package manager](https://github.com/JuliaLang/Pkg.jl)
   takes care of dependency management, testing, and continuous delivery in order to make
-  the installation and maintanance process smoother. For package users, this means it's
+  the installation and maintenance process smoother. For package users, this means it's
   easier to get packages with complex functionality in your hands.
 * **Free and Open Source** - If you want to know how things are being computed, just look
   [at our Github organization](https://github.com/SciML). Lots of individuals use Julia's

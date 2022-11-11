@@ -15,7 +15,7 @@ of machine learning sublanguages: there is just one cohesive package ecosystem.
   grow as more complex algorithms are required.
 * **Package Management and Versioning** - [Julia's package manager](https://github.com/JuliaLang/Pkg.jl)
   takes care of dependency management, testing, and continuous delivery in order to make
-  the installation and maintanance process smoother. For package users, this means it's
+  the installation and maintenance process smoother. For package users, this means it's
   easier to get packages with complex functionality in your hands.
 * **Composable Library Components** - In R environments, every package feels like
   a silo. Functions made for one file exchange library cannot easily compose with another.
