@@ -95,10 +95,10 @@ We use the NUTS sampler with a acceptance ratio of δ= 0.45 in this example. In 
 We sample using 500 warmup samples and 500 posterior samples.
 
 ```@example bnode
-integrator = Leapfrog(find_good_stepsize(h, Float64.(prob_neuralode.p)))
+integrator = Leapfrog(find_good_stepsize(h, Float64.(p)))
 prop = AdvancedHMC.NUTS{MultinomialTS, GeneralisedNoUTurn}(integrator)
 adaptor = StanHMCAdaptor(MassMatrixAdaptor(metric), StepSizeAdaptor(0.45, integrator))
-samples, stats = sample(h, prop, Float64.(prob_neuralode.p), 500, adaptor, 500; progress=true)
+samples, stats = sample(h, prop, Float64.(p), 500, adaptor, 500; progress=true)
 ```
 
 ## Step 5: Plot diagnostics
