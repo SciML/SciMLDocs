@@ -183,7 +183,8 @@ MultiDocumenter.make(
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'G-Q3FE4BYYHQ');
-        """
+        """,
+        "(window.location.host === "docs.sciml.ai") || (window.location = `https://docs.sciml.ai/ModelingToolkit${window.location.pathname}`)"
     ],
     brand_image = MultiDocumenter.BrandImage("https://sciml.ai",
                                              joinpath("assets","logo.png"))
