@@ -1,6 +1,6 @@
 # [Auto-complete mechanistic models by embedding machine learning into differential equations](@id autocomplete)
 
-```@example ude
+```julia
 using OrdinaryDiffEq
 using ModelingToolkit
 using DataDrivenDiffEq
