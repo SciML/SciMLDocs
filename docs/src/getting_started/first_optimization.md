@@ -1,16 +1,24 @@
 # [Solve your first optimization problem](@id first_opt)
 
 **Numerical optimization** is the process of finding some numerical values that
-minimize some equation. 
+minimize some equation.
 
-* How much fuel should you put into an airplane to have the minimum weight that 
+* How much fuel should you put into an airplane to have the minimum weight that
   can go to its destination?
 * What parameters should I choose for my simulation so that it minimizes the
   distance of its predictions from my experimental data?
-* 
 
-All of these are examples of problems solved by numerical optimization. 
+All of these are examples of problems solved by numerical optimization.
 Let's solve our first optimization problem!
+
+## Required Dependencies
+
+The following parts of the SciML Ecosystem will be used in this tutorial:
+
+| Module      | Description |
+| ----------- | ----------- |
+| [Optimization.jl](https://docs.sciml.ai/Optimization/stable/) | The numerical optimization package |
+| [OptimizationNLopt.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/nlopt/) | The NLopt optimizers we will use |
 
 ## Problem Setup
 
@@ -20,10 +28,10 @@ First, what are we solving? Let's take a look at the Rosenbrock equation:
 L(u,p) = (p_1 - u_1)^2 + p_2 * (u_2 - u_1)^2
 ```
 
-What we want to do is find the  values of ``u_1`` and ``u_2`` such that ``L`` 
-achieves its minimum value possible. We will do this under a few constraints: 
-we want to find this optima within some bounded domain, i.e. ``u_i \in [-1,1]``. 
-This should be done with the parameter values ``p_1 = 1.0`` and `p_2 = 100.0``. 
+What we want to do is find the  values of ``u_1`` and ``u_2`` such that ``L``
+achieves its minimum value possible. We will do this under a few constraints:
+we want to find this optima within some bounded domain, i.e. ``u_i \in [-1,1]``.
+This should be done with the parameter values ``p_1 = 1.0`` and `p_2 = 100.0``.
 What should ``u = [u_1,u_2]`` be to achieve this goal? Let's dive in!
 
 !!! note
@@ -34,7 +42,7 @@ What should ``u = [u_1,u_2]`` be to achieve this goal? Let's dive in!
 ## Copy-Pastable Code
 
 ```@example
-# Import the package 
+# Import the package
 using Optimization, OptimizationNLopt
 
 # Define the problem to optimize
@@ -50,18 +58,55 @@ sol = solve(prob,NLopt.LD_LBFGS())
 @show sol.u, L(sol.u,p)
 ```
 
-## Step 1: Import the packages
+## Step by Step Solution
 
-```@example first_opt 
+### Step 1: Import the packages
+
+To do this tutorial we will need a few components:
+
+* [Optimization.jl](https://docs.sciml.ai/Optimization/stable/), the optimization interface.
+* [OptimizationNLopt.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/nlopt/), the optimizers we will use.
+
+Note that Optimization.jl is an interface for optimizers, and thus we always have to choose
+which optimizer we want to use. Here we choose to demonstrate `OptimizationNLopt` because
+of its efficiency and versitility. But there are many other possible choices. Check out
+the
+[solver compatability chart](https://docs.sciml.ai/Optimization/stable/#Overview-of-the-Optimizers)
+for a quick overview of what optimizer packages offer.
+
+To start, let's add these packages [as demonstrated in the installation tutorial](@ref installation):
+
+```julia
+]add Optimization OptimizationNLopt
+```
+
+Now we're ready. Let's load in these packages:
+
+```@example first_opt
 using Optimization, OptimizationNLopt
 ```
 
-## Step 2: Define the Optimization Problem
+### Step 2: Define the Optimization Problem
+
+Now let's define our problem to optimize. We start by defining our loss function. In
+Optimization.jl's `OptimizationProblem` interface, the states are given by an array
+`u`. Thus we can designate `u[1]` to be `u_1` and `u[2]` to be `u_2`, similarly with our
+parameters, and write out the loss function on a vector-defined state as follows:
 
 ```@example first_opt
 # Define the problem to optimize
 L(u,p) = (p[1] - u[1])^2 + p[2] * (u[2] - u[1]^2)^2
 ```
+
+Now we need to define our `OptimizationProblem`. If you need help remembering how to define
+the `OptimizationProblem`, you can always refer to the
+[Optimization.jl problem definition page](https://docs.sciml.ai/Optimization/stable/API/optimization_problem/)
+
+Thus what we need to define is an initial condition `u0` and our parameter vector `p`.
+We will make our initial condition have both values as zero, which is done by the Julia
+shorthand `zeros(2)` that creates a vector `[0.0,0.0]`. We manually define the parameter
+vector `p` to input our values. Then we set the lower bound and upper bound for the
+optimization as follows:
 
 ```@example first_opt
 u0 = zeros(2)
@@ -69,14 +114,45 @@ p  = [1.0,100.0]
 prob = OptimizationProblem(L, u0, p, lb = [-1.0,-1.0], ub = [1.0,1.0])
 ```
 
-## Step 3: Solve the Optimization Problem
+#### Note about defining uniform bounds
+
+Note that we can simplify the code a bit for the lower and upper bound definition by
+using the Julia Base command `ones`, which returns a vector where each value is a one.
+Thus for example, `ones(2)` is equivalent to `[1.0,1.0]`. Therefore `-1 * ones(2)` is
+equivalent to `[-1.0, 1.0]`, meaning we could have written our problem as follows:
+
+```@example first_opt
+prob = OptimizationProblem(L, u0, p, lb = -1 * ones(2), ub = ones(2))
+```
+
+### Step 3: Solve the Optimization Problem
+
+Now we solve the `OptimizationProblem` that we have defined. This is done by passing
+our `OptimizationProblem` `prob` along with a chosen solver to the `solve` command. At
+the beginning we explained that we will use the `OptimizationNLopt` set of solvers, which
+are
+[documented in the OptimizationNLopt page](https://docs.sciml.ai/Optimization/stable/optimization_packages/nlopt/).
+From here we are choosing the `NLopt.LD_LBFGS()` for its mixture of robustness and
+performance. To perform this solve, we do the following:
 
 ```@example first_opt
 # Solve the optimization problem
 sol = solve(prob,NLopt.LD_LBFGS())
 ```
 
-## Step 4: Analyze the Solution
+### Step 4: Analyze the Solution
+
+Now let's check out the solution. First of all, what kind of thing is the `sol`? We can
+see that by asking for its type:
+
+```@example first_opt
+typeof(sol)
+```
+
+From this we can see that it is an `OptimizationSolution`. We can see the documentation for
+how to use the `OptimizationSolution` by checking the
+[Optimization.jl solution type page](https://docs.sciml.ai/Optimization/dev/API/optimization_solution/). Thus the solution is stored as `.u`. What is the solution to our
+optimization and what is the final loss value? We can check it as follows:
 
 ```@example first_opt
 # Analyze the solution
