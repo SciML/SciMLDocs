@@ -127,7 +127,7 @@ define our `NonlinearSystem`:
 If you forget the how to construct a `NonlinearSystem`, you can always pull up the
 in-terminal help via the `?` operator. This looks like:
 
-```@example first_rootfind
+```@repl first_rootfind
 ?NonlinearSystem
 ```
 
