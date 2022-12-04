@@ -159,13 +159,6 @@ We will choose `NewtonRaphson` as follows:
 sol = solve(prob,NewtonRaphson())
 ```
 
-If you're interested in controlling options such as tolerances, check out the docstring
-for `solve` that describes all of the options:
-
-```@example first_rootfind
-sol = solve(prob::NonlinearProblem, ::Any)
-```
-
 ### Step 5: Analyze the Solution
 
 Now let's check out the solution. First of all, what kind of thing is the `sol`? We can
