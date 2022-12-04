@@ -18,7 +18,7 @@ For this example we will need the following libraries:
 using DiffEqFlux, Lux, DifferentialEquations
 
 # External Tools
-using Plots, AdvancedHMC, MCMCChains, StatsPlots
+using Random, Plots, AdvancedHMC, MCMCChains, StatsPlots
 ```
 
 ## Setup: Get the data from the Spiral ODE example
@@ -53,6 +53,8 @@ dudt2 = Lux.Chain(x -> x.^3,
                   Lux.Dense(2, 50, tanh),
                   Lux.Dense(50, 2))
 prob_neuralode = NeuralODE(dudt2, tspan, Tsit5(), saveat = tsteps)
+rng = Random.default_rng()
+p, st = Lux.setup(rng, dudt2)
 ```
 
 ## Step 3: Define the loss function for the Neural ODE.
@@ -83,7 +85,8 @@ function dldθ(θ)
     grad = first(lambda(1))
     return x, grad
 end
-metric  = DiagEuclideanMetric(length(prob_neuralode.p))
+
+metric  = DiagEuclideanMetric(length(p))
 h = Hamiltonian(metric, l, dldθ)
 ```
 
