@@ -3,16 +3,24 @@
 A nonlinear system $$f(u) = 0$$ is specified by defining a function `f(u,p)`,
 where `p` are the parameters of the system. Many problems can be written in
 such as way that solving a nonlinear rootfinding problem gives the solution.
-For example: 
+For example:
 
-* Do you want to know ``u`` such that ``4^u + 6^u = 7^u``? Then solve 
+* Do you want to know ``u`` such that ``4^u + 6^u = 7^u``? Then solve
   ``f(u) = 4^u + 6^u - 7^u = 0`` for `u`!
 * If you have an ODE ``u' = f(u)``, what is the point where the solution
   will be completely still, i.e. `u' = 0`?
-* 
 
-All of these problems are solved by using a numerical rootfinder. Let's solve 
+All of these problems are solved by using a numerical rootfinder. Let's solve
 our first rootfind problem!
+
+## Required Dependencies
+
+The following parts of the SciML Ecosystem will be used in this tutorial:
+
+| Module      | Description |
+| ----------- | ----------- |
+| [ModelingToolkit.jl](https://docs.sciml.ai/ModelingToolkit/stable/) | The symbolic modeling environment |
+| [NonlinearSolve.jl](https://docs.sciml.ai/NonlinearSolve/stable/) | The symbolic modeling environment |
 
 ## Problem Setup
 
@@ -51,43 +59,143 @@ sol = solve(prob,NewtonRaphson())
 @show sol.u, prob.f(sol.u,prob.p)
 ```
 
-## Step 1: Import the Packages
+## Step by Step Solution
+
+### Step 1: Import the Packages
+
+To do this tutorial we will need a few components:
+
+* [ModelingToolkit.jl, our modeling environment](https://docs.sciml.ai/ModelingToolkit/stable/)
+* [NonlinearSolve.jl, the nonlinear system solvers](https://docs.sciml.ai/NonlinearSolve/stable/)
+
+To start, let's add these packages [as demonstrated in the installation tutorial](@ref installation):
+
+```julia
+]add ModelingToolkit NonlinearSolve
+```
+
+Now we're ready. Let's load in these packages:
 
 ```@example first_rootfind
 # Import the packages
 using ModelingToolkit, NonlinearSolve
 ```
 
-## Step 2: Define the Nonlinear System
+### Step 2: Define the Nonlinear System
+
+Now let's define our nonlinear system. We use the `ModelingToolkit.@variabes` statement to
+declare our 3 state variables:
 
 ```@example first_rootfind
 # Define the nonlinear system
 @variables x=1.0 y=0.0 z=0.0
-@parameters σ=10.0 ρ=26.0 β=8/3
+```
 
+Notice that we are using the form `state = initial condition`. This is a nice shorthand
+for coupling an initial condition to our states. We now must similarly define our parameters,
+which we can associate default values via the form `parameter = default value`. This looks
+like:
+
+```@example first_rootfind
+@parameters σ=10.0 ρ=26.0 β=8/3
+```
+
+Now we create an array of equations to define our nonlinear system that must be satisfied.
+This looks as follows:
+
+!!! note
+
+    Note that in ModelingToolkit and Symbolics, `~` is used for equation equality. This is
+    separate from `=` which is the "assignment operator" in the Julia programming language.
+    For example, `x = x + 1` is a valid assignment in a programming language, and it is
+    invalid for that to represent "equality", which is the reason why a separate operator
+    is used!
+
+```@example first_rootfind
 eqs = [0 ~ σ*(y-x),
        0 ~ x*(ρ-z)-y,
        0 ~ x*y - β*z]
+```
+
+Finally we bring these pieces together, the equation along with its states and parameters,
+define our `NonlinearSystem`:
+
+```@example first_rootfind
 @named ns = NonlinearSystem(eqs, [x,y,z], [σ,ρ,β])
 ```
 
-## Step 3: Convert the Symbolic Problem to a Numerical Problem
+If you forget the how to construct a `NonlinearSystem`, you can always pull up the
+in-terminal help via the `?` operator. This looks like:
+
+```@example first_rootfind
+?NonlinearSystem
+```
+
+### Step 3: Convert the Symbolic Problem to a Numerical Problem
+
+Now that we have simplified our system, let's turn it into a numerical problem to
+approximate. This is done with the `NonlinearProblem` constructor, that transforms it from
+a symbolic `ModelingToolkit` representation to a numerical `NonlinearSolve`
+representation. We need to tell it the numerical details for whether to override any of the
+default values for the initial conditions and parameters.
+
+In this case, we will use the default values for all our variables, so we will pass a
+blank override `[]`. This looks like:
 
 ```@example first_rootfind
 # Convert the symbolic system into a numerical system
 prob = NonlinearProblem(ns,[])
 ```
 
-## Step 4: Solve the Numerical Problem
+If for example we did want to change the initial condition of `x`
+to `2.0` and the parameter `σ` to `4.0`, we would do `[x => 2.0, σ => 4.0]`. This looks
+like:
+
+```@example first_rootfind
+prob2 = NonlinearProblem(ns,[x => 2.0, σ => 4.0])
+```
+
+### Step 4: Solve the Numerical Problem
+
+Now we solve the nonlinear system. For this we choose a solver from the
+[NonlinearSolve.jl's solver options](https://docs.sciml.ai/NonlinearSolve/dev/solvers/NonlinearSystemSolvers/)
+We will choose `NewtonRaphson` as follows:
 
 ```@example first_rootfind
 # Solve the numerical problem
 sol = solve(prob,NewtonRaphson())
 ```
 
-## Step 5: Analyze the Solution
+If you're interested in controlling options such as tolerances, check out the docstring
+for `solve` that describes all of the options:
+
+```@example first_rootfind
+sol = solve(prob::NonlinearProblem, ::Any)
+```
+
+### Step 5: Analyze the Solution
+
+Now let's check out the solution. First of all, what kind of thing is the `sol`? We can
+see that by asking for its type:
+
+```@example first_rootfind
+typeof(sol)
+```
+
+From this we can see that it is an `NonlinearSolution`. We can see the documentation for
+how to use the `NonlinearSolution` by checking its docstring:
+
+```@example first_rootfind
+?NonlinearSolution
+```
+
+Thus the solution is stored as `.u`. What is the solution to our nonlinear system and what is
+the final residual value? We can check it as follows:
 
 ```@example first_rootfind
 # Analyze the solution
-@show sol.u, prob.f(sol.u,prob.p)
+@show sol.u, sol.resid
 ```
+
+Of course, this information can be gleaned from the
+[NonlinearSolve.jl solution type page](https://docs.sciml.ai/NonlinearSolve/dev/basics/NonlinearSolution/)

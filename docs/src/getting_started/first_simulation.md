@@ -7,11 +7,22 @@ In this tutorial we will build and run our first simulation with SciML!
     This tutorial assumes that you have already installed Julia on your system. If you have
     not done so already, please [follow the installation tutorial first](@ref installation).
 
-To build our simulation, we will use the [ModelingToolkit](https://mtk.sciml.ai/dev/)
+To build our simulation, we will use the
+[ModelingToolkit](https://docs.sciml.ai/ModelingToolkit/stable/)
 system for modeling and simulation. ModelingToolkit is a bit higher level than directly
 defining code for a differential equation system: it's a symbolic system that will
 automatically simplify our models, optimize our code, and generate compelling visualizations.
 Sounds neat? Let's dig in.
+
+## Required Dependencies
+
+The following parts of the SciML Ecosystem will be used in this tutorial:
+
+| Module      | Description |
+| ----------- | ----------- |
+| [ModelingToolkit.jl](https://docs.sciml.ai/ModelingToolkit/stable/) | The symbolic modeling environment |
+| [DifferentialEquations.jl](https://docs.sciml.ai/DiffEqDocs/stable/) | The differential equation solvers |
+| [Plots.jl](https://docs.juliaplots.org/stable/) | The plotting and visualization package |
 
 ## Our Problem: Simulate the Lotka-Volterra Predator-Prey Dynamics
 
@@ -82,8 +93,8 @@ plot(p1,p2,layout=(2,1))
 
 To do this tutorial we will need a few components:
 
-* [ModelingToolkit.jl, our modeling environment](https://mtk.sciml.ai/dev/)
-* [DifferentialEquations.jl, the differential equation solvers](https://diffeq.sciml.ai/stable/)
+* [ModelingToolkit.jl, our modeling environment](https://docs.sciml.ai/ModelingToolkit/stable/)
+* [DifferentialEquations.jl, the differential equation solvers](https://docs.sciml.ai/DiffEqDocs/stable/)
 * [Plots.jl, our visualization tool](https://docs.juliaplots.org/stable/)
 
 To start, let's add these packages [as demonstrated in the installation tutorial](@ref installation):
@@ -209,6 +220,15 @@ to solve:
 ```@example first_sim
 # Solve the ODE
 sol = solve(prob)
+```
+
+#### Note about using Julia's help REPL to display in-terminal documentation
+
+If we want to customize our solution process, we can check out the docstring for `solve`
+on an `ODEProblem` by using the Julia help REPL via `?`. This looks like:
+
+```@example first_sim
+?solve(prob::ODEProblem)
 ```
 
 ### Step 5: Visualize the Solution
