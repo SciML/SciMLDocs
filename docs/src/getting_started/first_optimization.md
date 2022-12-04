@@ -99,12 +99,8 @@ L(u,p) = (p[1] - u[1])^2 + p[2] * (u[2] - u[1]^2)^2
 ```
 
 Now we need to define our `OptimizationProblem`. If you need help remembering how to define
-the `OptimizationProblem`, you can always refer to the help docstring by using
-`?OptimizationProblem` in the REPL. For example, this shows:
-
-```@example first_opt
-?OptimizationProblem
-```
+the `OptimizationProblem`, you can always refer to the
+[Optimization.jl problem definition page](https://docs.sciml.ai/Optimization/stable/API/optimization_problem/)
 
 Thus what we need to define is an initial condition `u0` and our parameter vector `p`.
 We will make our initial condition have both values as zero, which is done by the Julia
@@ -154,19 +150,11 @@ typeof(sol)
 ```
 
 From this we can see that it is an `OptimizationSolution`. We can see the documentation for
-how to use the `OptimizationSolution` by checking its docstring:
-
-```@example first_opt
-?OptimizationSolution
-```
-
-Thus the solution is stored as `.u`. What is the solution to our optimization and what is
-the final loss value? We can check it as follows:
+how to use the `OptimizationSolution` by checking the
+[Optimization.jl solution type page](https://docs.sciml.ai/Optimization/dev/API/optimization_solution/). Thus the solution is stored as `.u`. What is the solution to our
+optimization and what is the final loss value? We can check it as follows:
 
 ```@example first_opt
 # Analyze the solution
 @show sol.u, L(sol.u,p)
 ```
-
-Of course, this information can be gleaned from the
-[Optimization.jl solution type page](https://docs.sciml.ai/Optimization/dev/API/optimization_solution/)

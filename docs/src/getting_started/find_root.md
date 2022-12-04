@@ -183,19 +183,11 @@ typeof(sol)
 ```
 
 From this we can see that it is an `NonlinearSolution`. We can see the documentation for
-how to use the `NonlinearSolution` by checking its docstring:
-
-```@example first_rootfind
-?NonlinearSolution
-```
-
-Thus the solution is stored as `.u`. What is the solution to our nonlinear system and what is
-the final residual value? We can check it as follows:
+how to use the `NonlinearSolution` by checking the
+[NonlinearSolve.jl solution type page](https://docs.sciml.ai/NonlinearSolve/dev/basics/NonlinearSolution/) Thus the solution is stored as `.u`. What is the solution to our
+nonlinear system and what is the final residual value? We can check it as follows:
 
 ```@example first_rootfind
 # Analyze the solution
 @show sol.u, sol.resid
 ```
-
-Of course, this information can be gleaned from the
-[NonlinearSolve.jl solution type page](https://docs.sciml.ai/NonlinearSolve/dev/basics/NonlinearSolution/)

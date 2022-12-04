@@ -222,15 +222,6 @@ to solve:
 sol = solve(prob)
 ```
 
-#### Note about using Julia's help REPL to display in-terminal documentation
-
-If we want to customize our solution process, we can check out the docstring for `solve`
-on an `ODEProblem` by using the Julia help REPL via `?`. This looks like:
-
-```@example first_sim
-?solve(prob::ODEProblem)
-```
-
 ### Step 5: Visualize the Solution
 
 Now let's visualize the solution! Notice that our solution only has two states. If we
