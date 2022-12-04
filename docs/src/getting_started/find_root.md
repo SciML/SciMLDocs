@@ -124,13 +124,6 @@ define our `NonlinearSystem`:
 @named ns = NonlinearSystem(eqs, [x,y,z], [σ,ρ,β])
 ```
 
-If you forget the how to construct a `NonlinearSystem`, you can always pull up the
-in-terminal help via the `?` operator. This looks like:
-
-```@repl first_rootfind
-?NonlinearSystem
-```
-
 ### Step 3: Convert the Symbolic Problem to a Numerical Problem
 
 Now that we have simplified our system, let's turn it into a numerical problem to
