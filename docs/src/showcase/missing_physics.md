@@ -154,7 +154,6 @@ pl_missing = plot(pl_reconstruction, pl_reconstruction_error, layout = (2,1))
 
 ```@example ude
 pl_overall = plot(pl_trajectory, pl_missing)
-savefig(pl_overall, joinpath(pwd(), "plots", "$(svname)_reconstruction.pdf"))
 ```
 
 ## Symbolic regression via sparse regression ( SINDy based )
