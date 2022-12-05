@@ -1,7 +1,6 @@
-# [The SciML Showcase](@ref showcase)
+# [The SciML Showcase](@id showcase)
 
-The SciML Showcase is a display of some cool things that can be done by connecting
-SciML software.
+The SciML Showcase is a display of some cool things that can be done by connecting SciML software.
 
 !!! note
 
@@ -11,5 +10,13 @@ SciML software.
 
 Want to see some cool things that you can do with SciML? Check out the following:
 
-* [Auto-complete mechanistic models by embedding machine learning into differential equations](@ref autocomplete)
-* [Bayesian automated model discovery with quantified uncertainties and probability estimates](@ref bnode)
+* Scientific machine learning: incorporating prior physics into automated model discovery
+    * [Auto-complete mechanistic models by embedding machine learning into differential equations](@ref autocomplete)
+    * [Bayesian automated model discovery with quantified uncertainties and probability estimates](@ref bnode)
+* Solving big difficult equations with speed and accuracy
+    * [Automated Efficient Solution of Nonlinear Partial Differential Equations](@ref brusselator)
+    * [GPU-Accelerated Physics-Informed Neural Network PDE Solvers](@ref pinngpu)
+    * [Massively Data-Parallel ODE Solving on GPUs](@ref datagpu)
+* Useful cool wonky things that are hard to find anywhere else
+    * [Automatic Uncertainty Quantification, Arbitrary Precision, and Unit Checking in ODE Solutions using Julia's Type System](@ref ode_types)
+    * [Symbolic Analysis of Parameter Identifiability and Model Stability](@ref symbolic_analysis)

@@ -51,8 +51,19 @@ makedocs(sitename = "Overview of Julia's SciML",
             ],
             "Showcase of Cool Examples" => Any[
                 "showcase/showcase.md",
-                "showcase/missing_physics.md",
-                "showcase/bayesian_neural_ode.md",
+                "Automated Model Discovery" => Any[
+                    "showcase/missing_physics.md",
+                    "showcase/bayesian_neural_ode.md",
+                ],
+                "Solving Difficult Equations Efficiently" => Any[
+                    "showcase/brusselator.md",
+                    "showcase/pinngpu.md",
+                    "showcase/massively_parallel_gpu.md",
+                ],
+                "Useful Cool Wonky Things" => Any[
+                    "showcase/ode_types.md",
+                    "showcase/symbolic_analysis.md",
+                ],
             ],
             "What is SciML?" => ["overview.md",
             "Solvers" => ["highlevels/equation_solvers.md",
