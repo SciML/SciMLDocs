@@ -18,7 +18,7 @@ For this example we will need the following libraries:
 using DiffEqFlux, Lux, DifferentialEquations
 
 # External Tools
-using Random, Plots, AdvancedHMC, MCMCChains, StatsPlots
+using Random, Plots, AdvancedHMC, MCMCChains, StatsPlots, ComponentArrays
 ```
 
 ## Setup: Get the data from the Spiral ODE example
@@ -55,6 +55,7 @@ dudt2 = Lux.Chain(x -> x.^3,
 prob_neuralode = NeuralODE(dudt2, tspan, Tsit5(), saveat = tsteps)
 rng = Random.default_rng()
 p, st = Lux.setup(rng, dudt2)
+p = Float64.(ComponentArray(p))
 ```
 
 ## Step 3: Define the loss function for the Neural ODE.
@@ -95,10 +96,10 @@ We use the NUTS sampler with a acceptance ratio of δ= 0.45 in this example. In 
 We sample using 500 warmup samples and 500 posterior samples.
 
 ```@example bnode
-integrator = Leapfrog(find_good_stepsize(h, map(Float64,p)))
+integrator = Leapfrog(find_good_stepsize(h, p))
 prop = AdvancedHMC.NUTS{MultinomialTS, GeneralisedNoUTurn}(integrator)
 adaptor = StanHMCAdaptor(MassMatrixAdaptor(metric), StepSizeAdaptor(0.45, integrator))
-samples, stats = sample(h, prop, map(Float64,p), 500, adaptor, 500; progress=true)
+samples, stats = sample(h, prop, p, 500, adaptor, 500; progress=true)
 ```
 
 ## Step 5: Plot diagnostics
