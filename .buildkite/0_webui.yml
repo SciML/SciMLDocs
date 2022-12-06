@@ -6,6 +6,8 @@ steps:
           signed_pipelines:
             - pipeline: .buildkite/aggregate.yml
               signature_file: .buildkite/aggregate.yml.signature
+          unsigned_pipelines:
+            - .buildkite/documentation.yml
 
     command: "true"
 
