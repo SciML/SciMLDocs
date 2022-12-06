@@ -166,12 +166,13 @@ sol = solve(prob, TRBDF2(), saveat=0.1)
 
 ## Examining Results via the Symbolic Solution Interface
 
-Now that we have solved the ODE representation of the PDE, we have an `ODESolution` that
-represents ``u_i' = \ldots`` at each of the grid points. If you check `sol.u` inside of the
-solution, that's those values... but that's not very helpful. How do you interpret `sol[1]`?
-How do you interpret `sol[1,:]`?
+Now that we have solved the ODE representation of the PDE, we have an `PDETimeSeriesSolution` 
+that wraps an `ODESolution`, which we can get with `sol.original_sol`. If we look at the original 
+sol, it represents ``u_i' = \ldots`` at each of the grid points. If you check `sol.original_sol.u` inside of the
+solution, that's those values... but that's not very helpful. How do you interpret `original_sol[1]`?
+How do you interpret `original_sol[1,:]`?
 
-To make the handling of such cases a lot simpler, DifferentialEquations.jl implements a
+To make the handling of such cases a lot simpler, MethodOfLines.jl implements a
 symbolic interface for the solution object that allows for interpreting the computation
 through its original representation. For example, if we want to know how to interpret
 the values of the grid corresponding to the independent variables, we can just index using
@@ -183,10 +184,10 @@ discrete_y = sol[y]
 discrete_t = sol[t]
 ```
 
-What this tells us is that, for a solution at a given time point, say `sol[1]` for the
-solution at the initial time (the initial condition), value `sol[1][1]` is the solution
+What this tells us is that, for a solution at a given time point, say `original_sol[1]` for the
+solution at the initial time (the initial condition), value `original_sol[1][1]` is the solution
 at the grid point `(discrete_x[1], discrete_y[1])`. And for values that are not the initial
-time point, `sol[i]` corresponds to the solution at `discrete_t[i]`.
+time point, `original_sol[i]` corresponds to the solution at `discrete_t[i]`.
 
 But we also have two dependent variables, `u` and `v`. How do we interpret which of the
 results correspond to the different dependent variables? This is done by indexing the
@@ -197,7 +198,8 @@ solu = sol[u(x, y, t)]
 solv = sol[v(x, y, t)]
 ```
 
-This then gives a timeseries of results for the `u` and `v` separately!
+This then gives an array of results for the `u` and `v` separately, each dimension 
+corresponding to the discrete form of the independent variables.
 
 Using this high level indexing, we can create an animation of the solution of the
 Brusselator as follows. For `u` we receive:
@@ -205,7 +207,7 @@ Brusselator as follows. For `u` we receive:
 ```julia
 using Plots
 anim = @animate for k in 1:length(discrete_t)
-    heatmap(solu[k, 2:end, 2:end], title="$(discrete_t[k])") # 2:end since end = 1, periodic condition
+    heatmap(solu[2:end, 2:end, k], title="$(discrete_t[k])") # 2:end since end = 1, periodic condition
 end
 gif(anim, "plots/Brusselator2Dsol_u.gif", fps = 8)
 ```
@@ -215,7 +217,7 @@ and for `v`:
 
 ```julia
 anim = @animate for k in 1:length(discrete_t)
-    heatmap(solv[k, 2:end, 2:end], title="$(discrete_t[k])")
+    heatmap(solv[2:end, 2:end, k], title="$(discrete_t[k])")
 end
 gif(anim, "plots/Brusselator2Dsol_v.gif", fps = 8)
 ```
