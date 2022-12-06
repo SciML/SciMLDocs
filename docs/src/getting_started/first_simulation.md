@@ -129,6 +129,13 @@ for parameters, where the default value is now the parameter value:
 @parameters α=1.5 β=1.0 γ=3.0 δ=1.0
 ```
 
+!!! note
+
+    Julia's text editors like VS Code are compatible with Unicode defined in a LaTeX form.
+    Thus if you write `\alpha` into your REPL and then press `Tab`, it will auto-complete
+    that into the α symbol. That can make your code look a lot more like the mathematical
+    expressions!
+
 Next we define our set of differential equations. We need to first tell it what to
 differentiate with respect to, here the independent variable `t`, do define the `Differential`
 operator `D`. Then once we have the operator, we apply that into the equations.
@@ -259,3 +266,26 @@ plot(p1,p2,layout=(2,1))
 ```
 
 And tada, we have a full analysis of our ecosystem!
+
+## Bonus Step: Emoji Variables
+
+If you made it this far, then congrats you get to learn a fun fact! Since Julia code can
+use Unicode, emojis work for variable names. Here's the simulation using emojis of rabbits
+and wolves to define the system:
+
+```@example first_sim
+using ModelingToolkit, DifferentialEquations
+@parameters α=1.5 β=1.0 γ=3.0 δ=1.0
+@variables t 🐰(t)=1.0 🐺(t)=1.0
+D = Differential(t)
+eqs = [D(🐰) ~  α*🐰 - β*🐰*🐺,
+       D(🐺) ~ -γ*🐺 + δ*🐰*🐺]
+
+@named sys = ODESystem(eqs,t)
+simpsys = structural_simplify(sys)
+prob = ODEProblem(simpsys, [], (0.0,10.0))
+sol = solve(prob)
+```
+
+Now go make your professor mad that they have to grade a fully emojified code. I'll vouch
+for you: the documentation told you to do this.
