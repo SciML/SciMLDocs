@@ -1,7 +1,16 @@
 # [Auto-complete mechanistic models by embedding machine learning into differential equations](@id autocomplete)
 
 One of the most time consuming parts of modeling is building the model. How do you know
-when your model is correct? When you 
+when your model is correct? When you solve an inverse problem to calibrate your model
+to data, who you gonna call if there are no parameters that make the model the data?
+This is the problem that the Universal Differential Equation approach solves: the ability
+to start from the model you have, and suggest minimal mechanistic extensions that would
+allow the model to fit the data. In this showcase we will show how to take a partially
+correct model and auto-complete it to find the missing physics.
+
+!!! note
+
+    Even if the known physics is only approximate or correct, it can be helpful 
 
 ```@example ude
 # SciML Tools
