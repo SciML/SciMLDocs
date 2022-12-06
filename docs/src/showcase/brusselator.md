@@ -15,12 +15,12 @@ MethodOfLines, and DifferentialEquations.jl.
 
 The following parts of the SciML Ecosystem will be used in this tutorial:
 
-| Module      | Description |
-| ----------- | ----------- |
-| [ModelingToolkit.jl](https://docs.sciml.ai/ModelingToolkit/stable/) | The symbolic modeling environment |
-| [MethodOfLines.jl](https://docs.sciml.ai/MethodOfLines/stable/) | The symbolic PDE discretization tooling |
+| Module                                                               | Description                                 |
+|----------------------------------------------------------------------|---------------------------------------------|
+| [ModelingToolkit.jl](https://docs.sciml.ai/ModelingToolkit/stable/)  | The symbolic modeling environment           |
+| [MethodOfLines.jl](https://docs.sciml.ai/MethodOfLines/stable/)      | The symbolic PDE discretization tooling     |
 | [DifferentialEquations.jl](https://docs.sciml.ai/DiffEqDocs/stable/) | The numerical differential equation solvers |
-| [LinearSolve.jl](https://docs.sciml.ai/LinearSolve/stable/) | The numerical linear solvers |
+| [LinearSolve.jl](https://docs.sciml.ai/LinearSolve/stable/)          | The numerical linear solvers                |
 
 ## Problem Setup
 
@@ -166,8 +166,8 @@ sol = solve(prob, TRBDF2(), saveat=0.1)
 
 ## Examining Results via the Symbolic Solution Interface
 
-Now that we have solved the ODE representation of the PDE, we have an `PDETimeSeriesSolution` 
-that wraps an `ODESolution`, which we can get with `sol.original_sol`. If we look at the original 
+Now that we have solved the ODE representation of the PDE, we have an `PDETimeSeriesSolution`
+that wraps an `ODESolution`, which we can get with `sol.original_sol`. If we look at the original
 sol, it represents ``u_i' = \ldots`` at each of the grid points. If you check `sol.original_sol.u` inside of the
 solution, that's those values... but that's not very helpful. How do you interpret `original_sol[1]`?
 How do you interpret `original_sol[1,:]`?
@@ -198,7 +198,7 @@ solu = sol[u(x, y, t)]
 solv = sol[v(x, y, t)]
 ```
 
-This then gives an array of results for the `u` and `v` separately, each dimension 
+This then gives an array of results for the `u` and `v` separately, each dimension
 corresponding to the discrete form of the independent variables.
 
 Using this high level indexing, we can create an animation of the solution of the

@@ -10,7 +10,51 @@ correct model and auto-complete it to find the missing physics.
 
 !!! note
 
-    Even if the known physics is only approximate or correct, it can be helpful 
+    For a scientific background on the universal differential equation approach, check out
+    [Universal Differential Equations for Scientific Machine Learning](https://arxiv.org/abs/2001.04385)
+
+## Starting Point: The Packages To Use
+
+There are many packages which are used as part of this showcase. Let's detail what they
+are and how they are used. For the neural network training:
+
+| Module                                                                                                   | Description                                           |
+|----------------------------------------------------------------------------------------------------------|-------------------------------------------------------|
+| [OrdinaryDiffEq.jl](https://docs.sciml.ai/DiffEqDocs/stable/) (DifferentialEquations.jl)                 | The numerical differential equation solvers           |
+| [SciMLSensitivity.jl](https://docs.sciml.ai/SciMLSensitivity/stable/)                                    | The adjoint methods, defines gradients of ODE solvers |
+| [Optimization.jl](https://docs.sciml.ai/Optimization/stable/)                                            | The optimization library                              |
+| [OptimizationOptimisers.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/optimisers/) | The optimization solver package with `Adam`           |
+| [OptimizationOptimJL.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/optim/)         | The optimization solver package with `BFGS`           |
+
+For the symbolic model discovery:
+
+| Module                                                                                                        | Description                                       |
+|---------------------------------------------------------------------------------------------------------------|---------------------------------------------------|
+| [ModelingToolkit.jl](https://docs.sciml.ai/ModelingToolkit/stable/)                                           | The symbolic modeling environment                 |
+| [DataDrivenDiffEq.jl](https://docs.sciml.ai/DataDrivenDiffEq/stable/)                                         | The symbolic regression interface                 |
+| [DataDrivenSparse.jl](https://docs.sciml.ai/DataDrivenDiffEq/stable/libs/datadrivensparse/sparse_regression/) | The sparse regression symbolic regression solvers |
+
+Julia standard libraries:
+
+| Module        | Description                      |
+|---------------|----------------------------------|
+| LinearAlgebra | Required for the `norm` function |
+| Statistics    | Required for the `mean` function |
+| Random        | Required to set the random seed  |
+
+And external libraries:
+
+| Module                                                                       | Description                                         |
+|------------------------------------------------------------------------------|-----------------------------------------------------|
+| [Lux.jl](http://lux.csail.mit.edu/stable/)                                   | The deep learning (neural network) framework        |
+| [ComponentArrays.jl](https://jonniedie.github.io/ComponentArrays.jl/stable/) | For the `ComponentArray` type to match Lux to SciML |
+| [Plots.jl](https://docs.juliaplots.org/stable/)                              | The plotting and visualization library              |
+
+!!! note
+    The deep learning framework [Flux.jl](https://fluxml.ai/) could be used in place of Flux,
+    though most tutorials in SciML generally prefer Lux.jl due to its explicit parameter
+    interface leading to nicer code. Both share the same internal implementations of core
+    kernels, and thus have very similar feature support and performance.
 
 ```@example ude
 # SciML Tools
@@ -29,6 +73,34 @@ rng = Random.default_rng()
 Random.seed!(1234)
 ```
 
+## Problem Setup
+
+In order to know that we have automatically discovered the correct model, we will use
+generated data from a known model. This model will be the Lotka-Volterra equations. These
+equations are given by:
+
+```math
+\begin{aligned}
+\frac{dx}{dt} &= \alpha x - \beta x y      \\
+\frac{dy}{dt} &= -\delta y + \gamma x y    \\
+\end{aligned}
+```
+
+This is a model of rabbits and wolves. ``\alpha x`` is the exponential growth of rabbits
+in isolation, ``-\beta x y`` and ``\gamma x y`` are the interaction effects of wolves
+eating rabbits, and ``-\delta y`` is the term for how wolves die hungry in isolation.
+
+Now assume that we have never seen rabbits and wolves in the same room. We only know the
+two effects ``\alpha x`` and ``-\delta y``. Can we use Scientific Machine Learning to
+automatically discover an extension to what we already know? That is what we will solve
+with the universal differential equation.
+
+## Generating the Training Data
+
+First, let's generate training data from the Lotka-Volterra equations. This is
+straightforward and standard DifferentialEquations.jl usage. Our sample data is thus
+generated as follows:
+
 ```@example ude
 function lotka!(du, u, p, t)
     α, β, γ, δ = p
@@ -43,13 +115,6 @@ p_ = [1.3, 0.9, 0.8, 1.8]
 prob = ODEProblem(lotka!, u0,tspan, p_)
 solution = solve(prob, Vern7(), abstol=1e-12, reltol=1e-12, saveat = 0.1)
 
-# Ideal data
-X = Array(solution)
-t = solution.t
-DX = Array(solution(solution.t, Val{1}))
-
-full_problem = DataDrivenProblem(X, t = t, DX = DX)
-
 # Add noise in terms of the mean
 x̄ = mean(X, dims = 2)
 noise_magnitude = 5e-3
@@ -58,6 +123,10 @@ Xₙ = X .+ (noise_magnitude*x̄) .* randn(eltype(X), size(X))
 plot(solution, alpha = 0.75, color = :black, label = ["True Data" nothing])
 scatter!(t, transpose(Xₙ), color = :red, label = ["Noisy Data" nothing])
 ```
+
+## Definition of the Universal Differential Equation
+
+
 
 ```@example ude
 rbf(x) = exp.(-(x.^2))
@@ -81,6 +150,13 @@ nn_dynamics!(du,u,p,t) = ude_dynamics!(du,u,p,t,p_)
 # Define the problem
 prob_nn = ODEProblem(nn_dynamics!,Xₙ[:, 1], tspan, p)
 ```
+
+!!! note
+
+    Even if the known physics is only approximate or correct, it can be helpful to improve
+    the fitting process! Check out
+    [this JuliaCon talk](https://www.youtube.com/watch?v=lCDrCqqnPto) which dives into this
+    issue.
 
 ```@example ude
 ## Function to train the network
@@ -171,6 +247,13 @@ pl_overall = plot(pl_trajectory, pl_missing)
 ## Symbolic regression via sparse regression ( SINDy based )
 
 ```@example ude
+# Ideal data
+X = Array(solution)
+t = solution.t
+DX = Array(solution(solution.t, Val{1}))
+
+full_problem = DataDrivenProblem(X, t = t, DX = DX)
+
 # Create a Basis
 @variables u[1:2]
 # Generate the basis functions, multivariate polynomials up to deg 5
