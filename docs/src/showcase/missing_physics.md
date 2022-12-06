@@ -1,5 +1,8 @@
 # [Auto-complete mechanistic models by embedding machine learning into differential equations](@id autocomplete)
 
+One of the most time consuming parts of modeling is building the model. How do you know
+when your model is correct? When you 
+
 ```@example ude
 # SciML Tools
 using OrdinaryDiffEq, ModelingToolkit, DataDrivenDiffEq, SciMLSensitivity, DataDrivenSparse

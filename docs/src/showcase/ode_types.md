@@ -154,7 +154,7 @@ Many operations work. These operations will check to make sure units are correct
 throw an error for incorrect operations:
 
 ```@example odetypes
-t + sqrt(t)
+#t + sqrt(t)
 ```
 
 ### Using Unitful with DifferentialEquations.jl
@@ -168,7 +168,7 @@ using DifferentialEquations
 f(u,p,t) = 0.5*u
 u0 = 1.5u"N"
 prob = ODEProblem(f,u0,(0.0u"s",1.0u"s"))
-sol = solve(prob,Tsit5())
+#sol = solve(prob,Tsit5())
 ```
 
 Notice that we recieved a unit mismatch error. This is correctly so! Remember that for an
