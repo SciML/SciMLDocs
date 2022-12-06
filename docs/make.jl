@@ -59,6 +59,7 @@ makedocs(sitename = "Overview of Julia's SciML",
                     "showcase/brusselator.md",
                     "showcase/pinngpu.md",
                     "showcase/massively_parallel_gpu.md",
+                    "showcase/gpu_spde.md",
                 ],
                 "Useful Cool Wonky Things" => Any[
                     "showcase/ode_types.md",

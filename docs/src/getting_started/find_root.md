@@ -20,7 +20,7 @@ The following parts of the SciML Ecosystem will be used in this tutorial:
 | Module      | Description |
 | ----------- | ----------- |
 | [ModelingToolkit.jl](https://docs.sciml.ai/ModelingToolkit/stable/) | The symbolic modeling environment |
-| [NonlinearSolve.jl](https://docs.sciml.ai/NonlinearSolve/stable/) | The symbolic modeling environment |
+| [NonlinearSolve.jl](https://docs.sciml.ai/NonlinearSolve/stable/) | The numerical solvers for nonlinear equations |
 
 ## Problem Setup
 
