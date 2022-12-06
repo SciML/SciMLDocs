@@ -1,14 +1,15 @@
 steps:
   - label: ":rocket: Launch Pipeline!"
-    branches: "main release-* v*"
     plugins:
       - staticfloat/cryptic#v2:
           signed_pipelines:
             - pipeline: .buildkite/aggregate.yml
               signature_file: .buildkite/aggregate.yml.signature
+          unsigned_pipelines:
+            - .buildkite/documentation.yml
 
     command: "true"
-
     agents:
       queue: "juliaecosystem"
-      sandbox.jl: true
+      sandbox_capable: true
+      cryptic_capable: true
