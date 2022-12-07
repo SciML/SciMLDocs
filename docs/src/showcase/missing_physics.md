@@ -1,4 +1,4 @@
-# [Auto-complete mechanistic models by embedding machine learning into differential equations](@id autocomplete)
+# [Automatically Discover Missing Physics by Embedding Machine Learning into Differential Equations](@id autocomplete)
 
 One of the most time consuming parts of modeling is building the model. How do you know
 when your model is correct? When you solve an inverse problem to calibrate your model
