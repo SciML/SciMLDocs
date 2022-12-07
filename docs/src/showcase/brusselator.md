@@ -161,7 +161,7 @@ DifferentialEquations.jl usage, though we'll return to this point in a bit to ta
 efficiency:
 
 ```@example bruss
-sol = solve(prob, TRBDF2(), saveat=0.1)
+sol = solve(prob, TRBDF2(), saveat=0.1);
 ```
 
 ## Examining Results via the Symbolic Solution Interface
