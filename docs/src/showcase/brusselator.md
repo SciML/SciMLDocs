@@ -248,15 +248,15 @@ assess this performance difference:
 
 ```@example bruss
 using BenchmarkTools
-@btime sol = solve(prob, TRBDF2(), saveat=0.1)
-@btime sol = solve(prob_sparse, TRBDF2(), saveat=0.1)
+@btime sol = solve(prob, TRBDF2(), saveat=0.1);
+@btime sol = solve(prob_sparse, TRBDF2(), saveat=0.1);
 ```
 
 But we can further improve this as well. Instead of just using the default linear solver,
 we can change this to a Newton-Krylov method by passing in the GMRES method:
 
 ```@example bruss
-@btime sol = solve(prob_sparse, TRBDF2(linsolve = KrylovJL_GMRES()), saveat=0.1)
+@btime sol = solve(prob_sparse, TRBDF2(linsolve = KrylovJL_GMRES()), saveat=0.1);
 ```
 
 But to further improve performance, we can use an iLU preconditioner. This looks like
