@@ -151,7 +151,7 @@ discretization = MOLFiniteDifference([x=>dx, y=>dy], t, approx_order=order, grid
 Next, we `discretize` the system, converting the `PDESystem` in to an `ODEProblem`:
 
 ```@example bruss
-prob = discretize(pdesys,discretization)
+prob = discretize(pdesys,discretization);
 ```
 
 ## Solving the PDE
@@ -179,9 +179,9 @@ the values of the grid corresponding to the independent variables, we can just i
 symbolic variables:
 
 ```@example bruss
-discrete_x = sol[x]
-discrete_y = sol[y]
-discrete_t = sol[t]
+discrete_x = sol[x];
+discrete_y = sol[y];
+discrete_t = sol[t];
 ```
 
 What this tells us is that, for a solution at a given time point, say `original_sol[1]` for the
@@ -194,8 +194,8 @@ results correspond to the different dependent variables? This is done by indexin
 solution by the dependent variables! For example:
 
 ```@example bruss
-solu = sol[u(x, y, t)]
-solv = sol[v(x, y, t)]
+solu = sol[u(x, y, t)];
+solv = sol[v(x, y, t)];
 ```
 
 This then gives an array of results for the `u` and `v` separately, each dimension

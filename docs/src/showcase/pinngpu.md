@@ -142,7 +142,7 @@ callback = function (p,l)
     return false
 end
 
-res = Optimization.solve(prob,Adam(0.01);callback = callback,maxiters=2500)
+res = Optimization.solve(prob,Adam(0.01);callback = callback,maxiters=2500);
 ```
 
 We then use the `remake` function allows to rebuild the PDE problem to start a new
@@ -150,7 +150,7 @@ optimization at the optimized parameters, and continue with a lower learning rat
 
 ```julia
 prob = remake(prob,u0=res.u)
-res = Optimization.solve(prob,Adam(0.001);callback = callback,maxiters=2500)
+res = Optimization.solve(prob,Adam(0.001);callback = callback,maxiters=2500);
 ```
 
 ## Step 7: Inspect the PINN's Solution
