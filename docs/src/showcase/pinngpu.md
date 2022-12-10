@@ -103,6 +103,7 @@ multi-layer perceptron, like:
 
 ```@example pinn
 using Lux
+inner = 25
 chain = Chain(Dense(3,inner,Lux.σ),
               Dense(inner,inner,Lux.σ),
               Dense(inner,inner,Lux.σ),

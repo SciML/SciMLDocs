@@ -57,9 +57,5 @@ monteprob = EnsembleProblem(prob, prob_func = prob_func, safetycopy = false)
 ```
 
 ```@example diffeqgpu
-@time sol = solve(monteprob, GPUTsit5(), EnsembleGPUKernel(), trajectories = 10_000, adaptive = false, dt = 0.1f0)
-```
-
-```@example diffeqgpu
-@time sol = solve(monteprob, GPUTsit5(), EnsembleGPUKernel(), trajectories = 10_000, adaptive = true, dt = 0.1f0, save_everystep = false)
+@time sol = solve(monteprob, GPUTsit5(), EnsembleGPUKernel(), trajectories = 10_000)
 ```
