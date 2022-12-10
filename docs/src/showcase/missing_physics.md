@@ -1,4 +1,60 @@
-# [Auto-complete mechanistic models by embedding machine learning into differential equations](@id autocomplete)
+# [Automatically Discover Missing Physics by Embedding Machine Learning into Differential Equations](@id autocomplete)
+
+One of the most time consuming parts of modeling is building the model. How do you know
+when your model is correct? When you solve an inverse problem to calibrate your model
+to data, who you gonna call if there are no parameters that make the model the data?
+This is the problem that the Universal Differential Equation (UDE) approach solves: the
+ability to start from the model you have, and suggest minimal mechanistic extensions that
+would allow the model to fit the data. In this showcase we will show how to take a partially
+correct model and auto-complete it to find the missing physics.
+
+!!! note
+
+    For a scientific background on the universal differential equation approach, check out
+    [Universal Differential Equations for Scientific Machine Learning](https://arxiv.org/abs/2001.04385)
+
+## Starting Point: The Packages To Use
+
+There are many packages which are used as part of this showcase. Let's detail what they
+are and how they are used. For the neural network training:
+
+| Module                                                                                                   | Description                                           |
+|----------------------------------------------------------------------------------------------------------|-------------------------------------------------------|
+| [OrdinaryDiffEq.jl](https://docs.sciml.ai/DiffEqDocs/stable/) (DifferentialEquations.jl)                 | The numerical differential equation solvers           |
+| [SciMLSensitivity.jl](https://docs.sciml.ai/SciMLSensitivity/stable/)                                    | The adjoint methods, defines gradients of ODE solvers |
+| [Optimization.jl](https://docs.sciml.ai/Optimization/stable/)                                            | The optimization library                              |
+| [OptimizationOptimisers.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/optimisers/) | The optimization solver package with `Adam`           |
+| [OptimizationOptimJL.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/optim/)         | The optimization solver package with `BFGS`           |
+
+For the symbolic model discovery:
+
+| Module                                                                                                        | Description                                       |
+|---------------------------------------------------------------------------------------------------------------|---------------------------------------------------|
+| [ModelingToolkit.jl](https://docs.sciml.ai/ModelingToolkit/stable/)                                           | The symbolic modeling environment                 |
+| [DataDrivenDiffEq.jl](https://docs.sciml.ai/DataDrivenDiffEq/stable/)                                         | The symbolic regression interface                 |
+| [DataDrivenSparse.jl](https://docs.sciml.ai/DataDrivenDiffEq/stable/libs/datadrivensparse/sparse_regression/) | The sparse regression symbolic regression solvers |
+
+Julia standard libraries:
+
+| Module        | Description                      |
+|---------------|----------------------------------|
+| LinearAlgebra | Required for the `norm` function |
+| Statistics    | Required for the `mean` function |
+| Random        | Required to set the random seed  |
+
+And external libraries:
+
+| Module                                                                       | Description                                         |
+|------------------------------------------------------------------------------|-----------------------------------------------------|
+| [Lux.jl](http://lux.csail.mit.edu/stable/)                                   | The deep learning (neural network) framework        |
+| [ComponentArrays.jl](https://jonniedie.github.io/ComponentArrays.jl/stable/) | For the `ComponentArray` type to match Lux to SciML |
+| [Plots.jl](https://docs.juliaplots.org/stable/)                              | The plotting and visualization library              |
+
+!!! note
+    The deep learning framework [Flux.jl](https://fluxml.ai/) could be used in place of Flux,
+    though most tutorials in SciML generally prefer Lux.jl due to its explicit parameter
+    interface leading to nicer code. Both share the same internal implementations of core
+    kernels, and thus have very similar feature support and performance.
 
 ```@example ude
 # SciML Tools
@@ -17,6 +73,34 @@ rng = Random.default_rng()
 Random.seed!(1234)
 ```
 
+## Problem Setup
+
+In order to know that we have automatically discovered the correct model, we will use
+generated data from a known model. This model will be the Lotka-Volterra equations. These
+equations are given by:
+
+```math
+\begin{aligned}
+\frac{dx}{dt} &= \alpha x - \beta x y      \\
+\frac{dy}{dt} &= -\delta y + \gamma x y    \\
+\end{aligned}
+```
+
+This is a model of rabbits and wolves. ``\alpha x`` is the exponential growth of rabbits
+in isolation, ``-\beta x y`` and ``\gamma x y`` are the interaction effects of wolves
+eating rabbits, and ``-\delta y`` is the term for how wolves die hungry in isolation.
+
+Now assume that we have never seen rabbits and wolves in the same room. We only know the
+two effects ``\alpha x`` and ``-\delta y``. Can we use Scientific Machine Learning to
+automatically discover an extension to what we already know? That is what we will solve
+with the universal differential equation.
+
+## Generating the Training Data
+
+First, let's generate training data from the Lotka-Volterra equations. This is
+straightforward and standard DifferentialEquations.jl usage. Our sample data is thus
+generated as follows:
+
 ```@example ude
 function lotka!(du, u, p, t)
     α, β, γ, δ = p
@@ -31,14 +115,10 @@ p_ = [1.3, 0.9, 0.8, 1.8]
 prob = ODEProblem(lotka!, u0,tspan, p_)
 solution = solve(prob, Vern7(), abstol=1e-12, reltol=1e-12, saveat = 0.1)
 
-# Ideal data
+# Add noise in terms of the mean
 X = Array(solution)
 t = solution.t
-DX = Array(solution(solution.t, Val{1}))
 
-full_problem = DataDrivenProblem(X, t = t, DX = DX)
-
-# Add noise in terms of the mean
 x̄ = mean(X, dims = 2)
 noise_magnitude = 5e-3
 Xₙ = X .+ (noise_magnitude*x̄) .* randn(eltype(X), size(X))
@@ -46,6 +126,10 @@ Xₙ = X .+ (noise_magnitude*x̄) .* randn(eltype(X), size(X))
 plot(solution, alpha = 0.75, color = :black, label = ["True Data" nothing])
 scatter!(t, transpose(Xₙ), color = :red, label = ["Noisy Data" nothing])
 ```
+
+## Definition of the Universal Differential Equation
+
+Now let's define our UDE. We will use Lux.jl to define the neural network as follows:
 
 ```@example ude
 rbf(x) = exp.(-(x.^2))
@@ -56,7 +140,11 @@ U = Lux.Chain(
 )
 # Get the initial parameters and state variables of the model
 p, st = Lux.setup(rng, U)
+```
 
+We then define the UDE as a dynamical system that is `u' = known(u) + NN(u)` like:
+
+```@example ude
 # Define the hybrid model
 function ude_dynamics!(du,u, p, t, p_true)
     û = U(u, p, st)[1] # Network prediction
@@ -70,24 +158,64 @@ nn_dynamics!(du,u,p,t) = ude_dynamics!(du,u,p,t,p_)
 prob_nn = ODEProblem(nn_dynamics!,Xₙ[:, 1], tspan, p)
 ```
 
+Notice that the most important part of this is that the neural network does not have
+hardcoded weights. The weights of the neural network are the parameters of the ODE system.
+This means that if we change the paramters of the ODE system, then we will have updated
+the internal neural networks to new weights. Keep that in mind for the next part.
+
+... and tada: now we have a neural network integrated into our dynamical system!
+
+!!! note
+
+    Even if the known physics is only approximate or correct, it can be helpful to improve
+    the fitting process! Check out
+    [this JuliaCon talk](https://www.youtube.com/watch?v=lCDrCqqnPto) which dives into this
+    issue.
+
+## Setting Up the Training Loop
+
+Now let's build a training loop around our UDE. First, let's make a function `predict`
+which runs our simulation at new neural network weights. Recall that the weights of the
+neural network are the parameters of the ODE, so what we need to do in `predict` is
+update our ODE to our new parameters and then run it.
+
+For this update step, we will use
+the `remake` function from the
+[SciMLProblem interface](https://docs.sciml.ai/DiffEqDocs/stable/basics/problem/#Modification-of-problem-types).
+`remake` works by specifying `key = value` pairs to update in the problem fields. Thus to
+update `u0`, we would add a keyword argument `u0 = ...`. To update the parameters, we'd
+do `p = ...`. The field names can be acquired from the
+[problem documentation](https://docs.sciml.ai/DiffEqDocs/stable/types/ode_types/) (or
+the docstrings!).
+
+Knowing this, our `predict` function looks like:
+
 ```@example ude
-## Function to train the network
-# Define a predictor
 function predict(θ, X = Xₙ[:,1], T = t)
     _prob = remake(prob_nn, u0 = X, tspan = (T[1], T[end]), p = θ)
     Array(solve(_prob, Vern7(), saveat = T,
                 abstol=1e-6, reltol=1e-6,
-                sensealg = ForwardDiffSensitivity()
                 ))
 end
+```
 
-# Simple L2 loss
+Now for our loss function we solve the ODE at our new parameters and check its L2 loss
+against the dataset. Using our `predict` function, this looks like:
+
+```@example ude
 function loss(θ)
     X̂ = predict(θ)
     sum(abs2, Xₙ .- X̂)
 end
+```
 
-# Container to track the losses
+Lastly, what we will need to track our optimization is to define a callback as
+[defined by the OptimizationProblem's solve interface](https://docs.sciml.ai/Optimization/stable/API/solve/).
+Because our function only returns one value, the loss `l`, the callback will be a function
+of the current parameters `θ` and `l`. Let's setup a callback prints every 50 steps the
+current loss:
+
+```@example ude
 losses = Float64[]
 
 callback = function (p, l)
@@ -101,22 +229,52 @@ end
 
 ## Training
 
+Now we're ready to train! To run the training process, we will need to build an
+[`OptimizationProblem`](https://docs.sciml.ai/Optimization/stable/API/optimization_problem/).
+Because we have a lot of parameteres, we will use
+[Zygote.jl](https://docs.sciml.ai/Zygote/stable/). Optimization.jl makes the choice of
+automatic diffeerentiation easy just by specifying an `adtype` in the
+[`OptimizationFunction` construction](https://docs.sciml.ai/Optimization/stable/API/optimization_function/)
+
+Knowing this, we can build our `OptimizationProblem` as follows:
+
 ```@example ude
-# First train with ADAM for better convergence -> move the parameters into a
-# favourable starting positing for BFGS
 adtype = Optimization.AutoZygote()
 optf = Optimization.OptimizationFunction((x,p)->loss(x), adtype)
 optprob = Optimization.OptimizationProblem(optf, ComponentVector{Float64}(p))
+```
+
+Now... we optimize it. We will use a mixed strategy. First, let's do some iterations of
+ADAM because it's better at finding a good general area of parameter space, but then we
+will move to BFGS which will quickly hone in on a local minima. Note that if we only use
+ADAM it will take a ton of iterations, and if we only use BFGS we normally end up in a
+bad local minima, so this combination tends to be a good one for UDEs.
+
+Thus we first solve the optimization problem with ADAM. Choosing a learning rate of 0.1
+(tuned to be as high as possible that doesn't tend to make the loss shoot up), we see:
+
+```@example ude
 res1 = Optimization.solve(optprob, ADAM(0.1), callback=callback, maxiters = 200)
 println("Training loss after $(length(losses)) iterations: $(losses[end])")
-# Train with BFGS
-optprob2 = Optimization.OptimizationProblem(optf, res1.minimizer)
+```
+
+Now we use the optimization result of the first run as the initial condition of the
+second optimization, and run it with BFGS. This looks like:
+
+```@example ude
+optprob2 = Optimization.OptimizationProblem(optf, res1.u)
 res2 = Optimization.solve(optprob2, Optim.BFGS(initial_stepnorm=0.01), callback=callback, maxiters = 10000)
 println("Final training loss after $(length(losses)) iterations: $(losses[end])")
 
 # Rename the best candidate
-p_trained = res2.minimizer
+p_trained = res2.u
 ```
+
+and bingo we have a trained UDE.
+
+## Visualizing the Trained UDE
+
+How well did our neural network do? Let's take a look:
 
 ```@example ude
 # Plot the losses
@@ -156,36 +314,83 @@ pl_missing = plot(pl_reconstruction, pl_reconstruction_error, layout = (2,1))
 pl_overall = plot(pl_trajectory, pl_missing)
 ```
 
+That looks pretty good. And if we are happy with deep learning, we can leave it at that:
+we have trained a neural network to capture our missing dynamics.
+
+But...
+
+Can we also make it print out the LaTeX for what the missing equations were? Find out
+more after the break!
+
 ## Symbolic regression via sparse regression ( SINDy based )
 
+Okay that was a quick break, and that's good because this next part is pretty cool. Let's
+use [DataDrivenDiffEq.jl](https://docs.sciml.ai/DataDrivenDiffEq/stable/) to transform our
+trained neural network from machine learning mumbo jumbo into predictions of missing
+mechanistic equations. To do this, we first generate a symbolic basis that represents the
+space of mechanistic functions we believe this neural network should map to. Let's choose
+a bunch of polynomials and trigonometic functions:
+
 ```@example ude
-# Create a Basis
 @variables u[1:2]
-# Generate the basis functions, multivariate polynomials up to deg 5
-# and sine
 b = [polynomial_basis(u, 5); sin.(u)]
 basis = Basis(b,u);
 ```
 
-```julia
-# Create the thresholds which should be used in the search process
-λ = exp10.(-3:0.01:5)
-# Create an optimizer for the SINDy problem
-opt = STLSQ(λ)
-# Define different problems for the recovery
-ideal_problem = DirectDataDrivenProblem(X̂, Ȳ)
-nn_problem = DirectDataDrivenProblem(X̂, Ŷ)
-# Test on ideal derivative data for unknown function ( not available )
-println("Sparse regression")
-full_res = solve(full_problem, basis, opt, maxiter = 10000, progress = true)
-```
+Now let's define our `DataDrivenProblem`s for the sparse regressions. To assess the
+capability of the sparse regression, we will look at 3 cases:
+
+* What if we trained no neural network and tried to automatically uncover the equations
+  from the original data? This is the approach in the literature known as structural
+  identification of dynamcial systems (SINDy). We will call this the full problem. This
+  will assess whether this incorporation of prior information was helpful.
+* What if we trained the neural network using the ideal right hand side missing derivative
+  functions? This is the value computed in the plots above as `Ȳ`. This will tell us whether
+  the symbolic discovery could work in ideal situations.
+* Do the symbolic regression directly on the function `y = NN(x)`, i.e. the trained learned
+  neural network. This is what we really want, and will tell us how to extend our known
+  equations.
+
+To define the full problem, we need to define a `DataDrivenProblem` that has the time
+series of the solution `X`, the time points of the solution `t`, and the derivative
+at each time point of the solution (obtained by the ODE solution's interpolation. `sol(t)`
+gives the value at `t` and `sol(t,Val{1})` gives the derivative!). This looks like:
 
 ```julia
+DX = Array(solution(solution.t, Val{1}))
+full_problem = DataDrivenProblem(X, t = t, DX = DX)
+```
+
+Now for the other two symbolic regressions, we are regressing input/outputs of the missing
+terms and thus we directly define the datasets as the input/output mappings like:
+
+```julia
+ideal_problem = DirectDataDrivenProblem(X̂, Ȳ)
+nn_problem = DirectDataDrivenProblem(X̂, Ŷ)
+```
+
+Now let's solve the data driven problems using sparse regression. We will use the `STLSQ`
+method, which requires we define a set of shrinking cutoff values `λ`, and we do this like:
+
+```julia
+λ = exp10.(-3:0.01:5)
+opt = STLSQ(λ)
+```
+
+This is one of many methods for sparse regression, consult the
+[DataDrivenDiffEq.jl documentation](https://docs.sciml.ai/DataDrivenDiffEq/stable/) for
+more information on the algorithm choices. Taking this, let's solve each of the sparse
+regressions:
+
+```julia
+full_res = solve(full_problem, basis, opt, maxiter = 10000, progress = true)
 ideal_res = solve(ideal_problem, basis, opt, maxiter = 10000, progress = true)
 nn_res = solve(nn_problem, basis, opt, maxiter = 10000, progress = true, sampler = DataSampler(Batcher(n = 4, shuffle = true)))
 # Store the results
 results = [full_res; ideal_res; nn_res]
 ```
+
+How well did it do?
 
 ```julia
 # Show the results

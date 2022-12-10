@@ -1,6 +1,33 @@
-# [GPU-Accelerated Physics-Informed Neural Network PDE Solvers](@id pinngpu)
+# [GPU-Accelerated Physics-Informed Neural Network (PINN) PDE Solvers](@id pinngpu)
 
-the 2-dimensional PDE:
+Machine learning is all the rage. Everybody thinks physics is cool.
+
+Therefore, using machine learning to solve physics equations? 🧠💥
+
+So let's be cool and use a physics-informed neural network (PINN) to solve the Heat
+Equation. Let's be even cooler by using GPUs (ironically, creating even more heat, but
+it's the heat equation so that's cool).
+
+## Step 1: Import Libraries
+
+To solve PDEs using neural networks, we will use the
+[NeuralPDE.jl package](https://neuralpde.sciml.ai/stable/). This package uses
+ModelingToolkit's symbolic `PDESystem` as an input and it generates an
+[Optimization.jl](https://docs.sciml.ai/Optimization/stable/) `OptimizationProblem` which,
+when solved, gives the weights of the neural network that solve the PDE. In the end, our
+neural network `NN` satisfies the PDE equations and is thus the solution to the PDE! Thus
+our packages look like:
+
+```@example pinn
+using NeuralPDE
+using Optimization, OptimizationOptimisers
+import ModelingToolkit: Interval
+using Plots, Printf, Lux, CUDA, Random
+```
+
+## Problem Setup
+
+Let's solve the 2+1-dimensional Heat Equation. This is the PDE:
 
 ```math
 ∂_t u(x, y, t) = ∂^2_x u(x, y, t) + ∂^2_y u(x, y, t) \, ,
@@ -24,30 +51,14 @@ on the space and time domain:
 x \in [0, 2] \, ,\ y \in [0, 2] \, , \ t \in [0, 2] \, ,
 ```
 
-with physics-informed neural networks. The only major difference from the CPU case is that
-we must ensure that our initial parameters for the neural network are on the GPU. If that
-is done, then the internal computations will all take place on the GPU. This is done by
-using the `gpu` function on the initial parameters, like:
+with physics-informed neural networks.
 
-```julia
-using Lux
-chain = Chain(Dense(3,inner,Lux.σ),
-              Dense(inner,inner,Lux.σ),
-              Dense(inner,inner,Lux.σ),
-              Dense(inner,inner,Lux.σ),
-              Dense(inner,1))
-ps = Lux.setup(Random.default_rng(), chain)[1]
-ps = ps |> Lux.ComponentArray |> gpu .|> Float64
-```
+## Step 2: Define the PDESystem
 
-In total, this looks like:
+First let's use ModelingToolkit's `PDESystem` to represent the PDE. To do this, basically
+just copy-paste the PDE definition into Julia code. This looks like:
 
-```julia
-using NeuralPDE, Lux, CUDA, Random
-using Optimization
-using OptimizationOptimisers
-import ModelingToolkit: Interval
-
+```@example pinn
 @parameters t x y
 @variables u(..)
 Dxx = Differential(x)^2
@@ -76,31 +87,61 @@ domains = [t ∈ Interval(t_min,t_max),
            x ∈ Interval(x_min,x_max),
            y ∈ Interval(y_min,y_max)]
 
-# Neural network
+@named pde_system = PDESystem(eq,bcs,domains,[t,x,y],[u(t, x, y)])
+```
+
+!!! note
+    We used the wildcard form of the variable defintion `@variables u(..)` which then
+    requires that we all ways specify what the dependent variables of `u` are. The reason
+    for this is because in the boundary conditions we change from using `u(t,x,y)` to
+    more specific points and lines, like `u(t,x_max,y)`.
+
+## Step 3: Define the Lux Neural Network
+
+Now let's define the neural network that will act as our solution. We will use a simple
+multi-layer perceptron, like:
+
+```@example pinn
+using Lux
 inner = 25
 chain = Chain(Dense(3,inner,Lux.σ),
               Dense(inner,inner,Lux.σ),
               Dense(inner,inner,Lux.σ),
               Dense(inner,inner,Lux.σ),
               Dense(inner,1))
-
-strategy = GridTraining(0.05)
 ps = Lux.setup(Random.default_rng(), chain)[1]
-ps = ps |> Lux.ComponentArray |> gpu .|> Float64
+ps = ps |> Lux.ComponentArray
+```
+
+## Step 4: Place it on the GPU.
+
+Just plop it on that sucker. We must ensure that our initial parameters for the neural
+network are on the GPU. If that is done, then the internal computations will all take place
+on the GPU. This is done by using the `gpu` function on the initial parameters, like:
+
+```@example pinn
+ps = ps |> gpu .|> Float64
+```
+
+## Step 5: Discretize the PDE via a PINN Training Strategy
+
+```@example pinn
+strategy = GridTraining(0.05)
 discretization = PhysicsInformedNN(chain,
                                    strategy,
                                    init_params = ps)
-
-@named pde_system = PDESystem(eq,bcs,domains,[t,x,y],[u(t, x, y)])
 prob = discretize(pde_system,discretization)
-symprob = symbolic_discretize(pde_system,discretization)
+```
 
+## Step 6: Solve the Optimization Problem
+
+```@example pinn
 callback = function (p,l)
     println("Current loss is: $l")
     return false
 end
 
-res = Optimization.solve(prob,Adam(0.01);callback = callback,maxiters=2500)
+res = Optimization.solve(prob,Adam(0.01);callback = callback,maxiters=2500);
 ```
 
 We then use the `remake` function allows to rebuild the PDE problem to start a new
@@ -108,8 +149,10 @@ optimization at the optimized parameters, and continue with a lower learning rat
 
 ```julia
 prob = remake(prob,u0=res.u)
-res = Optimization.solve(prob,Adam(0.001);callback = callback,maxiters=2500)
+res = Optimization.solve(prob,Adam(0.001);callback = callback,maxiters=2500);
 ```
+
+## Step 7: Inspect the PINN's Solution
 
 Finally we inspect the solution:
 
@@ -118,9 +161,6 @@ phi = discretization.phi
 ts,xs,ys = [infimum(d.domain):0.1:supremum(d.domain) for d in domains]
 u_real = [analytic_sol_func(t,x,y) for t in ts for x in xs for y in ys]
 u_predict = [first(Array(phi(gpu([t, x, y]), res.u))) for t in ts for x in xs for y in ys]
-
-using Plots
-using Printf
 
 function plot_(res)
     # Animate

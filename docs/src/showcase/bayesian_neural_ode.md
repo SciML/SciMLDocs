@@ -1,4 +1,4 @@
-# [Bayesian automated model discovery with quantified uncertainties and probability estimates](@id bnode)
+# [Uncertainty Quantified Deep Bayesian Model Discovery](@id bnode)
 
 In this tutorial, we show how SciML can combine the differential equation solvers seamlessly
 with Bayesian estimation libraries like AdvancedHMC.jl and Turing.jl. This enables
