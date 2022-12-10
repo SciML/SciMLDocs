@@ -101,9 +101,7 @@ domains = [t ∈ Interval(t_min,t_max),
 Now let's define the neural network that will act as our solution. We will use a simple
 multi-layer perceptron, like:
 
-The only major difference from the CPU case is that
-
-```julia
+```@example pinn
 using Lux
 chain = Chain(Dense(3,inner,Lux.σ),
               Dense(inner,inner,Lux.σ),

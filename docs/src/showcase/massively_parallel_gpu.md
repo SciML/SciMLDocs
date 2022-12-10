@@ -15,7 +15,7 @@ use GPUs to parallelize over different parameters and initial conditions. In oth
 | Solve the same ODE with many `u0` and `p` | Use [DiffEqGPU.jl's](https://docs.sciml.ai/DiffEqGPU/stable/) `EnsembleGPUArray` and `EnsembleGPUKernel` |
 
 This showcase will focus on the latter case. For the former, see the
-[massively parallel GPU ODE solving showcase](@ref gpu_spde).
+[massively parallel GPU ODE solving showcase](@ref gpuspde).
 
 ## Problem Setup
 
@@ -23,18 +23,22 @@ This showcase will focus on the latter case. For the former, see the
 
 ```@example diffeqgpu
 using DiffEqGPU, OrdinaryDiffEq
-function lorenz(du,u,p,t)
-    du[1] = p[1]*(u[2]-u[1])
-    du[2] = u[1]*(p[2]-u[3]) - u[2]
-    du[3] = u[1]*u[2] - p[3]*u[3]
+function lorenz(u, p, t)
+    σ = p[1]
+    ρ = p[2]
+    β = p[3]
+    du1 = σ * (u[2] - u[1])
+    du2 = u[1] * (ρ - u[3]) - u[2]
+    du3 = u[1] * u[2] - β * u[3]
+    return SVector{3}(du1, du2, du3)
 end
 
-u0 = Float32[1.0;0.0;0.0]
-tspan = (0.0f0,100.0f0)
-p = [10.0f0,28.0f0,8/3f0]
-prob = ODEProblem(lorenz,u0,tspan,p)
-prob_func = (prob,i,repeat) -> remake(prob,p=rand(Float32,3).*p)
-monteprob = EnsembleProblem(prob, prob_func = prob_func, safetycopy=false)
+u0 = @SVector [1.0f0; 0.0f0; 0.0f0]
+tspan = (0.0f0, 10.0f0)
+p = @SVector [10.0f0, 28.0f0, 8 / 3.0f0]
+prob = ODEProblem{false}(lorenz, u0, tspan, p)
+prob_func = (prob, i, repeat) -> remake(prob, p = (@SVector rand(Float32, 3)).*p)
+monteprob = EnsembleProblem(prob, prob_func = prob_func, safetycopy = false)
 @time sol = solve(monteprob,Tsit5(),EnsembleThreads(),trajectories=10_000,saveat=1.0f0)
 ```
 

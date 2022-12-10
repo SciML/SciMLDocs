@@ -116,6 +116,7 @@ prob = ODEProblem(lotka!, u0,tspan, p_)
 solution = solve(prob, Vern7(), abstol=1e-12, reltol=1e-12, saveat = 0.1)
 
 # Add noise in terms of the mean
+X = Array(solution)
 x̄ = mean(X, dims = 2)
 noise_magnitude = 5e-3
 Xₙ = X .+ (noise_magnitude*x̄) .* randn(eltype(X), size(X))
