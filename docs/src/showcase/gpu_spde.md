@@ -421,7 +421,7 @@ function gf(du,u,p,t)
   dB = @view du[:,:,2]
   dC = @view du[:,:,3]
   mul!(gMyA,gMy,A)
-  mul!(gAMx,A,gMx)
+  mul!(AgMx,A,gMx)
   @. gDA = D*(gMyA + AgMx)
   @. dA = gDA + gα₁ - β₁*A - r₁*A*B + r₂*C
   @. dB = α₂ - β₂*B - r₁*A*B + r₂*C
