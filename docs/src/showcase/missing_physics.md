@@ -117,6 +117,8 @@ solution = solve(prob, Vern7(), abstol=1e-12, reltol=1e-12, saveat = 0.1)
 
 # Add noise in terms of the mean
 X = Array(solution)
+t = solution.t
+
 x̄ = mean(X, dims = 2)
 noise_magnitude = 5e-3
 Xₙ = X .+ (noise_magnitude*x̄) .* randn(eltype(X), size(X))
@@ -355,9 +357,6 @@ at each time point of the solution (obtained by the ODE solution's interpolation
 gives the value at `t` and `sol(t,Val{1})` gives the derivative!). This looks like:
 
 ```julia
-# Ideal data
-X = Array(solution)
-t = solution.t
 DX = Array(solution(solution.t, Val{1}))
 full_problem = DataDrivenProblem(X, t = t, DX = DX)
 ```

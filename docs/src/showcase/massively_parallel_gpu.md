@@ -22,7 +22,7 @@ This showcase will focus on the latter case. For the former, see the
 ## Defining the Ensemble Problem for CPU
 
 ```@example diffeqgpu
-using DiffEqGPU, OrdinaryDiffEq
+using DiffEqGPU, OrdinaryDiffEq, StaticArrays
 function lorenz(u, p, t)
     σ = p[1]
     ρ = p[2]
