@@ -38,7 +38,7 @@ initial condition.
     number systems.
 
 !!! warn
-    Adaptive timestepping requires that the time type is compaible with `sqrt` and `^`
+    Adaptive timestepping requires that the time type is compatible with `sqrt` and `^`
     functions. Thus for example, `tspan` cannot be `Int` if adaptive timestepping is chosen.
 
 Let's use this feature in some cool ways!
@@ -171,7 +171,7 @@ prob = ODEProblem(f,u0,(0.0u"s",1.0u"s"))
 #sol = solve(prob,Tsit5())
 ```
 
-Notice that we recieved a unit mismatch error. This is correctly so! Remember that for an
+Notice that we received a unit mismatch error. This is correctly so! Remember that for an
 ODE:
 
 ```math
@@ -213,7 +213,7 @@ There is a Julia package for dealing with numbers with uncertainties:
 features, `DifferentialEquations.jl` easily works together with `Measurements.jl`
 out-of-the-box.
 
-Let's try to automate uncertainty propogation through number types on some classical
+Let's try to automate uncertainty propagation through number types on some classical
 physics examples!
 
 ### Caveat about `Measurement` type
@@ -417,9 +417,9 @@ sol = solve(prob, Tsit5(), reltol = 1e-6)
 plot(sol.t, getindex.(sol.u, 2), label = "Numerical")
 ```
 
-### Warning about Linear Uncertainty Propogation
+### Warning about Linear Uncertainty Propagation
 
-Measurements.jl uses linear uncertainty propogation which has an error associated with it.
+Measurements.jl uses linear uncertainty propagation which has an error associated with it.
 [MonteCarloMeasurements.jl has a page which showcases where this method can lead to incorrect uncertainty measurements](https://baggepinnen.github.io/MonteCarloMeasurements.jl/stable/comparison/).
 Thus for more nonlinear use cases, it's suggested that one uses one of the more powerful
 UQ methods, such as:

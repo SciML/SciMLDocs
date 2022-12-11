@@ -91,7 +91,7 @@ domains = [t ∈ Interval(t_min,t_max),
 ```
 
 !!! note
-    We used the wildcard form of the variable defintion `@variables u(..)` which then
+    We used the wildcard form of the variable definition `@variables u(..)` which then
     requires that we all ways specify what the dependent variables of `u` are. The reason
     for this is because in the boundary conditions we change from using `u(t,x,y)` to
     more specific points and lines, like `u(t,x_max,y)`.
