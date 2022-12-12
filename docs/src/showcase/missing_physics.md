@@ -68,7 +68,7 @@ using LinearAlgebra, Statistics, Random
 using ComponentArrays, Lux, Plots
 gr()
 
-# Set a random seed for reproduceable behaviour
+# Set a random seed for reproducible behaviour
 rng = Random.default_rng()
 Random.seed!(1234)
 ```
@@ -160,7 +160,7 @@ prob_nn = ODEProblem(nn_dynamics!,Xₙ[:, 1], tspan, p)
 
 Notice that the most important part of this is that the neural network does not have
 hardcoded weights. The weights of the neural network are the parameters of the ODE system.
-This means that if we change the paramters of the ODE system, then we will have updated
+This means that if we change the parameters of the ODE system, then we will have updated
 the internal neural networks to new weights. Keep that in mind for the next part.
 
 ... and tada: now we have a neural network integrated into our dynamical system!
@@ -329,7 +329,7 @@ use [DataDrivenDiffEq.jl](https://docs.sciml.ai/DataDrivenDiffEq/stable/) to tra
 trained neural network from machine learning mumbo jumbo into predictions of missing
 mechanistic equations. To do this, we first generate a symbolic basis that represents the
 space of mechanistic functions we believe this neural network should map to. Let's choose
-a bunch of polynomials and trigonometic functions:
+a bunch of polynomials and trigonometric functions:
 
 ```@example ude
 @variables u[1:2]
@@ -342,7 +342,7 @@ capability of the sparse regression, we will look at 3 cases:
 
 * What if we trained no neural network and tried to automatically uncover the equations
   from the original data? This is the approach in the literature known as structural
-  identification of dynamcial systems (SINDy). We will call this the full problem. This
+  identification of dynamical systems (SINDy). We will call this the full problem. This
   will assess whether this incorporation of prior information was helpful.
 * What if we trained the neural network using the ideal right hand side missing derivative
   functions? This is the value computed in the plots above as `Ȳ`. This will tell us whether

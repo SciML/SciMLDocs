@@ -64,7 +64,7 @@ We wish to obtain the solution to this PDE on a timespan of ``t \in [0,11.5]``.
 
 ## Defining the symbolic PDEsystem with ModelingToolkit.jl
 
-With `ModelingToolkit.jl`, we first symbolicaly define the system, see also the docs for [`PDESystem`](https://docs.sciml.ai/ModelingToolkit/stable/systems/PDESystem/):
+With `ModelingToolkit.jl`, we first symbolically define the system, see also the docs for [`PDESystem`](https://docs.sciml.ai/ModelingToolkit/stable/systems/PDESystem/):
 
 ```@example bruss
 using ModelingToolkit, MethodOfLines, OrdinaryDiffEq, LinearSolve, DomainSets
