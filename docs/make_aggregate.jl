@@ -29,7 +29,7 @@ docsmodules = [
     "PDE Solvers" => ["MethodOfLines", "NeuralPDE",
                       "NeuralOperators", "FEniCS",
                       "HighDimPDE", "DiffEqOperators"],
-    "Third-Party PDE Solvers" => ["Trixi", "Gridap", "ApproxFun", "VoronoiFVM"],
+    "Third-Party PDE Solvers" => ["Trixi", "Ferrite", "Gridap", "ApproxFun", "VoronoiFVM"],
     "Advanced Solver APIs" => ["OrdinaryDiffEq", "DiffEqGPU"],
     ],
 
@@ -91,6 +91,7 @@ external_urls = Dict(
     "MomentClosure" => "https://github.com/augustinas1/MomentClosure.jl",
     "Trixi" => "https://github.com/trixi-framework/Trixi.jl",
     "Gridap" => "https://github.com/gridap/Gridap.jl",
+    "Ferrite" => "https://github.com/Ferrite-FEM/Ferrite.jl",
     "ApproxFun" => "https://github.com/JuliaApproximation/ApproxFun.jl",
     "VoronoiFVM" => "https://github.com/j-fu/VoronoiFVM.jl",
     "Symbolics" => "https://github.com/JuliaSymbolics/Symbolics.jl",
