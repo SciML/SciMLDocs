@@ -61,7 +61,7 @@ docsmodules = [
     "Third-Party Numerical Utilities" => ["FFTW", #= "DataInterpolations",=# "Distributions",
                                           "SpecialFunctions", "LoopVectorization",
                                           "Polyester", "SparseDiffTools", #="Tullio"=#],
-    "High-Level Interfaces" => ["SciMLBase", "SciMLOperators", "CommonSolve"],
+    "High-Level Interfaces" => ["SciMLBase", "SymbolicIndexingInterface", "SciMLOperators", "CommonSolve"],
     "Third-Party Interfaces" => ["ArrayInterface", #= "Adapt", =# "AbstractFFTs", "GPUArrays",
                                  #= "RecipesBase", =# "Tables", ],
     "Developer Documentation" => ["SciMLStyle", "ColPrac", "DiffEqDevDocs"],
