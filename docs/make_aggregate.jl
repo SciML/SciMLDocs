@@ -65,7 +65,7 @@ docsmodules = [
     "Third-Party Interfaces" => ["ArrayInterface", #= "Adapt", =# "AbstractFFTs", "GPUArrays",
                                  #= "RecipesBase", =# "Tables", ],
     "Developer Documentation" => ["SciMLStyle", "ColPrac", "DiffEqDevDocs"],
-    "Extra Resources" => ["SciMLTutorialsOutput", "SciMLBenchmarksOutput"],
+    "Extra Resources" => ["SciMLWorkshop", "SciMLBenchmarksOutput"],
     ],
 ]
 
