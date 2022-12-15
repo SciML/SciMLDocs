@@ -20,4 +20,4 @@ Want to see some cool things that you can do with SciML? Check out the following
     * [GPU-Accelerated Stochastic Partial Differential Equations](@ref gpuspde)
 * Useful cool wonky things that are hard to find anywhere else
     * [Automatic Uncertainty Quantification, Arbitrary Precision, and Unit Checking in ODE Solutions using Julia's Type System](@ref ode_types)
-    * [Symbolic Analysis of Parameter Identifiability and Model Stability](@ref symbolic_analysis)
+    * [Symbolic-Numeric Analysis of Parameter Identifiability and Model Stability](@ref symbolic_analysis)

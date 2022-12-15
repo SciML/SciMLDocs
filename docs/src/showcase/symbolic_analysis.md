@@ -1,4 +1,29 @@
-# [Symbolic Analysis of Parameter Identifiability and Model Stability](@id symbolic_analysis)
+# [Symbolic-Numeric Analysis of Parameter Identifiability and Model Stability](@id symbolic_analysis)
+
+The mixture of symbolic computing with numeric computing, which we call symbolic-numeric
+programming, is one of the central features of the SciML ecosystem. With core aspects
+like the [Symbolics.jl Computer Algebra System](https://symbolics.juliasymbolics.org/stable/)
+and its integration via [ModelingToolkit.jl](https://docs.sciml.ai/ModelingToolkit/stable/),
+the SciML ecosystem gracefully mixes analytical symbolic computations with the numerical
+solver processes to accelerate solvers, give additional information
+(sparsity, identifiability), automatically fix numerical stability issues, and more.
+
+In this showcase we will highlight two aspects of symbolic-numeric programming.
+
+1. Automated index reduction of DAEs. While arbitrary [differential-algebraic equation
+   systems can be written in DifferentialEquations.jl](https://docs.sciml.ai/DiffEqDocs/stable/tutorials/dae_example/),
+   not all mathematical formulations of a system are equivalent. Some are numerically
+   difficult to solve, or even require special solvers. Some are easy. Can we recognize
+   which formulations are hard and automatically transform them into the easy ones? Yes.
+2. Structural parameter identifiability. When fitting parameters to data, there's always
+   assumptions about whether there is a unique parameter set that achieves such a data
+   fit. But is this actually the case? The structural identifiability tooling allows one
+   to analytically determine whether, in the limit of infinite data on a subset of
+   observables, one could in theory uniquely identify the parameters (global identifiability),
+   identify the parameters up to a discrete set (local identifiability), or whether
+   there's an infinite manifold of solutions to the inverse problem (nonidentifiable).
+
+Let's dig into these two cases!
 
 # Automated Index Reduction of DAEs
 

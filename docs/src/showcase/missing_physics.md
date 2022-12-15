@@ -322,7 +322,9 @@ But...
 Can we also make it print out the LaTeX for what the missing equations were? Find out
 more after the break!
 
-## Symbolic regression via sparse regression ( SINDy based )
+## Symbolic regression via sparse regression (SINDy based)
+
+#### This part of the showcase is still a work in progress... shame on us. But be back in a jiffy and we'll have it done.
 
 Okay that was a quick break, and that's good because this next part is pretty cool. Let's
 use [DataDrivenDiffEq.jl](https://docs.sciml.ai/DataDrivenDiffEq/stable/) to transform our
