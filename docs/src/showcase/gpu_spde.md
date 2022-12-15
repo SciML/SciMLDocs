@@ -48,9 +48,11 @@ mass-action kinetics. If this all is meaningless to you, just understand that it
 system of PDEs:
 
 ```math
-A_t = D \Delta A + \alpha_A(x) - \beta_A  A - r_1 A B + r_2 C
-B_t = \alpha_B - \beta_B B - r_1 A B + r_2 C
-C_t = \alpha_C - \beta_C C + r_1 A B - r_2 C
+\begin{align}
+A_t &= D \Delta A + \alpha_A(x) - \beta_A  A - r_1 A B + r_2 C\\
+B_t &= \alpha_B - \beta_B B - r_1 A B + r_2 C\\
+C_t &= \alpha_C - \beta_C C + r_1 A B - r_2 C
+\end{align}
 ```
 
 One addition that was made to the model is that we let ``\alpha_A(x)`` be the production of
@@ -143,7 +145,7 @@ We can represent our problem with a 3-dimensional tensor, taking each 2-dimensio
 as our (A,B,C). This means that we can define:
 
 ```@example spde
-u0 = zeros(N,N,3)
+u0 = zeros(N,N,3);
 ```
 
 Now we can decompose it like:
