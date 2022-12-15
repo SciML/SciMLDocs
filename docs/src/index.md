@@ -15,6 +15,7 @@ features many of the highest performance and parallel implementations one can fi
 * What is SciML? Check out our [Overview](@ref overview).
 * Want to see some cool end-to-end examples? Check out the [SciML Showcase](@ref showcase).
 * Curious about our performance claims? Check out [the SciML Open Benchmarks](https://benchmarks.sciml.ai/dev/).
+* Want to learn more about how SciML does scientific machine learning? Check out the [SciML Book (from MIT's 18.337 graduate course)](https://book.sciml.ai/).
 * Want to chat with someone? Check out [our chat room](https://julialang.zulipchat.com/#narrow/stream/279055-sciml-bridged) and [forums](https://discourse.julialang.org/).
 * Want to see our code? Check out [the SciML Github organization](https://github.com/SciML).
 
