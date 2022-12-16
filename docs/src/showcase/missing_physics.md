@@ -40,7 +40,6 @@ Julia standard libraries:
 |---------------|----------------------------------|
 | LinearAlgebra | Required for the `norm` function |
 | Statistics    | Required for the `mean` function |
-| Random        | Required to set the random seed  |
 
 And external libraries:
 
@@ -49,6 +48,7 @@ And external libraries:
 | [Lux.jl](http://lux.csail.mit.edu/stable/)                                   | The deep learning (neural network) framework        |
 | [ComponentArrays.jl](https://jonniedie.github.io/ComponentArrays.jl/stable/) | For the `ComponentArray` type to match Lux to SciML |
 | [Plots.jl](https://docs.juliaplots.org/stable/)                              | The plotting and visualization library              |
+| [StableRNGs.jl](https://docs.juliaplots.org/stable/)                         | Stable random seeding                               |
 
 !!! note
     The deep learning framework [Flux.jl](https://fluxml.ai/) could be used in place of Flux,
@@ -62,15 +62,14 @@ using OrdinaryDiffEq, ModelingToolkit, DataDrivenDiffEq, SciMLSensitivity, DataD
 using Optimization, OptimizationOptimisers, OptimizationOptimJL
 
 # Standard Libraries
-using LinearAlgebra, Statistics, Random
+using LinearAlgebra, Statistics
 
 # External Libraries
-using ComponentArrays, Lux, Plots
+using ComponentArrays, Lux, Zygote, Plots, StableRNGs
 gr()
 
 # Set a random seed for reproducible behaviour
-rng = Random.default_rng()
-Random.seed!(1234)
+rng = StableRNG(1111)
 ```
 
 ## Problem Setup
@@ -109,11 +108,11 @@ function lotka!(du, u, p, t)
 end
 
 # Define the experimental parameter
-tspan = (0.0,3.0)
-u0 = [0.44249296,4.6280594]
+tspan = (0.0,5.0)
+u0 = 5f0 * rand(rng, 2)
 p_ = [1.3, 0.9, 0.8, 1.8]
 prob = ODEProblem(lotka!, u0,tspan, p_)
-solution = solve(prob, Vern7(), abstol=1e-12, reltol=1e-12, saveat = 0.1)
+solution = solve(prob, Vern7(), abstol=1e-12, reltol=1e-12, saveat = 0.25)
 
 # Add noise in terms of the mean
 X = Array(solution)
@@ -121,7 +120,7 @@ t = solution.t
 
 x̄ = mean(X, dims = 2)
 noise_magnitude = 5e-3
-Xₙ = X .+ (noise_magnitude*x̄) .* randn(eltype(X), size(X))
+Xₙ = X .+ (noise_magnitude*x̄) .* randn(rng, eltype(X), size(X))
 
 plot(solution, alpha = 0.75, color = :black, label = ["True Data" nothing])
 scatter!(t, transpose(Xₙ), color = :red, label = ["Noisy Data" nothing])
@@ -205,7 +204,7 @@ against the dataset. Using our `predict` function, this looks like:
 ```@example ude
 function loss(θ)
     X̂ = predict(θ)
-    sum(abs2, Xₙ .- X̂)
+    mean(abs2, Xₙ .- X̂)
 end
 ```
 
@@ -254,7 +253,7 @@ Thus we first solve the optimization problem with ADAM. Choosing a learning rate
 (tuned to be as high as possible that doesn't tend to make the loss shoot up), we see:
 
 ```@example ude
-res1 = Optimization.solve(optprob, ADAM(0.1), callback=callback, maxiters = 200)
+res1 = Optimization.solve(optprob, ADAM(), callback=callback, maxiters = 5000)
 println("Training loss after $(length(losses)) iterations: $(losses[end])")
 ```
 
@@ -263,10 +262,10 @@ second optimization, and run it with BFGS. This looks like:
 
 ```@example ude
 optprob2 = Optimization.OptimizationProblem(optf, res1.u)
-res2 = Optimization.solve(optprob2, Optim.BFGS(initial_stepnorm=0.01), callback=callback, maxiters = 10000)
+res2 = Optimization.solve(optprob2, Optim.LBFGS(), callback=callback, maxiters = 1000)
 println("Final training loss after $(length(losses)) iterations: $(losses[end])")
 
-# Rename the best candidate
+# Rename the best candidate  
 p_trained = res2.u
 ```
 
@@ -278,9 +277,11 @@ How well did our neural network do? Let's take a look:
 
 ```@example ude
 # Plot the losses
-pl_losses = plot(1:200, losses[1:200], yaxis = :log10, xaxis = :log10, xlabel = "Iterations", ylabel = "Loss", label = "ADAM", color = :blue)
-plot!(201:length(losses), losses[201:end], yaxis = :log10, xaxis = :log10, xlabel = "Iterations", ylabel = "Loss", label = "BFGS", color = :red)
+pl_losses = plot(1:5000, losses[1:5000], yaxis = :log10, xaxis = :log10, xlabel = "Iterations", ylabel = "Loss", label = "ADAM", color = :blue)
+plot!(5001:length(losses), losses[5001:end], yaxis = :log10, xaxis = :log10, xlabel = "Iterations", ylabel = "Loss", label = "BFGS", color = :red)
 ```
+
+Next, we compare the original data to the output of the UDE predictor. Note that we can even create more samples from the underlying model by simply adjusting the time steps!
 
 ```@example ude
 ## Analysis of the trained network
@@ -292,25 +293,25 @@ pl_trajectory = plot(ts, transpose(X̂), xlabel = "t", ylabel ="x(t), y(t)", col
 scatter!(solution.t, transpose(Xₙ), color = :black, label = ["Measurements" nothing])
 ```
 
+Lets see how well the unknown term has been approximated:
+
 ```@example ude
 # Ideal unknown interactions of the predictor
 Ȳ = [-p_[2]*(X̂[1,:].*X̂[2,:])';p_[3]*(X̂[1,:].*X̂[2,:])']
 # Neural network guess
 Ŷ = U(X̂,p_trained,st)[1]
-```
 
-```@example ude
 pl_reconstruction = plot(ts, transpose(Ŷ), xlabel = "t", ylabel ="U(x,y)", color = :red, label = ["UDE Approximation" nothing])
 plot!(ts, transpose(Ȳ), color = :black, label = ["True Interaction" nothing])
 ```
+
+And have a nice look at all the information:
 
 ```@example ude
 # Plot the error
 pl_reconstruction_error = plot(ts, norm.(eachcol(Ȳ-Ŷ)), yaxis = :log, xlabel = "t", ylabel = "L2-Error", label = nothing, color = :red)
 pl_missing = plot(pl_reconstruction, pl_reconstruction_error, layout = (2,1))
-```
 
-```@example ude
 pl_overall = plot(pl_trajectory, pl_missing)
 ```
 
@@ -331,19 +332,18 @@ use [DataDrivenDiffEq.jl](https://docs.sciml.ai/DataDrivenDiffEq/stable/) to tra
 trained neural network from machine learning mumbo jumbo into predictions of missing
 mechanistic equations. To do this, we first generate a symbolic basis that represents the
 space of mechanistic functions we believe this neural network should map to. Let's choose
-a bunch of polynomials and trigonometric functions:
+a bunch of polynomial functions:
 
 ```@example ude
 @variables u[1:2]
-b = [polynomial_basis(u, 5); sin.(u)]
+b = polynomial_basis(u, 4)
 basis = Basis(b,u);
 ```
-
 Now let's define our `DataDrivenProblem`s for the sparse regressions. To assess the
 capability of the sparse regression, we will look at 3 cases:
 
 * What if we trained no neural network and tried to automatically uncover the equations
-  from the original data? This is the approach in the literature known as structural
+  from the original noisy data? This is the approach in the literature known as structural
   identification of dynamical systems (SINDy). We will call this the full problem. This
   will assess whether this incorporation of prior information was helpful.
 * What if we trained the neural network using the ideal right hand side missing derivative
@@ -355,28 +355,26 @@ capability of the sparse regression, we will look at 3 cases:
 
 To define the full problem, we need to define a `DataDrivenProblem` that has the time
 series of the solution `X`, the time points of the solution `t`, and the derivative
-at each time point of the solution (obtained by the ODE solution's interpolation. `sol(t)`
-gives the value at `t` and `sol(t,Val{1})` gives the derivative!). This looks like:
+at each time point of the solution (obtained by the ODE solution's interpolation. We can just use an interpolation to get the derivative:
 
-```julia
-DX = Array(solution(solution.t, Val{1}))
-full_problem = DataDrivenProblem(X, t = t, DX = DX)
+```@example ude
+full_problem = ContinuousDataDrivenProblem(Xₙ, t)
 ```
 
 Now for the other two symbolic regressions, we are regressing input/outputs of the missing
 terms and thus we directly define the datasets as the input/output mappings like:
 
-```julia
+```@example ude
 ideal_problem = DirectDataDrivenProblem(X̂, Ȳ)
 nn_problem = DirectDataDrivenProblem(X̂, Ŷ)
 ```
 
-Now let's solve the data driven problems using sparse regression. We will use the `STLSQ`
+Let's solve the data driven problems using sparse regression. We will use the `ADMM`
 method, which requires we define a set of shrinking cutoff values `λ`, and we do this like:
 
-```julia
-λ = exp10.(-3:0.01:5)
-opt = STLSQ(λ)
+```@example ude
+λ = exp10.(-3:0.01:3)
+opt = ADMM(λ)
 ```
 
 This is one of many methods for sparse regression, consult the
@@ -384,34 +382,60 @@ This is one of many methods for sparse regression, consult the
 more information on the algorithm choices. Taking this, let's solve each of the sparse
 regressions:
 
-```julia
-full_res = solve(full_problem, basis, opt, maxiter = 10000, progress = true)
-ideal_res = solve(ideal_problem, basis, opt, maxiter = 10000, progress = true)
-nn_res = solve(nn_problem, basis, opt, maxiter = 10000, progress = true, sampler = DataSampler(Batcher(n = 4, shuffle = true)))
-# Store the results
-results = [full_res; ideal_res; nn_res]
+```@example ude
+options = DataDrivenCommonOptions(
+    maxiters = 10_000, normalize = DataNormalization(ZScoreTransform), selector = bic, digits = 1,
+    data_processing = DataProcessing(split = 0.9, batchsize = 30, shuffle = true, rng = StableRNG(1111)))
+
+full_res = solve(full_problem, basis, opt, options = options)
+full_eqs = get_basis(full_res)
+println(full_res)
 ```
 
-How well did it do?
+```@example ude
+options = DataDrivenCommonOptions(
+    maxiters = 10_000, normalize = DataNormalization(ZScoreTransform), selector = bic, digits = 1,
+    data_processing = DataProcessing(split = 0.9, batchsize = 30, shuffle = true, rng = StableRNG(1111)))
 
-```julia
-# Show the results
-map(println, results)
-# Show the results
-map(println ∘ result, results)
-# Show the identified parameters
-map(println ∘ parameter_map, results)
+ideal_res = solve(ideal_problem, basis, opt, options = options)
+ideal_eqs = get_basis(ideal_res)
+println(ideal_res)
 ```
 
-```julia
+```@example ude
+options = DataDrivenCommonOptions(
+    maxiters = 10_000, normalize = DataNormalization(ZScoreTransform), selector = bic, digits = 1,
+    data_processing = DataProcessing(split = 0.9, batchsize = 30, shuffle = true, rng = StableRNG(1111)))
+
+nn_res = solve(nn_problem, basis, opt, options = options)
+nn_eqs = get_basis(nn_res)
+println(nn_res)
+```
+
+Note that we passed the identical options into each of the `solve` calls to get the same data for each call.
+
+We already saw that the full problem has failed to identify the correct equations of motion.
+To have a closer look, we can inspect the corresponding equations:
+
+```@example ude
+for eqs in (full_eqs, ideal_eqs, nn_eqs)
+    println(eqs)
+    println(get_parameter_map(eqs))
+    println()
+end
+```
+
+Next, we want to predict with our model. To do so, we embedd the basis into a function like before:
+
+```@example ude
 # Define the recovered, hybrid model
 function recovered_dynamics!(du,u, p, t)
-    û = nn_res(u, p) # Network prediction
+    û = nn_eqs(u, p) # Recovered equations
     du[1] = p_[1]*u[1] + û[1]
     du[2] = -p_[4]*u[2] + û[2]
 end
 
-estimation_prob = ODEProblem(recovered_dynamics!, u0, tspan, parameters(nn_res))
+estimation_prob = ODEProblem(recovered_dynamics!, u0, tspan, get_parameter_values(nn_eqs))
 estimate = solve(estimation_prob, Tsit5(), saveat = solution.t)
 
 # Plot
@@ -419,17 +443,30 @@ plot(solution)
 plot!(estimate)
 ```
 
+We are still a bit off, so we fine tune the parameters by simply minimizing the residuals between the UDE predictor and our recovered parametrized equations:
+
+```@example ude
+function parameter_loss(p)
+    Y = reduce(hcat, map(Base.Fix2(nn_eqs, p), eachcol(X̂))) 
+    sum(abs2, Ŷ .- Y)
+end
+
+optf = Optimization.OptimizationFunction((x,p)->parameter_loss(x), adtype)
+optprob = Optimization.OptimizationProblem(optf, get_parameter_values(nn_eqs))
+parameter_res = Optimization.solve(optprob, Optim.LBFGS(), maxiters = 1000)
+```
+
 ## Simulation
 
-```julia
+```@example ude
 # Look at long term prediction
 t_long = (0.0, 50.0)
-estimation_prob = ODEProblem(recovered_dynamics!, u0, t_long, parameters(nn_res))
+estimation_prob = ODEProblem(recovered_dynamics!, u0, t_long, parameter_res)
 estimate_long = solve(estimation_prob, Tsit5(), saveat = 0.1) # Using higher tolerances here results in exit of julia
 plot(estimate_long)
 ```
 
-```julia
+```@example ude
 true_prob = ODEProblem(lotka!, u0, t_long, p_)
 true_solution_long = solve(true_prob, Tsit5(), saveat = estimate_long.t)
 plot!(true_solution_long)
@@ -437,7 +474,7 @@ plot!(true_solution_long)
 
 ## Post Processing and Plots
 
-```julia
+```@example ude
 c1 = 3 # RGBA(174/255,192/255,201/255,1) # Maroon
 c2 = :orange # RGBA(132/255,159/255,173/255,1) # Red
 c3 = :blue # RGBA(255/255,90/255,0,1) # Orange
