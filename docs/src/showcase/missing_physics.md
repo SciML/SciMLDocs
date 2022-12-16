@@ -386,7 +386,7 @@ options = DataDrivenCommonOptions(
     data_processing = DataProcessing(split = 0.9, batchsize = 30, shuffle = true, rng = StableRNG(1111)))
 
 full_res = solve(full_problem, basis, opt, options = options)
-full_basis = get_basis(full_res)
+full_eqs = get_basis(full_res)
 println(full_res)
 ```
 
