@@ -33,4 +33,4 @@ steps:
     agents:
       queue: "juliaecosystem"
       arch: "x86_64"
-      sandbox.jl: true
+      sandbox_capable: true
