@@ -33,6 +33,7 @@ For the symbolic model discovery:
 | [ModelingToolkit.jl](https://docs.sciml.ai/ModelingToolkit/stable/)                                           | The symbolic modeling environment                 |
 | [DataDrivenDiffEq.jl](https://docs.sciml.ai/DataDrivenDiffEq/stable/)                                         | The symbolic regression interface                 |
 | [DataDrivenSparse.jl](https://docs.sciml.ai/DataDrivenDiffEq/stable/libs/datadrivensparse/sparse_regression/) | The sparse regression symbolic regression solvers |
+| [Zygote.jl](https://fluxml.ai/Zygote.jl/stable/) | The automatic differentiation library for fast gradients |
 
 Julia standard libraries:
 
