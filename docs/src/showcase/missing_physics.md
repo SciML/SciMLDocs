@@ -65,7 +65,7 @@ using Optimization, OptimizationOptimisers, OptimizationOptimJL
 using LinearAlgebra, Statistics
 
 # External Libraries
-using ComponentArrays, Lux, Plots, StableRNGs
+using ComponentArrays, Lux, Zygote, Plots, StableRNGs
 gr()
 
 # Set a random seed for reproducible behaviour
