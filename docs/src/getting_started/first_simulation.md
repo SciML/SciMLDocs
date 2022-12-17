@@ -253,6 +253,8 @@ we will explicitly tell it to make a plot with the index being `z`, i.e. `idxs=z
 ```@example first_sim
 # Plot the solution
 p1 = plot(sol,title = "Rabbits vs Wolves")
+```
+```@example first_sim
 p2 = plot(sol,idxs=z,title = "Total Animals")
 ```
 
