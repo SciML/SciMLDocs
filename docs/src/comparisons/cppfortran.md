@@ -1,8 +1,8 @@
 # [Getting Started with Julia's SciML for the C++/Fortran User](@id cppfortran)
 
 You don't need help if you're a Fortran guru. I'm just kidding, you're not a Lisp developer.
-If you're coming from C++ or Fortran, you may be familiar with similar high-performance
-computing environments to SciML are [PETSc](https://petsc.org/release/),
+If you're coming from C++ or Fortran, you may be familiar with high-performance
+computing environments similar to SciML, such as [PETSc](https://petsc.org/release/),
 [Trilinos](https://trilinos.github.io/), or
 [Sundials](https://computing.llnl.gov/projects/sundials). The following are some points
 to help the transition.
@@ -67,7 +67,7 @@ solvers:
 
 ## Why SciML? Some Technical Details
 
-Let's face the facts, in the [open benchmarks](https://benchmarks.sciml.ai/dev/) the
+Let's face the facts, in the [open benchmarks](https://benchmarks.sciml.ai/stable/) the
 pure-Julia solvers tend to outperform the classic "best" C++ and Fortran solvers in almost
 every example (with a few notable exceptions). But why?
 
@@ -86,7 +86,7 @@ used on the resulting quasi-static representation is [LLVM](https://llvm.org/), 
 optimizing compiler used by [clang](https://clang.llvm.org/) and [LFortran](https://lfortran.org/).
 
 For more details on how Julia code is optimized and how to optimize your own Julia code,
-check out [this chapter from the SciML Book](https://book.sciml.ai/notes/02/).
+check out [this chapter from the SciML Book](https://book.sciml.ai/notes/02-Optimizing_Serial_Code/).
 
 ### SciML's Julia Algorithms Have Performance Advantages in Many Common Regimes
 
