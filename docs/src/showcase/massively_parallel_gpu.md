@@ -34,7 +34,7 @@ Let's dive right in.
 DifferentialEquations.jl
 [has an ensemble interface for solving many ODEs](https://docs.sciml.ai/DiffEqDocs/stable/features/ensemble/).
 DiffEqGPU conveniently uses exactly the same interface, so just a change of a few characters
-is all that's required to change a CPU-parallelized code into a GPU-paralleized code.
+is all that's required to change a CPU-parallelized code into a GPU-parallelized code.
 Given that, let's start with the CPU-parallelized code.
 
 Let's implement the Lorenz equation out-of-place. If you don't know what that means,
