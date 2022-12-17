@@ -15,7 +15,7 @@ ecosystem!
   grow as more complex algorithms are required.
 * **Julia is quick to learn from MATLAB** - Most ODE codes can be translated in a few
   minutes. If you need help, check out the
-  [QuantEcon MATLAB-Python-Julia Cheatsheet](https://cheatsheets.quantecon.org/)
+  [QuantEcon MATLAB-Python-Julia Cheatsheet.](https://cheatsheets.quantecon.org/)
 * **Package Management and Versioning** - [Julia's package manager](https://github.com/JuliaLang/Pkg.jl)
   takes care of dependency management, testing, and continuous delivery in order to make
   the installation and maintenance process smoother. For package users, this means it's
