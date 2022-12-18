@@ -31,7 +31,7 @@ for solving `LinearProblem`s. It includes:
 for solving `NonlinearProblem`s. It includes:
 
 - Fast non-allocating implementations on static arrays of common methods (Newton-Rhapson)
-- Bracketing methods (Bisection, Falsi) for methods with known upper and lower bounds
+- Bracketing methods (Bisection, Falsi) for methods with known upper and lower bounds (`IntervalNonlinearProblem`)
 - Wrappers to common other solvers (NLsolve.jl, MINPACK, KINSOL from Sundials) for trust
   region methods, line search based approaches, etc.
 - Built over the LinearSolve.jl API for maximum flexibility and performance in the solving
@@ -69,7 +69,7 @@ necessary. Solving differential equations with different methods from
 different languages and packages can be done by changing one line of code,
 allowing for easy benchmarking to ensure you are using the fastest method possible.
 
-DifferentialEquations.jl integrates with the Julia package sphere with:
+DifferentialEquations.jl integrates with the Julia package sphere. Examples are:
 
 - GPU acceleration through CUDAnative.jl and CuArrays.jl
 - Automated sparsity detection with [Symbolics.jl](https://github.com/JuliaSymbolics/Symbolics.jl)
