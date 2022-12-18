@@ -31,7 +31,7 @@ L(u,p) = (p_1 - u_1)^2 + p_2 * (u_2 - u_1)^2
 What we want to do is find the  values of ``u_1`` and ``u_2`` such that ``L``
 achieves its minimum value possible. We will do this under a few constraints:
 we want to find this optima within some bounded domain, i.e. ``u_i \in [-1,1]``.
-This should be done with the parameter values ``p_1 = 1.0`` and `p_2 = 100.0``.
+This should be done with the parameter values ``p_1 = 1.0`` and ``p_2 = 100.0``.
 What should ``u = [u_1,u_2]`` be to achieve this goal? Let's dive in!
 
 !!! note
@@ -128,7 +128,7 @@ prob = OptimizationProblem(L, u0, p, lb = -1 * ones(2), ub = ones(2))
 ### Step 3: Solve the Optimization Problem
 
 Now we solve the `OptimizationProblem` that we have defined. This is done by passing
-our `OptimizationProblem` `prob` along with a chosen solver to the `solve` command. At
+our `OptimizationProblem` along with a chosen solver to the `solve` command. At
 the beginning we explained that we will use the `OptimizationNLopt` set of solvers, which
 are
 [documented in the OptimizationNLopt page](https://docs.sciml.ai/Optimization/stable/optimization_packages/nlopt/).
@@ -151,7 +151,8 @@ typeof(sol)
 
 From this we can see that it is an `OptimizationSolution`. We can see the documentation for
 how to use the `OptimizationSolution` by checking the
-[Optimization.jl solution type page](https://docs.sciml.ai/Optimization/dev/API/optimization_solution/). Thus the solution is stored as `.u`. What is the solution to our
+[Optimization.jl solution type page](https://docs.sciml.ai/Optimization/stable/API/optimization_solution/).
+For example, the solution is stored as `.u`. What is the solution to our
 optimization and what is the final loss value? We can check it as follows:
 
 ```@example first_opt
