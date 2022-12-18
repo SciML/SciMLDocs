@@ -164,7 +164,7 @@ that mixes inference, symbolics, and numerics.
 
 The SciML documentation references and recommends many third party libraries for improving ones
 modeling, simulation, and analysis workflow in Julia. Take these as a positive affirmation of the
-quality of these libraries, as these libraries are commonly tested against by SciML developers and
+quality of these libraries, as these libraries are commonly tested by SciML developers who
 are in contact with the development teams of these groups. It also documents the libraries which
 are commonly chosen by SciML as dependencies.
 **Do not take omissions as negative affirmations against a given library**, i.e. a library left off
