@@ -1,8 +1,8 @@
 # Model Libraries and Importers
 
-Models are passed on from generation to generation. Many models are not built by scratch
+Models are passed on from generation to generation. Many models are not built from scratch
 but have a legacy of the known physics, biology, and chemistry embedded into them. Julia's
-SciML offers a range of pre-built modeling tools, from acausal components to reuse to
+SciML offers a range of pre-built modeling tools, from reusable acausal components to
 direct imports from common file formats.
 
 ## ModelingToolkitStandardLibrary.jl: A Standard Library for ModelingToolkit
