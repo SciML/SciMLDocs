@@ -2,7 +2,7 @@
 
 If you're an Python user who has looked into Julia, you're probably wondering what is the
 equivalent to SciPy is. And you found it: it's the SciML ecosystem! To a Python developer,
-SciML is SciPy, but with the high-performance GPU etc. capabilities of PyTorch, and
+SciML is SciPy, but with the high-performance GPU, capabilities of PyTorch, and
 neural network capabilities, all baked right in. With SciML, there is no "separate world"
 of machine learning sublanguages: there is just one cohesive package ecosystem.
 
@@ -17,7 +17,7 @@ of machine learning sublanguages: there is just one cohesive package ecosystem.
   takes care of dependency management, testing, and continuous delivery in order to make
   the installation and maintenance process smoother. For package users, this means it's
   easier to get packages with complex functionality in your hands.
-* **Composable Library Components** - In R environments, every package feels like
+* **Composable Library Components** - In Python environments, every package feels like
   a silo. Functions made for one file exchange library cannot easily compose with another.
   SciML's generic coding with JIT compilation these connections create new optimized code on
   the fly and allow for a more expansive feature set than can ever be documented. Take
