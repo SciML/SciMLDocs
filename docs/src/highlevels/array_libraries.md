@@ -97,7 +97,7 @@ Is that beautiful? Yes it is.
 [StaticArrays.jl](https://github.com/JuliaArrays/StaticArrays.jl) is a library for statically-defined
 arrays. Because these arrays have type-level information for size, they recompile the solvers
 for every new size. They can be dramatically faster for small sizes (up to approximately size 10),
-but for larger equations they increase compile time with little to not benefit.
+but for larger equations they increase compile time with little to no benefit.
 
 ## CUDA.jl: NVIDIA CUDA-Based GPU Array Computations
 
