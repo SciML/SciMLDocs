@@ -18,7 +18,7 @@ calculations in a fast and numerically-stable way.
 ## QuasiMonteCarlo.jl: Fast Quasi-Random Number Generation
 
 [QuasiMonteCarlo.jl](https://github.com/SciML/QuasiMonteCarlo.jl) is a library for fast generation of
-ow discrepancy Quasi-Monte Carlo samples, using methods like:
+low discrepancy Quasi-Monte Carlo samples, using methods like:
 
 * `GridSample(dx)` where the grid is given by `lb:dx[i]:ub` in the ith direction.
 * `UniformSample` for uniformly distributed random numbers.
