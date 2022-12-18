@@ -111,11 +111,11 @@ can be incompatible with Enzyme. Enzyme.jl is quickly becoming the new standard 
 
 [Zygote.jl](https://github.com/FluxML/Zygote.jl) is the current standard user-level reverse-mode automatic
 differentiation library for the SciML solvers. User-level means that many library tutorials, like in
-SciMLSensitivity.jl and DiffEqFlux.jl, are written showcase user code using Zygote.jl. This is because
+SciMLSensitivity.jl and DiffEqFlux.jl, showcase user code using Zygote.jl. This is because
 Zygote.jl is the AD engine associated with the Flux machine learning library. However, Zygote.jl has many
 limitations which limits its performance in equation solver contexts, such as an inability to handle mutation
 and introducing many small allocations and type-instabilities. For this reason, the SciML equation
-solvers include define differentiation overloads using [ChainRules.jl](https://github.com/JuliaDiff/ChainRules.jl),
+solvers define differentiation overloads using [ChainRules.jl](https://github.com/JuliaDiff/ChainRules.jl),
 meaning that the equation solvers tend to not use Zygote.jl internally even if the user code uses `Zygote.gradient`.
 In this manner, the speed and performance of more advanced techniques can be preserved while using the Julia standard.
 
