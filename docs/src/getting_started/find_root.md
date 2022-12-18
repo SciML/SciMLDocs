@@ -1,4 +1,4 @@
-# [Find the root of an equation (i.e. solve f(x)=0)](@id find_root)
+# [Find the root of an equation (i.e. solve f(u)=0)](@id find_root)
 
 A nonlinear system $$f(u) = 0$$ is specified by defining a function `f(u,p)`,
 where `p` are the parameters of the system. Many problems can be written in
@@ -126,7 +126,7 @@ define our `NonlinearSystem`:
 
 ### Step 3: Convert the Symbolic Problem to a Numerical Problem
 
-Now that we have simplified our system, let's turn it into a numerical problem to
+Now that we have created our system, let's turn it into a numerical problem to
 approximate. This is done with the `NonlinearProblem` constructor, that transforms it from
 a symbolic `ModelingToolkit` representation to a numerical `NonlinearSolve`
 representation. We need to tell it the numerical details for whether to override any of the
@@ -151,7 +151,7 @@ prob2 = NonlinearProblem(ns,[x => 2.0, σ => 4.0])
 ### Step 4: Solve the Numerical Problem
 
 Now we solve the nonlinear system. For this we choose a solver from the
-[NonlinearSolve.jl's solver options](https://docs.sciml.ai/NonlinearSolve/dev/solvers/NonlinearSystemSolvers/)
+[NonlinearSolve.jl's solver options.](https://docs.sciml.ai/NonlinearSolve/stable/solvers/NonlinearSystemSolvers/)
 We will choose `NewtonRaphson` as follows:
 
 ```@example first_rootfind
@@ -170,8 +170,10 @@ typeof(sol)
 
 From this we can see that it is an `NonlinearSolution`. We can see the documentation for
 how to use the `NonlinearSolution` by checking the
-[NonlinearSolve.jl solution type page](https://docs.sciml.ai/NonlinearSolve/dev/basics/NonlinearSolution/) Thus the solution is stored as `.u`. What is the solution to our
-nonlinear system and what is the final residual value? We can check it as follows:
+[NonlinearSolve.jl solution type page.](https://docs.sciml.ai/NonlinearSolve/stable/basics/NonlinearSolution/)
+For example, the solution is stored as `.u`.
+What is the solution to our nonlinear system and what is the final residual value?
+We can check it as follows:
 
 ```@example first_rootfind
 # Analyze the solution
