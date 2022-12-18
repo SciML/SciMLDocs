@@ -5,13 +5,6 @@ good alternative resources. The purpose of this section of the documentation
 is to highlight the alternative resources which can be helpful for learning how
 to use the SciML Open Source Software libraries.
 
-## SciMLTutorials
-
-[SciMLTutorials.jl](https://github.com/SciML/SciMLTutorials.jl) is an extended set
-of tutorials for the SciML open source software organization. It contains many complete
-workflow examples on large-scale problems that may be too large or complex for normal
-documentation, but good materials for users to learn from.
-
 ## JuliaCon and SciMLCon Videos
 
 Many tutorials and introductions to packages have been taught through previous JuliaCon/SciMLCon
