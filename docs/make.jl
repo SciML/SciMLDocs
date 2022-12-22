@@ -40,7 +40,6 @@ makedocs(sitename = "Overview of Julia's SciML",
                     "getting_started/first_optimization.md",
                     "getting_started/fit_simulation.md",
                     "getting_started/find_root.md",
-                    "getting_started/integral_approx.md",
                 ],
                 "Comparison With Other Tools" => [
                     "comparisons/python.md",

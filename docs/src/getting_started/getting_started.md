@@ -18,7 +18,12 @@ Interested?
 * [Solve your first optimization problem](@ref first_opt)
 * [Fit a simulation to a dataset](@ref fit_simulation)
 * [Find the root of an equation (i.e. solve f(x)=0)](@ref find_root)
-* [Numerically approximate an integral](@ref integral_approx)
+
+!!! note
+    Each of the SciML packages starts with its own introductory tutorial as well! Once you
+    have started to get the hang of a few things, start checking out the introductory
+    tutorials of the different packages. For example, 
+    [the DifferentialEquations.jl getting started tutorial is a fun one!](https://docs.sciml.ai/DiffEqDocs/stable/getting_started/)
 
 ## Coming from...
 
