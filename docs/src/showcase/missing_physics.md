@@ -2,7 +2,7 @@
 
 One of the most time consuming parts of modeling is building the model. How do you know
 when your model is correct? When you solve an inverse problem to calibrate your model
-to data, who you gonna call if there are no parameters that make the model the data?
+to data, who are you going to call if there are no parameters that make the model fit the data?
 This is the problem that the Universal Differential Equation (UDE) approach solves: the
 ability to start from the model you have, and suggest minimal mechanistic extensions that
 would allow the model to fit the data. In this showcase we will show how to take a partially
