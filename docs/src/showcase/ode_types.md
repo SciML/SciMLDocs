@@ -45,15 +45,14 @@ Let's use this feature in some cool ways!
 
 ## Arbitrary Precision: Rationals and BigFloats
 
-Let's solve the linear ODE first define an easy way to get `ODEProblem`s for the linear ODE:
+Let's solve the linear ODE. First, define an easy way to get `ODEProblem`s for the linear ODE:
 
 ```@example odetypes
 using DifferentialEquations
 f(u,p,t) = p*u
 prob_ode_linear = ODEProblem(f,1/2,(0.0,1.0),1.01);
 ```
-
-First let's solve it using Float64s. To do so, we just need to set u0 to a Float64 (which is done by the default) and dt should be a float as well.
+Next, let's solve it using Float64s. To do so, we just need to set u0 to a Float64 (which is done by the default) and dt should be a float as well.
 
 ```@example odetypes
 sol = solve(prob_ode_linear,Tsit5())
