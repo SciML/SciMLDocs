@@ -52,7 +52,7 @@ And external libraries:
 | [StableRNGs.jl](https://docs.juliaplots.org/stable/)                         | Stable random seeding                               |
 
 !!! note
-    The deep learning framework [Flux.jl](https://fluxml.ai/) could be used in place of Flux,
+    The deep learning framework [Flux.jl](https://fluxml.ai/) could be used in place of Lux,
     though most tutorials in SciML generally prefer Lux.jl due to its explicit parameter
     interface leading to nicer code. Both share the same internal implementations of core
     kernels, and thus have very similar feature support and performance.
@@ -246,9 +246,9 @@ optprob = Optimization.OptimizationProblem(optf, ComponentVector{Float64}(p))
 
 Now... we optimize it. We will use a mixed strategy. First, let's do some iterations of
 ADAM because it's better at finding a good general area of parameter space, but then we
-will move to BFGS which will quickly hone in on a local minima. Note that if we only use
+will move to BFGS which will quickly hone in on a local minimum. Note that if we only use
 ADAM it will take a ton of iterations, and if we only use BFGS we normally end up in a
-bad local minima, so this combination tends to be a good one for UDEs.
+bad local minimum, so this combination tends to be a good one for UDEs.
 
 Thus we first solve the optimization problem with ADAM. Choosing a learning rate of 0.1
 (tuned to be as high as possible that doesn't tend to make the loss shoot up), we see:
