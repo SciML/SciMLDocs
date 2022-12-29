@@ -76,7 +76,7 @@ The AdvancedHMC interface requires us to specify: (a) the hamiltonian log densit
 
 For the hamiltonian log density, we use the loss function. The θ*θ term denotes the use of Gaussian priors.
 
-The user can make several modifications to Step 4. The user can try different acceptance ratios, warmup samples and posterior samples. One can also use the Variational Inference (ADVI) framework, which doesn't work quite as well as NUTS. The SGLD (Stochastic Langevin Gradient Descent) sampler is seen to have a better performance than NUTS. Have a look at https://sebastiancallh.github.io/post/langevin/ for a quick introduction to SGLD.
+The user can make several modifications to Step 4. The user can try different acceptance ratios, warmup samples and posterior samples. One can also use the Variational Inference (ADVI) framework, which doesn't work quite as well as NUTS. The SGLD (Stochastic Gradient Langevin Descent) sampler is seen to have a better performance than NUTS. Have a look at https://sebastiancallh.github.io/post/langevin/ for a quick introduction to SGLD.
 
 ```@example bnode
 l(θ) = -sum(abs2, ode_data .- predict_neuralode(θ)) - sum(θ .* θ)
