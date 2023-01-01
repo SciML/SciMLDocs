@@ -209,7 +209,7 @@ plot(p1,p2,p3,layout=grid(3,1))
 and see the pretty gradients. Using this 2nd order ROCK method we solve this equation in
 about 2 seconds. That's okay.
 
-<h2>Some Optimizations</h2>
+## Some Optimizations
 
 There are some optimizations that can still be done. When we do A*B as matrix multiplication,
 we create another temporary matrix. These allocations can bog down the system. Instead we can
@@ -386,7 +386,7 @@ p3 = surface(X,Y,sol[end][:,:,3],title = "[C]")
 plot(p1,p2,p3,layout=grid(3,1))
 ```
 
-<h2>Making Use of GPU Parallelism</h2>
+## Making Use of GPU Parallelism
 
 That was all using the CPU. How do we make turn on GPU parallelism with
 DifferentialEquations.jl? Well, you don't. DifferentialEquations.jl "doesn't have GPU bits".
