@@ -59,11 +59,11 @@ sol = solve(prob,NewtonRaphson())
 @show sol.u, prob.f(sol.u,prob.p)
 ```
 
-## Step by Step Solution
+## Step-by-Step Solution
 
 ### Step 1: Import the Packages
 
-To do this tutorial we will need a few components:
+To do this tutorial, we will need a few components:
 
 * [ModelingToolkit.jl, our modeling environment](https://docs.sciml.ai/ModelingToolkit/stable/)
 * [NonlinearSolve.jl, the nonlinear system solvers](https://docs.sciml.ai/NonlinearSolve/stable/)
@@ -106,9 +106,9 @@ This looks as follows:
 !!! note
 
     Note that in ModelingToolkit and Symbolics, `~` is used for equation equality. This is
-    separate from `=` which is the "assignment operator" in the Julia programming language.
+    separate from `=` which is the “assignment operator” in the Julia programming language.
     For example, `x = x + 1` is a valid assignment in a programming language, and it is
-    invalid for that to represent "equality", which is the reason why a separate operator
+    invalid for that to represent “equality”, which is why a separate operator
     is used!
 
 ```@example first_rootfind
@@ -117,7 +117,7 @@ eqs = [0 ~ σ*(y-x),
        0 ~ x*y - β*z]
 ```
 
-Finally we bring these pieces together, the equation along with its states and parameters,
+Finally, we bring these pieces together, the equation along with its states and parameters,
 define our `NonlinearSystem`:
 
 ```@example first_rootfind
@@ -140,7 +140,7 @@ blank override `[]`. This looks like:
 prob = NonlinearProblem(ns,[])
 ```
 
-If for example we did want to change the initial condition of `x`
+If we did want to change the initial condition of `x`
 to `2.0` and the parameter `σ` to `4.0`, we would do `[x => 2.0, σ => 4.0]`. This looks
 like:
 
@@ -150,7 +150,7 @@ prob2 = NonlinearProblem(ns,[x => 2.0, σ => 4.0])
 
 ### Step 4: Solve the Numerical Problem
 
-Now we solve the nonlinear system. For this we choose a solver from the
+Now we solve the nonlinear system. For this, we choose a solver from the
 [NonlinearSolve.jl's solver options.](https://docs.sciml.ai/NonlinearSolve/stable/solvers/NonlinearSystemSolvers/)
 We will choose `NewtonRaphson` as follows:
 
@@ -168,11 +168,11 @@ see that by asking for its type:
 typeof(sol)
 ```
 
-From this we can see that it is an `NonlinearSolution`. We can see the documentation for
+From this, we can see that it is an `NonlinearSolution`. We can see the documentation for
 how to use the `NonlinearSolution` by checking the
 [NonlinearSolve.jl solution type page.](https://docs.sciml.ai/NonlinearSolve/stable/basics/NonlinearSolution/)
 For example, the solution is stored as `.u`.
-What is the solution to our nonlinear system and what is the final residual value?
+What is the solution to our nonlinear system, and what is the final residual value?
 We can check it as follows:
 
 ```@example first_rootfind

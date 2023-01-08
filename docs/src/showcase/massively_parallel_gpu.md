@@ -5,7 +5,7 @@
 Before we dive deeper, let us remark that there are two very different ways that one can
 accelerate an ODE solution with GPUs. There is one case where `u` is very big and `f`
 is very expensive but very structured, and you use GPUs to accelerate the computation
-of said `f`. The other use case is where `u` is very small but you want to solve the ODE
+of said `f`. The other use case is where `u` is very small, but you want to solve the ODE
 `f` over many different initial conditions (`u0`) or parameters `p`. In that case, you can
 use GPUs to parallelize over different parameters and initial conditions. In other words:
 
@@ -23,7 +23,7 @@ Let's say we wanted to quantify the uncertainty in the solution of a differentia
 One simple way to do this would be to a Monte Carlo simulation of the same ODE, randomly
 jiggling around some parameters according to an uncertainty distribution. We could do
 that on a CPU, but that's not hip. What's hip are GPUs! GPUs have thousands of cores, so
-could we make each core of our GPU solve the same ODE but with different parameters?
+could we make each core of our GPU solve the same ODE, but with different parameters?
 The [ensembling tools of DiffEqGPU.jl](https://docs.sciml.ai/DiffEqGPU/stable/) solve
 exactly this issue, and today you will learn how to master the GPUniverse.
 
@@ -60,10 +60,10 @@ prob = ODEProblem{false}(lorenz, u0, tspan, p)
 ```
 
 Notice we use `SVector`s, i.e. StaticArrays, in order to define our arrays. This is
-important for later since the GPUs will want a fully non-allocating code to build a
+important for later, since the GPUs will want a fully non-allocating code to build a
 kernel on.
 
-Now from this problem, we build an `EnsembleProblem` as per the DifferentialEquations.jl
+Now, from this problem, we build an `EnsembleProblem` as per the DifferentialEquations.jl
 specification. A `prob_func` jiggles the parameters and we solve 10_000 trajectories:
 
 ```@example diffeqgpu
@@ -80,13 +80,13 @@ Now uhh, we just change `EnsembleThreads()` to `EnsembleGPUArray()`
 sol = solve(monteprob,Tsit5(),EnsembleGPUArray(),trajectories=10_000,saveat=1.0f0)
 ```
 
-Or for a more efficient version, `EnsembleGPUKernel()`. But that requires special solvers
+Or for a more efficient version, `EnsembleGPUKernel()`. But that requires special solvers,
 so we also change to `GPUTsit5()`.
 
 ```@example diffeqgpu
 sol = solve(monteprob, GPUTsit5(), EnsembleGPUKernel(), trajectories = 10_000)
 ```
 
-Okay so that was anticlimactic but that's the point: if it was harder then that then it
+Okay, so that was anticlimactic, but that's the point: if it were harder than that, it
 wouldn't be automatic! Now go check out [DiffEqGPU.jl's documentation for more details,](https://docs.sciml.ai/DiffEqGPU/stable/)
 that's the end of our show.

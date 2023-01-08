@@ -2,7 +2,7 @@
 
 ## RecursiveArrayTools.jl: Arrays of Arrays and Even Deeper
 
-Sometimes when one is creating a model, basic array types are not enough for expressing
+Sometimes, when one is creating a model, basic array types are not enough for expressing
 a complex concept. RecursiveArrayTools.jl gives many types, such as `VectorOfArray` and
 `ArrayPartition`, which allow for easily building nested array models in a way that
 conforms to the standard `AbstractArray` interface. While standard `Vector{Array{Float64,N}}`
@@ -15,7 +15,7 @@ the timeseries solution types being `AbstractVectorOfArray`.
 
 ## LabelledArrays.jl: Named Variables in Arrays without Overhead
 
-Sometimes you want to use a full domain-specific language like
+Sometimes, you want to use a full domain-specific language like
 [ModelingToolkit](https://github.com/SciML/ModelingToolkit.jl). Other times, you wish arrays
 just had a slightly nicer syntax. Don't you wish you could write the Lorenz equations like:
 
@@ -28,12 +28,12 @@ end
 ```
 
 without losing any efficiency? [LabelledArrays.jl](https://github.com/SciML/LabelledArrays.jl)
-provides the array types to do just that. All of the `.` accesses are resolved at compile-time
+provides the array types to do just that. All the `.` accesses are resolved at compile-time,
 so it's a [zero-overhead interface](https://www.stochasticlifestyle.com/zero-cost-abstractions-in-julia-indexing-vectors-by-name-with-labelledarrays/).
 
 !!! note
 
-    We recommend using ComponentArrays.jl for any instance where nested accesses is required,
+    We recommend using ComponentArrays.jl for any instance where nested accesses are required,
     or where the `.` accesses need to be views to subsets of the array.
 
 ## MultiScaleArrays.jl: Multiscale Modeling to Compose with Equation Solvers
@@ -42,7 +42,7 @@ so it's a [zero-overhead interface](https://www.stochasticlifestyle.com/zero-cos
 
 How do you encode such real-world structures in a manner that is compatible with the SciML
 equation solver libraries? [MultiScaleArrays.jl](https://github.com/SciML/MultiScaleArrays.jl) is
-an answer. MultiScaleArrays.jl gives a highly flexible interface for defining multi-level types
+an answer. MultiScaleArrays.jl gives a highly flexible interface for defining multi-level types,
 which generates a corresponding interface as an `AbstractArray`. MultiScaleArrays.jl's flexibility
 includes the ease of resizing, allowing for models where the number of equations grows and shrinks
 as agents (cells) in the model divide and die.
@@ -52,7 +52,7 @@ as agents (cells) in the model divide and die.
     We recommend using ComponentArrays.jl instead in any instance where the resizing functionality
     is not used.
 
-## Third Party Libraries to Note
+## Third-Party Libraries to Note
 
 ## ComponentArrays.jl: Arrays with Arbitrarily Nested Named Components
 
@@ -62,7 +62,7 @@ with zero-overhead? This is what [ComponentArrays.jl](https://github.com/jonnied
 provides, and as such it is one of the top recommendations of `AbstractArray` types to be used.
 Multi-level definitions such as `x = ComponentArray(a=5, b=[(a=20., b=0), (a=33., b=0), (a=44., b=3)], c=c)`
 are common-place, and allow for accessing via `x.b.a` etc. without any performance loss. `ComponentArrays`
-are fully compatible with the SciML equation solvers, thus they can be used as initial conditions. Here's a
+are fully compatible with the SciML equation solvers. They thus can be used as initial conditions. Here's a
 demonstration of the Lorenz equation using ComponentArrays with Parameters.jl's `@unpack`:
 
 ```julia
@@ -90,7 +90,7 @@ lorenz_ic = ComponentArray(x=0.0, y=0.0, z=0.0)
 lorenz_prob = ODEProblem(lorenz!, lorenz_ic, tspan, lorenz_p)
 ```
 
-Is that beautiful? Yes it is.
+Is that beautiful? Yes, it is.
 
 ## StaticArrays.jl: Statically-Defined Arrays
 
@@ -104,10 +104,10 @@ but for larger equations they increase compile time with little to no benefit.
 [CUDA.jl](https://github.com/JuliaGPU/CUDA.jl) is the library for defining arrays which
 live on NVIDIA GPUs (`CuArray`). SciML's libraries will respect the GPU-ness of the inputs, i.e.,
 if the input arrays live on the GPU then the operations will all take place on the GPU
-or else the libraries will error if it's unable to do so. Thus using CUDA.jl's `CuArray` is
+or else the libraries will error if it's unable to do so. Thus, using CUDA.jl's `CuArray` is
 how one GPU-accelerates any computation with the SciML organization's libraries. Simply use
 a `CuArray` as the initial condition to an ODE solve or as the initial guess for a nonlinear
-solve and the whole solve will recompile to take place on the GPU.
+solve, and the whole solve will recompile to take place on the GPU.
 
 ## AMDGPU.jl: AMD-Based GPU Array Computations
 
@@ -117,7 +117,7 @@ if the input arrays live on the GPU then the operations will all take place on t
 or else the libraries will error if it's unable to do so. Thus using AMDGPU.jl's `ROCArray` is
 how one GPU-accelerates any computation with the SciML organization's libraries. Simply use
 a `ROCArray` as the initial condition to an ODE solve or as the initial guess for a nonlinear
-solve and the whole solve will recompile to take place on the GPU.
+solve, and the whole solve will recompile to take place on the GPU.
 
 ## FillArrays.jl: Lazy Arrays
 

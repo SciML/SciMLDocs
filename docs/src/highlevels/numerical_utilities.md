@@ -8,7 +8,7 @@ around this to improve performance in scientific contexts, including:
 
 - Faster methods for (non-allocating) matrix exponentials via `exponential!`
 - Methods for computing matrix exponential that are generic to number types and arrays (i.e. GPUs)
-- Methods for computing arnoldi iterations on Krylov subspaces
+- Methods for computing Arnoldi iterations on Krylov subspaces
 - Direct computation of `exp(t*A)*v`, i.e. exponentiation of a matrix times a vector, without computing the matrix exponential
 - Direct computation of `ϕ_m(t*A)*v` operations, where `ϕ_0(z) = exp(z)` and `ϕ_(k+1)(z) = (ϕ_k(z) - 1) / z`
 
@@ -27,7 +27,7 @@ low discrepancy Quasi-Monte Carlo samples, using methods like:
 * `LatticeRuleSample` for a randomly-shifted rank-1 lattice rule.
 * `LowDiscrepancySample(base)` where `base[i]` is the base in the ith direction.
 * `GoldenSample` for a Golden Ratio sequence.
-* `KroneckerSample(alpha, s0)` for a Kronecker sequence, where alpha is an length-d vector of irrational numbers (often sqrt(d)) and s0 is a length-d seed vector (often 0).
+* `KroneckerSample(alpha, s0)` for a Kronecker sequence, where alpha is a length-d vector of irrational numbers (often sqrt(d)) and s0 is a length-d seed vector (often 0).
 * `SectionSample(x0, sampler)` where `sampler` is any sampler above and `x0` is a vector of either `NaN` for a free dimension or some scalar for a constrained dimension.
 
 ## PoissonRandom.jl: Fast Poisson Random Number Generation
@@ -49,11 +49,11 @@ such as ModelingToolkit.jl to allow for runtime code generation for improved per
 ## EllipsisNotation.jl: Implementation of Ellipsis Array Slicing
 
 [EllipsisNotation.jl](https://github.com/SciML/EllipsisNotation.jl) defines the ellipsis
-array slicing notation for Julia. It uses `..` as a catch all for "all dimensions", allow for indexing
-like `[..,1]` to mean "[:,:,:,1]` on four dimensional arrays, in a way that is generic to the number
+array slicing notation for Julia. It uses `..` as a catch-all for “all dimensions”, allowing for indexing
+like `[..,1]` to mean `[:,:,:,1]` on four dimensional arrays, in a way that is generic to the number
 of dimensions in the underlying array.
 
-# Third Party Libraries to Note
+# Third-Party Libraries to Note
 
 ## Distributions.jl: Representations of Probability Distributions
 
@@ -86,10 +86,10 @@ accelerating handwritten PDE discretizations.
 ## Polyester.jl: Cheap Threads
 
 [Polyester.jl](https://github.com/JuliaSIMD/Polyester.jl) is a cheaper version of threads for
-Julia which use a set pool of threads for lower overhead. Note that Polyester does not
+Julia, which use a set pool of threads for lower overhead. Note that Polyester does not
 compose with the standard Julia composable threading infrastructure, and thus one must take
-care to not compose two levels of Polyester as this will oversubscribe the computation and
-lead to performance degradation. Many SciML solvers have options to use Polyseter for
+care not to compose two levels of Polyester, as this will oversubscribe the computation and
+lead to performance degradation. Many SciML solvers have options to use Polyester for
 threading to achieve the top performance.
 
 ## Tullio.jl: Fast Tensor Calculations and Einstein Notation
@@ -101,7 +101,7 @@ automatic differentiation, GPUs, and more.
 ## ParallelStencil.jl: High-Level Code for Parallelized Stencil Computations
 
 [ParallelStencil.jl](https://github.com/omlins/ParallelStencil.jl) is a library for writing
-high level code forparallelized stencil computations. It is
+high-level code for parallelized stencil computations. It is
 [compatible with SciML equation solvers](https://github.com/omlins/ParallelStencil.jl/issues/29)
 and is thus a good way to generate GPU and distributed parallel model code.
 
@@ -128,8 +128,8 @@ methods and regression techniques for handling noisy data. Its methods include:
   The argument choices are the same as the `BSplineInterpolation`, with the additional parameter
   `h<length(t)` which is the number of control points to use, with smaller `h` indicating more smoothing.
 - `Curvefit(u,t,m,p,alg)` - An interpolation which is done by fitting a user-given functional form
-  `m(t,p)` where `p` is the vector of parameters. The user's input `p` is a an initial value for a
-  least-square fitting, `alg` is the algorithm choice to use for optimize the cost function (sum of
+  `m(t,p)` where `p` is the vector of parameters. The user's input `p` is an initial value for a
+  least-square fitting, `alg` is the algorithm choice used to optimize the cost function (sum of
   squared deviations) via `Optim.jl` and optimal `p`s are used in the interpolation.
 
 These interpolations match the SciML interfaces and have direct support for packages like ModelingToolkit.jl.
@@ -145,6 +145,7 @@ with StaticCompiler.jl.
 ## PackageCompiler.jl
 
 [PackageCompiler.jl](https://github.com/JuliaLang/PackageCompiler.jl) is a package for generating shared
-libraries from Julia code. It the entirety of Julia by bundling a system image with the Julia runtime,
-thus it builds complete binaries that can hold all of the functionality of SciML. It can also be used
-to generate new system images to decrease startup times and remove JIT-compilation from SciML usage.
+libraries from Julia code. It builds the entirety of Julia by bundling a system image with the Julia runtime.
+It thus builds complete binaries that can hold all the functionality of SciML.
+Furthermore, it can also be used to generate new system images
+to decrease startup times and remove JIT-compilation from SciML usage.

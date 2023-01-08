@@ -12,7 +12,7 @@ it's the heat equation so that's cool).
 
 To solve PDEs using neural networks, we will use the
 [NeuralPDE.jl package](https://neuralpde.sciml.ai/stable/). This package uses
-ModelingToolkit's symbolic `PDESystem` as an input and it generates an
+ModelingToolkit's symbolic `PDESystem` as an input, and it generates an
 [Optimization.jl](https://docs.sciml.ai/Optimization/stable/) `OptimizationProblem` which,
 when solved, gives the weights of the neural network that solve the PDE. In the end, our
 neural network `NN` satisfies the PDE equations and is thus the solution to the PDE! Thus
@@ -55,7 +55,7 @@ with physics-informed neural networks.
 
 ## Step 2: Define the PDESystem
 
-First let's use ModelingToolkit's `PDESystem` to represent the PDE. To do this, basically
+First, let's use ModelingToolkit's `PDESystem` to represent the PDE. To do this, basically
 just copy-paste the PDE definition into Julia code. This looks like:
 
 ```@example pinn
@@ -92,8 +92,7 @@ domains = [t ∈ Interval(t_min,t_max),
 
 !!! note
     We used the wildcard form of the variable definition `@variables u(..)` which then
-    requires that we all ways specify what the dependent variables of `u` are. The reason
-    for this is because in the boundary conditions we change from using `u(t,x,y)` to
+    requires that we always specify what the dependent variables of `u` are. This is because in the boundary conditions we change from using `u(t,x,y)` to
     more specific points and lines, like `u(t,x_max,y)`.
 
 ## Step 3: Define the Lux Neural Network
@@ -144,7 +143,7 @@ end
 res = Optimization.solve(prob,Adam(0.01);callback = callback,maxiters=2500);
 ```
 
-We then use the `remake` function allows to rebuild the PDE problem to start a new
+We then use the `remake` function to rebuild the PDE problem to start a new
 optimization at the optimized parameters, and continue with a lower learning rate:
 
 ```@example pinn
@@ -154,7 +153,7 @@ res = Optimization.solve(prob,Adam(0.001);callback = callback,maxiters=2500);
 
 ## Step 7: Inspect the PINN's Solution
 
-Finally we inspect the solution:
+Finally, we inspect the solution:
 
 ```julia
 phi = discretization.phi

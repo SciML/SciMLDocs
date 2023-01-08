@@ -21,7 +21,7 @@ quickly building up complex differential equation models. It includes:
 
 * Callbacks for specialized output and saving procedures
 * Callbacks for enforcing domain constraints, positivity, and manifolds
-* Timed callbacks for periodic dosing, preseting of tstops, and more
+* Timed callbacks for periodic dosing, presetting of tstops, and more
 * Callbacks for determining and terminating at steady state
 * Callbacks for controlling stepsizes and enforcing CFL conditions
 * Callbacks for quantifying uncertainty with respect to numerical errors
@@ -30,14 +30,14 @@ quickly building up complex differential equation models. It includes:
 
 [SBMLToolkit.jl](https://github.com/SciML/SBMLToolkit.jl) is a library for reading
 [SBML files](https://synonym.caltech.edu/#:~:text=What%20is%20SBML%3F,field%20of%20the%20life%20sciences.)
-into the standard formats for Catalyst.jl and ModelingToolkit.jl. There are more than one thousand biological
-models available in the the [BioModels Repository](https://www.ebi.ac.uk/biomodels/).
+into the standard formats for Catalyst.jl and ModelingToolkit.jl. There are well over one thousand biological
+models available in the [BioModels Repository](https://www.ebi.ac.uk/biomodels/).
 
 ## CellMLToolkit.jl: CellML Import
 
 [CellMLToolkit.jl](https://github.com/SciML/CellMLToolkit.jl) is a library for reading
 [CellML files](https://www.cellml.org/) into the standard formats for ModelingToolkit.jl.
-There are several hundred biological models available in the the
+There are several hundred biological models available in the
 [CellML Model Repository](https://models.cellml.org/cellml).
 
 ## ReactionNetworkImporters.jl: BioNetGen Import

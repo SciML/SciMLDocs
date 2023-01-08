@@ -7,7 +7,7 @@ Julia's SciML is:
 * SciPy or MATLAB's standard library but in Julia, but
 * Runs orders of magnitude faster, even outperforms C and Fortran libraries, and
 * Is fully compatible with machine learning and automatic differentiation,
-* All while having an easy to use high level interactive development environment.
+* All while having an easy-to-use high level interactive development environment.
 
 Interested?
 

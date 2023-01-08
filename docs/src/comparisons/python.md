@@ -1,9 +1,9 @@
 # [Getting Started with Julia's SciML for the Python User](@id python)
 
-If you're an Python user who has looked into Julia, you're probably wondering what is the
+If you're a Python user who has looked into Julia, you're probably wondering what is the
 equivalent to SciPy is. And you found it: it's the SciML ecosystem! To a Python developer,
 SciML is SciPy, but with the high-performance GPU, capabilities of PyTorch, and
-neural network capabilities, all baked right in. With SciML, there is no "separate world"
+neural network capabilities, all baked right in. With SciML, there is no “separate world”
 of machine learning sublanguages: there is just one cohesive package ecosystem.
 
 ## Why SciML? High-Level Workflow Reasons
@@ -30,7 +30,7 @@ of machine learning sublanguages: there is just one cohesive package ecosystem.
   binaries and `cu(A)*cu(B)` is then all that's required to GPU-accelerate large-scale
   linear algebra. [MPI](https://github.com/JuliaParallel/MPI.jl) is easy to install and
   use. [Distributed computing through password-less SSH](https://docs.julialang.org/en/v1/manual/distributed-computing/). [Multithreading](https://docs.julialang.org/en/v1/manual/multi-threading/)
-  is automatic and baked into a lot of libraries, with a specialized algorithm to ensure
+  is automatic and baked into many libraries, with a specialized algorithm to ensure
   hierarchical usage does not oversubscribe threads. Basically, libraries give you a lot
   of parallelism for free, and doing the rest is a piece of cake.
 * **Mix Scientific Computing with Machine Learning** - Want to [automate the discovery
@@ -48,7 +48,7 @@ The following resources can be particularly helpful when adopting Julia for SciM
 first time:
 
 * [The Julia Manual's Noteworthy Differences from Python page](https://docs.julialang.org/en/v1/manual/noteworthy-differences/#Noteworthy-differences-from-Python)
-* Double check your results with [SciPyDiffEq.jl](https://github.com/SciML/SciPyDiffEq.jl)
+* Double-check your results with [SciPyDiffEq.jl](https://github.com/SciML/SciPyDiffEq.jl)
   (automatically converts and runs ODE definitions with SciPy's solvers)
 * Use [PyCall.jl](https://github.com/JuliaPy/PyCall.jl) to more incrementally move
   code to Julia.
@@ -59,7 +59,7 @@ The following chart will help you get quickly acquainted with Julia's SciML Tool
 
 |Workflow Element|SciML-Supported Julia packages|
 | --- | --- |
-|matplotlib|[Plots](https://docs.juliaplots.org/stable/), [Makie](https://docs.makie.org/stable/)|
+|Matplotlib|[Plots](https://docs.juliaplots.org/stable/), [Makie](https://docs.makie.org/stable/)|
 |`scipy.special`|[SpecialFunctions](https://github.com/JuliaMath/SpecialFunctions.jl)|
 |`scipy.linalg.solve`|[LinearSolve](http://linearsolve.sciml.ai/dev/)|
 |`scipy.integrate`|[Integrals](https://integrals.sciml.ai/)|
@@ -86,5 +86,5 @@ you use analytical adjoint definitions? You can, but there are tricks to mix aut
 differentiation into the adjoint definitions for a few orders of magnitude improvement too,
 as [explained in this blog post](https://www.stochasticlifestyle.com/direct-automatic-differentiation-of-solvers-vs-analytical-adjoints-which-is-better/).
 
-This facts, along with many others, compose to algorithmic improvements with the
+These facts, along with many others, compose to algorithmic improvements with the
 implementation improvements, which leads to orders of magnitude improvements!

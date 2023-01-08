@@ -9,7 +9,7 @@ Thus the SciML organization is not an organization for machine learning librarie
 dedicated to the development of scientific computing tools which work seamlessly in
 conjunction with next-generation machine learning workflows. This includes:
 
-- High performance and accurate tools for standard scientific computing modeling and simulation
+- High-performance and accurate tools for standard scientific computing modeling and simulation
 - Compatibility with differentiable programming and automatic differentiation
 - Tools for building complex multiscale models
 - Methods for handling inverse problems, model calibration, controls, and Bayesian analysis
@@ -120,10 +120,10 @@ find the parameters `p` that solve the inverse problem. Check out the SciMLSensi
 documentation for a discussion on connections to automatic differentiation, optimization,
 and adjoints.
 
-## Common Interface High Level Overview
+## Common Interface High-Level Overview
 
 The SciML interface is common as the usage of arguments is standardized across
-all of the problem domains. Underlying high level ideas include:
+all of the problem domains. Underlying high-level ideas include:
 
 - All domains use the same interface of defining a `AbstractSciMLProblem` which is then
   solved via `solve(prob,alg;kwargs)`, where `alg` is a `AbstractSciMLAlgorithm`. The
@@ -160,9 +160,9 @@ that mixes inference, symbolics, and numerics.
 - [diffeqpy](https://github.com/SciML/diffeqpy)
     - Solving differential equations in Python using DifferentialEquations.jl
 
-### Note About Third Party Libraries
+### Note About Third-Party Libraries
 
-The SciML documentation references and recommends many third party libraries for improving ones
+The SciML documentation references and recommends many third-party libraries for improving ones
 modeling, simulation, and analysis workflow in Julia. Take these as a positive affirmation of the
 quality of these libraries, as these libraries are commonly tested by SciML developers who
 are in contact with the development teams of these groups. It also documents the libraries which
@@ -170,10 +170,10 @@ are commonly chosen by SciML as dependencies.
 **Do not take omissions as negative affirmations against a given library**, i.e. a library left off
 of the list by SciML is not a negative endorsement. Rather, it means that compatibility with SciML
 is untested, SciML developers may have a personal preference for another choice, or SciML developers
-may be simply unaware of the library's existence. If one would like to add a third party library
+may be simply unaware of the library's existence. If one would like to add a third-party library
 to the SciML documentation, open a pull request with the requested text.
 
 Note that the libraries in this documentation are only those that are meant to be used in the SciML
-extended universe of modeling, simulation, and analysis and thus there are many high quality libraries
+extended universe of modeling, simulation, and analysis and thus there are many high-quality libraries
 in other domains (machine learning, data science, etc.) which are purposefully not included. For
 an overview of the Julia package ecosystem, see [the JuliaHub Search Engine](https://juliahub.com/ui/Home).

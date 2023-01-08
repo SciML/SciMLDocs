@@ -2,7 +2,7 @@
 
 While in theory one can build perfect code for all models from scratch, in practice
 many scientists and engineers need or want some help! The SciML modeling tools
-provide a higher level interface over the equation solvers which helps the translation
+provide a higher level interface over the equation solver, which helps the translation
 from good models to good simulations in a way that abstracts away the mathematical
 and computational details without giving up performance.
 
@@ -22,8 +22,8 @@ numerical stability, and automatically remove variables which it can show are re
 
 ModelingToolkit.jl is the base of the SciML symbolic modeling ecosystem, defining the `AbstractSystem`
 types, such as `ODESystem`, `SDESystem`, `OptimizationSystem`, `PDESystem`, and more, which are
-then used by all of the other modeling tools. As such, when using other modeling tools like Catalyst.jl,
-the reference for all of the things that can be done with the symbolic representation is simply
+then used by all the other modeling tools. As such, when using other modeling tools like Catalyst.jl,
+the reference for all the things that can be done with the symbolic representation is simply
 ModelingToolkit.jl.
 
 ## Catalyst.jl: Chemical Reaction Networks (CRN), Systems Biology, and Quantitative Systems Pharmacology (QSP) Modeling
@@ -31,7 +31,7 @@ ModelingToolkit.jl.
 [Catalyst.jl](https://docs.sciml.ai/Catalyst/stable/) is a modeling interface for efficient simulation
 of mass action ODE, chemical Langevin SDE, and stochastic chemical kinetics jump process (i.e. chemical 
 master equation) models for chemical reaction networks and population processes. It uses a 
-highly intuitive chemical reaction syntax interface, which generates all of the extra functionality 
+highly intuitive chemical reaction syntax interface, which generates all the extra functionality 
 necessary for the fastest use with JumpProcesses.jl, DifferentialEquations.jl, and higher level SciML
 libraries. Its `ReactionSystem` type is a programmable extension of the ModelingToolkit `AbstractSystem` 
 interface, meaning that complex reaction systems are represented symbolically, and then compiled to 
@@ -43,7 +43,7 @@ For an overview of the library, see
 
 ## NBodySimulator.jl: A differentiable simulator for N-body problems, including astrophysical and molecular dynamics
 
-[NBodySimulator.jl](https://docs.sciml.ai/NBodySimulator/stable/) is differentiable simulator for N-body problems,
+[NBodySimulator.jl](https://docs.sciml.ai/NBodySimulator/stable/) is a differentiable simulator for N-body problems,
 including astrophysical and molecular dynamics. It uses the DifferentialEquations.jl solvers, allowing for one to
 choose between a large variety of symplectic integration schemes. It implements many of the thermostats required for
 doing standard molecular dynamics approximations.
@@ -58,9 +58,9 @@ Black-Scholes model.
 
 ![](https://user-images.githubusercontent.com/1814174/172001045-b9e35b8d-0d40-41af-b606-95b81bb1194d.png)
 
-This image that went viral is actually runnable code from [ParameterizedFunctions.jl](https://docs.sciml.ai/ParameterizedFunctions/stable/). Define equations and models using a very simple high level syntax and let the code generation tools build symbolic fast Jacobian, gradient, etc. functions for you.
+This image that went viral is actually runnable code from [ParameterizedFunctions.jl](https://docs.sciml.ai/ParameterizedFunctions/stable/). Define equations and models using a very simple high-level syntax and let the code generation tools build symbolic fast Jacobian, gradient, etc. functions for you.
 
-# Third Party Tools of Note
+# Third-Party Tools of Note
 
 ## MomentClosure.jl: Automated Generation of Moment Closure Equations
 
@@ -79,7 +79,7 @@ making it a solid foundation for any agent-based model.
 
 ## Unitful.jl: A Julia package for physical units
 
-Supports not only SI units but also any other unit system.
+Supports not only SI units, but also any other unit system.
 [Unitful.jl](https://docs.sciml.ai/Unitful/stable/) has minimal run-time penalty of units.
 Includes facilities for dimensional analysis, and integrates easily with the usual mathematical operations and collections that are defined in Julia.
 
@@ -100,7 +100,7 @@ allow for directly solving the weak form of the stochastic model.
 ## AlgebraicPetri.jl: Applied Category Theory of Modeling
 
 [AlgebraicPetri.jl](https://docs.sciml.ai/AlgebraicPetri/stable/) is a library for automating the intuitive
-generation of dynamical models using a Category theory based approach.
+generation of dynamical models using a Category theory-based approach.
 
 ## QuantumOptics.jl: Simulating quantum systems.
 

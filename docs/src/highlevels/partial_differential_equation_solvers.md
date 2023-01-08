@@ -42,7 +42,7 @@ operator learning based PDE solvers. This includes techniques like:
 - Deep Operator Networks (DeepONets)
 - Markov Neural Operators (MNO)
 
-Currently its connection to PDE solving must be specified manually, though an interface
+Currently, its connection to PDE solving must be specified manually, though an interface
 for ModelingToolkit `PDESystem`s is in progress.
 
 ## DiffEqOperators.jl: Operators for Finite Difference Method (FDM) Discretizations
@@ -52,7 +52,7 @@ defining finite difference operators to easily perform manual FDM semi-discretiz
 of partial differential equations. This library is fairly incomplete and most cases
 should receive better performance using MethodOflines.jl.
 
-# Third Party Libraries to Note
+# Third-Party Libraries to Note
 
 ## ApproxFun.jl: Automated Spectral Discretizations
 

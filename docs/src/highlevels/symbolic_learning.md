@@ -5,7 +5,7 @@ symbolic equations from data and numerical functions. SciML offers an array of s
 learning utilities which connect with the other machine learning and equation solver
 functionalities to make it easy to embed prior knowledge and discover missing physics.
 For more information, see
-[Universal Differential Equations for Scientific Machine Learning](https://arxiv.org/abs/2001.04385)
+[Universal Differential Equations for Scientific Machine Learning](https://arxiv.org/abs/2001.04385).
 
 ## DataDrivenDiffEq.jl: Data-Driven Modeling and Automated Discovery of Dynamical Systems
 

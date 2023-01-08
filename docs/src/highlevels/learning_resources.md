@@ -3,7 +3,7 @@
 While the SciML documentation is made to be comprehensive, there will always be
 good alternative resources. The purpose of this section of the documentation
 is to highlight the alternative resources which can be helpful for learning how
-to use the SciML Open Source Software libraries.
+to use the SciML Open-Source Software libraries.
 
 ## JuliaCon and SciMLCon Videos
 
@@ -38,4 +38,4 @@ classic SIR epidemic model.
 - [Statistics with Julia](https://statisticswithjulia.org/)
 - [Statistical Rethinking with Julia](https://shmuma.github.io/rethinking-2ed-julia/)
 - [The Koopman Operator in Systems and Control](https://www.springer.com/gp/book/9783030357122)
-    - "All simulations have been performed in Julia, with additional Julia packages: LinearAlgebra.jl, Random.jl, Plots.jl, Lasso.jl, DifferentialEquations.jl"
+    - “All simulations have been performed in Julia, with additional Julia packages: LinearAlgebra.jl, Random.jl, Plots.jl, Lasso.jl, DifferentialEquations.jl”

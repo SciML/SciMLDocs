@@ -1,11 +1,11 @@
 # [Automatically Discover Missing Physics by Embedding Machine Learning into Differential Equations](@id autocomplete)
 
-One of the most time consuming parts of modeling is building the model. How do you know
+One of the most time-consuming parts of modeling is building the model. How do you know
 when your model is correct? When you solve an inverse problem to calibrate your model
 to data, who you gonna call if there are no parameters that make the model the data?
 This is the problem that the Universal Differential Equation (UDE) approach solves: the
 ability to start from the model you have, and suggest minimal mechanistic extensions that
-would allow the model to fit the data. In this showcase we will show how to take a partially
+would allow the model to fit the data. In this showcase, we will show how to take a partially
 correct model and auto-complete it to find the missing physics.
 
 !!! note
@@ -54,7 +54,7 @@ And external libraries:
 !!! note
     The deep learning framework [Flux.jl](https://fluxml.ai/) could be used in place of Lux,
     though most tutorials in SciML generally prefer Lux.jl due to its explicit parameter
-    interface leading to nicer code. Both share the same internal implementations of core
+    interface, leading to nicer code. Both share the same internal implementations of core
     kernels, and thus have very similar feature support and performance.
 
 ```@example ude
@@ -159,7 +159,7 @@ prob_nn = ODEProblem(nn_dynamics!,Xₙ[:, 1], tspan, p)
 ```
 
 Notice that the most important part of this is that the neural network does not have
-hardcoded weights. The weights of the neural network are the parameters of the ODE system.
+hard-coded weights. The weights of the neural network are the parameters of the ODE system.
 This means that if we change the parameters of the ODE system, then we will have updated
 the internal neural networks to new weights. Keep that in mind for the next part.
 
@@ -199,7 +199,7 @@ function predict(θ, X = Xₙ[:,1], T = t)
 end
 ```
 
-Now for our loss function we solve the ODE at our new parameters and check its L2 loss
+Now, for our loss function, we solve the ODE at our new parameters and check its L2 loss
 against the dataset. Using our `predict` function, this looks like:
 
 ```@example ude
@@ -231,9 +231,9 @@ end
 
 Now we're ready to train! To run the training process, we will need to build an
 [`OptimizationProblem`](https://docs.sciml.ai/Optimization/stable/API/optimization_problem/).
-Because we have a lot of parameteres, we will use
+Because we have a lot of parameters, we will use
 [Zygote.jl](https://docs.sciml.ai/Zygote/stable/). Optimization.jl makes the choice of
-automatic diffeerentiation easy just by specifying an `adtype` in the
+automatic differentiation easy, just by specifying an `adtype` in the
 [`OptimizationFunction` construction](https://docs.sciml.ai/Optimization/stable/API/optimization_function/)
 
 Knowing this, we can build our `OptimizationProblem` as follows:
@@ -270,7 +270,7 @@ println("Final training loss after $(length(losses)) iterations: $(losses[end])"
 p_trained = res2.u
 ```
 
-and bingo we have a trained UDE.
+and bingo, we have a trained UDE.
 
 ## Visualizing the Trained UDE
 
@@ -294,7 +294,7 @@ pl_trajectory = plot(ts, transpose(X̂), xlabel = "t", ylabel ="x(t), y(t)", col
 scatter!(solution.t, transpose(Xₙ), color = :black, label = ["Measurements" nothing])
 ```
 
-Lets see how well the unknown term has been approximated:
+Let's see how well the unknown term has been approximated:
 
 ```@example ude
 # Ideal unknown interactions of the predictor
@@ -328,7 +328,7 @@ more after the break!
 
 #### This part of the showcase is still a work in progress... shame on us. But be back in a jiffy and we'll have it done.
 
-Okay that was a quick break, and that's good because this next part is pretty cool. Let's
+Okay, that was a quick break, and that's good because this next part is pretty cool. Let's
 use [DataDrivenDiffEq.jl](https://docs.sciml.ai/DataDrivenDiffEq/stable/) to transform our
 trained neural network from machine learning mumbo jumbo into predictions of missing
 mechanistic equations. To do this, we first generate a symbolic basis that represents the
@@ -347,7 +347,7 @@ capability of the sparse regression, we will look at 3 cases:
   from the original noisy data? This is the approach in the literature known as structural
   identification of dynamical systems (SINDy). We will call this the full problem. This
   will assess whether this incorporation of prior information was helpful.
-* What if we trained the neural network using the ideal right hand side missing derivative
+* What if we trained the neural network using the ideal right-hand side missing derivative
   functions? This is the value computed in the plots above as `Ȳ`. This will tell us whether
   the symbolic discovery could work in ideal situations.
 * Do the symbolic regression directly on the function `y = NN(x)`, i.e. the trained learned
@@ -356,21 +356,21 @@ capability of the sparse regression, we will look at 3 cases:
 
 To define the full problem, we need to define a `DataDrivenProblem` that has the time
 series of the solution `X`, the time points of the solution `t`, and the derivative
-at each time point of the solution (obtained by the ODE solution's interpolation. We can just use an interpolation to get the derivative:
+at each time point of the solution, obtained by the ODE solution's interpolation. We can just use an interpolation to get the derivative:
 
 ```@example ude
 full_problem = ContinuousDataDrivenProblem(Xₙ, t)
 ```
 
 Now for the other two symbolic regressions, we are regressing input/outputs of the missing
-terms and thus we directly define the datasets as the input/output mappings like:
+terms, and thus we directly define the datasets as the input/output mappings like:
 
 ```@example ude
 ideal_problem = DirectDataDrivenProblem(X̂, Ȳ)
 nn_problem = DirectDataDrivenProblem(X̂, Ŷ)
 ```
 
-Let's solve the data driven problems using sparse regression. We will use the `ADMM`
+Let's solve the data-driven problems using sparse regression. We will use the `ADMM`
 method, which requires we define a set of shrinking cutoff values `λ`, and we do this like:
 
 ```@example ude
@@ -426,7 +426,7 @@ for eqs in (full_eqs, ideal_eqs, nn_eqs)
 end
 ```
 
-Next, we want to predict with our model. To do so, we embedd the basis into a function like before:
+Next, we want to predict with our model. To do so, we embed the basis into a function like before:
 
 ```@example ude
 # Define the recovered, hybrid model

@@ -1,6 +1,6 @@
 # Developer Documentation
 
-For uniformity and clarity, the SciML Open Source Software Organization has many
+For uniformity and clarity, the SciML Open-Source Software Organization has many
 well-defined rules and practices for its development. However, we stress one
 important principle:
 
@@ -49,7 +49,7 @@ StochasticDiffEq.jl, and DelayDiffEq.jl. This section of the documentation descr
 internal systems of these packages and how they are used to quickly write efficient
 solvers.
 
-# Third Party Libraries to Note
+# Third-Party Libraries to Note
 
 ## Documenter.jl
 
@@ -73,15 +73,15 @@ JuliaFormatter.format(pkgdir(DevedPackage))
 
 which will reformat the code according to the SciML Style.
 
-## Github Actions Continuous Integrations
+## GitHub Actions Continuous Integrations
 
 The SciML Organization uses continuous integration testing to always ensure tests are passing when merging
-pull requests. The organization uses the Github Actions supplied by [Julia Actions](https://github.com/julia-actions)
+pull requests. The organization uses the GitHub Actions supplied by [Julia Actions](https://github.com/julia-actions)
 to accomplish this. Common continuous integration scripts are:
 
 - CI.yml, the standard CI script
 - Downstream.yml, used to specify packages for downstream testing. This will make packages which depend on the current
-  package also be tested to ensure that "non-breaking changes" do not actually break other packages.
+  package also be tested to ensure that “non-breaking changes” do not actually break other packages.
 - Documentation.yml, used to run the documentation automatic generation with Documenter.jl
 - FormatCheck.yml, used to check JuliaFormatter SciML Style compliance
 
@@ -90,9 +90,9 @@ to accomplish this. Common continuous integration scripts are:
 [CompatHelper](https://github.com/JuliaRegistries/CompatHelper.jl) is used to automatically create pull requests whenever
 a dependent package is upper bounded. The results of CompatHelper PRs should be checked to ensure that the latest version
 of the dependencies are grabbed for the test process. After successful CompatHelper PRs, i.e. if the increase of the upper
-bound did not cause a break to the tests, a new version tag should follow. It is setup by adding the CompatHelper.yml Github action.
+bound did not cause a break to the tests, a new version tag should follow. It is set up by adding the CompatHelper.yml GitHub action.
 
 ## TagBot
 
-[TagBot](https://github.com/JuliaRegistries/TagBot) automatically creates tags in the Github repository whenever a package
-is registered to the Julia General repository. It is setup by adding the TagBot.yml Github action.
+[TagBot](https://github.com/JuliaRegistries/TagBot) automatically creates tags in the GitHub repository whenever a package
+is registered to the Julia General repository. It is set up by adding the TagBot.yml GitHub action.
