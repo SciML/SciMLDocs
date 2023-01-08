@@ -1,6 +1,6 @@
 # [Build and run your first simulation with Julia's SciML](@id first_sim)
 
-In this tutorial we will build and run our first simulation with SciML!
+In this tutorial, we will build and run our first simulation with SciML!
 
 !!! note
 
@@ -87,11 +87,11 @@ p2 = plot(sol,idxs=z,title = "Total Animals")
 plot(p1,p2,layout=(2,1))
 ```
 
-## Step by Step Solution
+## Step-by-Step Solution
 
 ### Step 1: Install and Import the Required Packages
 
-To do this tutorial we will need a few components:
+To do this tutorial, we will need a few components:
 
 * [ModelingToolkit.jl, our modeling environment](https://docs.sciml.ai/ModelingToolkit/stable/)
 * [DifferentialEquations.jl, the differential equation solvers](https://docs.sciml.ai/DiffEqDocs/stable/)
@@ -136,16 +136,17 @@ for parameters, where the default value is now the parameter value:
     that into the α symbol. That can make your code look a lot more like the mathematical
     expressions!
 
-Next we define our set of differential equations. We need to first tell it what to
-differentiate with respect to, here the independent variable `t`, do define the `Differential`
-operator `D`. Then once we have the operator, we apply that into the equations.
+Next, we define our set of differential equations.
+To define the `Differential` operator `D`, we need to first tell it what to
+differentiate with respect to, here the independent variable `t`, 
+Then, once we have the operator, we apply that into the equations.
 
 !!! note
 
     Note that in ModelingToolkit and Symbolics, `~` is used for equation equality. This is
-    separate from `=` which is the "assignment operator" in the Julia programming language.
+    separate from `=` which is the “assignment operator” in the Julia programming language.
     For example, `x = x + 1` is a valid assignment in a programming language, and it is
-    invalid for that to represent "equality", which is the reason why a separate operator
+    invalid for that to represent “equality”, which is why a separate operator
     is used!
 
 ```@example first_sim
@@ -160,7 +161,7 @@ eqs = [
 ]
 ```
 
-Notice that in the display it will automatically generate LaTeX. If one is interested in
+Notice that in the display, it will automatically generate LaTeX. If one is interested in
 generating this LaTeX locally, one can simply do:
 
 ```julia
@@ -191,10 +192,10 @@ simpsys = structural_simplify(sys)
 ```
 
 Notice that what is returned is another `ODESystem`, but now with the simplified set of
-equations. `z` has been turned into an "observable", i.e. a state that is not computed
+equations. `z` has been turned into an “observable”, i.e. a state that is not computed
 but can be constructed on-demand. This is one of the ways that SciML reaches its speed:
 you can have 100,000 equations, but solve only 1,000 to then automatically reconstruct
-the full set. Here, it's just 3 equations to 2, but as models get more complex the
+the full set. Here, it's just 3 equations to 2, but as models get more complex, the
 symbolic system will find ever more clever interactions!
 
 Now that we have simplified our system, let's turn it into a numerical problem to
@@ -208,7 +209,7 @@ representation. We need to tell it the numerical details now:
 
 In this case, we will use the default values for all our variables, so we will pass a
 blank override `[]`. If for example we did want to change the initial condition of `x`
-to `2.0` and `α` to `4.0`, we would do `[x => 2.0, α => 4.0]`. Then secondly we pass a
+to `2.0` and `α` to `4.0`, we would do `[x => 2.0, α => 4.0]`. Then secondly, we pass a
 tuple for the time span, `(0.0,10.0)` meaning start at `0.0` and end at `10.0`. This looks
 like:
 
@@ -271,7 +272,7 @@ And tada, we have a full analysis of our ecosystem!
 
 ## Bonus Step: Emoji Variables
 
-If you made it this far, then congrats you get to learn a fun fact! Since Julia code can
+If you made it this far, then congrats, you get to learn a fun fact! Since Julia code can
 use Unicode, emojis work for variable names. Here's the simulation using emojis of rabbits
 and wolves to define the system:
 

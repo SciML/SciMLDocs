@@ -8,7 +8,7 @@ the SciML ecosystem gracefully mixes analytical symbolic computations with the n
 solver processes to accelerate solvers, give additional information
 (sparsity, identifiability), automatically fix numerical stability issues, and more.
 
-In this showcase we will highlight two aspects of symbolic-numeric programming.
+In this showcase, we will highlight two aspects of symbolic-numeric programming.
 
 1. Automated index reduction of DAEs. While arbitrary [differential-algebraic equation
    systems can be written in DifferentialEquations.jl](https://docs.sciml.ai/DiffEqDocs/stable/tutorials/dae_example/),
@@ -28,7 +28,7 @@ Let's dig into these two cases!
 # Automated Index Reduction of DAEs
 
 In many cases one may accidentally write down a DAE that is not easily solvable
-by numerical methods. In this tutorial we will walk through an example of a
+by numerical methods. In this tutorial, we will walk through an example of a
 pendulum which accidentally generates an index-3 DAE, and show how to use the
 `modelingtoolkitize` to correct the model definition before solving.
 
@@ -66,7 +66,7 @@ plot(sol, vars=states(traced_sys))
 
 ### Attempting to Solve the Equation
 
-In this tutorial we will look at the pendulum system:
+In this tutorial, we will look at the pendulum system:
 
 ```math
 \begin{aligned}
@@ -115,21 +115,21 @@ Did you implement the DAE incorrectly? No. Is the solver broken? No.
 It turns out that this is a property of the DAE that we are attempting to solve.
 This kind of DAE is known as an index-3 DAE. For a complete discussion of DAE
 index, see [this article](http://www.scholarpedia.org/article/Differential-algebraic_equations).
-Essentially the issue here is that we have 4 differential variables (``x``, ``v_x``, ``y``, ``v_y``)
+Essentially, the issue here is that we have 4 differential variables (``x``, ``v_x``, ``y``, ``v_y``)
 and one algebraic variable ``T`` (which we can know because there is no `D(T)`
 term in the equations). An index-1 DAE always satisfies that the Jacobian of
 the algebraic equations is non-singular. Here, the first 4 equations are
 differential equations, with the last term the algebraic relationship. However,
 the partial derivative of `x^2 + y^2 - L^2` w.r.t. `T` is zero, and thus the
-Jacobian of the algebraic equations is the zero matrix and thus it's singular.
-This is a very quick way to see whether the DAE is index 1!
+Jacobian of the algebraic equations is the zero matrix, and thus it's singular.
+This is a quick way to see whether the DAE is index 1!
 
 The problem with higher order DAEs is that the matrices used in Newton solves
 are singular or close to singular when applied to such problems. Because of this
 fact, the nonlinear solvers (or Rosenbrock methods) break down, making them
 difficult to solve. The classic paper [DAEs are not ODEs](https://epubs.siam.org/doi/10.1137/0903023)
 goes into detail on this and shows that many methods are no longer convergent
-when index is higher than one. So it's not necessarily the fault of the solver
+when index is higher than one. So, it's not necessarily the fault of the solver
 or the implementation: this is known.
 
 But that's not a satisfying answer, so what do you do about it?
@@ -150,9 +150,9 @@ v_y^\prime =& y T - g \\
 \end{aligned}
 ```
 
-Note that this is mathematically-equivalent to the equation that we had before,
+Note that this is mathematically equivalent to the equation that we had before,
 but the Jacobian w.r.t. `T` of the algebraic equation is no longer zero because
-of the substitution. This means that if you wrote down this version of the model
+of the substitution. This means that if you wrote down this version of the model,
 it will be index-1 and solve correctly! In fact, this is how DAE index is
 commonly defined: the number of differentiations it takes to transform the DAE
 into an ODE, where an ODE is an index-0 DAE by substituting out all of the
@@ -181,14 +181,14 @@ plot(sol, vars=states(traced_sys))
 ```
 
 Note that plotting using `states(traced_sys)` is done so that any
-variables which are symbolically eliminated, or any variable reorderings
+variables which are symbolically eliminated, or any variable reordering
 done for enhanced parallelism/performance, still show up in the resulting
 plot and the plot is shown in the same order as the original numerical
 code.
 
-Note that we can even go a little bit further. If we use the `ODAEProblem`
+Note that we can even go a bit further. If we use the `ODAEProblem`
 constructor, we can remove the algebraic equations from the states of the
-system and fully transform the index-3 DAE into an index-0 ODE which can
+system and fully transform the index-3 DAE into an index-0 ODE, which can
 be solved via an explicit Runge-Kutta method:
 
 ```@example indexred
@@ -215,7 +215,8 @@ using Pkg
 Pkg.add("StructuralIdentifiability")
 ```
 
-The package has a standalone data structure for ordinary differential equations but is also compatible with `ODESystem` type from `ModelingToolkit.jl`.
+The package has a standalone data structure for ordinary differential equations,
+but is also compatible with `ODESystem` type from `ModelingToolkit.jl`.
 
 ## Local Identifiability
 ### Input System
@@ -260,7 +261,7 @@ de = ODESystem(eqs, t, name=:Biohydrogenation)
 
 ```
 
-After that we are ready to check the system for local identifiability:
+After that, we are ready to check the system for local identifiability:
 ```julia
 # query local identifiability
 # we pass the ode-system
@@ -305,7 +306,7 @@ $$\begin{cases}
     y(t) = x_1(t)
 \end{cases}$$
 
-We will run a global identifiability check on this enzyme dynamics[^3] model. We will use the default settings: the probability of correctness will be `p=0.99` and we are interested in identifiability of all possible parameters
+We will run a global identifiability check on this enzyme dynamics[^3] model. We will use the default settings: the probability of correctness will be `p=0.99` and we are interested in identifiability of all possible parameters.
 
 Global identifiability needs information about local identifiability first, but the function we chose here will take care of that extra step for us.
 
@@ -340,9 +341,10 @@ ode = ODESystem(eqs, t, name=:GoodwinOsc)
                     #   g     => :nonidentifiable
                     #   delta => :globally
 ```
-We can see that only parameters `a, g` are unidentifiable and everything else can be uniquely recovered.
+We can see that only parameters `a, g` are unidentifiable, and everything else can be uniquely recovered.
 
-Let us consider the same system but with two inputs and we will try to find out identifiability with probability `0.9` for parameters `c` and `b`:
+Let us consider the same system but with two inputs,
+and we will find out identifiability with probability `0.9` for parameters `c` and `b`:
 
 ```julia
 using StructuralIdentifiability, ModelingToolkit

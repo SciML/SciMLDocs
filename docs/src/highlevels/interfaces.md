@@ -5,7 +5,7 @@
 [SciMLBase.jl](https://github.com/SciML/SciMLBase.jl) defines the core interfaces
 of the SciML libraries, such as the definitions of abstract types like `SciMLProblem`,
 along with their instantiations like `ODEProblem`. While SciMLBase.jl is insufficient
-to solve any equations, it holds all of the equation definitions, and thus downstream
+to solve any equations, it holds all the equation definitions, and thus downstream
 libraries which wish to allow for using SciML solvers without depending on any solvers
 can directly depend on SciMLBase.jl.
 
@@ -24,9 +24,9 @@ SciML ecosystem.
 ## CommonSolve.jl: The Common Definition of Solve
 
 [CommonSolve.jl](https://github.com/SciML/CommonSolve.jl) is the library that defines
-the `solve`, `solve!`, and `init` interfaces which are used throughout all of the SciML
+the `solve`, `solve!`, and `init` interfaces which are used throughout all the SciML
 equation solvers. It's defined as an extremely lightweight library so that other
-ecosystems can build off of the same `solve` definition without clashing with SciML
+ecosystems can build on the same `solve` definition without clashing with SciML
 when both export.
 
 ## Static.jl: A Shared Interface for Static Compile-Time Computation
@@ -42,7 +42,7 @@ DifferentialEquations.jl ecosystem. It's not intended for non-developer users to
 directly with, instead it's used for the common functionality for uniformity of implementation
 between the solver libraries.
 
-# Third Party Libraries to Note
+# Third-Party Libraries to Note
 
 ## ArrayInterface.jl: Extensions to the Julia AbstractArray Interface
 
@@ -58,7 +58,7 @@ like `findstructralnz` to get the structural non-zeros of arbitrary sparse and s
 [Adapt.jl](https://github.com/JuliaGPU/Adapt.jl) makes it possible to write code that is generic
 to the compute devices, i.e. code that works on both CPUs and GPUs. It defines the `adapt` function
 which acts like `convert(T, x)`, but without the restriction of returning a `T`. This allows you to
-"convert" wrapper types like `Adjoint` to be GPU compatible (for example) without throwing away the wrapper.
+“convert” wrapper types, like `Adjoint` to be GPU compatible (for example) without throwing away the wrapper.
 
 Example usage:
 
@@ -77,7 +77,7 @@ compatible with FFT libraries without having an explicit dependency on a solver.
 ## GPUArrays.jl: Common Interface for GPU-Based Array Types
 
 [GPUArrays.jl](https://github.com/JuliaGPU/GPUArrays.jl) defines the shared higher-level operations
-for GPU-based array types like [CUDA.jl's CuArray](https://github.com/JuliaGPU/CUDA.jl) and
+for GPU-based array types, like [CUDA.jl's CuArray](https://github.com/JuliaGPU/CUDA.jl) and
 [AMDGPU.jl's ROCmArray](https://github.com/JuliaGPU/AMDGPU.jl). Packages in SciML use the designation
 `x isa AbstractGPUArray` in order to find out if a user's operation is on the GPU and specialize
 computations.

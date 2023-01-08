@@ -32,8 +32,8 @@ Next, open Visual Studio Code and click Extensions.
 
 ![](https://user-images.githubusercontent.com/1814174/195773680-2226b2fc-5903-4eff-aae2-4d8689f16280.PNG)
 
-Then, search for "Julia" in the search bar on the top of the extension tab, click on the
-"Julia" extension, and click the install button on the tab that opens up.
+Then, search for “Julia” in the search bar on the top of the extension tab, click on the
+“Julia” extension, and click the install button on the tab that opens up.
 
 ![](https://user-images.githubusercontent.com/1814174/195773697-ede4edee-d479-46e8-acce-94a3ff884de8.PNG)
 
@@ -59,7 +59,7 @@ Once again, if you got stuck in this installation process, ask for help
 SciML is [over 130 Julia packages](https://github.com/SciML). That's too much stuff to
 give someone in a single download! Thus instead, the SciML organization divides its
 functionality into composable modules that can be mixed and matched as required. Installing
-SciML ecosystem functionality is equivalent to installation such packages.
+SciML ecosystem functionality is equivalent to installation of such packages.
 
 For example, do you need the differential equation solver? Then install DifferentialEquations
 via the command:

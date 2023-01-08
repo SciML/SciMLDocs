@@ -21,8 +21,8 @@ is the ecosystem for doing this with Julia.
   the differential equation solver to use specialized hardware acceleration.
 * **A Global Harmonious Documentation for Scientific Computing** - R's documentation for
   scientific computing is scattered in a bunch of individual packages where the developers
-  do not talk to each other! This not only leads to documentation differences but also
-  "style" differences: one package uses `tol` while the other uses `atol`. With Julia's
+  do not talk to each other! This not only leads to documentation differences, but also
+  “style” differences: one package uses `tol` while the other uses `atol`. With Julia's
   SciML, the whole ecosystem is considered together, and inconsistencies are handled at the
   global level. The goal is to be working in one environment with one language.
 * **Easier High-Performance and Parallel Computing** - With Julia's ecosystem,
@@ -30,7 +30,7 @@ is the ecosystem for doing this with Julia.
   binaries and `cu(A)*cu(B)` is then all that's required to GPU-accelerate large-scale
   linear algebra. [MPI](https://github.com/JuliaParallel/MPI.jl) is easy to install and
   use. [Distributed computing through password-less SSH](https://docs.julialang.org/en/v1/manual/distributed-computing/). [Multithreading](https://docs.julialang.org/en/v1/manual/multi-threading/)
-  is automatic and baked into a lot of libraries, with a specialized algorithm to ensure
+  is automatic and baked into many libraries, with a specialized algorithm to ensure
   hierarchical usage does not oversubscribe threads. Basically, libraries give you a lot
   of parallelism for free, and doing the rest is a piece of cake.
 * **Mix Scientific Computing with Machine Learning** - Want to [automate the discovery
@@ -50,7 +50,7 @@ first time:
 * [The Julia Manual's Noteworthy Differences from R page](https://docs.julialang.org/en/v1/manual/noteworthy-differences/#Noteworthy-differences-from-R)
 * [Tutorials on Data Wrangling and Plotting in Julia (Sections 4 and 5)](http://tutorials.pumas.ai/)
   written for folks with a background in R.
-* Double check your results with [deSolveDiffEq.jl](https://github.com/SciML/deSolveDiffEq.jl)
+* Double-check your results with [deSolveDiffEq.jl](https://github.com/SciML/deSolveDiffEq.jl)
   (automatically converts and runs ODE definitions with R's deSolve solvers)
 * Use [RCall.jl](https://juliainterop.github.io/RCall.jl/stable/) to more incrementally move
   code to Julia.

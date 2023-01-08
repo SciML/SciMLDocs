@@ -3,11 +3,11 @@
 Let's solve stochastic PDEs in Julia using GPU parallelism. To do this, we will use the
 type-genericness of the DifferentialEquations.jl library in order to write a code that uses
 within-method GPU-parallelism on the system of PDEs. The OrdinaryDiffEq.jl solvers of
-DifferentialEquations.jl, including implicit solvers with GMRES, etc., and same for SDEs,
+DifferentialEquations.jl, including implicit solvers with GMRES, etc., and the same for SDEs,
 DAEs, DDEs, etc. are all GPU-compatible with a fast form of broadcast.
 
 !!! note
-    The non-native Julia solvers, like Sundials are not compatible with arbitrary input
+    The non-native Julia solvers, like Sundials are incompatible with arbitrary input
     types and thus not compatible with GPUs.
 
 Let's dive into showing how to accelerate ODE solving with GPUs!
@@ -16,7 +16,7 @@ Let's dive into showing how to accelerate ODE solving with GPUs!
 
 Before we dive deeper, let us remark that there are two very different ways that one can
 accelerate an ODE solution with GPUs. There is one case where `u` is very big and `f`
-is very expensive but very structured, and you use GPUs to accelerate the computation
+is very expensive, but very structured, and you use GPUs to accelerate the computation
 of said `f`. The other use case is where `u` is very small but you want to solve the ODE
 `f` over many different initial conditions (`u0`) or parameters `p`. In that case, you can
 use GPUs to parallelize over different parameters and initial conditions. In other words:
@@ -31,13 +31,13 @@ This showcase will focus on the former case. For the latter, see the
 
 ## Our Problem: 2-dimensional Reaction-Diffusion Equations
 
-The reaction-diffusion equation is a PDE commonly handled in systems biology which is a diffusion equation plus a nonlinear reaction term. The dynamics are defined as:
+The reaction-diffusion equation is a PDE commonly handled in systems biology, which is a diffusion equation plus a nonlinear reaction term. The dynamics are defined as:
 
 ```math
 u_t = D \Delta u + f(t,u)
 ```
 
-But this doesn't need to only have a single "reactant" u: this can be a vector of reactants
+But this doesn't need to only have a single “reactant” u: this can be a vector of reactants
 and the ``f`` is then the nonlinear vector equations describing how these different pieces
 react together. Let's settle on a specific equation to make this easier to explain. Let's use
 a simple model of a 3-component system where A can diffuse through space to bind with the
@@ -70,13 +70,13 @@ In order to solve this via a method of lines (MOL) approach, we need to discreti
 into a system of ODEs. Let's do a simple uniformly-spaced grid finite difference
 discretization. Choose ``dx = 1`` and ``dy = 1`` so that we have `100*100=10000` points for
 each reactant. Notice how fast that grows! Put the reactants in a matrix such that
-`A[i,j] = A(x_j,y_i)`, i.e. the columns of the matrix is the ``x`` values and the rows are
+`A[i,j] = A(x_j,y_i)`, i.e. the columns of the matrix are the ``x`` values and the rows are
 the ``y`` values (this way looking at the matrix is essentially like looking at the
 discretized space).
 
 So now we have 3 matrices (`A`, `B`, and `C`) for our reactants. How do we discretize the
 PDE? In this case, the diffusion term simply becomes a tridiagonal matrix ``M`` where
-``[1,-2,1]`` is central band. You can notice that ``MA`` performs diffusion along the
+``[1,-2,1]`` is the central band. You can notice that ``MA`` performs diffusion along the
 columns of ``A``, and so this is diffusion along the ``y``. Similarly, ``AM`` flips the
 indices and thus does diffusion along the rows of ``A`` making this diffusion along ``x``.
 Thus ``D(M_yA + AM_x)`` is the discretized Laplacian (we could have separate diffusion
@@ -119,7 +119,7 @@ My[end,end-1] = 2.0
     We could have also done these discretization steps using
     [DiffEqOperators.jl](https://docs.sciml.ai/DiffEqOperators/stable/) or
     [MethodOfLines.jl](https://docs.sciml.ai/MethodOfLines/stable/). However, we are
-    going to keep it in this form so we can show the full code, making it easier to see
+    going to keep it in this form, so we can show the full code, making it easier to see
     how to define GPU-ready code!
 
 Since all of the reactions are local, we only have each point in space react separately.
@@ -212,7 +212,7 @@ about 2 seconds. That's okay.
 ## Some Optimizations
 
 There are some optimizations that can still be done. When we do A*B as matrix multiplication,
-we create another temporary matrix. These allocations can bog down the system. Instead we can
+we create another temporary matrix. These allocations can bog down the system. Instead, we can
 pre-allocate the outputs and use the inplace functions mul! to make better use of memory. The
 easiest way to store these cache arrays are constant globals, but you can use closures
 (anonymous functions which capture data, i.e. (x)->f(x,y)) or call-overloaded types to do it
@@ -298,7 +298,7 @@ f = MyFunction(MyA,AMx,DA)
 These last two ways enclose the pointer to our cache arrays locally but still present a
 function f(du,u,p,t) to the ODE solver.
 
-Now since PDEs are large, many times we don't care about getting the whole timeseries. Using
+Now, since PDEs are large, many times we don't care about getting the whole timeseries. Using
 the [output controls from DifferentialEquations.jl](http://diffeq.sciml.ai/latest/basics/common_solver_opts.html#Output-Control-1), we can make it only output the final timepoint.
 
 ```julia
@@ -307,8 +307,8 @@ prob = ODEProblem(f,u0,(0.0,100.0))
 @time sol = solve(prob,ROCK2(),progress=true,save_everystep=false,save_start=false);
 ```
 
-Around 0.4 seconds. Much better. Also, if you're using VS Code this'll give you a nice
-progress bar so you can track how it's going.
+Around 0.4 seconds. Much better. Also, if you're using VS Code, this'll give you a nice
+progress bar, so you can track how it's going.
 
 ## Quick Note About Performance
 
@@ -319,7 +319,7 @@ progress bar so you can track how it's going.
     If we wanted to use a more conventional implicit ODE solver, we would need to make use
     of the sparsity pattern. This is covered in
     [the advanced ODE tutorial](https://docs.sciml.ai/DiffEqDocs/stable/tutorials/advanced_ode_example/)
-    It turns out that ROCK2 is more efficient anyways (and doesn't require sparsity
+    It turns out that ROCK2 is more efficient anyway (and doesn't require sparsity
     handling), so we will keep this setup.
 
 ### Quick Summary: full PDE ODE Code
@@ -388,9 +388,9 @@ plot(p1,p2,p3,layout=grid(3,1))
 
 ## Making Use of GPU Parallelism
 
-That was all using the CPU. How do we make turn on GPU parallelism with
+That was all using the CPU. How do we turn on GPU parallelism with
 DifferentialEquations.jl? Well, you don't. DifferentialEquations.jl "doesn't have GPU bits".
-So wait... can we not do GPU parallelism? No, this is the glory of type-genericness,
+So, wait... can we not do GPU parallelism? No, this is the glory of type-genericness,
 especially in broadcasted operations. To make things use the GPU, we simply use a CuArray
 from [CUDA.jl](https://cuda.juliagpu.org/stable/). If instead of `zeros(N,M)` we used
 `CuArray(zeros(N,M))`, then the array lives on the GPU. CuArray naturally overrides
@@ -491,9 +491,9 @@ exists by virtue of the Julia type system.
 require a choice of dt. This is left to the reader to try.)
 
 !!! note
-    This can take awhile to solve! An explicit Runge-Kutta algorithm isn't necessarily great
+    This can take a while to solve! An explicit Runge-Kutta algorithm isn't necessarily great
     here, though to use a stiff solver on a problem of this size requires once again smartly
     choosing sparse linear solvers. The high order adaptive method is pretty much necessary
-    though since something like Euler-Maruyama is simply not stable enough to solve this at
+    though, since something like Euler-Maruyama is simply not stable enough to solve this at
     a reasonable dt. Also, the current algorithms are not so great at handling this problem.
     Good thing there's a publication coming along with some new stuff...

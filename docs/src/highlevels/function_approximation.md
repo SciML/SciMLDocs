@@ -34,7 +34,7 @@ doing machine learning using reservoir computing techniques, such as with method
 State Networks (ESNs). Its reservoir computing methods make it stabilized for usage with
 difficult equations like stiff dynamics, chaotic equations, and more.
 
-# Third Party Libraries to Note
+# Third-Party Libraries to Note
 
 ## Flux.jl: the ML library that doesn't make you tensor
 
@@ -46,8 +46,8 @@ compatibility.
 ## Lux.jl: Explicitly Parameterized Neural Networks in Julia
 
 [Lux.jl](https://github.com/avik-pal/Lux.jl) is a library for fully explicitly parameterized
-neural networks. Thus while alternative interfaces are required to use Flux with many equation
-solvers (i.e. `Flux.destructure`), Lux.jl's explicit design marries very easily with the
+neural networks. Thus, while alternative interfaces are required to use Flux with many equation
+solvers (i.e. `Flux.destructure`), Lux.jl's explicit design marries effortlessly with the
 SciML equation solver libraries. For this reason, SciML's library are also heavily tested with
 Lux to ensure compatibility with neural network definitions from here.
 
@@ -55,7 +55,7 @@ Lux to ensure compatibility with neural network definitions from here.
 
 [SimpleChains.jl](https://github.com/PumasAI/SimpleChains.jl) is a library specialized for
 small-scale machine learning. It uses non-allocating mutating forms to be highly efficient
-for the cases where matrix multiplication kernels are not able to overcome the common overheads
+for the cases where matrix multiplication kernels cannot overcome the common overheads
 of machine learning libraries. Thus for SciML cases with small neural networks (<100 node layers)
 and non-batched usage (many/most use cases), SimpleChains.jl can be the fastest choice for the
 neural network definitions.
@@ -92,12 +92,12 @@ MNIST data, MLDatasets is the quickest way to obtain it.
 making writing common machine learning pipelines easier. This includes functionality for:
 
 - An extensible dataset interface  (`numobs` and `getobs`).
-- Data iteration and dataloaders (`eachobs` and `DataLoader`).
+- Data iteration and data loaders (`eachobs` and `DataLoader`).
 - Lazy data views (`obsview`).
 - Resampling procedures (`undersample` and `oversample`).
 - Train/test splits (`splitobs`)
 - Data partitioning and aggregation tools (`batch`, `unbatch`, `chunk`, `group_counts`, `group_indices`).
 - Folds for cross-validation (`kfolds`, `leavepout`).
-- Datasets lazy tranformations (`mapobs`, `filterobs`, `groupobs`, `joinobs`, `shuffleobs`).
+- Datasets lazy transformations (`mapobs`, `filterobs`, `groupobs`, `joinobs`, `shuffleobs`).
 - Toy datasets for demonstration purpose.
 - Other data handling utilities (`flatten`, `normalise`, `unsqueeze`, `stack`, `unstack`).

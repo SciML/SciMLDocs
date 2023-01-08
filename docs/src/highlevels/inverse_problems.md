@@ -17,14 +17,14 @@ so that you can easily decide which one suits your needs best.
 
 ## SciMLSensitivity.jl: Local Sensitivity Analysis and Automatic Differentiation Support for Solvers
 
-SciMLSensitivity.jl is the system for local sensitivity analysis which all other inverse problem
+SciMLSensitivity.jl is the system for local sensitivity, which all other inverse problem
 methods rely on. This package defines the interactions between the equation solvers and automatic
 differentiation, defining fast overloads for forward and adjoint (reverse) sensitivity analysis
 for fast gradient and Jacobian calculations with respect to model inputs. Its documentation covers
 how to use direct differentiation of equation solvers in conjunction with tools like Optimization.jl
 to perform model calibration of ODEs against data, PDE-constrained optimization, nonlinear optimal
 controls analysis, and much more. As a lower level tool, this library is very versatile, feature-rich,
-and high-performance, giving all of the tools required but not directly providing a higher level
+and high-performance, giving all the tools required but not directly providing a higher level
 interface.
 
 !!! note
@@ -54,7 +54,7 @@ delay differential equations.
 ## DiffEqBayes.jl: Simplified Bayesian Estimation Interface
 
 As the name suggests, this package has been designed to provide the estimation
-of differential equations parameters by means of Bayesian methods. It works in
+of differential equations parameters by Bayesian methods. It works in
 conjunction with [Turing.jl](https://turing.ml/),
 [CmdStan.jl](https://github.com/StanJulia/CmdStan.jl),
 [DynamicHMC.jl](https://github.com/tpapp/DynamicHMC.jl), and
@@ -63,7 +63,7 @@ as flexible as direct usage of DiffEqFlux.jl or Turing.jl, DiffEqBayes.jl can
 be an approachable interface for those not familiar with Bayesian estimation,
 and provides a nice way to use Stan from pure Julia.
 
-# Third Party Tools of Note
+# Third-Party Tools of Note
 
 ## Turing.jl: A Flexible Probabilistic Programming Language for Bayesian Analysis
 
@@ -116,7 +116,7 @@ Zygote.jl is the AD engine associated with the Flux machine learning library. Ho
 limitations which limits its performance in equation solver contexts, such as an inability to handle mutation
 and introducing many small allocations and type-instabilities. For this reason, the SciML equation
 solvers define differentiation overloads using [ChainRules.jl](https://github.com/JuliaDiff/ChainRules.jl),
-meaning that the equation solvers tend to not use Zygote.jl internally even if the user code uses `Zygote.gradient`.
+meaning that the equation solvers tend not to use Zygote.jl internally even if the user code uses `Zygote.gradient`.
 In this manner, the speed and performance of more advanced techniques can be preserved while using the Julia standard.
 
 ## FiniteDiff.jl: Fast Finite Difference Approximations

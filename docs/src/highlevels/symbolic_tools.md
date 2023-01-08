@@ -4,14 +4,14 @@
 out of the symbolic modeling tools being developed within SciML
 ([ModelingToolkit.jl](https://github.com/SciML/ModelingToolkit.jl)) to become its own
 organization dedicated to building a fully-featured Julia-based Computer Algebra System (CAS).
-As such, the two organizations are closely aligned in terms of its developer community and
+As such, the two organizations are closely aligned in terms of its developer community, and
 many of the SciML libraries use Symbolics.jl extensively.
 
 ## ModelOrderReduction.jl: Automated Model Reduction for Fast Approximations of Solutions
 
 [ModelOrderReduction.jl](https://github.com/SciML/ModelOrderReduction.jl) is a package for
-automating the reduction of models. These methods function a submodel with a projection
-where solving the smaller model gives approximation information about the full model. MOR.jl
+automating the reduction of models. These methods function a submodel with a projection,
+where solving the smaller model provides approximation information about the full model. MOR.jl
 uses ModelingToolkit.jl as a system description and automatically transforms equations
 to the subform, defining the observables to automatically lazily reconstruct the full
 model on-demand in a fast and stable form.

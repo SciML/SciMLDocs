@@ -1,7 +1,7 @@
 # [Getting Started with  Julia's SciML for the MATLAB User](@id matlab)
 
 If you're a MATLAB user who has looked into Julia for some performance improvements, you
-may have noticed that the standard library does not have all of the "batteries" included
+may have noticed that the standard library does not have all of the “batteries” included
 with a base MATLAB installation. Where's the ODE solver? Where's `fmincon` and `fsolve`?
 Those scientific computing functionalities are the pieces provided by the Julia SciML
 ecosystem!
@@ -15,13 +15,13 @@ ecosystem!
   grow as more complex algorithms are required.
 * **Julia is quick to learn from MATLAB** - Most ODE codes can be translated in a few
   minutes. If you need help, check out the
-  [QuantEcon MATLAB-Python-Julia Cheatsheet.](https://cheatsheets.quantecon.org/)
+  [QuantEcon MATLAB-Python-Julia Cheat Sheet.](https://cheatsheets.quantecon.org/)
 * **Package Management and Versioning** - [Julia's package manager](https://github.com/JuliaLang/Pkg.jl)
   takes care of dependency management, testing, and continuous delivery in order to make
   the installation and maintenance process smoother. For package users, this means it's
   easier to get packages with complex functionality in your hands.
 * **Free and Open Source** - If you want to know how things are being computed, just look
-  [at our Github organization](https://github.com/SciML). Lots of individuals use Julia's
+  [at our GitHub organization](https://github.com/SciML). Lots of individuals use Julia's
   SciML to research how the algorithms actually work because of how accessible and tweakable
   the ecosystem is!
 * **Composable Library Components** - In MATLAB environments, every package feels like
@@ -37,7 +37,7 @@ ecosystem!
   binaries and `cu(A)*cu(B)` is then all that's required to GPU-accelerate large-scale
   linear algebra. [MPI](https://github.com/JuliaParallel/MPI.jl) is easy to install and
   use. [Distributed computing through password-less SSH](https://docs.julialang.org/en/v1/manual/distributed-computing/). [Multithreading](https://docs.julialang.org/en/v1/manual/multi-threading/)
-  is automatic and baked into a lot of libraries, with a specialized algorithm to ensure
+  is automatic and baked into many libraries, with a specialized algorithm to ensure
   hierarchical usage does not oversubscribe threads. Basically, libraries give you a lot
   of parallelism for free, and doing the rest is a piece of cake.
 * **Mix Scientific Computing with Machine Learning** - Want to [automate the discovery
@@ -52,16 +52,16 @@ In this plot, `MATLAB` in orange represents MATLAB's most commonly used solvers:
 ## Need a case study?
 
 Check out [this talk from NASA Scientists getting a 15,000x acceleration by switching from
-Simulink to Julia's ModelingToolkit!](https://www.youtube.com/watch?v=tQpqsmwlfY0).
+Simulink to Julia's ModelingToolkit!](https://www.youtube.com/watch?v=tQpqsmwlfY0)
 
 ## Need Help Translating from MATLAB to Julia?
 
 The following resources can be particularly helpful when adopting Julia for SciML for the
 first time:
 
-* [QuantEcon MATLAB-Python-Julia Cheatsheet](https://cheatsheets.quantecon.org/)
+* [QuantEcon MATLAB-Python-Julia Cheat Sheet](https://cheatsheets.quantecon.org/)
 * [The Julia Manual's Noteworthy Differences from MATLAB page](https://docs.julialang.org/en/v1/manual/noteworthy-differences/#Noteworthy-differences-from-MATLAB)
-* Double check your results with [MATLABDiffEq.jl](https://github.com/SciML/MATLABDiffEq.jl)
+* Double-check your results with [MATLABDiffEq.jl](https://github.com/SciML/MATLABDiffEq.jl)
   (automatically converts and runs ODE definitions with MATLAB's solvers)
 * Use [MATLAB.jl](https://github.com/JuliaInterop/MATLAB.jl) to more incrementally move
   code to Julia.

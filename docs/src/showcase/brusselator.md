@@ -168,7 +168,7 @@ sol = solve(prob, TRBDF2(), saveat=0.1);
 
 Now that we have solved the ODE representation of the PDE, we have an `PDETimeSeriesSolution`
 that wraps an `ODESolution`, which we can get with `sol.original_sol`. If we look at the original
-sol, it represents ``u_i' = \ldots`` at each of the grid points. If you check `sol.original_sol.u` inside of the
+sol, it represents ``u_i' = \ldots`` at each of the grid points. If you check `sol.original_sol.u` inside the
 solution, that's those values... but that's not very helpful. How do you interpret `original_sol[1]`?
 How do you interpret `original_sol[1,:]`?
 
@@ -185,8 +185,8 @@ discrete_t = sol[t];
 ```
 
 What this tells us is that, for a solution at a given time point, say `original_sol[1]` for the
-solution at the initial time (the initial condition), value `original_sol[1][1]` is the solution
-at the grid point `(discrete_x[1], discrete_y[1])`. And for values that are not the initial
+solution at the initial time (the initial condition), the value `original_sol[1][1]` is the solution
+at the grid point `(discrete_x[1], discrete_y[1])`. For values that are not the initial
 time point, `original_sol[i]` corresponds to the solution at `discrete_t[i]`.
 
 But we also have two dependent variables, `u` and `v`. How do we interpret which of the
@@ -201,7 +201,7 @@ solv = sol[v(x, y, t)];
 This then gives an array of results for the `u` and `v` separately, each dimension
 corresponding to the discrete form of the independent variables.
 
-Using this high level indexing, we can create an animation of the solution of the
+Using this high-level indexing, we can create an animation of the solution of the
 Brusselator as follows. For `u` we receive:
 
 ```julia
@@ -225,7 +225,7 @@ gif(anim, "plots/Brusselator2Dsol_v.gif", fps = 8)
 
 ## Improving the Solution Process
 
-Now if all we needed was a single solution, then we're done. Budda bing budda boom, we
+Now, if all we needed was a single solution, then we're done. Budda bing budda boom, we
 got a solution, we're outta here. But if for example we're solving an inverse problem
 on a PDE, or we need to bump it up to higher accuracy, then we will need to make sure
 we solve this puppy more efficiently. So let's dive into how this can be done.

@@ -28,7 +28,7 @@ Along with the following general ecosystem packages:
 Assume that we know that the dynamics of our system are given by the
 [Lotka-Volterra dynamical system](https://en.wikipedia.org/wiki/Lotka%E2%80%93Volterra_equations):
 Let $x(t)$ be the number of rabbits in the environment and $y(t)$ be the number of wolves.
-This is the same dynamical system as [the first tutorial!](@ref first_sim).
+This is the same dynamical system as [the first tutorial!](@ref first_sim)
 The equation that defines the evolution of the species is given as follows:
 
 ```math
@@ -41,7 +41,7 @@ The equation that defines the evolution of the species is given as follows:
 where ``\alpha, \beta, \gamma, \delta`` are parameters. Starting from equal numbers of
 rabbits and wolves, ``x(0) = 1`` and ``y(0) = 1``.
 
-Now in the [the first tutorial](@ref first_sim), we assumed:
+Now, in [the first tutorial](@ref first_sim), we assumed:
 
 > Luckily, a local guide provided our with some parameters that seem to match the system!
 
@@ -107,11 +107,11 @@ result_ode = Optimization.solve(optprob, PolyOpt(),
                                 maxiters = 200)
 ```
 
-## Step by Step Solution
+## Step-by-Step Solution
 
 ### Step 1: Install and Import the Required Packages
 
-To do this tutorial we will need a few components. This is done using the Julia Pkg REPL:
+To do this tutorial, we will need a few components. This is done using the Julia Pkg REPL:
 
 ```julia
 ]add DifferentialEquations, Optimization, OptimizationPolyalgorithms, SciMLSensitivity, ForwardDiff, Plots
@@ -126,10 +126,10 @@ using ForwardDiff, Plots
 
 ### Step 2: Generate the Training Data
 
-In our example we assumed that we had data representative of the solution with
+In our example, we assumed that we had data representative of the solution with
 ``\alpha = 1.5``, ``\beta = 1.0``, ``\gamma = 3.0``, and ``\delta = 1.0``. Let's make that
 training data. The way we can do that is by defining the ODE with those parameters and
-simulating it. Unlike [the first tutorial](@ref first_sim) which used ModelingToolkit,
+simulating it. Unlike [the first tutorial](@ref first_sim), which used ModelingToolkit,
 let's demonstrate using [DifferentialEquations.jl](https://docs.sciml.ai/DiffEqDocs/stable/)
 to directly define the ODE for the numerical solvers.
 
@@ -179,9 +179,9 @@ data = Array(datasol)
   For more details on using DifferentialEquations.jl, check out the
   [getting started with DifferentialEquations.jl tutorial](https://docs.sciml.ai/DiffEqDocs/stable/getting_started/).
 
-### Step 3: Setup the Cost Function for Optimization
+### Step 3: Set Up the Cost Function for Optimization
 
-Now let's start the estimation process. First let's define a loss function. For our loss function, we want to
+Now let's start the estimation process. First, let's define a loss function. For our loss function, we want to
 take a set of parameters, create a new ODE which has everything the same except for the changed parameters,
 solve this ODE with new parameters, and compare its predictions against the data. For this parameter changing,
 there is a useful functionality in the 
@@ -213,8 +213,8 @@ new parameters) as extra return arguments. We will explain why this extra return
 ### Step 4: Solve the Optimization Problem
 
 This step will look very similar to [the first optimization tutorial](@ref first_opt), except now we have a new
-cost function. Just like in that tutorial we want to define a callback to monitor the solution process. However,
-this time our function returns two things. The callback syntax is always `(value being optimized, arguments of loss return)`
+cost function. Just like in that tutorial, we want to define a callback to monitor the solution process. However,
+this time, our function returns two things. The callback syntax is always `(value being optimized, arguments of loss return)`
 and thus this time the callback is given `(p, l, sol)`. See, returning the solution along with the loss as part of the
 loss function is useful because we have access to it in the callback to do things like plot the current solution
 against the data! Let's do that in the following way:
@@ -235,9 +235,9 @@ Thus every step of the optimization will show us the loss and a plot of how the 
 looks vs the data at our current parameters.
 
 Now, just like [the first optimization tutorial](@ref first_opt), we setup our optimization
-problem. To do this, we need come up with a `pguess`, an initial condition for the parameters
-which is our best guess of the true parameters. For this we will use `pguess = [1.0, 1.2, 2.5, 1.2]`.
-Together this looks like:
+problem. To do this, we need to come up with a `pguess`, an initial condition for the parameters
+which is our best guess of the true parameters. For this, we will use `pguess = [1.0, 1.2, 2.5, 1.2]`.
+Together, this looks like:
 
 
 ```@example odefit

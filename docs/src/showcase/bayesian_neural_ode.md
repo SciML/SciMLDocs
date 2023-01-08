@@ -11,7 +11,7 @@ Bayesian Neural ODE: NUTS sampler is shown.
 
 ## Step 1: Import Libraries
 
-For this example we will need the following libraries:
+For this example, we will need the following libraries:
 
 ```@example bnode
 # SciML Libraries
@@ -39,7 +39,7 @@ prob_trueode = ODEProblem(trueODEfunc, u0, tspan)
 ode_data = Array(solve(prob_trueode, Tsit5(), saveat = tsteps))
 ```
 
-We will want to train a neural network to capture the dyanamics that fit `ode_data`.
+We will want to train a neural network to capture the dynamics that fit `ode_data`.
 
 ## Step 2: Define the Neural ODE architecture.
 
@@ -72,11 +72,11 @@ end
 
 ## Step 4: Now we start integrating the Bayesian estimation workflow as prescribed by the AdvancedHMC interface with the NeuralODE defined above
 
-The AdvancedHMC interface requires us to specify: (a) the hamiltonian log density and its gradient , (b) the sampler and (c) the step size adaptor function.
+The AdvancedHMC interface requires us to specify: (a) the Hamiltonian log density and its gradient , (b) the sampler and (c) the step size adaptor function.
 
-For the hamiltonian log density, we use the loss function. The θ*θ term denotes the use of Gaussian priors.
+For the Hamiltonian log density, we use the loss function. The θ*θ term denotes the use of Gaussian priors.
 
-The user can make several modifications to Step 4. The user can try different acceptance ratios, warmup samples and posterior samples. One can also use the Variational Inference (ADVI) framework, which doesn't work quite as well as NUTS. The SGLD (Stochastic Gradient Langevin Descent) sampler is seen to have a better performance than NUTS. Have a look at https://sebastiancallh.github.io/post/langevin/ for a quick introduction to SGLD.
+The user can make several modifications to Step 4. The user can try different acceptance ratios, warmup samples and posterior samples. One can also use the Variational Inference (ADVI) framework, which doesn't work quite as well as NUTS. The SGLD (Stochastic Gradient Langevin Descent) sampler is seen to have a better performance than NUTS. Have a look at https://sebastiancallh.github.io/post/langevin/ for a brief introduction to SGLD.
 
 ```@example bnode
 l(θ) = -sum(abs2, ode_data .- predict_neuralode(θ)) - sum(θ .* θ)
@@ -90,7 +90,7 @@ metric  = DiagEuclideanMetric(length(p))
 h = Hamiltonian(metric, l, dldθ)
 ```
 
-We use the NUTS sampler with a acceptance ratio of δ= 0.45 in this example. In addition, we use Nesterov Dual Averaging for the Step Size adaptation.
+We use the NUTS sampler with an acceptance ratio of δ= 0.45 in this example. In addition, we use Nesterov Dual Averaging for the Step Size adaptation.
 
 We sample using 500 warmup samples and 500 posterior samples.
 

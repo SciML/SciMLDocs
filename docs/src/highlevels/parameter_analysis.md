@@ -3,8 +3,8 @@
 ## GlobalSensitivity.jl: Global Sensitivity Analysis
 
 Derivatives calculate the local sensitivity of a model, i.e. the change in the simulation's outcome if
-one was to change the parameter with respect to some chosen part of the parameter space. But how does a
-simulation's output change "in general" with respect to a given parameter? That is what global sensitivity
+one were to change the parameter with respect to some chosen part of the parameter space. But how does a
+simulation's output change “in general” with respect to a given parameter? That is what global sensitivity
 analysis (GSA) computes, and thus [GlobalSensitivity.jl](https://github.com/SciML/GlobalSensitivity.jl) is
 the way to answer that question. GlobalSensitivity.jl includes a wide array of methods, including:
 
@@ -22,7 +22,7 @@ the way to answer that question. GlobalSensitivity.jl includes a wide array of m
 
 Performing parameter estimation from a data set means attempting to recover parameters
 like reaction rates by fitting some model to the data. But how do you know whether you
-have enough data to even consider getting the "correct" parameters back?
+have enough data to even consider getting the “correct” parameters back?
 [StructuralIdentifiability.jl](https://github.com/SciML/StructuralIdentifiability.jl)
 allows for running a structural identifiability analysis on a given model to determine
 whether it's theoretically possible to recover the correct parameters. It can state whether
@@ -40,14 +40,14 @@ For more information on what StructuralIdentifiability.jl is all about, see the
 [MinimallyDisruptiveCurves.jl](https://github.com/SciML/MinimallyDisruptiveCurves.jl) is a library for
 finding relationships between parameters of models, finding the curves on which the solution is constant.
 
-# Third Party Libraries to Note
+# Third-Party Libraries to Note
 
 ## SIAN.jl: Structural Identifiability Analyzer
 
 [SIAN.jl](https://github.com/alexeyovchinnikov/SIAN-Julia) is a structural identifiability analysis
 package which uses an entirely different algorithm from StructuralIdentifiability.jl. For information
 on the differences between the two approaches, see
-[the Structural Identifiability Tools in Julia tutoral](https://www.youtube.com/watch?v=jg1DME3cwjg).
+[the Structural Identifiability Tools in Julia tutorial](https://www.youtube.com/watch?v=jg1DME3cwjg).
 
 ## DynamicalSystems.jl: A Suite of Dynamical Systems Analysis
 

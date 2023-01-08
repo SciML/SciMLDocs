@@ -33,7 +33,7 @@ for solving `NonlinearProblem`s. It includes:
 - Fast non-allocating implementations on static arrays of common methods (Newton-Rhapson)
 - Bracketing methods (Bisection, Falsi) for methods with known upper and lower bounds (`IntervalNonlinearProblem`)
 - Wrappers to common other solvers (NLsolve.jl, MINPACK, KINSOL from Sundials) for trust
-  region methods, line search based approaches, etc.
+  region methods, line search-based approaches, etc.
 - Built over the LinearSolve.jl API for maximum flexibility and performance in the solving
   approach
 - Compatible with arbitrary AbstractArray and Number types, such as GPU-based arrays, uncertainty
@@ -62,7 +62,7 @@ for solving `DEProblem`s. This includes:
 
 The well-optimized DifferentialEquations solvers benchmark as some of the fastest
 implementations of classic algorithms. It also includes algorithms from recent
-research which routinely outperform the "standard" C/Fortran methods, and algorithms
+research which routinely outperform the “standard” C/Fortran methods, and algorithms
 optimized for high-precision and HPC applications. Simultaneously, it wraps
 the classic C/Fortran methods, making it easy to switch over to them whenever
 necessary. Solving differential equations with different methods from
@@ -137,7 +137,7 @@ including:
 - `RDirect`: A variant of Gillespie's Direct method that uses rejection to
   sample the next reaction.
 - *`DirectCR`*: The Composition-Rejection Direct method of Slepoy et al. For
-  large networks and linear chain-type networks it will often give better
+  large networks and linear chain-type networks, it will often give better
   performance than `Direct`. (Requires dependency graph, see below.)
 - `DirectFW`: the Gillespie Direct method SSA with `FunctionWrappers`. This
   aggregator uses a different internal storage format for collections of
@@ -146,13 +146,13 @@ including:
   offer better performance and be preferred to `FRM`.
 - `FRMFW`: the Gillespie first reaction method SSA with `FunctionWrappers`.
 - *`NRM`*: The Gibson-Bruck Next Reaction Method. For some reaction network
-   structures this may offer better performance than `Direct` (for example,
+   structures, this may offer better performance than `Direct` (for example,
    large, linear chains of reactions). (Requires dependency graph, see below.)
 - *`RSSA`*: The Rejection SSA (RSSA) method of Thanh et al. With `RSSACR`, for
-  very large reaction networks it often offers the best performance of all
+  very large reaction networks, it often offers the best performance of all
   methods. (Requires dependency graph, see below.)
 - *`RSSACR`*: The Rejection SSA (RSSA) with Composition-Rejection method of
-  Thanh et al. With `RSSA`, for very large reaction networks it often offers the
+  Thanh et al. With `RSSA`, for very large reaction networks, it often offers the
   best performance of all methods. (Requires dependency graph, see below.)
 - *`SortingDirect`*: The Sorting Direct Method of McCollum et al. It will
   usually offer performance as good as `Direct`, and for some systems can offer
@@ -166,7 +166,7 @@ and differential equations driven by Levy processes.
 In addition, JumpProcesses's interfaces allow for solving with regular jump methods,
 such as adaptive Tau-Leaping.
 
-# Third Party Libraries to Note
+# Third-Party Libraries to Note
 
 ## JuMP.jl: Julia for Mathematical Programming
 

@@ -30,7 +30,7 @@ L(u,p) = (p_1 - u_1)^2 + p_2 * (u_2 - u_1)^2
 
 What we want to do is find the  values of ``u_1`` and ``u_2`` such that ``L``
 achieves its minimum value possible. We will do this under a few constraints:
-we want to find this optima within some bounded domain, i.e. ``u_i \in [-1,1]``.
+we want to find this optimum within some bounded domain, i.e. ``u_i \in [-1,1]``.
 This should be done with the parameter values ``p_1 = 1.0`` and ``p_2 = 100.0``.
 What should ``u = [u_1,u_2]`` be to achieve this goal? Let's dive in!
 
@@ -58,20 +58,20 @@ sol = solve(prob,NLopt.LD_LBFGS())
 @show sol.u, L(sol.u,p)
 ```
 
-## Step by Step Solution
+## Step-by-Step Solution
 
 ### Step 1: Import the packages
 
-To do this tutorial we will need a few components:
+To do this tutorial, we will need a few components:
 
 * [Optimization.jl](https://docs.sciml.ai/Optimization/stable/), the optimization interface.
 * [OptimizationNLopt.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/nlopt/), the optimizers we will use.
 
 Note that Optimization.jl is an interface for optimizers, and thus we always have to choose
 which optimizer we want to use. Here we choose to demonstrate `OptimizationNLopt` because
-of its efficiency and versitility. But there are many other possible choices. Check out
+of its efficiency and versatility. But there are many other possible choices. Check out
 the
-[solver compatability chart](https://docs.sciml.ai/Optimization/stable/#Overview-of-the-Optimizers)
+[solver compatibility chart](https://docs.sciml.ai/Optimization/stable/#Overview-of-the-Optimizers)
 for a quick overview of what optimizer packages offer.
 
 To start, let's add these packages [as demonstrated in the installation tutorial](@ref installation):
@@ -100,7 +100,7 @@ L(u,p) = (p[1] - u[1])^2 + p[2] * (u[2] - u[1]^2)^2
 
 Now we need to define our `OptimizationProblem`. If you need help remembering how to define
 the `OptimizationProblem`, you can always refer to the
-[Optimization.jl problem definition page](https://docs.sciml.ai/Optimization/stable/API/optimization_problem/)
+[Optimization.jl problem definition page](https://docs.sciml.ai/Optimization/stable/API/optimization_problem/).
 
 Thus what we need to define is an initial condition `u0` and our parameter vector `p`.
 We will make our initial condition have both values as zero, which is done by the Julia
@@ -129,10 +129,10 @@ prob = OptimizationProblem(L, u0, p, lb = -1 * ones(2), ub = ones(2))
 
 Now we solve the `OptimizationProblem` that we have defined. This is done by passing
 our `OptimizationProblem` along with a chosen solver to the `solve` command. At
-the beginning we explained that we will use the `OptimizationNLopt` set of solvers, which
+the beginning, we explained that we will use the `OptimizationNLopt` set of solvers, which
 are
 [documented in the OptimizationNLopt page](https://docs.sciml.ai/Optimization/stable/optimization_packages/nlopt/).
-From here we are choosing the `NLopt.LD_LBFGS()` for its mixture of robustness and
+From here, we are choosing the `NLopt.LD_LBFGS()` for its mixture of robustness and
 performance. To perform this solve, we do the following:
 
 ```@example first_opt
@@ -149,11 +149,11 @@ see that by asking for its type:
 typeof(sol)
 ```
 
-From this we can see that it is an `OptimizationSolution`. We can see the documentation for
+From this, we can see that it is an `OptimizationSolution`. We can see the documentation for
 how to use the `OptimizationSolution` by checking the
 [Optimization.jl solution type page](https://docs.sciml.ai/Optimization/stable/API/optimization_solution/).
 For example, the solution is stored as `.u`. What is the solution to our
-optimization and what is the final loss value? We can check it as follows:
+optimization, and what is the final loss value? We can check it as follows:
 
 ```@example first_opt
 # Analyze the solution

@@ -9,8 +9,8 @@ few useful/interesting types that can be used:
 |--------------------------|---------------------------------------------------------------------------------------|-----------------------------------------------------------------|
 | BigFloat                 | Base Julia                                                                            | Higher precision solutions                                      |
 | ArbFloat                 | [ArbFloats.jl](https://github.com/JuliaArbTypes/ArbFloats.jl)                         | More efficient higher precision solutions                       |
-| Measurement              | [Measurements.jl](https://github.com/JuliaPhysics/Measurements.jl)                    | Uncertainty propogation                                         |
-| MonteCarloMeasurement    | [MonteCarloMeasurements.jl](https://github.com/baggepinnen/MonteCarloMeasurements.jl) | Uncertainty propogation                                         |
+| Measurement              | [Measurements.jl](https://github.com/JuliaPhysics/Measurements.jl)                    | Uncertainty propagation                                         |
+| MonteCarloMeasurement    | [MonteCarloMeasurements.jl](https://github.com/baggepinnen/MonteCarloMeasurements.jl) | Uncertainty propagation                                         |
 | Unitful                  | [Unitful.jl](https://painterqubits.github.io/Unitful.jl/stable/)                      | Unit-checked arithmetic                                         |
 | Quaternion               | [Quaternions.jl](https://juliageometry.github.io/Quaternions.jl/stable/)              | Quaternions, duh.                                               |
 | Fun                      | [ApproxFun.jl](https://juliaapproximation.github.io/ApproxFun.jl/latest/)             | Representing PDEs as ODEs in function spaces                    |
@@ -34,7 +34,7 @@ initial condition.
 
 !!! note
     Support for this feature is restricted to the native algorithms of OrdinaryDiffEq.jl.
-    The other solvers such as Sundials.jl, and ODEInterface.jl are not compatible with some
+    The other solvers such as Sundials.jl, and ODEInterface.jl are incompatible with some
     number systems.
 
 !!! warn
@@ -77,7 +77,7 @@ sol = solve(prob_ode_linear_big,Tsit5())
 ```
 
 Now let's send it into the bizarre territory. Let's use rational values for everything.
-Let's start by making the time type `Rational`. Rationals are not compatible with adaptive
+Let's start by making the time type `Rational`. Rationals are incompatible with adaptive
 time stepping since they do not have an L2 norm (this can be worked around by defining
 `internalnorm`, but we will skip that in this tutorial). To account for this, let's turn
 off adaptivity as well. Thus the following is a valid use of rational time (and parameter):
@@ -88,8 +88,8 @@ sol = solve(prob,RK4(),dt=1//2^(6),adaptive=false)
 ```
 
 Now let's change the state to use `Rational{BigInt}`. You will see that we will need to
-use the arbitrary-sized integers because... well... there's a reason people use floating
-point numbers with ODE solvers:
+use the arbitrary-sized integers because... well... there's a reason people use
+floating-point numbers with ODE solvers:
 
 ```@example odetypes
 prob = ODEProblem(f,BigInt(1)//BigInt(2),(0//1,1//1),101//100);
@@ -102,7 +102,7 @@ Yeah...
 sol[end]
 ```
 
-That's one huge fraction! 0 floating point error ODE solve achieved.
+That's one huge fraction! 0 floating-point error ODE solve achieved.
 
 ## Unit Checked Arithmetic via Unitful.jl
 
@@ -115,7 +115,7 @@ DifferentialEquations.jl allows for one to use Unitful.jl to have unit-checked a
 natively in the solvers. Given the dispatch implementation of the Unitful, this has little
 overhead because the unit checks occur at compile-time and not at runtime, and thus it does
 not have a runtime effect unless conversions are required (i.e. converting `cm` to `m`),
-which automatically adds a floating point operation for the multiplication.
+which automatically adds a floating-point operation for the multiplication.
 
 Let's see this in action.
 
@@ -160,7 +160,7 @@ throw an error for incorrect operations:
 
 Just like with other number systems, you can choose the units for your numbers by simply
 specifying the units of the initial condition and the timespan. For example, to solve the
-linear ODE where the variable has units of Newton's and `t` is in Seconds, we would use:
+linear ODE where the variable has units of Newton's and `t` is in seconds, we would use:
 
 ```@example odetypes
 using DifferentialEquations
@@ -177,7 +177,7 @@ ODE:
 \frac{dy}{dt} = f(t,y)
 ```
 
-we must have that `f` is a rate, i.e. `f` is a change in `y` per unit time. So we need to
+we must have that `f` is a rate, i.e. `f` is a change in `y` per unit time. So, we need to
 fix the units of `f` in our example to be `N/s`. Notice that we then do not receive an
 error if we do the following:
 
@@ -187,13 +187,13 @@ prob = ODEProblem(f,u0,(0.0u"s",1.0u"s"))
 sol = solve(prob,Tsit5())
 ```
 
-This gives a a normal solution object. Notice that the values are all with the correct units:
+This gives a normal solution object. Notice that the values are all with the correct units:
 
 ```@example odetypes
 print(sol[:])
 ```
 
-And when we plot the solution it automatically adds the units:
+And when we plot the solution, it automatically adds the units:
 
 ```@example odetypes
 using Plots
@@ -203,7 +203,7 @@ plot(sol,lw=3)
 
 # Measurements.jl: Numbers with Linear Uncertainty Propagation
 
-The result of a measurement should be given as a number with an attached uncertainties,
+The result of a measurement should be given as a number with an attached uncertainty,
 besides the physical unit, and all operations performed involving the result of the
 measurement should propagate the uncertainty, taking care of correlation between quantities.
 
@@ -215,7 +215,7 @@ out-of-the-box.
 Let's try to automate uncertainty propagation through number types on some classical
 physics examples!
 
-### Caveat about `Measurement` type
+### Warning about `Measurement` type
 
 Before going on with the tutorial, we must point up a subtlety of `Measurements.jl` that
 you should be aware of:
@@ -383,8 +383,8 @@ Tiny difference on the order of the chosen `1e-6` tolerance.
 
 ### Simple pendulum: Arbitrary amplitude
 
-Now that we know how to solve differential equations involving numbers with uncertainties
-we can solve the simple pendulum problem without any approximation.  This time the
+Now that we know how to solve differential equations involving numbers with uncertainties,
+we can solve the simple pendulum problem without any approximation. This time, the
 differential equation to solve is the following:
 
 ```math
@@ -418,7 +418,7 @@ plot(sol.t, getindex.(sol.u, 2), label = "Numerical")
 
 ### Warning about Linear Uncertainty Propagation
 
-Measurements.jl uses linear uncertainty propagation which has an error associated with it.
+Measurements.jl uses linear uncertainty propagation, which has an error associated with it.
 [MonteCarloMeasurements.jl has a page which showcases where this method can lead to incorrect uncertainty measurements](https://baggepinnen.github.io/MonteCarloMeasurements.jl/stable/comparison/).
 Thus for more nonlinear use cases, it's suggested that one uses one of the more powerful
 UQ methods, such as:
