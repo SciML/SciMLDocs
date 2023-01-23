@@ -29,13 +29,13 @@ ModelingToolkit.jl.
 ## Catalyst.jl: Chemical Reaction Networks (CRN), Systems Biology, and Quantitative Systems Pharmacology (QSP) Modeling
 
 [Catalyst.jl](https://docs.sciml.ai/Catalyst/stable/) is a modeling interface for efficient simulation
-of mass action ODE, chemical Langevin SDE, and stochastic chemical kinetics jump process (i.e. chemical 
-master equation) models for chemical reaction networks and population processes. It uses a 
-highly intuitive chemical reaction syntax interface, which generates all the extra functionality 
+of mass action ODE, chemical Langevin SDE, and stochastic chemical kinetics jump process (i.e. chemical
+master equation) models for chemical reaction networks and population processes. It uses a
+highly intuitive chemical reaction syntax interface, which generates all the extra functionality
 necessary for the fastest use with JumpProcesses.jl, DifferentialEquations.jl, and higher level SciML
-libraries. Its `ReactionSystem` type is a programmable extension of the ModelingToolkit `AbstractSystem` 
-interface, meaning that complex reaction systems are represented symbolically, and then compiled to 
-optimized representations automatically when converting `ReactionSystem`s to concrete ODE/SDE/jump process 
+libraries. Its `ReactionSystem` type is a programmable extension of the ModelingToolkit `AbstractSystem`
+interface, meaning that complex reaction systems are represented symbolically, and then compiled to
+optimized representations automatically when converting `ReactionSystem`s to concrete ODE/SDE/jump process
 representations. Catalyst also provides functionality to support chemical reaction network and steady-state analysis.
 
 For an overview of the library, see

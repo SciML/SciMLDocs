@@ -7,6 +7,7 @@ PDE from a purely symbolic definition using the combination of ModelingToolkit,
 MethodOfLines, and DifferentialEquations.jl.
 
 !!! note
+    
     This example is a combination of the
     [Brusselator tutorial from MethodOfLines.jl](https://docs.sciml.ai/MethodOfLines/stable/tutorials/brusselator/)
     and the [Solving Large Stiff Equations tutorial from DifferentialEquations.jl](https://docs.sciml.ai/DiffEqDocs/stable/tutorials/advanced_ode_example/).
@@ -16,7 +17,7 @@ MethodOfLines, and DifferentialEquations.jl.
 The following parts of the SciML Ecosystem will be used in this tutorial:
 
 | Module                                                               | Description                                 |
-|----------------------------------------------------------------------|---------------------------------------------|
+|:-------------------------------------------------------------------- |:------------------------------------------- |
 | [ModelingToolkit.jl](https://docs.sciml.ai/ModelingToolkit/stable/)  | The symbolic modeling environment           |
 | [MethodOfLines.jl](https://docs.sciml.ai/MethodOfLines/stable/)      | The symbolic PDE discretization tooling     |
 | [DifferentialEquations.jl](https://docs.sciml.ai/DiffEqDocs/stable/) | The numerical differential equation solvers |
@@ -79,34 +80,34 @@ Dyy = Differential(y)^2
 
 ∇²(u) = Dxx(u) + Dyy(u)
 
-brusselator_f(x, y, t) = (((x-0.3)^2 + (y-0.6)^2) <= 0.1^2) * (t >= 1.1) * 5.
+brusselator_f(x, y, t) = (((x - 0.3)^2 + (y - 0.6)^2) <= 0.1^2) * (t >= 1.1) * 5.0
 
 x_min = y_min = t_min = 0.0
 x_max = y_max = 1.0
 t_max = 11.5
 
-α = 10.
+α = 10.0
 
-u0(x,y,t) = 22(y*(1-y))^(3/2)
-v0(x,y,t) = 27(x*(1-x))^(3/2)
+u0(x, y, t) = 22(y * (1 - y))^(3 / 2)
+v0(x, y, t) = 27(x * (1 - x))^(3 / 2)
 
-eq = [Dt(u(x,y,t)) ~ 1. + v(x,y,t)*u(x,y,t)^2 - 4.4*u(x,y,t) + α*∇²(u(x,y,t)) + brusselator_f(x, y, t),
-       Dt(v(x,y,t)) ~ 3.4*u(x,y,t) - v(x,y,t)*u(x,y,t)^2 + α*∇²(v(x,y,t))]
+eq = [
+    Dt(u(x, y, t)) ~ 1.0 + v(x, y, t) * u(x, y, t)^2 - 4.4 * u(x, y, t) +
+                     α * ∇²(u(x, y, t)) + brusselator_f(x, y, t),
+    Dt(v(x, y, t)) ~ 3.4 * u(x, y, t) - v(x, y, t) * u(x, y, t)^2 + α * ∇²(v(x, y, t))]
 
 domains = [x ∈ Interval(x_min, x_max),
-           y ∈ Interval(y_min, y_max),
-           t ∈ Interval(t_min, t_max)]
+    y ∈ Interval(y_min, y_max),
+    t ∈ Interval(t_min, t_max)]
 
 # Periodic BCs
-bcs = [u(x,y,0) ~ u0(x,y,0),
-       u(0,y,t) ~ u(1,y,t),
-       u(x,0,t) ~ u(x,1,t),
+bcs = [u(x, y, 0) ~ u0(x, y, 0),
+    u(0, y, t) ~ u(1, y, t),
+    u(x, 0, t) ~ u(x, 1, t), v(x, y, 0) ~ v0(x, y, 0),
+    v(0, y, t) ~ v(1, y, t),
+    v(x, 0, t) ~ v(x, 1, t)]
 
-       v(x,y,0) ~ v0(x,y,0),
-       v(0,y,t) ~ v(1,y,t),
-       v(x,0,t) ~ v(x,1,t)]
-
-@named pdesys = PDESystem(eq,bcs,domains,[x,y,t],[u(x,y,t),v(x,y,t)])
+@named pdesys = PDESystem(eq, bcs, domains, [x, y, t], [u(x, y, t), v(x, y, t)])
 ```
 
 Looks just like the LaTeX description, right? Now let's solve it.
@@ -117,12 +118,12 @@ Next we create the discretization. Here we will use the finite difference method
 method of lines. Method of lines is a method of recognizing that a discretization of a
 partial differential equation transforms it into a new numerical problem. For example:
 
-| Discretization Form      | Numerical Problem Type |
-| ------------------------ | ---------------------- |
-| Finite Difference, Finite Volume, Finite Element, discretizing all variables | `NonlinearProblem` |
-| Finite Difference, Finite Volume, Finite Element, discretizing all variables except time | `ODEProblem`/`DAEProblem` |
-| Physics-Informed Neural Network | `OptimizationProblem` |
-| Feynmann-Kac Formula | `SDEProblem` |
+| Discretization Form                                                                                            | Numerical Problem Type                                  |
+|:-------------------------------------------------------------------------------------------------------------- |:------------------------------------------------------- |
+| Finite Difference, Finite Volume, Finite Element, discretizing all variables                                   | `NonlinearProblem`                                      |
+| Finite Difference, Finite Volume, Finite Element, discretizing all variables except time                       | `ODEProblem`/`DAEProblem`                               |
+| Physics-Informed Neural Network                                                                                | `OptimizationProblem`                                   |
+| Feynmann-Kac Formula                                                                                           | `SDEProblem`                                            |
 | Universal Stochastic Differential Equation ([High dimensional PDEs](https://docs.sciml.ai/HighDimPDE/stable/)) | `OptimizationProblem` inverse problem over `SDEProblem` |
 
 Thus the process of solving a PDE is fundamentally about transforming its symbolic form
@@ -131,7 +132,7 @@ solvers in the SciML ecosystem! Here we will demonstrate one of the most classic
 the finite difference method. Since the Brusselator is a time-dependent PDE with heavy
 stiffness in the time-domain, we will leave time undiscretized, which means that we will
 use the finite difference method in the `x` and `y` domains to obtain a representation of
-the equation at ``u_i = u(x_i,y_i)` grid point values, obtaining an ODE `u_i' = \ldots`
+the equation at ``u_i = u(x_i,y_i)`grid point values, obtaining an ODE`u_i' = \ldots`
 that defines how the values at the grid points evolve over time.
 
 To do this, we use the `MOLFiniteDifference` construct of
@@ -140,18 +141,19 @@ To do this, we use the `MOLFiniteDifference` construct of
 ```@example bruss
 N = 32
 
-dx = (x_max-x_min)/N
-dy = (y_max-y_min)/N
+dx = (x_max - x_min) / N
+dy = (y_max - y_min) / N
 
 order = 2
 
-discretization = MOLFiniteDifference([x=>dx, y=>dy], t, approx_order=order, grid_align=center_align)
+discretization = MOLFiniteDifference([x => dx, y => dy], t, approx_order = order,
+                                     grid_align = center_align)
 ```
 
 Next, we `discretize` the system, converting the `PDESystem` in to an `ODEProblem`:
 
 ```@example bruss
-prob = discretize(pdesys,discretization);
+prob = discretize(pdesys, discretization);
 ```
 
 ## Solving the PDE
@@ -161,7 +163,7 @@ DifferentialEquations.jl usage, though we'll return to this point in a bit to ta
 efficiency:
 
 ```@example bruss
-sol = solve(prob, TRBDF2(), saveat=0.1);
+sol = solve(prob, TRBDF2(), saveat = 0.1);
 ```
 
 ## Examining Results via the Symbolic Solution Interface
@@ -207,20 +209,22 @@ Brusselator as follows. For `u` we receive:
 ```julia
 using Plots
 anim = @animate for k in 1:length(discrete_t)
-    heatmap(solu[2:end, 2:end, k], title="$(discrete_t[k])") # 2:end since end = 1, periodic condition
+    heatmap(solu[2:end, 2:end, k], title = "$(discrete_t[k])") # 2:end since end = 1, periodic condition
 end
 gif(anim, "plots/Brusselator2Dsol_u.gif", fps = 8)
 ```
+
 ![Brusselator2Dsol_u](https://user-images.githubusercontent.com/9698054/159934498-e5c21b13-c63b-4cd2-9149-49e521765141.gif)
 
 and for `v`:
 
 ```julia
 anim = @animate for k in 1:length(discrete_t)
-    heatmap(solv[2:end, 2:end, k], title="$(discrete_t[k])")
+    heatmap(solv[2:end, 2:end, k], title = "$(discrete_t[k])")
 end
 gif(anim, "plots/Brusselator2Dsol_v.gif", fps = 8)
 ```
+
 ![Brusselator2Dsol_v](https://i.imgur.com/3kQNMI3.gif)
 
 ## Improving the Solution Process
@@ -240,7 +244,7 @@ construction options to the `discretize` call. This looks like:
 
 ```@example bruss
 # Analytical Jacobian expression and sparse Jacobian
-prob_sparse = discretize(pdesys,discretization; jac = true, sparse = true)
+prob_sparse = discretize(pdesys, discretization; jac = true, sparse = true)
 ```
 
 Now when we solve the problem it will be a lot faster. We can use BenchmarkTools.jl to
@@ -248,15 +252,15 @@ assess this performance difference:
 
 ```@example bruss
 using BenchmarkTools
-@btime sol = solve(prob, TRBDF2(), saveat=0.1);
-@btime sol = solve(prob_sparse, TRBDF2(), saveat=0.1);
+@btime sol = solve(prob, TRBDF2(), saveat = 0.1);
+@btime sol = solve(prob_sparse, TRBDF2(), saveat = 0.1);
 ```
 
 But we can further improve this as well. Instead of just using the default linear solver,
 we can change this to a Newton-Krylov method by passing in the GMRES method:
 
 ```@example bruss
-@btime sol = solve(prob_sparse, TRBDF2(linsolve = KrylovJL_GMRES()), saveat=0.1);
+@btime sol = solve(prob_sparse, TRBDF2(linsolve = KrylovJL_GMRES()), saveat = 0.1);
 ```
 
 But to further improve performance, we can use an iLU preconditioner. This looks like
@@ -264,16 +268,18 @@ as follows:
 
 ```@example bruss
 using IncompleteLU
-function incompletelu(W,du,u,p,t,newW,Plprev,Prprev,solverdata)
-  if newW === nothing || newW
-    Pl = ilu(convert(AbstractMatrix,W), τ = 50.0)
-  else
-    Pl = Plprev
-  end
-  Pl,nothing
+function incompletelu(W, du, u, p, t, newW, Plprev, Prprev, solverdata)
+    if newW === nothing || newW
+        Pl = ilu(convert(AbstractMatrix, W), τ = 50.0)
+    else
+        Pl = Plprev
+    end
+    Pl, nothing
 end
 
-@btime solve(prob_sparse,TRBDF2(linsolve=KrylovJL_GMRES(),precs=incompletelu,concrete_jac=true),save_everystep=false);
+@btime solve(prob_sparse,
+             TRBDF2(linsolve = KrylovJL_GMRES(), precs = incompletelu, concrete_jac = true),
+             save_everystep = false);
 ```
 
 And now we're zooming! For more information on these performance improvements, check out

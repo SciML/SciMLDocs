@@ -11,10 +11,10 @@ will help you learn and do the rest!**
 
 If you need any help contributing, please feel welcome joining our community channels.
 
-- The diffeq-bridged and sciml-bridged channels in the [Julia Zulip Chat](https://julialang.zulipchat.com/)
-- The #diffeq-bridged and #sciml-bridged channels in the [Julia Slack](https://julialang.org/slack/)
-- On the [Julia Discourse forums](https://discourse.julialang.org)
-- See also [SciML Community page](https://sciml.ai/community/)
+  - The diffeq-bridged and sciml-bridged channels in the [Julia Zulip Chat](https://julialang.zulipchat.com/)
+  - The #diffeq-bridged and #sciml-bridged channels in the [Julia Slack](https://julialang.org/slack/)
+  - On the [Julia Discourse forums](https://discourse.julialang.org)
+  - See also [SciML Community page](https://sciml.ai/community/)
 
 We welcome everybody.
 
@@ -22,10 +22,10 @@ We welcome everybody.
 
 To get started contributing to SciML, check out the following resources:
 
-- [Developing Julia Packages](https://www.youtube.com/watch?v=QVmU29rCjaA)
-- [Getting Started with Julia (for Experienced Programmers)](https://www.youtube.com/watch?v=-lJK92bEKow)
+  - [Developing Julia Packages](https://www.youtube.com/watch?v=QVmU29rCjaA)
+  - [Getting Started with Julia (for Experienced Programmers)](https://www.youtube.com/watch?v=-lJK92bEKow)
 
-## SciMLStyle: The SciML Style Guide for Julia 
+## SciMLStyle: The SciML Style Guide for Julia
 
 [![SciML Code Style](https://img.shields.io/static/v1?label=code%20style&message=SciML&color=9558b2&labelColor=389826)](https://github.com/SciML/SciMLStyle)
 
@@ -37,7 +37,7 @@ knowledge and adherence to the style guide is not required for contributions!
 
 ## COLPRAC: Contributor's Guide on Collaborative Practices for Community Packages
 
-[![ColPrac: Contributor's Guide on Collaborative Practices for Community Packages](https://img.shields.io/badge/ColPrac-Contributor's%20Guide-blueviolet)](https://github.com/SciML/ColPrac)
+[![ColPrac: Contributor's Guide on Collaborative Practices for Community Packages](https://img.shields.io/badge/ColPrac-Contributor%27s%20Guide-blueviolet)](https://github.com/SciML/ColPrac)
 
 What are the rules for when PRs should be merged? What are the rules for whether to tag
 a major, minor, or patch release? All of these development rules are defined in COLPRAC.
@@ -79,11 +79,11 @@ The SciML Organization uses continuous integration testing to always ensure test
 pull requests. The organization uses the GitHub Actions supplied by [Julia Actions](https://github.com/julia-actions)
 to accomplish this. Common continuous integration scripts are:
 
-- CI.yml, the standard CI script
-- Downstream.yml, used to specify packages for downstream testing. This will make packages which depend on the current
-  package also be tested to ensure that “non-breaking changes” do not actually break other packages.
-- Documentation.yml, used to run the documentation automatic generation with Documenter.jl
-- FormatCheck.yml, used to check JuliaFormatter SciML Style compliance
+  - CI.yml, the standard CI script
+  - Downstream.yml, used to specify packages for downstream testing. This will make packages which depend on the current
+    package also be tested to ensure that “non-breaking changes” do not actually break other packages.
+  - Documentation.yml, used to run the documentation automatic generation with Documenter.jl
+  - FormatCheck.yml, used to check JuliaFormatter SciML Style compliance
 
 ## CompatHelper
 

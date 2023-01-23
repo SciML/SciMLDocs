@@ -7,6 +7,7 @@ the Neural ODE estimation and forecasting. In this tutorial, a working example o
 Bayesian Neural ODE: NUTS sampler is shown.
 
 !!! note
+    
     For more details, have a look at this paper: https://arxiv.org/abs/2012.07244
 
 ## Step 1: Import Libraries
@@ -33,7 +34,7 @@ tspan = (0.0, 1)
 tsteps = range(tspan[1], tspan[2], length = datasize)
 function trueODEfunc(du, u, p, t)
     true_A = [-0.1 2.0; -2.0 -0.1]
-    du .= ((u.^3)'true_A)'
+    du .= ((u .^ 3)'true_A)'
 end
 prob_trueode = ODEProblem(trueODEfunc, u0, tspan)
 ode_data = Array(solve(prob_trueode, Tsit5(), saveat = tsteps))
@@ -49,9 +50,9 @@ better at prediction/forecasting than a 50 unit architecture. On the other hand,
 complicated architecture can take a huge computational time without increasing performance.
 
 ```@example bnode
-dudt2 = Flux.Chain(x -> x.^3,
-                  Flux.Dense(2, 50, tanh),
-                  Flux.Dense(50, 2))
+dudt2 = Flux.Chain(x -> x .^ 3,
+                   Flux.Dense(2, 50, tanh),
+                   Flux.Dense(50, 2))
 prob_neuralode = NeuralODE(dudt2, tspan, Tsit5(), saveat = tsteps)
 rng = Random.default_rng()
 p = Float64.(prob_neuralode.p)
@@ -81,12 +82,12 @@ The user can make several modifications to Step 4. The user can try different ac
 ```@example bnode
 l(θ) = -sum(abs2, ode_data .- predict_neuralode(θ)) - sum(θ .* θ)
 function dldθ(θ)
-    x,lambda = Flux.Zygote.pullback(l,θ)
+    x, lambda = Flux.Zygote.pullback(l, θ)
     grad = first(lambda(1))
     return x, grad
 end
 
-metric  = DiagEuclideanMetric(length(p))
+metric = DiagEuclideanMetric(length(p))
 h = Hamiltonian(metric, l, dldθ)
 ```
 
@@ -98,7 +99,7 @@ We sample using 500 warmup samples and 500 posterior samples.
 integrator = Leapfrog(find_good_stepsize(h, p))
 prop = AdvancedHMC.NUTS{MultinomialTS, GeneralisedNoUTurn}(integrator)
 adaptor = StanHMCAdaptor(MassMatrixAdaptor(metric), StepSizeAdaptor(0.45, integrator))
-samples, stats = sample(h, prop, p, 500, adaptor, 500; progress=true)
+samples, stats = sample(h, prop, p, 500, adaptor, 500; progress = true)
 ```
 
 ## Step 5: Plot diagnostics
@@ -126,28 +127,32 @@ solutions of the Neural ODE on samples of the neural network parameters, and che
 results of the predictions against the data. Let's start by looking at the time series:
 
 ```@example bnode
-pl = scatter(tsteps, ode_data[1,:], color = :red, label = "Data: Var1", xlabel = "t", title = "Spiral Neural ODE")
-scatter!(tsteps, ode_data[2,:], color = :blue, label = "Data: Var2")
+pl = scatter(tsteps, ode_data[1, :], color = :red, label = "Data: Var1", xlabel = "t",
+             title = "Spiral Neural ODE")
+scatter!(tsteps, ode_data[2, :], color = :blue, label = "Data: Var2")
 for k in 1:300
-    resol = predict_neuralode(samples[:,100:end][:,rand(1:400)])
-    plot!(tsteps,resol[1,:], alpha=0.04, color = :red, label = "")
-    plot!(tsteps,resol[2,:], alpha=0.04, color = :blue, label = "")
+    resol = predict_neuralode(samples[:, 100:end][:, rand(1:400)])
+    plot!(tsteps, resol[1, :], alpha = 0.04, color = :red, label = "")
+    plot!(tsteps, resol[2, :], alpha = 0.04, color = :blue, label = "")
 end
 
-losses = map(x->loss_neuralode(x)[1], eachcol(samples))
+losses = map(x -> loss_neuralode(x)[1], eachcol(samples))
 idx = findmin(losses)[2]
-prediction = predict_neuralode(samples[:,idx])
-plot!(tsteps,prediction[1,:], color = :black, w = 2, label = "")
-plot!(tsteps,prediction[2,:], color = :black, w = 2, label = "Best fit prediction", ylims = (-2.5, 3.5))
+prediction = predict_neuralode(samples[:, idx])
+plot!(tsteps, prediction[1, :], color = :black, w = 2, label = "")
+plot!(tsteps, prediction[2, :], color = :black, w = 2, label = "Best fit prediction",
+      ylims = (-2.5, 3.5))
 ```
 
 That showed the time series form. We can similarly do a phase-space plot:
 
 ```@example bnode
-pl = scatter(ode_data[1,:], ode_data[2,:], color = :red, label = "Data",  xlabel = "Var1", ylabel = "Var2", title = "Spiral Neural ODE")
+pl = scatter(ode_data[1, :], ode_data[2, :], color = :red, label = "Data", xlabel = "Var1",
+             ylabel = "Var2", title = "Spiral Neural ODE")
 for k in 1:300
-    resol = predict_neuralode(samples[:,100:end][:,rand(1:400)])
-    plot!(resol[1,:],resol[2,:], alpha=0.04, color = :red, label = "")
+    resol = predict_neuralode(samples[:, 100:end][:, rand(1:400)])
+    plot!(resol[1, :], resol[2, :], alpha = 0.04, color = :red, label = "")
 end
-plot!(prediction[1,:], prediction[2,:], color = :black, w = 2, label = "Best fit prediction", ylims = (-2.5, 3))
+plot!(prediction[1, :], prediction[2, :], color = :black, w = 2,
+      label = "Best fit prediction", ylims = (-2.5, 3))
 ```

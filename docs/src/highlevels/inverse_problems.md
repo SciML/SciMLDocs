@@ -5,12 +5,12 @@ solving the inverse problem, or Bayesian posterior estimation (when done probabi
 is provided by the SciML tools for the equations in its set. In this introduction, we briefly
 present the relevant packages that facilitate parameter estimation, namely:
 
-- [SciMLSensitivity.jl](https://sensitivity.sciml.ai/)
-- [DiffEqFlux.jl](https://diffeqflux.sciml.ai/)
-- [Turing.jl](https://turing.ml/)
-- [DataDrivenDiffEq.jl](https://datadriven.sciml.ai/dev/)
-- [DiffEqParamEstim.jl](https://diffeqparamestim.sciml.ai/dev/)
-- [DiffEqBayes.jl](https://diffeqbayes.sciml.ai/dev/)
+  - [SciMLSensitivity.jl](https://sensitivity.sciml.ai/)
+  - [DiffEqFlux.jl](https://diffeqflux.sciml.ai/)
+  - [Turing.jl](https://turing.ml/)
+  - [DataDrivenDiffEq.jl](https://datadriven.sciml.ai/dev/)
+  - [DiffEqParamEstim.jl](https://diffeqparamestim.sciml.ai/dev/)
+  - [DiffEqBayes.jl](https://diffeqbayes.sciml.ai/dev/)
 
 We also provide information regarding the respective strengths of these packages
 so that you can easily decide which one suits your needs best.
@@ -28,7 +28,7 @@ and high-performance, giving all the tools required but not directly providing a
 interface.
 
 !!! note
-
+    
     Sensitivity analysis is kept in a separate library from the solvers (SciMLSensitivity.jl), in
     order to not require all equation solvers to have a dependency on all automatic differentiation
     libraries. If automatic differentiation is applied to a solver library without importing
@@ -94,7 +94,7 @@ based forward-mode automatic differentiation. It's commonly used as the default 
 Jacobians throughout the SciML solver libraries.
 
 !!! note
-
+    
     Because ForwardDiff.jl uses an operator overloading approach, uses of ForwardDiff.jl require that
     any caches for non-allocating mutating code allows for `Dual` numbers. To allow such code to be
     ForwardDiff.jl-compatible, see [PreallocationTools.jl](https://github.com/SciML/PreallocationTools.jl).

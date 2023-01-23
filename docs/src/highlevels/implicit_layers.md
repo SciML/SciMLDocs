@@ -12,15 +12,15 @@ methods.
 [DiffEqFlux.jl](https://github.com/SciML/DiffEqFlux.jl) is a library of pre-built architectures
 for implicit deep learning, including layer definitions for methods like:
 
-- [Neural Ordinary Differential Equations (Neural ODEs)](https://arxiv.org/abs/1806.07366)
-- [Collocation-Based Neural ODEs (Neural ODEs without a solver, by far the fastest way!)](https://www.degruyter.com/document/doi/10.1515/sagmb-2020-0025/html)
-- [Multiple Shooting Neural Ordinary Differential Equations](https://arxiv.org/abs/2109.06786)
-- [Neural Stochastic Differential Equations (Neural SDEs)](https://arxiv.org/abs/1907.07587)
-- [Neural Differential-Algebraic Equations (Neural DAEs)](https://arxiv.org/abs/2001.04385)
-- [Neural Delay Differential Equations (Neural DDEs)](https://arxiv.org/abs/2001.04385)
-- [Augmented Neural ODEs](https://arxiv.org/abs/1904.01681)
-- [Hamiltonian Neural Networks (with specialized second order and symplectic integrators)](https://arxiv.org/abs/1906.01563)
-- [Continuous Normalizing Flows (CNF)](https://arxiv.org/abs/1806.07366) and [FFJORD](https://arxiv.org/abs/1810.01367)
+  - [Neural Ordinary Differential Equations (Neural ODEs)](https://arxiv.org/abs/1806.07366)
+  - [Collocation-Based Neural ODEs (Neural ODEs without a solver, by far the fastest way!)](https://www.degruyter.com/document/doi/10.1515/sagmb-2020-0025/html)
+  - [Multiple Shooting Neural Ordinary Differential Equations](https://arxiv.org/abs/2109.06786)
+  - [Neural Stochastic Differential Equations (Neural SDEs)](https://arxiv.org/abs/1907.07587)
+  - [Neural Differential-Algebraic Equations (Neural DAEs)](https://arxiv.org/abs/2001.04385)
+  - [Neural Delay Differential Equations (Neural DDEs)](https://arxiv.org/abs/2001.04385)
+  - [Augmented Neural ODEs](https://arxiv.org/abs/1904.01681)
+  - [Hamiltonian Neural Networks (with specialized second order and symplectic integrators)](https://arxiv.org/abs/1906.01563)
+  - [Continuous Normalizing Flows (CNF)](https://arxiv.org/abs/1806.07366) and [FFJORD](https://arxiv.org/abs/1810.01367)
 
 ## DeepEquilibriumNetworks.jl: Deep Equilibrium Models Made Fast
 

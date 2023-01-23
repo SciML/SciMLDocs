@@ -6,7 +6,7 @@ can use this number type in DifferentialEquations.jl's algorithms! There's more 
 few useful/interesting types that can be used:
 
 | Julia Type Name          | Julia Package                                                                         | Use case                                                        |
-|--------------------------|---------------------------------------------------------------------------------------|-----------------------------------------------------------------|
+|:------------------------ |:------------------------------------------------------------------------------------- |:--------------------------------------------------------------- |
 | BigFloat                 | Base Julia                                                                            | Higher precision solutions                                      |
 | ArbFloat                 | [ArbFloats.jl](https://github.com/JuliaArbTypes/ArbFloats.jl)                         | More efficient higher precision solutions                       |
 | Measurement              | [Measurements.jl](https://github.com/JuliaPhysics/Measurements.jl)                    | Uncertainty propagation                                         |
@@ -33,11 +33,13 @@ time values in the same type as tspan, and the solution values in the same type 
 initial condition.
 
 !!! note
+    
     Support for this feature is restricted to the native algorithms of OrdinaryDiffEq.jl.
     The other solvers such as Sundials.jl, and ODEInterface.jl are incompatible with some
     number systems.
 
 !!! warn
+    
     Adaptive timestepping requires that the time type is compatible with `sqrt` and `^`
     functions. Thus for example, `tspan` cannot be `Int` if adaptive timestepping is chosen.
 
@@ -49,22 +51,22 @@ Let's solve the linear ODE. First, define an easy way to get `ODEProblem`s for t
 
 ```@example odetypes
 using DifferentialEquations
-f(u,p,t) = p*u
-prob_ode_linear = ODEProblem(f,1/2,(0.0,1.0),1.01);
+f(u, p, t) = p * u
+prob_ode_linear = ODEProblem(f, 1 / 2, (0.0, 1.0), 1.01);
 ```
+
 Next, let's solve it using Float64s. To do so, we just need to set u0 to a Float64 (which is done by the default) and dt should be a float as well.
 
 ```@example odetypes
-sol = solve(prob_ode_linear,Tsit5())
+sol = solve(prob_ode_linear, Tsit5())
 ```
 
 Notice that both the times and the solutions were saved as Float64. Let's change the state
 to use `BigFloat` values. We do this by changing the `u0` to use `BigFloat`s like:
 
-
 ```@example odetypes
-prob_ode_linear_bigu = ODEProblem(f,big(1/2),(0.0,1.0),1.01);
-sol = solve(prob_ode_linear_bigu,Tsit5())
+prob_ode_linear_bigu = ODEProblem(f, big(1 / 2), (0.0, 1.0), 1.01);
+sol = solve(prob_ode_linear_bigu, Tsit5())
 ```
 
 Now we see that `u` is in arbitrary precision `BigFloat`s, while `t` is in `Float64`. We
@@ -72,8 +74,8 @@ can then change `t` to be arbitrary precision `BigFloat`s by changing the types 
 `tspan` like:
 
 ```@example odetypes
-prob_ode_linear_big = ODEProblem(f,big(1/2),(big(0.0),big(1.0)),1.01);
-sol = solve(prob_ode_linear_big,Tsit5())
+prob_ode_linear_big = ODEProblem(f, big(1 / 2), (big(0.0), big(1.0)), 1.01);
+sol = solve(prob_ode_linear_big, Tsit5())
 ```
 
 Now let's send it into the bizarre territory. Let's use rational values for everything.
@@ -83,8 +85,8 @@ time stepping since they do not have an L2 norm (this can be worked around by de
 off adaptivity as well. Thus the following is a valid use of rational time (and parameter):
 
 ```@example odetypes
-prob = ODEProblem(f,1/2,(0//1,1//1),101//100);
-sol = solve(prob,RK4(),dt=1//2^(6),adaptive=false)
+prob = ODEProblem(f, 1 / 2, (0 // 1, 1 // 1), 101 // 100);
+sol = solve(prob, RK4(), dt = 1 // 2^(6), adaptive = false)
 ```
 
 Now let's change the state to use `Rational{BigInt}`. You will see that we will need to
@@ -92,8 +94,8 @@ use the arbitrary-sized integers because... well... there's a reason people use
 floating-point numbers with ODE solvers:
 
 ```@example odetypes
-prob = ODEProblem(f,BigInt(1)//BigInt(2),(0//1,1//1),101//100);
-sol =solve(prob,RK4(),dt=1//2^(6),adaptive=false)
+prob = ODEProblem(f, BigInt(1) // BigInt(2), (0 // 1, 1 // 1), 101 // 100);
+sol = solve(prob, RK4(), dt = 1 // 2^(6), adaptive = false)
 ```
 
 Yeah...
@@ -134,13 +136,13 @@ they can add:
 
 ```@example odetypes
 t2 = 1.02u"s"
-t+t2
+t + t2
 ```
 
 and they can multiply:
 
 ```@example odetypes
-t*t2
+t * t2
 ```
 
 You can even do rational roots:
@@ -164,9 +166,9 @@ linear ODE where the variable has units of Newton's and `t` is in seconds, we wo
 
 ```@example odetypes
 using DifferentialEquations
-f(u,p,t) = 0.5*u
+f(u, p, t) = 0.5 * u
 u0 = 1.5u"N"
-prob = ODEProblem(f,u0,(0.0u"s",1.0u"s"))
+prob = ODEProblem(f, u0, (0.0u"s", 1.0u"s"))
 #sol = solve(prob,Tsit5())
 ```
 
@@ -182,9 +184,9 @@ fix the units of `f` in our example to be `N/s`. Notice that we then do not rece
 error if we do the following:
 
 ```@example odetypes
-f(y,p,t) = 0.5*y/3.0u"s"
-prob = ODEProblem(f,u0,(0.0u"s",1.0u"s"))
-sol = solve(prob,Tsit5())
+f(y, p, t) = 0.5 * y / 3.0u"s"
+prob = ODEProblem(f, u0, (0.0u"s", 1.0u"s"))
+sol = solve(prob, Tsit5())
 ```
 
 This gives a normal solution object. Notice that the values are all with the correct units:
@@ -198,7 +200,7 @@ And when we plot the solution, it automatically adds the units:
 ```@example odetypes
 using Plots
 gr()
-plot(sol,lw=3)
+plot(sol, lw = 3)
 ```
 
 # Measurements.jl: Numbers with Linear Uncertainty Propagation
@@ -226,7 +228,7 @@ using Measurements
 ```
 
 ```@example odetypes
-(5.23± 0.14) - (5.23 ± 0.14)
+(5.23 ± 0.14) - (5.23 ± 0.14)
 ```
 
 ```@example odetypes
@@ -280,7 +282,7 @@ u₀ = 1 ± 0
 tspan = (0.0, 10000.0)
 
 #Define the problem
-radioactivedecay(u,p,t) = - u / τ
+radioactivedecay(u, p, t) = -u / τ
 
 #Pass to solver
 prob = ODEProblem(radioactivedecay, u₀, tspan)
@@ -294,7 +296,7 @@ We can check the uncertainty quantification by evaluating an analytical solution
 ODE. Since it's a linear ODE, the analytical solution is simply given by the exponential:
 
 ```@example odetypes
-u = exp.(- sol.t / τ)
+u = exp.(-sol.t / τ)
 ```
 
 How do the two solutions compare?
@@ -309,7 +311,7 @@ the analytic one.  We can check that also the uncertainties are correctly propag
 numerical solution:
 
 ```@example odetypes
-println("Quantity of carbon-14 after ",  sol.t[11], " years:")
+println("Quantity of carbon-14 after ", sol.t[11], " years:")
 println("Numerical: ", sol[11])
 println("Analytic:  ", u[11])
 ```
@@ -349,11 +351,11 @@ u₀ = [0 ± 0, π / 60 ± 0.01] # Initial speed and initial angle
 tspan = (0.0, 6.3)
 
 #Define the problem
-function simplependulum(du,u,p,t)
-    θ  = u[1]
+function simplependulum(du, u, p, t)
+    θ = u[1]
     dθ = u[2]
     du[1] = dθ
-    du[2] = -(g/L)*θ
+    du[2] = -(g / L) * θ
 end
 
 #Pass to solvers
@@ -402,11 +404,11 @@ u₀ = [0 ± 0, π / 3 ± 0.02] # Initial speed and initial angle
 tspan = (0.0, 6.3)
 
 #Define the problem
-function simplependulum(du,u,p,t)
-    θ  = u[1]
+function simplependulum(du, u, p, t)
+    θ = u[1]
     dθ = u[2]
     du[1] = dθ
-    du[2] = -(g/L) * sin(θ)
+    du[2] = -(g / L) * sin(θ)
 end
 
 #Pass to solvers
@@ -423,10 +425,10 @@ Measurements.jl uses linear uncertainty propagation, which has an error associat
 Thus for more nonlinear use cases, it's suggested that one uses one of the more powerful
 UQ methods, such as:
 
-* [MonteCarloMeasurements.jl](https://baggepinnen.github.io/MonteCarloMeasurements.jl/stable/)
-* [PolyChaos.jl](https://docs.sciml.ai/PolyChaos/stable/)
-* [SciMLExpectations.jl](https://docs.sciml.ai/SciMLExpectations/stable/)
-* [The ProbInts Uncertainty Quantification callbacks](https://docs.sciml.ai/DiffEqCallbacks/stable/uncertainty_quantification/)
+  - [MonteCarloMeasurements.jl](https://baggepinnen.github.io/MonteCarloMeasurements.jl/stable/)
+  - [PolyChaos.jl](https://docs.sciml.ai/PolyChaos/stable/)
+  - [SciMLExpectations.jl](https://docs.sciml.ai/SciMLExpectations/stable/)
+  - [The ProbInts Uncertainty Quantification callbacks](https://docs.sciml.ai/DiffEqCallbacks/stable/uncertainty_quantification/)
 
 Basically, types can make the algorithm you want to run exceedingly simple to do, but make
 sure it's the correct algorithm!

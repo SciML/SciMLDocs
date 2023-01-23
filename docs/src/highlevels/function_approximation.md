@@ -10,22 +10,22 @@ are integrated into the equation solvers.
 approximations to computationally expensive simulations. It has the following
 high-dimensional function approximators:
 
-- Kriging
-- Kriging using Stheno
-- Radial Basis
-- Wendland
-- Linear
-- Second Order Polynomial
-- Support Vector Machines (Wait for LIBSVM resolution)
-- Neural Networks
-- Random Forests
-- Lobachevsky splines
-- Inverse-distance
-- Polynomial expansions
-- Variable fidelity
-- Mixture of experts (Waiting GaussianMixtures package to work on v1.5)
-- Earth
-- Gradient Enhanced Kriging
+  - Kriging
+  - Kriging using Stheno
+  - Radial Basis
+  - Wendland
+  - Linear
+  - Second Order Polynomial
+  - Support Vector Machines (Wait for LIBSVM resolution)
+  - Neural Networks
+  - Random Forests
+  - Lobachevsky splines
+  - Inverse-distance
+  - Polynomial expansions
+  - Variable fidelity
+  - Mixture of experts (Waiting GaussianMixtures package to work on v1.5)
+  - Earth
+  - Gradient Enhanced Kriging
 
 ## ReservoirComputing.jl: Fast and Flexible Reservoir Computing Methods
 
@@ -91,13 +91,13 @@ MNIST data, MLDatasets is the quickest way to obtain it.
 [MLUtils.jl](https://github.com/JuliaML/MLUtils.jl) is a library of utility functions for
 making writing common machine learning pipelines easier. This includes functionality for:
 
-- An extensible dataset interface  (`numobs` and `getobs`).
-- Data iteration and data loaders (`eachobs` and `DataLoader`).
-- Lazy data views (`obsview`).
-- Resampling procedures (`undersample` and `oversample`).
-- Train/test splits (`splitobs`)
-- Data partitioning and aggregation tools (`batch`, `unbatch`, `chunk`, `group_counts`, `group_indices`).
-- Folds for cross-validation (`kfolds`, `leavepout`).
-- Datasets lazy transformations (`mapobs`, `filterobs`, `groupobs`, `joinobs`, `shuffleobs`).
-- Toy datasets for demonstration purpose.
-- Other data handling utilities (`flatten`, `normalise`, `unsqueeze`, `stack`, `unstack`).
+  - An extensible dataset interface  (`numobs` and `getobs`).
+  - Data iteration and data loaders (`eachobs` and `DataLoader`).
+  - Lazy data views (`obsview`).
+  - Resampling procedures (`undersample` and `oversample`).
+  - Train/test splits (`splitobs`)
+  - Data partitioning and aggregation tools (`batch`, `unbatch`, `chunk`, `group_counts`, `group_indices`).
+  - Folds for cross-validation (`kfolds`, `leavepout`).
+  - Datasets lazy transformations (`mapobs`, `filterobs`, `groupobs`, `joinobs`, `shuffleobs`).
+  - Toy datasets for demonstration purpose.
+  - Other data handling utilities (`flatten`, `normalise`, `unsqueeze`, `stack`, `unstack`).

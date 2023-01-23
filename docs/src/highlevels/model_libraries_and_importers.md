@@ -19,17 +19,17 @@ to start building everything from circuits and engines to robots.
 DiffEqCallbacks.jl has many event handling and callback definitions which allow for
 quickly building up complex differential equation models. It includes:
 
-* Callbacks for specialized output and saving procedures
-* Callbacks for enforcing domain constraints, positivity, and manifolds
-* Timed callbacks for periodic dosing, presetting of tstops, and more
-* Callbacks for determining and terminating at steady state
-* Callbacks for controlling stepsizes and enforcing CFL conditions
-* Callbacks for quantifying uncertainty with respect to numerical errors
+  - Callbacks for specialized output and saving procedures
+  - Callbacks for enforcing domain constraints, positivity, and manifolds
+  - Timed callbacks for periodic dosing, presetting of tstops, and more
+  - Callbacks for determining and terminating at steady state
+  - Callbacks for controlling stepsizes and enforcing CFL conditions
+  - Callbacks for quantifying uncertainty with respect to numerical errors
 
 ## SBMLToolkit.jl: SBML Import
 
 [SBMLToolkit.jl](https://github.com/SciML/SBMLToolkit.jl) is a library for reading
-[SBML files](https://synonym.caltech.edu/#:~:text=What%20is%20SBML%3F,field%20of%20the%20life%20sciences.)
+[SBML files](https://synonym.caltech.edu/#:%7E:text=What%20is%20SBML%3F,field%20of%20the%20life%20sciences.)
 into the standard formats for Catalyst.jl and ModelingToolkit.jl. There are well over one thousand biological
 models available in the [BioModels Repository](https://www.ebi.ac.uk/biomodels/).
 
@@ -43,5 +43,5 @@ There are several hundred biological models available in the
 ## ReactionNetworkImporters.jl: BioNetGen Import
 
 [ReactionNetworkImporters.jl](https://github.com/SciML/ReactionNetworkImporters.jl) is a library
-for reading [BioNetGen .net files](https://bionetgen.org/) and various stoichiometry matrix representations 
+for reading [BioNetGen .net files](https://bionetgen.org/) and various stoichiometry matrix representations
 into the standard formats for Catalyst.jl and ModelingToolkit.jl.
