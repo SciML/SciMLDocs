@@ -3,10 +3,10 @@
 **Numerical optimization** is the process of finding some numerical values that
 minimize some equation.
 
-* How much fuel should you put into an airplane to have the minimum weight that
-  can go to its destination?
-* What parameters should I choose for my simulation so that it minimizes the
-  distance of its predictions from my experimental data?
+  - How much fuel should you put into an airplane to have the minimum weight that
+    can go to its destination?
+  - What parameters should I choose for my simulation so that it minimizes the
+    distance of its predictions from my experimental data?
 
 All of these are examples of problems solved by numerical optimization.
 Let's solve our first optimization problem!
@@ -15,10 +15,10 @@ Let's solve our first optimization problem!
 
 The following parts of the SciML Ecosystem will be used in this tutorial:
 
-| Module      | Description |
-| ----------- | ----------- |
-| [Optimization.jl](https://docs.sciml.ai/Optimization/stable/) | The numerical optimization package |
-| [OptimizationNLopt.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/nlopt/) | The NLopt optimizers we will use |
+| Module                                                                                         | Description                        |
+|:---------------------------------------------------------------------------------------------- |:---------------------------------- |
+| [Optimization.jl](https://docs.sciml.ai/Optimization/stable/)                                  | The numerical optimization package |
+| [OptimizationNLopt.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/nlopt/) | The NLopt optimizers we will use   |
 
 ## Problem Setup
 
@@ -35,7 +35,7 @@ This should be done with the parameter values ``p_1 = 1.0`` and ``p_2 = 100.0``.
 What should ``u = [u_1,u_2]`` be to achieve this goal? Let's dive in!
 
 !!! note
-
+    
     The upper and lower bounds are optional for the solver! If your problem does not
     need to have such bounds, just leave off the parts with `lb` and `ub`!
 
@@ -46,16 +46,16 @@ What should ``u = [u_1,u_2]`` be to achieve this goal? Let's dive in!
 using Optimization, OptimizationNLopt
 
 # Define the problem to optimize
-L(u,p) =  (p[1] - u[1])^2 + p[2] * (u[2] - u[1]^2)^2
+L(u, p) = (p[1] - u[1])^2 + p[2] * (u[2] - u[1]^2)^2
 u0 = zeros(2)
-p  = [1.0,100.0]
-prob = OptimizationProblem(L, u0, p, lb = [-1.0,-1.0], ub = [1.0,1.0])
+p = [1.0, 100.0]
+prob = OptimizationProblem(L, u0, p, lb = [-1.0, -1.0], ub = [1.0, 1.0])
 
 # Solve the optimization problem
-sol = solve(prob,NLopt.LD_LBFGS())
+sol = solve(prob, NLopt.LD_LBFGS())
 
 # Analyze the solution
-@show sol.u, L(sol.u,p)
+@show sol.u, L(sol.u, p)
 ```
 
 ## Step-by-Step Solution
@@ -64,8 +64,8 @@ sol = solve(prob,NLopt.LD_LBFGS())
 
 To do this tutorial, we will need a few components:
 
-* [Optimization.jl](https://docs.sciml.ai/Optimization/stable/), the optimization interface.
-* [OptimizationNLopt.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/nlopt/), the optimizers we will use.
+  - [Optimization.jl](https://docs.sciml.ai/Optimization/stable/), the optimization interface.
+  - [OptimizationNLopt.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/nlopt/), the optimizers we will use.
 
 Note that Optimization.jl is an interface for optimizers, and thus we always have to choose
 which optimizer we want to use. Here we choose to demonstrate `OptimizationNLopt` because
@@ -77,7 +77,8 @@ for a quick overview of what optimizer packages offer.
 To start, let's add these packages [as demonstrated in the installation tutorial](@ref installation):
 
 ```julia
-]add Optimization OptimizationNLopt
+using Pkg
+Pkg.add(["Optimization", "OptimizationNLopt"])
 ```
 
 Now we're ready. Let's load in these packages:
@@ -95,7 +96,7 @@ parameters, and write out the loss function on a vector-defined state as follows
 
 ```@example first_opt
 # Define the problem to optimize
-L(u,p) = (p[1] - u[1])^2 + p[2] * (u[2] - u[1]^2)^2
+L(u, p) = (p[1] - u[1])^2 + p[2] * (u[2] - u[1]^2)^2
 ```
 
 Now we need to define our `OptimizationProblem`. If you need help remembering how to define
@@ -110,8 +111,8 @@ optimization as follows:
 
 ```@example first_opt
 u0 = zeros(2)
-p  = [1.0,100.0]
-prob = OptimizationProblem(L, u0, p, lb = [-1.0,-1.0], ub = [1.0,1.0])
+p = [1.0, 100.0]
+prob = OptimizationProblem(L, u0, p, lb = [-1.0, -1.0], ub = [1.0, 1.0])
 ```
 
 #### Note about defining uniform bounds
@@ -137,7 +138,7 @@ performance. To perform this solve, we do the following:
 
 ```@example first_opt
 # Solve the optimization problem
-sol = solve(prob,NLopt.LD_LBFGS())
+sol = solve(prob, NLopt.LD_LBFGS())
 ```
 
 ### Step 4: Analyze the Solution
@@ -157,5 +158,5 @@ optimization, and what is the final loss value? We can check it as follows:
 
 ```@example first_opt
 # Analyze the solution
-@show sol.u, L(sol.u,p)
+@show sol.u, L(sol.u, p)
 ```

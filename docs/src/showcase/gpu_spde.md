@@ -7,6 +7,7 @@ DifferentialEquations.jl, including implicit solvers with GMRES, etc., and the s
 DAEs, DDEs, etc. are all GPU-compatible with a fast form of broadcast.
 
 !!! note
+    
     The non-native Julia solvers, like Sundials are incompatible with arbitrary input
     types and thus not compatible with GPUs.
 
@@ -22,7 +23,7 @@ of said `f`. The other use case is where `u` is very small but you want to solve
 use GPUs to parallelize over different parameters and initial conditions. In other words:
 
 | Type of Problem                           | SciML Solution                                                                                           |
-|-------------------------------------------|----------------------------------------------------------------------------------------------------------|
+|:----------------------------------------- |:-------------------------------------------------------------------------------------------------------- |
 | Accelerate a big ODE                      | Use [CUDA.jl's](https://cuda.juliagpu.org/stable/) CuArray as `u0`                                       |
 | Solve the same ODE with many `u0` and `p` | Use [DiffEqGPU.jl's](https://docs.sciml.ai/DiffEqGPU/stable/) `EnsembleGPUArray` and `EnsembleGPUKernel` |
 
@@ -102,20 +103,22 @@ const γ₁ = 0.1
 const γ₂ = 0.1
 const γ₃ = 0.1
 const N = 100
-const X = reshape([i for i in 1:100 for j in 1:100],N,N)
-const Y = reshape([j for i in 1:100 for j in 1:100],N,N)
-const α₁ = 1.0.*(X.>=80)
+const X = reshape([i for i in 1:100 for j in 1:100], N, N)
+const Y = reshape([j for i in 1:100 for j in 1:100], N, N)
+const α₁ = 1.0 .* (X .>= 80)
 
-const Mx = Tridiagonal([1.0 for i in 1:N-1],[-2.0 for i in 1:N],[1.0 for i in 1:N-1])
+const Mx = Tridiagonal([1.0 for i in 1:(N - 1)], [-2.0 for i in 1:N],
+                       [1.0 for i in 1:(N - 1)])
 const My = copy(Mx)
 # Do the reflections, different for x and y operators
-Mx[2,1] = 2.0
-Mx[end-1,end] = 2.0
-My[1,2] = 2.0
-My[end,end-1] = 2.0
+Mx[2, 1] = 2.0
+Mx[end - 1, end] = 2.0
+My[1, 2] = 2.0
+My[end, end - 1] = 2.0
 ```
 
 !!! note
+    
     We could have also done these discretization steps using
     [DiffEqOperators.jl](https://docs.sciml.ai/DiffEqOperators/stable/) or
     [MethodOfLines.jl](https://docs.sciml.ai/MethodOfLines/stable/). However, we are
@@ -127,10 +130,10 @@ Thus this represents itself as element-wise equations on the reactants. Thus we 
 it out quite simply. The ODE which then represents the PDE is thus in pseudo Julia code:
 
 ```julia
-DA = D*(Mx*A + A*My)
-@. DA + α₁ - β₁*A - r₁*A*B + r₂*C
-@. α₂ - β₂*B - r₁*A*B + r₂*C
-@. α₃ - β₃*C + r₁*A*B - r₂*C
+DA = D * (Mx * A + A * My)
+@. DA + α₁ - β₁ * A - r₁ * A * B + r₂ * C
+@. α₂ - β₂ * B - r₁ * A * B + r₂ * C
+@. α₃ - β₃ * C + r₁ * A * B - r₂ * C
 ```
 
 Note here that I am using α₁ as a matrix (or row-vector, since that will broadcast just
@@ -145,18 +148,18 @@ We can represent our problem with a 3-dimensional tensor, taking each 2-dimensio
 as our (A,B,C). This means that we can define:
 
 ```@example spde
-u0 = zeros(N,N,3);
+u0 = zeros(N, N, 3);
 ```
 
 Now we can decompose it like:
 
 ```julia
-   A = @view  u[:,:,1]
-   B = @view  u[:,:,2]
-   C = @view  u[:,:,3]
-  dA = @view du[:,:,1]
-  dB = @view du[:,:,2]
-  dC = @view du[:,:,3]
+A = @view u[:, :, 1]
+B = @view u[:, :, 2]
+C = @view u[:, :, 3]
+dA = @view du[:, :, 1]
+dB = @view du[:, :, 2]
+dC = @view du[:, :, 3]
 ```
 
 These views will not construct new arrays and will instead just be pointers to the
@@ -164,17 +167,17 @@ These views will not construct new arrays and will instead just be pointers to t
 our ODE using this tensor as its container can be written as follows:
 
 ```@example spde
-function f(du,u,p,t)
-   A = @view  u[:,:,1]
-   B = @view  u[:,:,2]
-   C = @view  u[:,:,3]
-  dA = @view du[:,:,1]
-  dB = @view du[:,:,2]
-  dC = @view du[:,:,3]
-  DA = D*(Mx*A + A*My)
-  @. dA = DA + α₁ - β₁*A - r₁*A*B + r₂*C
-  @. dB = α₂ - β₂*B - r₁*A*B + r₂*C
-  @. dC = α₃ - β₃*C + r₁*A*B - r₂*C
+function f(du, u, p, t)
+    A = @view u[:, :, 1]
+    B = @view u[:, :, 2]
+    C = @view u[:, :, 3]
+    dA = @view du[:, :, 1]
+    dB = @view du[:, :, 2]
+    dC = @view du[:, :, 3]
+    DA = D * (Mx * A + A * My)
+    @. dA = DA + α₁ - β₁ * A - r₁ * A * B + r₂ * C
+    @. dB = α₂ - β₂ * B - r₁ * A * B + r₂ * C
+    @. dC = α₃ - β₃ * C + r₁ * A * B - r₂ * C
 end
 ```
 
@@ -187,12 +190,12 @@ Together, the ODE which defines our PDE is thus:
 ```@example spde
 using DifferentialEquations
 
-prob = ODEProblem(f,u0,(0.0,100.0))
-@time sol = solve(prob,ROCK2());
+prob = ODEProblem(f, u0, (0.0, 100.0))
+@time sol = solve(prob, ROCK2());
 ```
 
 ```@example spde
-@time sol = solve(prob,ROCK2());
+@time sol = solve(prob, ROCK2());
 ```
 
 if I want to solve it on ``t \in [0,100]``. Done! The solution gives back our tensors (and
@@ -200,10 +203,10 @@ interpolates to create new ones if you use sol(t)). We can plot it in Plots.jl:
 
 ```@example spde
 using Plots
-p1 = surface(X,Y,sol[end][:,:,1],title = "[A]")
-p2 = surface(X,Y,sol[end][:,:,2],title = "[B]")
-p3 = surface(X,Y,sol[end][:,:,3],title = "[C]")
-plot(p1,p2,p3,layout=grid(3,1))
+p1 = surface(X, Y, sol[end][:, :, 1], title = "[A]")
+p2 = surface(X, Y, sol[end][:, :, 2], title = "[B]")
+p3 = surface(X, Y, sol[end][:, :, 3], title = "[C]")
+plot(p1, p2, p3, layout = grid(3, 1))
 ```
 
 and see the pretty gradients. Using this 2nd order ROCK method we solve this equation in
@@ -219,79 +222,79 @@ easiest way to store these cache arrays are constant globals, but you can use cl
 without globals. The globals way (the easy way) is simply:
 
 ```julia
-const MyA = zeros(N,N)
-const AMx = zeros(N,N)
-const DA = zeros(N,N)
-function f(du,u,p,t)
-   A = @view  u[:,:,1]
-   B = @view  u[:,:,2]
-   C = @view  u[:,:,3]
-  dA = @view du[:,:,1]
-  dB = @view du[:,:,2]
-  dC = @view du[:,:,3]
-  mul!(MyA,My,A)
-  mul!(AMx,A,Mx)
-  @. DA = D*(MyA + AMx)
-  @. dA = DA + α₁ - β₁*A - r₁*A*B + r₂*C
-  @. dB = α₂ - β₂*B - r₁*A*B + r₂*C
-  @. dC = α₃ - β₃*C + r₁*A*B - r₂*C
+const MyA = zeros(N, N)
+const AMx = zeros(N, N)
+const DA = zeros(N, N)
+function f(du, u, p, t)
+    A = @view u[:, :, 1]
+    B = @view u[:, :, 2]
+    C = @view u[:, :, 3]
+    dA = @view du[:, :, 1]
+    dB = @view du[:, :, 2]
+    dC = @view du[:, :, 3]
+    mul!(MyA, My, A)
+    mul!(AMx, A, Mx)
+    @. DA = D * (MyA + AMx)
+    @. dA = DA + α₁ - β₁ * A - r₁ * A * B + r₂ * C
+    @. dB = α₂ - β₂ * B - r₁ * A * B + r₂ * C
+    @. dC = α₃ - β₃ * C + r₁ * A * B - r₂ * C
 end
 ```
 
 For reference, closures looks like:
 
 ```julia
-MyA = zeros(N,N)
-AMx = zeros(N,N)
-DA = zeros(N,N)
-function f_full(du,u,p,t,MyA,AMx,DA)
-   A = @view  u[:,:,1]
-   B = @view  u[:,:,2]
-   C = @view  u[:,:,3]
-  dA = @view du[:,:,1]
-  dB = @view du[:,:,2]
-  dC = @view du[:,:,3]
-  mul!(MyA,My,A)
-  mul!(AMx,A,Mx)
-  @. DA = D*(MyA + AMx)
-  @. dA = DA + α₁ - β₁*A - r₁*A*B + r₂*C
-  @. dB = α₂ - β₂*B - r₁*A*B + r₂*C
-  @. dC = α₃ - β₃*C + r₁*A*B - r₂*C
+MyA = zeros(N, N)
+AMx = zeros(N, N)
+DA = zeros(N, N)
+function f_full(du, u, p, t, MyA, AMx, DA)
+    A = @view u[:, :, 1]
+    B = @view u[:, :, 2]
+    C = @view u[:, :, 3]
+    dA = @view du[:, :, 1]
+    dB = @view du[:, :, 2]
+    dC = @view du[:, :, 3]
+    mul!(MyA, My, A)
+    mul!(AMx, A, Mx)
+    @. DA = D * (MyA + AMx)
+    @. dA = DA + α₁ - β₁ * A - r₁ * A * B + r₂ * C
+    @. dB = α₂ - β₂ * B - r₁ * A * B + r₂ * C
+    @. dC = α₃ - β₃ * C + r₁ * A * B - r₂ * C
 end
-f(du,u,p,t) = f_full(du,u,p,t,MyA,AMx,DA)
+f(du, u, p, t) = f_full(du, u, p, t, MyA, AMx, DA)
 ```
 
 and a call overloaded type looks like:
 
 ```julia
 struct MyFunction{T} <: Function
-  MyA::T
-  AMx::T
-  DA::T
+    MyA::T
+    AMx::T
+    DA::T
 end
 
 # Now define the overload
-function (ff::MyFunction)(du,u,p,t)
-  # This is a function which references itself via ff
-   A = @view  u[:,:,1]
-   B = @view  u[:,:,2]
-   C = @view  u[:,:,3]
-  dA = @view du[:,:,1]
-  dB = @view du[:,:,2]
-  dC = @view du[:,:,3]
-  mul!(ff.MyA,My,A)
-  mul!(ff.AMx,A,Mx)
-  @. ff.DA = D*(ff.MyA + ff.AMx)
-  @. dA = f.DA + α₁ - β₁*A - r₁*A*B + r₂*C
-  @. dB = α₂ - β₂*B - r₁*A*B + r₂*C
-  @. dC = α₃ - β₃*C + r₁*A*B - r₂*C
+function (ff::MyFunction)(du, u, p, t)
+    # This is a function which references itself via ff
+    A = @view u[:, :, 1]
+    B = @view u[:, :, 2]
+    C = @view u[:, :, 3]
+    dA = @view du[:, :, 1]
+    dB = @view du[:, :, 2]
+    dC = @view du[:, :, 3]
+    mul!(ff.MyA, My, A)
+    mul!(ff.AMx, A, Mx)
+    @. ff.DA = D * (ff.MyA + ff.AMx)
+    @. dA = f.DA + α₁ - β₁ * A - r₁ * A * B + r₂ * C
+    @. dB = α₂ - β₂ * B - r₁ * A * B + r₂ * C
+    @. dC = α₃ - β₃ * C + r₁ * A * B - r₂ * C
 end
 
-MyA = zeros(N,N)
-AMx = zeros(N,N)
-DA = zeros(N,N)
+MyA = zeros(N, N)
+AMx = zeros(N, N)
+DA = zeros(N, N)
 
-f = MyFunction(MyA,AMx,DA)
+f = MyFunction(MyA, AMx, DA)
 # Now f(du,u,p,t) is our function!
 ```
 
@@ -302,9 +305,11 @@ Now, since PDEs are large, many times we don't care about getting the whole time
 the [output controls from DifferentialEquations.jl](http://diffeq.sciml.ai/latest/basics/common_solver_opts.html#Output-Control-1), we can make it only output the final timepoint.
 
 ```julia
-prob = ODEProblem(f,u0,(0.0,100.0))
-@time sol = solve(prob,ROCK2(),progress=true,save_everystep=false,save_start=false);
-@time sol = solve(prob,ROCK2(),progress=true,save_everystep=false,save_start=false);
+prob = ODEProblem(f, u0, (0.0, 100.0))
+@time sol = solve(prob, ROCK2(), progress = true, save_everystep = false,
+                  save_start = false);
+@time sol = solve(prob, ROCK2(), progress = true, save_everystep = false,
+                  save_start = false);
 ```
 
 Around 0.4 seconds. Much better. Also, if you're using VS Code, this'll give you a nice
@@ -313,7 +318,7 @@ progress bar, so you can track how it's going.
 ## Quick Note About Performance
 
 !!! note
-
+    
     We are using the ROCK2 method here because it's a method for stiff equations with
     eigenvalues that are real-dominated (as opposed to dominated by the imaginary parts).
     If we wanted to use a more conventional implicit ODE solver, we would need to make use
@@ -342,48 +347,50 @@ const γ₁ = 0.1
 const γ₂ = 0.1
 const γ₃ = 0.1
 const N = 100
-const X = reshape([i for i in 1:100 for j in 1:100],N,N)
-const Y = reshape([j for i in 1:100 for j in 1:100],N,N)
-const α₁ = 1.0.*(X.>=80)
+const X = reshape([i for i in 1:100 for j in 1:100], N, N)
+const Y = reshape([j for i in 1:100 for j in 1:100], N, N)
+const α₁ = 1.0 .* (X .>= 80)
 
-const Mx = Array(Tridiagonal([1.0 for i in 1:N-1],[-2.0 for i in 1:N],[1.0 for i in 1:N-1]))
+const Mx = Array(Tridiagonal([1.0 for i in 1:(N - 1)], [-2.0 for i in 1:N],
+                             [1.0 for i in 1:(N - 1)]))
 const My = copy(Mx)
-Mx[2,1] = 2.0
-Mx[end-1,end] = 2.0
-My[1,2] = 2.0
-My[end,end-1] = 2.0
+Mx[2, 1] = 2.0
+Mx[end - 1, end] = 2.0
+My[1, 2] = 2.0
+My[end, end - 1] = 2.0
 
 # Define the initial condition as normal arrays
-u0 = zeros(N,N,3)
+u0 = zeros(N, N, 3)
 
-const MyA = zeros(N,N);
-const AMx = zeros(N,N);
-const DA = zeros(N,N)
+const MyA = zeros(N, N);
+const AMx = zeros(N, N);
+const DA = zeros(N, N)
 # Define the discretized PDE as an ODE function
-function f(du,u,p,t)
-   A = @view  u[:,:,1]
-   B = @view  u[:,:,2]
-   C = @view  u[:,:,3]
-  dA = @view du[:,:,1]
-  dB = @view du[:,:,2]
-  dC = @view du[:,:,3]
-  mul!(MyA,My,A)
-  mul!(AMx,A,Mx)
-  @. DA = D*(MyA + AMx)
-  @. dA = DA + α₁ - β₁*A - r₁*A*B + r₂*C
-  @. dB = α₂ - β₂*B - r₁*A*B + r₂*C
-  @. dC = α₃ - β₃*C + r₁*A*B - r₂*C
+function f(du, u, p, t)
+    A = @view u[:, :, 1]
+    B = @view u[:, :, 2]
+    C = @view u[:, :, 3]
+    dA = @view du[:, :, 1]
+    dB = @view du[:, :, 2]
+    dC = @view du[:, :, 3]
+    mul!(MyA, My, A)
+    mul!(AMx, A, Mx)
+    @. DA = D * (MyA + AMx)
+    @. dA = DA + α₁ - β₁ * A - r₁ * A * B + r₂ * C
+    @. dB = α₂ - β₂ * B - r₁ * A * B + r₂ * C
+    @. dC = α₃ - β₃ * C + r₁ * A * B - r₂ * C
 end
 
 # Solve the ODE
-prob = ODEProblem(f,u0,(0.0,100.0))
-sol = solve(prob,ROCK2(),progress=true,save_everystep=false,save_start=false)
+prob = ODEProblem(f, u0, (0.0, 100.0))
+sol = solve(prob, ROCK2(), progress = true, save_everystep = false, save_start = false)
 
-using Plots; gr()
-p1 = surface(X,Y,sol[end][:,:,1],title = "[A]")
-p2 = surface(X,Y,sol[end][:,:,2],title = "[B]")
-p3 = surface(X,Y,sol[end][:,:,3],title = "[C]")
-plot(p1,p2,p3,layout=grid(3,1))
+using Plots;
+gr();
+p1 = surface(X, Y, sol[end][:, :, 1], title = "[A]")
+p2 = surface(X, Y, sol[end][:, :, 2], title = "[B]")
+p3 = surface(X, Y, sol[end][:, :, 3], title = "[C]")
+plot(p1, p2, p3, layout = grid(3, 1))
 ```
 
 ## Making Use of GPU Parallelism
@@ -412,31 +419,33 @@ const gMy = CuArray(Float32.(My))
 const gα₁ = CuArray(Float32.(α₁))
 gu0 = CuArray(Float32.(u0))
 
-const gMyA = CuArray(zeros(Float32,N,N))
-const AgMx = CuArray(zeros(Float32,N,N))
-const gDA = CuArray(zeros(Float32,N,N))
-function gf(du,u,p,t)
-   A = @view  u[:,:,1]
-   B = @view  u[:,:,2]
-   C = @view  u[:,:,3]
-  dA = @view du[:,:,1]
-  dB = @view du[:,:,2]
-  dC = @view du[:,:,3]
-  mul!(gMyA,gMy,A)
-  mul!(AgMx,A,gMx)
-  @. gDA = D*(gMyA + AgMx)
-  @. dA = gDA + gα₁ - β₁*A - r₁*A*B + r₂*C
-  @. dB = α₂ - β₂*B - r₁*A*B + r₂*C
-  @. dC = α₃ - β₃*C + r₁*A*B - r₂*C
+const gMyA = CuArray(zeros(Float32, N, N))
+const AgMx = CuArray(zeros(Float32, N, N))
+const gDA = CuArray(zeros(Float32, N, N))
+function gf(du, u, p, t)
+    A = @view u[:, :, 1]
+    B = @view u[:, :, 2]
+    C = @view u[:, :, 3]
+    dA = @view du[:, :, 1]
+    dB = @view du[:, :, 2]
+    dC = @view du[:, :, 3]
+    mul!(gMyA, gMy, A)
+    mul!(AgMx, A, gMx)
+    @. gDA = D * (gMyA + AgMx)
+    @. dA = gDA + gα₁ - β₁ * A - r₁ * A * B + r₂ * C
+    @. dB = α₂ - β₂ * B - r₁ * A * B + r₂ * C
+    @. dC = α₃ - β₃ * C + r₁ * A * B - r₂ * C
 end
 
-prob2 = ODEProblem(gf,gu0,(0.0,100.0))
+prob2 = ODEProblem(gf, gu0, (0.0, 100.0))
 CUDA.allowscalar(false) # makes sure none of the slow fallbacks are used
-@time sol = solve(prob2,ROCK2(),progress=true,dt=0.003,save_everystep=false,save_start=false);
+@time sol = solve(prob2, ROCK2(), progress = true, dt = 0.003, save_everystep = false,
+                  save_start = false);
 ```
 
 ```@example spde
-@time sol = solve(prob2,ROCK2(),progress=true,dt=0.003,save_everystep=false,save_start=false);
+@time sol = solve(prob2, ROCK2(), progress = true, dt = 0.003, save_everystep = false,
+                  save_start = false);
 ```
 
 Go have fun.
@@ -448,34 +457,35 @@ a noise function. In this case, let's use multiplicative noise on each reactant.
 that our noise update equation is:
 
 ```@example spde
-function g(du,u,p,t)
-   A = @view  u[:,:,1]
-   B = @view  u[:,:,2]
-   C = @view  u[:,:,3]
-  dA = @view du[:,:,1]
-  dB = @view du[:,:,2]
-  dC = @view du[:,:,3]
-  @. dA = γ₁*A
-  @. dB = γ₂*A
-  @. dC = γ₃*A
+function g(du, u, p, t)
+    A = @view u[:, :, 1]
+    B = @view u[:, :, 2]
+    C = @view u[:, :, 3]
+    dA = @view du[:, :, 1]
+    dB = @view du[:, :, 2]
+    dC = @view du[:, :, 3]
+    @. dA = γ₁ * A
+    @. dB = γ₂ * A
+    @. dC = γ₃ * A
 end
 ```
 
 Now we just define and solve the system of SDEs:
 
 ```@example spde
-prob = SDEProblem(f,g,u0,(0.0,100.0))
-@time sol = solve(prob,SRIW1());
+prob = SDEProblem(f, g, u0, (0.0, 100.0))
+@time sol = solve(prob, SRIW1());
 ```
 
 ```@example spde
-using Plots; gr()
+using Plots;
+gr();
 
 # Use `Array` to transform the result back into a CPU-based `Array` for plotting
-p1 = surface(X,Y,Array(sol[end][:,:,1]),title = "[A]")
-p2 = surface(X,Y,Array(sol[end][:,:,2]),title = "[B]")
-p3 = surface(X,Y,Array(sol[end][:,:,3]),title = "[C]")
-plot(p1,p2,p3,layout=grid(3,1))
+p1 = surface(X, Y, Array(sol[end][:, :, 1]), title = "[A]")
+p2 = surface(X, Y, Array(sol[end][:, :, 2]), title = "[B]")
+p3 = surface(X, Y, Array(sol[end][:, :, 3]), title = "[C]")
+plot(p1, p2, p3, layout = grid(3, 1))
 ```
 
 We can see the cool effect that diffusion dampens the noise in [A] but is unable to dampen
@@ -491,6 +501,7 @@ exists by virtue of the Julia type system.
 require a choice of dt. This is left to the reader to try.)
 
 !!! note
+    
     This can take a while to solve! An explicit Runge-Kutta algorithm isn't necessarily great
     here, though to use a stiff solver on a problem of this size requires once again smartly
     choosing sparse linear solvers. The high order adaptive method is pretty much necessary

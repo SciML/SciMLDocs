@@ -20,10 +20,10 @@ Sometimes, you want to use a full domain-specific language like
 just had a slightly nicer syntax. Don't you wish you could write the Lorenz equations like:
 
 ```julia
-function lorenz_f(du,u,p,t)
-  du.x = p.σ*(u.y-u.x)
-  du.y = u.x*(p.ρ-u.z) - u.y
-  du.z = u.x*u.y - p.β*u.z
+function lorenz_f(du, u, p, t)
+    du.x = p.σ * (u.y - u.x)
+    du.y = u.x * (p.ρ - u.z) - u.y
+    du.z = u.x * u.y - p.β * u.z
 end
 ```
 
@@ -32,7 +32,7 @@ provides the array types to do just that. All the `.` accesses are resolved at c
 so it's a [zero-overhead interface](https://www.stochasticlifestyle.com/zero-cost-abstractions-in-julia-indexing-vectors-by-name-with-labelledarrays/).
 
 !!! note
-
+    
     We recommend using ComponentArrays.jl for any instance where nested accesses are required,
     or where the `.` accesses need to be views to subsets of the array.
 
@@ -48,7 +48,7 @@ includes the ease of resizing, allowing for models where the number of equations
 as agents (cells) in the model divide and die.
 
 !!! note
-
+    
     We recommend using ComponentArrays.jl instead in any instance where the resizing functionality
     is not used.
 
@@ -70,23 +70,21 @@ using ComponentArrays
 using DifferentialEquations
 using Parameters: @unpack
 
-
 tspan = (0.0, 20.0)
 
-
 ## Lorenz system
-function lorenz!(D, u, p, t; f=0.0)
+function lorenz!(D, u, p, t; f = 0.0)
     @unpack σ, ρ, β = p
     @unpack x, y, z = u
 
-    D.x = σ*(y - x)
-    D.y = x*(ρ - z) - y - f
-    D.z = x*y - β*z
+    D.x = σ * (y - x)
+    D.y = x * (ρ - z) - y - f
+    D.z = x * y - β * z
     return nothing
 end
 
-lorenz_p = (σ=10.0, ρ=28.0, β=8/3)
-lorenz_ic = ComponentArray(x=0.0, y=0.0, z=0.0)
+lorenz_p = (σ = 10.0, ρ = 28.0, β = 8 / 3)
+lorenz_ic = ComponentArray(x = 0.0, y = 0.0, z = 0.0)
 lorenz_prob = ODEProblem(lorenz!, lorenz_ic, tspan, lorenz_p)
 ```
 

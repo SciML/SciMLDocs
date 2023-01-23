@@ -8,15 +8,15 @@ simulation's output change “in general” with respect to a given parameter? T
 analysis (GSA) computes, and thus [GlobalSensitivity.jl](https://github.com/SciML/GlobalSensitivity.jl) is
 the way to answer that question. GlobalSensitivity.jl includes a wide array of methods, including:
 
-- Morris's method
-- Sobol's method
-- Regression methods (PCC, SRC, Pearson)
-- eFAST
-- Delta Moment-Independent method
-- Derivative-based Global Sensitivity Measures (DGSM)
-- EASI
-- Fractional Factorial method
-- Random Balance Design FAST method
+  - Morris's method
+  - Sobol's method
+  - Regression methods (PCC, SRC, Pearson)
+  - eFAST
+  - Delta Moment-Independent method
+  - Derivative-based Global Sensitivity Measures (DGSM)
+  - EASI
+  - Fractional Factorial method
+  - Random Balance Design FAST method
 
 ## StructuralIdentifiability.jl: Identifiability Analysis Made Simple
 

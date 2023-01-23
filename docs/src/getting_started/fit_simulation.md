@@ -9,19 +9,19 @@ stable and efficient. Let's see this in action.
 
 The following parts of the SciML Ecosystem will be used in this tutorial:
 
-| Module      | Description |
-| ----------- | ----------- |
-| [DifferentialEquations.jl](https://docs.sciml.ai/DiffEqDocs/stable/) | The differential equation solvers |
-| [Optimization.jl](https://docs.sciml.ai/Optimization/stable/) | The numerical optimization package |
-| [OptimizationPolyalgorithms.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/polyalgorithms/) | The optimizers we will use |
-| [SciMLSensitivity.jl](https://docs.sciml.ai/SciMLSensitivity/dev/) | The connection of the SciML ecosystems to differentiation |
+| Module                                                                                                           | Description                                               |
+|:---------------------------------------------------------------------------------------------------------------- |:--------------------------------------------------------- |
+| [DifferentialEquations.jl](https://docs.sciml.ai/DiffEqDocs/stable/)                                             | The differential equation solvers                         |
+| [Optimization.jl](https://docs.sciml.ai/Optimization/stable/)                                                    | The numerical optimization package                        |
+| [OptimizationPolyalgorithms.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/polyalgorithms/) | The optimizers we will use                                |
+| [SciMLSensitivity.jl](https://docs.sciml.ai/SciMLSensitivity/dev/)                                               | The connection of the SciML ecosystems to differentiation |
 
 Along with the following general ecosystem packages:
 
-| Module      | Description |
-| ----------- | ----------- |
-| [Plots.jl](https://docs.juliaplots.org/stable/) | The plotting and visualization package |
-| [ForwardDiff.jl](https://juliadiff.org/ForwardDiff.jl/stable/) | The automatic differentiation package |
+| Module                                                         | Description                            |
+|:-------------------------------------------------------------- |:-------------------------------------- |
+| [Plots.jl](https://docs.juliaplots.org/stable/)                | The plotting and visualization package |
+| [ForwardDiff.jl](https://juliadiff.org/ForwardDiff.jl/stable/) | The automatic differentiation package  |
 
 ## Problem Setup: Fitting Lotka-Volterra Data
 
@@ -49,7 +49,7 @@ Sadly, magical nymphs do not always show up and give us parameters. Thus in this
 let's assume that we are just given data that is representative of the solution with
 ``\alpha = 1.5``, ``\beta = 1.0``, ``\gamma = 3.0``, and ``\delta = 1.0``. This data
 is given over a time span of ``t_0 = 0`` to ``t_f = 10`` with data taken on both rabbits
-and wolves at every ``\Delta t = 1.`` Can we figure out what the parameter values should 
+and wolves at every ``\Delta t = 1.`` Can we figure out what the parameter values should
 be directly from the data?
 
 ## Solution as Copy-Pastable Code
@@ -59,10 +59,10 @@ using DifferentialEquations, Optimization, OptimizationPolyalgorithms, SciMLSens
 using ForwardDiff, Plots
 
 function lotka_volterra!(du, u, p, t)
-  x, y = u
-  α, β, δ, γ = p
-  du[1] = dx = α*x - β*x*y
-  du[2] = dy = -δ*y + γ*x*y
+    x, y = u
+    α, β, δ, γ = p
+    du[1] = dx = α * x - β * x * y
+    du[2] = dy = -δ * y + γ * x * y
 end
 
 # Initial condition
@@ -81,25 +81,25 @@ data = Array(datasol)
 
 ## Now do the optimization process
 function loss(newp)
-  newprob = remake(prob, p=newp)
-  sol = solve(newprob, saveat = 1)
-  loss = sum(abs2, sol.-data)
-  return loss, sol
+    newprob = remake(prob, p = newp)
+    sol = solve(newprob, saveat = 1)
+    loss = sum(abs2, sol .- data)
+    return loss, sol
 end
 
 callback = function (p, l, sol)
-  display(l)
-  plt = plot(sol, ylim = (0, 6), label = "Current Prediction")
-  scatter!(plt, datasol, label = "Data")
-  display(plt)
-  # Tell Optimization.solve to not halt the optimization. If return true, then
-  # optimization stops.
-  return false
+    display(l)
+    plt = plot(sol, ylim = (0, 6), label = "Current Prediction")
+    scatter!(plt, datasol, label = "Data")
+    display(plt)
+    # Tell Optimization.solve to not halt the optimization. If return true, then
+    # optimization stops.
+    return false
 end
 
 adtype = Optimization.AutoForwardDiff()
 pguess = [1.0, 1.2, 2.5, 1.2]
-optf = Optimization.OptimizationFunction((x,p)->loss(x), adtype)
+optf = Optimization.OptimizationFunction((x, p) -> loss(x), adtype)
 optprob = Optimization.OptimizationProblem(optf, pguess)
 
 result_ode = Optimization.solve(optprob, PolyOpt(),
@@ -114,7 +114,15 @@ result_ode = Optimization.solve(optprob, PolyOpt(),
 To do this tutorial, we will need a few components. This is done using the Julia Pkg REPL:
 
 ```julia
-]add DifferentialEquations, Optimization, OptimizationPolyalgorithms, SciMLSensitivity, ForwardDiff, Plots
+using Pkg
+Pkg.add([
+            "DifferentialEquations",
+            "Optimization",
+            "OptimizationPolyalgorithms",
+            "SciMLSensitivity",
+            "ForwardDiff",
+            "Plots",
+        ])
 ```
 
 Now we're ready. Let's load in these packages:
@@ -141,10 +149,10 @@ DifferentialEquations.jl direct form thus looks like the following:
 
 ```@example odefit
 function lotka_volterra!(du, u, p, t)
-  x, y = u
-  α, β, δ, γ = p
-  du[1] = α*x - β*x*y
-  du[2] = -δ*y + γ*x*y
+    x, y = u
+    α, β, δ, γ = p
+    du[1] = α * x - β * x * y
+    du[2] = -δ * y + γ * x * y
 end
 ```
 
@@ -176,21 +184,24 @@ data = Array(datasol)
 ```
 
 !!! note
-  For more details on using DifferentialEquations.jl, check out the
-  [getting started with DifferentialEquations.jl tutorial](https://docs.sciml.ai/DiffEqDocs/stable/getting_started/).
+    
+
+For more details on using DifferentialEquations.jl, check out the
+[getting started with DifferentialEquations.jl tutorial](https://docs.sciml.ai/DiffEqDocs/stable/getting_started/).
 
 ### Step 3: Set Up the Cost Function for Optimization
 
 Now let's start the estimation process. First, let's define a loss function. For our loss function, we want to
 take a set of parameters, create a new ODE which has everything the same except for the changed parameters,
 solve this ODE with new parameters, and compare its predictions against the data. For this parameter changing,
-there is a useful functionality in the 
+there is a useful functionality in the
 [SciML problems interface](https://docs.sciml.ai/DiffEqDocs/stable/basics/problem/#Modification-of-problem-types)
 called `remake` which creates a new version of an existing `SciMLProblem` with the aspect you want changed.
 For example, if we wanted to change the initial condition `u0` of our ODE, we could do `remake(prob, u0 = newu0)`
 For our case, we want to change around just the parameters, so we can do `remake(prob, p = newp)`
 
 !!! note
+    
     `remake` can change multiple items at once by passing more keyword arguments! I.e., `remake(prob, u0 = newu0, p = newp)`
     This can be used to extend the example to simultaneously learn the initial conditions and parameters!
 
@@ -200,10 +211,10 @@ looks like:
 
 ```@example odefit
 function loss(newp)
-  newprob = remake(prob, p=newp)
-  sol = solve(newprob, saveat = 1)
-  loss = sum(abs2, sol.-data)
-  return loss, sol
+    newprob = remake(prob, p = newp)
+    sol = solve(newprob, saveat = 1)
+    loss = sum(abs2, sol .- data)
+    return loss, sol
 end
 ```
 
@@ -221,13 +232,13 @@ against the data! Let's do that in the following way:
 
 ```@example odefit
 callback = function (p, l, sol)
-  display(l)
-  plt = plot(sol, ylim = (0, 6), label = "Current Prediction")
-  scatter!(plt, datasol, label = "Data")
-  display(plt)
-  # Tell Optimization.solve to not halt the optimization. If return true, then
-  # optimization stops.
-  return false
+    display(l)
+    plt = plot(sol, ylim = (0, 6), label = "Current Prediction")
+    scatter!(plt, datasol, label = "Data")
+    display(plt)
+    # Tell Optimization.solve to not halt the optimization. If return true, then
+    # optimization stops.
+    return false
 end
 ```
 
@@ -239,10 +250,9 @@ problem. To do this, we need to come up with a `pguess`, an initial condition fo
 which is our best guess of the true parameters. For this, we will use `pguess = [1.0, 1.2, 2.5, 1.2]`.
 Together, this looks like:
 
-
 ```@example odefit
 adtype = Optimization.AutoForwardDiff()
-optf = Optimization.OptimizationFunction((x,p)->loss(x), adtype)
+optf = Optimization.OptimizationFunction((x, p) -> loss(x), adtype)
 pguess = [1.0, 1.2, 2.5, 1.2]
 optprob = Optimization.OptimizationProblem(optf, pguess)
 ```

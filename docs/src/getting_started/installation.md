@@ -5,7 +5,7 @@
 Download Julia using [this website](https://julialang.org/downloads/).
 
 !!! note
-
+    
     Some Linux distributions do weird and incorrect things with Julia installations!
     Please install Julia using the binaries provided by the [official JuliaLang website!](https://julialang.org/downloads/)
 
@@ -65,7 +65,8 @@ For example, do you need the differential equation solver? Then install Differen
 via the command:
 
 ```julia
-using Pkg; Pkg.add("DifferentialEquations")
+using Pkg;
+Pkg.add("DifferentialEquations");
 ```
 
 in the Julia REPL. Or, for a more robust REPL experience, hit the `]` command to make the

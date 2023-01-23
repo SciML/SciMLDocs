@@ -12,13 +12,13 @@ For more information, see
 DataDrivenDiffEq.jl is a general interface for data-driven modeling, containing a large
 array of techniques such as:
 
-* Koopman operator methods (Dynamic-Mode Decomposition (DMD) and variations)
-* Sparse Identification of Dynamical Systems (SINDy and variations like iSINDy)
-* Sparse regression methods (STSLQ, SR3, etc.)
-* PDEFind
-* Wrappers for SymbolicRegression.jl
-* AI Feynman
-* OccamNet
+  - Koopman operator methods (Dynamic-Mode Decomposition (DMD) and variations)
+  - Sparse Identification of Dynamical Systems (SINDy and variations like iSINDy)
+  - Sparse regression methods (STSLQ, SR3, etc.)
+  - PDEFind
+  - Wrappers for SymbolicRegression.jl
+  - AI Feynman
+  - OccamNet
 
 ## SymbolicNumericIntegration.jl: Symbolic Integration via Numerical Methods
 

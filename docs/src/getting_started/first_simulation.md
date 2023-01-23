@@ -3,7 +3,7 @@
 In this tutorial, we will build and run our first simulation with SciML!
 
 !!! note
-
+    
     This tutorial assumes that you have already installed Julia on your system. If you have
     not done so already, please [follow the installation tutorial first](@ref installation).
 
@@ -18,11 +18,11 @@ Sounds neat? Let's dig in.
 
 The following parts of the SciML Ecosystem will be used in this tutorial:
 
-| Module      | Description |
-| ----------- | ----------- |
-| [ModelingToolkit.jl](https://docs.sciml.ai/ModelingToolkit/stable/) | The symbolic modeling environment |
-| [DifferentialEquations.jl](https://docs.sciml.ai/DiffEqDocs/stable/) | The differential equation solvers |
-| [Plots.jl](https://docs.juliaplots.org/stable/) | The plotting and visualization package |
+| Module                                                               | Description                            |
+|:-------------------------------------------------------------------- |:-------------------------------------- |
+| [ModelingToolkit.jl](https://docs.sciml.ai/ModelingToolkit/stable/)  | The symbolic modeling environment      |
+| [DifferentialEquations.jl](https://docs.sciml.ai/DiffEqDocs/stable/) | The differential equation solvers      |
+| [Plots.jl](https://docs.juliaplots.org/stable/)                      | The plotting and visualization package |
 
 ## Our Problem: Simulate the Lotka-Volterra Predator-Prey Dynamics
 
@@ -61,30 +61,28 @@ using ModelingToolkit, DifferentialEquations, Plots
 D = Differential(t)
 
 # Define the differential equations
-eqs = [
-    D(x) ~ α*x - β*x*y
-    D(y) ~ -γ*y + δ*x*y
-    z ~ x + y
-]
+eqs = [D(x) ~ α * x - β * x * y
+       D(y) ~ -γ * y + δ * x * y
+       z ~ x + y]
 
 # Bring these pieces together into an ODESystem with independent variable t
-@named sys = ODESystem(eqs,t)
+@named sys = ODESystem(eqs, t)
 
 # Symbolically Simplify the System
 simpsys = structural_simplify(sys)
 
 # Convert from a symbolic to a numerical problem to simulate
-tspan = (0.0,10.0)
+tspan = (0.0, 10.0)
 prob = ODEProblem(simpsys, [], tspan)
 
 # Solve the ODE
 sol = solve(prob)
 
 # Plot the solution
-p1 = plot(sol,title = "Rabbits vs Wolves")
-p2 = plot(sol,idxs=z,title = "Total Animals")
+p1 = plot(sol, title = "Rabbits vs Wolves")
+p2 = plot(sol, idxs = z, title = "Total Animals")
 
-plot(p1,p2,layout=(2,1))
+plot(p1, p2, layout = (2, 1))
 ```
 
 ## Step-by-Step Solution
@@ -93,14 +91,15 @@ plot(p1,p2,layout=(2,1))
 
 To do this tutorial, we will need a few components:
 
-* [ModelingToolkit.jl, our modeling environment](https://docs.sciml.ai/ModelingToolkit/stable/)
-* [DifferentialEquations.jl, the differential equation solvers](https://docs.sciml.ai/DiffEqDocs/stable/)
-* [Plots.jl, our visualization tool](https://docs.juliaplots.org/stable/)
+  - [ModelingToolkit.jl, our modeling environment](https://docs.sciml.ai/ModelingToolkit/stable/)
+  - [DifferentialEquations.jl, the differential equation solvers](https://docs.sciml.ai/DiffEqDocs/stable/)
+  - [Plots.jl, our visualization tool](https://docs.juliaplots.org/stable/)
 
 To start, let's add these packages [as demonstrated in the installation tutorial](@ref installation):
 
 ```julia
-]add ModelingToolkit DifferentialEquations Plots
+using Pkg
+Pkg.add(["ModelingToolkit", "DifferentialEquations", "Plots"])
 ```
 
 Now we're ready. Let's load in these packages:
@@ -130,7 +129,7 @@ for parameters, where the default value is now the parameter value:
 ```
 
 !!! note
-
+    
     Julia's text editors like VS Code are compatible with Unicode defined in a LaTeX form.
     Thus if you write `\alpha` into your REPL and then press `Tab`, it will auto-complete
     that into the α symbol. That can make your code look a lot more like the mathematical
@@ -138,11 +137,11 @@ for parameters, where the default value is now the parameter value:
 
 Next, we define our set of differential equations.
 To define the `Differential` operator `D`, we need to first tell it what to
-differentiate with respect to, here the independent variable `t`, 
+differentiate with respect to, here the independent variable `t`,
 Then, once we have the operator, we apply that into the equations.
 
 !!! note
-
+    
     Note that in ModelingToolkit and Symbolics, `~` is used for equation equality. This is
     separate from `=` which is the “assignment operator” in the Julia programming language.
     For example, `x = x + 1` is a valid assignment in a programming language, and it is
@@ -154,11 +153,9 @@ Then, once we have the operator, we apply that into the equations.
 D = Differential(t)
 
 # Define the differential equations
-eqs = [
-    D(x) ~ α*x - β*x*y
-    D(y) ~ -γ*y + δ*x*y
-    z ~ x + y
-]
+eqs = [D(x) ~ α * x - β * x * y
+       D(y) ~ -γ * y + δ * x * y
+       z ~ x + y]
 ```
 
 Notice that in the display, it will automatically generate LaTeX. If one is interested in
@@ -176,7 +173,7 @@ to represent an `ODESystem` with the following:
 
 ```@example first_sim
 # Bring these pieces together into an ODESystem with independent variable t
-@named sys = ODESystem(eqs,t)
+@named sys = ODESystem(eqs, t)
 ```
 
 Next, we want to simplify this into a standard ODE system. Notice that in our equations
@@ -203,9 +200,9 @@ approximate. This is done with the `ODEProblem` constructor, that transforms it 
 a symbolic `ModelingToolkit` representation to a numerical `DifferentialEquations`
 representation. We need to tell it the numerical details now:
 
-1. Whether to override any of the default values for the initial conditions and parameters.
-2. What is the initial time point.
-3. How long to integrate it for.
+ 1. Whether to override any of the default values for the initial conditions and parameters.
+ 2. What is the initial time point.
+ 3. How long to integrate it for.
 
 In this case, we will use the default values for all our variables, so we will pass a
 blank override `[]`. If for example we did want to change the initial condition of `x`
@@ -215,7 +212,7 @@ like:
 
 ```@example first_sim
 # Convert from a symbolic to a numerical problem to simulate
-tspan = (0.0,10.0)
+tspan = (0.0, 10.0)
 prob = ODEProblem(simpsys, [], tspan)
 ```
 
@@ -247,16 +244,17 @@ We can use this with the automated plotting functionality. First let's create a 
 we will explicitly tell it to make a plot with the index being `z`, i.e. `idxs=z`.
 
 !!! note
-
+    
     Note that one can pass an array of indices as well, so `idxs=[x,y,z]` would make a plot
     with all three lines together!
 
 ```@example first_sim
 # Plot the solution
-p1 = plot(sol,title = "Rabbits vs Wolves")
+p1 = plot(sol, title = "Rabbits vs Wolves")
 ```
+
 ```@example first_sim
-p2 = plot(sol,idxs=z,title = "Total Animals")
+p2 = plot(sol, idxs = z, title = "Total Animals")
 ```
 
 Finally, let's make a plot where we merge these two plot elements. To do so, we can take our
@@ -265,7 +263,7 @@ do a layout of `(2,1)`, or 2 rows and 1 columns. Let's see what happens when we 
 together:
 
 ```@example first_sim
-plot(p1,p2,layout=(2,1))
+plot(p1, p2, layout = (2, 1))
 ```
 
 And tada, we have a full analysis of our ecosystem!
@@ -281,12 +279,12 @@ using ModelingToolkit, DifferentialEquations
 @parameters α=1.5 β=1.0 γ=3.0 δ=1.0
 @variables t 🐰(t)=1.0 🐺(t)=1.0
 D = Differential(t)
-eqs = [D(🐰) ~  α*🐰 - β*🐰*🐺,
-       D(🐺) ~ -γ*🐺 + δ*🐰*🐺]
+eqs = [D(🐰) ~ α * 🐰 - β * 🐰 * 🐺,
+    D(🐺) ~ -γ * 🐺 + δ * 🐰 * 🐺]
 
-@named sys = ODESystem(eqs,t)
+@named sys = ODESystem(eqs, t)
 simpsys = structural_simplify(sys)
-prob = ODEProblem(simpsys, [], (0.0,10.0))
+prob = ODEProblem(simpsys, [], (0.0, 10.0))
 sol = solve(prob)
 ```
 

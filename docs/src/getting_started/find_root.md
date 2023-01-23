@@ -5,10 +5,10 @@ where `p` are the parameters of the system. Many problems can be written in
 such as way that solving a nonlinear rootfinding problem gives the solution.
 For example:
 
-* Do you want to know ``u`` such that ``4^u + 6^u = 7^u``? Then solve
-  ``f(u) = 4^u + 6^u - 7^u = 0`` for `u`!
-* If you have an ODE ``u' = f(u)``, what is the point where the solution
-  will be completely still, i.e. `u' = 0`?
+  - Do you want to know ``u`` such that ``4^u + 6^u = 7^u``? Then solve
+    ``f(u) = 4^u + 6^u - 7^u = 0`` for `u`!
+  - If you have an ODE ``u' = f(u)``, what is the point where the solution
+    will be completely still, i.e. `u' = 0`?
 
 All of these problems are solved by using a numerical rootfinder. Let's solve
 our first rootfind problem!
@@ -17,10 +17,10 @@ our first rootfind problem!
 
 The following parts of the SciML Ecosystem will be used in this tutorial:
 
-| Module      | Description |
-| ----------- | ----------- |
-| [ModelingToolkit.jl](https://docs.sciml.ai/ModelingToolkit/stable/) | The symbolic modeling environment |
-| [NonlinearSolve.jl](https://docs.sciml.ai/NonlinearSolve/stable/) | The numerical solvers for nonlinear equations |
+| Module                                                              | Description                                   |
+|:------------------------------------------------------------------- |:--------------------------------------------- |
+| [ModelingToolkit.jl](https://docs.sciml.ai/ModelingToolkit/stable/) | The symbolic modeling environment             |
+| [NonlinearSolve.jl](https://docs.sciml.ai/NonlinearSolve/stable/)   | The numerical solvers for nonlinear equations |
 
 ## Problem Setup
 
@@ -42,21 +42,21 @@ using ModelingToolkit, NonlinearSolve
 
 # Define the nonlinear system
 @variables x=1.0 y=0.0 z=0.0
-@parameters σ=10.0 ρ=26.0 β=8/3
+@parameters σ=10.0 ρ=26.0 β=8 / 3
 
-eqs = [0 ~ σ*(y-x),
-       0 ~ x*(ρ-z)-y,
-       0 ~ x*y - β*z]
-@named ns = NonlinearSystem(eqs, [x,y,z], [σ,ρ,β])
+eqs = [0 ~ σ * (y - x),
+    0 ~ x * (ρ - z) - y,
+    0 ~ x * y - β * z]
+@named ns = NonlinearSystem(eqs, [x, y, z], [σ, ρ, β])
 
 # Convert the symbolic system into a numerical system
-prob = NonlinearProblem(ns,[])
+prob = NonlinearProblem(ns, [])
 
 # Solve the numerical problem
-sol = solve(prob,NewtonRaphson())
+sol = solve(prob, NewtonRaphson())
 
 # Analyze the solution
-@show sol.u, prob.f(sol.u,prob.p)
+@show sol.u, prob.f(sol.u, prob.p)
 ```
 
 ## Step-by-Step Solution
@@ -65,13 +65,14 @@ sol = solve(prob,NewtonRaphson())
 
 To do this tutorial, we will need a few components:
 
-* [ModelingToolkit.jl, our modeling environment](https://docs.sciml.ai/ModelingToolkit/stable/)
-* [NonlinearSolve.jl, the nonlinear system solvers](https://docs.sciml.ai/NonlinearSolve/stable/)
+  - [ModelingToolkit.jl, our modeling environment](https://docs.sciml.ai/ModelingToolkit/stable/)
+  - [NonlinearSolve.jl, the nonlinear system solvers](https://docs.sciml.ai/NonlinearSolve/stable/)
 
 To start, let's add these packages [as demonstrated in the installation tutorial](@ref installation):
 
 ```julia
-]add ModelingToolkit NonlinearSolve
+using Pkg
+Pkg.add(["ModelingToolkit", "NonlinearSolve"])
 ```
 
 Now we're ready. Let's load in these packages:
@@ -97,14 +98,14 @@ which we can associate default values via the form `parameter = default value`. 
 like:
 
 ```@example first_rootfind
-@parameters σ=10.0 ρ=26.0 β=8/3
+@parameters σ=10.0 ρ=26.0 β=8 / 3
 ```
 
 Now we create an array of equations to define our nonlinear system that must be satisfied.
 This looks as follows:
 
 !!! note
-
+    
     Note that in ModelingToolkit and Symbolics, `~` is used for equation equality. This is
     separate from `=` which is the “assignment operator” in the Julia programming language.
     For example, `x = x + 1` is a valid assignment in a programming language, and it is
@@ -112,16 +113,16 @@ This looks as follows:
     is used!
 
 ```@example first_rootfind
-eqs = [0 ~ σ*(y-x),
-       0 ~ x*(ρ-z)-y,
-       0 ~ x*y - β*z]
+eqs = [0 ~ σ * (y - x),
+    0 ~ x * (ρ - z) - y,
+    0 ~ x * y - β * z]
 ```
 
 Finally, we bring these pieces together, the equation along with its states and parameters,
 define our `NonlinearSystem`:
 
 ```@example first_rootfind
-@named ns = NonlinearSystem(eqs, [x,y,z], [σ,ρ,β])
+@named ns = NonlinearSystem(eqs, [x, y, z], [σ, ρ, β])
 ```
 
 ### Step 3: Convert the Symbolic Problem to a Numerical Problem
@@ -137,7 +138,7 @@ blank override `[]`. This looks like:
 
 ```@example first_rootfind
 # Convert the symbolic system into a numerical system
-prob = NonlinearProblem(ns,[])
+prob = NonlinearProblem(ns, [])
 ```
 
 If we did want to change the initial condition of `x`
@@ -145,7 +146,7 @@ to `2.0` and the parameter `σ` to `4.0`, we would do `[x => 2.0, σ => 4.0]`. T
 like:
 
 ```@example first_rootfind
-prob2 = NonlinearProblem(ns,[x => 2.0, σ => 4.0])
+prob2 = NonlinearProblem(ns, [x => 2.0, σ => 4.0])
 ```
 
 ### Step 4: Solve the Numerical Problem
@@ -156,7 +157,7 @@ We will choose `NewtonRaphson` as follows:
 
 ```@example first_rootfind
 # Solve the numerical problem
-sol = solve(prob,NewtonRaphson())
+sol = solve(prob, NewtonRaphson())
 ```
 
 ### Step 5: Analyze the Solution

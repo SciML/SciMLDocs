@@ -10,11 +10,11 @@ to use the SciML Open-Source Software libraries.
 Many tutorials and introductions to packages have been taught through previous JuliaCon/SciMLCon
 workshops and talks. The following is a curated list of such training videos:
 
-- [Intro to solving differential equations in Julia](https://www.youtube.com/watch?v=KPEqYtEd-zY)
-- [JuliaCon 2020 | Doing Scientific Machine Learning (SciML) With Julia](https://www.youtube.com/watch?v=QwVO0Xh2Hbg)
-- [Simulating Big Models in Julia with ModelingToolkit | Workshop | JuliaCon 2021](https://www.youtube.com/watch?v=HEVOgSLBzWA)
-- [Structural Identifiability Tools in Julia: A Tutorial | Ilia Ilmer | SciMLCon 2022](https://www.youtube.com/watch?v=jg1DME3cwjg)
-- [JuliaCon 2018 | Solving Partial Differential Equations with Julia | Chris Rackauckas](https://www.youtube.com/watch?v=okGybBmihOE)
+  - [Intro to solving differential equations in Julia](https://www.youtube.com/watch?v=KPEqYtEd-zY)
+  - [JuliaCon 2020 | Doing Scientific Machine Learning (SciML) With Julia](https://www.youtube.com/watch?v=QwVO0Xh2Hbg)
+  - [Simulating Big Models in Julia with ModelingToolkit | Workshop | JuliaCon 2021](https://www.youtube.com/watch?v=HEVOgSLBzWA)
+  - [Structural Identifiability Tools in Julia: A Tutorial | Ilia Ilmer | SciMLCon 2022](https://www.youtube.com/watch?v=jg1DME3cwjg)
+  - [JuliaCon 2018 | Solving Partial Differential Equations with Julia | Chris Rackauckas](https://www.youtube.com/watch?v=okGybBmihOE)
 
 ## SciML Book: Parallel Computing and Scientific Machine Learning (SciML): Methods and Applications
 
@@ -32,10 +32,12 @@ classic SIR epidemic model.
 
 ## Other Books Featuring SciML
 
-- [Nonlinear Dynamics: A Concise Introduction Interlaced with Code](https://link.springer.com/book/10.1007/978-3-030-91032-7)
-- [Numerical Methods for Scientific Computing: The Definitive Manual for Math Geeks](https://www.equalsharepress.com/)
-- [Fundamentals of Numerical Computation](https://tobydriscoll.net/project/fnc/)
-- [Statistics with Julia](https://statisticswithjulia.org/)
-- [Statistical Rethinking with Julia](https://shmuma.github.io/rethinking-2ed-julia/)
-- [The Koopman Operator in Systems and Control](https://www.springer.com/gp/book/9783030357122)
-    - “All simulations have been performed in Julia, with additional Julia packages: LinearAlgebra.jl, Random.jl, Plots.jl, Lasso.jl, DifferentialEquations.jl”
+  - [Nonlinear Dynamics: A Concise Introduction Interlaced with Code](https://link.springer.com/book/10.1007/978-3-030-91032-7)
+
+  - [Numerical Methods for Scientific Computing: The Definitive Manual for Math Geeks](https://www.equalsharepress.com/)
+  - [Fundamentals of Numerical Computation](https://tobydriscoll.net/project/fnc/)
+  - [Statistics with Julia](https://statisticswithjulia.org/)
+  - [Statistical Rethinking with Julia](https://shmuma.github.io/rethinking-2ed-julia/)
+  - [The Koopman Operator in Systems and Control](https://www.springer.com/gp/book/9783030357122)
+    
+      + “All simulations have been performed in Julia, with additional Julia packages: LinearAlgebra.jl, Random.jl, Plots.jl, Lasso.jl, DifferentialEquations.jl”

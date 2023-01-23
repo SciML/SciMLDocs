@@ -10,7 +10,7 @@ of said `f`. The other use case is where `u` is very small, but you want to solv
 use GPUs to parallelize over different parameters and initial conditions. In other words:
 
 | Type of Problem                           | SciML Solution                                                                                           |
-|-------------------------------------------|----------------------------------------------------------------------------------------------------------|
+|:----------------------------------------- |:-------------------------------------------------------------------------------------------------------- |
 | Accelerate a big ODE                      | Use [CUDA.jl's](https://cuda.juliagpu.org/stable/) CuArray as `u0`                                       |
 | Solve the same ODE with many `u0` and `p` | Use [DiffEqGPU.jl's](https://docs.sciml.ai/DiffEqGPU/stable/) `EnsembleGPUArray` and `EnsembleGPUKernel` |
 
@@ -40,7 +40,6 @@ Given that, let's start with the CPU-parallelized code.
 Let's implement the Lorenz equation out-of-place. If you don't know what that means,
 see the [getting started with DifferentialEquations.jl](https://docs.sciml.ai/DiffEqDocs/stable/getting_started/)
 
-
 ```@example diffeqgpu
 using DiffEqGPU, OrdinaryDiffEq, StaticArrays
 function lorenz(u, p, t)
@@ -67,9 +66,9 @@ Now, from this problem, we build an `EnsembleProblem` as per the DifferentialEqu
 specification. A `prob_func` jiggles the parameters and we solve 10_000 trajectories:
 
 ```@example diffeqgpu
-prob_func = (prob, i, repeat) -> remake(prob, p = (@SVector rand(Float32, 3)).*p)
+prob_func = (prob, i, repeat) -> remake(prob, p = (@SVector rand(Float32, 3)) .* p)
 monteprob = EnsembleProblem(prob, prob_func = prob_func, safetycopy = false)
-sol = solve(monteprob,Tsit5(),EnsembleThreads(),trajectories=10_000,saveat=1.0f0)
+sol = solve(monteprob, Tsit5(), EnsembleThreads(), trajectories = 10_000, saveat = 1.0f0)
 ```
 
 ## Taking the Ensemble to the GPU
@@ -77,7 +76,7 @@ sol = solve(monteprob,Tsit5(),EnsembleThreads(),trajectories=10_000,saveat=1.0f0
 Now uhh, we just change `EnsembleThreads()` to `EnsembleGPUArray()`
 
 ```@example diffeqgpu
-sol = solve(monteprob,Tsit5(),EnsembleGPUArray(),trajectories=10_000,saveat=1.0f0)
+sol = solve(monteprob, Tsit5(), EnsembleGPUArray(), trajectories = 10_000, saveat = 1.0f0)
 ```
 
 Or for a more efficient version, `EnsembleGPUKernel()`. But that requires special solvers,

@@ -38,9 +38,9 @@ if the solver meta-parameters are not appropriate.
 [NeuralOperators.jl](https://github.com/SciML/NeuralOperators.jl) is a library for
 operator learning based PDE solvers. This includes techniques like:
 
-- Fourier Neural Operators (FNO)
-- Deep Operator Networks (DeepONets)
-- Markov Neural Operators (MNO)
+  - Fourier Neural Operators (FNO)
+  - Deep Operator Networks (DeepONets)
+  - Markov Neural Operators (MNO)
 
 Currently, its connection to PDE solving must be specified manually, though an interface
 for ModelingToolkit `PDESystem`s is in progress.
