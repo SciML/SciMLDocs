@@ -44,7 +44,7 @@ docsmodules = [
     ],
     "Analysis" => [
         "Plots and Visualization" => ["Makie"], #="PlotDocs",=#
-        "Parameter Analysis" => ["GlobalSensitivity", "StructuralIdentifiability"],
+        "Parameter Analysis" => ["EasyModelAnalysis", "GlobalSensitivity", "StructuralIdentifiability"],
         "Third-Party Parameter Analysis" => ["DynamicalSystems", "BifurcationKit",
             "ControlSystems", "ReachabilityAnalysis"],
         "Uncertainty Quantification" => ["PolyChaos", "SciMLExpectations"],
