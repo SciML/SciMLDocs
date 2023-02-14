@@ -12,7 +12,7 @@ docsmodules = [
             "DiffEqCallbacks",
             "CellMLToolkit", "SBMLToolkit",
             "ReactionNetworkImporters"],
-        "Symbolic Tools" => ["ModelOrderReduction", "Symbolics"], #="SymbolicUtils", "MetaTheory"=#
+        "Symbolic Tools" => ["ModelOrderReduction", "Symbolics", "SymbolicUtils"], #="MetaTheory"=#
         "Third-Party Modeling Tools" => ["MomentClosure", "Agents", "Unitful",
             "ReactionMechanismSimulator",
             "FiniteStateProjection", "AlgebraicPetri", "QuantumOptics"],
@@ -112,6 +112,7 @@ external_urls = Dict("Enzyme" => "https://github.com/EnzymeAD/Enzyme.jl",
                      "ApproxFun" => "https://github.com/JuliaApproximation/ApproxFun.jl",
                      "VoronoiFVM" => "https://github.com/j-fu/VoronoiFVM.jl",
                      "Symbolics" => "https://github.com/JuliaSymbolics/Symbolics.jl",
+                     "SymbolicUtils" => "https://github.com/JuliaSymbolics/SymbolicUtils.jl",
                      "ComponentArrays" => "https://github.com/jonniedie/ComponentArrays.jl",
                      "StaticArrays" => "https://github.com/JuliaArrays/StaticArrays.jl",
                      "FillArrays" => "https://github.com/JuliaArrays/FillArrays.jl",
