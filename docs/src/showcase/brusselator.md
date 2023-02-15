@@ -123,7 +123,7 @@ partial differential equation transforms it into a new numerical problem. For ex
 | Finite Difference, Finite Volume, Finite Element, discretizing all variables                                   | `NonlinearProblem`                                      |
 | Finite Difference, Finite Volume, Finite Element, discretizing all variables except time                       | `ODEProblem`/`DAEProblem`                               |
 | Physics-Informed Neural Network                                                                                | `OptimizationProblem`                                   |
-| Feynmann-Kac Formula                                                                                           | `SDEProblem`                                            |
+| Feynman-Kac Formula                                                                                           | `SDEProblem`                                            |
 | Universal Stochastic Differential Equation ([High dimensional PDEs](https://docs.sciml.ai/HighDimPDE/stable/)) | `OptimizationProblem` inverse problem over `SDEProblem` |
 
 Thus the process of solving a PDE is fundamentally about transforming its symbolic form
