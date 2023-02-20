@@ -52,11 +52,13 @@ complicated architecture can take a huge computational time without increasing p
 ```@example bnode
 dudt2 = Flux.Chain(x -> x .^ 3,
                    Flux.Dense(2, 50, tanh),
-                   Flux.Dense(50, 2))
+                   Flux.Dense(50, 2)) |> f64
 prob_neuralode = NeuralODE(dudt2, tspan, Tsit5(), saveat = tsteps)
 rng = Random.default_rng()
 p = Float64.(prob_neuralode.p)
 ```
+
+Note that the `f64` is required to put the Flux neural network into Float64 precision.
 
 ## Step 3: Define the loss function for the Neural ODE.
 
