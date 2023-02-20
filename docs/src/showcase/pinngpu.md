@@ -22,7 +22,7 @@ our packages look like:
 using NeuralPDE
 using Optimization, OptimizationOptimisers
 import ModelingToolkit: Interval
-using Plots, Printf, Lux, CUDA, Random
+using Plots, Printf, Lux, CUDA, ComponentArrays, Random
 ```
 
 ## Problem Setup
@@ -110,7 +110,7 @@ chain = Chain(Dense(3, inner, Lux.σ),
               Dense(inner, inner, Lux.σ),
               Dense(inner, 1))
 ps = Lux.setup(Random.default_rng(), chain)[1]
-ps = ps |> Lux.ComponentArray
+ps = ps |> ComponentArray
 ```
 
 ## Step 4: Place it on the GPU.
