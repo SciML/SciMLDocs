@@ -120,7 +120,7 @@ prob = OptimizationProblem(L, u0, p, lb = [-1.0, -1.0], ub = [1.0, 1.0])
 Note that we can simplify the code a bit for the lower and upper bound definition by
 using the Julia Base command `ones`, which returns a vector where each value is a one.
 Thus for example, `ones(2)` is equivalent to `[1.0,1.0]`. Therefore `-1 * ones(2)` is
-equivalent to `[-1.0, 1.0]`, meaning we could have written our problem as follows:
+equivalent to `[-1.0,-1.0]`, meaning we could have written our problem as follows:
 
 ```@example first_opt
 prob = OptimizationProblem(L, u0, p, lb = -1 * ones(2), ub = ones(2))
