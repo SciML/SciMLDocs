@@ -7,7 +7,7 @@ clonedir = mktempdir()
 docsmodules = [
     "Modeling" => [
         "Modeling Languages" => ["ModelingToolkit", "Catalyst", "NBodySimulator",
-            "ParameterizedFunctions"],
+            "ParameterizedFunctions", "DiffEqFinancial"],
         "Model Libraries and Importers" => ["ModelingToolkitStandardLibrary",
             "DiffEqCallbacks",
             "CellMLToolkit", "SBMLToolkit",
