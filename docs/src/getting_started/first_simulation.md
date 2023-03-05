@@ -40,7 +40,7 @@ The equation that defines the evolution of the species is given as follows:
 
 where ``\alpha, \beta, \gamma, \delta`` are parameters. Starting from equal numbers of
 rabbits and wolves, ``x(0) = 1`` and ``y(0) = 1``, we want to simulate this system from time
-``t_0 = 0`` to ``t_f = 10``. Luckily, a local guide provided our with some parameters that
+``t_0 = 0`` to ``t_f = 10``. Luckily, a local guide provided us with some parameters that
 seem to match the system! These are ``\alpha = 1.5``, ``\beta = 1.0``, ``\gamma = 3.0``,
 ``\delta = 1.0``. How many rabbits and wolves will there be 10 months from now? And if
 `z = x + y`, i.e. the total number of animals at a given time, can we visualize this total

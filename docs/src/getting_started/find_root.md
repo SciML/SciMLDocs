@@ -2,7 +2,7 @@
 
 A nonlinear system $$f(u) = 0$$ is specified by defining a function `f(u,p)`,
 where `p` are the parameters of the system. Many problems can be written in
-such as way that solving a nonlinear rootfinding problem gives the solution.
+such a way that solving a nonlinear rootfinding problem gives the solution.
 For example:
 
   - Do you want to know ``u`` such that ``4^u + 6^u = 7^u``? Then solve
