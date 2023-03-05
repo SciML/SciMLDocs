@@ -43,7 +43,7 @@ rabbits and wolves, ``x(0) = 1`` and ``y(0) = 1``.
 
 Now, in [the first tutorial](@ref first_sim), we assumed:
 
-> Luckily, a local guide provided our with some parameters that seem to match the system!
+> Luckily, a local guide provided us with some parameters that seem to match the system!
 
 Sadly, magical nymphs do not always show up and give us parameters. Thus in this case,
 let's assume that we are just given data that is representative of the solution with
