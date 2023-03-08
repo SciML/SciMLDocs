@@ -76,7 +76,7 @@ docsmodules = [
             "SciMLOperators",
             "CommonSolve",
         ],
-        "Third-Party Interfaces" => ["ArrayInterface", "ArrayInterface", "AbstractFFTs", 
+        "Third-Party Interfaces" => ["ArrayInterface", "StaticArrayInterface", "AbstractFFTs", 
             "GPUArrays", #= "Adapt", =#
             "Tables"],                                 #= "RecipesBase", =#
         "Developer Documentation" => ["SciMLStyle", "ColPrac", "DiffEqDevDocs"],
