@@ -7,7 +7,7 @@ present the relevant packages that facilitate parameter estimation, namely:
 
   - [SciMLSensitivity.jl](https://sensitivity.sciml.ai/)
   - [DiffEqFlux.jl](https://diffeqflux.sciml.ai/)
-  - [Turing.jl](https://turing.ml/)
+  - [Turing.jl](https://turinglang.org/)
   - [DataDrivenDiffEq.jl](https://datadriven.sciml.ai/dev/)
   - [DiffEqParamEstim.jl](https://diffeqparamestim.sciml.ai/dev/)
   - [DiffEqBayes.jl](https://diffeqbayes.sciml.ai/dev/)
