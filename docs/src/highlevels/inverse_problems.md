@@ -7,10 +7,10 @@ present the relevant packages that facilitate parameter estimation, namely:
 
   - [SciMLSensitivity.jl](https://sensitivity.sciml.ai/)
   - [DiffEqFlux.jl](https://diffeqflux.sciml.ai/)
-  - [Turing.jl](https://turing.ml/)
+  - [Turing.jl](https://turinglang.org/)
   - [DataDrivenDiffEq.jl](https://datadriven.sciml.ai/dev/)
-  - [DiffEqParamEstim.jl](https://diffeqparamestim.sciml.ai/dev/)
-  - [DiffEqBayes.jl](https://diffeqbayes.sciml.ai/dev/)
+  - [DiffEqParamEstim.jl](https://docs.sciml.ai/DiffEqParamEstim/)
+  - [DiffEqBayes.jl](https://docs.sciml.ai/DiffEqBayes/)
 
 We also provide information regarding the respective strengths of these packages
 so that you can easily decide which one suits your needs best.
@@ -55,7 +55,7 @@ delay differential equations.
 
 As the name suggests, this package has been designed to provide the estimation
 of differential equations parameters by Bayesian methods. It works in
-conjunction with [Turing.jl](https://turing.ml/),
+conjunction with [Turing.jl](https://turinglang.org/),
 [CmdStan.jl](https://github.com/StanJulia/CmdStan.jl),
 [DynamicHMC.jl](https://github.com/tpapp/DynamicHMC.jl), and
 [ApproxBayes.jl](https://github.com/marcjwilliams1/ApproxBayes.jl). While not
@@ -73,7 +73,7 @@ with the high-level package DiffEqBayes.jl). For more examples on combining
 Turing.jl with DiffEqBayes.jl, see the documentation below. It is important
 to note that Turing.jl can also perform Bayesian estimation without relying on
 DiffEqBayes.jl (for an example, consult
-[this](https://turing.ml/stable/tutorials/10-bayesian-differential-equations/) tutorial).
+[this](https://turinglang.org/stable/tutorials/10-bayesian-differential-equations/) tutorial).
 
 ## Topopt.jl: Topology Optimization in Julia
 
