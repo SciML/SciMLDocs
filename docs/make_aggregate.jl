@@ -22,7 +22,7 @@ docsmodules = [
     ],
     "Solvers" => [
         "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals",
-            "Optimization", "JumpProcesses"],
+            "Optimization", "JumpProcesses", "DifferenceEquations"],
         "Third-Party Equation Solvers" => [
             "LowRankIntegrators",
             "FractionalDiffEq",
