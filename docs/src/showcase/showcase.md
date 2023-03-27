@@ -25,3 +25,4 @@ Want to see some cool things that you can do with SciML? Check out the following
     
       + [Automatic Uncertainty Quantification, Arbitrary Precision, and Unit Checking in ODE Solutions using Julia's Type System](@ref ode_types)
       + [Symbolic-Numeric Analysis of Parameter Identifiability and Model Stability](@ref symbolic_analysis)
+      + [Optimization Under Uncertainty](@ref optimization_under_uncertainty)
