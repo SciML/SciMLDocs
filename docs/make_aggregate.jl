@@ -21,7 +21,7 @@ docsmodules = [
             "BandedMatrices", "BlockBandedMatrices"],
     ],
     "Solvers" => [
-        "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals",
+        "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals", "DifferenceEquations",
             "Optimization", "JumpProcesses"],
         "Third-Party Equation Solvers" => [
             "LowRankIntegrators",
