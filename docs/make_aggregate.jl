@@ -193,12 +193,12 @@ MultiDocumenter.make(outpath, docs;
                                                                   engine = MultiDocumenter.FlexSearch),
                      custom_scripts = [
                          "https://www.googletagmanager.com/gtag/js?id=G-Q3FE4BYYHQ",
-                         """
+                         Docs.HTML("""
                          window.dataLayer = window.dataLayer || [];
                          function gtag(){dataLayer.push(arguments);}
                          gtag('js', new Date());
                          gtag('config', 'G-Q3FE4BYYHQ');
-                         """,
+                         """),
                      ],
                      brand_image = MultiDocumenter.BrandImage("https://sciml.ai",
                                                               joinpath("assets",
