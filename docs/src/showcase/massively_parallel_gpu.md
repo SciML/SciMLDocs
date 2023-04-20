@@ -17,6 +17,20 @@ use GPUs to parallelize over different parameters and initial conditions. In oth
 This showcase will focus on the latter case. For the former, see the
 [massively parallel GPU ODE solving showcase](@ref gpuspde).
 
+## Supported GPUs
+
+SciML's GPU support extends to a wide array of hardware, including:
+
+| GPU Manufacturer | GPU Kernel Language | Julia Support Package                              | Backend Type             |
+|:---------------- |:------------------- |:-------------------------------------------------- |:------------------------ |
+| NVIDIA           | CUDA                | [CUDA.jl](https://github.com/JuliaGPU/CUDA.jl)     | `CUDA.CUDABackend()`     |
+| AMD              | ROCm                | [AMDGPU.jl](https://github.com/JuliaGPU/AMDGPU.jl) | `AMDGPU.ROCBackend()`    |
+| Intel            | OneAPI              | [OneAPI.jl](https://github.com/JuliaGPU/oneAPI.jl) | `oneAPI.oneAPIBackend()` |
+| Apple (M-Series) | Metal               | [Metal.jl](https://github.com/JuliaGPU/Metal.jl)   | `Metal.MetalBackend()`   |
+
+For this tutorial we will demonstrate the CUDA backend for NVIDIA GPUs, though any of the other GPUs can be
+used by simply swapping out the `backend` choice.
+
 ## Problem Setup
 
 Let's say we wanted to quantify the uncertainty in the solution of a differential equation.
@@ -41,7 +55,7 @@ Let's implement the Lorenz equation out-of-place. If you don't know what that me
 see the [getting started with DifferentialEquations.jl](https://docs.sciml.ai/DiffEqDocs/stable/getting_started/)
 
 ```@example diffeqgpu
-using DiffEqGPU, OrdinaryDiffEq, StaticArrays
+using DiffEqGPU, OrdinaryDiffEq, StaticArrays, CUDA
 function lorenz(u, p, t)
     σ = p[1]
     ρ = p[2]
@@ -76,14 +90,14 @@ sol = solve(monteprob, Tsit5(), EnsembleThreads(), trajectories = 10_000, saveat
 Now uhh, we just change `EnsembleThreads()` to `EnsembleGPUArray()`
 
 ```@example diffeqgpu
-sol = solve(monteprob, Tsit5(), EnsembleGPUArray(), trajectories = 10_000, saveat = 1.0f0)
+sol = solve(monteprob, Tsit5(), EnsembleGPUArray(CUDA.CUDABackend()), trajectories = 10_000, saveat = 1.0f0)
 ```
 
 Or for a more efficient version, `EnsembleGPUKernel()`. But that requires special solvers,
 so we also change to `GPUTsit5()`.
 
 ```@example diffeqgpu
-sol = solve(monteprob, GPUTsit5(), EnsembleGPUKernel(), trajectories = 10_000)
+sol = solve(monteprob, GPUTsit5(), EnsembleGPUKernel(CUDA.CUDABackend()), trajectories = 10_000)
 ```
 
 Okay, so that was anticlimactic, but that's the point: if it were harder than that, it
