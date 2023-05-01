@@ -19,6 +19,7 @@ The following parts of the SciML Ecosystem will be used in this tutorial:
 |:---------------------------------------------------------------------------------------------- |:---------------------------------- |
 | [Optimization.jl](https://docs.sciml.ai/Optimization/stable/)                                  | The numerical optimization package |
 | [OptimizationNLopt.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/nlopt/) | The NLopt optimizers we will use   |
+| [ForwardDiff.jl]https://docs.sciml.ai/Optimization/stable/API/optimization_function/#Optimization.AutoForwardDiff) | The automatic differentiation library for gradients  |
 
 ## Problem Setup
 
@@ -67,7 +68,9 @@ To do this tutorial, we will need a few components:
 
   - [Optimization.jl](https://docs.sciml.ai/Optimization/stable/), the optimization interface.
   - [OptimizationNLopt.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/nlopt/), the optimizers we will use.
-
+  - [ForwardDiff.jl](https://docs.sciml.ai/Optimization/stable/API/optimization_function/#Optimization.AutoForwardDiff), 
+    the automatic differentiation library for gradients
+    
 Note that Optimization.jl is an interface for optimizers, and thus we always have to choose
 which optimizer we want to use. Here we choose to demonstrate `OptimizationNLopt` because
 of its efficiency and versatility. But there are many other possible choices. Check out
