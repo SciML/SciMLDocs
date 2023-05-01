@@ -19,6 +19,7 @@ The following parts of the SciML Ecosystem will be used in this tutorial:
 |:---------------------------------------------------------------------------------------------- |:---------------------------------- |
 | [Optimization.jl](https://docs.sciml.ai/Optimization/stable/)                                  | The numerical optimization package |
 | [OptimizationNLopt.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/nlopt/) | The NLopt optimizers we will use   |
+| [ForwardDiff.jl]https://docs.sciml.ai/Optimization/stable/API/optimization_function/#Optimization.AutoForwardDiff) | The automatic differentiation library for gradients  |
 
 ## Problem Setup
 
@@ -43,13 +44,14 @@ What should ``u = [u_1,u_2]`` be to achieve this goal? Let's dive in!
 
 ```@example
 # Import the package
-using Optimization, OptimizationNLopt
+using Optimization, OptimizationNLopt, ForwardDiff
 
 # Define the problem to optimize
 L(u, p) = (p[1] - u[1])^2 + p[2] * (u[2] - u[1]^2)^2
 u0 = zeros(2)
 p = [1.0, 100.0]
-prob = OptimizationProblem(L, u0, p, lb = [-1.0, -1.0], ub = [1.0, 1.0])
+optfun = OptimizationFunction(L, Optimization.AutoForwardDiff())
+prob = OptimizationProblem(optfun, u0, p, lb = [-1.0, -1.0], ub = [1.0, 1.0])
 
 # Solve the optimization problem
 sol = solve(prob, NLopt.LD_LBFGS())
@@ -66,7 +68,9 @@ To do this tutorial, we will need a few components:
 
   - [Optimization.jl](https://docs.sciml.ai/Optimization/stable/), the optimization interface.
   - [OptimizationNLopt.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/nlopt/), the optimizers we will use.
-
+  - [ForwardDiff.jl](https://docs.sciml.ai/Optimization/stable/API/optimization_function/#Optimization.AutoForwardDiff), 
+    the automatic differentiation library for gradients
+    
 Note that Optimization.jl is an interface for optimizers, and thus we always have to choose
 which optimizer we want to use. Here we choose to demonstrate `OptimizationNLopt` because
 of its efficiency and versatility. But there are many other possible choices. Check out
@@ -78,13 +82,13 @@ To start, let's add these packages [as demonstrated in the installation tutorial
 
 ```julia
 using Pkg
-Pkg.add(["Optimization", "OptimizationNLopt"])
+Pkg.add(["Optimization", "OptimizationNLopt", "ForwardDiff"])
 ```
 
 Now we're ready. Let's load in these packages:
 
 ```@example first_opt
-using Optimization, OptimizationNLopt
+using Optimization, OptimizationNLopt, ForwardDiff
 ```
 
 ### Step 2: Define the Optimization Problem
@@ -97,6 +101,13 @@ parameters, and write out the loss function on a vector-defined state as follows
 ```@example first_opt
 # Define the problem to optimize
 L(u, p) = (p[1] - u[1])^2 + p[2] * (u[2] - u[1]^2)^2
+```
+Next we need to create an `OptimizationFunction` where we tell Optimization.jl to use the ForwardDiff.jl
+package for creating the gradient and other derivatives required by the optimizer.
+
+```@example first_opt
+#Create the OptimizationFunction
+optfun = OptimizationFunction(L, Optimization.AutoForwardDiff())
 ```
 
 Now we need to define our `OptimizationProblem`. If you need help remembering how to define
@@ -112,7 +123,7 @@ optimization as follows:
 ```@example first_opt
 u0 = zeros(2)
 p = [1.0, 100.0]
-prob = OptimizationProblem(L, u0, p, lb = [-1.0, -1.0], ub = [1.0, 1.0])
+prob = OptimizationProblem(optfun, u0, p, lb = [-1.0, -1.0], ub = [1.0, 1.0])
 ```
 
 #### Note about defining uniform bounds
@@ -123,7 +134,7 @@ Thus for example, `ones(2)` is equivalent to `[1.0,1.0]`. Therefore `-1 * ones(2
 equivalent to `[-1.0,-1.0]`, meaning we could have written our problem as follows:
 
 ```@example first_opt
-prob = OptimizationProblem(L, u0, p, lb = -1 * ones(2), ub = ones(2))
+prob = OptimizationProblem(optfun, u0, p, lb = -1 * ones(2), ub = ones(2))
 ```
 
 ### Step 3: Solve the Optimization Problem

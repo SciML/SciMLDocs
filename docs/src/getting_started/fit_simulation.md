@@ -224,8 +224,8 @@ new parameters) as extra return arguments. We will explain why this extra return
 ### Step 4: Solve the Optimization Problem
 
 This step will look very similar to [the first optimization tutorial](@ref first_opt), except now we have a new
-cost function. Just like in that tutorial, we want to define a callback to monitor the solution process. However,
-this time, our function returns two things. The callback syntax is always `(value being optimized, arguments of loss return)`
+cost function. Here we'll also define a callback to monitor the solution process, more details about callbacks in Optimization.jl can be found [here](https://docs.sciml.ai/Optimization/stable/API/solve/). 
+However, this time, our function returns two things. The callback syntax is always `(value being optimized, arguments of loss return)`
 and thus this time the callback is given `(p, l, sol)`. See, returning the solution along with the loss as part of the
 loss function is useful because we have access to it in the callback to do things like plot the current solution
 against the data! Let's do that in the following way:
