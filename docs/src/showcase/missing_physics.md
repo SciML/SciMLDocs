@@ -195,10 +195,10 @@ function predict(θ, X = Xₙ[:, 1], T = t)
     _prob = remake(prob_nn, u0 = X, tspan = (T[1], T[end]), p = θ)
     Array(solve(_prob, Vern7(), saveat = T,
                 abstol = 1e-6, reltol = 1e-6, 
-                sensealg=ForwardDiffSensitivity()))
+                sensealg=QuadratureAdjoint(autojacvec=ReverseDiffVJP(true))))
 end
 ```
-There are many choices for the combination of sensitivity algorithm and automatic differentiation library (see [Choosing a Sensitivity Algorithm](https://docs.sciml.ai/SciMLSensitivity/stable/manual/differential_equation_sensitivities/#Choosing-a-Sensitivity-Algorithm). For example, you could have used `sensealg=QuadratureAdjoint(autojacvec=ReverseDiffVJP())`.
+There are many choices for the combination of sensitivity algorithm and automatic differentiation library (see [Choosing a Sensitivity Algorithm](https://docs.sciml.ai/SciMLSensitivity/stable/manual/differential_equation_sensitivities/#Choosing-a-Sensitivity-Algorithm). For example, you could have used `sensealg=ForwardDiffSensitivity()`.
 
 
 Now, for our loss function, we solve the ODE at our new parameters and check its L2 loss
