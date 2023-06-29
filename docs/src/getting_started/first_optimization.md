@@ -19,7 +19,7 @@ The following parts of the SciML Ecosystem will be used in this tutorial:
 |:---------------------------------------------------------------------------------------------- |:---------------------------------- |
 | [Optimization.jl](https://docs.sciml.ai/Optimization/stable/)                                  | The numerical optimization package |
 | [OptimizationNLopt.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/nlopt/) | The NLopt optimizers we will use   |
-| [ForwardDiff.jl]https://docs.sciml.ai/Optimization/stable/API/optimization_function/#Optimization.AutoForwardDiff) | The automatic differentiation library for gradients  |
+| [ForwardDiff.jl](https://docs.sciml.ai/Optimization/stable/API/optimization_function/#Optimization.AutoForwardDiff) | The automatic differentiation library for gradients  |
 
 ## Problem Setup
 
