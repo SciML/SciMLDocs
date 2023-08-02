@@ -99,9 +99,9 @@ We sample using 500 warmup samples and 500 posterior samples.
 
 ```@example bnode
 integrator = Leapfrog(find_good_stepsize(h, p))
-prop = AdvancedHMC.NUTS{MultinomialTS, GeneralisedNoUTurn}(integrator)
+kernel = HMCKernel(Trajectory{MultinomialTS}(integrator, GeneralisedNoUTurn()))
 adaptor = StanHMCAdaptor(MassMatrixAdaptor(metric), StepSizeAdaptor(0.45, integrator))
-samples, stats = sample(h, prop, p, 500, adaptor, 500; progress = true)
+samples, stats = sample(h, kernel, p, 500, adaptor, 500; progress = true)
 ```
 
 ## Step 5: Plot diagnostics
