@@ -116,7 +116,7 @@ sol.u
 We now wish to optimize the initial position ($x_0,y_0$) and horizontal velocity ($\dot{x}_0$) of the system to minimize the expected squared miss distance from the star, where $x_0\in\left[-100,0\right]$, $y_0\in\left[1,3\right]$, and $\dot{x}_0\in\left[10,50\right]$. We will demonstrate this using a gradient-based optimization approach from NLopt.jl using `ForwardDiff.jl` AD through the expectation calculation.
 
 ```@example control
-using Optimization, OptimizationNLopt
+using Optimization, OptimizationNLopt, OptimizationMOI
 make_u0(θ) = [θ[1], θ[2], θ[3], 0.0]
 function 𝔼_loss(θ, pars)
     prob = ODEProblem(ball!, make_u0(θ), tspan, p)
@@ -130,7 +130,9 @@ opt_ini = [-1.0, 2.0, 50.0]
 opt_lb = [-100.0, 1.0, 10.0]
 opt_ub = [0.0, 3.0, 50.0]
 opt_prob = OptimizationProblem(opt_f, opt_ini; lb = opt_lb, ub = opt_ub)
-opt_sol = solve(opt_prob, NLopt.LD_LBFGS())
+optimizer = OptimizationMOI.MOI.OptimizerWithAttributes(NLopt.Optimizer,
+    "algorithm" => :LD_MMA)
+opt_sol = solve(opt_prob, optimizer)
 minx = opt_sol.u
 ```
 
@@ -157,7 +159,7 @@ end
 Looks pretty good! But, how long did it take? Let's benchmark.
 
 ```@example control
-@time solve(opt_prob, NLopt.LD_LBFGS())
+@time solve(opt_prob, optimizer)
 ```
 
 Not bad for bound constrained optimization under uncertainty of a hybrid system!
@@ -231,7 +233,6 @@ sol.u
 We then set up the constraint function for NLopt just as before.
 
 ```@example control
-using OptimizationMOI
 function 𝔼_constraint(res, θ, pars)
     prob = ODEProblem(ball!, make_u0(θ), tspan, p)
     sm = SystemMap(prob, Tsit5(), callback = constraint_cbs)
