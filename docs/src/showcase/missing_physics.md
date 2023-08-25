@@ -136,10 +136,11 @@ Now let's define our UDE. We will use Lux.jl to define the neural network as fol
 rbf(x) = exp.(-(x .^ 2))
 
 # Multilayer FeedForward
-U = Lux.Chain(Lux.Dense(2, 5, rbf), Lux.Dense(5, 5, rbf), Lux.Dense(5, 5, rbf),
+const U = Lux.Chain(Lux.Dense(2, 5, rbf), Lux.Dense(5, 5, rbf), Lux.Dense(5, 5, rbf),
               Lux.Dense(5, 2))
 # Get the initial parameters and state variables of the model
 p, st = Lux.setup(rng, U)
+_st = const st
 ```
 
 We then define the UDE as a dynamical system that is `u' = known(u) + NN(u)` like:
@@ -147,7 +148,7 @@ We then define the UDE as a dynamical system that is `u' = known(u) + NN(u)` lik
 ```@example ude
 # Define the hybrid model
 function ude_dynamics!(du, u, p, t, p_true)
-    û = U(u, p, st)[1] # Network prediction
+    û = U(u, p, _st)[1] # Network prediction
     du[1] = p_true[1] * u[1] + û[1]
     du[2] = -p_true[4] * u[2] + û[2]
 end
