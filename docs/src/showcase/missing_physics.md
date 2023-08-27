@@ -140,7 +140,7 @@ const U = Lux.Chain(Lux.Dense(2, 5, rbf), Lux.Dense(5, 5, rbf), Lux.Dense(5, 5, 
               Lux.Dense(5, 2))
 # Get the initial parameters and state variables of the model
 p, st = Lux.setup(rng, U)
-_st = const st
+const _st = st
 ```
 
 We then define the UDE as a dynamical system that is `u' = known(u) + NN(u)` like:
