@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Discovering the Relativistic Corrections to Binary Black Hole Dynamics · Overview of Julia&#39;s SciML</title><script async src="https://www.googletagmanager.com/gtag/js?id=UA-90474609-3"></script><script>  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-90474609-3', {'page_path': location.pathname + location.search + location.hash});
+</script><script data-outdated-warner src="../../assets/warner.js"></script><link rel="canonical" href="https://docs.sciml.ai/stable/showcase/blackhole/"/><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.045/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.24/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script><link href="../../assets/favicon.ico" rel="icon" type="image/x-icon"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../"><img src="../../assets/logo.png" alt="Overview of Julia&#39;s SciML logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../../">Overview of Julia&#39;s SciML</a></span></div><form class="docs-search" action="../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../">SciML: Open Source Software for Scientific Machine Learning with Julia</a></li><li><span class="tocitem">Getting Started</span><ul><li><a class="tocitem" href="../../getting_started/getting_started/">Getting Started with Julia&#39;s SciML</a></li><li><input class="collapse-toggle" id="menuitem-2-2" type="checkbox"/><label class="tocitem" for="menuitem-2-2"><span class="docs-label">New User Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../getting_started/installation/">Installing SciML Software</a></li><li><a class="tocitem" href="../../getting_started/first_simulation/">Build and run your first simulation with Julia&#39;s SciML</a></li><li><a class="tocitem" href="../../getting_started/first_optimization/">Solve your first optimization problem</a></li><li><a class="tocitem" href="../../getting_started/fit_simulation/">Fit a simulation to a dataset</a></li><li><a class="tocitem" href="../../getting_started/find_root/">Find the root of an equation (i.e. solve f(u)=0)</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-3" type="checkbox"/><label class="tocitem" for="menuitem-2-3"><span class="docs-label">Comparison With Other Tools</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../comparisons/python/">Getting Started with Julia&#39;s SciML for the Python User</a></li><li><a class="tocitem" href="../../comparisons/matlab/">Getting Started with  Julia&#39;s SciML for the MATLAB User</a></li><li><a class="tocitem" href="../../comparisons/r/">Getting Started with Julia&#39;s SciML for the R User</a></li><li><a class="tocitem" href="../../comparisons/cppfortran/">Getting Started with Julia&#39;s SciML for the C++/Fortran User</a></li></ul></li></ul></li><li><span class="tocitem">Showcase of Cool Examples</span><ul><li><a class="tocitem" href="../showcase/">The SciML Showcase</a></li><li><input class="collapse-toggle" id="menuitem-3-2" type="checkbox" checked/><label class="tocitem" for="menuitem-3-2"><span class="docs-label">Automated Model Discovery</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../missing_physics/">Automatically Discover Missing Physics by Embedding Machine Learning into Differential Equations</a></li><li><a class="tocitem" href="../bayesian_neural_ode/">Uncertainty Quantified Deep Bayesian Model Discovery</a></li><li class="is-active"><a class="tocitem" href>Discovering the Relativistic Corrections to Binary Black Hole Dynamics</a><ul class="internal"><li><a class="tocitem" href="#Starting-Point:-The-Packages-To-Use"><span>Starting Point: The Packages To Use</span></a></li><li><a class="tocitem" href="#Problem-Setup"><span>Problem Setup</span></a></li><li><a class="tocitem" href="#Automating-the-Discovery-of-Relativistic-Equations-from-Newtonian-Physics"><span>Automating the Discovery of Relativistic Equations from Newtonian Physics</span></a></li><li><a class="tocitem" href="#Running-the-Training"><span>Running the Training</span></a></li><li><a class="tocitem" href="#Result-Analysis"><span>Result Analysis</span></a></li></ul></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-3" type="checkbox"/><label class="tocitem" for="menuitem-3-3"><span class="docs-label">Solving Difficult Equations Efficiently</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../brusselator/">Automated Efficient Solution of Nonlinear Partial Differential Equations</a></li><li><a class="tocitem" href="../pinngpu/">GPU-Accelerated Physics-Informed Neural Network (PINN) PDE Solvers</a></li><li><a class="tocitem" href="../massively_parallel_gpu/">Massively Data-Parallel ODE Solving on GPUs</a></li><li><a class="tocitem" href="../gpu_spde/">GPU-Accelerated Stochastic Partial Differential Equations</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-4" type="checkbox"/><label class="tocitem" for="menuitem-3-4"><span class="docs-label">Useful Cool Wonky Things</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../ode_types/">Automatic Uncertainty Quantification, Arbitrary Precision, and Unit Checking in ODE Solutions using Julia&#39;s Type System</a></li><li><a class="tocitem" href="../symbolic_analysis/">Symbolic-Numeric Analysis of Parameter Identifiability and Model Stability</a></li><li><a class="tocitem" href="../optimization_under_uncertainty/">Optimization Under Uncertainty</a></li></ul></li></ul></li><li><span class="tocitem">What is SciML?</span><ul><li><a class="tocitem" href="../../overview/">Detailed Overview of the SciML Software Ecosystem</a></li><li><input class="collapse-toggle" id="menuitem-4-2" type="checkbox"/><label class="tocitem" for="menuitem-4-2"><span class="docs-label">Solvers</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../highlevels/equation_solvers/">Equation Solvers</a></li><li><a class="tocitem" href="../../highlevels/inverse_problems/">Parameter Estimation, Bayesian Analysis, and Inverse Problems</a></li><li><a class="tocitem" href="../../highlevels/partial_differential_equation_solvers/">Partial Differential Equations (PDE)</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-3" type="checkbox"/><label class="tocitem" for="menuitem-4-3"><span class="docs-label">Modeling Tools</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../highlevels/modeling_languages/">Modeling Languages</a></li><li><a class="tocitem" href="../../highlevels/model_libraries_and_importers/">Model Libraries and Importers</a></li><li><a class="tocitem" href="../../highlevels/symbolic_tools/">Symbolic Model Tooling and JuliaSymbolics</a></li><li><a class="tocitem" href="../../highlevels/array_libraries/">Modeling Array Libraries</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-4" type="checkbox"/><label class="tocitem" for="menuitem-4-4"><span class="docs-label">Simulation Analysis</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../highlevels/parameter_analysis/">Parameter Analysis Utilities</a></li><li><a class="tocitem" href="../../highlevels/uncertainty_quantification/">Uncertainty Quantification</a></li><li><a class="tocitem" href="../../highlevels/plots_visualization/">SciML-Supported Plotting and Visualization Libraries</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-5" type="checkbox"/><label class="tocitem" for="menuitem-4-5"><span class="docs-label">Machine Learning</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../highlevels/function_approximation/">Function Approximation</a></li><li><a class="tocitem" href="../../highlevels/implicit_layers/">Implicit Layer Deep Learning</a></li><li><a class="tocitem" href="../../highlevels/symbolic_learning/">Symbolic Learning and Artificial Intelligence</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-6" type="checkbox"/><label class="tocitem" for="menuitem-4-6"><span class="docs-label">Developer Tools</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../highlevels/numerical_utilities/">SciML Numerical Utility Libraries</a></li><li><a class="tocitem" href="../../highlevels/interfaces/">The SciML Interface Libraries</a></li><li><a class="tocitem" href="../../highlevels/developer_documentation/">Developer Documentation</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-7" type="checkbox"/><label class="tocitem" for="menuitem-4-7"><span class="docs-label">Extra Learning Resources</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../highlevels/learning_resources/">Curated Learning, Teaching, and Training Resources</a></li></ul></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Showcase of Cool Examples</a></li><li><a class="is-disabled">Automated Model Discovery</a></li><li class="is-active"><a href>Discovering the Relativistic Corrections to Binary Black Hole Dynamics</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Discovering the Relativistic Corrections to Binary Black Hole Dynamics</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/SciML/SciMLDocs/blob/main/docs/src/showcase/blackhole.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="autocomplete"><a class="docs-heading-anchor" href="#autocomplete">Discovering the Relativistic Corrections to Binary Black Hole Dynamics</a><a id="autocomplete-1"></a><a class="docs-heading-anchor-permalink" href="#autocomplete" title="Permalink"></a></h1><p>In this showcase we will demonstrate using Newtonian mechanics as prior known information in a universal differential equation and learning relativistic corrections to the physics via the gravitational waveform.</p><p>This showcase is minimally adapted from <a href="https://arxiv.org/abs/2102.12695">Keith et al. 2021</a>.</p><h2 id="Starting-Point:-The-Packages-To-Use"><a class="docs-heading-anchor" href="#Starting-Point:-The-Packages-To-Use">Starting Point: The Packages To Use</a><a id="Starting-Point:-The-Packages-To-Use-1"></a><a class="docs-heading-anchor-permalink" href="#Starting-Point:-The-Packages-To-Use" title="Permalink"></a></h2><p>There are many packages which are used as part of this showcase. Let&#39;s detail what they are and how they are used. For the neural network training:</p><table><tr><th style="text-align: left">Module</th><th style="text-align: left">Description</th></tr><tr><td style="text-align: left"><a href="https://docs.sciml.ai/DiffEqDocs/stable/">OrdinaryDiffEq.jl</a> (DifferentialEquations.jl)</td><td style="text-align: left">The numerical differential equation solvers</td></tr><tr><td style="text-align: left"><a href="https://docs.sciml.ai/SciMLSensitivity/stable/">SciMLSensitivity.jl</a></td><td style="text-align: left">The adjoint methods, defines gradients of ODE solvers</td></tr><tr><td style="text-align: left"><a href="https://docs.sciml.ai/Optimization/stable/">Optimization.jl</a></td><td style="text-align: left">The optimization library</td></tr><tr><td style="text-align: left"><a href="https://docs.sciml.ai/Optimization/stable/optimization_packages/optimisers/">OptimizationOptimisers.jl</a></td><td style="text-align: left">The optimization solver package with <code>Adam</code></td></tr><tr><td style="text-align: left"><a href="https://docs.sciml.ai/Optimization/stable/optimization_packages/optim/">OptimizationOptimJL.jl</a></td><td style="text-align: left">The optimization solver package with <code>BFGS</code></td></tr></table><p>For the symbolic model discovery:</p><table><tr><th style="text-align: left">Module</th><th style="text-align: left">Description</th></tr><tr><td style="text-align: left"><a href="https://docs.sciml.ai/ModelingToolkit/stable/">ModelingToolkit.jl</a></td><td style="text-align: left">The symbolic modeling environment</td></tr><tr><td style="text-align: left"><a href="https://docs.sciml.ai/DataDrivenDiffEq/stable/">DataDrivenDiffEq.jl</a></td><td style="text-align: left">The symbolic regression interface</td></tr><tr><td style="text-align: left"><a href="https://docs.sciml.ai/DataDrivenDiffEq/stable/libs/datadrivensparse/sparse_regression/">DataDrivenSparse.jl</a></td><td style="text-align: left">The sparse regression symbolic regression solvers</td></tr><tr><td style="text-align: left"><a href="https://fluxml.ai/Zygote.jl/stable/">Zygote.jl</a></td><td style="text-align: left">The automatic differentiation library for fast gradients</td></tr></table><p>Julia standard libraries:</p><table><tr><th style="text-align: left">Module</th><th style="text-align: left">Description</th></tr><tr><td style="text-align: left">LinearAlgebra</td><td style="text-align: left">Required for the <code>norm</code> function</td></tr><tr><td style="text-align: left">Statistics</td><td style="text-align: left">Required for the <code>mean</code> function</td></tr></table><p>And external libraries:</p><table><tr><th style="text-align: left">Module</th><th style="text-align: left">Description</th></tr><tr><td style="text-align: left"><a href="http://lux.csail.mit.edu/stable/">Lux.jl</a></td><td style="text-align: left">The deep learning (neural network) framework</td></tr><tr><td style="text-align: left"><a href="https://jonniedie.github.io/ComponentArrays.jl/stable/">ComponentArrays.jl</a></td><td style="text-align: left">For the <code>ComponentArray</code> type to match Lux to SciML</td></tr><tr><td style="text-align: left"><a href="https://github.com/JuliaNLSolvers/LineSearches.jl">LineSearches.jl</a></td><td style="text-align: left">Allows for setting a line search for optimization</td></tr><tr><td style="text-align: left"><a href="https://dataframes.juliadata.org/stable/">DataFrames.jl</a></td><td style="text-align: left">A nice and easy data handling format</td></tr><tr><td style="text-align: left"><a href="https://csv.juliadata.org/stable/">CSV.jl</a></td><td style="text-align: left">Import and export of CSV files</td></tr><tr><td style="text-align: left"><a href="https://docs.juliaplots.org/stable/">Plots.jl</a></td><td style="text-align: left">The plotting and visualization library</td></tr><tr><td style="text-align: left"><a href="https://docs.juliaplots.org/stable/">StableRNGs.jl</a></td><td style="text-align: left">Stable random seeding</td></tr></table><pre><code class="language-julia hljs"># SciML Tools
+using OrdinaryDiffEq, ModelingToolkit, DataDrivenDiffEq, SciMLSensitivity, DataDrivenSparse
+using Optimization, OptimizationOptimisers, OptimizationOptimJL
+
+# Standard Libraries
+using LinearAlgebra, Statistics
+
+# External Libraries
+using ComponentArrays, Lux, Zygote, Plots, StableRNGs, DataFrames, CSV, LineSearches
+gr()
+
+# Set a random seed for reproducible behaviour
+rng = StableRNG(1111)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">StableRNGs.LehmerRNG(state=0x000000000000000000000000000008af)</code></pre><h2 id="Problem-Setup"><a class="docs-heading-anchor" href="#Problem-Setup">Problem Setup</a><a id="Problem-Setup-1"></a><a class="docs-heading-anchor-permalink" href="#Problem-Setup" title="Permalink"></a></h2><p>For this example we will use the known relativistic relations to generate data matching the expected LIGO gravitational waveforms. Details can be found in  <a href="https://arxiv.org/abs/2102.12695">Keith et al. 2021</a>.</p><h4 id="Feel-free-to-skip-reading-this-setup-code!"><a class="docs-heading-anchor" href="#Feel-free-to-skip-reading-this-setup-code!">Feel free to skip reading this setup code!</a><a id="Feel-free-to-skip-reading-this-setup-code!-1"></a><a class="docs-heading-anchor-permalink" href="#Feel-free-to-skip-reading-this-setup-code!" title="Permalink"></a></h4><pre><code class="language-julia hljs">
+#=
+    ODE models for orbital mechanics
+=#
+
+function NewtonianOrbitModel(u, model_params, t)
+    #=
+        Defines system of odes which describes motion of
+        point like particle with Newtonian physics, uses
+
+        u[1] = χ
+        u[2] = ϕ
+
+        where, p, M, and e are constants
+    =#
+    χ, ϕ = u
+    p, M, e = model_params
+
+    numer = (1 + e * cos(χ))^2
+    denom = M * (p^(3 / 2))
+
+    χ̇ = numer / denom
+    ϕ̇ = numer / denom
+
+    return [χ̇, ϕ̇]
+
+end
+
+function RelativisticOrbitModel(u, model_params, t)
+    #=
+        Defines system of odes which describes motion of
+        point like particle in schwarzschild background, uses
+
+        u[1] = χ
+        u[2] = ϕ
+
+        where, p, M, and e are constants
+    =#
+    χ, ϕ = u
+    p, M, e = model_params
+
+    numer = (p - 2 - 2 * e * cos(χ)) * (1 + e * cos(χ))^2
+    denom = sqrt((p - 2)^2 - 4 * e^2)
+
+    χ̇ = numer * sqrt(p - 6 - 2 * e * cos(χ)) / (M * (p^2) * denom)
+    ϕ̇ = numer / (M * (p^(3 / 2)) * denom)
+
+    return [χ̇, ϕ̇]
+
+end
+
+function AbstractNNOrbitModel(u, model_params, t; NN=nothing, NN_params=nothing)
+    #=
+        Defines system of odes which describes motion of
+        point like particle with Newtonian physics, uses
+
+        u[1] = χ
+        u[2] = ϕ
+
+        where, p, M, and e are constants
+    =#
+    χ, ϕ = u
+    p, M, e = model_params
+
+    if isnothing(NN)
+        nn = [1, 1]
+    else
+        nn = 1 .+ NN([u[1]], NN_params, st)[1]
+    end
+
+    numer = (1 + e * cos(χ))^2
+    denom = M * (p^(3 / 2))
+
+    χ̇ = (numer / denom) * nn[1]
+    ϕ̇ = (numer / denom) * nn[2]
+
+    return [χ̇, ϕ̇]
+
+end
+
+function AbstractNROrbitModel(u, model_params, t;
+    NN_chiphi=nothing, NN_chiphi_params=nothing,
+    NN_pe=nothing, NN_pe_params=nothing)
+    #=
+        Defines system of odes which describes motion of
+        point like particle with Newtonian physics, uses
+
+        u[1] = χ
+        u[2] = ϕ
+        u[3] = p
+        u[4] = e
+
+        q is the mass ratio
+    =#
+    χ, ϕ, p, e = u
+    q = model_params[1]
+    M = 1.0
+
+    if p &lt;= 0
+        println(&quot;p = &quot;, p)
+    end
+
+    if isnothing(NN_chiphi)
+        nn_chiphi = [1, 1]
+    else
+        nn_chiphi = 1 .+ NN_chiphi(u, NN_chiphi_params, st)
+    end
+
+    if isnothing(NN_pe)
+        nn_pe = [0, 0]
+    else
+        nn_pe = NN_pe(u, NN_pe_params, st)
+    end
+
+    numer = (1 + e * cos(χ))^2
+    denom = M * (abs(p)^(3 / 2))
+
+    χ̇ = (numer / denom) * nn_chiphi[1]
+    ϕ̇ = (numer / denom) * nn_chiphi[2]
+    ṗ = nn_pe[1]
+    ė = nn_pe[2]
+
+    return [χ̇, ϕ̇, ṗ, ė]
+end
+
+#=
+    Axiliary functions for orbital mechanics
+=#
+using DelimitedFiles
+
+function soln2orbit(soln, model_params=nothing)
+    #=
+        Performs change of variables:
+        (χ(t),ϕ(t)) ↦ (x(t),y(t))
+    =#
+    if size(soln, 1) == 2
+        χ = soln[1, :]
+        ϕ = soln[2, :]
+        if length(model_params) == 3
+            p, M, e = model_params
+        else
+            error(&quot;model_params must have length 3 when size(soln,2) = 2&quot;)
+        end
+    elseif size(soln, 1) == 4
+        χ = soln[1, :]
+        ϕ = soln[2, :]
+        p = soln[3, :]
+        e = soln[4, :]
+    else
+        error(&quot;size(soln,2) must be either 2 or 4&quot;)
+    end
+
+    r = p ./ (1 .+ e .* cos.(χ))
+    x = r .* cos.(ϕ)
+    y = r .* sin.(ϕ)
+
+    orbit = vcat(x&#39;, y&#39;)
+    return orbit
+end
+
+function orbit2tensor(orbit, component, mass=1.0)
+    #=
+        Construct trace-free moment tensor Ι(t) for orbit from BH orbit (x(t),y(t))
+
+        component defines the Cartesion indices in x,y. For example,
+        I_{22} is the yy component of the moment tensor.
+    =#
+    x = orbit[1, :]
+    y = orbit[2, :]
+
+    Ixx = x .^ 2
+    Iyy = y .^ 2
+    Ixy = x .* y
+    trace = Ixx .+ Iyy
+
+    if component[1] == 1 &amp;&amp; component[2] == 1
+        tmp = Ixx .- (1.0 ./ 3.0) .* trace
+    elseif component[1] == 2 &amp;&amp; component[2] == 2
+        tmp = Iyy .- (1.0 ./ 3.0) .* trace
+    else
+        tmp = Ixy
+    end
+
+    return mass .* tmp
+end
+
+function d_dt(v::AbstractVector, dt)
+    # uses second-order one-sided difference stencils at the endpoints; see https://doi.org/10.1090/S0025-5718-1988-0935077-0
+    a = -3 / 2 * v[1] + 2 * v[2] - 1 / 2 * v[3]
+    b = (v[3:end] .- v[1:end-2]) / 2
+    c = 3 / 2 * v[end] - 2 * v[end-1] + 1 / 2 * v[end-2]
+    return [a; b; c] / dt
+end
+
+function d2_dt2(v::AbstractVector, dt)
+    # uses second-order one-sided difference stencils at the endpoints; see https://doi.org/10.1090/S0025-5718-1988-0935077-0
+    a = 2 * v[1] - 5 * v[2] + 4 * v[3] - v[4]
+    b = v[1:end-2] .- 2 * v[2:end-1] .+ v[3:end]
+    c = 2 * v[end] - 5 * v[end-1] + 4 * v[end-2] - v[end-3]
+    return [a; b; c] / (dt^2)
+end
+
+function h_22_quadrupole_components(dt, orbit, component, mass=1.0)
+    #=
+        x(t) and y(t) inputs are the trajectory of the orbiting BH.
+
+       WARNING: assuming x and y are on a uniform grid of spacing dt
+        x_index and y_index are 1,2,3 for x, y, and z indicies.
+    =#
+
+    mtensor = orbit2tensor(orbit, component, mass)
+    mtensor_ddot = d2_dt2(mtensor, dt)
+
+    # return mtensor
+    return 2 * mtensor_ddot
+end
+
+function h_22_quadrupole(dt, orbit, mass=1.0)
+    h11 = h_22_quadrupole_components(dt, orbit, (1, 1), mass)
+    h22 = h_22_quadrupole_components(dt, orbit, (2, 2), mass)
+    h12 = h_22_quadrupole_components(dt, orbit, (1, 2), mass)
+    return h11, h12, h22
+end
+
+function h_22_strain_one_body(dt, orbit)
+
+    h11, h12, h22 = h_22_quadrupole(dt, orbit)
+
+    h₊ = h11 - h22
+    hₓ = 2.0 * h12
+
+    scaling_const = sqrt(pi / 5)
+    return scaling_const * h₊, -scaling_const * hₓ
+end
+
+function h_22_quadrupole_two_body(dt, orbit1, mass1, orbit2, mass2)
+    h11_1, h12_1, h22_1 = h_22_quadrupole(dt, orbit1, mass1)
+    h11_2, h12_2, h22_2 = h_22_quadrupole(dt, orbit2, mass2)
+    h11 = h11_1 + h11_2
+    h12 = h12_1 + h12_2
+    h22 = h22_1 + h22_2
+    return h11, h12, h22
+end
+
+function h_22_strain_two_body(dt, orbit1, mass1, orbit2, mass2)
+    # compute (2,2) mode strain from orbits of BH 1 of mass1 and BH2 of mass 2
+
+    @assert abs(mass1 + mass2 - 1.0) &lt; 1e-12 &quot;Masses do not sum to unity&quot;
+
+    h11, h12, h22 = h_22_quadrupole_two_body(dt, orbit1, mass1, orbit2, mass2)
+
+    h₊ = h11 - h22
+    hₓ = 2.0 * h12
+
+    scaling_const = sqrt(pi / 5)
+    return scaling_const * h₊, -scaling_const * hₓ
+end
+
+function one2two(path, m1, m2)
+    #=
+        We need a very crude 2-body path
+
+        Assume the 1-body motion is a newtonian 2-body position vector r = r1 - r2
+        and use Newtonian formulas to get r1, r2
+        (e.g. Theoretical Mechanics of Particles and Continua 4.3)
+    =#
+
+    M = m1 + m2
+    r1 = m2 / M .* path
+    r2 = -m1 / M .* path
+
+    return r1, r2
+end
+
+function compute_waveform(dt, soln, mass_ratio, model_params=nothing)
+
+    @assert mass_ratio &lt;= 1.0 &quot;mass_ratio must be &lt;= 1&quot;
+    @assert mass_ratio &gt;= 0.0 &quot;mass_ratio must be non-negative&quot;
+
+    orbit = soln2orbit(soln, model_params)
+    if mass_ratio &gt; 0
+        mass1 = mass_ratio / (1.0 + mass_ratio)
+        mass2 = 1.0 / (1.0 + mass_ratio)
+
+        orbit1, orbit2 = one2two(orbit, mass1, mass2)
+        waveform = h_22_strain_two_body(dt, orbit1, mass1, orbit2, mass2)
+    else
+        waveform = h_22_strain_one_body(dt, orbit)
+    end
+    return waveform
+end
+
+function interpolate_time_series(tsteps, tdata, fdata)
+
+    @assert length(tdata) == length(fdata) &quot;lengths of tdata and fdata must match&quot;
+
+    interp_fdata = zeros(length(tsteps))
+    for j = 1:length(tsteps)
+        for i = 1:length(tdata)-1
+            if tdata[i] &lt;= tsteps[j] &lt; tdata[i+1]
+                weight = (tsteps[j] - tdata[i]) / (tdata[i+1] - tdata[i])
+                interp_fdata[j] = (1 - weight) * fdata[i] + weight * fdata[i+1]
+                break
+            end
+        end
+    end
+
+    return interp_fdata
+end
+
+function file2waveform(tsteps, filename=&quot;waveform.txt&quot;)
+
+    # read in file
+    f = open(filename, &quot;r&quot;)
+    data = readdlm(f)
+    tdata = data[:, 1]
+    wdata = data[:, 2]
+
+    # interpolate data to tsteps
+    waveform = interpolate_time_series(tsteps, tdata, wdata)
+
+    return waveform
+end
+
+function file2trajectory(tsteps, filename=&quot;trajectoryA.txt&quot;)
+
+    # read in file
+    f = open(filename, &quot;r&quot;)
+    data = readdlm(f)
+    tdata = data[:, 1]
+    xdata = data[:, 2]
+    ydata = data[:, 3]
+
+    # interpolate data to tsteps
+    x = interpolate_time_series(tsteps, tdata, xdata)
+    y = interpolate_time_series(tsteps, tdata, ydata)
+
+    return x, y
+end</code></pre><p>Now let&#39;s test the relativistic orbital model. Let&#39;s choose a few parameters of interest:</p><pre><code class="language-julia hljs">mass_ratio = 0.0         # test particle
+u0 = Float64[pi, 0.0]    # initial conditions
+datasize = 250
+tspan = (0.0f0, 6.0f4)   # timespace for GW waveform
+tsteps = range(tspan[1], tspan[2], length = datasize)  # time at each timestep
+dt_data = tsteps[2] - tsteps[1]   
+dt = 100.0
+model_params = [100.0, 1.0, 0.5]; # p, M, e</code></pre><p>and demonstrate the gravitational waveform:</p><pre><code class="language-julia hljs">prob = ODEProblem(RelativisticOrbitModel, u0, tspan, model_params)
+soln = Array(solve(prob, RK4(), saveat = tsteps, dt = dt, adaptive=false))
+waveform = compute_waveform(dt_data, soln, mass_ratio, model_params)[1]
+plt = plot(tsteps, waveform,
+           markershape=:circle, markeralpha = 0.25,
+           linewidth = 2, alpha = 0.5,
+           label=&quot;waveform data&quot;, xlabel=&quot;Time&quot;, ylabel=&quot;Waveform&quot;)</code></pre><p>Looks great! </p><h2 id="Automating-the-Discovery-of-Relativistic-Equations-from-Newtonian-Physics"><a class="docs-heading-anchor" href="#Automating-the-Discovery-of-Relativistic-Equations-from-Newtonian-Physics">Automating the Discovery of Relativistic Equations from Newtonian Physics</a><a id="Automating-the-Discovery-of-Relativistic-Equations-from-Newtonian-Physics-1"></a><a class="docs-heading-anchor-permalink" href="#Automating-the-Discovery-of-Relativistic-Equations-from-Newtonian-Physics" title="Permalink"></a></h2><p>Now let&#39;s learn the relativistic corrections directly from the data. To define the UDE, we will define a Lux neural network and pass it into our Newtonian Physics + Nerual Network ODE definition from above:</p><pre><code class="language-julia hljs">NN = Lux.Chain((x) -&gt; cos.(x),
+    Lux.Dense(1, 32, cos),
+    Lux.Dense(32, 32, cos),
+    Lux.Dense(32, 2))
+p, st = Lux.setup(rng, NN)
+NN_params = ComponentArray{Float64}(p)
+
+function ODE_model(u, NN_params, t)
+    du = AbstractNNOrbitModel(u, model_params, t, NN=NN, NN_params=NN_params)
+    return du
+end</code></pre><p>Next, we can compute the orbital trajectory and gravitational waveform using the neural network with its initial weights. </p><pre><code class="language-julia hljs">prob_nn = ODEProblem(ODE_model, u0, tspan, NN_params)
+soln_nn = Array(solve(prob_nn, RK4(), u0 = u0, p = NN_params, saveat = tsteps, dt = dt, adaptive=false))
+waveform_nn = compute_waveform(dt_data, soln_nn, mass_ratio, model_params)[1]
+plot!(plt, tsteps, waveform_nn,
+           markershape=:circle, markeralpha = 0.25,
+           linewidth = 2, alpha = 0.5,
+           label=&quot;waveform NN&quot;)
+display(plt)</code></pre><p>This is the model before training. </p><p>Next, we define the objective (loss) function to be minimized when training the neural differential equations.</p><pre><code class="language-julia hljs">function loss(NN_params)
+    first_obs_to_use_for_training = 1
+    last_obs_to_use_for_training = length(waveform)
+    obs_to_use_for_training = first_obs_to_use_for_training:last_obs_to_use_for_training 
+    
+    pred = Array(solve(prob_nn, RK4(), u0 = u0, p = NN_params, saveat = tsteps, dt = dt, adaptive=false))
+    pred_waveform = compute_waveform(dt_data, pred, mass_ratio, model_params)[1]
+
+    loss = ( sum(abs2, view(waveform,obs_to_use_for_training) .- view(pred_waveform,obs_to_use_for_training) ) )
+    return loss, pred_waveform
+end</code></pre><p>We can test the loss function and see that it returns a pair, a scalar loss and an array with the predicted waveform.</p><pre><code class="language-julia hljs">loss(NN_params)</code></pre><p>We&#39;ll use the following callback to save the history of the loss values.</p><pre><code class="language-julia hljs">losses = []
+
+callback(θ,l,pred_waveform; doplot = true) = begin
+    push!(losses, l)
+    #=  Disable plotting as it trains since in docs
+    display(l)
+    # plot current prediction against data
+    plt = plot(tsteps, waveform,
+        markershape=:circle, markeralpha = 0.25,
+        linewidth = 2, alpha = 0.5,
+        label=&quot;wform data (h22)&quot;, legend=:topleft)
+    plot!(plt, tsteps, pred_waveform,
+        markershape=:circle, markeralpha = 0.25,
+        linewidth = 2, alpha = 0.5,
+        label = &quot;wform NN&quot;)
+    if doplot
+        display(plot(plt))
+    end
+    # Tell sciml_train to not halt the optimization. If return true, then
+    # optimization stops.
+    =#
+    return false
+end</code></pre><h2 id="Running-the-Training"><a class="docs-heading-anchor" href="#Running-the-Training">Running the Training</a><a id="Running-the-Training-1"></a><a class="docs-heading-anchor-permalink" href="#Running-the-Training" title="Permalink"></a></h2><p>The next cell initializes the weights of the neural network and then trains the neural network. Training uses the BFGS optimizers.  This seems to give good results because the Newtonian model seems to give a very good initial guess.</p><pre><code class="language-julia hljs">NN_params = NN_params .* 0 + Float64(1e-4)*randn(eltype(NN_params), size(NN_params))
+
+adtype = Optimization.AutoZygote()
+optf = Optimization.OptimizationFunction((x, p) -&gt; loss(x), adtype)
+optprob = Optimization.OptimizationProblem(optf, ComponentVector{Float64}(p))
+res1 = Optimization.solve(optprob, OptimizationOptimisers.Adam(), callback = callback, maxiters = 100)
+
+optprob = Optimization.OptimizationProblem(optf, res1.u)
+res2 = Optimization.solve(optprob, BFGS(initial_stepnorm=0.01, linesearch = LineSearches.BackTracking()), callback = callback, maxiters = 1000)</code></pre><h2 id="Result-Analysis"><a class="docs-heading-anchor" href="#Result-Analysis">Result Analysis</a><a id="Result-Analysis-1"></a><a class="docs-heading-anchor-permalink" href="#Result-Analysis" title="Permalink"></a></h2><p>Now, we&#39;ll plot the learned solutions of the neural ODE and compare them to our full physical model and the Newtonian model. </p><pre><code class="language-julia hljs">reference_solution = solve(remake(prob, p = model_params, saveat = tsteps, tspan=tspan),
+                            RK4(), dt = dt, adaptive=false)
+
+optimized_solution = solve(remake(prob_nn, p = res.minimizer, saveat = tsteps, tspan=tspan),
+                            RK4(), dt = dt, adaptive=false)
+Newtonian_prob = ODEProblem(NewtonianOrbitModel, u0, tspan, model_params)
+
+Newtonian_solution = solve(remake(Newtonian_prob, p = model_params, saveat = tsteps, tspan=tspan),
+                            RK4(), dt = dt, adaptive=false)
+
+true_orbit = soln2orbit(reference_solution, model_params)
+pred_orbit = soln2orbit(optimized_solution, model_params)
+Newt_orbit = soln2orbit(Newtonian_solution, model_params)
+
+true_waveform = compute_waveform(dt_data, reference_solution, mass_ratio, model_params)[1]
+pred_waveform = compute_waveform(dt_data, optimized_solution, mass_ratio, model_params)[1]
+Newt_waveform = compute_waveform(dt_data, Newtonian_solution, mass_ratio, model_params)[1]
+
+true_orbit = soln2orbit(reference_solution, model_params)
+pred_orbit = soln2orbit(optimized_solution, model_params)
+Newt_orbit = soln2orbit(Newtonian_solution, model_params)
+plt = plot(true_orbit[1,:], true_orbit[2,:], linewidth = 2, label = &quot;truth&quot;)
+plot!(plt, pred_orbit[1,:], pred_orbit[2,:], linestyle = :dash, linewidth = 2, label = &quot;prediction&quot;)
+plot!(plt, Newt_orbit[1,:], Newt_orbit[2,:], linewidth = 2, label = &quot;Newtonian&quot;)
+display(plot(plt))</code></pre><pre><code class="language-julia hljs">plt = plot(tsteps,true_waveform, linewidth = 2, label = &quot;truth&quot;, xlabel=&quot;Time&quot;, ylabel=&quot;Waveform&quot;)
+plot!(plt,tsteps,pred_waveform, linestyle = :dash, linewidth = 2, label = &quot;prediction&quot;)
+plot!(plt,tsteps,Newt_waveform, linewidth = 2, label = &quot;Newtonian&quot;)</code></pre><p>Now we&#39;ll do the same, but extrapolating the model out in time.</p><pre><code class="language-julia hljs">factor=5
+
+extended_tspan = (tspan[1], factor*tspan[2])
+extended_tsteps = range(tspan[1], factor*tspan[2], length = factor*datasize)
+reference_solution = solve(remake(prob, p = model_params, saveat = extended_tsteps, tspan=extended_tspan),
+                            RK4(), dt = dt, adaptive=false)
+optimized_solution = solve(remake(prob_nn, p = res.minimizer, saveat = extended_tsteps, tspan=extended_tspan),
+                            RK4(), dt = dt, adaptive=false)
+Newtonian_prob = ODEProblem(NewtonianOrbitModel, u0, tspan, model_params)
+Newtonian_solution = solve(remake(Newtonian_prob, p = model_params, saveat = extended_tsteps, tspan=extended_tspan),
+                            RK4(), dt = dt, adaptive=false)
+true_orbit = soln2orbit(reference_solution, model_params)
+pred_orbit = soln2orbit(optimized_solution, model_params)
+Newt_orbit = soln2orbit(Newtonian_solution, model_params)
+plt = plot(true_orbit[1,:], true_orbit[2,:], linewidth = 2, label = &quot;truth&quot;)
+plot!(plt, pred_orbit[1,:], pred_orbit[2,:], linestyle = :dash, linewidth = 2, label = &quot;prediction&quot;)
+plot!(plt, Newt_orbit[1,:], Newt_orbit[2,:], linewidth = 2, label = &quot;Newtonian&quot;)
+display(plot(plt))</code></pre><pre><code class="language-julia hljs">true_waveform = compute_waveform(dt_data, reference_solution, mass_ratio, model_params)[1]
+pred_waveform = compute_waveform(dt_data, optimized_solution, mass_ratio, model_params)[1]
+Newt_waveform = compute_waveform(dt_data, Newtonian_solution, mass_ratio, model_params)[1]
+plt = plot(extended_tsteps,true_waveform, linewidth = 2, label = &quot;truth&quot;, xlabel=&quot;Time&quot;, ylabel=&quot;Waveform&quot;)
+plot!(plt,extended_tsteps,pred_waveform, linestyle = :dash, linewidth = 2, label = &quot;prediction&quot;)
+plot!(plt,extended_tsteps,Newt_waveform, linewidth = 2, label = &quot;Newtonian&quot;)
+display(plot(plt))</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../bayesian_neural_ode/">« Uncertainty Quantified Deep Bayesian Model Discovery</a><a class="docs-footer-nextpage" href="../brusselator/">Automated Efficient Solution of Nonlinear Partial Differential Equations »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.25 on <span class="colophon-date" title="Tuesday 29 August 2023 22:50">Tuesday 29 August 2023</span>. Using Julia version 1.9.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
