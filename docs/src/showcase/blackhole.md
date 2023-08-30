@@ -556,7 +556,7 @@ Now, we'll plot the learned solutions of the neural ODE and compare them to our 
 reference_solution = solve(remake(prob, p = model_params, saveat = tsteps, tspan=tspan),
                             RK4(), dt = dt, adaptive=false)
 
-optimized_solution = solve(remake(prob_nn, p = res.minimizer, saveat = tsteps, tspan=tspan),
+optimized_solution = solve(remake(prob_nn, p = res2.minimizer, saveat = tsteps, tspan=tspan),
                             RK4(), dt = dt, adaptive=false)
 Newtonian_prob = ODEProblem(NewtonianOrbitModel, u0, tspan, model_params)
 
@@ -595,7 +595,7 @@ extended_tspan = (tspan[1], factor*tspan[2])
 extended_tsteps = range(tspan[1], factor*tspan[2], length = factor*datasize)
 reference_solution = solve(remake(prob, p = model_params, saveat = extended_tsteps, tspan=extended_tspan),
                             RK4(), dt = dt, adaptive=false)
-optimized_solution = solve(remake(prob_nn, p = res.minimizer, saveat = extended_tsteps, tspan=extended_tspan),
+optimized_solution = solve(remake(prob_nn, p = res2.minimizer, saveat = extended_tsteps, tspan=extended_tspan),
                             RK4(), dt = dt, adaptive=false)
 Newtonian_prob = ODEProblem(NewtonianOrbitModel, u0, tspan, model_params)
 Newtonian_solution = solve(remake(Newtonian_prob, p = model_params, saveat = extended_tsteps, tspan=extended_tspan),
