@@ -70,6 +70,10 @@ Details can be found in  [Keith et al. 2021](https://arxiv.org/abs/2102.12695).
 
 #### Feel free to skip reading this setup code!
 
+```@raw html
+<details><summary>The setup of the data and the ODEs for the Newtonian ODE model</summary>
+```
+
 ```@example ude
 
 #=
@@ -410,6 +414,10 @@ function file2trajectory(tsteps, filename="trajectoryA.txt")
 
     return x, y
 end
+```
+
+```@raw html
+</details>
 ```
 
 Now let's test the relativistic orbital model. Let's choose a few parameters of interest:
