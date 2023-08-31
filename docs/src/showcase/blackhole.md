@@ -577,7 +577,6 @@ Newt_orbit = soln2orbit(Newtonian_solution, model_params)
 plt = plot(true_orbit[1,:], true_orbit[2,:], linewidth = 2, label = "truth")
 plot!(plt, pred_orbit[1,:], pred_orbit[2,:], linestyle = :dash, linewidth = 2, label = "prediction")
 plot!(plt, Newt_orbit[1,:], Newt_orbit[2,:], linewidth = 2, label = "Newtonian")
-display(plot(plt))
 ```
 
 ```@example ude
@@ -606,7 +605,6 @@ Newt_orbit = soln2orbit(Newtonian_solution, model_params)
 plt = plot(true_orbit[1,:], true_orbit[2,:], linewidth = 2, label = "truth")
 plot!(plt, pred_orbit[1,:], pred_orbit[2,:], linestyle = :dash, linewidth = 2, label = "prediction")
 plot!(plt, Newt_orbit[1,:], Newt_orbit[2,:], linewidth = 2, label = "Newtonian")
-display(plot(plt))
 ```
 
 ```@example ude
@@ -616,5 +614,4 @@ Newt_waveform = compute_waveform(dt_data, Newtonian_solution, mass_ratio, model_
 plt = plot(extended_tsteps,true_waveform, linewidth = 2, label = "truth", xlabel="Time", ylabel="Waveform")
 plot!(plt,extended_tsteps,pred_waveform, linestyle = :dash, linewidth = 2, label = "prediction")
 plot!(plt,extended_tsteps,Newt_waveform, linewidth = 2, label = "Newtonian")
-display(plot(plt))
 ```
