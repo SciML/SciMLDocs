@@ -70,7 +70,11 @@ Details can be found in  [Keith et al. 2021](https://arxiv.org/abs/2102.12695).
 
 #### Feel free to skip reading this setup code!
 
-```julia
+```@raw html
+<details><summary>The setup of the data and the ODEs for the Newtonian ODE model</summary>
+```
+
+```@example ude
 
 #=
     ODE models for orbital mechanics
@@ -412,9 +416,13 @@ function file2trajectory(tsteps, filename="trajectoryA.txt")
 end
 ```
 
+```@raw html
+</details>
+```
+
 Now let's test the relativistic orbital model. Let's choose a few parameters of interest:
 
-```julia
+```@example ude
 mass_ratio = 0.0         # test particle
 u0 = Float64[pi, 0.0]    # initial conditions
 datasize = 250
@@ -427,7 +435,7 @@ model_params = [100.0, 1.0, 0.5]; # p, M, e
 
 and demonstrate the gravitational waveform:
 
-```julia
+```@example ude
 prob = ODEProblem(RelativisticOrbitModel, u0, tspan, model_params)
 soln = Array(solve(prob, RK4(), saveat = tsteps, dt = dt, adaptive=false))
 waveform = compute_waveform(dt_data, soln, mass_ratio, model_params)[1]
@@ -444,7 +452,7 @@ Looks great!
 Now let's learn the relativistic corrections directly from the data. To define the UDE, we will define
 a Lux neural network and pass it into our Newtonian Physics + Nerual Network ODE definition from above:
 
-```julia
+```@example ude
 NN = Lux.Chain((x) -> cos.(x),
     Lux.Dense(1, 32, cos),
     Lux.Dense(32, 32, cos),
@@ -460,7 +468,7 @@ end
 
 Next, we can compute the orbital trajectory and gravitational waveform using the neural network with its initial weights. 
 
-```julia
+```@example ude
 prob_nn = ODEProblem(ODE_model, u0, tspan, NN_params)
 soln_nn = Array(solve(prob_nn, RK4(), u0 = u0, p = NN_params, saveat = tsteps, dt = dt, adaptive=false))
 waveform_nn = compute_waveform(dt_data, soln_nn, mass_ratio, model_params)[1]
@@ -475,7 +483,7 @@ This is the model before training.
 
 Next, we define the objective (loss) function to be minimized when training the neural differential equations.
 
-```julia
+```@example ude
 function loss(NN_params)
     first_obs_to_use_for_training = 1
     last_obs_to_use_for_training = length(waveform)
@@ -491,13 +499,13 @@ end
 
 We can test the loss function and see that it returns a pair, a scalar loss and an array with the predicted waveform.
 
-```julia
+```@example ude
 loss(NN_params)
 ```
 
 We'll use the following callback to save the history of the loss values.
 
-```julia
+```@example ude
 losses = []
 
 callback(θ,l,pred_waveform; doplot = true) = begin
@@ -528,7 +536,7 @@ end
 The next cell initializes the weights of the neural network and then trains the neural network.
 Training uses the BFGS optimizers.  This seems to give good results because the Newtonian model seems to give a very good initial guess.
 
-```julia
+```@example ude
 NN_params = NN_params .* 0 + Float64(1e-4)*randn(eltype(NN_params), size(NN_params))
 
 adtype = Optimization.AutoZygote()
@@ -544,11 +552,11 @@ res2 = Optimization.solve(optprob, BFGS(initial_stepnorm=0.01, linesearch = Line
 
 Now, we'll plot the learned solutions of the neural ODE and compare them to our full physical model and the Newtonian model. 
 
-```julia
+```@example ude
 reference_solution = solve(remake(prob, p = model_params, saveat = tsteps, tspan=tspan),
                             RK4(), dt = dt, adaptive=false)
 
-optimized_solution = solve(remake(prob_nn, p = res.minimizer, saveat = tsteps, tspan=tspan),
+optimized_solution = solve(remake(prob_nn, p = res2.minimizer, saveat = tsteps, tspan=tspan),
                             RK4(), dt = dt, adaptive=false)
 Newtonian_prob = ODEProblem(NewtonianOrbitModel, u0, tspan, model_params)
 
@@ -572,7 +580,7 @@ plot!(plt, Newt_orbit[1,:], Newt_orbit[2,:], linewidth = 2, label = "Newtonian")
 display(plot(plt))
 ```
 
-```julia
+```@example ude
 plt = plot(tsteps,true_waveform, linewidth = 2, label = "truth", xlabel="Time", ylabel="Waveform")
 plot!(plt,tsteps,pred_waveform, linestyle = :dash, linewidth = 2, label = "prediction")
 plot!(plt,tsteps,Newt_waveform, linewidth = 2, label = "Newtonian")
@@ -580,14 +588,14 @@ plot!(plt,tsteps,Newt_waveform, linewidth = 2, label = "Newtonian")
 
 Now we'll do the same, but extrapolating the model out in time.
 
-```julia
+```@example ude
 factor=5
 
 extended_tspan = (tspan[1], factor*tspan[2])
 extended_tsteps = range(tspan[1], factor*tspan[2], length = factor*datasize)
 reference_solution = solve(remake(prob, p = model_params, saveat = extended_tsteps, tspan=extended_tspan),
                             RK4(), dt = dt, adaptive=false)
-optimized_solution = solve(remake(prob_nn, p = res.minimizer, saveat = extended_tsteps, tspan=extended_tspan),
+optimized_solution = solve(remake(prob_nn, p = res2.minimizer, saveat = extended_tsteps, tspan=extended_tspan),
                             RK4(), dt = dt, adaptive=false)
 Newtonian_prob = ODEProblem(NewtonianOrbitModel, u0, tspan, model_params)
 Newtonian_solution = solve(remake(Newtonian_prob, p = model_params, saveat = extended_tsteps, tspan=extended_tspan),
@@ -601,7 +609,7 @@ plot!(plt, Newt_orbit[1,:], Newt_orbit[2,:], linewidth = 2, label = "Newtonian")
 display(plot(plt))
 ```
 
-```julia
+```@example ude
 true_waveform = compute_waveform(dt_data, reference_solution, mass_ratio, model_params)[1]
 pred_waveform = compute_waveform(dt_data, optimized_solution, mass_ratio, model_params)[1]
 Newt_waveform = compute_waveform(dt_data, Newtonian_solution, mass_ratio, model_params)[1]
