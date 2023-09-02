@@ -541,7 +541,7 @@ Training uses the BFGS optimizers.  This seems to give good results because the 
 ​
 adtype = Optimization.AutoZygote()
 optf = Optimization.OptimizationFunction((x, p) -> loss(x), adtype)
-optprob = Optimization.OptimizationProblem(optf, NN_params)
+optprob = Optimization.OptimizationProblem(optf, ComponentVector{Float64}(NN_params))
 res1 = Optimization.solve(optprob, OptimizationOptimisers.Adam(0.001f0), callback=callback, maxiters=100)
 ​
 optprob = Optimization.OptimizationProblem(optf, res1.u)
