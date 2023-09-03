@@ -543,7 +543,7 @@ adtype = Optimization.AutoZygote()
 optf = Optimization.OptimizationFunction((x, p) -> loss(x), adtype)
 optprob = Optimization.OptimizationProblem(optf, ComponentVector{Float64}(NN_params))
 res1 = Optimization.solve(optprob, OptimizationOptimisers.Adam(0.001f0), callback=callback, maxiters=100)
-​
+
 optprob = Optimization.OptimizationProblem(optf, res1.u)
 res2 = Optimization.solve(optprob, BFGS(initial_stepnorm=0.01, linesearch=LineSearches.BackTracking()), callback=callback, maxiters=20)
 ```
