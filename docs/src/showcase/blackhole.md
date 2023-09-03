@@ -420,6 +420,8 @@ end
 </details>
 ```
 
+#### Testing the Model Setup
+
 Now let's test the relativistic orbital model. Let's choose a few parameters of interest:
 
 ```@example ude
