@@ -540,7 +540,7 @@ Training uses the BFGS optimizers.  This seems to give good results because the 
 
 ```@example ude
 ​NN_params = NN_params .* 0 + Float64(1e-4) * randn(StableRNG(2031), eltype(NN_params), size(NN_params))
-​
+
 adtype = Optimization.AutoZygote()
 optf = Optimization.OptimizationFunction((x, p) -> loss(x), adtype)
 optprob = Optimization.OptimizationProblem(optf, ComponentVector{Float64}(NN_params))
