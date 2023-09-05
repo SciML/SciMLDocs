@@ -539,13 +539,12 @@ The next cell initializes the weights of the neural network and then trains the 
 Training uses the BFGS optimizers.  This seems to give good results because the Newtonian model seems to give a very good initial guess.
 
 ```@example ude
-​NN_params = NN_params .* 0 + Float64(1e-4) * randn(StableRNG(2031), eltype(NN_params), size(NN_params))
+NN_params = NN_params .* 0 + Float64(1e-4) * randn(StableRNG(2031), eltype(NN_params), size(NN_params))
 
 adtype = Optimization.AutoZygote()
 optf = Optimization.OptimizationFunction((x, p) -> loss(x), adtype)
 optprob = Optimization.OptimizationProblem(optf, ComponentVector{Float64}(NN_params))
 res1 = Optimization.solve(optprob, OptimizationOptimisers.Adam(0.001f0), callback=callback, maxiters=100)
-
 optprob = Optimization.OptimizationProblem(optf, res1.u)
 res2 = Optimization.solve(optprob, BFGS(initial_stepnorm=0.01, linesearch=LineSearches.BackTracking()), callback=callback, maxiters=20)
 ```
