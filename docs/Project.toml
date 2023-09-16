@@ -51,3 +51,4 @@ Zygote = "e88e6eb3-aa80-5325-afca-941959d7151f"
 
 [compat]
 CUDA = "4"
+Documenter = "0.27"
