@@ -74,7 +74,7 @@ The following chart will help you get quickly acquainted with Julia's SciML Tool
 |:------------------- |:------------------------------------------------------------------------------------- |
 | `plot`              | [Plots](https://docs.juliaplots.org/stable/), [Makie](https://docs.makie.org/stable/) |
 | `sparse`            | [SparseArrays](https://docs.julialang.org/en/v1/stdlib/SparseArrays/#Sparse-Arrays)   |
-| `interp1`           | [DataInterpolations](https://github.com/PumasAI/DataInterpolations.jl)                |
+| `interp1`           | [DataInterpolations](https://docs.sciml.ai/DataInterpolations/)                |
 | `\`, `gmres`, `cg`  | [LinearSolve](http://linearsolve.sciml.ai/dev/)                                       |
 | `fsolve`            | [NonlinearSolve](https://nonlinearsolve.sciml.ai/)                                    |
 | `quad`              | [Integrals](https://integrals.sciml.ai/)                                              |
