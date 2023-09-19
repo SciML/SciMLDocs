@@ -107,7 +107,7 @@ and is thus a good way to generate GPU and distributed parallel model code.
 
 ## DataInterpolations.jl: One-Dimensional Interpolations
 
-[DataInterpolations.jl](https://github.com/PumasAI/DataInterpolations.jl) is a library of one-dimensional interpolation
+[DataInterpolations.jl](https://docs.sciml.ai/DataInterpolations/) is a library of one-dimensional interpolation
 schemes which are composable with automatic differentiation and the SciML ecosystem. It includes direct interpolation
 methods and regression techniques for handling noisy data. Its methods include:
 
