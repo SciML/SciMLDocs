@@ -65,7 +65,7 @@ The following chart will help you get quickly acquainted with Julia's SciML Tool
 | `scipy.integrate`            | [Integrals](https://integrals.sciml.ai/)                                                                                                                                |
 | `scipy.optimize`             | [Optimization](https://optimization.sciml.ai/)                                                                                                                          |
 | `scipy.optimize.fsolve`      | [NonlinearSolve](https://nonlinearsolve.sciml.ai/)                                                                                                                      |
-| `scipy.interpolate`          | [DataInterpolations](https://github.com/PumasAI/DataInterpolations.jl)                                                                                                  |
+| `scipy.interpolate`          | [DataInterpolations](https://docs.sciml.ai/DataInterpolations/)                                                                                                  |
 | `scipy.fft`                  | [FFTW](https://github.com/JuliaMath/FFTW.jl)                                                                                                                            |
 | `scipy.linalg`               | [Julia's Built-In Linear Algebra](https://docs.julialang.org/en/v1/stdlib/LinearAlgebra/)                                                                               |
 | `scipy.sparse`               | [SparseArrays](https://docs.julialang.org/en/v1/stdlib/SparseArrays/#Sparse-Arrays), [ARPACK](https://github.com/JuliaLinearAlgebra/Arpack.jl)                          |

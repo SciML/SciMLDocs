@@ -65,9 +65,9 @@ docsmodules = [
     ],
     "Developer Tools" => [
         "Numerical Utilities" => ["ExponentialUtilities", "DiffEqNoiseProcess",
-            "PreallocationTools", "EllipsisNotation",
+            "PreallocationTools", "EllipsisNotation", "DataInterpolations",
             "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro"],
-        "Third-Party Numerical Utilities" => ["FFTW", "Distributions", #= "DataInterpolations",=#
+        "Third-Party Numerical Utilities" => ["FFTW", "Distributions",
             "SpecialFunctions", "LoopVectorization",
             "Polyester", "SparseDiffTools"], #="Tullio"=#
         "High-Level Interfaces" => [
@@ -136,7 +136,6 @@ external_urls = Dict("Enzyme" => "https://github.com/EnzymeAD/Enzyme.jl",
                      "NNlib" => "https://github.com/FluxML/NNlib.jl",
                      "SymbolicRegression" => "https://github.com/MilesCranmer/SymbolicRegression.jl",
                      "FFTW" => "https://github.com/JuliaMath/FFTW.jl",
-                     "DataInterpolations" => "https://github.com/PumasAI/DataInterpolations.jl",
                      "Distributions" => "https://github.com/JuliaStats/Distributions.jl",
                      "SpecialFunctions" => "https://github.com/JuliaMath/SpecialFunctions.jl",
                      "LoopVectorization" => "https://github.com/JuliaSIMD/LoopVectorization.jl",
