@@ -1,4 +1,4 @@
-# [Discovering the Relativistic Corrections to Binary Black Hole Dynamics](@id autocomplete)
+# [Discovering the Relativistic Corrections to Binary Black Hole Dynamics](@id blackhole)
 
 In this showcase we will demonstrate using Newtonian mechanics as prior known information in a
 universal differential equation and learning relativistic corrections to the physics via
