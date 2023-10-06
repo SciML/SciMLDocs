@@ -62,7 +62,7 @@ The following chart will help you get quickly acquainted with Julia's SciML Tool
 | Matplotlib                   | [Plots](https://docs.juliaplots.org/stable/), [Makie](https://docs.makie.org/stable/)                                                                                   |
 | `scipy.special`              | [SpecialFunctions](https://github.com/JuliaMath/SpecialFunctions.jl)                                                                                                    |
 | `scipy.linalg.solve`         | [LinearSolve](http://linearsolve.sciml.ai/dev/)                                                                                                                         |
-| `scipy.integrate`            | [Integrals](https://integrals.sciml.ai/)                                                                                                                                |
+| `scipy.integrate`            | [Integrals](https://docs.sciml.ai/Integrals/stable/)                                                                                                                                |
 | `scipy.optimize`             | [Optimization](https://optimization.sciml.ai/)                                                                                                                          |
 | `scipy.optimize.fsolve`      | [NonlinearSolve](https://nonlinearsolve.sciml.ai/)                                                                                                                      |
 | `scipy.interpolate`          | [DataInterpolations](https://docs.sciml.ai/DataInterpolations/)                                                                                                  |
@@ -75,7 +75,7 @@ The following chart will help you get quickly acquainted with Julia's SciML Tool
 | gillespy2                    | [Catalyst](https://catalyst.sciml.ai/dev/), [JumpProcesses](https://github.com/SciML/JumpProcesses.jl)                                                                  |
 | scipy.optimize.approx_fprime | [FiniteDiff](https://github.com/JuliaDiff/FiniteDiff.jl)                                                                                                                |
 | autograd                     | [ForwardDiff\*](https://github.com/JuliaDiff/ForwardDiff.jl), [Enzyme\*](https://github.com/EnzymeAD/Enzyme.jl), [DiffEqSensitivity](https://sensitivity.sciml.ai/dev/) |
-| Stan                         | [Turing](https://turing.ml/stable/)                                                                                                                                     |
+| Stan                         | [Turing](https://turinglang.org/stable/)                                                                                                                                     |
 | sympy                        | [Symbolics](https://symbolics.juliasymbolics.org/dev/)                                                                                                                  |
 
 ## Why is Differentiable Programming Important for Scientific Computing?

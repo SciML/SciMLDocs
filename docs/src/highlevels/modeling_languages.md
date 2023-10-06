@@ -50,7 +50,7 @@ doing standard molecular dynamics approximations.
 
 ## DiffEqFinancial.jl: Financial models for use in the DifferentialEquations ecosystem
 
-The goal of [DiffEqFinancial.jl](https://docs.sciml.ai/DiffEqFinancial/stable/) is to be a feature-complete set
+The goal of [DiffEqFinancial.jl](https://github.com/SciML/DiffEqFinancial.jl/commits/master) is to be a feature-complete set
 of solvers for the types of problems found in libraries like QuantLib, such as the Heston process or the
 Black-Scholes model.
 
