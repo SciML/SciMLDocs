@@ -15,7 +15,7 @@ docsmodules = [
         "Symbolic Tools" => ["ModelOrderReduction", "Symbolics", "SymbolicUtils"], #="MetaTheory"=#
         "Third-Party Modeling Tools" => ["MomentClosure", "Agents", "Unitful",
             "ReactionMechanismSimulator",
-            "FiniteStateProjection", "AlgebraicPetri", "QuantumOptics"],
+            "FiniteStateProjection", "AlgebraicPetri"],
         "Array Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
         "Third-Party Array Libraries" => ["ComponentArrays", "StaticArrays", #="FillArrays",=#
             "BandedMatrices", "BlockBandedMatrices"],
@@ -149,8 +149,7 @@ external_urls = Dict("Enzyme" => "https://github.com/EnzymeAD/Enzyme.jl",
                      "Unitful" => "https://github.com/PainterQubits/Unitful.jl",
                      "ReactionMechanismSimulator" => "https://github.com/ReactionMechanismGenerator/ReactionMechanismSimulator.jl",
                      "FiniteStateProjection" => "https://github.com/kaandocal/FiniteStateProjection.jl",
-                     "AlgebraicPetri" => "https://github.com/AlgebraicJulia/AlgebraicPetri.jl",
-                     "QuantumOptics" => "https://github.com/qojulia/QuantumOptics.jl")
+                     "AlgebraicPetri" => "https://github.com/AlgebraicJulia/AlgebraicPetri.jl")
 
 docs = Any[MultiDocumenter.MultiDocRef(upstream = joinpath(clonedir, "Home"),
                                        path = "Overview",

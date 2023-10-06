@@ -13,7 +13,7 @@ The following parts of the SciML Ecosystem will be used in this tutorial:
 |:---------------------------------------------------------------------------------------------------------------- |:--------------------------------------------------------- |
 | [DifferentialEquations.jl](https://docs.sciml.ai/DiffEqDocs/stable/)                                             | The differential equation solvers                         |
 | [Optimization.jl](https://docs.sciml.ai/Optimization/stable/)                                                    | The numerical optimization package                        |
-| [OptimizationPolyalgorithms.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/polyalgorithms/) | The optimizers we will use                                |
+| [OptimizationPolyalgorithms.jl](https://github.com/SciML/Optimization.jl/blob/master/lib/OptimizationPolyalgorithms/src/OptimizationPolyalgorithms.jl) | The optimizers we will use                                |
 | [SciMLSensitivity.jl](https://docs.sciml.ai/SciMLSensitivity/dev/)                                               | The connection of the SciML ecosystems to differentiation |
 
 Along with the following general ecosystem packages:
