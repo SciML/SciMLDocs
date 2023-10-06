@@ -104,5 +104,5 @@ generation of dynamical models using a Category theory-based approach.
 
 ## QuantumOptics.jl: Simulating quantum systems.
 
-[QuantumOptics.jl](https://docs.sciml.ai/QuantumOptics/stable/) makes it easy to simulate various kinds of quantum systems.
+[QuantumOptics.jl](https://docs.qojulia.org/) makes it easy to simulate various kinds of quantum systems.
 It is inspired by the Quantum Optics Toolbox for MATLAB and the Python framework QuTiP.
