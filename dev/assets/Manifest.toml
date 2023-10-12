@@ -2095,9 +2095,9 @@ version = "10.42.0+0"
 
 [[deps.PDEBase]]
 deps = ["DomainSets", "ModelingToolkit", "SciMLBase", "SymbolicUtils", "Symbolics"]
-git-tree-sha1 = "f58e4f2a32559a88d52990b8ca286cbd57ddc8d0"
+git-tree-sha1 = "b97f4a1a7ee781135cdcbc2a1014bf0638421c7e"
 uuid = "a7812802-0625-4b9e-961c-d332478797e5"
-version = "0.1.4"
+version = "0.1.5"
 
 [[deps.PDMats]]
 deps = ["LinearAlgebra", "SparseArrays", "SuiteSparse"]
