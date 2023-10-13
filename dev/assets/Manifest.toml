@@ -519,9 +519,9 @@ version = "1.6.1"
 
 [[deps.DataInterpolations]]
 deps = ["LinearAlgebra", "RecipesBase", "RecursiveArrayTools", "Reexport", "Requires"]
-git-tree-sha1 = "e868551161bcf933c97b3a985e25ce32e7dd04e5"
+git-tree-sha1 = "7abdfe0d4a2206ea3a720bc8d5111205bbe06b97"
 uuid = "82cc6244-b520-54b8-b5a6-8a565e85f1d0"
-version = "4.2.0"
+version = "4.2.1"
 
     [deps.DataInterpolations.extensions]
     DataInterpolationsChainRulesCoreExt = "ChainRulesCore"
