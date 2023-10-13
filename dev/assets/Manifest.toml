@@ -749,21 +749,21 @@ version = "1.0.4"
 
 [[deps.Enzyme]]
 deps = ["CEnum", "EnzymeCore", "Enzyme_jll", "GPUCompiler", "LLVM", "Libdl", "LinearAlgebra", "ObjectFile", "Preferences", "Printf", "Random"]
-git-tree-sha1 = "5a9f3fe3cdec4bfa91120a83eb5366d595385c05"
+git-tree-sha1 = "a8a13f3259f59f1738e14296b9191299226ea6b6"
 uuid = "7da242da-08ed-463a-9acd-ee780be4f1d9"
-version = "0.11.8"
+version = "0.11.9"
 
 [[deps.EnzymeCore]]
 deps = ["Adapt"]
-git-tree-sha1 = "3250001c57b9a3e18e1e5a257fb9ec2c012286c6"
+git-tree-sha1 = "d8701002a745c450c03b890f10d53636d1a8a7ea"
 uuid = "f151be2c-9106-41f4-ab19-57ee4f262869"
-version = "0.5.3"
+version = "0.6.2"
 
 [[deps.Enzyme_jll]]
 deps = ["Artifacts", "JLLWrappers", "LazyArtifacts", "Libdl", "TOML"]
-git-tree-sha1 = "d35761b44e1057cbbc94dd8c685b07678eb14053"
+git-tree-sha1 = "6febd718de952cb31717a34f81f98872c065e825"
 uuid = "7cc45869-7501-5eee-bdea-0790c847d4ef"
-version = "0.0.86+0"
+version = "0.0.88+0"
 
 [[deps.EpollShim_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
