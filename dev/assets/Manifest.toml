@@ -610,9 +610,9 @@ version = "2.4.0"
 
 [[deps.DiffEqGPU]]
 deps = ["Adapt", "ChainRulesCore", "DiffEqBase", "Distributed", "DocStringExtensions", "ForwardDiff", "KernelAbstractions", "LinearAlgebra", "LinearSolve", "MuladdMacro", "Parameters", "Random", "RecursiveArrayTools", "Requires", "SciMLBase", "Setfield", "SimpleDiffEq", "StaticArrays", "TOML", "ZygoteRules"]
-git-tree-sha1 = "d3099e4119281f35d8c34b4c48785566a5382e43"
+git-tree-sha1 = "884b84fa24ce3e4af757f7fca7e01c513ab26807"
 uuid = "071ae1c0-96b5-11e9-1965-c90190d839ea"
-version = "2.5.0"
+version = "2.5.1"
 
     [deps.DiffEqGPU.extensions]
     AMDGPUExt = ["AMDGPU"]
