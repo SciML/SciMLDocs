@@ -1606,9 +1606,9 @@ weakdeps = ["ChainRulesCore", "ForwardDiff", "SpecialFunctions"]
 
 [[deps.Lux]]
 deps = ["ADTypes", "Adapt", "ChainRulesCore", "ConcreteStructs", "Functors", "LinearAlgebra", "LuxCore", "LuxDeviceUtils", "LuxLib", "MacroTools", "Markdown", "Optimisers", "PackageExtensionCompat", "Random", "Reexport", "Setfield", "SparseArrays", "Statistics", "TruncatedStacktraces", "WeightInitializers"]
-git-tree-sha1 = "42569bb572177026197dec4eca9834bc2fb94d7e"
+git-tree-sha1 = "6e2a903c78764e34277852ae9443259a16dedbeb"
 uuid = "b2108857-7c20-44ae-9111-449ecde12c47"
-version = "0.5.6"
+version = "0.5.7"
 
     [deps.Lux.extensions]
     LuxComponentArraysExt = "ComponentArrays"
@@ -1637,9 +1637,9 @@ version = "0.1.6"
 
 [[deps.LuxDeviceUtils]]
 deps = ["Adapt", "ChainRulesCore", "Functors", "LuxCore", "PackageExtensionCompat", "Preferences", "Random", "SparseArrays"]
-git-tree-sha1 = "6adf6442934e8cff3f1d1af4b0e2fcd3358b6d72"
+git-tree-sha1 = "b104b0be198614ef7da2b41e0fbc91c22f744255"
 uuid = "34f89e08-e1d5-43b4-8944-0b49ac560553"
-version = "0.1.8"
+version = "0.1.9"
 
     [deps.LuxDeviceUtils.extensions]
     LuxDeviceUtilsFillArraysExt = "FillArrays"
