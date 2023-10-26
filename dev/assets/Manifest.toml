@@ -1332,16 +1332,20 @@ uuid = "88015f11-f218-50d7-93a8-a6af411a945d"
 version = "3.0.0+1"
 
 [[deps.LLVM]]
-deps = ["CEnum", "LLVMExtra_jll", "Libdl", "Printf", "Unicode"]
-git-tree-sha1 = "4ea2928a96acfcf8589e6cd1429eff2a3a82c366"
+deps = ["CEnum", "LLVMExtra_jll", "Libdl", "Preferences", "Printf", "Requires", "Unicode"]
+git-tree-sha1 = "c879e47398a7ab671c782e02b51a4456794a7fa3"
 uuid = "929cbde3-209d-540e-8aea-75f648917ca0"
-version = "6.3.0"
+version = "6.4.0"
+weakdeps = ["BFloat16s"]
+
+    [deps.LLVM.extensions]
+    BFloat16sExt = "BFloat16s"
 
 [[deps.LLVMExtra_jll]]
 deps = ["Artifacts", "JLLWrappers", "LazyArtifacts", "Libdl", "TOML"]
-git-tree-sha1 = "e7c01b69bcbcb93fd4cbc3d0fea7d229541e18d2"
+git-tree-sha1 = "a84f8f1e8caaaa4e3b4c101306b9e801d3883ace"
 uuid = "dad2f222-ce93-54a1-a47d-0025e8a3acab"
-version = "0.0.26+0"
+version = "0.0.27+0"
 
 [[deps.LLVMOpenMP_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
