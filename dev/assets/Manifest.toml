@@ -1688,9 +1688,9 @@ version = "6.0.4"
 
 [[deps.MCMCDiagnosticTools]]
 deps = ["AbstractFFTs", "DataAPI", "DataStructures", "Distributions", "LinearAlgebra", "MLJModelInterface", "Random", "SpecialFunctions", "Statistics", "StatsBase", "StatsFuns", "Tables"]
-git-tree-sha1 = "56c61163890d15d45901de423be0ad91855a2cd7"
+git-tree-sha1 = "6ea46c36b86320593d2017da3c28c79165167ef4"
 uuid = "be115224-59cd-429b-ad48-344e309966f0"
-version = "0.3.7"
+version = "0.3.8"
 
 [[deps.METIS_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
@@ -2442,9 +2442,9 @@ version = "0.1.0"
 
 [[deps.SLEEFPirates]]
 deps = ["IfElse", "Static", "VectorizationBase"]
-git-tree-sha1 = "897b39ec056c0619ea87adc7eeadba0bec0cf931"
+git-tree-sha1 = "f5c896d781486f1d67c8492f0e0ead2c3517208c"
 uuid = "476501e8-09a2-5ece-8869-fb82de89a1fa"
-version = "0.6.40"
+version = "0.6.41"
 
 [[deps.SciMLBase]]
 deps = ["ADTypes", "ArrayInterface", "ChainRulesCore", "CommonSolve", "ConstructionBase", "Distributed", "DocStringExtensions", "EnumX", "FillArrays", "FunctionWrappersWrappers", "IteratorInterfaceExtensions", "LinearAlgebra", "Logging", "Markdown", "PrecompileTools", "Preferences", "RecipesBase", "RecursiveArrayTools", "Reexport", "RuntimeGeneratedFunctions", "SciMLOperators", "StaticArraysCore", "Statistics", "SymbolicIndexingInterface", "Tables", "TruncatedStacktraces", "ZygoteRules"]
