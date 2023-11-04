@@ -1769,17 +1769,19 @@ version = "2.28.2+0"
 
 [[deps.Measurements]]
 deps = ["Calculus", "LinearAlgebra", "Printf", "Requires"]
-git-tree-sha1 = "bf645d369306c848b6e44e37a1e216b15468c4fc"
+git-tree-sha1 = "bdcde8ec04ca84aef5b124a17684bf3b302de00e"
 uuid = "eff96d63-e80a-5855-80a2-b1b0885c5ab7"
-version = "2.10.0"
+version = "2.11.0"
 
     [deps.Measurements.extensions]
+    MeasurementsBaseTypeExt = "BaseType"
     MeasurementsJunoExt = "Juno"
     MeasurementsRecipesBaseExt = "RecipesBase"
     MeasurementsSpecialFunctionsExt = "SpecialFunctions"
     MeasurementsUnitfulExt = "Unitful"
 
     [deps.Measurements.weakdeps]
+    BaseType = "7fbed51b-1ef5-4d67-9085-a4a9b26f478c"
     Juno = "e5e0dc1b-0480-54bc-9374-aad01c23163d"
     RecipesBase = "3cdcf5f2-1ef4-517c-9805-6587b60abb01"
     SpecialFunctions = "276daf66-3868-5448-9aa4-cd146d93841b"
