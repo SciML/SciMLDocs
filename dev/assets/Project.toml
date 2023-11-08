@@ -50,7 +50,7 @@ Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
 Zygote = "e88e6eb3-aa80-5325-afca-941959d7151f"
 
 [compat]
-AdvancedHMC = "0.5, 0.6"
+AdvancedHMC = "0.5"
 BenchmarkTools = "1"
 CSV = "0.10"
 CUDA = "4, 5"
