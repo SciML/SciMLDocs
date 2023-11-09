@@ -5,6 +5,12 @@ steps:
       BUILDKITE_PLUGIN_CRYPTIC_BASE64_SIGNED_JOB_ID_SECRET: ${BUILDKITE_PLUGIN_CRYPTIC_BASE64_SIGNED_JOB_ID_SECRET?}
 
     plugins:
+      - hasura/smooth-checkout#v4.4.1:
+          repos:
+            - config:
+                - url: "https://github.com/SciML/SciMLDocs.git"
+                  clone_flags: "--depth=1"
+
       - staticfloat/cryptic#v2:
           variables:
             - AWS_ACCESS_KEY_ID="U2FsdGVkX18h85CJAJTEJ8zXd7CrctZHYX4n/yM2xL9uXO0kgRE/kJr8vEHnOOV1"
