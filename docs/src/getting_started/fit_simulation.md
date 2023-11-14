@@ -183,11 +183,10 @@ datasol = solve(prob, saveat = 1)
 data = Array(datasol)
 ```
 
-!!! note
-    
+!!! note    
 
-For more details on using DifferentialEquations.jl, check out the
-[getting started with DifferentialEquations.jl tutorial](https://docs.sciml.ai/DiffEqDocs/stable/getting_started/).
+    For more details on using DifferentialEquations.jl, check out the
+    [getting started with DifferentialEquations.jl tutorial](https://docs.sciml.ai/DiffEqDocs/stable/getting_started/).
 
 ### Step 3: Set Up the Cost Function for Optimization
 
@@ -202,7 +201,7 @@ For our case, we want to change around just the parameters, so we can do `remake
 
 !!! note
     
-    `remake` can change multiple items at once by passing more keyword arguments! I.e., `remake(prob, u0 = newu0, p = newp)`
+    `remake` can change multiple items at once by passing more keyword arguments, i.e., `remake(prob, u0 = newu0, p = newp)`.
     This can be used to extend the example to simultaneously learn the initial conditions and parameters!
 
 Now use `remake` to build the cost function. After we solve the new problem, we will calculate the sum of squared errors
