@@ -366,11 +366,11 @@ pfinal = solve(optprob,
 
         Here: `lotka_volterra!`
 
-    - `u` in `ODEProblem` contains the state variables.
+    - `u` in `ODEProblem` contains the state variables of `f`.
 
         Here: `x` and `y`
 
-    - `p` in `ODEProblem` contains the parameter variables.
+    - `p` in `ODEProblem` contains the parameter variables of `f`.
 
         Here: `\alpha`, `\beta`, `\gamma`, and `\delta`
 
