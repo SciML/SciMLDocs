@@ -3,7 +3,15 @@ steps:
     plugins:
       - JuliaCI/julia#v1:
           version: "1"
+      - hasura/smooth-checkout#v4.4.1:
+          repos:
+            - config:
+                - url: "https://github.com/SciML/SciMLDocs.git"
+                  clone_flags: "--depth=1"
+
     command: |
+      git remote set-branches origin 'gh-pages'
+      git fetch --depth=1 origin gh-pages
       julia --project -e '
         println("--- :julia: Instantiating project")
         using Pkg
