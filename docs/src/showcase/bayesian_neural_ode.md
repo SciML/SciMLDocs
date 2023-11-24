@@ -16,10 +16,10 @@ For this example, we will need the following libraries:
 
 ```@example bnode
 # SciML Libraries
-using DiffEqFlux, Lux, DifferentialEquations
+using DiffEqFlux, DifferentialEquations
 
 # External Tools
-using Random, Plots, AdvancedHMC, MCMCChains, StatsPlots, ComponentArrays
+using Random, Plots, Lux, Zygote, AdvancedHMC, MCMCChains, StatsPlots, ComponentArrays
 ```
 
 ## Setup: Get the data from the Spiral ODE example
@@ -83,7 +83,7 @@ The user can make several modifications to Step 4. The user can try different ac
 ```@example bnode
 l(θ) = -sum(abs2, ode_data .- predict_neuralode(θ)) - sum(θ .* θ)
 function dldθ(θ)
-    x, lambda = Flux.Zygote.pullback(l, θ)
+    x, lambda = Zygote.pullback(l, θ)
     grad = first(lambda(1))
     return x, grad
 end
