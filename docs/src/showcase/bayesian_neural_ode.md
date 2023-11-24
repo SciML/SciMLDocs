@@ -16,7 +16,7 @@ For this example, we will need the following libraries:
 
 ```@example bnode
 # SciML Libraries
-using DiffEqFlux, Flux, DifferentialEquations
+using DiffEqFlux, Lux, DifferentialEquations
 
 # External Tools
 using Random, Plots, AdvancedHMC, MCMCChains, StatsPlots, ComponentArrays
@@ -50,21 +50,20 @@ better at prediction/forecasting than a 50 unit architecture. On the other hand,
 complicated architecture can take a huge computational time without increasing performance.
 
 ```@example bnode
-dudt2 = Flux.Chain(x -> x .^ 3,
-                   Flux.Dense(2, 50, tanh),
-                   Flux.Dense(50, 2)) |> f64
+dudt2 = Lux.Chain(x -> x .^ 3,
+                   Lux.Dense(2, 50, tanh),
+                   Lux.Dense(50, 2))
 prob_neuralode = NeuralODE(dudt2, tspan, Tsit5(), saveat = tsteps)
 rng = Random.default_rng()
-p = Float64.(prob_neuralode.p)
+p, st = Lux.setup(rng, dudt2)
+p = ComponentArray(p)
 ```
-
-Note that the `f64` is required to put the Flux neural network into Float64 precision.
 
 ## Step 3: Define the loss function for the Neural ODE.
 
 ```@example bnode
 function predict_neuralode(p)
-    Array(prob_neuralode(u0, p))
+    Array(prob_neuralode(u0, p, st)[1])
 end
 function loss_neuralode(p)
     pred = predict_neuralode(p)
