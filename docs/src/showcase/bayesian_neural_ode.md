@@ -56,7 +56,7 @@ dudt2 = Lux.Chain(x -> x .^ 3,
 prob_neuralode = NeuralODE(dudt2, tspan, Tsit5(), saveat = tsteps)
 rng = Random.default_rng()
 p, st = Lux.setup(rng, dudt2)
-p = ComponentArray(p)
+p = ComponentArray{Float64}(p)
 ```
 
 ## Step 3: Define the loss function for the Neural ODE.
