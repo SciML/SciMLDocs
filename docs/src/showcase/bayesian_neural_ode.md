@@ -132,7 +132,8 @@ pl = scatter(tsteps, ode_data[1, :], color = :red, label = "Data: Var1", xlabel 
              title = "Spiral Neural ODE")
 scatter!(tsteps, ode_data[2, :], color = :blue, label = "Data: Var2")
 for k in 1:300
-    resol = predict_neuralode(samples[:, 100:end][:, rand(1:400)])
+    newp = typeof(p)(samples[:, 100:end][:, rand(1:400)])
+    resol = predict_neuralode(newp)
     plot!(tsteps, resol[1, :], alpha = 0.04, color = :red, label = "")
     plot!(tsteps, resol[2, :], alpha = 0.04, color = :blue, label = "")
 end
@@ -151,7 +152,8 @@ That showed the time series form. We can similarly do a phase-space plot:
 pl = scatter(ode_data[1, :], ode_data[2, :], color = :red, label = "Data", xlabel = "Var1",
              ylabel = "Var2", title = "Spiral Neural ODE")
 for k in 1:300
-    resol = predict_neuralode(samples[:, 100:end][:, rand(1:400)])
+    newp = typeof(p)(samples[:, 100:end][:, rand(1:400)])
+    resol = predict_neuralode(newp)
     plot!(resol[1, :], resol[2, :], alpha = 0.04, color = :red, label = "")
 end
 plot!(prediction[1, :], prediction[2, :], color = :black, w = 2,
