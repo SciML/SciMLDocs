@@ -334,6 +334,7 @@ We will initialize the `OptimizationProblem` with the same `pguess` we used
 when setting up the ODE Model in Step 3.
 Observe how `Optimization.solve` brings the model closer to the experimental data as it iterates towards better ODE parameter values!
 
+Note that we are using the `PolyOpt()` solver choice here which is discussed https://docs.sciml.ai/Optimization/dev/optimization_packages/polyopt/ since parameter estimation of non-linear differential equations is generally a non-convex problem so we want to run a stochastic algorithm (Adam) to get close to the minimum and then finish off with a quasi-newton method (L-BFGS) to find the optima.
 Together, this looks like:
 
 ```@example odefit
