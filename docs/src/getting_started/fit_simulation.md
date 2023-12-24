@@ -299,7 +299,7 @@ The callback syntax is always:
 
 ```
 callback(
-    optimization function parameters,
+    optimization variables,
     value being optimized,
     other arguments returned from the loss function, ...
 )
