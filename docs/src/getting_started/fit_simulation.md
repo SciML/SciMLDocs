@@ -300,7 +300,7 @@ The callback syntax is always:
 ```
 callback(
     optimization variables,
-    value being optimized,
+    the current loss value,
     other arguments returned from the loss function, ...
 )
 ```
