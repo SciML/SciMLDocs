@@ -305,8 +305,9 @@ callback(
 )
 ```
 
-In this case, we will provide the callback the arguments `(_, l, sol)`,
-since there are no additional optimization function parameters.
+In this case, we will provide the callback the arguments `(p, l, sol)`,
+since it always takes the current state of the optimization first (`p`)
+then the returns from the loss function (`l, sol`).
 The return value of the callback function should default to `false`.
 `Optimization.solve` will halt if/when the callback function returns `true` instead.
 Typically the `return` statement would monitor the loss value
