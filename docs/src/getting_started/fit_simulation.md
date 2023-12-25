@@ -234,9 +234,9 @@ plt = plot(initial_sol, label = ["x Prediction" "y Prediction"])
 scatter!(plt, t_data, xy_data', label = ["x Data" "y Data"])
 ```
 
-Clearly the parameter values that we guessed are not correct to model this system.
-However, we can use Optimization.jl together with DifferentialEquations.jl
-to fit our parameters to our training data.
+    Clearly the parameter values that we guessed are not correct to model this system.
+    However, we can use Optimization.jl together with DifferentialEquations.jl
+    to fit our parameters to our training data.
 
 !!! note
 
