@@ -317,7 +317,7 @@ More details about callbacks in Optimization.jl can be found
 [here](https://docs.sciml.ai/Optimization/stable/API/solve/).
 
 ```@example odefit
-function callback(_, l, sol)
+function callback(p, l, sol)
     display(l)
     plt = plot(sol, ylim = (0, 6), label = ["Current x Prediction" "Current y Prediction"])
     scatter!(plt, t_data, xy_data', label = ["x Data" "y Data"])
