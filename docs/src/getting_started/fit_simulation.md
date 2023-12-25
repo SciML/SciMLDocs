@@ -276,8 +276,8 @@ Using this information, our loss function looks like:
 function loss(newp)
     newprob = remake(prob, p = newp)
     sol = solve(newprob, saveat = 1)
-    loss = sum(abs2, sol .- xy_data)
-    return loss, sol
+    l = sum(abs2, sol .- xy_data)
+    return l, sol
 end
 ```
 
