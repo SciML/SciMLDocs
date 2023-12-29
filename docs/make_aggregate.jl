@@ -88,7 +88,7 @@ docsmodules = [
     ],
 ]
 
-fixnames = Dict("SciMLDocs" => "The SciML Open Souce Software Ecosystem",
+fixnames = Dict("SciMLDocs" => "The SciML Open Source Software Ecosystem",
                 "DiffEqDocs" => "DifferentialEquations",
                 "DiffEqDevDocs" => "DiffEq Developer Documentation",
                 "PlotDocs" => "Plots",
