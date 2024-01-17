@@ -284,7 +284,7 @@ How well did our neural network do? Let's take a look:
 pl_losses = plot(1:5000, losses[1:5000], yaxis = :log10, xaxis = :log10,
                  xlabel = "Iterations", ylabel = "Loss", label = "ADAM", color = :blue)
 plot!(5001:length(losses), losses[5001:end], yaxis = :log10, xaxis = :log10,
-      xlabel = "Iterations", ylabel = "Loss", label = "BFGS", color = :red)
+      xlabel = "Iterations", ylabel = "Loss", label = "LBFGS", color = :red)
 ```
 
 Next, we compare the original data to the output of the UDE predictor. Note that we can even create more samples from the underlying model by simply adjusting the time steps!
