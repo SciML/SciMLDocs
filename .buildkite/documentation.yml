@@ -7,6 +7,7 @@ steps:
           repos:
             - config:
                 - url: "https://github.com/SciML/SciMLDocs.git"
+                  ref: "${BUILDKITE_COMMIT}"
                   clone_flags: "--depth=1"
 
     command: |
