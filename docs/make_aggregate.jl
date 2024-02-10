@@ -66,12 +66,13 @@ docsmodules = [
     "Developer Tools" => [
         "Numerical Utilities" => ["ExponentialUtilities", "DiffEqNoiseProcess",
             "PreallocationTools", "EllipsisNotation", "DataInterpolations",
-            "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro"],
+            "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro", "FindFirstFunctions"],
         "Third-Party Numerical Utilities" => ["FFTW", "Distributions",
             "SpecialFunctions", "LoopVectorization",
             "Polyester", "SparseDiffTools"], #="Tullio"=#
         "High-Level Interfaces" => [
             "SciMLBase",
+            "SciMLStructures",
             "SymbolicIndexingInterface",
             "SciMLOperators",
             "CommonSolve",
