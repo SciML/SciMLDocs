@@ -85,6 +85,7 @@ docsmodules = [
             "SciMLWorkshop",
             "SciMLTutorialsOutput",
             "SciMLBenchmarksOutput",
+            "ModelingToolkitCourse",
         ],
     ],
 ]
