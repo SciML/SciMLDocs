@@ -96,7 +96,7 @@ fixnames = Dict("SciMLDocs" => "The SciML Open Source Software Ecosystem",
                 "PlotDocs" => "Plots",
                 "SciMLBenchmarksOutput" => "The SciML Benchmarks",
                 "SciMLTutorialsOutput" => "Extended SciML Tutorials")
-hasnojl = ["SciMLBenchmarksOutput", "SciMLTutorialsOutput", "ColPrac", "SciMLStyle"]
+hasnojl = ["SciMLBenchmarksOutput", "SciMLTutorialsOutput", "ColPrac", "SciMLStyle", "ModelingToolkitCourse"]
 usemain = ["SciMLBenchmarksOutput", "SciMLTutorialsOutput"]
 
 external_urls = Dict("Enzyme" => "https://github.com/EnzymeAD/Enzyme.jl",
