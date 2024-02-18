@@ -24,7 +24,8 @@ are and how they are used. For the neural network training:
 | [SciMLSensitivity.jl](https://docs.sciml.ai/SciMLSensitivity/stable/)                                    | The adjoint methods, defines gradients of ODE solvers |
 | [Optimization.jl](https://docs.sciml.ai/Optimization/stable/)                                            | The optimization library                              |
 | [OptimizationOptimisers.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/optimisers/) | The optimization solver package with `Adam`           |
-| [OptimizationOptimJL.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/optim/)         | The optimization solver package with `BFGS`           |
+| [OptimizationOptimJL.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/optim/)         | The optimization solver package with `LBFGS`          |
+| [LineSearches.jl](https://julianlsolvers.github.io/LineSearches.jl/latest/index.html)                    | Line search algorithms package to be used with `LBFGS`|
 
 For the symbolic model discovery:
 
@@ -61,7 +62,7 @@ And external libraries:
 ```@example ude
 # SciML Tools
 using OrdinaryDiffEq, ModelingToolkit, DataDrivenDiffEq, SciMLSensitivity, DataDrivenSparse
-using Optimization, OptimizationOptimisers, OptimizationOptimJL
+using Optimization, OptimizationOptimisers, OptimizationOptimJL, LineSearches
 
 # Standard Libraries
 using LinearAlgebra, Statistics
@@ -266,10 +267,10 @@ second optimization, and run it with BFGS. This looks like:
 
 ```@example ude
 optprob2 = Optimization.OptimizationProblem(optf, res1.u)
-res2 = Optimization.solve(optprob2, Optim.LBFGS(), callback = callback, maxiters = 1000)
+res2 = Optimization.solve(optprob2, Optim.LBFGS(linesearch = BackTracking()), callback = callback, maxiters = 1000)
 println("Final training loss after $(length(losses)) iterations: $(losses[end])")
 
-# Rename the best candidate  
+# Rename the best candidate
 p_trained = res2.u
 ```
 
@@ -284,7 +285,7 @@ How well did our neural network do? Let's take a look:
 pl_losses = plot(1:5000, losses[1:5000], yaxis = :log10, xaxis = :log10,
                  xlabel = "Iterations", ylabel = "Loss", label = "ADAM", color = :blue)
 plot!(5001:length(losses), losses[5001:end], yaxis = :log10, xaxis = :log10,
-      xlabel = "Iterations", ylabel = "Loss", label = "BFGS", color = :red)
+      xlabel = "Iterations", ylabel = "Loss", label = "LBFGS", color = :red)
 ```
 
 Next, we compare the original data to the output of the UDE predictor. Note that we can even create more samples from the underlying model by simply adjusting the time steps!

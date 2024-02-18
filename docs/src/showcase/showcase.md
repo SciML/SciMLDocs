@@ -14,6 +14,7 @@ Want to see some cool things that you can do with SciML? Check out the following
     
       + [Auto-complete mechanistic models by embedding machine learning into differential equations](@ref autocomplete)
       + [Bayesian automated model discovery with quantified uncertainties and probability estimates](@ref bnode)
+      + [Discovering the Relativistic Corrections to Binary Black Hole Dynamics](@ref blackhole)
 
   - Solving big difficult equations with parallelism, speed, and accuracy
     

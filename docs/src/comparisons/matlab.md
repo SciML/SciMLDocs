@@ -77,7 +77,7 @@ The following chart will help you get quickly acquainted with Julia's SciML Tool
 | `interp1`           | [DataInterpolations](https://docs.sciml.ai/DataInterpolations/)                |
 | `\`, `gmres`, `cg`  | [LinearSolve](http://linearsolve.sciml.ai/dev/)                                       |
 | `fsolve`            | [NonlinearSolve](https://nonlinearsolve.sciml.ai/)                                    |
-| `quad`              | [Integrals](https://integrals.sciml.ai/)                                              |
+| `quad`              | [Integrals](https://docs.sciml.ai/Integrals/stable/)                                              |
 | `fmincon`           | [Optimization](https://optimization.sciml.ai/)                                        |
 | `odeXX`             | [DifferentialEquations](https://diffeq.sciml.ai/latest/)                              |
 | `ode45`             | `Tsit5`                                                                               |

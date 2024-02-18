@@ -1,4 +1,4 @@
-# [Discovering the Relativistic Corrections to Binary Black Hole Dynamics](@id autocomplete)
+# [Discovering the Relativistic Corrections to Binary Black Hole Dynamics](@id blackhole)
 
 In this showcase we will demonstrate using Newtonian mechanics as prior known information in a
 universal differential equation and learning relativistic corrections to the physics via
@@ -282,7 +282,7 @@ function h_22_quadrupole_components(dt, orbit, component, mass=1.0)
         x(t) and y(t) inputs are the trajectory of the orbiting BH.
 
        WARNING: assuming x and y are on a uniform grid of spacing dt
-        x_index and y_index are 1,2,3 for x, y, and z indicies.
+        x_index and y_index are 1,2,3 for x, y, and z indices.
     =#
 
     mtensor = orbit2tensor(orbit, component, mass)

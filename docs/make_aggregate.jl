@@ -15,7 +15,7 @@ docsmodules = [
         "Symbolic Tools" => ["ModelOrderReduction", "Symbolics", "SymbolicUtils"], #="MetaTheory"=#
         "Third-Party Modeling Tools" => ["MomentClosure", "Agents", "Unitful",
             "ReactionMechanismSimulator",
-            "FiniteStateProjection", "AlgebraicPetri", "QuantumOptics"],
+            "FiniteStateProjection", "AlgebraicPetri"],
         "Array Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
         "Third-Party Array Libraries" => ["ComponentArrays", "StaticArrays", #="FillArrays",=#
             "BandedMatrices", "BlockBandedMatrices"],
@@ -66,12 +66,13 @@ docsmodules = [
     "Developer Tools" => [
         "Numerical Utilities" => ["ExponentialUtilities", "DiffEqNoiseProcess",
             "PreallocationTools", "EllipsisNotation", "DataInterpolations",
-            "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro"],
+            "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro", "FindFirstFunctions"],
         "Third-Party Numerical Utilities" => ["FFTW", "Distributions",
             "SpecialFunctions", "LoopVectorization",
             "Polyester", "SparseDiffTools"], #="Tullio"=#
         "High-Level Interfaces" => [
             "SciMLBase",
+            "SciMLStructures",
             "SymbolicIndexingInterface",
             "SciMLOperators",
             "CommonSolve",
@@ -84,17 +85,18 @@ docsmodules = [
             "SciMLWorkshop",
             "SciMLTutorialsOutput",
             "SciMLBenchmarksOutput",
+            "ModelingToolkitCourse",
         ],
     ],
 ]
 
-fixnames = Dict("SciMLDocs" => "The SciML Open Souce Software Ecosystem",
+fixnames = Dict("SciMLDocs" => "The SciML Open Source Software Ecosystem",
                 "DiffEqDocs" => "DifferentialEquations",
                 "DiffEqDevDocs" => "DiffEq Developer Documentation",
                 "PlotDocs" => "Plots",
                 "SciMLBenchmarksOutput" => "The SciML Benchmarks",
                 "SciMLTutorialsOutput" => "Extended SciML Tutorials")
-hasnojl = ["SciMLBenchmarksOutput", "SciMLTutorialsOutput", "ColPrac", "SciMLStyle"]
+hasnojl = ["SciMLBenchmarksOutput", "SciMLTutorialsOutput", "ColPrac", "SciMLStyle", "ModelingToolkitCourse"]
 usemain = ["SciMLBenchmarksOutput", "SciMLTutorialsOutput"]
 
 external_urls = Dict("Enzyme" => "https://github.com/EnzymeAD/Enzyme.jl",
@@ -149,8 +151,7 @@ external_urls = Dict("Enzyme" => "https://github.com/EnzymeAD/Enzyme.jl",
                      "Unitful" => "https://github.com/PainterQubits/Unitful.jl",
                      "ReactionMechanismSimulator" => "https://github.com/ReactionMechanismGenerator/ReactionMechanismSimulator.jl",
                      "FiniteStateProjection" => "https://github.com/kaandocal/FiniteStateProjection.jl",
-                     "AlgebraicPetri" => "https://github.com/AlgebraicJulia/AlgebraicPetri.jl",
-                     "QuantumOptics" => "https://github.com/qojulia/QuantumOptics.jl")
+                     "AlgebraicPetri" => "https://github.com/AlgebraicJulia/AlgebraicPetri.jl")
 
 docs = Any[MultiDocumenter.MultiDocRef(upstream = joinpath(clonedir, "Home"),
                                        path = "Overview",

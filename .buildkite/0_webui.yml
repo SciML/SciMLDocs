@@ -1,6 +1,12 @@
 steps:
   - label: ":rocket: Launch Pipeline!"
     plugins:
+      - hasura/smooth-checkout#v4.4.1:
+          repos:
+            - config:
+                - url: "https://github.com/SciML/SciMLDocs.git"
+                  ref: "${BUILDKITE_COMMIT}"
+                  clone_flags: "--depth=1"
       - staticfloat/cryptic#v2:
           signed_pipelines:
             - pipeline: .buildkite/aggregate.yml

@@ -50,7 +50,7 @@ doing standard molecular dynamics approximations.
 
 ## DiffEqFinancial.jl: Financial models for use in the DifferentialEquations ecosystem
 
-The goal of [DiffEqFinancial.jl](https://docs.sciml.ai/DiffEqFinancial/stable/) is to be a feature-complete set
+The goal of [DiffEqFinancial.jl](https://github.com/SciML/DiffEqFinancial.jl/commits/master) is to be a feature-complete set
 of solvers for the types of problems found in libraries like QuantLib, such as the Heston process or the
 Black-Scholes model.
 
@@ -104,5 +104,5 @@ generation of dynamical models using a Category theory-based approach.
 
 ## QuantumOptics.jl: Simulating quantum systems.
 
-[QuantumOptics.jl](https://docs.sciml.ai/QuantumOptics/stable/) makes it easy to simulate various kinds of quantum systems.
+[QuantumOptics.jl](https://docs.qojulia.org/) makes it easy to simulate various kinds of quantum systems.
 It is inspired by the Quantum Optics Toolbox for MATLAB and the Python framework QuTiP.

@@ -18,7 +18,7 @@ few useful/interesting types that can be used:
 | Num                      | [Symbolics.jl](https://symbolics.juliasymbolics.org/stable/)                          | Build symbolic expressions of ODE solution approximations       |
 | Taylor                   | [TaylorSeries.jl](https://github.com/JuliaDiff/TaylorSeries.jl)                       | Build a Taylor series around a solution point                   |
 | Dual                     | [ForwardDiff.jl](https://juliadiff.org/ForwardDiff.jl/stable/)                        | Perform forward-mode automatic differentiation                  |
-| TrackedArray\TrackedReal | [ReverseDiff.jl](https://juliadiff.org/ReverseDiff.jl/stable/)                        | Perform reverse-mode automatic differentiation                  |
+| TrackedArray\TrackedReal | [ReverseDiff.jl](https://juliadiff.org/ReverseDiff.jl/)                        | Perform reverse-mode automatic differentiation                  |
 
 and on and on. That's only a subset of types people have effectively used on the SciML tools.
 
