@@ -11,6 +11,7 @@ docsmodules = [
         "Model Libraries and Importers" => ["ModelingToolkitStandardLibrary",
             "DiffEqCallbacks",
             "CellMLToolkit", "SBMLToolkit",
+            "BaseModelica",
             "ReactionNetworkImporters"],
         "Symbolic Tools" => ["ModelOrderReduction", "Symbolics", "SymbolicUtils"], #="MetaTheory"=#
         "Third-Party Modeling Tools" => ["MomentClosure", "Agents", "Unitful",
@@ -75,6 +76,7 @@ docsmodules = [
             "SciMLStructures",
             "SymbolicIndexingInterface",
             "SciMLOperators",
+            "SurrogatesBase",
             "CommonSolve",
         ],
         "Third-Party Interfaces" => ["ArrayInterface", "StaticArrayInterface", "AbstractFFTs", 
