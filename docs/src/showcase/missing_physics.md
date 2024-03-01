@@ -258,7 +258,7 @@ Thus we first solve the optimization problem with ADAM. Choosing a learning rate
 (tuned to be as high as possible that doesn't tend to make the loss shoot up), we see:
 
 ```@example ude
-res1 = Optimization.solve(optprob, ADAM(), callback = callback, maxiters = 5000)
+res1 = Optimization.solve(optprob, OptimizationOptimisers.Adam(), callback = callback, maxiters = 5000)
 println("Training loss after $(length(losses)) iterations: $(losses[end])")
 ```
 
@@ -267,7 +267,7 @@ second optimization, and run it with BFGS. This looks like:
 
 ```@example ude
 optprob2 = Optimization.OptimizationProblem(optf, res1.u)
-res2 = Optimization.solve(optprob2, Optim.LBFGS(linesearch = BackTracking()), callback = callback, maxiters = 1000)
+res2 = Optimization.solve(optprob2, LBFGS(linesearch = BackTracking()), callback = callback, maxiters = 1000)
 println("Final training loss after $(length(losses)) iterations: $(losses[end])")
 
 # Rename the best candidate
