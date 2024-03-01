@@ -52,7 +52,7 @@ complicated architecture can take a huge computational time without increasing p
 ```@example bnode
 dudt2 = Flux.Chain(x -> x .^ 3,
                    Flux.Dense(2, 50, tanh),
-                   Flux.Dense(50, 2)) |> f64
+                   Flux.Dense(50, 2)) |> Flux.f64
 prob_neuralode = NeuralODE(dudt2, tspan, Tsit5(), saveat = tsteps)
 rng = Random.default_rng()
 p = Float64.(prob_neuralode.p)
