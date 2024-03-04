@@ -69,7 +69,7 @@ Note that the `f64` is required to put the Flux neural network into Float64 prec
 
 ```@example bnode
 function predict_neuralode(p)
-    p isa ComponentArray ? p : convert(typeof(_p),p)
+    p = p isa ComponentArray ? p : convert(typeof(_p),p)
     Array(prob_neuralode(u0, p, st)[1])
 end
 function loss_neuralode(p)
