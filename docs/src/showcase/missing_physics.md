@@ -384,7 +384,7 @@ Let's solve the data-driven problems using sparse regression. We will use the `A
 method, which requires we define a set of shrinking cutoff values `λ`, and we do this like:
 
 ```@example ude
-λ = exp10.(-3:0.01:3)
+λ = 1e-1
 opt = ADMM(λ)
 ```
 
