@@ -33,13 +33,13 @@ time values in the same type as tspan, and the solution values in the same type 
 initial condition.
 
 !!! note
-    
+
     Support for this feature is restricted to the native algorithms of OrdinaryDiffEq.jl.
     The other solvers such as Sundials.jl, and ODEInterface.jl are incompatible with some
     number systems.
 
 !!! warn
-    
+
     Adaptive timestepping requires that the time type is compatible with `sqrt` and `^`
     functions. Thus for example, `tspan` cannot be `Int` if adaptive timestepping is chosen.
 
@@ -154,8 +154,8 @@ sqrt(t)
 Many operations work. These operations will check to make sure units are correct, and will
 throw an error for incorrect operations:
 
-```@example odetypes
-#t + sqrt(t)
+```julia
+t + sqrt(t)
 ```
 
 ### Using Unitful with DifferentialEquations.jl
