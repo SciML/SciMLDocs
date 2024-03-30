@@ -47,7 +47,7 @@ using ModelingToolkit, NonlinearSolve
 eqs = [0 ~ σ * (y - x),
     0 ~ x * (ρ - z) - y,
     0 ~ x * y - β * z]
-@named ns = NonlinearSystem(eqs, [x, y, z], [σ, ρ, β])
+@mtkbuild ns = NonlinearSystem(eqs, [x, y, z], [σ, ρ, β])
 
 # Convert the symbolic system into a numerical system
 prob = NonlinearProblem(ns, [])
@@ -56,7 +56,7 @@ prob = NonlinearProblem(ns, [])
 sol = solve(prob, NewtonRaphson())
 
 # Analyze the solution
-@show sol.u, prob.f(sol.u, prob.p)
+@show sol[[x,y,z]], sol.resid
 ```
 
 ## Step-by-Step Solution
@@ -122,7 +122,7 @@ Finally, we bring these pieces together, the equation along with its states and 
 define our `NonlinearSystem`:
 
 ```@example first_rootfind
-@named ns = NonlinearSystem(eqs, [x, y, z], [σ, ρ, β])
+@mtkbuild ns = NonlinearSystem(eqs, [x, y, z], [σ, ρ, β])
 ```
 
 ### Step 3: Convert the Symbolic Problem to a Numerical Problem
@@ -178,5 +178,5 @@ We can check it as follows:
 
 ```@example first_rootfind
 # Analyze the solution
-@show sol.u, sol.resid
+@show sol[[x,y,z]], sol.resid
 ```

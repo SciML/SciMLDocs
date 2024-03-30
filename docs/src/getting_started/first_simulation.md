@@ -66,14 +66,11 @@ eqs = [D(x) ~ α * x - β * x * y
        z ~ x + y]
 
 # Bring these pieces together into an ODESystem with independent variable t
-@named sys = ODESystem(eqs, t)
-
-# Symbolically Simplify the System
-simpsys = structural_simplify(sys)
+@mtkbuild sys = ODESystem(eqs, t)
 
 # Convert from a symbolic to a numerical problem to simulate
 tspan = (0.0, 10.0)
-prob = ODEProblem(simpsys, [], tspan)
+prob = ODEProblem(sys, [], tspan)
 
 # Solve the ODE
 sol = solve(prob)
@@ -173,22 +170,15 @@ to represent an `ODESystem` with the following:
 
 ```@example first_sim
 # Bring these pieces together into an ODESystem with independent variable t
-@named sys = ODESystem(eqs, t)
+@mtkbuild sys = ODESystem(eqs, t)
 ```
 
-Next, we want to simplify this into a standard ODE system. Notice that in our equations
-we have an algebraic equation `z ~ x + y`. This is not a differential equation but an
-algebraic equation, and thus we call this set of equations a Differential-Algebraic Equation
-(DAE). The symbolic system of ModelingToolkit can eliminate such equations to return simpler
-forms to numerically approximate. Let's tell it to simplify the system using
-`structural_simplify`:
+Notice that in our equations we have an algebraic equation `z ~ x + y`. This is not a 
+differential equation but an algebraic equation, and thus we call this set of equations a 
+Differential-Algebraic Equation (DAE). The symbolic system of ModelingToolkit can eliminate 
+such equations to return simpler forms to numerically approximate.
 
-```@example first_sim
-# Symbolically Simplify the System
-simpsys = structural_simplify(sys)
-```
-
-Notice that what is returned is another `ODESystem`, but now with the simplified set of
+Notice that what is returned is an `ODESystem`, but now with the simplified set of
 equations. `z` has been turned into an “observable”, i.e. a state that is not computed
 but can be constructed on-demand. This is one of the ways that SciML reaches its speed:
 you can have 100,000 equations, but solve only 1,000 to then automatically reconstruct
@@ -213,7 +203,7 @@ like:
 ```@example first_sim
 # Convert from a symbolic to a numerical problem to simulate
 tspan = (0.0, 10.0)
-prob = ODEProblem(simpsys, [], tspan)
+prob = ODEProblem(sys, [], tspan)
 ```
 
 ### Step 4: Solve the ODE System
@@ -282,9 +272,8 @@ D = Differential(t)
 eqs = [D(🐰) ~ α * 🐰 - β * 🐰 * 🐺,
     D(🐺) ~ -γ * 🐺 + δ * 🐰 * 🐺]
 
-@named sys = ODESystem(eqs, t)
-simpsys = structural_simplify(sys)
-prob = ODEProblem(simpsys, [], (0.0, 10.0))
+@mtkbuild sys = ODESystem(eqs, t)
+prob = ODEProblem(sys, [], (0.0, 10.0))
 sol = solve(prob)
 ```
 

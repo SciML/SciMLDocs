@@ -7,7 +7,7 @@ the Neural ODE estimation and forecasting. In this tutorial, a working example o
 Bayesian Neural ODE: NUTS sampler is shown.
 
 !!! note
-    
+
     For more details, have a look at this paper: https://arxiv.org/abs/2012.07244
 
 ## Step 1: Import Libraries
@@ -16,7 +16,10 @@ For this example, we will need the following libraries:
 
 ```@example bnode
 # SciML Libraries
-using DiffEqFlux, Flux, DifferentialEquations
+using DiffEqFlux, DifferentialEquations
+
+# ML Tools
+using Lux, Zygote
 
 # External Tools
 using Random, Plots, AdvancedHMC, MCMCChains, StatsPlots, ComponentArrays
@@ -50,12 +53,14 @@ better at prediction/forecasting than a 50 unit architecture. On the other hand,
 complicated architecture can take a huge computational time without increasing performance.
 
 ```@example bnode
-dudt2 = Flux.Chain(x -> x .^ 3,
-                   Flux.Dense(2, 50, tanh),
-                   Flux.Dense(50, 2)) |> f64
+dudt2 = Lux.Chain(x -> x .^ 3,
+                   Lux.Dense(2, 50, tanh),
+                   Lux.Dense(50, 2))
 prob_neuralode = NeuralODE(dudt2, tspan, Tsit5(), saveat = tsteps)
 rng = Random.default_rng()
-p = Float64.(prob_neuralode.p)
+p, st = Lux.setup(rng, dudt2)
+p = ComponentArray{Float64}(p)
+const _p = p
 ```
 
 Note that the `f64` is required to put the Flux neural network into Float64 precision.
@@ -64,7 +69,8 @@ Note that the `f64` is required to put the Flux neural network into Float64 prec
 
 ```@example bnode
 function predict_neuralode(p)
-    Array(prob_neuralode(u0, p))
+    p = p isa ComponentArray ? p : convert(typeof(_p),p)
+    Array(prob_neuralode(u0, p, st)[1])
 end
 function loss_neuralode(p)
     pred = predict_neuralode(p)
@@ -84,7 +90,7 @@ The user can make several modifications to Step 4. The user can try different ac
 ```@example bnode
 l(θ) = -sum(abs2, ode_data .- predict_neuralode(θ)) - sum(θ .* θ)
 function dldθ(θ)
-    x, lambda = Flux.Zygote.pullback(l, θ)
+    x, lambda = Zygote.pullback(l, θ)
     grad = first(lambda(1))
     return x, grad
 end
