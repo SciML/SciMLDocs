@@ -62,6 +62,14 @@ basis sets, such as Chebyshev functions and Fourier decompositions, making it ea
 to represent spectral and pseudospectral discretizations of partial differential equations
 as ordinary differential equations for the SciML equation solvers.
 
+## Ferrite.jl: Finite Element Toolbox for Julia
+
+[Ferrite.jl](https://github.com/Ferrite-FEM/Ferrite.jl) is a performant and extensible
+library which provides algorithms and data structures to develop finite element software.
+This library aims at users which need fine grained control over all algorithmic details,
+as for example often necessary in research when developing new grid-based PDE discretizations
+or other more advanced problem formulations for example found in continuum mechanics.
+
 ## Gridap.jl: Julia-Based Tools for Finite Element Discretizations
 
 [Gridap.jl](https://github.com/gridap/Gridap.jl) is a package for grid-based approximation
