@@ -54,6 +54,8 @@ should receive better performance using MethodOflines.jl.
 
 # Third-Party Libraries to Note
 
+A more exhaustive list of Julia PDE packages can be found here: https://github.com/JuliaPDE/SurveyofPDEPackages
+
 ## ApproxFun.jl: Automated Spectral Discretizations
 
 [ApproxFun.jl](https://github.com/JuliaApproximation/ApproxFun.jl) is a package for
