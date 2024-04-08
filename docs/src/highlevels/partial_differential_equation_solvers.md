@@ -54,6 +54,8 @@ should receive better performance using MethodOflines.jl.
 
 # Third-Party Libraries to Note
 
+A more exhaustive list of Julia PDE packages can be found here: https://github.com/JuliaPDE/SurveyofPDEPackages
+
 ## ApproxFun.jl: Automated Spectral Discretizations
 
 [ApproxFun.jl](https://github.com/JuliaApproximation/ApproxFun.jl) is a package for
@@ -61,6 +63,14 @@ approximating functions in basis sets. One particular use case is with spectral
 basis sets, such as Chebyshev functions and Fourier decompositions, making it easy
 to represent spectral and pseudospectral discretizations of partial differential equations
 as ordinary differential equations for the SciML equation solvers.
+
+## Ferrite.jl: Finite Element Toolbox for Julia
+
+[Ferrite.jl](https://github.com/Ferrite-FEM/Ferrite.jl) is a performant and extensible
+library which provides algorithms and data structures to develop finite element software.
+This library aims at users which need fine grained control over all algorithmic details,
+as for example often necessary in research when developing new grid-based PDE discretizations
+or other more advanced problem formulations for example found in continuum mechanics.
 
 ## Gridap.jl: Julia-Based Tools for Finite Element Discretizations
 
