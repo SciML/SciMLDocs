@@ -13,7 +13,7 @@ steps:
     command: |
       git remote set-branches origin 'gh-pages'
       git fetch --depth=1 origin gh-pages
-      julia --project=docs -e '
+      julia --project=docs --compiled-modules=no -e '
         println("--- :julia: Instantiating project")
         using Pkg
         Pkg.instantiate()
@@ -26,7 +26,6 @@ steps:
       queue: "juliagpu"
       cuda: "*"
     env:
-      JULIA_PKG_PRECOMPILE_AUTO: false
       DATADEPS_ALWAYS_ACCEPT: true
       JULIA_DEBUG: "Documenter"
     if: build.message !~ /\[skip docs\]/ && !build.pull_request.draft
