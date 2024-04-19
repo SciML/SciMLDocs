@@ -9,6 +9,7 @@ docsmodules = [
         "Modeling Languages" => ["ModelingToolkit", "Catalyst", "NBodySimulator",
             "ParameterizedFunctions"],
         "Model Libraries and Importers" => ["ModelingToolkitStandardLibrary",
+            "ModelingToolkitNeuralNets",
             "DiffEqCallbacks",
             "CellMLToolkit", "SBMLToolkit",
             "BaseModelica",
