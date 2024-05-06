@@ -452,7 +452,7 @@ Looks great!
 ## Automating the Discovery of Relativistic Equations from Newtonian Physics
 
 Now let's learn the relativistic corrections directly from the data. To define the UDE, we will define
-a Lux neural network and pass it into our Newtonian Physics + Nerual Network ODE definition from above:
+a Lux neural network and pass it into our Newtonian Physics + Neural Network ODE definition from above:
 
 ```@example ude
 NN = Lux.Chain((x) -> cos.(x),
