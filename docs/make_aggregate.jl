@@ -11,13 +11,14 @@ docsmodules = [
         "Model Libraries and Importers" => ["ModelingToolkitStandardLibrary",
             "ModelingToolkitNeuralNets",
             "DiffEqCallbacks",
+            "FiniteStateProjection",
             "CellMLToolkit", "SBMLToolkit",
             "BaseModelica",
             "ReactionNetworkImporters"],
         "Symbolic Tools" => ["ModelOrderReduction", "Symbolics", "SymbolicUtils"], #="MetaTheory"=#
         "Third-Party Modeling Tools" => ["MomentClosure", "Agents", "Unitful",
             "ReactionMechanismSimulator",
-            "FiniteStateProjection", "AlgebraicPetri"],
+            "AlgebraicPetri"],
         "Array Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
         "Third-Party Array Libraries" => ["ComponentArrays", "StaticArrays", #="FillArrays",=#
             "BandedMatrices", "BlockBandedMatrices"],
