@@ -57,8 +57,8 @@ tspan = (0, 10.0)
 pendulum_prob = ODEProblem(pendulum_fun!, u0, tspan, p)
 traced_sys = modelingtoolkitize(pendulum_prob)
 pendulum_sys = structural_simplify(dae_index_lowering(traced_sys))
-prob = ODAEProblem(pendulum_sys, [], tspan)
-sol = solve(prob, Tsit5(), abstol = 1e-8, reltol = 1e-8)
+prob = ODEProblem(pendulum_sys, [], tspan)
+sol = solve(prob, Rodas5P(), abstol = 1e-8, reltol = 1e-8)
 plot(sol, vars = states(traced_sys))
 ```
 
@@ -98,7 +98,7 @@ u0 = [1.0, 0, 0, 0, 0];
 p = [9.8, 1];
 tspan = (0, 10.0);
 pendulum_prob = ODEProblem(pendulum_fun!, u0, tspan, p)
-solve(pendulum_prob, Rodas4())
+solve(pendulum_prob, Rodas5P())
 ```
 
 However, one will quickly be greeted with the unfortunate message:
@@ -178,7 +178,7 @@ numerical solver. Let's try that out:
 traced_sys = modelingtoolkitize(pendulum_prob)
 pendulum_sys = structural_simplify(dae_index_lowering(traced_sys))
 prob = ODEProblem(pendulum_sys, Pair[], tspan)
-sol = solve(prob, Rodas4())
+sol = solve(prob, Rodas5P())
 
 using Plots
 plot(sol, vars = states(traced_sys))
@@ -198,8 +198,8 @@ be solved via an explicit Runge-Kutta method:
 ```@example indexred
 traced_sys = modelingtoolkitize(pendulum_prob)
 pendulum_sys = structural_simplify(dae_index_lowering(traced_sys))
-prob = ODAEProblem(pendulum_sys, Pair[], tspan)
-sol = solve(prob, Tsit5(), abstol = 1e-8, reltol = 1e-8)
+prob = ODEProblem(pendulum_sys, Pair[], tspan)
+sol = solve(prob, Rodas5P(), abstol = 1e-8, reltol = 1e-8)
 plot(sol, vars = states(traced_sys))
 ```
 
