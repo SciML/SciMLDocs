@@ -57,9 +57,9 @@ tspan = (0, 10.0)
 pendulum_prob = ODEProblem(pendulum_fun!, u0, tspan, p)
 traced_sys = modelingtoolkitize(pendulum_prob)
 pendulum_sys = structural_simplify(dae_index_lowering(traced_sys))
-prob = ODAEProblem(pendulum_sys, [], tspan)
-sol = solve(prob, Tsit5(), abstol = 1e-8, reltol = 1e-8)
-plot(sol, vars = states(traced_sys))
+prob = ODEProblem(pendulum_sys, [], tspan)
+sol = solve(prob, Rodas5P(), abstol = 1e-8, reltol = 1e-8)
+plot(sol, vars = unknowns(traced_sys))
 ```
 
 ## Explanation
@@ -98,7 +98,7 @@ u0 = [1.0, 0, 0, 0, 0];
 p = [9.8, 1];
 tspan = (0, 10.0);
 pendulum_prob = ODEProblem(pendulum_fun!, u0, tspan, p)
-solve(pendulum_prob, Rodas4())
+solve(pendulum_prob, Rodas5P())
 ```
 
 However, one will quickly be greeted with the unfortunate message:
@@ -170,42 +170,41 @@ we can avoid this by using methods like
 [the Pantelides algorithm](https://ptolemy.berkeley.edu/projects/embedded/eecsx44/lectures/Spring2013/modelica-dae-part-2.pdf)
 for automatically performing this reduction to index 1. While this requires the
 ModelingToolkit symbolic form, we use `modelingtoolkitize` to transform
-the numerical code into symbolic code, run `dae_index_lowering` lowering,
+the numerical code into symbolic code, run `structural_simplify` to
+simplify the system and lower the index, 
 then transform back to numerical code with `ODEProblem`, and solve with a
 numerical solver. Let's try that out:
 
 ```@example indexred
 traced_sys = modelingtoolkitize(pendulum_prob)
-pendulum_sys = structural_simplify(dae_index_lowering(traced_sys))
+pendulum_sys = structural_simplify(traced_sys)
 prob = ODEProblem(pendulum_sys, Pair[], tspan)
-sol = solve(prob, Rodas4())
+sol = solve(prob, Rodas5P())
 
 using Plots
-plot(sol, vars = states(traced_sys))
+plot(sol, vars = unknowns(traced_sys))
 ```
 
-Note that plotting using `states(traced_sys)` is done so that any
+Note that plotting using `unknowns(traced_sys)` is done so that any
 variables which are symbolically eliminated, or any variable reordering
 done for enhanced parallelism/performance, still show up in the resulting
 plot and the plot is shown in the same order as the original numerical
 code.
 
-Note that we can even go a bit further. If we use the `ODAEProblem`
-constructor, we can remove the algebraic equations from the states of the
-system and fully transform the index-3 DAE into an index-0 ODE, which can
-be solved via an explicit Runge-Kutta method:
+Note that we can even go a bit further. If we use the `ODEProblem`
+constructor, we represent the mass matrix DAE of the index-reduced system, 
+which can be solved via:
 
 ```@example indexred
 traced_sys = modelingtoolkitize(pendulum_prob)
 pendulum_sys = structural_simplify(dae_index_lowering(traced_sys))
-prob = ODAEProblem(pendulum_sys, Pair[], tspan)
-sol = solve(prob, Tsit5(), abstol = 1e-8, reltol = 1e-8)
-plot(sol, vars = states(traced_sys))
+prob = ODEProblem(pendulum_sys, Pair[], tspan)
+sol = solve(prob, Rodas5P(), abstol = 1e-8, reltol = 1e-8)
+plot(sol, vars = unknowns(traced_sys))
 ```
 
 And there you go: this has transformed the model from being too hard to
-solve with implicit DAE solvers, to something that is easily solved with
-explicit Runge-Kutta methods for non-stiff equations.
+solve with implicit DAE solvers, to something that is easily solved.
 
 # Parameter Identifiability in ODE Models
 
@@ -285,7 +284,7 @@ local_id_all = assess_local_identifiability(de, measured_quantities = measured_q
 #  1
 ```
 
-We can see that all states (except $x_7$) and all parameters are locally identifiable with probability 0.99.
+We can see that all unknowns (except $x_7$) and all parameters are locally identifiable with probability 0.99.
 
 Let's try to check specific parameters and their combinations
 
