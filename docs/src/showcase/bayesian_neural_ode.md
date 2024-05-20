@@ -71,14 +71,14 @@ p = ComponentArray{Float64}(p)
 const _p = p
 ```
 
-Note that the `f64` is required to put the Flux neural network into Float64 precision.
+Note that the `f64` is required to put the Lux neural network into Float64 precision.
 
 ## Step 3: Define the loss function for the Neural ODE.
 
 ```@example bnode
 function predict_neuralode(p)
     p = p isa ComponentArray ? p : convert(typeof(_p),p)
-    Array(prob_neuralode(u0, p)[1])
+    Array(prob_neuralode(u0, p))
 end
 function loss_neuralode(p)
     pred = predict_neuralode(p)
