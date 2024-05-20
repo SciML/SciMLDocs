@@ -16,7 +16,7 @@ For this example, we will need the following libraries:
 
 ```@example bnode
 # SciML Libraries
-using DiffEqFlux, DifferentialEquations
+using SciMLSensitivity, DifferentialEquations
 
 # ML Tools
 using Lux, Zygote
