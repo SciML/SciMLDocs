@@ -29,7 +29,7 @@ steps:
       DATADEPS_ALWAYS_ACCEPT: true
       JULIA_DEBUG: "Documenter"
     if: build.message !~ /\[skip docs\]/ && !build.pull_request.draft
-    timeout_in_minutes: 1000
+    timeout_in_minutes: 2000
 
 env:
   JULIA_PKG_SERVER: "" # it often struggles with our large artifacts
