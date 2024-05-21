@@ -19,10 +19,22 @@ neural network `NN` satisfies the PDE equations and is thus the solution to the 
 our packages look like:
 
 ```@example pinn
+# High Level Interface
 using NeuralPDE
-using Optimization, OptimizationOptimisers
 import ModelingToolkit: Interval
-using Plots, Printf, Lux, CUDA, ComponentArrays, Random
+
+# Optimization Libraries
+using Optimization, OptimizationOptimisers
+
+# Machine Learning Libraries and Helpers
+using Lux, LuxCUDA, ComponentArrays
+const gpud = gpu_device() # allocate a GPU device
+
+# Standard Libraries
+using Printf, Random
+
+# Plotting
+using Plots
 ```
 
 ## Problem Setup
@@ -91,15 +103,15 @@ domains = [t ∈ Interval(t_min, t_max),
 ```
 
 !!! note
-    
+
     We used the wildcard form of the variable definition `@variables u(..)` which then
     requires that we always specify what the dependent variables of `u` are. This is because in the boundary conditions we change from using `u(t,x,y)` to
     more specific points and lines, like `u(t,x_max,y)`.
 
 ## Step 3: Define the Lux Neural Network
 
-Now let's define the neural network that will act as our solution. We will use a simple
-multi-layer perceptron, like:
+Now let's define the neural network that will act as our solution.
+We will use a simple multi-layer perceptron, like:
 
 ```@example pinn
 using Lux
@@ -110,17 +122,17 @@ chain = Chain(Dense(3, inner, Lux.σ),
               Dense(inner, inner, Lux.σ),
               Dense(inner, 1))
 ps = Lux.setup(Random.default_rng(), chain)[1]
-ps = ps |> ComponentArray
 ```
 
 ## Step 4: Place it on the GPU.
 
 Just plop it on that sucker. We must ensure that our initial parameters for the neural
 network are on the GPU. If that is done, then the internal computations will all take place
-on the GPU. This is done by using the `gpu` function on the initial parameters, like:
+on the GPU. This is done by using the `gpud` function (i.e. the GPU
+device we created at the start) on the initial parameters, like:
 
 ```@example pinn
-ps = ps |> gpu .|> Float64
+ps = ps |> ComponentArray |> gpud .|> Float64
 ```
 
 ## Step 5: Discretize the PDE via a PINN Training Strategy
@@ -160,7 +172,7 @@ Finally, we inspect the solution:
 phi = discretization.phi
 ts, xs, ys = [infimum(d.domain):0.1:supremum(d.domain) for d in domains]
 u_real = [analytic_sol_func(t, x, y) for t in ts for x in xs for y in ys]
-u_predict = [first(Array(phi(gpu([t, x, y]), res.u))) for t in ts for x in xs for y in ys]
+u_predict = [first(Array(phi([t, x, y], res.u))) for t in ts for x in xs for y in ys]
 
 function plot_(res)
     # Animate
@@ -168,7 +180,7 @@ function plot_(res)
         @info "Animating frame $i..."
         u_real = reshape([analytic_sol_func(t, x, y) for x in xs for y in ys],
                          (length(xs), length(ys)))
-        u_predict = reshape([Array(phi(gpu([t, x, y]), res.u))[1] for x in xs for y in ys],
+        u_predict = reshape([Array(phi([t, x, y], res.u))[1] for x in xs for y in ys],
                             length(xs), length(ys))
         u_error = abs.(u_predict .- u_real)
         title = @sprintf("predict, t = %.3f", t)
