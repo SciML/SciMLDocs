@@ -152,7 +152,7 @@ prob2 = NonlinearProblem(ns, [x => 2.0, σ => 4.0])
 ### Step 4: Solve the Numerical Problem
 
 Now we solve the nonlinear system. For this, we choose a solver from the
-[NonlinearSolve.jl's solver options.](https://docs.sciml.ai/NonlinearSolve/stable/solvers/NonlinearSystemSolvers/)
+[NonlinearSolve.jl's solver options.](https://docs.sciml.ai/NonlinearSolve/stable/solvers/nonlinear_system_solvers/)
 We will choose `NewtonRaphson` as follows:
 
 ```@example first_rootfind
@@ -171,7 +171,7 @@ typeof(sol)
 
 From this, we can see that it is an `NonlinearSolution`. We can see the documentation for
 how to use the `NonlinearSolution` by checking the
-[NonlinearSolve.jl solution type page.](https://docs.sciml.ai/NonlinearSolve/stable/basics/NonlinearSolution/)
+[NonlinearSolve.jl solution type page.](https://docs.sciml.ai/NonlinearSolve/stable/basics/nonlinear_solution/)
 For example, the solution is stored as `.u`.
 What is the solution to our nonlinear system, and what is the final residual value?
 We can check it as follows:

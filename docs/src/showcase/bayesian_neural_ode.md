@@ -16,7 +16,7 @@ For this example, we will need the following libraries:
 
 ```@example bnode
 # SciML Libraries
-using DiffEqFlux, DifferentialEquations
+using SciMLSensitivity, DifferentialEquations
 
 # ML Tools
 using Lux, Zygote
@@ -56,21 +56,29 @@ complicated architecture can take a huge computational time without increasing p
 dudt2 = Lux.Chain(x -> x .^ 3,
                    Lux.Dense(2, 50, tanh),
                    Lux.Dense(50, 2))
-prob_neuralode = NeuralODE(dudt2, tspan, Tsit5(), saveat = tsteps)
+
 rng = Random.default_rng()
 p, st = Lux.setup(rng, dudt2)
+const _st = st
+function neuralodefunc(u, p, t)
+    dudt2(u, p, _st)[1]
+end
+function prob_neuralode(u0, p)
+    prob = ODEProblem(neuralodefunc, u0, tspan, p)
+    sol = solve(prob, Tsit5(), saveat = tsteps)
+end
 p = ComponentArray{Float64}(p)
 const _p = p
 ```
 
-Note that the `f64` is required to put the Flux neural network into Float64 precision.
+Note that the `f64` is required to put the Lux neural network into Float64 precision.
 
 ## Step 3: Define the loss function for the Neural ODE.
 
 ```@example bnode
 function predict_neuralode(p)
     p = p isa ComponentArray ? p : convert(typeof(_p),p)
-    Array(prob_neuralode(u0, p, st)[1])
+    Array(prob_neuralode(u0, p))
 end
 function loss_neuralode(p)
     pred = predict_neuralode(p)
