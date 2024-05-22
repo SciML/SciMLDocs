@@ -25,6 +25,7 @@ makedocs(sitename = "Overview of Julia's SciML",
                              "https://epubs.siam.org/doi/10.1137/0903023",
                              "https://bkamins.github.io/julialang/2020/12/24/minilanguage.html",
                              "https://arxiv.org/abs/2109.06786",
+                             "https://arxiv.org/abs/2001.04385",
     
     ],
          format = Documenter.HTML(assets = ["assets/favicon.ico"],
