@@ -66,7 +66,7 @@ The following chart will help you get quickly acquainted with Julia's SciML Tool
 | `plot`             | [Plots](https://docs.juliaplots.org/stable/), [Makie](https://docs.makie.org/stable/) |
 | `ggplot2`          | [AlgebraOfGraphics](https://aog.makie.org/stable/)                                    |
 | `deSolve`          | [DifferentialEquations](https://diffeq.sciml.ai/latest/)                              |
-| Stan               | [Turing](https://turinglang.org/stable/)                                                   |
+| Stan               | [Turing](https://turinglang.org/docs/)                                                |
 
 ## Want to See the Power of Julia?
 
