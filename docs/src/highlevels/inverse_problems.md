@@ -73,7 +73,7 @@ with the high-level package DiffEqBayes.jl). For more examples on combining
 Turing.jl with DiffEqBayes.jl, see the documentation below. It is important
 to note that Turing.jl can also perform Bayesian estimation without relying on
 DiffEqBayes.jl (for an example, consult
-[this](https://turinglang.org/stable/tutorials/10-bayesian-differential-equations/) tutorial).
+[this](https://turinglang.org/docs/tutorials/10-bayesian-differential-equations/) tutorial).
 
 ## Topopt.jl: Topology Optimization in Julia
 
