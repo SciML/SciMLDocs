@@ -26,7 +26,7 @@ The following parts of the SciML Ecosystem will be used in this tutorial:
 First, what are we solving? Let's take a look at the Rosenbrock equation:
 
 ```math
-L(u,p) = (p_1 - u_1)^2 + p_2 * (u_2 - u_1)^2
+L(u,p) = (p_1 - u_1)^2 + p_2 * (u_2 - u_1^2)^2
 ```
 
 What we want to do is find the  values of ``u_1`` and ``u_2`` such that ``L``
