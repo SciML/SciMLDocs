@@ -16,26 +16,33 @@ docsmodules = [
             "BaseModelica",
             "ReactionNetworkImporters"],
         "Symbolic Tools" => ["ModelOrderReduction", "Symbolics", "SymbolicUtils"], #="MetaTheory"=#
+        #=
         "Third-Party Modeling Tools" => ["MomentClosure", "Agents", "Unitful",
             "ReactionMechanismSimulator",
             "AlgebraicPetri"],
+        =#
         "Array Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
+        #=
         "Third-Party Array Libraries" => ["ComponentArrays", "StaticArrays", #="FillArrays",=#
             "BandedMatrices", "BlockBandedMatrices"],
+        =#
     ],
     "Solvers" => [
         "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals", "DifferenceEquations",
             "Optimization", "JumpProcesses"],
+        #=
         "Third-Party Equation Solvers" => [
             "LowRankIntegrators",
             "FractionalDiffEq",
             "ManifoldDiffEq",
         ],
+        =#
         "Inverse Problems / Estimation" => [
             "SciMLSensitivity", "DiffEqParamEstim", "DiffEqBayes"],
         "PDE Solvers" => ["MethodOfLines", "NeuralPDE",
             "NeuralOperators", "FEniCS",
             "HighDimPDE", "DiffEqOperators"],
+        #=
         "Third-Party PDE Solvers" => [
             "Trixi",
             "Ferrite",
@@ -43,36 +50,43 @@ docsmodules = [
             "ApproxFun",
             "VoronoiFVM",
         ],
+        =#
         "Advanced Solver APIs" => ["OrdinaryDiffEq", "DiffEqGPU"],
     ],
     "Analysis" => [
-        "Plots and Visualization" => ["Makie"], #="PlotDocs",=#
+        #= "Plots and Visualization" => ["Makie"], #="PlotDocs",=# =#
         "Parameter Analysis" => ["EasyModelAnalysis", "GlobalSensitivity", "StructuralIdentifiability"],
+        #=
         "Third-Party Parameter Analysis" => ["DynamicalSystems", "BifurcationKit",
             "ControlSystems", "ReachabilityAnalysis"],
+        =#
         "Uncertainty Quantification" => ["PolyChaos", "SciMLExpectations"],
+        #=
         "Third-Party Uncertainty Quantification" => ["Measurements",
             "MonteCarloMeasurements",
             "ProbNumDiffEq", "TaylorIntegration",
             "IntervalArithmetic"],
+        =#
     ],
     "Machine Learning" => [
         "Function Approximation" => ["Surrogates", "ReservoirComputing"],
         "Implicit Layer Deep Learning" => ["DiffEqFlux", "DeepEquilibriumNetworks"],
-        "Third-Party Implicit Layer Deep Learning" => ["Flux", "Lux", "SimpleChains"],
+        #= "Third-Party Implicit Layer Deep Learning" => ["Flux", "Lux", "SimpleChains"], =#
         "Symbolic Learning" => ["DataDrivenDiffEq", "SymbolicNumericIntegration"],
-        "Third-Party Symbolic Learning" => ["SymbolicRegression"],
+        #= "Third-Party Symbolic Learning" => ["SymbolicRegression"], =#
         "Third-Party Differentiation Tooling" => ["SparseDiffTools", "FiniteDiff",
-            "ForwardDiff",
-            "Zygote", "Enzyme"],
+            #= "ForwardDiff",
+            "Zygote", "Enzyme" =#],
     ],
     "Developer Tools" => [
         "Numerical Utilities" => ["ExponentialUtilities", "DiffEqNoiseProcess",
             "PreallocationTools", "EllipsisNotation", "DataInterpolations",
             "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro", "FindFirstFunctions"],
+        #=
         "Third-Party Numerical Utilities" => ["FFTW", "Distributions",
             "SpecialFunctions", "LoopVectorization",
             "Polyester", "SparseDiffTools"], #="Tullio"=#
+        =#
         "High-Level Interfaces" => [
             "SciMLBase",
             "SciMLStructures",
@@ -82,9 +96,9 @@ docsmodules = [
             "SurrogatesBase",
             "CommonSolve",
         ],
-        "Third-Party Interfaces" => ["ArrayInterface", "StaticArrayInterface", "AbstractFFTs", 
+        "Third-Party Interfaces" => ["ArrayInterface", "StaticArrayInterface", #= "AbstractFFTs",
             "GPUArrays", #= "Adapt", =#
-            "Tables"],                                 #= "RecipesBase", =#
+            "Tables" =#],                                 #= "RecipesBase", =#
         "Developer Documentation" => ["SciMLStyle", "ColPrac", "DiffEqDevDocs"],
         "Extra Resources" => [
             "SciMLWorkshop",
