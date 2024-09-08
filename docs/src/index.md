@@ -25,7 +25,7 @@ interest!
 ## Reproducibility
 
 ```@raw html
-<details><summary>The documentation of the [SciML Showcase](@ref showcase) was built using these direct dependencies,</summary>
+<details><summary>The documentation of the <a href="showcase/showcase/#showcase">SciML Showcase</a> was built using these direct dependencies,</summary>
 ```
 
 ```@example
