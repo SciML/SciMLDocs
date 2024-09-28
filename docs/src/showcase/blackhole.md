@@ -490,10 +490,8 @@ function loss(NN_params)
         prob_nn, RK4(), u0 = u0, p = NN_params, saveat = tsteps, dt = dt, adaptive = false))
     pred_waveform = compute_waveform(dt_data, pred, mass_ratio, model_params)[1]
 
-    loss = (sum(abs2,
-        view(waveform, obs_to_use_for_training) .-
-        view(pred_waveform, obs_to_use_for_training)))
-    return loss, pred_waveform
+    loss = ( sum(abs2, view(waveform,obs_to_use_for_training) .- view(pred_waveform,obs_to_use_for_training) ) )
+    return loss
 end
 ```
 
@@ -508,10 +506,11 @@ We'll use the following callback to save the history of the loss values.
 ```@example ude
 losses = []
 
-callback(θ, l, pred_waveform; doplot = true) = begin
+callback(state, l; doplot = true) = begin
     push!(losses, l)
     #=  Disable plotting as it trains since in docs
     display(l)
+    waveform = compute_waveform(dt_data, soln, mass_ratio, model_params)[1]
     # plot current prediction against data
     plt = plot(tsteps, waveform,
         markershape=:circle, markeralpha = 0.25,

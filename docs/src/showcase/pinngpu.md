@@ -148,7 +148,7 @@ prob = discretize(pde_system, discretization)
 ## Step 6: Solve the Optimization Problem
 
 ```@example pinn
-callback = function (p, l)
+callback = function (state, l)
     println("Current loss is: $l")
     return false
 end
