@@ -222,7 +222,7 @@ current loss:
 ```@example ude
 losses = Float64[]
 
-callback = function (p, l)
+callback = function (state, l)
     push!(losses, l)
     if length(losses) % 50 == 0
         println("Current loss after $(length(losses)) iterations: $(losses[end])")
