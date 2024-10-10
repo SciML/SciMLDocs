@@ -21,8 +21,8 @@ steps:
           keyvars:
             - "DOCUMENTER_KEY"
       - JuliaCI/julia#v1:
-          version: "1"
-      - staticfloat/sandbox#v1:
+          version: "1.11.0"
+      - staticfloat/sandbox#v2:
           rootfs_url: "https://github.com/JuliaCI/rootfs-images/releases/download/v5.45/aws_uploader.x86_64.tar.gz"
           rootfs_treehash: "8f1a718279b12f889395723b856fc868a8890dfa"
           verbose: true
@@ -31,6 +31,7 @@ steps:
             - "/cache:/cache"
 
     command: |
+      julia --version
       julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
       git config user.name buildkite
       git config user.email julia@buildkite.com
