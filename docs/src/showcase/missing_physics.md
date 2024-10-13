@@ -18,14 +18,14 @@ correct model and auto-complete it to find the missing physics.
 There are many packages which are used as part of this showcase. Let's detail what they
 are and how they are used. For the neural network training:
 
-| Module                                                                                                   | Description                                           |
-|:-------------------------------------------------------------------------------------------------------- |:----------------------------------------------------- |
-| [OrdinaryDiffEq.jl](https://docs.sciml.ai/DiffEqDocs/stable/) (DifferentialEquations.jl)                 | The numerical differential equation solvers           |
-| [SciMLSensitivity.jl](https://docs.sciml.ai/SciMLSensitivity/stable/)                                    | The adjoint methods, defines gradients of ODE solvers |
-| [Optimization.jl](https://docs.sciml.ai/Optimization/stable/)                                            | The optimization library                              |
-| [OptimizationOptimisers.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/optimisers/) | The optimization solver package with `Adam`           |
-| [OptimizationOptimJL.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/optim/)         | The optimization solver package with `LBFGS`          |
-| [LineSearches.jl](https://julianlsolvers.github.io/LineSearches.jl/latest/index.html)                    | Line search algorithms package to be used with `LBFGS`|
+| Module                                                                                                   | Description                                            |
+|:-------------------------------------------------------------------------------------------------------- |:------------------------------------------------------ |
+| [OrdinaryDiffEq.jl](https://docs.sciml.ai/DiffEqDocs/stable/) (DifferentialEquations.jl)                 | The numerical differential equation solvers            |
+| [SciMLSensitivity.jl](https://docs.sciml.ai/SciMLSensitivity/stable/)                                    | The adjoint methods, defines gradients of ODE solvers  |
+| [Optimization.jl](https://docs.sciml.ai/Optimization/stable/)                                            | The optimization library                               |
+| [OptimizationOptimisers.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/optimisers/) | The optimization solver package with `Adam`            |
+| [OptimizationOptimJL.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/optim/)         | The optimization solver package with `LBFGS`           |
+| [LineSearches.jl](https://julianlsolvers.github.io/LineSearches.jl/latest/index.html)                    | Line search algorithms package to be used with `LBFGS` |
 
 For the symbolic model discovery:
 
@@ -47,7 +47,7 @@ And external libraries:
 
 | Module                                                                       | Description                                         |
 |:---------------------------------------------------------------------------- |:--------------------------------------------------- |
-| [Lux.jl](http://lux.csail.mit.edu/stable/)                                   | The deep learning (neural network) framework        |
+| [Lux.jl](https://lux.csail.mit.edu/stable/)                                  | The deep learning (neural network) framework        |
 | [ComponentArrays.jl](https://jonniedie.github.io/ComponentArrays.jl/stable/) | For the `ComponentArray` type to match Lux to SciML |
 | [Plots.jl](https://docs.juliaplots.org/stable/)                              | The plotting and visualization library              |
 | [StableRNGs.jl](https://docs.juliaplots.org/stable/)                         | Stable random seeding                               |
@@ -138,7 +138,7 @@ rbf(x) = exp.(-(x .^ 2))
 
 # Multilayer FeedForward
 const U = Lux.Chain(Lux.Dense(2, 5, rbf), Lux.Dense(5, 5, rbf), Lux.Dense(5, 5, rbf),
-              Lux.Dense(5, 2))
+    Lux.Dense(5, 2))
 # Get the initial parameters and state variables of the model
 p, st = Lux.setup(rng, U)
 const _st = st
@@ -196,12 +196,12 @@ Knowing this, our `predict` function looks like:
 function predict(θ, X = Xₙ[:, 1], T = t)
     _prob = remake(prob_nn, u0 = X, tspan = (T[1], T[end]), p = θ)
     Array(solve(_prob, Vern7(), saveat = T,
-                abstol = 1e-6, reltol = 1e-6, 
-                sensealg=QuadratureAdjoint(autojacvec=ReverseDiffVJP(true))))
+        abstol = 1e-6, reltol = 1e-6,
+        sensealg = QuadratureAdjoint(autojacvec = ReverseDiffVJP(true))))
 end
 ```
-There are many choices for the combination of sensitivity algorithm and automatic differentiation library (see [Choosing a Sensitivity Algorithm](https://docs.sciml.ai/SciMLSensitivity/stable/manual/differential_equation_sensitivities/#Choosing-a-Sensitivity-Algorithm). For example, you could have used `sensealg=ForwardDiffSensitivity()`.
 
+There are many choices for the combination of sensitivity algorithm and automatic differentiation library (see [Choosing a Sensitivity Algorithm](https://docs.sciml.ai/SciMLSensitivity/stable/manual/differential_equation_sensitivities/#Choosing-a-Sensitivity-Algorithm). For example, you could have used `sensealg=ForwardDiffSensitivity()`.
 
 Now, for our loss function, we solve the ODE at our new parameters and check its L2 loss
 against the dataset. Using our `predict` function, this looks like:
@@ -236,7 +236,7 @@ end
 Now we're ready to train! To run the training process, we will need to build an
 [`OptimizationProblem`](https://docs.sciml.ai/Optimization/stable/API/optimization_problem/).
 Because we have a lot of parameters, we will use
-[Zygote.jl](https://docs.sciml.ai/Zygote/stable/). Optimization.jl makes the choice of
+[Zygote.jl](https://fluxml.ai/Zygote.jl/dev/). Optimization.jl makes the choice of
 automatic differentiation easy, just by specifying an `adtype` in the
 [`OptimizationFunction` construction](https://docs.sciml.ai/Optimization/stable/API/optimization_function/)
 
@@ -258,7 +258,8 @@ Thus we first solve the optimization problem with ADAM. Choosing a learning rate
 (tuned to be as high as possible that doesn't tend to make the loss shoot up), we see:
 
 ```@example ude
-res1 = Optimization.solve(optprob, OptimizationOptimisers.Adam(), callback = callback, maxiters = 5000)
+res1 = Optimization.solve(
+    optprob, OptimizationOptimisers.Adam(), callback = callback, maxiters = 5000)
 println("Training loss after $(length(losses)) iterations: $(losses[end])")
 ```
 
@@ -267,7 +268,8 @@ second optimization, and run it with BFGS. This looks like:
 
 ```@example ude
 optprob2 = Optimization.OptimizationProblem(optf, res1.u)
-res2 = Optimization.solve(optprob2, LBFGS(linesearch = BackTracking()), callback = callback, maxiters = 1000)
+res2 = Optimization.solve(
+    optprob2, LBFGS(linesearch = BackTracking()), callback = callback, maxiters = 1000)
 println("Final training loss after $(length(losses)) iterations: $(losses[end])")
 
 # Rename the best candidate
@@ -283,9 +285,9 @@ How well did our neural network do? Let's take a look:
 ```@example ude
 # Plot the losses
 pl_losses = plot(1:5000, losses[1:5000], yaxis = :log10, xaxis = :log10,
-                 xlabel = "Iterations", ylabel = "Loss", label = "ADAM", color = :blue)
+    xlabel = "Iterations", ylabel = "Loss", label = "ADAM", color = :blue)
 plot!(5001:length(losses), losses[5001:end], yaxis = :log10, xaxis = :log10,
-      xlabel = "Iterations", ylabel = "Loss", label = "LBFGS", color = :red)
+    xlabel = "Iterations", ylabel = "Loss", label = "LBFGS", color = :red)
 ```
 
 Next, we compare the original data to the output of the UDE predictor. Note that we can even create more samples from the underlying model by simply adjusting the time steps!
@@ -297,7 +299,7 @@ ts = first(solution.t):(mean(diff(solution.t)) / 2):last(solution.t)
 X̂ = predict(p_trained, Xₙ[:, 1], ts)
 # Trained on noisy data vs real solution
 pl_trajectory = plot(ts, transpose(X̂), xlabel = "t", ylabel = "x(t), y(t)", color = :red,
-                     label = ["UDE Approximation" nothing])
+    label = ["UDE Approximation" nothing])
 scatter!(solution.t, transpose(Xₙ), color = :black, label = ["Measurements" nothing])
 ```
 
@@ -310,7 +312,7 @@ Ȳ = [-p_[2] * (X̂[1, :] .* X̂[2, :])'; p_[3] * (X̂[1, :] .* X̂[2, :])']
 Ŷ = U(X̂, p_trained, st)[1]
 
 pl_reconstruction = plot(ts, transpose(Ŷ), xlabel = "t", ylabel = "U(x,y)", color = :red,
-                         label = ["UDE Approximation" nothing])
+    label = ["UDE Approximation" nothing])
 plot!(ts, transpose(Ȳ), color = :black, label = ["True Interaction" nothing])
 ```
 
@@ -319,7 +321,7 @@ And have a nice look at all the information:
 ```@example ude
 # Plot the error
 pl_reconstruction_error = plot(ts, norm.(eachcol(Ȳ - Ŷ)), yaxis = :log, xlabel = "t",
-                               ylabel = "L2-Error", label = nothing, color = :red)
+    ylabel = "L2-Error", label = nothing, color = :red)
 pl_missing = plot(pl_reconstruction, pl_reconstruction_error, layout = (2, 1))
 
 pl_overall = plot(pl_trajectory, pl_missing)
@@ -395,12 +397,12 @@ regressions:
 
 ```@example ude
 options = DataDrivenCommonOptions(maxiters = 10_000,
-                                  normalize = DataNormalization(ZScoreTransform),
-                                  selector = bic, digits = 1,
-                                  data_processing = DataProcessing(split = 0.9,
-                                                                   batchsize = 30,
-                                                                   shuffle = true,
-                                                                   rng = StableRNG(1111)))
+    normalize = DataNormalization(ZScoreTransform),
+    selector = bic, digits = 1,
+    data_processing = DataProcessing(split = 0.9,
+        batchsize = 30,
+        shuffle = true,
+        rng = StableRNG(1111)))
 
 full_res = solve(full_problem, basis, opt, options = options)
 full_eqs = get_basis(full_res)
@@ -409,12 +411,12 @@ println(full_res)
 
 ```@example ude
 options = DataDrivenCommonOptions(maxiters = 10_000,
-                                  normalize = DataNormalization(ZScoreTransform),
-                                  selector = bic, digits = 1,
-                                  data_processing = DataProcessing(split = 0.9,
-                                                                   batchsize = 30,
-                                                                   shuffle = true,
-                                                                   rng = StableRNG(1111)))
+    normalize = DataNormalization(ZScoreTransform),
+    selector = bic, digits = 1,
+    data_processing = DataProcessing(split = 0.9,
+        batchsize = 30,
+        shuffle = true,
+        rng = StableRNG(1111)))
 
 ideal_res = solve(ideal_problem, basis, opt, options = options)
 ideal_eqs = get_basis(ideal_res)
@@ -423,12 +425,12 @@ println(ideal_res)
 
 ```@example ude
 options = DataDrivenCommonOptions(maxiters = 10_000,
-                                  normalize = DataNormalization(ZScoreTransform),
-                                  selector = bic, digits = 1,
-                                  data_processing = DataProcessing(split = 0.9,
-                                                                   batchsize = 30,
-                                                                   shuffle = true,
-                                                                   rng = StableRNG(1111)))
+    normalize = DataNormalization(ZScoreTransform),
+    selector = bic, digits = 1,
+    data_processing = DataProcessing(split = 0.9,
+        batchsize = 30,
+        shuffle = true,
+        rng = StableRNG(1111)))
 
 nn_res = solve(nn_problem, basis, opt, options = options)
 nn_eqs = get_basis(nn_res)
@@ -504,29 +506,29 @@ c3 = :blue # RGBA(255/255,90/255,0,1) # Orange
 c4 = :purple # RGBA(153/255,50/255,204/255,1) # Purple
 
 p1 = plot(t, abs.(Array(solution) .- estimate)' .+ eps(Float32),
-          lw = 3, yaxis = :log, title = "Timeseries of UODE Error",
-          color = [3 :orange], xlabel = "t",
-          label = ["x(t)" "y(t)"],
-          titlefont = "Helvetica", legendfont = "Helvetica",
-          legend = :topright)
+    lw = 3, yaxis = :log, title = "Timeseries of UODE Error",
+    color = [3 :orange], xlabel = "t",
+    label = ["x(t)" "y(t)"],
+    titlefont = "Helvetica", legendfont = "Helvetica",
+    legend = :topright)
 
 # Plot L₂
 p2 = plot3d(X̂[1, :], X̂[2, :], Ŷ[2, :], lw = 3,
-            title = "Neural Network Fit of U2(t)", color = c1,
-            label = "Neural Network", xaxis = "x", yaxis = "y",
-            titlefont = "Helvetica", legendfont = "Helvetica",
-            legend = :bottomright)
+    title = "Neural Network Fit of U2(t)", color = c1,
+    label = "Neural Network", xaxis = "x", yaxis = "y",
+    titlefont = "Helvetica", legendfont = "Helvetica",
+    legend = :bottomright)
 plot!(X̂[1, :], X̂[2, :], Ȳ[2, :], lw = 3, label = "True Missing Term", color = c2)
 
 p3 = scatter(solution, color = [c1 c2], label = ["x data" "y data"],
-             title = "Extrapolated Fit From Short Training Data",
-             titlefont = "Helvetica", legendfont = "Helvetica",
-             markersize = 5)
+    title = "Extrapolated Fit From Short Training Data",
+    titlefont = "Helvetica", legendfont = "Helvetica",
+    markersize = 5)
 
 plot!(p3, true_solution_long, color = [c1 c2], linestyle = :dot, lw = 5,
-      label = ["True x(t)" "True y(t)"])
+    label = ["True x(t)" "True y(t)"])
 plot!(p3, estimate_long, color = [c3 c4], lw = 1,
-      label = ["Estimated x(t)" "Estimated y(t)"])
+    label = ["Estimated x(t)" "Estimated y(t)"])
 plot!(p3, [2.99, 3.01], [0.0, 10.0], lw = 1, color = :black, label = nothing)
 annotate!([(1.5, 13, text("Training \nData", 10, :center, :top, :black, "Helvetica"))])
 l = @layout [grid(1, 2)

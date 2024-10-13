@@ -7,7 +7,7 @@ the Neural ODE estimation and forecasting. In this tutorial, a working example o
 Bayesian Neural ODE: NUTS sampler is shown.
 
 !!! note
-
+    
     For more details, have a look at this paper: https://arxiv.org/abs/2012.07244
 
 ## Step 1: Import Libraries
@@ -54,8 +54,8 @@ complicated architecture can take a huge computational time without increasing p
 
 ```@example bnode
 dudt2 = Lux.Chain(x -> x .^ 3,
-                   Lux.Dense(2, 50, tanh),
-                   Lux.Dense(50, 2))
+    Lux.Dense(2, 50, tanh),
+    Lux.Dense(50, 2))
 
 rng = Random.default_rng()
 p, st = Lux.setup(rng, dudt2)
@@ -77,7 +77,7 @@ Note that the `f64` is required to put the Lux neural network into Float64 preci
 
 ```@example bnode
 function predict_neuralode(p)
-    p = p isa ComponentArray ? p : convert(typeof(_p),p)
+    p = p isa ComponentArray ? p : convert(typeof(_p), p)
     Array(prob_neuralode(u0, p))
 end
 function loss_neuralode(p)
@@ -144,7 +144,7 @@ results of the predictions against the data. Let's start by looking at the time 
 
 ```@example bnode
 pl = scatter(tsteps, ode_data[1, :], color = :red, label = "Data: Var1", xlabel = "t",
-             title = "Spiral Neural ODE")
+    title = "Spiral Neural ODE")
 scatter!(tsteps, ode_data[2, :], color = :blue, label = "Data: Var2")
 for k in 1:300
     resol = predict_neuralode(samples[:, 100:end][:, rand(1:400)])
@@ -157,18 +157,18 @@ idx = findmin(losses)[2]
 prediction = predict_neuralode(samples[:, idx])
 plot!(tsteps, prediction[1, :], color = :black, w = 2, label = "")
 plot!(tsteps, prediction[2, :], color = :black, w = 2, label = "Best fit prediction",
-      ylims = (-2.5, 3.5))
+    ylims = (-2.5, 3.5))
 ```
 
 That showed the time series form. We can similarly do a phase-space plot:
 
 ```@example bnode
 pl = scatter(ode_data[1, :], ode_data[2, :], color = :red, label = "Data", xlabel = "Var1",
-             ylabel = "Var2", title = "Spiral Neural ODE")
+    ylabel = "Var2", title = "Spiral Neural ODE")
 for k in 1:300
     resol = predict_neuralode(samples[:, 100:end][:, rand(1:400)])
     plot!(resol[1, :], resol[2, :], alpha = 0.04, color = :red, label = "")
 end
 plot!(prediction[1, :], prediction[2, :], color = :black, w = 2,
-      label = "Best fit prediction", ylims = (-2.5, 3))
+    label = "Best fit prediction", ylims = (-2.5, 3))
 ```

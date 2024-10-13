@@ -10,7 +10,7 @@ few useful/interesting types that can be used:
 | BigFloat                 | Base Julia                                                                            | Higher precision solutions                                      |
 | ArbFloat                 | [ArbFloats.jl](https://github.com/JuliaArbTypes/ArbFloats.jl)                         | More efficient higher precision solutions                       |
 | Measurement              | [Measurements.jl](https://github.com/JuliaPhysics/Measurements.jl)                    | Uncertainty propagation                                         |
-| Particles       | [MonteCarloMeasurements.jl](https://github.com/baggepinnen/MonteCarloMeasurements.jl) | Uncertainty propagation                                         |
+| Particles                | [MonteCarloMeasurements.jl](https://github.com/baggepinnen/MonteCarloMeasurements.jl) | Uncertainty propagation                                         |
 | Unitful                  | [Unitful.jl](https://painterqubits.github.io/Unitful.jl/stable/)                      | Unit-checked arithmetic                                         |
 | Quaternion               | [Quaternions.jl](https://juliageometry.github.io/Quaternions.jl/stable/)              | Quaternions, duh.                                               |
 | Fun                      | [ApproxFun.jl](https://juliaapproximation.github.io/ApproxFun.jl/latest/)             | Representing PDEs as ODEs in function spaces                    |
@@ -18,7 +18,7 @@ few useful/interesting types that can be used:
 | Num                      | [Symbolics.jl](https://symbolics.juliasymbolics.org/stable/)                          | Build symbolic expressions of ODE solution approximations       |
 | Taylor                   | [TaylorSeries.jl](https://github.com/JuliaDiff/TaylorSeries.jl)                       | Build a Taylor series around a solution point                   |
 | Dual                     | [ForwardDiff.jl](https://juliadiff.org/ForwardDiff.jl/stable/)                        | Perform forward-mode automatic differentiation                  |
-| TrackedArray\TrackedReal | [ReverseDiff.jl](https://juliadiff.org/ReverseDiff.jl/)                        | Perform reverse-mode automatic differentiation                  |
+| TrackedArray\TrackedReal | [ReverseDiff.jl](https://juliadiff.org/ReverseDiff.jl/)                               | Perform reverse-mode automatic differentiation                  |
 
 and on and on. That's only a subset of types people have effectively used on the SciML tools.
 
@@ -33,13 +33,13 @@ time values in the same type as tspan, and the solution values in the same type 
 initial condition.
 
 !!! note
-
+    
     Support for this feature is restricted to the native algorithms of OrdinaryDiffEq.jl.
     The other solvers such as Sundials.jl, and ODEInterface.jl are incompatible with some
     number systems.
 
 !!! warn
-
+    
     Adaptive timestepping requires that the time type is compatible with `sqrt` and `^`
     functions. Thus for example, `tspan` cannot be `Int` if adaptive timestepping is chosen.
 

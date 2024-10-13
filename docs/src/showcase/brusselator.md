@@ -123,7 +123,7 @@ partial differential equation transforms it into a new numerical problem. For ex
 | Finite Difference, Finite Volume, Finite Element, discretizing all variables                                   | `NonlinearProblem`                                      |
 | Finite Difference, Finite Volume, Finite Element, discretizing all variables except time                       | `ODEProblem`/`DAEProblem`                               |
 | Physics-Informed Neural Network                                                                                | `OptimizationProblem`                                   |
-| Feynman-Kac Formula                                                                                           | `SDEProblem`                                            |
+| Feynman-Kac Formula                                                                                            | `SDEProblem`                                            |
 | Universal Stochastic Differential Equation ([High dimensional PDEs](https://docs.sciml.ai/HighDimPDE/stable/)) | `OptimizationProblem` inverse problem over `SDEProblem` |
 
 Thus the process of solving a PDE is fundamentally about transforming its symbolic form
@@ -147,7 +147,7 @@ dy = (y_max - y_min) / N
 order = 2
 
 discretization = MOLFiniteDifference([x => dx, y => dy], t, approx_order = order,
-                                     grid_align = center_align)
+    grid_align = center_align)
 ```
 
 Next, we `discretize` the system, converting the `PDESystem` in to an `ODEProblem`:
@@ -278,8 +278,8 @@ function incompletelu(W, du, u, p, t, newW, Plprev, Prprev, solverdata)
 end
 
 @btime solve(prob_sparse,
-             TRBDF2(linsolve = KrylovJL_GMRES(), precs = incompletelu, concrete_jac = true),
-             save_everystep = false);
+    TRBDF2(linsolve = KrylovJL_GMRES(), precs = incompletelu, concrete_jac = true),
+    save_everystep = false);
 ```
 
 And now we're zooming! For more information on these performance improvements, check out

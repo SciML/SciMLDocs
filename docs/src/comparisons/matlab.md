@@ -74,10 +74,10 @@ The following chart will help you get quickly acquainted with Julia's SciML Tool
 |:------------------- |:------------------------------------------------------------------------------------- |
 | `plot`              | [Plots](https://docs.juliaplots.org/stable/), [Makie](https://docs.makie.org/stable/) |
 | `sparse`            | [SparseArrays](https://docs.julialang.org/en/v1/stdlib/SparseArrays/#Sparse-Arrays)   |
-| `interp1`           | [DataInterpolations](https://docs.sciml.ai/DataInterpolations/)                |
-| `\`, `gmres`, `cg`  | [LinearSolve](http://linearsolve.sciml.ai/dev/)                                       |
+| `interp1`           | [DataInterpolations](https://docs.sciml.ai/DataInterpolations/)                       |
+| `\`, `gmres`, `cg`  | [LinearSolve](https://linearsolve.sciml.ai/dev/)                                      |
 | `fsolve`            | [NonlinearSolve](https://nonlinearsolve.sciml.ai/)                                    |
-| `quad`              | [Integrals](https://docs.sciml.ai/Integrals/stable/)                                              |
+| `quad`              | [Integrals](https://docs.sciml.ai/Integrals/stable/)                                  |
 | `fmincon`           | [Optimization](https://optimization.sciml.ai/)                                        |
 | `odeXX`             | [DifferentialEquations](https://diffeq.sciml.ai/latest/)                              |
 | `ode45`             | `Tsit5`                                                                               |

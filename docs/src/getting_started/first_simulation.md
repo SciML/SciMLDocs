@@ -173,9 +173,9 @@ to represent an `ODESystem` with the following:
 @mtkbuild sys = ODESystem(eqs, t)
 ```
 
-Notice that in our equations we have an algebraic equation `z ~ x + y`. This is not a 
-differential equation but an algebraic equation, and thus we call this set of equations a 
-Differential-Algebraic Equation (DAE). The symbolic system of ModelingToolkit can eliminate 
+Notice that in our equations we have an algebraic equation `z ~ x + y`. This is not a
+differential equation but an algebraic equation, and thus we call this set of equations a
+Differential-Algebraic Equation (DAE). The symbolic system of ModelingToolkit can eliminate
 such equations to return simpler forms to numerically approximate.
 
 Notice that what is returned is an `ODESystem`, but now with the simplified set of

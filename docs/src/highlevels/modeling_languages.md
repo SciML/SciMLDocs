@@ -64,7 +64,7 @@ This image that went viral is actually runnable code from [ParameterizedFunction
 
 ## MomentClosure.jl: Automated Generation of Moment Closure Equations
 
-[MomentClosure.jl](https://docs.sciml.ai/MomentClosure/dev/) is a library for generating the moment
+[MomentClosure.jl](https://github.com/augustinas1/MomentClosure.jl) is a library for generating the moment
 closure equations for a given chemical master equation or stochastic differential equation. Thus instead of
 solving a stochastic model thousands of times to find the mean and variance, this library can generate the
 deterministic equations for how the mean and variance evolve in order to be solved in a single run. MomentClosure.jl
@@ -74,18 +74,18 @@ processes.
 ## Agents.jl: Agent-Based Modeling Framework in Julia
 
 If one wants to do agent-based modeling in Julia,
-[Agents.jl](https://docs.sciml.ai/Agents/stable/) is the go-to library. It's fast and flexible,
+[Agents.jl](https://github.com/JuliaDynamics/Agents.jl) is the go-to library. It's fast and flexible,
 making it a solid foundation for any agent-based model.
 
 ## Unitful.jl: A Julia package for physical units
 
 Supports not only SI units, but also any other unit system.
-[Unitful.jl](https://docs.sciml.ai/Unitful/stable/) has minimal run-time penalty of units.
+[Unitful.jl](https://painterqubits.github.io/Unitful.jl/stable/) has minimal run-time penalty of units.
 Includes facilities for dimensional analysis, and integrates easily with the usual mathematical operations and collections that are defined in Julia.
 
 ## ReactionMechanismSimulator.jl: Simulation and Analysis of Large Chemical Reaction Systems
 
-[ReactionMechanismSimulator.jl](https://docs.sciml.ai/ReactionMechanismSimulator/stable/)
+[ReactionMechanismSimulator.jl](https://github.com/ReactionMechanismGenerator/ReactionMechanismSimulator.jl)
 is a tool for simulating and analyzing large chemical reaction mechanisms. It
 interfaces with the ReactionMechanismGenerator suite for automatically constructing reaction pathways
 from chemical components to quickly build realistic models of chemical systems.
@@ -99,7 +99,7 @@ allow for directly solving the weak form of the stochastic model.
 
 ## AlgebraicPetri.jl: Applied Category Theory of Modeling
 
-[AlgebraicPetri.jl](https://docs.sciml.ai/AlgebraicPetri/stable/) is a library for automating the intuitive
+[AlgebraicPetri.jl](https://github.com/AlgebraicJulia/AlgebraicPetri.jl) is a library for automating the intuitive
 generation of dynamical models using a Category theory-based approach.
 
 ## QuantumOptics.jl: Simulating quantum systems.

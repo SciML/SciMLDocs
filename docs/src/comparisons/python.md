@@ -61,7 +61,7 @@ The following chart will help you get quickly acquainted with Julia's SciML Tool
 |:---------------------------- |:----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Matplotlib                   | [Plots](https://docs.juliaplots.org/stable/), [Makie](https://docs.makie.org/stable/)                                                                                   |
 | `scipy.special`              | [SpecialFunctions](https://github.com/JuliaMath/SpecialFunctions.jl)                                                                                                    |
-| `scipy.linalg.solve`         | [LinearSolve](http://linearsolve.sciml.ai/dev/)                                                                                                                         |
+| `scipy.linalg.solve`         | [LinearSolve](https://linearsolve.sciml.ai/dev/)                                                                                                                        |
 | `scipy.integrate`            | [Integrals](https://docs.sciml.ai/Integrals/stable/)                                                                                                                    |
 | `scipy.optimize`             | [Optimization](https://optimization.sciml.ai/)                                                                                                                          |
 | `scipy.optimize.fsolve`      | [NonlinearSolve](https://nonlinearsolve.sciml.ai/)                                                                                                                      |
@@ -71,7 +71,7 @@ The following chart will help you get quickly acquainted with Julia's SciML Tool
 | `scipy.sparse`               | [SparseArrays](https://docs.julialang.org/en/v1/stdlib/SparseArrays/#Sparse-Arrays), [ARPACK](https://github.com/JuliaLinearAlgebra/Arpack.jl)                          |
 | `odeint`/`solve_ivp`         | [DifferentialEquations](https://diffeq.sciml.ai/latest/)                                                                                                                |
 | `scipy.integrate.solve_bvp`  | [Boundary-value problem](https://diffeq.sciml.ai/latest/tutorials/bvp_example/#Boundary-Value-Problems)                                                                 |
-| PyTorch                      | [Flux](https://fluxml.ai/), [Lux](http://lux.csail.mit.edu/stable/)                                                                                                     |
+| PyTorch                      | [Flux](https://fluxml.ai/), [Lux](https://lux.csail.mit.edu/stable/)                                                                                                    |
 | gillespy2                    | [Catalyst](https://catalyst.sciml.ai/dev/), [JumpProcesses](https://github.com/SciML/JumpProcesses.jl)                                                                  |
 | scipy.optimize.approx_fprime | [FiniteDiff](https://github.com/JuliaDiff/FiniteDiff.jl)                                                                                                                |
 | autograd                     | [ForwardDiff\*](https://github.com/JuliaDiff/ForwardDiff.jl), [Enzyme\*](https://github.com/EnzymeAD/Enzyme.jl), [DiffEqSensitivity](https://sensitivity.sciml.ai/dev/) |

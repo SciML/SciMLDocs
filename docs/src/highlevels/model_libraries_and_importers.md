@@ -29,7 +29,7 @@ quickly building up complex differential equation models. It includes:
 ## SBMLToolkit.jl: SBML Import
 
 [SBMLToolkit.jl](https://github.com/SciML/SBMLToolkit.jl) is a library for reading
-[SBML files](https://synonym.caltech.edu/#:%7E:text=What%20is%20SBML%3F,field%20of%20the%20life%20sciences.)
+[SBML files](https://sbml.org/)
 into the standard formats for Catalyst.jl and ModelingToolkit.jl. There are well over one thousand biological
 models available in the [BioModels Repository](https://www.ebi.ac.uk/biomodels/).
 

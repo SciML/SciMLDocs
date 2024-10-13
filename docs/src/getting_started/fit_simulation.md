@@ -9,12 +9,12 @@ stable and efficient. Let's see this in action.
 
 The following parts of the SciML Ecosystem will be used in this tutorial:
 
-| Module                                                                                                           | Description                                               |
-|:---------------------------------------------------------------------------------------------------------------- |:--------------------------------------------------------- |
-| [DifferentialEquations.jl](https://docs.sciml.ai/DiffEqDocs/stable/)                                             | The differential equation solvers                         |
-| [Optimization.jl](https://docs.sciml.ai/Optimization/stable/)                                                    | The numerical optimization package                        |
+| Module                                                                                                                                                 | Description                                               |
+|:------------------------------------------------------------------------------------------------------------------------------------------------------ |:--------------------------------------------------------- |
+| [DifferentialEquations.jl](https://docs.sciml.ai/DiffEqDocs/stable/)                                                                                   | The differential equation solvers                         |
+| [Optimization.jl](https://docs.sciml.ai/Optimization/stable/)                                                                                          | The numerical optimization package                        |
 | [OptimizationPolyalgorithms.jl](https://github.com/SciML/Optimization.jl/blob/master/lib/OptimizationPolyalgorithms/src/OptimizationPolyalgorithms.jl) | The optimizers we will use                                |
-| [SciMLSensitivity.jl](https://docs.sciml.ai/SciMLSensitivity/dev/)                                               | The connection of the SciML ecosystems to differentiation |
+| [SciMLSensitivity.jl](https://docs.sciml.ai/SciMLSensitivity/dev/)                                                                                     | The connection of the SciML ecosystems to differentiation |
 
 Along with the following general ecosystem packages:
 
@@ -53,6 +53,7 @@ over a time span of ``t_0 = 0`` to ``t_f = 10`` at every ``\Delta t = 1``.
 Can we figure out what the parameter values should be directly from the data?
 
 ## Solution as Copy-Pastable Code
+
 ```@example
 using DifferentialEquations, Optimization, OptimizationPolyalgorithms, SciMLSensitivity
 using ForwardDiff, Plots
@@ -64,7 +65,7 @@ y_data = [1.000 0.259 2.015 1.908 0.323 0.629 3.458 0.508 0.314 4.547 0.906]
 xy_data = vcat(x_data, y_data)
 
 # Plot the provided data
-scatter(t_data, xy_data', label=["x Data" "y Data"])
+scatter(t_data, xy_data', label = ["x Data" "y Data"])
 
 # Setup the ODE function
 function lotka_volterra!(du, u, p, t)
@@ -118,9 +119,9 @@ optprob = OptimizationProblem(optf, pguess)
 
 # Optimize the ODE parameters for best fit to our data
 pfinal = solve(optprob, PolyOpt(),
-               callback = callback,
-               maxiters = 200)
-α, β, γ, δ = round.(pfinal, digits=1)
+    callback = callback,
+    maxiters = 200)
+α, β, γ, δ = round.(pfinal, digits = 1)
 ```
 
 ## Step-by-Step Solution
@@ -132,13 +133,13 @@ To do this tutorial, we will need a few components. This is done using the Julia
 ```julia
 using Pkg
 Pkg.add([
-            "DifferentialEquations",
-            "Optimization",
-            "OptimizationPolyalgorithms",
-            "SciMLSensitivity",
-            "ForwardDiff",
-            "Plots",
-        ])
+    "DifferentialEquations",
+    "Optimization",
+    "OptimizationPolyalgorithms",
+    "SciMLSensitivity",
+    "ForwardDiff",
+    "Plots"
+])
 ```
 
 Now we're ready. Let's load in these packages:
@@ -162,11 +163,11 @@ y_data = [1.000 0.259 2.015 1.908 0.323 0.629 3.458 0.508 0.314 4.547 0.906]
 xy_data = vcat(x_data, y_data)
 
 # Plot the provided data
-scatter(t_data, xy_data', label=["x Data" "y Data"])
+scatter(t_data, xy_data', label = ["x Data" "y Data"])
 ```
 
 !!! note
-
+    
     The `Array` `xy_data` above has been oriented with time instances as columns
     so that it can be directly compared with an `ODESolution` object. (See
     [Solution Handling](https://docs.sciml.ai/DiffEqDocs/stable/basics/solution/#solution)
@@ -239,7 +240,7 @@ scatter!(plt, t_data, xy_data', label = ["x Data" "y Data"])
     to fit our parameters to our training data.
 
 !!! note
-
+    
     For more details on using DifferentialEquations.jl, check out the
     [getting started with DifferentialEquations.jl tutorial](https://docs.sciml.ai/DiffEqDocs/stable/getting_started/).
 
@@ -263,7 +264,7 @@ For example, if we wanted to change the initial condition `u0` of our ODE, we co
 For our case, we want to change around just the parameters, so we can do `remake(prob, p = newp)`. It is faster to `remake` an existing `SciMLProblem` than to create a new problem every iteration.
 
 !!! note
-
+    
     `remake` can change multiple items at once by passing more keyword arguments, i.e., `remake(prob, u0 = newu0, p = newp)`.
     This can be used to extend the example to simultaneously learn the initial conditions and parameters!
 
@@ -347,54 +348,51 @@ optprob = OptimizationProblem(optf, pguess)
 
 # Optimize the ODE parameters for best fit to our data
 pfinal = solve(optprob,
-               PolyOpt(),
-               callback = callback,
-               maxiters = 200)
-α, β, γ, δ = round.(pfinal, digits=1)
+    PolyOpt(),
+    callback = callback,
+    maxiters = 200)
+α, β, γ, δ = round.(pfinal, digits = 1)
 ```
 
 !!! note
-
+    
     When referencing the documentation for DifferentialEquations.jl and Optimization.jl
     simultaneously, note that the variables `f`, `u`, and `p` will refer to different quantities.
-
+    
     DifferentialEquations.jl:
-
+    
     ```math
     \frac{du}{dt} = f(u,p,t)
     ```
-
-    - `f` in `ODEProblem` is the function defining the derivative `du` in the ODE.
-
+    
+      - `f` in `ODEProblem` is the function defining the derivative `du` in the ODE.
+        
         Here: `lotka_volterra!`
-
-    - `u` in `ODEProblem` contains the state variables of `f`.
-
+    
+      - `u` in `ODEProblem` contains the state variables of `f`.
+        
         Here: `x` and `y`
-
-    - `p` in `ODEProblem` contains the parameter variables of `f`.
-
+      - `p` in `ODEProblem` contains the parameter variables of `f`.
+        
         Here: `\alpha`, `\beta`, `\gamma`, and `\delta`
-
-    - `t` is the independent (time) variable.
-
+      - `t` is the independent (time) variable.
+        
         Here: indirectly defined with `tspan` in `ODEProblem` and `saveat` in `solve`
-
+    
     Optimization.jl:
-
+    
     ```math
     \min_{u} f(u,p)
     ```
-
-    - `f` in `OptimizationProblem` is the function to minimize (optimize).
-
+    
+      - `f` in `OptimizationProblem` is the function to minimize (optimize).
+        
         Here: the [anonymous function](https://docs.julialang.org/en/v1/manual/functions/#man-anonymous-functions) `(x, _) -> loss(x)`
-
-    - `u` in `OptimizationProblem` contains the state variables of `f` to be optimized.
-
+    
+      - `u` in `OptimizationProblem` contains the state variables of `f` to be optimized.
+        
         Here: the ODE parameters `\alpha`, `\beta`, `\gamma`, and `\delta` stored in `p`
-
-    - `p` in `OptimizationProblem` contains any fixed
-    [hyperparameters](https://en.wikipedia.org/wiki/Hyperparameter_(machine_learning)) of `f`.
-
+      - `p` in `OptimizationProblem` contains any fixed
+        [hyperparameters](https://en.wikipedia.org/wiki/Hyperparameter_(machine_learning)) of `f`.
+        
         Here: our `loss` function does not require any hyperparameters, so we pass `_` for this `p`.

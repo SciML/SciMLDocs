@@ -118,7 +118,7 @@ Did you implement the DAE incorrectly? No. Is the solver broken? No.
 
 It turns out that this is a property of the DAE that we are attempting to solve.
 This kind of DAE is known as an index-3 DAE. For a complete discussion of DAE
-index, see [this article](http://www.scholarpedia.org/article/Differential-algebraic_equations).
+index, see [this article](https://www.scholarpedia.org/article/Differential-algebraic_equations).
 Essentially, the issue here is that we have 4 differential variables (``x``, ``v_x``, ``y``, ``v_y``)
 and one algebraic variable ``T`` (which we can know because there is no `D(T)`
 term in the equations). An index-1 DAE always satisfies that the Jacobian of
@@ -171,7 +171,7 @@ we can avoid this by using methods like
 for automatically performing this reduction to index 1. While this requires the
 ModelingToolkit symbolic form, we use `modelingtoolkitize` to transform
 the numerical code into symbolic code, run `structural_simplify` to
-simplify the system and lower the index, 
+simplify the system and lower the index,
 then transform back to numerical code with `ODEProblem`, and solve with a
 numerical solver. Let's try that out:
 
@@ -192,7 +192,7 @@ plot and the plot is shown in the same order as the original numerical
 code.
 
 Note that we can even go a bit further. If we use the `ODEProblem`
-constructor, we represent the mass matrix DAE of the index-reduced system, 
+constructor, we represent the mass matrix DAE of the index-reduced system,
 which can be solved via:
 
 ```@example indexred
@@ -257,7 +257,7 @@ eqs = [
     D(x4) ~ -k5 * x4 / (k6 + x4),
     D(x5) ~ k5 * x4 / (k6 + x4) - k7 * x5 / (k8 + x5 + x6),
     D(x6) ~ k7 * x5 / (k8 + x5 + x6) - k9 * x6 * (k10 - x6) / k10,
-    D(x7) ~ k9 * x6 * (k10 - x6) / k10,
+    D(x7) ~ k9 * x6 * (k10 - x6) / k10
 ]
 
 # define the output functions (quantities that can be measured)
@@ -273,7 +273,7 @@ After that, we are ready to check the system for local identifiability:
 # query local identifiability
 # we pass the ode-system
 local_id_all = assess_local_identifiability(de, measured_quantities = measured_quantities,
-                                            p = 0.99)
+    p = 0.99)
 # [ Info: Preproccessing `ModelingToolkit.ODESystem` object
 # 6-element Vector{Bool}:
 #  1
@@ -291,7 +291,7 @@ Let's try to check specific parameters and their combinations
 ```julia
 to_check = [k5, k7, k10 / k9, k5 + k6]
 local_id_some = assess_local_identifiability(de, measured_quantities = measured_quantities,
-                                             funcs_to_check = to_check, p = 0.99)
+    funcs_to_check = to_check, p = 0.99)
 # 4-element Vector{Bool}:
 #  1
 #  1
@@ -333,7 +333,7 @@ eqs = [
     D(x1) ~ -b * x1 + 1 / (c + x4),
     D(x2) ~ a * x1 - beta * x2,
     D(x3) ~ g * x2 - delta * x3,
-    D(x4) ~ sigma * x4 * (g * x2 - delta * x3) / x3,
+    D(x4) ~ sigma * x4 * (g * x2 - delta * x3) / x3
 ]
 
 measured_quantities = [y ~ x1 + x2, y2 ~ x2]
@@ -367,7 +367,7 @@ eqs = [
     D(x1) ~ -b * x1 + 1 / (c + x4),
     D(x2) ~ a * x1 - beta * x2 - u1,
     D(x3) ~ g * x2 - delta * x3 + u2,
-    D(x4) ~ sigma * x4 * (g * x2 - delta * x3) / x3,
+    D(x4) ~ sigma * x4 * (g * x2 - delta * x3) / x3
 ]
 measured_quantities = [y ~ x1 + x2, y2 ~ x2]
 
@@ -377,7 +377,7 @@ to_check = [b, c]
 ode = ODESystem(eqs, t, name = :GoodwinOsc)
 
 global_id = assess_identifiability(ode, measured_quantities = measured_quantities,
-                                   funcs_to_check = to_check, p = 0.9)
+    funcs_to_check = to_check, p = 0.9)
 # Dict{Num, Symbol} with 2 entries:
 #   b => :globally
 #   c => :globally
