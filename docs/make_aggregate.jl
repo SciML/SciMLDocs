@@ -28,8 +28,9 @@ docsmodules = [
         =#
     ],
     "Solvers" => [
-        "Equation Solvers" => ["LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals", "DifferenceEquations",
-            "Optimization", "JumpProcesses"],
+        "Equation Solvers" => [
+            "LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals",
+            "DifferenceEquations", "Optimization", "JumpProcesses", "LineSearch"],
         #=
         "Third-Party Equation Solvers" => [
             "LowRankIntegrators",
