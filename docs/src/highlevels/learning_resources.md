@@ -33,6 +33,7 @@ classic SIR epidemic model.
 ## Other Books Featuring SciML
 
   - [Nonlinear Dynamics: A Concise Introduction Interlaced with Code](https://link.springer.com/book/10.1007/978-3-030-91032-7)
+
   - [Numerical Methods for Scientific Computing: The Definitive Manual for Math Geeks](https://www.equalsharepress.com/)
   - [Fundamentals of Numerical Computation](https://tobydriscoll.net/fnc-julia/frontmatter.html)
   - [Statistics with Julia](https://statisticswithjulia.org/)

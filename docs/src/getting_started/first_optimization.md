@@ -15,11 +15,11 @@ Let's solve our first optimization problem!
 
 The following parts of the SciML Ecosystem will be used in this tutorial:
 
-| Module                                                                                         | Description                        |
-|:---------------------------------------------------------------------------------------------- |:---------------------------------- |
-| [Optimization.jl](https://docs.sciml.ai/Optimization/stable/)                                  | The numerical optimization package |
-| [OptimizationNLopt.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/nlopt/) | The NLopt optimizers we will use   |
-| [ForwardDiff.jl](https://docs.sciml.ai/Optimization/stable/API/optimization_function/#Optimization.AutoForwardDiff) | The automatic differentiation library for gradients  |
+| Module                                                                                                              | Description                                         |
+|:------------------------------------------------------------------------------------------------------------------- |:--------------------------------------------------- |
+| [Optimization.jl](https://docs.sciml.ai/Optimization/stable/)                                                       | The numerical optimization package                  |
+| [OptimizationNLopt.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/nlopt/)                      | The NLopt optimizers we will use                    |
+| [ForwardDiff.jl](https://docs.sciml.ai/Optimization/stable/API/optimization_function/#Optimization.AutoForwardDiff) | The automatic differentiation library for gradients |
 
 ## Problem Setup
 
@@ -68,9 +68,9 @@ To do this tutorial, we will need a few components:
 
   - [Optimization.jl](https://docs.sciml.ai/Optimization/stable/), the optimization interface.
   - [OptimizationNLopt.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/nlopt/), the optimizers we will use.
-  - [ForwardDiff.jl](https://docs.sciml.ai/Optimization/stable/API/optimization_function/#Optimization.AutoForwardDiff), 
+  - [ForwardDiff.jl](https://docs.sciml.ai/Optimization/stable/API/optimization_function/#Optimization.AutoForwardDiff),
     the automatic differentiation library for gradients
-    
+
 Note that Optimization.jl is an interface for optimizers, and thus we always have to choose
 which optimizer we want to use. Here we choose to demonstrate `OptimizationNLopt` because
 of its efficiency and versatility. But there are many other possible choices. Check out
@@ -102,6 +102,7 @@ parameters, and write out the loss function on a vector-defined state as follows
 # Define the problem to optimize
 L(u, p) = (p[1] - u[1])^2 + p[2] * (u[2] - u[1]^2)^2
 ```
+
 Next we need to create an `OptimizationFunction` where we tell Optimization.jl to use the ForwardDiff.jl
 package for creating the gradient and other derivatives required by the optimizer.
 

@@ -90,14 +90,16 @@ sol = solve(monteprob, Tsit5(), EnsembleThreads(), trajectories = 10_000, saveat
 Now uhh, we just change `EnsembleThreads()` to `EnsembleGPUArray()`
 
 ```@example diffeqgpu
-sol = solve(monteprob, Tsit5(), EnsembleGPUArray(CUDA.CUDABackend()), trajectories = 10_000, saveat = 1.0f0)
+sol = solve(monteprob, Tsit5(), EnsembleGPUArray(CUDA.CUDABackend()),
+    trajectories = 10_000, saveat = 1.0f0)
 ```
 
 Or for a more efficient version, `EnsembleGPUKernel()`. But that requires special solvers,
 so we also change to `GPUTsit5()`.
 
 ```@example diffeqgpu
-sol = solve(monteprob, GPUTsit5(), EnsembleGPUKernel(CUDA.CUDABackend()), trajectories = 10_000)
+sol = solve(
+    monteprob, GPUTsit5(), EnsembleGPUKernel(CUDA.CUDABackend()), trajectories = 10_000)
 ```
 
 Okay, so that was anticlimactic, but that's the point: if it were harder than that, it

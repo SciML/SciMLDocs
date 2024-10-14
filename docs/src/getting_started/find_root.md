@@ -56,7 +56,7 @@ prob = NonlinearProblem(ns, [])
 sol = solve(prob, NewtonRaphson())
 
 # Analyze the solution
-@show sol[[x,y,z]], sol.resid
+@show sol[[x, y, z]], sol.resid
 ```
 
 ## Step-by-Step Solution
@@ -178,5 +178,5 @@ We can check it as follows:
 
 ```@example first_rootfind
 # Analyze the solution
-@show sol[[x,y,z]], sol.resid
+@show sol[[x, y, z]], sol.resid
 ```

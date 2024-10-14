@@ -108,7 +108,7 @@ const Y = reshape([j for i in 1:100 for j in 1:100], N, N)
 const α₁ = 1.0 .* (X .>= 80)
 
 const Mx = Tridiagonal([1.0 for i in 1:(N - 1)], [-2.0 for i in 1:N],
-                       [1.0 for i in 1:(N - 1)])
+    [1.0 for i in 1:(N - 1)])
 const My = copy(Mx)
 # Do the reflections, different for x and y operators
 Mx[2, 1] = 2.0
@@ -302,14 +302,14 @@ These last two ways enclose the pointer to our cache arrays locally but still pr
 function f(du,u,p,t) to the ODE solver.
 
 Now, since PDEs are large, many times we don't care about getting the whole timeseries. Using
-the [output controls from DifferentialEquations.jl](http://diffeq.sciml.ai/latest/basics/common_solver_opts.html#Output-Control-1), we can make it only output the final timepoint.
+the [output controls from DifferentialEquations.jl](https://diffeq.sciml.ai/latest/basics/common_solver_opts.html#Output-Control-1), we can make it only output the final timepoint.
 
 ```julia
 prob = ODEProblem(f, u0, (0.0, 100.0))
 @time sol = solve(prob, ROCK2(), progress = true, save_everystep = false,
-                  save_start = false);
+    save_start = false);
 @time sol = solve(prob, ROCK2(), progress = true, save_everystep = false,
-                  save_start = false);
+    save_start = false);
 ```
 
 Around 0.4 seconds. Much better. Also, if you're using VS Code, this'll give you a nice
@@ -352,7 +352,7 @@ const Y = reshape([j for i in 1:100 for j in 1:100], N, N)
 const α₁ = 1.0 .* (X .>= 80)
 
 const Mx = Array(Tridiagonal([1.0 for i in 1:(N - 1)], [-2.0 for i in 1:N],
-                             [1.0 for i in 1:(N - 1)]))
+    [1.0 for i in 1:(N - 1)]))
 const My = copy(Mx)
 Mx[2, 1] = 2.0
 Mx[end - 1, end] = 2.0
@@ -440,12 +440,12 @@ end
 prob2 = ODEProblem(gf, gu0, (0.0, 100.0))
 CUDA.allowscalar(false) # makes sure none of the slow fallbacks are used
 @time sol = solve(prob2, ROCK2(), progress = true, dt = 0.003, save_everystep = false,
-                  save_start = false);
+    save_start = false);
 ```
 
 ```@example spde
 @time sol = solve(prob2, ROCK2(), progress = true, dt = 0.003, save_everystep = false,
-                  save_start = false);
+    save_start = false);
 ```
 
 Go have fun.

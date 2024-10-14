@@ -26,7 +26,7 @@ You can run SciML with Julia in any development environment you please, but our 
 environment is VS Code. For more information on using Julia with VS Code, check out the
 [Julia VS Code Extension website](https://www.julia-vscode.org/). Let's install it!
 
-First [download VS Code from the official website](https://code.visualstudio.com/download).
+First [download VS Code from the official website](https://code.visualstudio.com/).
 
 Next, open Visual Studio Code and click Extensions.
 
