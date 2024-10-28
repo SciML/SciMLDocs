@@ -322,7 +322,7 @@ function callback(state, l)
 end
 ```
 
-With this callback function, every step of the optimization will display both the loss value and a plot of how the solution compares to the training data.
+With this callback function, every step of the optimization will display both the loss value and a plot of how the solution compares to the training data. Since we want to track the fit visually we plot the simulation at each iteration and compare it to the data. This is expensive since it requires an extra `solve` call and a plotting step for each iteration.
 
 Now, just like [the first optimization tutorial](@ref first_opt),
 we set up our `OptimizationFunction` and `OptimizationProblem`,
