@@ -1,7 +1,7 @@
 name = "SciMLDocs"
 uuid = "9802be14-e95c-4933-b545-e41021dbf0cf"
 authors = ["SciML"]
-version = "1.4.0"
+version = "1.6.0"
 
 [deps]
 
