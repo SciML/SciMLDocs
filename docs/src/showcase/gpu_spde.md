@@ -302,7 +302,7 @@ These last two ways enclose the pointer to our cache arrays locally but still pr
 function f(du,u,p,t) to the ODE solver.
 
 Now, since PDEs are large, many times we don't care about getting the whole timeseries. Using
-the [output controls from DifferentialEquations.jl](https://diffeq.sciml.ai/latest/basics/common_solver_opts.html#Output-Control-1), we can make it only output the final timepoint.
+the [output controls from DifferentialEquations.jl](https://docs.sciml.ai/DiffEqDocs/stable/basics/common_solver_opts/), we can make it only output the final timepoint.
 
 ```julia
 prob = ODEProblem(f, u0, (0.0, 100.0))

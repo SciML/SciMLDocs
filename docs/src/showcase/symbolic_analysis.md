@@ -118,7 +118,7 @@ Did you implement the DAE incorrectly? No. Is the solver broken? No.
 
 It turns out that this is a property of the DAE that we are attempting to solve.
 This kind of DAE is known as an index-3 DAE. For a complete discussion of DAE
-index, see [this article](https://www.scholarpedia.org/article/Differential-algebraic_equations).
+index, see [this article](http://www.scholarpedia.org/article/Differential-algebraic_equations).
 Essentially, the issue here is that we have 4 differential variables (``x``, ``v_x``, ``y``, ``v_y``)
 and one algebraic variable ``T`` (which we can know because there is no `D(T)`
 term in the equations). An index-1 DAE always satisfies that the Jacobian of

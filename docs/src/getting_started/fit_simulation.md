@@ -99,12 +99,14 @@ function loss(newp)
     newprob = remake(prob, p = newp)
     sol = solve(newprob, saveat = 1)
     loss = sum(abs2, sol .- xy_data)
-    return loss, sol
+    return loss
 end
 
 # Define a callback function to monitor optimization progress
-function callback(p, l, sol)
+function callback(state, l)
     display(l)
+    newprob = remake(prob, p = state.u)
+    sol = solve(newprob, saveat = 1)
     plt = plot(sol, ylim = (0, 6), label = ["Current x Prediction" "Current y Prediction"])
     scatter!(plt, t_data, xy_data', label = ["x Data" "y Data"])
     display(plt)
@@ -278,21 +280,13 @@ function loss(newp)
     newprob = remake(prob, p = newp)
     sol = solve(newprob, saveat = 1)
     l = sum(abs2, sol .- xy_data)
-    return l, sol
+    return l
 end
 ```
-
-Notice that our loss function returns the loss value as the first return,
-but returns extra information (the ODE solution with the new parameters)
-as an extra return argument.
-We will explain why this extra return information is helpful in the next section.
 
 ### Step 5: Solve the Optimization Problem
 
 This step will look very similar to [the first optimization tutorial](@ref first_opt),
-except now we have a new loss function `loss` which returns both the loss value
-and the associated ODE solution.
-(In the previous tutorial, `L` only returned the loss value.)
 The `Optimization.solve` function can accept an optional callback function
 to monitor the optimization process using extra arguments returned from `loss`.
 
@@ -300,15 +294,14 @@ The callback syntax is always:
 
 ```
 callback(
-    optimization variables,
+    state,
     the current loss value,
-    other arguments returned from the loss function, ...
 )
 ```
 
-In this case, we will provide the callback the arguments `(p, l, sol)`,
-since it always takes the current state of the optimization first (`p`)
-then the returns from the loss function (`l, sol`).
+In this case, we will provide the callback the arguments `(state, l)`,
+since it always takes the current state of the optimization first (`state`)
+then the current loss value (`l`).
 The return value of the callback function should default to `false`.
 `Optimization.solve` will halt if/when the callback function returns `true` instead.
 Typically the `return` statement would monitor the loss value
@@ -318,8 +311,10 @@ More details about callbacks in Optimization.jl can be found
 [here](https://docs.sciml.ai/Optimization/stable/API/solve/).
 
 ```@example odefit
-function callback(p, l, sol)
+function callback(state, l)
     display(l)
+    newprob = remake(prob, p = state.u)
+    sol = solve(newprob, saveat = 1)
     plt = plot(sol, ylim = (0, 6), label = ["Current x Prediction" "Current y Prediction"])
     scatter!(plt, t_data, xy_data', label = ["x Data" "y Data"])
     display(plt)
@@ -327,7 +322,7 @@ function callback(p, l, sol)
 end
 ```
 
-With this callback function, every step of the optimization will display both the loss value and a plot of how the solution compares to the training data.
+With this callback function, every step of the optimization will display both the loss value and a plot of how the solution compares to the training data. Since we want to track the fit visually we plot the simulation at each iteration and compare it to the data. This is expensive since it requires an extra `solve` call and a plotting step for each iteration.
 
 Now, just like [the first optimization tutorial](@ref first_opt),
 we set up our `OptimizationFunction` and `OptimizationProblem`,
