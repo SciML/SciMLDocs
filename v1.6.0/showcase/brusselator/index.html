@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Automated Efficient Solution of Nonlinear Partial Differential Equations · Overview of Julia&#39;s SciML</title><meta name="title" content="Automated Efficient Solution of Nonlinear Partial Differential Equations · Overview of Julia&#39;s SciML"/><meta property="og:title" content="Automated Efficient Solution of Nonlinear Partial Differential Equations · Overview of Julia&#39;s SciML"/><meta property="twitter:title" content="Automated Efficient Solution of Nonlinear Partial Differential Equations · Overview of Julia&#39;s SciML"/><meta name="description" content="Documentation for Overview of Julia&#39;s SciML."/><meta property="og:description" content="Documentation for Overview of Julia&#39;s SciML."/><meta property="twitter:description" content="Documentation for Overview of Julia&#39;s SciML."/><meta property="og:url" content="https://docs.sciml.ai/stable/showcase/brusselator/"/><meta property="twitter:url" content="https://docs.sciml.ai/stable/showcase/brusselator/"/><link rel="canonical" href="https://docs.sciml.ai/stable/showcase/brusselator/"/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script><link href="../../assets/favicon.ico" rel="icon" type="image/x-icon"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../"><img src="../../assets/logo.png" alt="Overview of Julia&#39;s SciML logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../../">Overview of Julia&#39;s SciML</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">SciML: Open Source Software for Scientific Machine Learning with Julia</a></li><li><span class="tocitem">Getting Started</span><ul><li><a class="tocitem" href="../../getting_started/getting_started/">Getting Started with Julia&#39;s SciML</a></li><li><input class="collapse-toggle" id="menuitem-2-2" type="checkbox"/><label class="tocitem" for="menuitem-2-2"><span class="docs-label">New User Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../getting_started/installation/">Installing SciML Software</a></li><li><a class="tocitem" href="../../getting_started/first_simulation/">Build and run your first simulation with Julia&#39;s SciML</a></li><li><a class="tocitem" href="../../getting_started/first_optimization/">Solve your first optimization problem</a></li><li><a class="tocitem" href="../../getting_started/fit_simulation/">Fit a simulation to a dataset</a></li><li><a class="tocitem" href="../../getting_started/find_root/">Find the root of an equation (i.e. solve f(u)=0)</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-3" type="checkbox"/><label class="tocitem" for="menuitem-2-3"><span class="docs-label">Comparison With Other Tools</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../comparisons/python/">Getting Started with Julia&#39;s SciML for the Python User</a></li><li><a class="tocitem" href="../../comparisons/matlab/">Getting Started with  Julia&#39;s SciML for the MATLAB User</a></li><li><a class="tocitem" href="../../comparisons/r/">Getting Started with Julia&#39;s SciML for the R User</a></li><li><a class="tocitem" href="../../comparisons/cppfortran/">Getting Started with Julia&#39;s SciML for the C++/Fortran User</a></li></ul></li></ul></li><li><span class="tocitem">Showcase of Cool Examples</span><ul><li><a class="tocitem" href="../showcase/">The SciML Showcase</a></li><li><input class="collapse-toggle" id="menuitem-3-2" type="checkbox"/><label class="tocitem" for="menuitem-3-2"><span class="docs-label">Automated Model Discovery</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../missing_physics/">Automatically Discover Missing Physics by Embedding Machine Learning into Differential Equations</a></li><li><a class="tocitem" href="../bayesian_neural_ode/">Uncertainty Quantified Deep Bayesian Model Discovery</a></li><li><a class="tocitem" href="../blackhole/">Discovering the Relativistic Corrections to Binary Black Hole Dynamics</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-3" type="checkbox" checked/><label class="tocitem" for="menuitem-3-3"><span class="docs-label">Solving Difficult Equations Efficiently</span><i class="docs-chevron"></i></label><ul class="collapsed"><li class="is-active"><a class="tocitem" href>Automated Efficient Solution of Nonlinear Partial Differential Equations</a><ul class="internal"><li><a class="tocitem" href="#Required-Dependencies"><span>Required Dependencies</span></a></li><li><a class="tocitem" href="#Problem-Setup"><span>Problem Setup</span></a></li><li><a class="tocitem" href="#Defining-the-symbolic-PDEsystem-with-ModelingToolkit.jl"><span>Defining the symbolic PDEsystem with ModelingToolkit.jl</span></a></li><li><a class="tocitem" href="#Automated-symbolic-discretization-with-MethodOfLines.jl"><span>Automated symbolic discretization with MethodOfLines.jl</span></a></li><li><a class="tocitem" href="#Solving-the-PDE"><span>Solving the PDE</span></a></li><li><a class="tocitem" href="#Examining-Results-via-the-Symbolic-Solution-Interface"><span>Examining Results via the Symbolic Solution Interface</span></a></li><li><a class="tocitem" href="#Improving-the-Solution-Process"><span>Improving the Solution Process</span></a></li></ul></li><li><a class="tocitem" href="../pinngpu/">GPU-Accelerated Physics-Informed Neural Network (PINN) PDE Solvers</a></li><li><a class="tocitem" href="../massively_parallel_gpu/">Massively Data-Parallel ODE Solving on GPUs</a></li><li><a class="tocitem" href="../gpu_spde/">GPU-Accelerated Stochastic Partial Differential Equations</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-4" type="checkbox"/><label class="tocitem" for="menuitem-3-4"><span class="docs-label">Useful Cool Wonky Things</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../ode_types/">Automatic Uncertainty Quantification, Arbitrary Precision, and Unit Checking in ODE Solutions using Julia&#39;s Type System</a></li><li><a class="tocitem" href="../symbolic_analysis/">Symbolic-Numeric Analysis of Parameter Identifiability and Model Stability</a></li><li><a class="tocitem" href="../optimization_under_uncertainty/">Optimization Under Uncertainty</a></li></ul></li></ul></li><li><span class="tocitem">What is SciML?</span><ul><li><a class="tocitem" href="../../overview/">Detailed Overview of the SciML Software Ecosystem</a></li><li><input class="collapse-toggle" id="menuitem-4-2" type="checkbox"/><label class="tocitem" for="menuitem-4-2"><span class="docs-label">Solvers</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../highlevels/equation_solvers/">Equation Solvers</a></li><li><a class="tocitem" href="../../highlevels/inverse_problems/">Parameter Estimation, Bayesian Analysis, and Inverse Problems</a></li><li><a class="tocitem" href="../../highlevels/partial_differential_equation_solvers/">Partial Differential Equations (PDE)</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-3" type="checkbox"/><label class="tocitem" for="menuitem-4-3"><span class="docs-label">Modeling Tools</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../highlevels/modeling_languages/">Modeling Languages</a></li><li><a class="tocitem" href="../../highlevels/model_libraries_and_importers/">Model Libraries and Importers</a></li><li><a class="tocitem" href="../../highlevels/symbolic_tools/">Symbolic Model Tooling and JuliaSymbolics</a></li><li><a class="tocitem" href="../../highlevels/array_libraries/">Modeling Array Libraries</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-4" type="checkbox"/><label class="tocitem" for="menuitem-4-4"><span class="docs-label">Simulation Analysis</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../highlevels/parameter_analysis/">Parameter Analysis Utilities</a></li><li><a class="tocitem" href="../../highlevels/uncertainty_quantification/">Uncertainty Quantification</a></li><li><a class="tocitem" href="../../highlevels/plots_visualization/">SciML-Supported Plotting and Visualization Libraries</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-5" type="checkbox"/><label class="tocitem" for="menuitem-4-5"><span class="docs-label">Machine Learning</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../highlevels/function_approximation/">Function Approximation</a></li><li><a class="tocitem" href="../../highlevels/implicit_layers/">Implicit Layer Deep Learning</a></li><li><a class="tocitem" href="../../highlevels/symbolic_learning/">Symbolic Learning and Artificial Intelligence</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-6" type="checkbox"/><label class="tocitem" for="menuitem-4-6"><span class="docs-label">Developer Tools</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../highlevels/numerical_utilities/">SciML Numerical Utility Libraries</a></li><li><a class="tocitem" href="../../highlevels/interfaces/">The SciML Interface Libraries</a></li><li><a class="tocitem" href="../../highlevels/developer_documentation/">Developer Documentation</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-7" type="checkbox"/><label class="tocitem" for="menuitem-4-7"><span class="docs-label">Extra Learning Resources</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../highlevels/learning_resources/">Curated Learning, Teaching, and Training Resources</a></li></ul></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Showcase of Cool Examples</a></li><li><a class="is-disabled">Solving Difficult Equations Efficiently</a></li><li class="is-active"><a href>Automated Efficient Solution of Nonlinear Partial Differential Equations</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Automated Efficient Solution of Nonlinear Partial Differential Equations</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/SciML/SciMLDocs" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/SciML/SciMLDocs/blob/main/docs/src/showcase/brusselator.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="brusselator"><a class="docs-heading-anchor" href="#brusselator">Automated Efficient Solution of Nonlinear Partial Differential Equations</a><a id="brusselator-1"></a><a class="docs-heading-anchor-permalink" href="#brusselator" title="Permalink"></a></h1><p>Solving nonlinear partial differential equations (PDEs) is hard. Solving nonlinear PDEs fast and accurately is even harder. Doing it all in an automated method from just a symbolic description is just plain fun. That&#39;s what we&#39;d demonstrate here: how to solve a nonlinear PDE from a purely symbolic definition using the combination of ModelingToolkit, MethodOfLines, and DifferentialEquations.jl.</p><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>This example is a combination of the <a href="https://docs.sciml.ai/MethodOfLines/stable/tutorials/brusselator/">Brusselator tutorial from MethodOfLines.jl</a> and the <a href="https://docs.sciml.ai/DiffEqDocs/stable/tutorials/advanced_ode_example/">Solving Large Stiff Equations tutorial from DifferentialEquations.jl</a>.</p></div></div><h2 id="Required-Dependencies"><a class="docs-heading-anchor" href="#Required-Dependencies">Required Dependencies</a><a id="Required-Dependencies-1"></a><a class="docs-heading-anchor-permalink" href="#Required-Dependencies" title="Permalink"></a></h2><p>The following parts of the SciML Ecosystem will be used in this tutorial:</p><table><tr><th style="text-align: left">Module</th><th style="text-align: left">Description</th></tr><tr><td style="text-align: left"><a href="https://docs.sciml.ai/ModelingToolkit/stable/">ModelingToolkit.jl</a></td><td style="text-align: left">The symbolic modeling environment</td></tr><tr><td style="text-align: left"><a href="https://docs.sciml.ai/MethodOfLines/stable/">MethodOfLines.jl</a></td><td style="text-align: left">The symbolic PDE discretization tooling</td></tr><tr><td style="text-align: left"><a href="https://docs.sciml.ai/DiffEqDocs/stable/">DifferentialEquations.jl</a></td><td style="text-align: left">The numerical differential equation solvers</td></tr><tr><td style="text-align: left"><a href="https://docs.sciml.ai/LinearSolve/stable/">LinearSolve.jl</a></td><td style="text-align: left">The numerical linear solvers</td></tr></table><h2 id="Problem-Setup"><a class="docs-heading-anchor" href="#Problem-Setup">Problem Setup</a><a id="Problem-Setup-1"></a><a class="docs-heading-anchor-permalink" href="#Problem-Setup" title="Permalink"></a></h2><p>The Brusselator PDE is defined as follows:</p><p class="math-container">\[\begin{align}
+\frac{\partial u}{\partial t} &amp;= 1 + u^2v - 4.4u + \alpha(\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}) + f(x, y, t)\\
+\frac{\partial v}{\partial t} &amp;= 3.4u - u^2v + \alpha(\frac{\partial^2 v}{\partial x^2} + \frac{\partial^2 v}{\partial y^2})
+\end{align}\]</p><p>where</p><p class="math-container">\[f(x, y, t) = \begin{cases}
+5 &amp; \quad \text{if } (x-0.3)^2+(y-0.6)^2 ≤ 0.1^2 \text{ and } t ≥ 1.1 \\
+0 &amp; \quad \text{else}
+\end{cases}\]</p><p>and the initial conditions are</p><p class="math-container">\[\begin{align}
+u(x, y, 0) &amp;= 22\cdot (y(1-y))^{3/2} \\
+v(x, y, 0) &amp;= 27\cdot (x(1-x))^{3/2}
+\end{align}\]</p><p>with the periodic boundary condition</p><p class="math-container">\[\begin{align}
+u(x+1,y,t) &amp;= u(x,y,t) \\
+u(x,y+1,t) &amp;= u(x,y,t)
+\end{align}\]</p><p>We wish to obtain the solution to this PDE on a timespan of <span>$t \in [0,11.5]$</span>.</p><h2 id="Defining-the-symbolic-PDEsystem-with-ModelingToolkit.jl"><a class="docs-heading-anchor" href="#Defining-the-symbolic-PDEsystem-with-ModelingToolkit.jl">Defining the symbolic PDEsystem with ModelingToolkit.jl</a><a id="Defining-the-symbolic-PDEsystem-with-ModelingToolkit.jl-1"></a><a class="docs-heading-anchor-permalink" href="#Defining-the-symbolic-PDEsystem-with-ModelingToolkit.jl" title="Permalink"></a></h2><p>With <code>ModelingToolkit.jl</code>, we first symbolically define the system, see also the docs for <a href="https://docs.sciml.ai/ModelingToolkit/stable/systems/PDESystem/"><code>PDESystem</code></a>:</p><pre><code class="language-julia hljs">using ModelingToolkit, MethodOfLines, OrdinaryDiffEq, LinearSolve, DomainSets
+
+@parameters x y t
+@variables u(..) v(..)
+Dt = Differential(t)
+Dx = Differential(x)
+Dy = Differential(y)
+Dxx = Differential(x)^2
+Dyy = Differential(y)^2
+
+∇²(u) = Dxx(u) + Dyy(u)
+
+brusselator_f(x, y, t) = (((x - 0.3)^2 + (y - 0.6)^2) &lt;= 0.1^2) * (t &gt;= 1.1) * 5.0
+
+x_min = y_min = t_min = 0.0
+x_max = y_max = 1.0
+t_max = 11.5
+
+α = 10.0
+
+u0(x, y, t) = 22(y * (1 - y))^(3 / 2)
+v0(x, y, t) = 27(x * (1 - x))^(3 / 2)
+
+eq = [
+    Dt(u(x, y, t)) ~ 1.0 + v(x, y, t) * u(x, y, t)^2 - 4.4 * u(x, y, t) +
+                     α * ∇²(u(x, y, t)) + brusselator_f(x, y, t),
+    Dt(v(x, y, t)) ~ 3.4 * u(x, y, t) - v(x, y, t) * u(x, y, t)^2 + α * ∇²(v(x, y, t))]
+
+domains = [x ∈ Interval(x_min, x_max),
+    y ∈ Interval(y_min, y_max),
+    t ∈ Interval(t_min, t_max)]
+
+# Periodic BCs
+bcs = [u(x, y, 0) ~ u0(x, y, 0),
+    u(0, y, t) ~ u(1, y, t),
+    u(x, 0, t) ~ u(x, 1, t), v(x, y, 0) ~ v0(x, y, 0),
+    v(0, y, t) ~ v(1, y, t),
+    v(x, 0, t) ~ v(x, 1, t)]
+
+@named pdesys = PDESystem(eq, bcs, domains, [x, y, t], [u(x, y, t), v(x, y, t)])</code></pre><p class="math-container">\[ \begin{align}
+\frac{\mathrm{d}}{\mathrm{d}t} u\left( x, y, t \right) &amp;= 1 + 10 \left( \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} u\left( x, y, t \right) + \frac{\mathrm{d}}{\mathrm{d}y} \frac{\mathrm{d}}{\mathrm{d}y} u\left( x, y, t \right) \right) - 4.4 u\left( x, y, t \right) + 5 \left( \left( -0.3 + x \right)^{2} + \left( -0.6 + y \right)^{2} \leq 0.01 \right) \left( t \geq 1.1 \right) + \left( u\left( x, y, t \right) \right)^{2} v\left( x, y, t \right) \\
+\frac{\mathrm{d}}{\mathrm{d}t} v\left( x, y, t \right) &amp;= 3.4 u\left( x, y, t \right) + 10 \left( \frac{\mathrm{d}}{\mathrm{d}x} \frac{\mathrm{d}}{\mathrm{d}x} v\left( x, y, t \right) + \frac{\mathrm{d}}{\mathrm{d}y} \frac{\mathrm{d}}{\mathrm{d}y} v\left( x, y, t \right) \right) - \left( u\left( x, y, t \right) \right)^{2} v\left( x, y, t \right)
+\end{align}
+ \]</p><p>Looks just like the LaTeX description, right? Now let&#39;s solve it.</p><h2 id="Automated-symbolic-discretization-with-MethodOfLines.jl"><a class="docs-heading-anchor" href="#Automated-symbolic-discretization-with-MethodOfLines.jl">Automated symbolic discretization with MethodOfLines.jl</a><a id="Automated-symbolic-discretization-with-MethodOfLines.jl-1"></a><a class="docs-heading-anchor-permalink" href="#Automated-symbolic-discretization-with-MethodOfLines.jl" title="Permalink"></a></h2><p>Next we create the discretization. Here we will use the finite difference method via method of lines. Method of lines is a method of recognizing that a discretization of a partial differential equation transforms it into a new numerical problem. For example:</p><table><tr><th style="text-align: left">Discretization Form</th><th style="text-align: left">Numerical Problem Type</th></tr><tr><td style="text-align: left">Finite Difference, Finite Volume, Finite Element, discretizing all variables</td><td style="text-align: left"><code>NonlinearProblem</code></td></tr><tr><td style="text-align: left">Finite Difference, Finite Volume, Finite Element, discretizing all variables except time</td><td style="text-align: left"><code>ODEProblem</code>/<code>DAEProblem</code></td></tr><tr><td style="text-align: left">Physics-Informed Neural Network</td><td style="text-align: left"><code>OptimizationProblem</code></td></tr><tr><td style="text-align: left">Feynman-Kac Formula</td><td style="text-align: left"><code>SDEProblem</code></td></tr><tr><td style="text-align: left">Universal Stochastic Differential Equation (<a href="https://docs.sciml.ai/HighDimPDE/stable/">High dimensional PDEs</a>)</td><td style="text-align: left"><code>OptimizationProblem</code> inverse problem over <code>SDEProblem</code></td></tr></table><p>Thus the process of solving a PDE is fundamentally about transforming its symbolic form to a standard numerical problem and solving the standard numerical problem using one of the solvers in the SciML ecosystem! Here we will demonstrate one of the most classic methods: the finite difference method. Since the Brusselator is a time-dependent PDE with heavy stiffness in the time-domain, we will leave time undiscretized, which means that we will use the finite difference method in the <code>x</code> and <code>y</code> domains to obtain a representation of the equation at `<code>u_i = u(x_i,y_i)</code>grid point values, obtaining an ODE<code>u_i&#39; = \ldots</code> that defines how the values at the grid points evolve over time.</p><p>To do this, we use the <code>MOLFiniteDifference</code> construct of <a href="https://docs.sciml.ai/MethodOfLines/stable/">MethodOfLines.jl</a> as follows:</p><pre><code class="language-julia hljs">N = 32
+
+dx = (x_max - x_min) / N
+dy = (y_max - y_min) / N
+
+order = 2
+
+discretization = MOLFiniteDifference([x =&gt; dx, y =&gt; dy], t, approx_order = order,
+    grid_align = center_align)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">MethodOfLines.MOLFiniteDifference{MethodOfLines.CenterAlignedGrid, MethodOfLines.ScalarizedDiscretization}(Dict{Symbolics.Num, Float64}(y =&gt; 0.03125, x =&gt; 0.03125), t, 2, MethodOfLines.UpwindScheme(1), MethodOfLines.CenterAlignedGrid(), true, false, MethodOfLines.ScalarizedDiscretization(), true, Any[], Base.Pairs{Symbol, Union{}, Tuple{}, @NamedTuple{}}())</code></pre><p>Next, we <code>discretize</code> the system, converting the <code>PDESystem</code> in to an <code>ODEProblem</code>:</p><pre><code class="language-julia hljs">prob = discretize(pdesys, discretization);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi"><span class="sgr38_2" style="color:#56b6c2">ODEProblem</span> with uType <span class="sgr38_2" style="color:#56b6c2">Vector{Float64}</span> and tType <span class="sgr38_2" style="color:#56b6c2">Float64</span>. In-place: <span class="sgr38_2" style="color:#56b6c2">true</span>
+timespan: (0.0, 11.5)
+u0: 2048-element Vector{Float64}:
+ 0.11588181443634263
+ 0.11588181443634263
+ 0.11588181443634263
+ 0.11588181443634263
+ 0.11588181443634263
+ 0.11588181443634263
+ 0.11588181443634263
+ 0.11588181443634263
+ 0.11588181443634263
+ 0.11588181443634263
+ ⋮
+ 2.1921268033293604
+ 1.9075279151581102
+ 1.605464573318729
+ 1.2924521756218903
+ 0.9766542925609525
+ 0.668640545523243
+ 0.3829487927768564
+ 0.1422185904446023
+ 0.0</code></pre><h2 id="Solving-the-PDE"><a class="docs-heading-anchor" href="#Solving-the-PDE">Solving the PDE</a><a id="Solving-the-PDE-1"></a><a class="docs-heading-anchor-permalink" href="#Solving-the-PDE" title="Permalink"></a></h2><p>Now your problem can be solved with an appropriate ODE solver. This is just your standard DifferentialEquations.jl usage, though we&#39;ll return to this point in a bit to talk about efficiency:</p><pre><code class="language-julia hljs">sol = solve(prob, TRBDF2(), saveat = 0.1);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">retcode: Success
+Interpolation: Dict{Symbolics.Num, Interpolations.GriddedInterpolation{Float64, 3, Array{Float64, 3}, Interpolations.Gridded{Interpolations.Linear{Interpolations.Throw{Interpolations.OnGrid}}}, Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}}}}
+t: 116-element Vector{Float64}:
+  0.0
+  0.1
+  0.2
+  0.3
+  0.4
+  0.5
+  0.6
+  0.7
+  0.8
+  0.9
+  ⋮
+ 10.7
+ 10.8
+ 10.9
+ 11.0
+ 11.1
+ 11.2
+ 11.3
+ 11.4
+ 11.5ivs: 3-element Vector{SymbolicUtils.BasicSymbolic{Real}}:
+ t
+ x
+ ydomain:([0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9  …  10.6, 10.7, 10.8, 10.9, 11.0, 11.1, 11.2, 11.3, 11.4, 11.5], 0.0:0.03125:1.0, 0.0:0.03125:1.0)
+u: Dict{Symbolics.Num, Array{Float64, 3}} with 2 entries:
+  u(x, y, t) =&gt; [0.0 0.115882 … 0.115882 0.0; 0.0 0.115882 … 0.115882 0.0; … ; …
+  v(x, y, t) =&gt; [0.0 0.0 … 0.0 0.0; 0.142219 0.142219 … 0.142219 0.142219; … ; …</code></pre><h2 id="Examining-Results-via-the-Symbolic-Solution-Interface"><a class="docs-heading-anchor" href="#Examining-Results-via-the-Symbolic-Solution-Interface">Examining Results via the Symbolic Solution Interface</a><a id="Examining-Results-via-the-Symbolic-Solution-Interface-1"></a><a class="docs-heading-anchor-permalink" href="#Examining-Results-via-the-Symbolic-Solution-Interface" title="Permalink"></a></h2><p>Now that we have solved the ODE representation of the PDE, we have an <code>PDETimeSeriesSolution</code> that wraps an <code>ODESolution</code>, which we can get with <code>sol.original_sol</code>. If we look at the original sol, it represents <span>$u_i&#39; = \ldots$</span> at each of the grid points. If you check <code>sol.original_sol.u</code> inside the solution, that&#39;s those values... but that&#39;s not very helpful. How do you interpret <code>original_sol[1]</code>? How do you interpret <code>original_sol[1,:]</code>?</p><p>To make the handling of such cases a lot simpler, MethodOfLines.jl implements a symbolic interface for the solution object that allows for interpreting the computation through its original representation. For example, if we want to know how to interpret the values of the grid corresponding to the independent variables, we can just index using symbolic variables:</p><pre><code class="language-julia hljs">discrete_x = sol[x];
+discrete_y = sol[y];
+discrete_t = sol[t];</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">116-element Vector{Float64}:
+  0.0
+  0.1
+  0.2
+  0.3
+  0.4
+  0.5
+  0.6
+  0.7
+  0.8
+  0.9
+  ⋮
+ 10.7
+ 10.8
+ 10.9
+ 11.0
+ 11.1
+ 11.2
+ 11.3
+ 11.4
+ 11.5</code></pre><p>What this tells us is that, for a solution at a given time point, say <code>original_sol[1]</code> for the solution at the initial time (the initial condition), the value <code>original_sol[1][1]</code> is the solution at the grid point <code>(discrete_x[1], discrete_y[1])</code>. For values that are not the initial time point, <code>original_sol[i]</code> corresponds to the solution at <code>discrete_t[i]</code>.</p><p>But we also have two dependent variables, <code>u</code> and <code>v</code>. How do we interpret which of the results correspond to the different dependent variables? This is done by indexing the solution by the dependent variables! For example:</p><pre><code class="language-julia hljs">solu = sol[u(x, y, t)];
+solv = sol[v(x, y, t)];</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">33×33×116 Array{Float64, 3}:
+[:, :, 1] =
+ 0.0       0.0       0.0       0.0       …  0.0       0.0       0.0
+ 0.142219  0.142219  0.142219  0.142219     0.142219  0.142219  0.142219
+ 0.382949  0.382949  0.382949  0.382949     0.382949  0.382949  0.382949
+ 0.668641  0.668641  0.668641  0.668641     0.668641  0.668641  0.668641
+ 0.976654  0.976654  0.976654  0.976654     0.976654  0.976654  0.976654
+ 1.29245   1.29245   1.29245   1.29245   …  1.29245   1.29245   1.29245
+ 1.60546   1.60546   1.60546   1.60546      1.60546   1.60546   1.60546
+ 1.90753   1.90753   1.90753   1.90753      1.90753   1.90753   1.90753
+ 2.19213   2.19213   2.19213   2.19213      2.19213   2.19213   2.19213
+ 2.45397   2.45397   2.45397   2.45397      2.45397   2.45397   2.45397
+ ⋮                                       ⋱  ⋮                   
+ 2.19213   2.19213   2.19213   2.19213      2.19213   2.19213   2.19213
+ 1.90753   1.90753   1.90753   1.90753   …  1.90753   1.90753   1.90753
+ 1.60546   1.60546   1.60546   1.60546      1.60546   1.60546   1.60546
+ 1.29245   1.29245   1.29245   1.29245      1.29245   1.29245   1.29245
+ 0.976654  0.976654  0.976654  0.976654     0.976654  0.976654  0.976654
+ 0.668641  0.668641  0.668641  0.668641     0.668641  0.668641  0.668641
+ 0.382949  0.382949  0.382949  0.382949  …  0.382949  0.382949  0.382949
+ 0.142219  0.142219  0.142219  0.142219     0.142219  0.142219  0.142219
+ 0.0       0.0       0.0       0.0          0.0       0.0       0.0
+
+[:, :, 2] =
+ 0.0      2.02429  2.02429  2.02429  …  2.02429  2.02429  2.02429  2.02429
+ 2.02429  2.02429  2.02429  2.02429     2.02429  2.02429  2.02429  2.02429
+ 2.02428  2.02428  2.02428  2.02428     2.02428  2.02428  2.02428  2.02428
+ 2.02427  2.02427  2.02427  2.02427     2.02427  2.02427  2.02427  2.02427
+ 2.02426  2.02426  2.02426  2.02426     2.02426  2.02426  2.02426  2.02426
+ 2.02424  2.02424  2.02424  2.02424  …  2.02424  2.02424  2.02424  2.02424
+ 2.02423  2.02423  2.02423  2.02423     2.02423  2.02423  2.02423  2.02423
+ 2.0242   2.02421  2.02421  2.02421     2.02421  2.02421  2.02421  2.0242
+ 2.02418  2.02418  2.02418  2.02418     2.02418  2.02418  2.02418  2.02418
+ 2.02416  2.02416  2.02416  2.02416     2.02416  2.02416  2.02416  2.02416
+ ⋮                                   ⋱           ⋮                 
+ 2.02418  2.02418  2.02418  2.02418     2.02418  2.02418  2.02418  2.02418
+ 2.0242   2.02421  2.02421  2.02421  …  2.02421  2.02421  2.02421  2.0242
+ 2.02423  2.02423  2.02423  2.02423     2.02423  2.02423  2.02423  2.02423
+ 2.02424  2.02424  2.02424  2.02424     2.02424  2.02424  2.02424  2.02424
+ 2.02426  2.02426  2.02426  2.02426     2.02426  2.02426  2.02426  2.02426
+ 2.02427  2.02427  2.02427  2.02427     2.02427  2.02427  2.02427  2.02427
+ 2.02428  2.02428  2.02428  2.02428  …  2.02428  2.02428  2.02428  2.02428
+ 2.02429  2.02429  2.02429  2.02429     2.02429  2.02429  2.02429  2.02429
+ 2.02429  2.02429  2.02429  2.02429     2.02429  2.02429  2.02429  2.02429
+
+[:, :, 3] =
+ 0.0      2.0791   2.0791   2.0791   …  2.0791   2.0791   2.0791   2.0791
+ 2.0791   2.0791   2.0791   2.0791      2.0791   2.0791   2.0791   2.0791
+ 2.07911  2.07911  2.07911  2.07911     2.07911  2.07911  2.07911  2.07911
+ 2.07912  2.07912  2.07912  2.07912     2.07912  2.07912  2.07912  2.07912
+ 2.07914  2.07914  2.07914  2.07914     2.07914  2.07914  2.07914  2.07914
+ 2.07916  2.07916  2.07916  2.07916  …  2.07916  2.07916  2.07916  2.07916
+ 2.07919  2.07919  2.07919  2.07919     2.07919  2.07919  2.07919  2.07919
+ 2.07922  2.07922  2.07922  2.07921     2.07921  2.07922  2.07922  2.07922
+ 2.07924  2.07924  2.07924  2.07924     2.07924  2.07924  2.07924  2.07924
+ 2.07927  2.07927  2.07927  2.07927     2.07927  2.07927  2.07927  2.07927
+ ⋮                                   ⋱           ⋮                 
+ 2.07924  2.07924  2.07924  2.07924     2.07924  2.07924  2.07924  2.07924
+ 2.07922  2.07922  2.07922  2.07921  …  2.07921  2.07922  2.07922  2.07922
+ 2.07919  2.07919  2.07919  2.07919     2.07919  2.07919  2.07919  2.07919
+ 2.07916  2.07916  2.07916  2.07916     2.07916  2.07916  2.07916  2.07916
+ 2.07914  2.07914  2.07914  2.07914     2.07914  2.07914  2.07914  2.07914
+ 2.07912  2.07912  2.07912  2.07912     2.07912  2.07912  2.07912  2.07912
+ 2.07911  2.07911  2.07911  2.07911  …  2.07911  2.07911  2.07911  2.07911
+ 2.0791   2.0791   2.0791   2.0791      2.0791   2.0791   2.0791   2.0791
+ 2.0791   2.0791   2.0791   2.0791      2.0791   2.0791   2.0791   2.0791
+
+;;; … 
+
+[:, :, 114] =
+ 0.0      3.68145  3.68145  3.68145  …  3.68144  3.68145  3.68145  3.68145
+ 3.68145  3.68145  3.68145  3.68145     3.68144  3.68144  3.68144  3.68145
+ 3.68144  3.68145  3.68145  3.68145     3.68144  3.68144  3.68144  3.68144
+ 3.68144  3.68144  3.68145  3.68145     3.68143  3.68144  3.68144  3.68144
+ 3.68144  3.68144  3.68144  3.68144     3.68143  3.68143  3.68144  3.68144
+ 3.68144  3.68144  3.68144  3.68144  …  3.68143  3.68143  3.68143  3.68144
+ 3.68143  3.68144  3.68144  3.68144     3.68142  3.68143  3.68143  3.68143
+ 3.68143  3.68144  3.68144  3.68144     3.68142  3.68143  3.68143  3.68143
+ 3.68143  3.68143  3.68144  3.68144     3.68142  3.68142  3.68143  3.68143
+ 3.68143  3.68143  3.68144  3.68144     3.68142  3.68142  3.68143  3.68143
+ ⋮                                   ⋱           ⋮                 
+ 3.68146  3.68146  3.68146  3.68146     3.68145  3.68146  3.68146  3.68146
+ 3.68146  3.68146  3.68146  3.68146  …  3.68145  3.68146  3.68146  3.68146
+ 3.68146  3.68146  3.68146  3.68146     3.68145  3.68146  3.68146  3.68146
+ 3.68146  3.68146  3.68146  3.68146     3.68145  3.68146  3.68146  3.68146
+ 3.68146  3.68146  3.68146  3.68146     3.68145  3.68145  3.68146  3.68146
+ 3.68146  3.68146  3.68146  3.68146     3.68145  3.68145  3.68145  3.68146
+ 3.68145  3.68146  3.68146  3.68146  …  3.68145  3.68145  3.68145  3.68145
+ 3.68145  3.68145  3.68146  3.68146     3.68145  3.68145  3.68145  3.68145
+ 3.68145  3.68145  3.68145  3.68145     3.68144  3.68145  3.68145  3.68145
+
+[:, :, 115] =
+ 0.0      2.61478  2.61478  2.61478  …  2.61477  2.61478  2.61478  2.61478
+ 2.61478  2.61478  2.61478  2.61478     2.61477  2.61477  2.61478  2.61478
+ 2.61478  2.61478  2.61478  2.61478     2.61477  2.61477  2.61477  2.61478
+ 2.61477  2.61477  2.61478  2.61478     2.61476  2.61477  2.61477  2.61477
+ 2.61477  2.61477  2.61477  2.61477     2.61476  2.61476  2.61477  2.61477
+ 2.61477  2.61477  2.61477  2.61477  …  2.61476  2.61476  2.61476  2.61477
+ 2.61477  2.61477  2.61477  2.61477     2.61475  2.61476  2.61476  2.61477
+ 2.61476  2.61477  2.61477  2.61477     2.61475  2.61476  2.61476  2.61476
+ 2.61476  2.61476  2.61477  2.61477     2.61475  2.61475  2.61476  2.61476
+ 2.61476  2.61476  2.61477  2.61477     2.61475  2.61475  2.61476  2.61476
+ ⋮                                   ⋱           ⋮                 
+ 2.61479  2.61479  2.61479  2.61479     2.61478  2.61479  2.61479  2.61479
+ 2.61479  2.61479  2.61479  2.61479  …  2.61478  2.61479  2.61479  2.61479
+ 2.61479  2.61479  2.61479  2.61479     2.61478  2.61479  2.61479  2.61479
+ 2.61479  2.61479  2.61479  2.61479     2.61478  2.61479  2.61479  2.61479
+ 2.61479  2.61479  2.61479  2.61479     2.61478  2.61479  2.61479  2.61479
+ 2.61479  2.61479  2.61479  2.61479     2.61478  2.61478  2.61479  2.61479
+ 2.61479  2.61479  2.61479  2.61479  …  2.61478  2.61478  2.61478  2.61479
+ 2.61478  2.61479  2.61479  2.61479     2.61478  2.61478  2.61478  2.61478
+ 2.61478  2.61478  2.61478  2.61478     2.61477  2.61478  2.61478  2.61478
+
+[:, :, 116] =
+ 0.0      1.4548   1.4548   1.4548   …  1.45479  1.4548   1.4548   1.4548
+ 1.4548   1.4548   1.4548   1.4548      1.45479  1.45479  1.4548   1.4548
+ 1.4548   1.4548   1.4548   1.4548      1.45479  1.45479  1.45479  1.4548
+ 1.45479  1.4548   1.4548   1.4548      1.45479  1.45479  1.45479  1.45479
+ 1.45479  1.45479  1.45479  1.45479     1.45478  1.45479  1.45479  1.45479
+ 1.45479  1.45479  1.45479  1.45479  …  1.45478  1.45479  1.45479  1.45479
+ 1.45479  1.45479  1.45479  1.45479     1.45478  1.45478  1.45479  1.45479
+ 1.45479  1.45479  1.45479  1.45479     1.45478  1.45478  1.45479  1.45479
+ 1.45479  1.45479  1.45479  1.45479     1.45478  1.45478  1.45478  1.45479
+ 1.45479  1.45479  1.45479  1.45479     1.45478  1.45478  1.45478  1.45479
+ ⋮                                   ⋱           ⋮                 
+ 1.45481  1.45481  1.45481  1.45481     1.4548   1.4548   1.4548   1.45481
+ 1.45481  1.45481  1.45481  1.45481  …  1.4548   1.4548   1.4548   1.45481
+ 1.45481  1.45481  1.45481  1.45481     1.4548   1.4548   1.4548   1.45481
+ 1.45481  1.45481  1.45481  1.45481     1.4548   1.4548   1.4548   1.45481
+ 1.4548   1.45481  1.45481  1.45481     1.4548   1.4548   1.4548   1.4548
+ 1.4548   1.4548   1.45481  1.45481     1.4548   1.4548   1.4548   1.4548
+ 1.4548   1.4548   1.4548   1.4548   …  1.4548   1.4548   1.4548   1.4548
+ 1.4548   1.4548   1.4548   1.4548      1.4548   1.4548   1.4548   1.4548
+ 1.4548   1.4548   1.4548   1.4548      1.45479  1.4548   1.4548   1.4548</code></pre><p>This then gives an array of results for the <code>u</code> and <code>v</code> separately, each dimension corresponding to the discrete form of the independent variables.</p><p>Using this high-level indexing, we can create an animation of the solution of the Brusselator as follows. For <code>u</code> we receive:</p><pre><code class="language-julia hljs">using Plots
+anim = @animate for k in 1:length(discrete_t)
+    heatmap(solu[2:end, 2:end, k], title = &quot;$(discrete_t[k])&quot;) # 2:end since end = 1, periodic condition
+end
+gif(anim, &quot;plots/Brusselator2Dsol_u.gif&quot;, fps = 8)</code></pre><p><img src="https://user-images.githubusercontent.com/9698054/159934498-e5c21b13-c63b-4cd2-9149-49e521765141.gif" alt="Brusselator2Dsol_u"/></p><p>and for <code>v</code>:</p><pre><code class="language-julia hljs">anim = @animate for k in 1:length(discrete_t)
+    heatmap(solv[2:end, 2:end, k], title = &quot;$(discrete_t[k])&quot;)
+end
+gif(anim, &quot;plots/Brusselator2Dsol_v.gif&quot;, fps = 8)</code></pre><p><img src="https://i.imgur.com/3kQNMI3.gif" alt="Brusselator2Dsol_v"/></p><h2 id="Improving-the-Solution-Process"><a class="docs-heading-anchor" href="#Improving-the-Solution-Process">Improving the Solution Process</a><a id="Improving-the-Solution-Process-1"></a><a class="docs-heading-anchor-permalink" href="#Improving-the-Solution-Process" title="Permalink"></a></h2><p>Now, if all we needed was a single solution, then we&#39;re done. Budda bing budda boom, we got a solution, we&#39;re outta here. But if for example we&#39;re solving an inverse problem on a PDE, or we need to bump it up to higher accuracy, then we will need to make sure we solve this puppy more efficiently. So let&#39;s dive into how this can be done.</p><p>First of all, large PDEs generally are stiff and thus require an implicit solver. However, their stiffness is generally governed by a nonlinear system which as a sparse Jacobian. Handling that implicit system with sparsity is key to solving the system efficiently, so let&#39;s do that!</p><p>In order to enable such options, we simply need to pass the ModelingToolkit.jl problem construction options to the <code>discretize</code> call. This looks like:</p><pre><code class="language-julia hljs"># Analytical Jacobian expression and sparse Jacobian
+prob_sparse = discretize(pdesys, discretization; jac = true, sparse = true)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi"><span class="sgr38_2" style="color:#56b6c2">ODEProblem</span> with uType <span class="sgr38_2" style="color:#56b6c2">Vector{Float64}</span> and tType <span class="sgr38_2" style="color:#56b6c2">Float64</span>. In-place: <span class="sgr38_2" style="color:#56b6c2">true</span>
+timespan: (0.0, 11.5)
+u0: 2048-element Vector{Float64}:
+ 0.11588181443634263
+ 0.11588181443634263
+ 0.11588181443634263
+ 0.11588181443634263
+ 0.11588181443634263
+ 0.11588181443634263
+ 0.11588181443634263
+ 0.11588181443634263
+ 0.11588181443634263
+ 0.11588181443634263
+ ⋮
+ 2.1921268033293604
+ 1.9075279151581102
+ 1.605464573318729
+ 1.2924521756218903
+ 0.9766542925609525
+ 0.668640545523243
+ 0.3829487927768564
+ 0.1422185904446023
+ 0.0</code></pre><p>Now when we solve the problem it will be a lot faster. We can use BenchmarkTools.jl to assess this performance difference:</p><pre><code class="language-julia hljs">using BenchmarkTools
+@btime sol = solve(prob, TRBDF2(), saveat = 0.1);
+@btime sol = solve(prob_sparse, TRBDF2(), saveat = 0.1);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">retcode: Success
+Interpolation: Dict{Symbolics.Num, Interpolations.GriddedInterpolation{Float64, 3, Array{Float64, 3}, Interpolations.Gridded{Interpolations.Linear{Interpolations.Throw{Interpolations.OnGrid}}}, Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}}}}
+t: 116-element Vector{Float64}:
+  0.0
+  0.1
+  0.2
+  0.3
+  0.4
+  0.5
+  0.6
+  0.7
+  0.8
+  0.9
+  ⋮
+ 10.7
+ 10.8
+ 10.9
+ 11.0
+ 11.1
+ 11.2
+ 11.3
+ 11.4
+ 11.5ivs: 3-element Vector{SymbolicUtils.BasicSymbolic{Real}}:
+ t
+ x
+ ydomain:([0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9  …  10.6, 10.7, 10.8, 10.9, 11.0, 11.1, 11.2, 11.3, 11.4, 11.5], 0.0:0.03125:1.0, 0.0:0.03125:1.0)
+u: Dict{Symbolics.Num, Array{Float64, 3}} with 2 entries:
+  u(x, y, t) =&gt; [0.0 0.115882 … 0.115882 0.0; 0.0 0.115882 … 0.115882 0.0; … ; …
+  v(x, y, t) =&gt; [0.0 0.0 … 0.0 0.0; 0.142219 0.142219 … 0.142219 0.142219; … ; …</code></pre><p>But we can further improve this as well. Instead of just using the default linear solver, we can change this to a Newton-Krylov method by passing in the GMRES method:</p><pre><code class="language-julia hljs">@btime sol = solve(prob_sparse, TRBDF2(linsolve = KrylovJL_GMRES()), saveat = 0.1);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">retcode: Success
+Interpolation: Dict{Symbolics.Num, Interpolations.GriddedInterpolation{Float64, 3, Array{Float64, 3}, Interpolations.Gridded{Interpolations.Linear{Interpolations.Throw{Interpolations.OnGrid}}}, Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}}}}
+t: 116-element Vector{Float64}:
+  0.0
+  0.1
+  0.2
+  0.3
+  0.4
+  0.5
+  0.6
+  0.7
+  0.8
+  0.9
+  ⋮
+ 10.7
+ 10.8
+ 10.9
+ 11.0
+ 11.1
+ 11.2
+ 11.3
+ 11.4
+ 11.5ivs: 3-element Vector{SymbolicUtils.BasicSymbolic{Real}}:
+ t
+ x
+ ydomain:([0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9  …  10.6, 10.7, 10.8, 10.9, 11.0, 11.1, 11.2, 11.3, 11.4, 11.5], 0.0:0.03125:1.0, 0.0:0.03125:1.0)
+u: Dict{Symbolics.Num, Array{Float64, 3}} with 2 entries:
+  u(x, y, t) =&gt; [0.0 0.115882 … 0.115882 0.0; 0.0 0.115882 … 0.115882 0.0; … ; …
+  v(x, y, t) =&gt; [0.0 0.0 … 0.0 0.0; 0.142219 0.142219 … 0.142219 0.142219; … ; …</code></pre><p>But to further improve performance, we can use an iLU preconditioner. This looks like as follows:</p><pre><code class="language-julia hljs">using IncompleteLU
+function incompletelu(W, du, u, p, t, newW, Plprev, Prprev, solverdata)
+    if newW === nothing || newW
+        Pl = ilu(convert(AbstractMatrix, W), τ = 50.0)
+    else
+        Pl = Plprev
+    end
+    Pl, nothing
+end
+
+@btime solve(prob_sparse,
+    TRBDF2(linsolve = KrylovJL_GMRES(), precs = incompletelu, concrete_jac = true),
+    save_everystep = false);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">retcode: Success
+Interpolation: Dict{Symbolics.Num, Interpolations.GriddedInterpolation{Float64, 3, Array{Float64, 3}, Interpolations.Gridded{Interpolations.Linear{Interpolations.Throw{Interpolations.OnGrid}}}, Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}}}}
+t: 2-element Vector{Float64}:
+  0.0
+ 11.5ivs: 3-element Vector{SymbolicUtils.BasicSymbolic{Real}}:
+ t
+ x
+ ydomain:([0.0, 11.5], 0.0:0.03125:1.0, 0.0:0.03125:1.0)
+u: Dict{Symbolics.Num, Array{Float64, 3}} with 2 entries:
+  u(x, y, t) =&gt; [0.0 0.115882 … 0.115882 0.0; 0.0 0.115882 … 0.115882 0.0; … ; …
+  v(x, y, t) =&gt; [0.0 0.0 … 0.0 0.0; 0.142219 0.142219 … 0.142219 0.142219; … ; …</code></pre><p>And now we&#39;re zooming! For more information on these performance improvements, check out the deeper dive in <a href="https://docs.sciml.ai/DiffEqDocs/stable/tutorials/advanced_ode_example/">the DifferentialEquations.jl tutorials</a>.</p><p>If you&#39;re interested in figuring out what&#39;s the fastest current solver for this kind of PDE, check out the <a href="https://docs.sciml.ai/SciMLBenchmarksOutput/stable/StiffODE/Bruss/">Brusselator benchmark in SciMLBenchmarks.jl</a></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../blackhole/">« Discovering the Relativistic Corrections to Binary Black Hole Dynamics</a><a class="docs-footer-nextpage" href="../pinngpu/">GPU-Accelerated Physics-Informed Neural Network (PINN) PDE Solvers »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.7.0 on <span class="colophon-date" title="Tuesday 29 October 2024 17:00">Tuesday 29 October 2024</span>. Using Julia version 1.11.1.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
