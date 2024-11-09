@@ -63,6 +63,13 @@ approximating functions in basis sets. One particular use case is with spectral
 basis sets, such as Chebyshev functions and Fourier decompositions, making it easy
 to represent spectral and pseudospectral discretizations of partial differential equations
 as ordinary differential equations for the SciML equation solvers.
+## Decapodes.jl: Discrete Exterior Calculus Applied to Partial and Ordinary Differential Equation Systems
+
+[Decapodes.jl](https://github.com/AlgebraicJulia/Decapodes.jl) is a computational physics framework based
+on the Discrete Exterior Calculus (DEC). It uses structure preserving discretization methods from the DEC
+to simulate multiphysics problems. Feature include solving PDEs on triangulated manifolds, a strongly
+typed equation representation that can help ensure correctness of simulations, and compositional methods
+for specifying multi-physics problems.
 
 ## Ferrite.jl: Finite Element Toolbox for Julia
 
