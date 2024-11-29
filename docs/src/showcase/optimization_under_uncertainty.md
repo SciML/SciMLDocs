@@ -113,7 +113,7 @@ sol.u
 
 ## Optimization Under Uncertainty
 
-We now wish to optimize the initial position ($x_0,y_0$) and horizontal velocity ($\dot{x}_0$) of the system to minimize the expected squared miss distance from the star, where $x_0\in\left[-100,0\right]$, $y_0\in\left[1,3\right]$, and $\dot{x}_0\in\left[10,50\right]$. We will demonstrate this using a gradient-based optimization approach from NLopt.jl using `ForwardDiff.jl` AD through the expectation calculation.
+We now wish to optimize the initial position ($x_0,y_0$) and horizontal velocity ($\dot{x}_0$) of the system to minimize the expected squared miss distance from the star, where $x_0\in\left[-100,0\right]$, $\dot{x}_0\in\left[1,3\right]$, and $y_0\in\left[10,50\right]$. We will demonstrate this using a gradient-based optimization approach from NLopt.jl using `ForwardDiff.jl` AD through the expectation calculation.
 
 ```@example control
 using Optimization, OptimizationNLopt, OptimizationMOI
