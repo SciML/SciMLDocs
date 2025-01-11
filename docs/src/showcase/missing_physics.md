@@ -26,6 +26,7 @@ are and how they are used. For the neural network training:
 | [OptimizationOptimisers.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/optimisers/) | The optimization solver package with `Adam`            |
 | [OptimizationOptimJL.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/optim/)         | The optimization solver package with `LBFGS`           |
 | [LineSearches.jl](https://julianlsolvers.github.io/LineSearches.jl/latest/index.html)                    | Line search algorithms package to be used with `LBFGS` |
+| [ComponentArrays.jl](https://docs.sciml.ai/ComponentArrays/stable/)                                      | For the `ComponentArray` type to match Lux to SciML    |
 
 For the symbolic model discovery:
 
@@ -48,7 +49,6 @@ And external libraries:
 | Module                                                                       | Description                                         |
 |:---------------------------------------------------------------------------- |:--------------------------------------------------- |
 | [Lux.jl](https://lux.csail.mit.edu/stable/)                                  | The deep learning (neural network) framework        |
-| [ComponentArrays.jl](https://jonniedie.github.io/ComponentArrays.jl/stable/) | For the `ComponentArray` type to match Lux to SciML |
 | [Plots.jl](https://docs.juliaplots.org/stable/)                              | The plotting and visualization library              |
 | [StableRNGs.jl](https://docs.juliaplots.org/stable/)                         | Stable random seeding                               |
 
