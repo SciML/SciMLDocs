@@ -21,9 +21,9 @@ docsmodules = [
             "ReactionMechanismSimulator",
             "AlgebraicPetri"],
         =#
-        "Array Libraries" => ["RecursiveArrayTools", "LabelledArrays", "MultiScaleArrays"],
+        "Array Libraries" => ["RecursiveArrayTools", "ComponentArrays", "LabelledArrays", "MultiScaleArrays"],
         #=
-        "Third-Party Array Libraries" => ["ComponentArrays", "StaticArrays", #="FillArrays",=#
+        "Third-Party Array Libraries" => ["StaticArrays", #="FillArrays",=#
             "BandedMatrices", "BlockBandedMatrices"],
         =#
     ],
@@ -82,11 +82,12 @@ docsmodules = [
     "Developer Tools" => [
         "Numerical Utilities" => ["ExponentialUtilities", "DiffEqNoiseProcess",
             "PreallocationTools", "EllipsisNotation", "DataInterpolations",
-            "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro", "FindFirstFunctions"],
+            "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro", "FindFirstFunctions",
+            "SparseDiffTools"],
         #=
         "Third-Party Numerical Utilities" => ["FFTW", "Distributions",
             "SpecialFunctions", "LoopVectorization",
-            "Polyester", "SparseDiffTools"], #="Tullio"=#
+            "Polyester", ], #="Tullio"=#
         =#
         "High-Level Interfaces" => [
             "SciMLBase",
@@ -137,7 +138,6 @@ external_urls = Dict("Enzyme" => "https://github.com/EnzymeAD/Enzyme.jl",
                      "Symbolics" => "https://github.com/JuliaSymbolics/Symbolics.jl",
                      "SymbolicUtils" => "https://github.com/JuliaSymbolics/SymbolicUtils.jl",
                      "TermInterface" => "https://github.com/JuliaSymbolics/TermInterface.jl",
-                     "ComponentArrays" => "https://github.com/jonniedie/ComponentArrays.jl",
                      "StaticArrays" => "https://github.com/JuliaArrays/StaticArrays.jl",
                      "FillArrays" => "https://github.com/JuliaArrays/FillArrays.jl",
                      "BandedMatrices" => "https://github.com/JuliaMatrices/BandedMatrices.jl",
