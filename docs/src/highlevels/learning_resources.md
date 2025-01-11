@@ -35,7 +35,7 @@ classic SIR epidemic model.
   - [Nonlinear Dynamics: A Concise Introduction Interlaced with Code](https://link.springer.com/book/10.1007/978-3-030-91032-7)
 
   - [Numerical Methods for Scientific Computing: The Definitive Manual for Math Geeks](https://www.equalsharepress.com/)
-  - [Fundamentals of Numerical Computation](https://tobydriscoll.net/fnc-julia/frontmatter.html)
+  - [Fundamentals of Numerical Computation](https://tobydriscoll.net/fnc-julia/home.html)
   - [Statistics with Julia](https://statisticswithjulia.org/)
   - [Statistical Rethinking with Julia](https://shmuma.github.io/rethinking-2ed-julia/)
   - [The Koopman Operator in Systems and Control](https://www.springer.com/gp/book/9783030357122)
