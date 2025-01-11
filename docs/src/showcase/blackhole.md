@@ -18,6 +18,7 @@ are and how they are used. For the neural network training:
 | [Optimization.jl](https://docs.sciml.ai/Optimization/stable/)                                            | The optimization library                              |
 | [OptimizationOptimisers.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/optimisers/) | The optimization solver package with `Adam`           |
 | [OptimizationOptimJL.jl](https://docs.sciml.ai/Optimization/stable/optimization_packages/optim/)         | The optimization solver package with `BFGS`           |
+| [ComponentArrays.jl](https://docs.sciml.ai/ComponentArrays/stable/)                                      | For the `ComponentArray` type to match Lux to SciML   |
 
 For the symbolic model discovery:
 
@@ -40,7 +41,6 @@ And external libraries:
 | Module                                                                       | Description                                         |
 |:---------------------------------------------------------------------------- |:--------------------------------------------------- |
 | [Lux.jl](https://lux.csail.mit.edu/stable/)                                  | The deep learning (neural network) framework        |
-| [ComponentArrays.jl](https://jonniedie.github.io/ComponentArrays.jl/stable/) | For the `ComponentArray` type to match Lux to SciML |
 | [LineSearches.jl](https://github.com/JuliaNLSolvers/LineSearches.jl)         | Allows for setting a line search for optimization   |
 | [DataFrames.jl](https://dataframes.juliadata.org/stable/)                    | A nice and easy data handling format                |
 | [CSV.jl](https://csv.juliadata.org/stable/)                                  | Import and export of CSV files                      |
