@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Optimal Data Gathering for Missing Physics · Overview of Julia&#39;s SciML</title><meta name="title" content="Optimal Data Gathering for Missing Physics · Overview of Julia&#39;s SciML"/><meta property="og:title" content="Optimal Data Gathering for Missing Physics · Overview of Julia&#39;s SciML"/><meta property="twitter:title" content="Optimal Data Gathering for Missing Physics · Overview of Julia&#39;s SciML"/><meta name="description" content="Documentation for Overview of Julia&#39;s SciML."/><meta property="og:description" content="Documentation for Overview of Julia&#39;s SciML."/><meta property="twitter:description" content="Documentation for Overview of Julia&#39;s SciML."/><meta property="og:url" content="https://docs.sciml.ai/stable/showcase/optimal_data_gathering_for_missing_physics/"/><meta property="twitter:url" content="https://docs.sciml.ai/stable/showcase/optimal_data_gathering_for_missing_physics/"/><link rel="canonical" href="https://docs.sciml.ai/stable/showcase/optimal_data_gathering_for_missing_physics/"/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script><link href="../../assets/favicon.ico" rel="icon" type="image/x-icon"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../"><img src="../../assets/logo.png" alt="Overview of Julia&#39;s SciML logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../../">Overview of Julia&#39;s SciML</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">SciML: Open Source Software for Scientific Machine Learning with Julia</a></li><li><span class="tocitem">Getting Started</span><ul><li><a class="tocitem" href="../../getting_started/getting_started/">Getting Started with Julia&#39;s SciML</a></li><li><input class="collapse-toggle" id="menuitem-2-2" type="checkbox"/><label class="tocitem" for="menuitem-2-2"><span class="docs-label">New User Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../getting_started/installation/">Installing SciML Software</a></li><li><a class="tocitem" href="../../getting_started/first_simulation/">Build and run your first simulation with Julia&#39;s SciML</a></li><li><a class="tocitem" href="../../getting_started/first_optimization/">Solve your first optimization problem</a></li><li><a class="tocitem" href="../../getting_started/fit_simulation/">Fit a simulation to a dataset</a></li><li><a class="tocitem" href="../../getting_started/find_root/">Find the root of an equation (i.e. solve f(u)=0)</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-3" type="checkbox"/><label class="tocitem" for="menuitem-2-3"><span class="docs-label">Comparison With Other Tools</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../comparisons/python/">Getting Started with Julia&#39;s SciML for the Python User</a></li><li><a class="tocitem" href="../../comparisons/matlab/">Getting Started with  Julia&#39;s SciML for the MATLAB User</a></li><li><a class="tocitem" href="../../comparisons/r/">Getting Started with Julia&#39;s SciML for the R User</a></li><li><a class="tocitem" href="../../comparisons/cppfortran/">Getting Started with Julia&#39;s SciML for the C++/Fortran User</a></li></ul></li></ul></li><li><span class="tocitem">Showcase of Cool Examples</span><ul><li><a class="tocitem" href="../showcase/">The SciML Showcase</a></li><li><input class="collapse-toggle" id="menuitem-3-2" type="checkbox" checked/><label class="tocitem" for="menuitem-3-2"><span class="docs-label">Automated Model Discovery</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../missing_physics/">Automatically Discover Missing Physics by Embedding Machine Learning into Differential Equations</a></li><li><a class="tocitem" href="../bayesian_neural_ode/">Uncertainty Quantified Deep Bayesian Model Discovery</a></li><li class="is-active"><a class="tocitem" href>Optimal Data Gathering for Missing Physics</a></li><li><a class="tocitem" href="../blackhole/">Discovering the Relativistic Corrections to Binary Black Hole Dynamics</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-3" type="checkbox"/><label class="tocitem" for="menuitem-3-3"><span class="docs-label">Solving Difficult Equations Efficiently</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../brusselator/">Automated Efficient Solution of Nonlinear Partial Differential Equations</a></li><li><a class="tocitem" href="../pinngpu/">GPU-Accelerated Physics-Informed Neural Network (PINN) PDE Solvers</a></li><li><a class="tocitem" href="../massively_parallel_gpu/">Massively Data-Parallel ODE Solving on GPUs</a></li><li><a class="tocitem" href="../gpu_spde/">GPU-Accelerated Stochastic Partial Differential Equations</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-4" type="checkbox"/><label class="tocitem" for="menuitem-3-4"><span class="docs-label">Useful Cool Wonky Things</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../ode_types/">Automatic Uncertainty Quantification, Arbitrary Precision, and Unit Checking in ODE Solutions using Julia&#39;s Type System</a></li><li><a class="tocitem" href="../symbolic_analysis/">Symbolic-Numeric Analysis of Parameter Identifiability and Model Stability</a></li><li><a class="tocitem" href="../optimization_under_uncertainty/">Optimization Under Uncertainty</a></li></ul></li></ul></li><li><span class="tocitem">What is SciML?</span><ul><li><a class="tocitem" href="../../overview/">Detailed Overview of the SciML Software Ecosystem</a></li><li><input class="collapse-toggle" id="menuitem-4-2" type="checkbox"/><label class="tocitem" for="menuitem-4-2"><span class="docs-label">Solvers</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../highlevels/equation_solvers/">Equation Solvers</a></li><li><a class="tocitem" href="../../highlevels/inverse_problems/">Parameter Estimation, Bayesian Analysis, and Inverse Problems</a></li><li><a class="tocitem" href="../../highlevels/partial_differential_equation_solvers/">Partial Differential Equations (PDE)</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-3" type="checkbox"/><label class="tocitem" for="menuitem-4-3"><span class="docs-label">Modeling Tools</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../highlevels/modeling_languages/">Modeling Languages</a></li><li><a class="tocitem" href="../../highlevels/model_libraries_and_importers/">Model Libraries and Importers</a></li><li><a class="tocitem" href="../../highlevels/symbolic_tools/">Symbolic Model Tooling and JuliaSymbolics</a></li><li><a class="tocitem" href="../../highlevels/array_libraries/">Modeling Array Libraries</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-4" type="checkbox"/><label class="tocitem" for="menuitem-4-4"><span class="docs-label">Simulation Analysis</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../highlevels/parameter_analysis/">Parameter Analysis Utilities</a></li><li><a class="tocitem" href="../../highlevels/uncertainty_quantification/">Uncertainty Quantification</a></li><li><a class="tocitem" href="../../highlevels/plots_visualization/">SciML-Supported Plotting and Visualization Libraries</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-5" type="checkbox"/><label class="tocitem" for="menuitem-4-5"><span class="docs-label">Machine Learning</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../highlevels/function_approximation/">Function Approximation</a></li><li><a class="tocitem" href="../../highlevels/implicit_layers/">Implicit Layer Deep Learning</a></li><li><a class="tocitem" href="../../highlevels/symbolic_learning/">Symbolic Learning and Artificial Intelligence</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-6" type="checkbox"/><label class="tocitem" for="menuitem-4-6"><span class="docs-label">Developer Tools</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../highlevels/numerical_utilities/">SciML Numerical Utility Libraries</a></li><li><a class="tocitem" href="../../highlevels/interfaces/">The SciML Interface Libraries</a></li><li><a class="tocitem" href="../../highlevels/developer_documentation/">Developer Documentation</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-7" type="checkbox"/><label class="tocitem" for="menuitem-4-7"><span class="docs-label">Extra Learning Resources</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../highlevels/learning_resources/">Curated Learning, Teaching, and Training Resources</a></li></ul></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Showcase of Cool Examples</a></li><li><a class="is-disabled">Automated Model Discovery</a></li><li class="is-active"><a href>Optimal Data Gathering for Missing Physics</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Optimal Data Gathering for Missing Physics</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/SciML/SciMLDocs" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/SciML/SciMLDocs/blob/main/docs/src/showcase/optimal_data_gathering_for_missing_physics.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="srmf"><a class="docs-heading-anchor" href="#srmf">Optimal Data Gathering for Missing Physics</a><a id="srmf-1"></a><a class="docs-heading-anchor-permalink" href="#srmf" title="Permalink"></a></h1><p><a href="../missing_physics/#autocomplete">The missing physics showcase</a> teaches how to discover the missing parts of a dynamic model, using universal differential equations (UDE) and symbolic regression (SR).</p><p>High quality data is needed to ensure the true dynamics are recovered. In this tutorial, we look at an efficient data gathering technique for SciML models, using a bioreactor example. To this end, we will rely on the following packages:</p><pre><code class="language-julia hljs">using Random; Random.seed!(984519674645)
+using StableRNGs; rng = StableRNG(845652695)
+using ModelingToolkit
+using ModelingToolkit: t_nounits as t, D_nounits as D
+using ModelingToolkitNeuralNets
+using OrdinaryDiffEqRosenbrock
+using SymbolicIndexingInterface
+using Plots
+using Optimization, OptimizationOptimisers, OptimizationBBO, OptimizationNLopt
+using SciMLStructures
+using SciMLStructures: Tunable
+using SciMLSensitivity
+using Statistics
+using SymbolicRegression
+using LuxCore
+using LuxCore: stateless_apply
+using Lux
+using Statistics
+using DataFrames</code></pre><p>The bioreactor consists of 3 states: substrate concentration <span>$C_s(t)$</span>, biomass concentration <span>$C_x(t)$</span> and volume <span>$V(t)$</span>.</p><p class="math-container">\[\begin{aligned}
+\frac{dC_s}{dt} &amp;= -\left(\frac{\mu(C_s)}{y_{x,s}} + m\right) C_x + \frac{Q_{in}(t)}{V}(C_{S,in} - C_s),\\
+\frac{dC_x}{dt} &amp;= \mu(C_s) C_x - \frac{Q_{in}(t)}{V}C_x,\\
+\frac{dV}{dt} &amp;= Q_{in}(t).
+\end{aligned}\]</p><p>The substrate is eaten by the biomass, causing the biomass to grow. The rate by which the biomass grows <span>$μ(t)$</span> is an unknown function (missing physics), which must be estimated from experimental data. The rate by which the substrate is consumed <span>$σ(t)$</span> is dependent on <span>$μ(t)$</span>, trough a yield factor <span>$y_{x:s}$</span> and a maintenance term <span>$m$</span>, where are assumed to be known parameters. More substrate can be pumped into the reactor  with pumping speed <span>$Q_{in}(t)$</span>. This pumped substrate has known concentration <span>$C_{s_{in}}$</span>. The goal is to optimize the control action <span>$Q_{in}(t)$</span>, such that <span>$μ(t)$</span> can be estimated as precisely as possible. We restrict <span>$Q_{in}(t)$</span> to piecewise constant functions. This can be implemented in MTK as:</p><pre><code class="language-julia hljs">@mtkmodel Bioreactor begin
+    @constants begin
+        C_s_in = 50.0
+        y_x_s = 0.777
+        m = 0.0
+    end
+    @parameters begin
+        controls[1:length(optimization_state)-1] = optimization_state[2:end], [tunable = false] # optimization_state is defined further below
+        Q_in = optimization_initial, [tunable = false] # similar for optimization state
+    end
+    @variables begin
+        C_s(t) = 1.0
+        C_x(t) = 1.0
+        V(t) = 7.0
+        μ(t)
+        σ(t)
+    end
+    @equations begin
+        σ ~ μ / y_x_s + m
+        D(C_s) ~ -σ * C_x + Q_in / V * (C_s_in - C_s)
+        D(C_x) ~ μ * C_x - Q_in / V * C_x
+        D(V) ~ Q_in
+    end
+    @discrete_events begin
+        (t == 1.0) =&gt; [Q_in ~ controls[1]]
+        (t == 2.0) =&gt; [Q_in ~ controls[2]]
+        (t == 3.0) =&gt; [Q_in ~ controls[3]]
+        (t == 4.0) =&gt; [Q_in ~ controls[4]]
+        (t == 5.0) =&gt; [Q_in ~ controls[5]]
+        (t == 6.0) =&gt; [Q_in ~ controls[6]]
+        (t == 7.0) =&gt; [Q_in ~ controls[7]]
+        (t == 8.0) =&gt; [Q_in ~ controls[8]]
+        (t == 9.0) =&gt; [Q_in ~ controls[9]]
+        (t == 10.0) =&gt; [Q_in ~ controls[10]]
+        (t == 11.0) =&gt; [Q_in ~ controls[11]]
+        (t == 12.0) =&gt; [Q_in ~ controls[12]]
+        (t == 13.0) =&gt; [Q_in ~ controls[13]]
+        (t == 14.0) =&gt; [Q_in ~ controls[14]]
+        (t == 15.0) =&gt; [Q_in ~ optimization_initial] # HACK TO GET Q_IN BACK TO ITS ORIGINAL VALUE
+    end
+end</code></pre><p>The true value of <span>$μ(t)$</span>, which must be recovered is the Monod equation.</p><p class="math-container">\[\begin{equation*}
+\mu(C_s) = \frac{\mu_{max}C_s}{K_s + C_s}.
+\end{equation*}\]</p><p>We thus extend the bioreactor MTK model with this equation:</p><pre><code class="language-julia hljs">@mtkmodel TrueBioreactor begin
+    @extend Bioreactor()
+    @parameters begin
+        μ_max = 0.421
+        K_s = 0.439*10
+    end
+    @equations begin
+        μ ~ μ_max * C_s / (K_s + C_s)
+    end
+end</code></pre><p>Similarly, we can extend the bioreactor with a neural network to represent this missing physics.</p><pre><code class="language-julia hljs">@mtkmodel UDEBioreactor begin
+    @extend Bioreactor()
+    @structural_parameters begin
+        chain = Lux.Chain(Lux.Dense(1, 5, tanh),
+                          Lux.Dense(5, 5, tanh),
+                          Lux.Dense(5, 1, x-&gt;1*sigmoid(x)))
+    end
+    @components begin
+        nn = NeuralNetworkBlock(; n_input=1, n_output=1, chain, rng)
+    end
+    @equations begin
+        nn.output.u[1] ~ μ
+        nn.input.u[1] ~ C_s
+    end
+end</code></pre><p>We start by gathering some initial data. Because we don&#39;t yet know anything about the missing physics, we arbitrarily pick the zero control action. The only state we measure is <span>$C_s$</span> We also add some noise to the simulated data, to make it more realistic:</p><pre><code class="language-julia hljs">optimization_state =  zeros(15)
+optimization_initial = optimization_state[1] # HACK CAN&#39;T GET THIS TO WORK WITHOUT SEPARATE SCALAR
+@mtkbuild true_bioreactor = TrueBioreactor()
+prob = ODEProblem(true_bioreactor, [], (0.0, 15.0), [], tstops = 0:15, save_everystep=false)
+sol = solve(prob, Rodas5P())
+
+@mtkbuild  ude_bioreactor = UDEBioreactor()
+ude_prob = ODEProblem(ude_bioreactor, [], (0.0, 15.0), [], tstops = 0:15, save_everystep=false)
+ude_sol = solve(ude_prob, Rodas5P())
+
+data = DataFrame(sol)
+data = data[1:2:end, :] # HACK TO GET ONLY THE MEASUREMENTS WE NEED; MTK ALWAYS SAVES BEFORE AND AFTER CALLBACK; WITH NO OPTION TO DISABLE
+
+sd_cs = 0.1
+data[!, &quot;C_s(t)&quot;] += sd_cs * randn(size(data, 1))
+
+plts = plot(), plot(), plot(), plot()
+plot!(plts[1], sol, idxs=:C_s, lw=3,c=1)
+plot!(plts[1], ylabel=&quot;Cₛ(g/L)&quot;, xlabel=&quot;t(h)&quot;)
+scatter!(plts[1], data[!, &quot;timestamp&quot;], data[!, &quot;C_s(t)&quot;]; ms=3,c=1)
+plot!(plts[2], sol, idxs=:C_x, lw=3,c=1)
+plot!(plts[2], ylabel=&quot;Cₓ(g/L)&quot;, xlabel=&quot;t(h)&quot;)
+plot!(plts[3], sol, idxs=:V, ylabel=&quot;V(L)&quot;, xlabel=&quot;t(h)&quot;, lw=3, color=:black, ylims=(6.0,8.0))
+C_s_range_plot = 0.0:0.01:50.0
+μ_max = 0.421; K_s = 0.439*10 # TODO extract the  values from the model.
+plot!(plts[4], C_s_range_plot, μ_max .* C_s_range_plot ./ (K_s .+ C_s_range_plot), lw=3, c=1)
+plot!(plts[4], ylabel=&quot;μ(1/h)&quot;, xlabel=&quot;Cₛ(g/L)&quot;,ylims=(0,0.5))
+plot(plts..., layout = 4, tickfontsize=10, guidefontsize=12, legendfontsize=14, grid=false, legend=false)</code></pre><img src="fed65c05.svg" alt="Example block output"/><p>Now we can train the neural network to match this data:</p><pre><code class="language-julia hljs">function loss(x, (probs, get_varss, datas))
+    loss = zero(eltype(x))
+    for i in eachindex(probs)
+        prob = probs[i]
+        get_vars = get_varss[i]
+        data = datas[i]
+        new_p = SciMLStructures.replace(Tunable(), prob.p, x)
+        new_prob = remake(prob, p=new_p, u0=eltype(x).(prob.u0))
+        new_sol = solve(new_prob, Rodas5P())
+        for (i, j) in enumerate(1:2:length(new_sol.t)) # HACK TO DEAL WITH DOUBLE SAVE
+            loss += sum(abs2.(get_vars(new_sol, j) .- data[!, &quot;C_s(t)&quot;][i]))
+        end
+        if !(SciMLBase.successful_retcode(new_sol))
+            println(&quot;failed&quot;)
+            return Inf
+        end
+    end
+    loss
+end
+of = OptimizationFunction{true}(loss, AutoZygote())
+x0 = reduce(vcat, getindex.((default_values(ude_bioreactor),), tunable_parameters(ude_bioreactor)))
+get_vars = getu(ude_bioreactor, [ude_bioreactor.C_s])
+ps = ([ude_prob], [get_vars], [data]);
+op = OptimizationProblem(of, x0, ps)
+res = solve(op, Optimization.LBFGS(), maxiters=1000)
+
+new_p = SciMLStructures.replace(Tunable(), ude_prob.p, res.u)
+res_prob = remake(ude_prob, p=new_p)
+res_sol = solve(res_prob, Rodas5P())
+
+extracted_chain = arguments(equations(ude_bioreactor.nn)[1].rhs)[1]
+T = defaults(ude_bioreactor)[ude_bioreactor.nn.T]
+μ_predicted_plot = [only(stateless_apply(extracted_chain, [C_s], convert(T,res.u))) for C_s in C_s_range_plot]
+μ_predicted_data = [only(stateless_apply(extracted_chain, [C_s], convert(T,res.u))) for C_s in data[!, &quot;C_s(t)&quot;]]
+
+plts = plot(), plot(), plot(), plot()
+plot!(plts[1], sol, idxs=:C_s, lw=3,c=1)
+plot!(plts[1], res_sol, idxs=:C_s, lw=3,c=2)
+plot!(plts[1], ylabel=&quot;Cₛ(g/L)&quot;, xlabel=&quot;t(h)&quot;)
+scatter!(plts[1], data[!, &quot;timestamp&quot;], data[!, &quot;C_s(t)&quot;]; ms=3,c=1)
+plot!(plts[2], sol, idxs=:C_x, lw=3,c=1)
+plot!(plts[2], res_sol, idxs=:C_x, lw=3,c=2)
+plot!(plts[2], ylabel=&quot;Cₓ(g/L)&quot;, xlabel=&quot;t(h)&quot;)
+plot!(plts[3], sol, idxs=:V, ylabel=&quot;V(L)&quot;, xlabel=&quot;t(h)&quot;, lw=3, color=:black, ylims=(6.0,8.0))
+plot!(plts[4], C_s_range_plot, μ_max .* C_s_range_plot ./ (K_s .+ C_s_range_plot), lw=3, c=1)
+plot!(plts[4], C_s_range_plot, μ_predicted_plot, lw=3, c=2)
+scatter!(plts[4], data[!, &quot;C_s(t)&quot;], μ_predicted_data, ms=3, c=2)
+plot!(plts[4], ylabel=&quot;μ(1/h)&quot;, xlabel=&quot;Cₛ(g/L)&quot;,ylims=(0,0.5))
+plot(plts..., layout = 4, tickfontsize=10, guidefontsize=12, legendfontsize=14, grid=false, legend=false)</code></pre><img src="be2e7fa8.svg" alt="Example block output"/><p>On the above figure we see that the neural network predicts <span>$C_s$</span> well, except during the final hours of the experiment, where we have multiple positive realizations of the noise in a row. The neural network also predicts <span>$µ$</span> well in the low substrate concentration region, where we have data available. However, the fit is poor at higher substrate concentrations, where we do not have data.</p><p>We continue by making the neural network interpretable using symbolic regression.</p><pre><code class="language-julia hljs">options = SymbolicRegression.Options(
+    unary_operators=(exp, sin, cos),
+    binary_operators=(+, *, /, -),
+    seed=123,
+    deterministic=true,
+    save_to_file=false,
+    defaults=v&quot;0.24.5&quot;
+)
+hall_of_fame = equation_search(collect(data[!, &quot;C_s(t)&quot;])&#39;, μ_predicted_data; options, niterations=1000, runtests=false, parallelism=:serial)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">HallOfFame{...}:
+    .exists[1] = true
+    .members[1] = PopMember(tree = (0.03551967706084014), loss = 0.0004683238664017844, score = 0.050032386559339635)
+    .exists[2] = true
+    .members[2] = PopMember(tree = (sin(0.03552715019483136)), loss = 0.00046832386640178455, score = 0.05323238647850086)
+    .exists[3] = true
+    .members[3] = PopMember(tree = (x1 * 0.07579503213635719), loss = 8.608870276190847e-5, score = 0.018208869800843804)
+    .exists[4] = true
+    .members[4] = PopMember(tree = (sin(x1) * 0.0843040042282712), loss = 7.129101235182377e-5, score = 0.019929100911827178)
+    .exists[5] = true
+    .members[5] = PopMember(tree = (sin(sin(x1)) * 0.09099172176718581), loss = 6.737091347351719e-5, score = 0.02273709024466579)
+    .exists[6] = true
+    .members[6] = PopMember(tree = (sin(x1 / 0.7146950697539136) * 0.06651393061387612), loss = 6.59649165224196e-5, score = 0.025796490701547874)
+    .exists[7] = true
+    .members[7] = PopMember(tree = ((sin(sin(x1)) * 0.09786010580294946) - 0.0034624157725401533), loss = 6.485571527867684e-5, score = 0.028885570729165443)
+    .exists[8] = true
+    .members[8] = PopMember(tree = (sin(0.09592966607735214 - (0.040623704007034356 / (x1 + 0.30479157966268416)))), loss = 5.201963750942278e-5, score = 0.03080196310423188)
+    .exists[9] = true
+    .members[9] = PopMember(tree = (sin(sin(0.0967194504713283 - (0.04169676732074973 / (x1 + 0.31354181194076813))))), loss = 5.201631508764991e-5, score = 0.03400163101404644)
+    .exists[10] = true
+    .members[10] = PopMember(tree = ((x1 - (-0.08962289390509877 / sin(0.626653258037531 / x1))) * 0.0632659508743066), loss = 2.5060984860285993e-5, score = 0.03450609628065674)
+    .exists[11] = true
+    .members[11] = PopMember(tree = (sin(x1 - (-0.07589052460549461 / sin(0.6234215388584792 / x1))) * 0.07544188658538939), loss = 1.4290834354576645e-5, score = 0.036629083244722804)
+    .exists[12] = true
+    .members[12] = PopMember(tree = (sin(x1 - sin(-0.07598817066992185 / sin(0.6238912900983539 / x1))) * 0.07544188658538939), loss = 1.4215746298937423e-5, score = 0.039821572728505575)
+    .exists[13] = true
+    .members[13] = PopMember(tree = (sin(x1 - (x1 * (-0.461050668256523 / sin(0.6258764396439412 / x1)))) * 0.0636018156657843), loss = 9.370167697192607e-6, score = 0.042537016882968084)
+    .exists[14] = true
+    .members[14] = PopMember(tree = (sin(0.06263004082809089 * sin(x1 - (-0.49283700599454094 / (sin(0.6656782399351536 / x1) / x1))))), loss = 8.207885752869992e-6, score = 0.04562078697788252)
+    .exists[15] = true
+    .members[15] = PopMember(tree = (sin(sin(x1 - (-0.49283700599454094 / (sin(0.6656782399351536 / x1) / x1))) * sin(0.06267105788904614))), loss = 8.207885752869992e-6, score = 0.048820788992519515)
+    .exists[16] = true
+    .members[16] = PopMember(tree = (sin(sin((x1 - (-0.5161877203660398 / (sin(0.6654385188503485 / x1) / x1))) - 0.041993053494575265) * 0.06381495856784045)), loss = 5.777912422359795e-6, score = 0.05177778994881519)
+    .exists[17] = true
+    .members[17] = PopMember(tree = ((0.13876290449269388 - sin(sin(-0.5323011040792817 / ((sin(0.6643641003852615 / x1) / x1) / exp(x1))))) * 0.06876459504766967), loss = 3.6604315646122484e-6, score = 0.054766040152387126)
+    .exists[18] = true
+    .members[18] = PopMember(tree = ((0.13876290449269388 - sin(sin(-0.48632167124859843 / ((sin(sin(0.6652902973478754 / x1)) / x1) / exp(x1))))) * 0.06876459504766967), loss = 3.3120235029784147e-6, score = 0.05793120136086074)
+    .exists[19] = true
+    .members[19] = PopMember(tree = (sin((0.133973807362378 - sin(sin(-0.4863218727443811 / ((sin(sin(0.6652902911609115 / x1)) / x1) / exp(x1))))) * 0.06823882134833273)), loss = 2.8983956433696977e-6, score = 0.061089836864246565)
+    .exists[20] = true
+    .members[20] = PopMember(tree = (sin(sin(0.06828681235709039) * (0.13387832777725647 - sin(sin(-0.48623269411166203 / ((sin(sin(0.6652932265550977 / x1)) / x1) / exp(x1))))))), loss = 2.898552371329801e-6, score = 0.06428985082638927)
+</code></pre><p>Next, we extract the 10 model structures which symbolic regression thinks are best, and predict the system with them.</p><pre><code class="language-julia hljs">n_best = 10
+function get_model_structures(hall_of_fame, options, n_best)
+    best_models = []
+    best_models_scores = []
+    i = 1
+    round(hall_of_fame.members[i].loss,sigdigits=5)
+    while length(best_models) &lt;= n_best
+        member = hall_of_fame.members[i]
+        rounded_score = round(member.loss, sigdigits=5)
+        if !(rounded_score in best_models_scores)
+            push!(best_models,member)
+            push!(best_models_scores, rounded_score)
+        end
+        i += 1
+    end
+    model_structures = []
+    @syms x
+    for i = 1:n_best
+        eqn = node_to_symbolic(best_models[i].tree, options, varMap=[&quot;x&quot;])
+        fi = build_function(eqn, x, expression=Val{false})
+        push!(model_structures, fi)
+    end
+    return model_structures
+end
+
+function get_probs_and_caches(model_structures)
+    probs_plausible = Array{Any}(undef, length(model_structures))
+    syms_cache = Array{Any}(undef, length(model_structures))
+    i = 1
+    for i in 1:length(model_structures)
+        @mtkmodel PlausibleBioreactor begin
+            @extend Bioreactor()
+            @equations begin
+                μ ~ model_structures[i](C_s)
+            end
+        end
+        @mtkbuild plausible_bioreactor = PlausibleBioreactor()
+        plausible_prob = ODEProblem(plausible_bioreactor, [], (0.0, 15.0), [], tstops=0:15, saveat=0:15)
+        probs_plausible[i] = plausible_prob
+
+        callback_controls = plausible_bioreactor.controls
+        initial_control = plausible_bioreactor.Q_in
+
+        syms_cache[i] = (callback_controls, initial_control, plausible_bioreactor.C_s)
+    end
+    probs_plausible, syms_cache
+end
+model_structures = get_model_structures(hall_of_fame, options, n_best)
+probs_plausible, syms_cache = get_probs_and_caches(model_structures)
+
+plts = plot(), plot(), plot(), plot()
+for i in 1:length(model_structures)
+    plot!(plts[4],  C_s_range_plot, model_structures[i].( C_s_range_plot);c=i+2,lw=1,ls=:dash)
+    plausible_prob = probs_plausible[i]
+    sol_plausible = solve(plausible_prob, Rodas5P())
+    # plot!(sol_plausible; label=[&quot;Cₛ(g/L)&quot; &quot;Cₓ(g/L)&quot; &quot;V(L)&quot;], xlabel=&quot;t(h)&quot;, lw=3)
+    plot!(plts[1], sol_plausible, idxs=:C_s, lw=1,ls=:dash,c=i+2)
+    plot!(plts[2], sol_plausible, idxs=:C_x, lw=1,ls=:dash,c=i+2)
+end
+plot!(plts[1], sol, idxs=:C_s, lw=3,c=1)
+plot!(plts[1], res_sol, idxs=:C_s, lw=3,c=2)
+plot!(plts[1], ylabel=&quot;Cₛ(g/L)&quot;, xlabel=&quot;t(h)&quot;)
+scatter!(plts[1], data[!, &quot;timestamp&quot;], data[!, &quot;C_s(t)&quot;]; ms=3,c=1)
+plot!(plts[2], sol, idxs=:C_x, lw=3,c=1)
+plot!(plts[2], res_sol, idxs=:C_x, lw=3,c=2)
+plot!(plts[2], ylabel=&quot;Cₓ(g/L)&quot;, xlabel=&quot;t(h)&quot;)
+plot!(plts[3], sol, idxs=:V, ylabel=&quot;V(L)&quot;, xlabel=&quot;t(h)&quot;, lw=3, color=:black, ylims=(6.0,8.0))
+μ_max = 0.421; K_s = 0.439*10 # TODO extract the  values from the model.
+plot!(plts[4], C_s_range_plot, μ_max .* C_s_range_plot ./ (K_s .+ C_s_range_plot), lw=3, c=1)
+plot!(plts[4], C_s_range_plot, μ_predicted_plot, lw=3, c=2)
+scatter!(plts[4], data[!, &quot;C_s(t)&quot;], μ_predicted_data, ms=3, c=2)
+plot!(plts[4], ylabel=&quot;μ(1/h)&quot;, xlabel=&quot;Cₛ(g/L)&quot;,ylims=(0,0.5))
+plot(plts..., layout = 4, tickfontsize=10, guidefontsize=12, legendfontsize=14, grid=false, legend=false)</code></pre><img src="2aec5ce7.svg" alt="Example block output"/><p>On the figure, we see that most plausible model structures predict the states <span>$C_s$</span> and <span>$C_x$</span> well, similar to the neural network. The plausible model structures also fit <span>$\mu$</span> well in the low <span>$C_s$</span> region, but not outside this region. One group of the structures predicts that <span>$\mu$</span> keeps increasing as <span>$C_s$</span> becomes large while another group predicts that <span>$\mu$</span> stays below <span>$0.1$</span> <span>$1/\mathrm{h}$</span>.</p><p>We now design a second experiment to start discriminating between these plausible model structures, using the following criterion:</p><p class="math-container">\[\begin{equation*}
+\argmax_{\bm Q_{in}} \frac{2!(10-2)!}{10!}\sum_{i=1}^{10} \sum_{j=i+1}^{10} \max_{t_k} (\bm C_s^i(t_k) - \bm C_s^j(t_k))^2.
+\end{equation*}\]</p><p>In this equation, <span>$C_s^i$</span> denotes the predicted substrate concentration for the i&#39;th plausible model structure. The distance between two model structures is scored by the maximal squared difference between the two structures at the measurement times. The criterion then calculates the average distance between all model structures. Collecting measurements where the plausible model structures differ greatly in predictions, will cause at least some of the model structures to become unlikely, and thus cause new model structures to enter the top 10 plausible model structures.</p><pre><code class="language-julia hljs">function S_criterion(optimization_state, (probs_plausible, syms_cache))
+    n_structures = length(probs_plausible)
+    sols = Array{Any}(undef, n_structures)
+    for i in 1:n_structures
+        plausible_prob = probs_plausible[i]
+        callback_controls, initial_control, C_s = syms_cache[i]
+        plausible_prob.ps[callback_controls] = optimization_state[2:end]
+        plausible_prob.ps[initial_control] = optimization_state[1]
+        sol_plausible = solve(plausible_prob, Rodas5P())
+        if !(SciMLBase.successful_retcode(sol_plausible))
+            return 0.0
+        end
+    loss
+        sols[i] = sol_plausible
+    end
+    squared_differences = Float64[]
+    for i in 1:n_structures
+        callback_controls, initial_control, C_s = syms_cache[i]
+        for j in i+1:n_structures
+            push!(squared_differences, maximum((sols[i][C_s] .- sols[j][C_s]) .^ 2))
+        end
+    end
+    ret = -mean(squared_differences)
+    println(ret)
+    return ret
+end
+lb = zeros(15)
+ub = 10 * ones(15)
+
+design_prob = OptimizationProblem(S_criterion, optimization_state, (probs_plausible, syms_cache), lb=lb, ub=ub)
+control_pars_opt = solve(design_prob, BBO_adaptive_de_rand_1_bin_radiuslimited(), maxtime=100.0)
+
+optimization_state = control_pars_opt.u
+optimization_initial = optimization_initial2 = optimization_state[1]
+
+plts = plot(), plot()
+t_pwc = []
+pwc = []
+for i in 0:14
+    push!(t_pwc,i)
+    push!(t_pwc,i+1)
+    push!(pwc,optimization_state[i+1])
+    push!(pwc,optimization_state[i+1])
+end
+plot!(plts[1], t_pwc, pwc, lw=3, color=:black,xlabel=&quot;t(h)&quot;,ylabel=&quot;Qin(L/h)&quot;)
+for i in 1:length(model_structures)
+    plausible_prob = probs_plausible[i]
+    callback_controls, initial_control, C_s = syms_cache[i]
+    plausible_prob.ps[callback_controls] = control_pars_opt[2:end]
+    plausible_prob.ps[initial_control] = control_pars_opt[1]
+    sol_plausible = solve(plausible_prob, Rodas5P())
+    plot!(plts[2], sol_plausible, idxs=:C_s, lw=3,ls=:dash,c=i+2)
+end
+plot!(plts[2],xlabel=&quot;t(h)&quot;,ylabel=&quot;Cₛ(g/L)&quot;)
+plot(plts..., layout = (2, 1), tickfontsize=12, guidefontsize=14, legendfontsize=14, grid=false, legend=false)</code></pre><img src="a7078f4d.svg" alt="Example block output"/><p>The above figure shows that a maximal control action is generally preferred. This causes the two aforementioned groups in the model structures to be easily discriminated from one another.</p><p>We now gather a second dataset and perform the same exercise.</p><pre><code class="language-julia hljs">@mtkbuild true_bioreactor2 = TrueBioreactor()
+prob2 = ODEProblem(true_bioreactor2, [], (0.0, 15.0), [], tstops=0:15, save_everystep=false)
+sol2 = solve(prob2, Rodas5P())
+@mtkbuild ude_bioreactor2 = UDEBioreactor()
+ude_prob2 = ODEProblem(ude_bioreactor2, [], (0.0, 15.0), [ude_bioreactor2.Q_in =&gt; optimization_initial], tstops=0:15, save_everystep=false)
+ude_sol2 = solve(ude_prob2, Rodas5P())
+plot(ude_sol2[3,:])
+ude_prob_remake = remake(ude_prob, p=ude_prob2.p)
+sol_remake = solve(ude_prob_remake, Rodas5P())
+plot(sol_remake[3,:])
+x0 = reduce(vcat, getindex.((default_values(ude_bioreactor),), tunable_parameters(ude_bioreactor)))
+
+get_vars2 = getu(ude_bioreactor2, [ude_bioreactor2.C_s])
+
+data2 = DataFrame(sol2)
+data2 = data2[1:2:end, :]
+data2[!, &quot;C_s(t)&quot;] += sd_cs * randn(size(data2, 1))
+
+ps = ([ude_prob, ude_prob2], [get_vars, get_vars2], [data, data2]);
+op = OptimizationProblem(of, x0, ps)
+res = solve(op, NLopt.LN_BOBYQA, maxiters=5_000)
+
+new_p = SciMLStructures.replace(Tunable(), ude_prob2.p, res.u)
+res_prob = remake(ude_prob2, p=new_p)
+callback_controls, initial_control, C_s = syms_cache[1]
+res_prob.ps[initial_control] = optimization_initial2
+res_sol = solve(res_prob, Rodas5P())
+extracted_chain = arguments(equations(ude_bioreactor2.nn)[1].rhs)[1]
+T = defaults(ude_bioreactor2)[ude_bioreactor2.nn.T]
+μ_predicted_plot2 = [only(stateless_apply(extracted_chain, [C_s], convert(T,res.u))) for C_s in C_s_range_plot]
+
+μ_predicted_data = [only(stateless_apply(extracted_chain, [C_s], convert(T,res.u))) for C_s in data[!, &quot;C_s(t)&quot;]]
+μ_predicted_data2 = [only(stateless_apply(extracted_chain, [C_s], convert(T,res.u))) for C_s in data2[!, &quot;C_s(t)&quot;]]
+
+total_data = hcat(collect(data[!, &quot;C_s(t)&quot;]&#39;), collect(data2[!, &quot;C_s(t)&quot;]&#39;))
+total_predicted_data =  vcat(μ_predicted_data, μ_predicted_data2)
+hall_of_fame = equation_search(total_data, total_predicted_data; options, niterations=1000, runtests=false, parallelism=:serial)
+model_structures = get_model_structures(hall_of_fame, options, n_best)
+probs_plausible, syms_cache = get_probs_and_caches(model_structures);
+
+plts = plot(), plot(), plot(), plot()
+for i in 1:length(model_structures)
+    plot!(plts[4],  C_s_range_plot, model_structures[i].( C_s_range_plot);c=i+2,lw=1,ls=:dash)
+    plausible_prob = probs_plausible[i]
+    sol_plausible = solve(plausible_prob, Rodas5P())
+    # plot!(sol_plausible; label=[&quot;Cₛ(g/L)&quot; &quot;Cₓ(g/L)&quot; &quot;V(L)&quot;], xlabel=&quot;t(h)&quot;, lw=3)
+    plot!(plts[1], sol_plausible, idxs=:C_s, lw=1,ls=:dash,c=i+2)
+    plot!(plts[2], sol_plausible, idxs=:C_x, lw=1,ls=:dash,c=i+2)
+end
+plot!(plts[1], sol2, idxs=:C_s, lw=3,c=1)
+plot!(plts[1], res_sol, idxs=:C_s, lw=3,c=2)
+plot!(plts[1], ylabel=&quot;Cₛ(g/L)&quot;, xlabel=&quot;t(h)&quot;)
+scatter!(plts[1], data2[!, &quot;timestamp&quot;], data2[!, &quot;C_s(t)&quot;]; ms=3,c=1)
+plot!(plts[2], sol2, idxs=:C_x, lw=3,c=1)
+plot!(plts[2], res_sol, idxs=:C_x, lw=3,c=2)
+plot!(plts[2], ylabel=&quot;Cₓ(g/L)&quot;, xlabel=&quot;t(h)&quot;)
+plot!(plts[3], sol2, idxs=:V, ylabel=&quot;V(L)&quot;, xlabel=&quot;t(h)&quot;, lw=3, color=:black)
+plot!(plts[4], C_s_range_plot, μ_max .* C_s_range_plot ./ (K_s .+ C_s_range_plot), lw=3, c=1)
+plot!(plts[4], C_s_range_plot, μ_predicted_plot2, lw=3, c=2)
+scatter!(plts[4], data[!, &quot;C_s(t)&quot;], μ_predicted_data, ms=3, c=2)
+scatter!(plts[4], data2[!, &quot;C_s(t)&quot;], μ_predicted_data2, ms=3, c=2)
+plot!(plts[4], ylabel=&quot;μ(1/h)&quot;, xlabel=&quot;Cₛ(g/L)&quot;,ylims=(0,0.5))
+plot(plts..., layout = 4, tickfontsize=10, guidefontsize=12, legendfontsize=14, grid=false, legend=false)</code></pre><img src="dd98ada7.svg" alt="Example block output"/><p>The above shows the data analysis corresponding to this second experiment. Both the UDE and most of the plausible model structures predict the states well,</p><p>The UDE and the plausible model structures also approximate the missing physics <span>$\mu$</span> well in the region where we have gathered data. This means in the regions of low substrate concentration, with data coming primarily from the first experiment, and high substrate concentration, coming from the second experiment. However, we do not have any measurements at substrate concentrations between these two groups. This causes there to be substantial disagreement between the plausible model structures in the medium substrate concentration range.</p><p>We now optimize the controls for a third experiment:</p><pre><code class="language-julia hljs">prob = OptimizationProblem(S_criterion, zeros(15), (probs_plausible, syms_cache), lb=lb, ub=ub)
+control_pars_opt = solve(prob, BBO_adaptive_de_rand_1_bin_radiuslimited(), maxtime=60.0)
+
+optimization_state = control_pars_opt.u
+optimization_initial = optimization_state[1]
+
+plts = plot(), plot()
+t_pwc = []
+pwc = []
+for i in 0:14
+    push!(t_pwc,i)
+    push!(t_pwc,i+1)
+    push!(pwc,optimization_state[i+1])
+    push!(pwc,optimization_state[i+1])
+end
+plot!(plts[1], t_pwc, pwc, lw=3, color=:black,xlabel=&quot;t(h)&quot;,ylabel=&quot;Qin(L/h)&quot;)
+for i in 1:length(model_structures)
+    plausible_prob = probs_plausible[i]
+    callback_controls, initial_control, C_s = syms_cache[i]
+    plausible_prob.ps[callback_controls] = control_pars_opt[2:end]
+    plausible_prob.ps[initial_control] = control_pars_opt[1]
+    sol_plausible = solve(plausible_prob, Rodas5P())
+    plot!(plts[2], sol_plausible, idxs=:C_s, lw=3,ls=:dash,c=i+2)
+end
+plot!(plts[2],xlabel=&quot;t(h)&quot;,ylabel=&quot;Cₛ(g/L)&quot;)
+plot(plts..., layout = (2, 1), tickfontsize=12, guidefontsize=14, legendfontsize=14, grid=false, legend=false)</code></pre><img src="08e522df.svg" alt="Example block output"/><p>The optimal design algorithm is also aware of this uncertainty at the medium concentration range, and aims to remedy this in the next experiment, as can be seen on the above figure. Using the first control action, the bioreactor substrate concentration gets pumped from a low substrate concentration level to a medium level. At this level, there is substantial disagreement between the plausible model structures, leading to substantial disagreement in predicted substrate concentrations. To keep the reactor at the medium substrate concentration range, while the biomass concentration increases rapidly, an increasing amount of substrate has to be pumped into the reactor every hour. This explains the staircase with increasing step heights form of the control function. After the staircase reaches the maximal control value, a zero control is used. Some model structures decrease more rapidly in substrate concentration than others.</p><pre><code class="language-julia hljs">@mtkbuild true_bioreactor3 = TrueBioreactor()
+prob3 = ODEProblem(true_bioreactor3, [], (0.0, 15.0), [], tstops=0:15, save_everystep=false)
+sol3 = solve(prob3, Rodas5P())
+@mtkbuild ude_bioreactor3 = UDEBioreactor()
+ude_prob3 = ODEProblem(ude_bioreactor3, [], (0.0, 15.0), tstops=0:15, save_everystep=false)
+
+x0 = reduce(vcat, getindex.((default_values(ude_bioreactor3),), tunable_parameters(ude_bioreactor3)))
+
+get_vars3 = getu(ude_bioreactor3, [ude_bioreactor3.C_s])
+
+data3 = DataFrame(sol3)
+data3 = data3[1:2:end, :]
+data3[!, &quot;C_s(t)&quot;] += sd_cs * randn(size(data3, 1))
+
+ps = ([ude_prob, ude_prob2, ude_prob3], [get_vars, get_vars2, get_vars3], [data, data2, data3]);
+op = OptimizationProblem(of, x0, ps)
+res = solve(op, Optimization.LBFGS(), maxiters=10_000)
+extracted_chain = arguments(equations(ude_bioreactor3.nn)[1].rhs)[1]
+T = defaults(ude_bioreactor3)[ude_bioreactor3.nn.T]
+
+μ_predicted_data = [only(stateless_apply(extracted_chain, [C_s], convert(T,res.u))) for C_s in data[!, &quot;C_s(t)&quot;]]
+μ_predicted_data2 = [only(stateless_apply(extracted_chain, [C_s], convert(T,res.u))) for C_s in data2[!, &quot;C_s(t)&quot;]]
+μ_predicted_data3 = [only(stateless_apply(extracted_chain, [C_s], convert(T,res.u))) for C_s in data3[!, &quot;C_s(t)&quot;]]
+
+total_data = hcat(collect(data[!, &quot;C_s(t)&quot;]&#39;), collect(data2[!, &quot;C_s(t)&quot;]&#39;), collect(data3[!, &quot;C_s(t)&quot;]&#39;))
+total_predicted_data =  vcat(μ_predicted_data, μ_predicted_data2, μ_predicted_data3)
+hall_of_fame = equation_search(total_data, total_predicted_data; options, niterations=1000, runtests=false, parallelism=:serial)
+bar(i-&gt;hall_of_fame.members[i].loss, 1:10, ylabel=&quot;loss&quot;, xlabel=&quot;hall of fame member&quot;, xticks=1:10)
+plot!(tickfontsize=10, guidefontsize=12, legendfontsize=14, grid=false, legend=false)</code></pre><img src="5032a6c9.svg" alt="Example block output"/><p>The Monod equation <span>$(0.419 / ((x1 + 4.300) / x1))$</span> is member 7 of the hall of fame. All hall of fame members before it have visually higher loss, while all the members after it are indiscernible from it. This indicates that it is a good candidate for the true model structure.</p><p>Symbolic regression sometimes finds the true model structure in a somewhat unusual form, like with a double division. This is because symbolic regression considers multiplication and division to have the same complexity.</p><p>In this tutorial, we have shown that experimental design can be used to explore the state space of a dynamic system in a thoughtful way, such that missing physics can be recovered in an efficient manner.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../bayesian_neural_ode/">« Uncertainty Quantified Deep Bayesian Model Discovery</a><a class="docs-footer-nextpage" href="../blackhole/">Discovering the Relativistic Corrections to Binary Black Hole Dynamics »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.8.0 on <span class="colophon-date" title="Sunday 12 January 2025 10:16">Sunday 12 January 2025</span>. Using Julia version 1.11.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
