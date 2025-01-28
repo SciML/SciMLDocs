@@ -52,7 +52,7 @@ docsmodules = [
             "VoronoiFVM",
         ],
         =#
-        "Advanced Solver APIs" => ["OrdinaryDiffEq", "DiffEqGPU"],
+        "Advanced Solver APIs" => ["OrdinaryDiffEq", "BoundaryValueDiffEq", "DiffEqGPU"],
     ],
     "Analysis" => [
         #= "Plots and Visualization" => ["Makie"], #="PlotDocs",=# =#
