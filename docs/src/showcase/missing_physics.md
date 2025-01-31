@@ -269,7 +269,7 @@ second optimization, and run it with BFGS. This looks like:
 ```@example ude
 optprob2 = Optimization.OptimizationProblem(optf, res1.u)
 res2 = Optimization.solve(
-    optprob2, LBFGS(linesearch = BackTracking()), callback = callback, maxiters = 1000)
+    optprob2, LBFGS(linesearch = BackTracking()), callback = callback, maxiters = 4000)
 println("Final training loss after $(length(losses)) iterations: $(losses[end])")
 
 # Rename the best candidate
