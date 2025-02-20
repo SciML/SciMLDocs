@@ -1,7 +1,7 @@
 using Documenter, LibGit2, Pkg
 using MultiDocumenter
 
-clonedir = mktempdir()
+include("CommercialSupportComponent.jl")
 
 clonedir = joinpath(@__DIR__, "cloned")
 
@@ -184,7 +184,7 @@ docs = Any[MultiDocumenter.MultiDocRef(upstream = joinpath(clonedir, "Home"),
 for group in docsmodules
     docgroups = []
     for cat in group[2]
-        docsites = []
+        docsites = MultiDocumenter.DropdownComponent[]
         for mod in cat[2]
             url = if mod in hasnojl
                 "https://github.com/SciML/$mod.git"
@@ -205,6 +205,14 @@ for group in docsmodules
     end
     push!(docs, MultiDocumenter.MegaDropdownNav(group[1], docgroups))
 end
+
+push!(docs, MultiDocumenter.MegaDropdownNav(
+    "Commercial Support",
+    [
+        MultiDocumenter.Column("Commercial Support", [CommercialSupportComponent("https://share.hsforms.com/1DqQEISJtRRuy6UcQHjRXgwcwyu9")]),
+        MultiDocumenter.Column("Products built with SciML", [ProductsUsedComponent()]),
+    ]
+))
 
 outpath = joinpath(@__DIR__, "build")
 
