@@ -3,6 +3,8 @@ using MultiDocumenter
 
 clonedir = mktempdir()
 
+clonedir = joinpath(@__DIR__, "cloned")
+
 # Ordering Matters!
 docsmodules = [
     "Modeling" => [
