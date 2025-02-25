@@ -32,18 +32,11 @@ PRODUCTNAME_IMAGE_LINK = [
 
 function MultiDocumenter.render(c::ProductsUsedComponent, doc, thispage, prettyurls)
     strings = [MultiDocumenter.@htl """
-    <tr>
-        <td style="vertical-align: middle;">
-            <a href=$(product.link)>
-                <img src=$(product.logo) alt=$(product.product) height='30px' style="vertical-align: middle; height: 30px;"/>
-            </a>
-        </td>
-        <td style="vertical-align: middle; text-align: left;">
-            <a href=$(product.link) class="nav-link nav-item">
-                $(product.product)
-            </a>
-        </td>
-    </tr>
+    <li>
+        <a href=$(product.link) class="nav-link nav-item">
+            $(product.product)
+        </a>
+    </li>
     """ for product in PRODUCTNAME_IMAGE_LINK]
 
     return MultiDocumenter.@htl """
