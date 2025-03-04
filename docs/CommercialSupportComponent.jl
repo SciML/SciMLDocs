@@ -2,18 +2,14 @@ struct JuliaHubCommercialSupportComponent <: MultiDocumenter.DropdownComponent
     link::String
 end
 
-function MultiDocumenter.render(c::CommercialSupportComponent, doc, thispage, prettyurls)
+function MultiDocumenter.render(c::JuliaHubCommercialSupportComponent, doc, thispage, prettyurls)
 
     return MultiDocumenter.@htl """
     <div>
-        <br></br>
-        <br></br>
         <a href="$(c.link)" class="nav-link nav-item">
-            <img src="https://info.juliahub.com/hubfs/Julia-Hub-Navigation-Logo-JuliaHub.svg" alt="JuliaHub logo - contact sales today!"/>
+            <img src="https://info.juliahub.com/hubfs/Julia-Hub-Navigation-Logo-JuliaHub.svg" alt="JuliaHub logo - contact sales today!" style = "padding: 10px;"/>
         </a>
         <p></p>
-        <br></br>
-
         <a href="$(c.link)" class="nav-link nav-item">JuliaHub offers commercial support for ModelingToolkit and the SciML ecosystem.  Contact us today to discuss your needs!</a>
     </div>
     """
