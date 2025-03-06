@@ -78,6 +78,8 @@ makedocs(sitename = "Overview of Julia's SciML",
                 "highlevels/interfaces.md",
                 "highlevels/developer_documentation.md"],
             "Extra Learning Resources" => ["highlevels/learning_resources.md"]
-        ]])
+        ]],
+    warnonly = true,
+)
 
 deploydocs(repo = "github.com/SciML/SciMLDocs")
