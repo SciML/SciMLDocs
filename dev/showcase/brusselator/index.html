@@ -63,6 +63,7 @@ order = 2
 
 discretization = MOLFiniteDifference([x =&gt; dx, y =&gt; dy], t, approx_order = order,
     grid_align = center_align)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">MethodOfLines.MOLFiniteDifference{MethodOfLines.CenterAlignedGrid, MethodOfLines.ScalarizedDiscretization}(Dict{Symbolics.Num, Float64}(y =&gt; 0.03125, x =&gt; 0.03125), t, 2, MethodOfLines.UpwindScheme(1), MethodOfLines.CenterAlignedGrid(), true, false, MethodOfLines.ScalarizedDiscretization(), true, Any[], Base.Pairs{Symbol, Union{}, Tuple{}, @NamedTuple{}}())</code></pre><p>Next, we <code>discretize</code> the system, converting the <code>PDESystem</code> in to an <code>ODEProblem</code>:</p><pre><code class="language-julia hljs">prob = discretize(pdesys, discretization);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi"><span class="sgr38_2" style="color:#56b6c2">ODEProblem</span> with uType <span class="sgr38_2" style="color:#56b6c2">Vector{Float64}</span> and tType <span class="sgr38_2" style="color:#56b6c2">Float64</span>. In-place: <span class="sgr38_2" style="color:#56b6c2">true</span>
+Non-trivial mass matrix: <span class="sgr38_2" style="color:#56b6c2">false</span>
 timespan: (0.0, 11.5)
 u0: 2048-element Vector{Float64}:
  0.11588181443634263
@@ -277,6 +278,7 @@ gif(anim, &quot;plots/Brusselator2Dsol_u.gif&quot;, fps = 8)</code></pre><p><img
 end
 gif(anim, &quot;plots/Brusselator2Dsol_v.gif&quot;, fps = 8)</code></pre><p><img src="https://i.imgur.com/3kQNMI3.gif" alt="Brusselator2Dsol_v"/></p><h2 id="Improving-the-Solution-Process"><a class="docs-heading-anchor" href="#Improving-the-Solution-Process">Improving the Solution Process</a><a id="Improving-the-Solution-Process-1"></a><a class="docs-heading-anchor-permalink" href="#Improving-the-Solution-Process" title="Permalink"></a></h2><p>Now, if all we needed was a single solution, then we&#39;re done. Budda bing budda boom, we got a solution, we&#39;re outta here. But if for example we&#39;re solving an inverse problem on a PDE, or we need to bump it up to higher accuracy, then we will need to make sure we solve this puppy more efficiently. So let&#39;s dive into how this can be done.</p><p>First of all, large PDEs generally are stiff and thus require an implicit solver. However, their stiffness is generally governed by a nonlinear system which as a sparse Jacobian. Handling that implicit system with sparsity is key to solving the system efficiently, so let&#39;s do that!</p><p>In order to enable such options, we simply need to pass the ModelingToolkit.jl problem construction options to the <code>discretize</code> call. This looks like:</p><pre><code class="language-julia hljs"># Analytical Jacobian expression and sparse Jacobian
 prob_sparse = discretize(pdesys, discretization; jac = true, sparse = true)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi"><span class="sgr38_2" style="color:#56b6c2">ODEProblem</span> with uType <span class="sgr38_2" style="color:#56b6c2">Vector{Float64}</span> and tType <span class="sgr38_2" style="color:#56b6c2">Float64</span>. In-place: <span class="sgr38_2" style="color:#56b6c2">true</span>
+Non-trivial mass matrix: <span class="sgr38_2" style="color:#56b6c2">false</span>
 timespan: (0.0, 11.5)
 u0: 2048-element Vector{Float64}:
  0.11588181443634263
@@ -299,64 +301,27 @@ u0: 2048-element Vector{Float64}:
  0.3829487927768564
  0.1422185904446023
  0.0</code></pre><p>Now when we solve the problem it will be a lot faster. We can use BenchmarkTools.jl to assess this performance difference:</p><pre><code class="language-julia hljs">using BenchmarkTools
-@btime sol = solve(prob, TRBDF2(), saveat = 0.1);
-@btime sol = solve(prob_sparse, TRBDF2(), saveat = 0.1);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">retcode: Success
-Interpolation: Dict{Symbolics.Num, Interpolations.GriddedInterpolation{Float64, 3, Array{Float64, 3}, Interpolations.Gridded{Interpolations.Linear{Interpolations.Throw{Interpolations.OnGrid}}}, Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}}}}
-t: 116-element Vector{Float64}:
-  0.0
-  0.1
-  0.2
-  0.3
-  0.4
-  0.5
-  0.6
-  0.7
-  0.8
-  0.9
-  ⋮
- 10.7
- 10.8
- 10.9
- 11.0
- 11.1
- 11.2
- 11.3
- 11.4
- 11.5ivs: 3-element Vector{SymbolicUtils.BasicSymbolic{Real}}:
- t
- x
- ydomain:([0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9  …  10.6, 10.7, 10.8, 10.9, 11.0, 11.1, 11.2, 11.3, 11.4, 11.5], 0.0:0.03125:1.0, 0.0:0.03125:1.0)
-u: Dict{Symbolics.Num, Array{Float64, 3}} with 2 entries:
-  u(x, y, t) =&gt; [0.0 0.115882 … 0.115882 0.0; 0.0 0.115882 … 0.115882 0.0; … ; …
-  v(x, y, t) =&gt; [0.0 0.0 … 0.0 0.0; 0.142219 0.142219 … 0.142219 0.142219; … ; …</code></pre><p>But we can further improve this as well. Instead of just using the default linear solver, we can change this to a Newton-Krylov method by passing in the GMRES method:</p><pre><code class="language-julia hljs">@btime sol = solve(prob_sparse, TRBDF2(linsolve = KrylovJL_GMRES()), saveat = 0.1);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">retcode: Success
-Interpolation: Dict{Symbolics.Num, Interpolations.GriddedInterpolation{Float64, 3, Array{Float64, 3}, Interpolations.Gridded{Interpolations.Linear{Interpolations.Throw{Interpolations.OnGrid}}}, Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}}}}
-t: 116-element Vector{Float64}:
-  0.0
-  0.1
-  0.2
-  0.3
-  0.4
-  0.5
-  0.6
-  0.7
-  0.8
-  0.9
-  ⋮
- 10.7
- 10.8
- 10.9
- 11.0
- 11.1
- 11.2
- 11.3
- 11.4
- 11.5ivs: 3-element Vector{SymbolicUtils.BasicSymbolic{Real}}:
- t
- x
- ydomain:([0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9  …  10.6, 10.7, 10.8, 10.9, 11.0, 11.1, 11.2, 11.3, 11.4, 11.5], 0.0:0.03125:1.0, 0.0:0.03125:1.0)
-u: Dict{Symbolics.Num, Array{Float64, 3}} with 2 entries:
-  u(x, y, t) =&gt; [0.0 0.115882 … 0.115882 0.0; 0.0 0.115882 … 0.115882 0.0; … ; …
-  v(x, y, t) =&gt; [0.0 0.0 … 0.0 0.0; 0.142219 0.142219 … 0.142219 0.142219; … ; …</code></pre><p>But to further improve performance, we can use an iLU preconditioner. This looks like as follows:</p><pre><code class="language-julia hljs">using IncompleteLU
+@benchmark sol = solve(prob, TRBDF2(), saveat = 0.1);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">BenchmarkTools.Trial: 1 sample with 1 evaluation per sample.
+ Single result which took <span class="sgr34">12.253 s</span> (0.00% GC) to evaluate,
+ with a memory estimate of <span class="sgr33">1.83 GiB</span>, over <span class="sgr33">160989</span> allocations.</code></pre><pre><code class="language-julia hljs">@benchmark sol = solve(prob_sparse, TRBDF2(), saveat = 0.1);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">BenchmarkTools.Trial: 3 samples with 1 evaluation per sample.
+ Range <span class="sgr90">(</span><span class="sgr36"><span class="sgr1">min</span></span> … <span class="sgr35">max</span><span class="sgr90">):  </span><span class="sgr36"><span class="sgr1">1.831 s</span></span> … <span class="sgr35"> 1.834 s</span>  <span class="sgr90">┊</span> GC <span class="sgr90">(</span>min … max<span class="sgr90">): </span>0.00% … 0.00%
+ Time  <span class="sgr90">(</span><span class="sgr34"><span class="sgr1">median</span></span><span class="sgr90">):     </span><span class="sgr34"><span class="sgr1">1.834 s             </span></span><span class="sgr90">┊</span> GC <span class="sgr90">(</span>median<span class="sgr90">):    </span>0.00%
+ Time  <span class="sgr90">(</span><span class="sgr32"><span class="sgr1">mean</span></span> ± <span class="sgr32">σ</span><span class="sgr90">):   </span><span class="sgr32"><span class="sgr1">1.833 s</span></span> ± <span class="sgr32">1.918 ms</span>  <span class="sgr90">┊</span> GC <span class="sgr90">(</span>mean ± σ<span class="sgr90">):  </span>0.00% ± 0.00%
+
+  <span class="sgr34">█</span>                                <span class="sgr32"> </span>          █          █  
+  <span class="sgr34">█</span>▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁<span class="sgr32">▁</span>▁▁▁▁▁▁▁▁▁▁█▁▁▁▁▁▁▁▁▁▁█ ▁
+  1.83 s<span class="sgr90">        Histogram: frequency by time</span>        1.83 s <span class="sgr1">&lt;</span>
+
+ Memory estimate<span class="sgr90">: </span><span class="sgr33">233.77 MiB</span>, allocs estimate<span class="sgr90">: </span><span class="sgr33">157360</span>.</code></pre><p>But we can further improve this as well. Instead of just using the default linear solver, we can change this to a Newton-Krylov method by passing in the GMRES method:</p><pre><code class="language-julia hljs">@benchmark sol = solve(prob_sparse, TRBDF2(linsolve = KrylovJL_GMRES()), saveat = 0.1);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">BenchmarkTools.Trial: 2 samples with 1 evaluation per sample.
+ Range <span class="sgr90">(</span><span class="sgr36"><span class="sgr1">min</span></span> … <span class="sgr35">max</span><span class="sgr90">):  </span><span class="sgr36"><span class="sgr1">4.203 s</span></span> … <span class="sgr35">  4.256 s</span>  <span class="sgr90">┊</span> GC <span class="sgr90">(</span>min … max<span class="sgr90">): </span>0.00% … 0.00%
+ Time  <span class="sgr90">(</span><span class="sgr34"><span class="sgr1">median</span></span><span class="sgr90">):     </span><span class="sgr34"><span class="sgr1">4.229 s              </span></span><span class="sgr90">┊</span> GC <span class="sgr90">(</span>median<span class="sgr90">):    </span>0.00%
+ Time  <span class="sgr90">(</span><span class="sgr32"><span class="sgr1">mean</span></span> ± <span class="sgr32">σ</span><span class="sgr90">):   </span><span class="sgr32"><span class="sgr1">4.229 s</span></span> ± <span class="sgr32">37.249 ms</span>  <span class="sgr90">┊</span> GC <span class="sgr90">(</span>mean ± σ<span class="sgr90">):  </span>0.00% ± 0.00%
+
+  <span class="sgr34">█</span>                           <span class="sgr32"> </span>                           █  
+  <span class="sgr34">█</span>▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁<span class="sgr32">▁</span>▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁█ ▁
+  4.2 s<span class="sgr90">          Histogram: frequency by time</span>        4.26 s <span class="sgr1">&lt;</span>
+
+ Memory estimate<span class="sgr90">: </span><span class="sgr33">94.81 MiB</span>, allocs estimate<span class="sgr90">: </span><span class="sgr33">307445</span>.</code></pre><p>But to further improve performance, we can use an iLU preconditioner. This looks like as follows:</p><pre><code class="language-julia hljs">using IncompleteLU
 function incompletelu(W, du, u, p, t, newW, Plprev, Prprev, solverdata)
     if newW === nothing || newW
         Pl = ilu(convert(AbstractMatrix, W), τ = 50.0)
@@ -366,16 +331,15 @@ function incompletelu(W, du, u, p, t, newW, Plprev, Prprev, solverdata)
     Pl, nothing
 end
 
-@btime solve(prob_sparse,
+@benchmark solve(prob_sparse,
     TRBDF2(linsolve = KrylovJL_GMRES(), precs = incompletelu, concrete_jac = true),
-    save_everystep = false);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">retcode: Success
-Interpolation: Dict{Symbolics.Num, Interpolations.GriddedInterpolation{Float64, 3, Array{Float64, 3}, Interpolations.Gridded{Interpolations.Linear{Interpolations.Throw{Interpolations.OnGrid}}}, Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}}}}
-t: 2-element Vector{Float64}:
-  0.0
- 11.5ivs: 3-element Vector{SymbolicUtils.BasicSymbolic{Real}}:
- t
- x
- ydomain:([0.0, 11.5], 0.0:0.03125:1.0, 0.0:0.03125:1.0)
-u: Dict{Symbolics.Num, Array{Float64, 3}} with 2 entries:
-  u(x, y, t) =&gt; [0.0 0.115882 … 0.115882 0.0; 0.0 0.115882 … 0.115882 0.0; … ; …
-  v(x, y, t) =&gt; [0.0 0.0 … 0.0 0.0; 0.142219 0.142219 … 0.142219 0.142219; … ; …</code></pre><p>And now we&#39;re zooming! For more information on these performance improvements, check out the deeper dive in <a href="https://docs.sciml.ai/DiffEqDocs/stable/tutorials/advanced_ode_example/">the DifferentialEquations.jl tutorials</a>.</p><p>If you&#39;re interested in figuring out what&#39;s the fastest current solver for this kind of PDE, check out the <a href="https://docs.sciml.ai/SciMLBenchmarksOutput/stable/StiffODE/Bruss/">Brusselator benchmark in SciMLBenchmarks.jl</a></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../blackhole/">« Discovering the Relativistic Corrections to Binary Black Hole Dynamics</a><a class="docs-footer-nextpage" href="../pinngpu/">GPU-Accelerated Physics-Informed Neural Network (PINN) PDE Solvers »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.8.0 on <span class="colophon-date" title="Monday 13 January 2025 03:23">Monday 13 January 2025</span>. Using Julia version 1.11.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+    save_everystep = false);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">BenchmarkTools.Trial: 3 samples with 1 evaluation per sample.
+ Range <span class="sgr90">(</span><span class="sgr36"><span class="sgr1">min</span></span> … <span class="sgr35">max</span><span class="sgr90">):  </span><span class="sgr36"><span class="sgr1">1.972 s</span></span> … <span class="sgr35">  1.990 s</span>  <span class="sgr90">┊</span> GC <span class="sgr90">(</span>min … max<span class="sgr90">): </span>0.00% … 0.00%
+ Time  <span class="sgr90">(</span><span class="sgr34"><span class="sgr1">median</span></span><span class="sgr90">):     </span><span class="sgr34"><span class="sgr1">1.973 s              </span></span><span class="sgr90">┊</span> GC <span class="sgr90">(</span>median<span class="sgr90">):    </span>0.00%
+ Time  <span class="sgr90">(</span><span class="sgr32"><span class="sgr1">mean</span></span> ± <span class="sgr32">σ</span><span class="sgr90">):   </span><span class="sgr32"><span class="sgr1">1.978 s</span></span> ± <span class="sgr32">10.511 ms</span>  <span class="sgr90">┊</span> GC <span class="sgr90">(</span>mean ± σ<span class="sgr90">):  </span>0.00% ± 0.00%
+
+  <span class="sgr34">█</span> █                 <span class="sgr32"> </span>                                   █  
+  <span class="sgr34">█</span>▁█▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁<span class="sgr32">▁</span>▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁█ ▁
+  1.97 s<span class="sgr90">         Histogram: frequency by time</span>        1.99 s <span class="sgr1">&lt;</span>
+
+ Memory estimate<span class="sgr90">: </span><span class="sgr33">172.19 MiB</span>, allocs estimate<span class="sgr90">: </span><span class="sgr33">61302</span>.</code></pre><p>And now we&#39;re zooming! For more information on these performance improvements, check out the deeper dive in <a href="https://docs.sciml.ai/DiffEqDocs/stable/tutorials/advanced_ode_example/">the DifferentialEquations.jl tutorials</a>.</p><p>If you&#39;re interested in figuring out what&#39;s the fastest current solver for this kind of PDE, check out the <a href="https://docs.sciml.ai/SciMLBenchmarksOutput/stable/StiffODE/Bruss/">Brusselator benchmark in SciMLBenchmarks.jl</a></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../blackhole/">« Discovering the Relativistic Corrections to Binary Black Hole Dynamics</a><a class="docs-footer-nextpage" href="../pinngpu/">GPU-Accelerated Physics-Informed Neural Network (PINN) PDE Solvers »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.8.1 on <span class="colophon-date" title="Friday 7 March 2025 16:49">Friday 7 March 2025</span>. Using Julia version 1.11.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
