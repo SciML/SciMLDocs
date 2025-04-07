@@ -83,7 +83,7 @@ docsmodules = [
     ],
     "Developer Tools" => [
         "Numerical Utilities" => ["ExponentialUtilities", "DiffEqNoiseProcess",
-            "PreallocationTools", "EllipsisNotation", "DataInterpolations",
+            "PreallocationTools", "EllipsisNotation", "DataInterpolations", "NDInterpolations",
             "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro", "FindFirstFunctions",
             "SparseDiffTools"],
         #=
