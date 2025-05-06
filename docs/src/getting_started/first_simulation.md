@@ -50,15 +50,13 @@ number of animals at each time?
 
 ```@example
 using ModelingToolkit, DifferentialEquations, Plots
+using ModelingToolkit: t_nounits as t, D_nounits as D
 
 # Define our state variables: state(t) = initial condition
-@variables t x(t)=1 y(t)=1 z(t)=2
+@variables x(t)=1 y(t)=1 z(t)
 
 # Define our parameters
 @parameters α=1.5 β=1.0 γ=3.0 δ=1.0
-
-# Define our differential: takes the derivative with respect to `t`
-D = Differential(t)
 
 # Define the differential equations
 eqs = [D(x) ~ α * x - β * x * y
@@ -103,6 +101,7 @@ Now we're ready. Let's load in these packages:
 
 ```@example first_sim
 using ModelingToolkit, DifferentialEquations, Plots
+using ModelingToolkit: t_nounits as t, D_nounits as D
 ```
 
 ### Step 2: Define our ODE Equations
@@ -113,12 +112,14 @@ variables:
 
 ```@example first_sim
 # Define our state variables: state(t) = initial condition
-@variables t x(t)=1 y(t)=1 z(t)=2
+@variables x(t)=1 y(t)=1 z(t)
 ```
 
 Notice here that we use the form `state = default`, where on the right-hand side the default
-value of a state is interpreted to be its initial condition. This is then done similarly
-for parameters, where the default value is now the parameter value:
+value of a state is interpreted to be its initial condition. Note that since `z` will be given
+by an algebraic equation, we do not need to specify its initial condition.
+
+This is then done similarly for parameters, where the default value is now the parameter value:
 
 ```@example first_sim
 # Define our parameters
@@ -133,9 +134,6 @@ for parameters, where the default value is now the parameter value:
     expressions!
 
 Next, we define our set of differential equations.
-To define the `Differential` operator `D`, we need to first tell it what to
-differentiate with respect to, here the independent variable `t`,
-Then, once we have the operator, we apply that into the equations.
 
 !!! note
     
@@ -146,9 +144,6 @@ Then, once we have the operator, we apply that into the equations.
     is used!
 
 ```@example first_sim
-# Define our differential: takes the derivative with respect to `t`
-D = Differential(t)
-
 # Define the differential equations
 eqs = [D(x) ~ α * x - β * x * y
        D(y) ~ -γ * y + δ * x * y
