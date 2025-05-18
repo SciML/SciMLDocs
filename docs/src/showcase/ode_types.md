@@ -8,7 +8,7 @@ few useful/interesting types that can be used:
 | Julia Type Name          | Julia Package                                                                         | Use case                                                        |
 |:------------------------ |:------------------------------------------------------------------------------------- |:--------------------------------------------------------------- |
 | BigFloat                 | Base Julia                                                                            | Higher precision solutions                                      |
-| ArbFloat                 | [ArbFloats.jl](https://github.com/JuliaArbTypes/ArbFloats.jl)                         | More efficient higher precision solutions                       |
+| ArbFloat                 | [ArbNumerics.jl](https://github.com/JeffreySarnoff/ArbNumerics.jl)                         | More efficient higher precision solutions                       |
 | Measurement              | [Measurements.jl](https://github.com/JuliaPhysics/Measurements.jl)                    | Uncertainty propagation                                         |
 | Particles                | [MonteCarloMeasurements.jl](https://github.com/baggepinnen/MonteCarloMeasurements.jl) | Uncertainty propagation                                         |
 | Unitful                  | [Unitful.jl](https://painterqubits.github.io/Unitful.jl/stable/)                      | Unit-checked arithmetic                                         |
