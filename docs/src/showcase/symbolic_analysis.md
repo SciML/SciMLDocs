@@ -314,7 +314,8 @@ x_1'(t) = -b  x_1(t) + \frac{1 }{ c + x_4(t)},\\
 x_2'(t) = \alpha  x_1(t) - \beta  x_2(t),\\
 x_3'(t) = \gamma  x_2(t) - \delta  x_3(t),\\
 x_4'(t) = \sigma  x_4(t)  \frac{(\gamma x_2(t) - \delta x_3(t))}{ x_3(t)},\\
-y(t) = x_1(t)
+y_1(t) = x_1(t) + x_2(t)
+y_2(t) = x_2(t)
 \end{cases}$$
 
 We will run a global identifiability check on this enzyme dynamics[^3] model. We will use the default settings: the probability of correctness will be `p=0.99` and we are interested in identifiability of all possible parameters.
@@ -326,7 +327,7 @@ __Note__: as of writing this tutorial, UTF-symbols such as Greek characters are 
 ```julia
 using StructuralIdentifiability, ModelingToolkit
 @parameters b c a beta g delta sigma
-@variables t x1(t) x2(t) x3(t) x4(t) y(t) y2(t)
+@variables t x1(t) x2(t) x3(t) x4(t) y1(t) y2(t)
 D = Differential(t)
 
 eqs = [
@@ -336,7 +337,7 @@ eqs = [
     D(x4) ~ sigma * x4 * (g * x2 - delta * x3) / x3
 ]
 
-measured_quantities = [y ~ x1 + x2, y2 ~ x2]
+measured_quantities = [y1 ~ x1 + x2, y2 ~ x2]
 
 ode = ODESystem(eqs, t, name = :GoodwinOsc)
 
@@ -369,7 +370,7 @@ eqs = [
     D(x3) ~ g * x2 - delta * x3 + u2,
     D(x4) ~ sigma * x4 * (g * x2 - delta * x3) / x3
 ]
-measured_quantities = [y ~ x1 + x2, y2 ~ x2]
+measured_quantities = [y1 ~ x1 + x2, y2 ~ x2]
 
 # check only 2 parameters
 to_check = [b, c]
