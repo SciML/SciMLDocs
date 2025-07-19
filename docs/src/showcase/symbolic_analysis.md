@@ -35,10 +35,10 @@ pendulum which accidentally generates an index-3 DAE, and show how to use the
 ## Copy-Pastable Example
 
 ```@example indexred
-using ModelingToolkit
-using LinearAlgebra
-using OrdinaryDiffEq
-using Plots
+import ModelingToolkit as MTK
+import LinearAlgebra
+import OrdinaryDiffEq as ODE
+import Plots
 
 function pendulum!(du, u, p, t)
     x, dx, y, dy, T = u
@@ -50,16 +50,16 @@ function pendulum!(du, u, p, t)
     du[5] = x^2 + y^2 - L^2
     return nothing
 end
-pendulum_fun! = ODEFunction(pendulum!, mass_matrix = Diagonal([1, 1, 1, 1, 0]))
+pendulum_fun! = ODE.ODEFunction(pendulum!, mass_matrix = LinearAlgebra.Diagonal([1, 1, 1, 1, 0]))
 u0 = [1.0, 0, 0, 0, 0]
 p = [9.8, 1]
 tspan = (0, 10.0)
-pendulum_prob = ODEProblem(pendulum_fun!, u0, tspan, p)
-traced_sys = modelingtoolkitize(pendulum_prob)
-pendulum_sys = structural_simplify(dae_index_lowering(traced_sys))
-prob = ODEProblem(pendulum_sys, [], tspan)
-sol = solve(prob, Rodas5P(), abstol = 1e-8, reltol = 1e-8)
-plot(sol, vars = unknowns(traced_sys))
+pendulum_prob = ODE.ODEProblem(pendulum_fun!, u0, tspan, p)
+traced_sys = MTK.modelingtoolkitize(pendulum_prob)
+pendulum_sys = MTK.structural_simplify(MTK.dae_index_lowering(traced_sys))
+prob = ODE.ODEProblem(pendulum_sys, [], tspan)
+sol = ODE.solve(prob, ODE.Rodas5P(), abstol = 1e-8, reltol = 1e-8)
+Plots.plot(sol, vars = MTK.unknowns(traced_sys))
 ```
 
 ## Explanation
@@ -83,7 +83,8 @@ As a good DifferentialEquations.jl user, one would follow
 to arrive at code for simulating the model:
 
 ```@example indexred
-using OrdinaryDiffEq, LinearAlgebra
+import OrdinaryDiffEq as ODE
+import LinearAlgebra
 function pendulum!(du, u, p, t)
     x, dx, y, dy, T = u
     g, L = p
@@ -93,12 +94,12 @@ function pendulum!(du, u, p, t)
     du[4] = T * y - g
     du[5] = x^2 + y^2 - L^2
 end
-pendulum_fun! = ODEFunction(pendulum!, mass_matrix = Diagonal([1, 1, 1, 1, 0]))
+pendulum_fun! = ODE.ODEFunction(pendulum!, mass_matrix = LinearAlgebra.Diagonal([1, 1, 1, 1, 0]))
 u0 = [1.0, 0, 0, 0, 0];
 p = [9.8, 1];
 tspan = (0, 10.0);
-pendulum_prob = ODEProblem(pendulum_fun!, u0, tspan, p)
-solve(pendulum_prob, Rodas5P())
+pendulum_prob = ODE.ODEProblem(pendulum_fun!, u0, tspan, p)
+ODE.solve(pendulum_prob, ODE.Rodas5P())
 ```
 
 However, one will quickly be greeted with the unfortunate message:
@@ -176,13 +177,12 @@ then transform back to numerical code with `ODEProblem`, and solve with a
 numerical solver. Let's try that out:
 
 ```@example indexred
-traced_sys = modelingtoolkitize(pendulum_prob)
-pendulum_sys = structural_simplify(traced_sys)
-prob = ODEProblem(pendulum_sys, Pair[], tspan)
-sol = solve(prob, Rodas5P())
+traced_sys = MTK.modelingtoolkitize(pendulum_prob)
+pendulum_sys = MTK.structural_simplify(traced_sys)
+prob = ODE.ODEProblem(pendulum_sys, Pair[], tspan)
+sol = ODE.solve(prob, ODE.Rodas5P())
 
-using Plots
-plot(sol, vars = unknowns(traced_sys))
+Plots.plot(sol, vars = MTK.unknowns(traced_sys))
 ```
 
 Note that plotting using `unknowns(traced_sys)` is done so that any
@@ -196,11 +196,11 @@ constructor, we represent the mass matrix DAE of the index-reduced system,
 which can be solved via:
 
 ```@example indexred
-traced_sys = modelingtoolkitize(pendulum_prob)
-pendulum_sys = structural_simplify(dae_index_lowering(traced_sys))
-prob = ODEProblem(pendulum_sys, Pair[], tspan)
-sol = solve(prob, Rodas5P(), abstol = 1e-8, reltol = 1e-8)
-plot(sol, vars = unknowns(traced_sys))
+traced_sys = MTK.modelingtoolkitize(pendulum_prob)
+pendulum_sys = MTK.structural_simplify(MTK.dae_index_lowering(traced_sys))
+prob = ODE.ODEProblem(pendulum_sys, Pair[], tspan)
+sol = ODE.solve(prob, ODE.Rodas5P(), abstol = 1e-8, reltol = 1e-8)
+Plots.plot(sol, vars = MTK.unknowns(traced_sys))
 ```
 
 And there you go: this has transformed the model from being too hard to
@@ -245,7 +245,8 @@ To define the ode system in Julia, we use `ModelingToolkit.jl`.
 We first define the parameters, variables, differential equations and the output equations.
 
 ```julia
-using StructuralIdentifiability, ModelingToolkit
+import StructuralIdentifiability
+import ModelingToolkit as MTK
 
 # define parameters and variables
 @variables t x4(t) x5(t) x6(t) x7(t) y1(t) y2(t)
@@ -264,7 +265,7 @@ eqs = [
 measured_quantities = [y1 ~ x4, y2 ~ x5]
 
 # define the system
-de = ODESystem(eqs, t, name = :Biohydrogenation)
+de = MTK.ODESystem(eqs, t, name = :Biohydrogenation)
 ```
 
 After that, we are ready to check the system for local identifiability:
@@ -272,7 +273,7 @@ After that, we are ready to check the system for local identifiability:
 ```julia
 # query local identifiability
 # we pass the ode-system
-local_id_all = assess_local_identifiability(de, measured_quantities = measured_quantities,
+local_id_all = StructuralIdentifiability.assess_local_identifiability(de, measured_quantities = measured_quantities,
     p = 0.99)
 # [ Info: Preproccessing `ModelingToolkit.ODESystem` object
 # 6-element Vector{Bool}:
@@ -290,7 +291,7 @@ Let's try to check specific parameters and their combinations
 
 ```julia
 to_check = [k5, k7, k10 / k9, k5 + k6]
-local_id_some = assess_local_identifiability(de, measured_quantities = measured_quantities,
+local_id_some = StructuralIdentifiability.assess_local_identifiability(de, measured_quantities = measured_quantities,
     funcs_to_check = to_check, p = 0.99)
 # 4-element Vector{Bool}:
 #  1
@@ -325,7 +326,8 @@ Global identifiability needs information about local identifiability first, but 
 __Note__: as of writing this tutorial, UTF-symbols such as Greek characters are not supported by one of the project's dependencies, see [this issue](https://github.com/SciML/StructuralIdentifiability.jl/issues/43).
 
 ```julia
-using StructuralIdentifiability, ModelingToolkit
+import StructuralIdentifiability
+import ModelingToolkit as MTK
 @parameters b c a beta g delta sigma
 @variables t x1(t) x2(t) x3(t) x4(t) y1(t) y2(t)
 D = Differential(t)
@@ -339,9 +341,9 @@ eqs = [
 
 measured_quantities = [y1 ~ x1 + x2, y2 ~ x2]
 
-ode = ODESystem(eqs, t, name = :GoodwinOsc)
+ode = MTK.ODESystem(eqs, t, name = :GoodwinOsc)
 
-@time global_id = assess_identifiability(ode, measured_quantities = measured_quantities)
+@time global_id = StructuralIdentifiability.assess_identifiability(ode, measured_quantities = measured_quantities)
 # 30.672594 seconds (100.97 M allocations: 6.219 GiB, 3.15% gc time, 0.01% compilation time)
 # Dict{Num, Symbol} with 7 entries:
 #   a     => :globally
@@ -359,7 +361,8 @@ Let us consider the same system but with two inputs,
 and we will find out identifiability with probability `0.9` for parameters `c` and `b`:
 
 ```julia
-using StructuralIdentifiability, ModelingToolkit
+import StructuralIdentifiability
+import ModelingToolkit as MTK
 @parameters b c a beta g delta sigma
 @variables t x1(t) x2(t) x3(t) x4(t) y(t) u1(t) [input = true] u2(t) [input = true]
 D = Differential(t)
@@ -375,9 +378,9 @@ measured_quantities = [y1 ~ x1 + x2, y2 ~ x2]
 # check only 2 parameters
 to_check = [b, c]
 
-ode = ODESystem(eqs, t, name = :GoodwinOsc)
+ode = MTK.ODESystem(eqs, t, name = :GoodwinOsc)
 
-global_id = assess_identifiability(ode, measured_quantities = measured_quantities,
+global_id = StructuralIdentifiability.assess_identifiability(ode, measured_quantities = measured_quantities,
     funcs_to_check = to_check, p = 0.9)
 # Dict{Num, Symbol} with 2 entries:
 #   b => :globally

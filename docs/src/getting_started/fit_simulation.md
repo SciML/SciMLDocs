@@ -55,8 +55,12 @@ Can we figure out what the parameter values should be directly from the data?
 ## Solution as Copy-Pastable Code
 
 ```@example
-using DifferentialEquations, Optimization, OptimizationPolyalgorithms, SciMLSensitivity
-using ForwardDiff, Plots
+import DifferentialEquations as DE
+import Optimization as OPT
+import OptimizationPolyalgorithms
+import SciMLSensitivity
+import ForwardDiff
+import Plots
 
 # Define experimental data
 t_data = 0:10
@@ -65,7 +69,7 @@ y_data = [1.000 0.259 2.015 1.908 0.323 0.629 3.458 0.508 0.314 4.547 0.906]
 xy_data = vcat(x_data, y_data)
 
 # Plot the provided data
-scatter(t_data, xy_data', label = ["x Data" "y Data"])
+Plots.scatter(t_data, xy_data', label = ["x Data" "y Data"])
 
 # Setup the ODE function
 function lotka_volterra!(du, u, p, t)
@@ -85,19 +89,19 @@ tspan = (0.0, 10.0)
 pguess = [1.0, 1.2, 2.5, 1.2]
 
 # Set up the ODE problem with our guessed parameter values
-prob = ODEProblem(lotka_volterra!, u0, tspan, pguess)
+prob = DE.ODEProblem(lotka_volterra!, u0, tspan, pguess)
 
 # Solve the ODE problem with our guessed parameter values
-initial_sol = solve(prob, saveat = 1)
+initial_sol = DE.solve(prob, saveat = 1)
 
 # View the guessed model solution
-plt = plot(initial_sol, label = ["x Prediction" "y Prediction"])
-scatter!(plt, t_data, xy_data', label = ["x Data" "y Data"])
+plt = Plots.plot(initial_sol, label = ["x Prediction" "y Prediction"])
+Plots.scatter!(plt, t_data, xy_data', label = ["x Data" "y Data"])
 
 # Define a loss metric function to be minimized
 function loss(newp)
     newprob = remake(prob, p = newp)
-    sol = solve(newprob, saveat = 1)
+    sol = DE.solve(newprob, saveat = 1)
     loss = sum(abs2, sol .- xy_data)
     return loss
 end
@@ -106,21 +110,21 @@ end
 function callback(state, l)
     display(l)
     newprob = remake(prob, p = state.u)
-    sol = solve(newprob, saveat = 1)
-    plt = plot(sol, ylim = (0, 6), label = ["Current x Prediction" "Current y Prediction"])
-    scatter!(plt, t_data, xy_data', label = ["x Data" "y Data"])
+    sol = DE.solve(newprob, saveat = 1)
+    plt = Plots.plot(sol, ylim = (0, 6), label = ["Current x Prediction" "Current y Prediction"])
+    Plots.scatter!(plt, t_data, xy_data', label = ["x Data" "y Data"])
     display(plt)
     return false
 end
 
 # Set up the optimization problem with our loss function and initial guess
-adtype = AutoForwardDiff()
+adtype = OPT.AutoForwardDiff()
 pguess = [1.0, 1.2, 2.5, 1.2]
-optf = OptimizationFunction((x, _) -> loss(x), adtype)
-optprob = OptimizationProblem(optf, pguess)
+optf = OPT.OptimizationFunction((x, _) -> loss(x), adtype)
+optprob = OPT.OptimizationProblem(optf, pguess)
 
 # Optimize the ODE parameters for best fit to our data
-pfinal = solve(optprob, PolyOpt(),
+pfinal = OPT.solve(optprob, OptimizationPolyalgorithms.PolyOpt(),
     callback = callback,
     maxiters = 200)
 α, β, γ, δ = round.(pfinal, digits = 1)
@@ -147,8 +151,12 @@ Pkg.add([
 Now we're ready. Let's load in these packages:
 
 ```@example odefit
-using DifferentialEquations, Optimization, OptimizationPolyalgorithms, SciMLSensitivity
-using ForwardDiff, Plots
+import DifferentialEquations as DE
+import Optimization as OPT
+import OptimizationPolyalgorithms
+import SciMLSensitivity
+import ForwardDiff
+import Plots
 ```
 
 ### Step 2: View the Training Data
@@ -165,7 +173,7 @@ y_data = [1.000 0.259 2.015 1.908 0.323 0.629 3.458 0.508 0.314 4.547 0.906]
 xy_data = vcat(x_data, y_data)
 
 # Plot the provided data
-scatter(t_data, xy_data', label = ["x Data" "y Data"])
+Plots.scatter(t_data, xy_data', label = ["x Data" "y Data"])
 ```
 
 !!! note
@@ -227,14 +235,14 @@ so that it saves a point at every ``\Delta t = 1`` to match our experimental dat
 
 ```@example odefit
 # Set up the ODE problem with our guessed parameter values
-prob = ODEProblem(lotka_volterra!, u0, tspan, pguess)
+prob = DE.ODEProblem(lotka_volterra!, u0, tspan, pguess)
 
 # Solve the ODE problem with our guessed parameter values
-initial_sol = solve(prob, saveat = 1)
+initial_sol = DE.solve(prob, saveat = 1)
 
 # View the guessed model solution
-plt = plot(initial_sol, label = ["x Prediction" "y Prediction"])
-scatter!(plt, t_data, xy_data', label = ["x Data" "y Data"])
+plt = Plots.plot(initial_sol, label = ["x Prediction" "y Prediction"])
+Plots.scatter!(plt, t_data, xy_data', label = ["x Data" "y Data"])
 ```
 
     Clearly the parameter values that we guessed are not correct to model this system.
@@ -278,7 +286,7 @@ Using this information, our loss function looks like:
 ```@example odefit
 function loss(newp)
     newprob = remake(prob, p = newp)
-    sol = solve(newprob, saveat = 1)
+    sol = DE.solve(newprob, saveat = 1)
     l = sum(abs2, sol .- xy_data)
     return l
 end
@@ -314,9 +322,9 @@ More details about callbacks in Optimization.jl can be found
 function callback(state, l)
     display(l)
     newprob = remake(prob, p = state.u)
-    sol = solve(newprob, saveat = 1)
-    plt = plot(sol, ylim = (0, 6), label = ["Current x Prediction" "Current y Prediction"])
-    scatter!(plt, t_data, xy_data', label = ["x Data" "y Data"])
+    sol = DE.solve(newprob, saveat = 1)
+    plt = Plots.plot(sol, ylim = (0, 6), label = ["Current x Prediction" "Current y Prediction"])
+    Plots.scatter!(plt, t_data, xy_data', label = ["x Data" "y Data"])
     display(plt)
     return false
 end
@@ -336,14 +344,14 @@ Together, this looks like:
 
 ```@example odefit
 # Set up the optimization problem with our loss function and initial guess
-adtype = AutoForwardDiff()
+adtype = OPT.AutoForwardDiff()
 pguess = [1.0, 1.2, 2.5, 1.2]
-optf = OptimizationFunction((x, _) -> loss(x), adtype)
-optprob = OptimizationProblem(optf, pguess)
+optf = OPT.OptimizationFunction((x, _) -> loss(x), adtype)
+optprob = OPT.OptimizationProblem(optf, pguess)
 
 # Optimize the ODE parameters for best fit to our data
-pfinal = solve(optprob,
-    PolyOpt(),
+pfinal = OPT.solve(optprob,
+    OptimizationPolyalgorithms.PolyOpt(),
     callback = callback,
     maxiters = 200)
 α, β, γ, δ = round.(pfinal, digits = 1)

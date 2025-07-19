@@ -61,18 +61,30 @@ And external libraries:
 
 ```@example ude
 # SciML Tools
-using OrdinaryDiffEq, ModelingToolkit, DataDrivenDiffEq, SciMLSensitivity, DataDrivenSparse
-using Optimization, OptimizationOptimisers, OptimizationOptimJL, LineSearches
+import OrdinaryDiffEq as ODE
+import ModelingToolkit as MTK
+import DataDrivenDiffEq
+import SciMLSensitivity as SMS
+import DataDrivenSparse
+import Optimization as OPT
+import OptimizationOptimisers
+import OptimizationOptimJL
+import LineSearches
 
 # Standard Libraries
-using LinearAlgebra, Statistics
+import LinearAlgebra
+import Statistics
 
 # External Libraries
-using ComponentArrays, Lux, Zygote, Plots, StableRNGs
-gr()
+import ComponentArrays
+import Lux
+import Zygote
+import Plots
+import StableRNGs
+Plots.gr()
 
 # Set a random seed for reproducible behaviour
-rng = StableRNG(1111)
+rng = StableRNGs.StableRNG(1111)
 ```
 
 ## Problem Setup
@@ -114,19 +126,19 @@ end
 tspan = (0.0, 5.0)
 u0 = 5.0f0 * rand(rng, 2)
 p_ = [1.3, 0.9, 0.8, 1.8]
-prob = ODEProblem(lotka!, u0, tspan, p_)
-solution = solve(prob, Vern7(), abstol = 1e-12, reltol = 1e-12, saveat = 0.25)
+prob = ODE.ODE.ODEProblem(lotka!, u0, tspan, p_)
+solution = ODE.ODE.solve(prob, ODE.Vern7(), abstol = 1e-12, reltol = 1e-12, saveat = 0.25)
 
 # Add noise in terms of the mean
 X = Array(solution)
 t = solution.t
 
-x̄ = mean(X, dims = 2)
+x̄ = Statistics.mean(X, dims = 2)
 noise_magnitude = 5e-3
 Xₙ = X .+ (noise_magnitude * x̄) .* randn(rng, eltype(X), size(X))
 
-plot(solution, alpha = 0.75, color = :black, label = ["True Data" nothing])
-scatter!(t, transpose(Xₙ), color = :red, label = ["Noisy Data" nothing])
+Plots.Plots.plot(solution, alpha = 0.75, color = :black, label = ["True Data" nothing])
+Plots.scatter!(t, transpose(Xₙ), color = :red, label = ["Noisy Data" nothing])
 ```
 
 ## Definition of the Universal Differential Equation
@@ -157,7 +169,7 @@ end
 # Closure with the known parameter
 nn_dynamics!(du, u, p, t) = ude_dynamics!(du, u, p, t, p_)
 # Define the problem
-prob_nn = ODEProblem(nn_dynamics!, Xₙ[:, 1], tspan, p)
+prob_nn = ODE.ODE.ODEProblem(nn_dynamics!, Xₙ[:, 1], tspan, p)
 ```
 
 Notice that the most important part of this is that the neural network does not have
@@ -194,10 +206,10 @@ Knowing this, our `predict` function looks like:
 
 ```@example ude
 function predict(θ, X = Xₙ[:, 1], T = t)
-    _prob = remake(prob_nn, u0 = X, tspan = (T[1], T[end]), p = θ)
-    Array(solve(_prob, Vern7(), saveat = T,
+    _prob = ODE.remake(prob_nn, u0 = X, tspan = (T[1], T[end]), p = θ)
+    Array(ODE.ODE.solve(_prob, ODE.Vern7(), saveat = T,
         abstol = 1e-6, reltol = 1e-6,
-        sensealg = QuadratureAdjoint(autojacvec = ReverseDiffVJP(true))))
+        sensealg = SMS.QuadratureAdjoint(autojacvec = SMS.ReverseDiffVJP(true))))
 end
 ```
 
@@ -209,7 +221,7 @@ against the dataset. Using our `predict` function, this looks like:
 ```@example ude
 function loss(θ)
     X̂ = predict(θ)
-    mean(abs2, Xₙ .- X̂)
+    Statistics.mean(abs2, Xₙ .- X̂)
 end
 ```
 
@@ -243,9 +255,9 @@ automatic differentiation easy, just by specifying an `adtype` in the
 Knowing this, we can build our `OptimizationProblem` as follows:
 
 ```@example ude
-adtype = Optimization.AutoZygote()
-optf = Optimization.OptimizationFunction((x, p) -> loss(x), adtype)
-optprob = Optimization.OptimizationProblem(optf, ComponentVector{Float64}(p))
+adtype = OPT.AutoZygote()
+optf = OPT.OptimizationFunction((x, p) -> loss(x), adtype)
+optprob = OPT.OptimizationProblem(optf, ComponentArrays.ComponentVector{Float64}(p))
 ```
 
 Now... we optimize it. We will use a mixed strategy. First, let's do some iterations of
@@ -258,7 +270,7 @@ Thus we first solve the optimization problem with ADAM. Choosing a learning rate
 (tuned to be as high as possible that doesn't tend to make the loss shoot up), we see:
 
 ```@example ude
-res1 = Optimization.solve(
+res1 = OPT.ODE.solve(
     optprob, OptimizationOptimisers.Adam(), callback = callback, maxiters = 5000)
 println("Training loss after $(length(losses)) iterations: $(losses[end])")
 ```
@@ -267,9 +279,9 @@ Now we use the optimization result of the first run as the initial condition of 
 second optimization, and run it with BFGS. This looks like:
 
 ```@example ude
-optprob2 = Optimization.OptimizationProblem(optf, res1.u)
-res2 = Optimization.solve(
-    optprob2, LBFGS(linesearch = BackTracking()), callback = callback, maxiters = 4000)
+optprob2 = OPT.OptimizationProblem(optf, res1.u)
+res2 = OPT.solve(
+    optprob2, OptimizationOptimJL.LBFGS(linesearch = LineSearches.BackTracking()), callback = callback, maxiters = 1000)
 println("Final training loss after $(length(losses)) iterations: $(losses[end])")
 
 # Rename the best candidate
@@ -284,9 +296,9 @@ How well did our neural network do? Let's take a look:
 
 ```@example ude
 # Plot the losses
-pl_losses = plot(1:5000, losses[1:5000], yaxis = :log10, xaxis = :log10,
+pl_losses = Plots.Plots.plot(1:5000, losses[1:5000], yaxis = :log10, xaxis = :log10,
     xlabel = "Iterations", ylabel = "Loss", label = "ADAM", color = :blue)
-plot!(5001:length(losses), losses[5001:end], yaxis = :log10, xaxis = :log10,
+Plots.Plots.plot!(5001:length(losses), losses[5001:end], yaxis = :log10, xaxis = :log10,
     xlabel = "Iterations", ylabel = "Loss", label = "LBFGS", color = :red)
 ```
 
@@ -295,12 +307,12 @@ Next, we compare the original data to the output of the UDE predictor. Note that
 ```@example ude
 ## Analysis of the trained network
 # Plot the data and the approximation
-ts = first(solution.t):(mean(diff(solution.t)) / 2):last(solution.t)
+ts = first(solution.t):(Statistics.mean(diff(solution.t)) / 2):last(solution.t)
 X̂ = predict(p_trained, Xₙ[:, 1], ts)
 # Trained on noisy data vs real solution
-pl_trajectory = plot(ts, transpose(X̂), xlabel = "t", ylabel = "x(t), y(t)", color = :red,
+pl_trajectory = Plots.Plots.plot(ts, transpose(X̂), xlabel = "t", ylabel = "x(t), y(t)", color = :red,
     label = ["UDE Approximation" nothing])
-scatter!(solution.t, transpose(Xₙ), color = :black, label = ["Measurements" nothing])
+Plots.scatter!(solution.t, transpose(Xₙ), color = :black, label = ["Measurements" nothing])
 ```
 
 Let's see how well the unknown term has been approximated:
@@ -311,20 +323,20 @@ Ȳ = [-p_[2] * (X̂[1, :] .* X̂[2, :])'; p_[3] * (X̂[1, :] .* X̂[2, :])']
 # Neural network guess
 Ŷ = U(X̂, p_trained, st)[1]
 
-pl_reconstruction = plot(ts, transpose(Ŷ), xlabel = "t", ylabel = "U(x,y)", color = :red,
+pl_reconstruction = Plots.plot(ts, transpose(Ŷ), xlabel = "t", ylabel = "U(x,y)", color = :red,
     label = ["UDE Approximation" nothing])
-plot!(ts, transpose(Ȳ), color = :black, label = ["True Interaction" nothing])
+Plots.plot!(ts, transpose(Ȳ), color = :black, label = ["True Interaction" nothing])
 ```
 
 And have a nice look at all the information:
 
 ```@example ude
 # Plot the error
-pl_reconstruction_error = plot(ts, norm.(eachcol(Ȳ - Ŷ)), yaxis = :log, xlabel = "t",
+pl_reconstruction_error = Plots.plot(ts, LinearAlgebra.norm.(eachcol(Ȳ - Ŷ)), yaxis = :log, xlabel = "t",
     ylabel = "L2-Error", label = nothing, color = :red)
-pl_missing = plot(pl_reconstruction, pl_reconstruction_error, layout = (2, 1))
+pl_missing = Plots.plot(pl_reconstruction, pl_reconstruction_error, layout = (2, 1))
 
-pl_overall = plot(pl_trajectory, pl_missing)
+pl_overall = Plots.plot(pl_trajectory, pl_missing)
 ```
 
 That looks pretty good. And if we are happy with deep learning, we can leave it at that:
@@ -347,9 +359,9 @@ space of mechanistic functions we believe this neural network should map to. Let
 a bunch of polynomial functions:
 
 ```@example ude
-@variables u[1:2]
-b = polynomial_basis(u, 4)
-basis = Basis(b, u);
+MTK.@variables u[1:2]
+b = DataDrivenDiffEq.polynomial_basis(u, 4)
+basis = DataDrivenDiffEq.Basis(b, u);
 ```
 
 Now let's define our `DataDrivenProblem`s for the sparse regressions. To assess the
@@ -371,15 +383,15 @@ series of the solution `X`, the time points of the solution `t`, and the derivat
 at each time point of the solution, obtained by the ODE solution's interpolation. We can just use an interpolation to get the derivative:
 
 ```@example ude
-full_problem = ContinuousDataDrivenProblem(Xₙ, t)
+full_problem = DataDrivenDiffEq.ContinuousDataDrivenProblem(Xₙ, t)
 ```
 
 Now for the other two symbolic regressions, we are regressing input/outputs of the missing
 terms, and thus we directly define the datasets as the input/output mappings like:
 
 ```@example ude
-ideal_problem = DirectDataDrivenProblem(X̂, Ȳ)
-nn_problem = DirectDataDrivenProblem(X̂, Ŷ)
+ideal_problem = DataDrivenDiffEq.DirectDataDrivenProblem(X̂, Ȳ)
+nn_problem = DataDrivenDiffEq.DirectDataDrivenProblem(X̂, Ŷ)
 ```
 
 Let's solve the data-driven problems using sparse regression. We will use the `ADMM`
@@ -387,7 +399,7 @@ method, which requires we define a set of shrinking cutoff values `λ`, and we d
 
 ```@example ude
 λ = 1e-1
-opt = ADMM(λ)
+opt = DataDrivenSparse.ADMM(λ)
 ```
 
 This is one of many methods for sparse regression, consult the
@@ -396,44 +408,44 @@ more information on the algorithm choices. Taking this, let's solve each of the 
 regressions:
 
 ```@example ude
-options = DataDrivenCommonOptions(maxiters = 10_000,
-    normalize = DataNormalization(ZScoreTransform),
+options = DataDrivenDiffEq.DataDrivenCommonOptions(maxiters = 10_000,
+    normalize = DataDrivenDiffEq.DataNormalization(DataDrivenDiffEq.ZScoreTransform),
     selector = bic, digits = 1,
-    data_processing = DataProcessing(split = 0.9,
+    data_processing = DataDrivenDiffEq.DataProcessing(split = 0.9,
         batchsize = 30,
         shuffle = true,
         rng = StableRNG(1111)))
 
-full_res = solve(full_problem, basis, opt, options = options)
-full_eqs = get_basis(full_res)
+full_res = DataDrivenDiffEq.solve(full_problem, basis, opt, options = options)
+full_eqs = DataDrivenDiffEq.get_basis(full_res)
 println(full_res)
 ```
 
 ```@example ude
-options = DataDrivenCommonOptions(maxiters = 10_000,
-    normalize = DataNormalization(ZScoreTransform),
+options = DataDrivenDiffEq.DataDrivenCommonOptions(maxiters = 10_000,
+    normalize = DataDrivenDiffEq.DataNormalization(DataDrivenDiffEq.ZScoreTransform),
     selector = bic, digits = 1,
-    data_processing = DataProcessing(split = 0.9,
+    data_processing = DataDrivenDiffEq.DataProcessing(split = 0.9,
         batchsize = 30,
         shuffle = true,
         rng = StableRNG(1111)))
 
-ideal_res = solve(ideal_problem, basis, opt, options = options)
-ideal_eqs = get_basis(ideal_res)
+ideal_res = DataDrivenDiffEq.solve(ideal_problem, basis, opt, options = options)
+ideal_eqs = DataDrivenDiffEq.get_basis(ideal_res)
 println(ideal_res)
 ```
 
 ```@example ude
-options = DataDrivenCommonOptions(maxiters = 10_000,
-    normalize = DataNormalization(ZScoreTransform),
+options = DataDrivenDiffEq.DataDrivenCommonOptions(maxiters = 10_000,
+    normalize = DataDrivenDiffEq.DataNormalization(DataDrivenDiffEq.ZScoreTransform),
     selector = bic, digits = 1,
-    data_processing = DataProcessing(split = 0.9,
+    data_processing = DataDrivenDiffEq.DataProcessing(split = 0.9,
         batchsize = 30,
         shuffle = true,
         rng = StableRNG(1111)))
 
-nn_res = solve(nn_problem, basis, opt, options = options)
-nn_eqs = get_basis(nn_res)
+nn_res = DataDrivenDiffEq.solve(nn_problem, basis, opt, options = options)
+nn_eqs = DataDrivenDiffEq.get_basis(nn_res)
 println(nn_res)
 ```
 
@@ -445,7 +457,7 @@ To have a closer look, we can inspect the corresponding equations:
 ```@example ude
 for eqs in (full_eqs, ideal_eqs, nn_eqs)
     println(eqs)
-    println(get_parameter_map(eqs))
+    println(DataDrivenDiffEq.get_parameter_map(eqs))
     println()
 end
 ```
@@ -460,12 +472,12 @@ function recovered_dynamics!(du, u, p, t)
     du[2] = -p_[4] * u[2] + û[2]
 end
 
-estimation_prob = ODEProblem(recovered_dynamics!, u0, tspan, get_parameter_values(nn_eqs))
-estimate = solve(estimation_prob, Tsit5(), saveat = solution.t)
+estimation_prob = ODE.ODEProblem(recovered_dynamics!, u0, tspan, DataDrivenDiffEq.get_parameter_values(nn_eqs))
+estimate = ODE.solve(estimation_prob, ODE.Tsit5(), saveat = solution.t)
 
 # Plot
-plot(solution)
-plot!(estimate)
+Plots.plot(solution)
+Plots.plot!(estimate)
 ```
 
 We are still a bit off, so we fine tune the parameters by simply minimizing the residuals between the UDE predictor and our recovered parametrized equations:
@@ -477,8 +489,8 @@ function parameter_loss(p)
 end
 
 optf = Optimization.OptimizationFunction((x, p) -> parameter_loss(x), adtype)
-optprob = Optimization.OptimizationProblem(optf, get_parameter_values(nn_eqs))
-parameter_res = Optimization.solve(optprob, Optim.LBFGS(), maxiters = 1000)
+optprob = Optimization.OptimizationProblem(optf, DataDrivenDiffEq.get_parameter_values(nn_eqs))
+parameter_res = Optimization.OPT.solve(optprob, Optim.LBFGS(), maxiters = 1000)
 ```
 
 ## Simulation
@@ -486,15 +498,15 @@ parameter_res = Optimization.solve(optprob, Optim.LBFGS(), maxiters = 1000)
 ```@example ude
 # Look at long term prediction
 t_long = (0.0, 50.0)
-estimation_prob = ODEProblem(recovered_dynamics!, u0, t_long, parameter_res)
-estimate_long = solve(estimation_prob, Tsit5(), saveat = 0.1) # Using higher tolerances here results in exit of julia
-plot(estimate_long)
+estimation_prob = ODE.ODEProblem(recovered_dynamics!, u0, t_long, parameter_res)
+estimate_long = ODE.solve(estimation_prob, ODE.Tsit5(), saveat = 0.1) # Using higher tolerances here results in exit of julia
+Plots.plot(estimate_long)
 ```
 
 ```@example ude
-true_prob = ODEProblem(lotka!, u0, t_long, p_)
-true_solution_long = solve(true_prob, Tsit5(), saveat = estimate_long.t)
-plot!(true_solution_long)
+true_prob = ODE.ODEProblem(lotka!, u0, t_long, p_)
+true_solution_long = ODE.solve(true_prob, ODE.Tsit5(), saveat = estimate_long.t)
+Plots.plot!(true_solution_long)
 ```
 
 ## Post Processing and Plots
@@ -505,7 +517,7 @@ c2 = :orange # RGBA(132/255,159/255,173/255,1) # Red
 c3 = :blue # RGBA(255/255,90/255,0,1) # Orange
 c4 = :purple # RGBA(153/255,50/255,204/255,1) # Purple
 
-p1 = plot(t, abs.(Array(solution) .- estimate)' .+ eps(Float32),
+p1 = Plots.plot(t, abs.(Array(solution) .- estimate)' .+ eps(Float32),
     lw = 3, yaxis = :log, title = "Timeseries of UODE Error",
     color = [3 :orange], xlabel = "t",
     label = ["x(t)" "y(t)"],
@@ -518,20 +530,20 @@ p2 = plot3d(X̂[1, :], X̂[2, :], Ŷ[2, :], lw = 3,
     label = "Neural Network", xaxis = "x", yaxis = "y",
     titlefont = "Helvetica", legendfont = "Helvetica",
     legend = :bottomright)
-plot!(X̂[1, :], X̂[2, :], Ȳ[2, :], lw = 3, label = "True Missing Term", color = c2)
+Plots.plot!(X̂[1, :], X̂[2, :], Ȳ[2, :], lw = 3, label = "True Missing Term", color = c2)
 
 p3 = scatter(solution, color = [c1 c2], label = ["x data" "y data"],
     title = "Extrapolated Fit From Short Training Data",
     titlefont = "Helvetica", legendfont = "Helvetica",
     markersize = 5)
 
-plot!(p3, true_solution_long, color = [c1 c2], linestyle = :dot, lw = 5,
+Plots.plot!(p3, true_solution_long, color = [c1 c2], linestyle = :dot, lw = 5,
     label = ["True x(t)" "True y(t)"])
-plot!(p3, estimate_long, color = [c3 c4], lw = 1,
+Plots.plot!(p3, estimate_long, color = [c3 c4], lw = 1,
     label = ["Estimated x(t)" "Estimated y(t)"])
-plot!(p3, [2.99, 3.01], [0.0, 10.0], lw = 1, color = :black, label = nothing)
+Plots.plot!(p3, [2.99, 3.01], [0.0, 10.0], lw = 1, color = :black, label = nothing)
 annotate!([(1.5, 13, text("Training \nData", 10, :center, :top, :black, "Helvetica"))])
 l = @layout [grid(1, 2)
              grid(1, 1)]
-plot(p1, p2, p3, layout = l)
+Plots.plot(p1, p2, p3, layout = l)
 ```

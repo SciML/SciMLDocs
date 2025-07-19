@@ -1,4 +1,4 @@
-# [Getting Started with  Julia's SciML for the MATLAB User](@id matlab)
+# [Getting Started with Julia's SciML for the MATLAB User](@id matlab)
 
 If you're a MATLAB user who has looked into Julia for some performance improvements, you
 may have noticed that the standard library does not have all of the “batteries” included
@@ -74,11 +74,11 @@ The following chart will help you get quickly acquainted with Julia's SciML Tool
 |:------------------- |:------------------------------------------------------------------------------------- |
 | `plot`              | [Plots](https://docs.juliaplots.org/stable/), [Makie](https://docs.makie.org/stable/) |
 | `sparse`            | [SparseArrays](https://docs.julialang.org/en/v1/stdlib/SparseArrays/#Sparse-Arrays)   |
-| `interp1`           | [DataInterpolations](https://docs.sciml.ai/DataInterpolations/)                       |
+| `interp1`           | [DataInterpolations](https://docs.sciml.ai/DataInterpolations/stable/)                |
 | `\`, `gmres`, `cg`  | [LinearSolve](https://linearsolve.sciml.ai/dev/)                                      |
-| `fsolve`            | [NonlinearSolve](https://nonlinearsolve.sciml.ai/)                                    |
+| `fsolve`            | [NonlinearSolve](https://nonlinearsolve.sciml.ai/stable/)                             |
 | `quad`              | [Integrals](https://docs.sciml.ai/Integrals/stable/)                                  |
-| `fmincon`           | [Optimization](https://optimization.sciml.ai/)                                        |
+| `fmincon`           | [Optimization](https://optimization.sciml.ai/stable/)                                 |
 | `odeXX`             | [DifferentialEquations](https://diffeq.sciml.ai/latest/)                              |
 | `ode45`             | `Tsit5`                                                                               |
 | `ode113`            | `VCABM`                                                                               |
