@@ -88,7 +88,7 @@ condition) by reflecting the changes over the boundary. Thus the derivative oper
 generated as:
 
 ```@example spde
-import LinearAlgebra
+import LinearAlgebra as LA
 
 # Define the constants for the PDE
 const α₂ = 1.0
@@ -107,7 +107,7 @@ const X = reshape([i for i in 1:100 for j in 1:100], N, N)
 const Y = reshape([j for i in 1:100 for j in 1:100], N, N)
 const α₁ = 1.0 .* (X .>= 80)
 
-const Mx = LinearAlgebra.Tridiagonal([1.0 for i in 1:(N - 1)], [-2.0 for i in 1:N],
+const Mx = LA.Tridiagonal([1.0 for i in 1:(N - 1)], [-2.0 for i in 1:N],
     [1.0 for i in 1:(N - 1)])
 const My = copy(Mx)
 # Do the reflections, different for x and y operators
@@ -232,8 +232,8 @@ function f(du, u, p, t)
     dA = @view du[:, :, 1]
     dB = @view du[:, :, 2]
     dC = @view du[:, :, 3]
-    mul!(MyA, My, A)
-    mul!(AMx, A, Mx)
+    LA.mul!(MyA, My, A)
+    LA.mul!(AMx, A, Mx)
     @. DA = D * (MyA + AMx)
     @. dA = DA + α₁ - β₁ * A - r₁ * A * B + r₂ * C
     @. dB = α₂ - β₂ * B - r₁ * A * B + r₂ * C
@@ -254,8 +254,8 @@ function f_full(du, u, p, t, MyA, AMx, DA)
     dA = @view du[:, :, 1]
     dB = @view du[:, :, 2]
     dC = @view du[:, :, 3]
-    mul!(MyA, My, A)
-    mul!(AMx, A, Mx)
+    LA.mul!(MyA, My, A)
+    LA.mul!(AMx, A, Mx)
     @. DA = D * (MyA + AMx)
     @. dA = DA + α₁ - β₁ * A - r₁ * A * B + r₂ * C
     @. dB = α₂ - β₂ * B - r₁ * A * B + r₂ * C
@@ -282,8 +282,8 @@ function (ff::MyFunction)(du, u, p, t)
     dA = @view du[:, :, 1]
     dB = @view du[:, :, 2]
     dC = @view du[:, :, 3]
-    mul!(ff.MyA, My, A)
-    mul!(ff.AMx, A, Mx)
+    LA.mul!(ff.MyA, My, A)
+    LA.mul!(ff.AMx, A, Mx)
     @. ff.DA = D * (ff.MyA + ff.AMx)
     @. dA = f.DA + α₁ - β₁ * A - r₁ * A * B + r₂ * C
     @. dB = α₂ - β₂ * B - r₁ * A * B + r₂ * C
@@ -333,7 +333,7 @@ As a summary, here's a full PDE code:
 
 ```@example
 import OrdinaryDiffEq as ODE
-import LinearAlgebra
+import LinearAlgebra as LA
 
 # Define the constants for the PDE
 const α₂ = 1.0
@@ -352,7 +352,7 @@ const X = reshape([i for i in 1:100 for j in 1:100], N, N)
 const Y = reshape([j for i in 1:100 for j in 1:100], N, N)
 const α₁ = 1.0 .* (X .>= 80)
 
-const Mx = Array(LinearAlgebra.Tridiagonal([1.0 for i in 1:(N - 1)], [-2.0 for i in 1:N],
+const Mx = Array(LA.Tridiagonal([1.0 for i in 1:(N - 1)], [-2.0 for i in 1:N],
     [1.0 for i in 1:(N - 1)]))
 const My = copy(Mx)
 Mx[2, 1] = 2.0
@@ -374,8 +374,8 @@ function f(du, u, p, t)
     dA = @view du[:, :, 1]
     dB = @view du[:, :, 2]
     dC = @view du[:, :, 3]
-    mul!(MyA, My, A)
-    mul!(AMx, A, Mx)
+    LA.mul!(MyA, My, A)
+    LA.mul!(AMx, A, Mx)
     @. DA = D * (MyA + AMx)
     @. dA = DA + α₁ - β₁ * A - r₁ * A * B + r₂ * C
     @. dB = α₂ - β₂ * B - r₁ * A * B + r₂ * C
@@ -430,8 +430,8 @@ function gf(du, u, p, t)
     dA = @view du[:, :, 1]
     dB = @view du[:, :, 2]
     dC = @view du[:, :, 3]
-    mul!(gMyA, gMy, A)
-    mul!(AgMx, A, gMx)
+    LA.mul!(gMyA, gMy, A)
+    LA.mul!(AgMx, A, gMx)
     @. gDA = D * (gMyA + AgMx)
     @. dA = gDA + gα₁ - β₁ * A - r₁ * A * B + r₂ * C
     @. dB = α₂ - β₂ * B - r₁ * A * B + r₂ * C
