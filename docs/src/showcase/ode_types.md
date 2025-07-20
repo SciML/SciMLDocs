@@ -223,16 +223,16 @@ Before going on with the tutorial, we must point up a subtlety of `Measurements.
 you should be aware of:
 
 ```@example odetypes
-import Measurements
-5.23 Measurements.± 0.14 === 5.23 Measurements.± 0.14
+using Measurements: ±
+5.23 ± 0.14 === 5.23 ± 0.14
 ```
 
 ```@example odetypes
-(5.23 Measurements.± 0.14) - (5.23 Measurements.± 0.14)
+(5.23 ± 0.14) - (5.23 ± 0.14)
 ```
 
 ```@example odetypes
-(5.23 Measurements.± 0.14) / (5.23 Measurements.± 0.14)
+(5.23 ± 0.14) / (5.23 ± 0.14)
 ```
 
 The two numbers above, even though have the same nominal value and the same uncertainties,
@@ -245,7 +245,7 @@ Instead, if you have *one measurement* and want to perform some operations invol
 you have to assign it to a variable:
 
 ```@example odetypes
-x = 5.23 Measurements.± 0.14
+x = 5.23 ± 0.14
 x === x
 ```
 
@@ -274,11 +274,11 @@ DifferentialEquations.jl syntax, this looks like:
 
 ```@example odetypes
 # Half-life and mean lifetime of radiocarbon, in years
-t_12 = 5730 Measurements.± 40
+t_12 = 5730 ± 40
 τ = t_12 / log(2)
 
 #Setup
-u₀ = 1 Measurements.± 0
+u₀ = 1 ± 0
 tspan = (0.0, 10000.0)
 
 #Define the problem
@@ -341,13 +341,14 @@ When you set up the problem for `DifferentialEquations.jl` remember to define th
 measurements as variables, as seen above.
 
 ```@example odetypes
-import DifferentialEquations as DE, Measurements, Plots
+import DifferentialEquations as DE, Plots
+using Measurements: ±
 
-g = 9.79 Measurements.± 0.02; # Gravitational constants
-L = 1.00 Measurements.± 0.01; # Length of the pendulum
+g = 9.79 ± 0.02; # Gravitational constants
+L = 1.00 ± 0.01; # Length of the pendulum
 
 #Initial Conditions
-u₀ = [0 Measurements.± 0, π / 60 Measurements.± 0.01] # Initial speed and initial angle
+u₀ = [0 ± 0, π / 60 ± 0.01] # Initial speed and initial angle
 tspan = (0.0, 6.3)
 
 #Define the problem
@@ -396,11 +397,11 @@ differential equation to solve is the following:
 That would be done via:
 
 ```@example odetypes
-g = 9.79 Measurements.± 0.02; # Gravitational constants
-L = 1.00 Measurements.± 0.01; # Length of the pendulum
+g = 9.79 ± 0.02; # Gravitational constants
+L = 1.00 ± 0.01; # Length of the pendulum
 
 #Initial Conditions
-u₀ = [0 Measurements.± 0, π / 3 Measurements.± 0.02] # Initial speed and initial angle
+u₀ = [0 ± 0, π / 3 ± 0.02] # Initial speed and initial angle
 tspan = (0.0, 6.3)
 
 #Define the problem
