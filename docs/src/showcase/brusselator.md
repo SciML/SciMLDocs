@@ -73,7 +73,7 @@ import MethodOfLines
 import OrdinaryDiffEq as ODE
 import LinearSolve as LS
 import DomainSets
-using MTK: @parameters, @variables, Differential, Interval, PDESystem
+using ModelingToolkit: @parameters, @variables, Differential, Interval, PDESystem
 
 @parameters x y t
 @variables u(..) v(..)
