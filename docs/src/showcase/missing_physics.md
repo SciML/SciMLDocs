@@ -126,8 +126,8 @@ end
 tspan = (0.0, 5.0)
 u0 = 5.0f0 * rand(rng, 2)
 p_ = [1.3, 0.9, 0.8, 1.8]
-prob = ODE.ODE.ODEProblem(lotka!, u0, tspan, p_)
-solution = ODE.ODE.solve(prob, ODE.Vern7(), abstol = 1e-12, reltol = 1e-12, saveat = 0.25)
+prob = ODE.ODEProblem(lotka!, u0, tspan, p_)
+solution = ODE.solve(prob, ODE.Vern7(), abstol = 1e-12, reltol = 1e-12, saveat = 0.25)
 
 # Add noise in terms of the mean
 X = Array(solution)
@@ -169,7 +169,7 @@ end
 # Closure with the known parameter
 nn_dynamics!(du, u, p, t) = ude_dynamics!(du, u, p, t, p_)
 # Define the problem
-prob_nn = ODE.ODE.ODEProblem(nn_dynamics!, Xₙ[:, 1], tspan, p)
+prob_nn = ODE.ODEProblem(nn_dynamics!, Xₙ[:, 1], tspan, p)
 ```
 
 Notice that the most important part of this is that the neural network does not have
@@ -207,7 +207,7 @@ Knowing this, our `predict` function looks like:
 ```@example ude
 function predict(θ, X = Xₙ[:, 1], T = t)
     _prob = ODE.remake(prob_nn, u0 = X, tspan = (T[1], T[end]), p = θ)
-    Array(ODE.ODE.solve(_prob, ODE.Vern7(), saveat = T,
+    Array(ODE.solve(_prob, ODE.Vern7(), saveat = T,
         abstol = 1e-6, reltol = 1e-6,
         sensealg = SMS.QuadratureAdjoint(autojacvec = SMS.ReverseDiffVJP(true))))
 end
