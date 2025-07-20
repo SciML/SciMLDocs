@@ -89,6 +89,7 @@ Details can be found in  [Keith et al. 2021](https://arxiv.org/abs/2102.12695).
 ```
 
 ```@example ude
+import DelimitedFiles
 
 #=
     ODE models for orbital mechanics
@@ -214,7 +215,6 @@ end
 #=
     Axiliary functions for orbital mechanics
 =#
-using DelimitedFiles
 
 function soln2orbit(soln, model_params = nothing)
     #=

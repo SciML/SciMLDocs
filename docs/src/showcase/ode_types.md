@@ -257,7 +257,7 @@ x - x
 x / x
 ```
 
-With that in mind, let's start import Measurements.jl for realsies.
+With that in mind, let's start by importing Measurements.jl for realsies.
 
 ### Automated UQ on an ODE: Radioactive Decay of Carbon-14
 
