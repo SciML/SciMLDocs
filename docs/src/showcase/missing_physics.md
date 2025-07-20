@@ -270,7 +270,7 @@ Thus we first solve the optimization problem with ADAM. Choosing a learning rate
 (tuned to be as high as possible that doesn't tend to make the loss shoot up), we see:
 
 ```@example ude
-res1 = OPT.ODE.solve(
+res1 = ODE.solve(
     optprob, OptimizationOptimisers.Adam(), callback = callback, maxiters = 5000)
 println("Training loss after $(length(losses)) iterations: $(losses[end])")
 ```
