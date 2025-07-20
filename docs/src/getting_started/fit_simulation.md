@@ -100,7 +100,7 @@ Plots.scatter!(plt, t_data, xy_data', label = ["x Data" "y Data"])
 
 # Define a loss metric function to be minimized
 function loss(newp)
-    newprob = remake(prob, p = newp)
+    newprob = DE.remake(prob, p = newp)
     sol = DE.solve(newprob, saveat = 1)
     loss = sum(abs2, sol .- xy_data)
     return loss
@@ -109,7 +109,7 @@ end
 # Define a callback function to monitor optimization progress
 function callback(state, l)
     display(l)
-    newprob = remake(prob, p = state.u)
+    newprob = DE.remake(prob, p = state.u)
     sol = DE.solve(newprob, saveat = 1)
     plt = Plots.plot(sol, ylim = (0, 6), label = ["Current x Prediction" "Current y Prediction"])
     Plots.scatter!(plt, t_data, xy_data', label = ["x Data" "y Data"])
@@ -285,7 +285,7 @@ Using this information, our loss function looks like:
 
 ```@example odefit
 function loss(newp)
-    newprob = remake(prob, p = newp)
+    newprob = DE.remake(prob, p = newp)
     sol = DE.solve(newprob, saveat = 1)
     l = sum(abs2, sol .- xy_data)
     return l
@@ -321,7 +321,7 @@ More details about callbacks in Optimization.jl can be found
 ```@example odefit
 function callback(state, l)
     display(l)
-    newprob = remake(prob, p = state.u)
+    newprob = DE.remake(prob, p = state.u)
     sol = DE.solve(newprob, saveat = 1)
     plt = Plots.plot(sol, ylim = (0, 6), label = ["Current x Prediction" "Current y Prediction"])
     Plots.scatter!(plt, t_data, xy_data', label = ["x Data" "y Data"])
