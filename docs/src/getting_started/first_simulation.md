@@ -52,7 +52,8 @@ number of animals at each time?
 import DifferentialEquations as DE
 import ModelingToolkit as MTK
 import Plots
-import ModelingToolkit: t_nounits as t, D_nounits as D, @variables, @parameters, @named
+import ModelingToolkit: t_nounits as t, D_nounits as D,
+                        @variables, @parameters, @named, @mtkbuild
 
 # Define our state variables: state(t) = initial condition
 @variables x(t)=1 y(t)=1 z(t)
@@ -105,7 +106,7 @@ Now we're ready. Let's load in these packages:
 import DifferentialEquations as DE
 import ModelingToolkit as MTK
 import Plots
-import ModelingToolkit: t_nounits as t, D_nounits as D, @variables, @parameters, @named
+import ModelingToolkit: t_nounits as t, D_nounits as D, @variables, @parameters, @named, @mtkbuild
 ```
 
 ### Step 2: Define our ODE Equations
