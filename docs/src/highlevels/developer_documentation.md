@@ -67,7 +67,7 @@ JuliaFormatter check for SciML Style compliance on pull requests.
 To run JuliaFormatter in a SciML repository, do:
 
 ```julia
-using JuliaFormatter, DevedPackage
+import JuliaFormatter, DevedPackage
 JuliaFormatter.format(pkgdir(DevedPackage))
 ```
 

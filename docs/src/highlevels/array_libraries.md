@@ -66,9 +66,9 @@ are fully compatible with the SciML equation solvers. They thus can be used as i
 demonstration of the Lorenz equation using ComponentArrays with Parameters.jl's `@unpack`:
 
 ```julia
-using ComponentArrays
-using DifferentialEquations
-using Parameters: @unpack
+import ComponentArrays
+import DifferentialEquations
+import Parameters: @unpack
 
 tspan = (0.0, 20.0)
 
@@ -84,8 +84,8 @@ function lorenz!(D, u, p, t; f = 0.0)
 end
 
 lorenz_p = (σ = 10.0, ρ = 28.0, β = 8 / 3)
-lorenz_ic = ComponentArray(x = 0.0, y = 0.0, z = 0.0)
-lorenz_prob = ODEProblem(lorenz!, lorenz_ic, tspan, lorenz_p)
+lorenz_ic = ComponentArrays.ComponentArray(x = 0.0, y = 0.0, z = 0.0)
+lorenz_prob = DifferentialEquations.ODEProblem(lorenz!, lorenz_ic, tspan, lorenz_p)
 ```
 
 Is that beautiful? Yes, it is.

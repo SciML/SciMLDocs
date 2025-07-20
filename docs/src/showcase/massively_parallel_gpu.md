@@ -55,7 +55,10 @@ Let's implement the Lorenz equation out-of-place. If you don't know what that me
 see the [getting started with DifferentialEquations.jl](https://docs.sciml.ai/DiffEqDocs/stable/getting_started/)
 
 ```@example diffeqgpu
-using DiffEqGPU, OrdinaryDiffEq, StaticArrays, CUDA
+import DiffEqGPU
+import OrdinaryDiffEq as ODE
+import StaticArrays
+import CUDA
 function lorenz(u, p, t)
     σ = p[1]
     ρ = p[2]
@@ -63,13 +66,13 @@ function lorenz(u, p, t)
     du1 = σ * (u[2] - u[1])
     du2 = u[1] * (ρ - u[3]) - u[2]
     du3 = u[1] * u[2] - β * u[3]
-    return SVector{3}(du1, du2, du3)
+    return StaticArrays.SVector{3}(du1, du2, du3)
 end
 
-u0 = @SVector [1.0f0; 0.0f0; 0.0f0]
+u0 = StaticArrays.@SVector [1.0f0; 0.0f0; 0.0f0]
 tspan = (0.0f0, 10.0f0)
-p = @SVector [10.0f0, 28.0f0, 8 / 3.0f0]
-prob = ODEProblem{false}(lorenz, u0, tspan, p)
+p = StaticArrays.@SVector [10.0f0, 28.0f0, 8 / 3.0f0]
+prob = ODE.ODEProblem{false}(lorenz, u0, tspan, p)
 ```
 
 Notice we use `SVector`s, i.e. StaticArrays, in order to define our arrays. This is
@@ -80,9 +83,9 @@ Now, from this problem, we build an `EnsembleProblem` as per the DifferentialEqu
 specification. A `prob_func` jiggles the parameters and we solve 10_000 trajectories:
 
 ```@example diffeqgpu
-prob_func = (prob, i, repeat) -> remake(prob, p = (@SVector rand(Float32, 3)) .* p)
-monteprob = EnsembleProblem(prob, prob_func = prob_func, safetycopy = false)
-sol = solve(monteprob, Tsit5(), EnsembleThreads(), trajectories = 10_000, saveat = 1.0f0)
+prob_func = (prob, i, repeat) -> ODE.remake(prob, p = (StaticArrays.@SVector rand(Float32, 3)) .* p)
+monteprob = DiffEqGPU.EnsembleProblem(prob, prob_func = prob_func, safetycopy = false)
+sol = ODE.solve(monteprob, ODE.Tsit5(), DiffEqGPU.EnsembleThreads(), trajectories = 10_000, saveat = 1.0f0)
 ```
 
 ## Taking the Ensemble to the GPU
@@ -90,7 +93,7 @@ sol = solve(monteprob, Tsit5(), EnsembleThreads(), trajectories = 10_000, saveat
 Now uhh, we just change `EnsembleThreads()` to `EnsembleGPUArray()`
 
 ```@example diffeqgpu
-sol = solve(monteprob, Tsit5(), EnsembleGPUArray(CUDA.CUDABackend()),
+sol = ODE.solve(monteprob, ODE.Tsit5(), DiffEqGPU.EnsembleGPUArray(CUDA.CUDABackend()),
     trajectories = 10_000, saveat = 1.0f0)
 ```
 
@@ -98,8 +101,8 @@ Or for a more efficient version, `EnsembleGPUKernel()`. But that requires specia
 so we also change to `GPUTsit5()`.
 
 ```@example diffeqgpu
-sol = solve(
-    monteprob, GPUTsit5(), EnsembleGPUKernel(CUDA.CUDABackend()), trajectories = 10_000)
+sol = ODE.solve(
+    monteprob, DiffEqGPU.GPUTsit5(), DiffEqGPU.EnsembleGPUKernel(CUDA.CUDABackend()), trajectories = 10_000)
 ```
 
 Okay, so that was anticlimactic, but that's the point: if it were harder than that, it

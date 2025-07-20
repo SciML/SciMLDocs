@@ -50,23 +50,23 @@ Let's use this feature in some cool ways!
 Let's solve the linear ODE. First, define an easy way to get `ODEProblem`s for the linear ODE:
 
 ```@example odetypes
-using DifferentialEquations
+import DifferentialEquations as DE
 f(u, p, t) = p * u
-prob_ode_linear = ODEProblem(f, 1 / 2, (0.0, 1.0), 1.01);
+prob_ode_linear = DE.ODEProblem(f, 1 / 2, (0.0, 1.0), 1.01);
 ```
 
 Next, let's solve it using Float64s. To do so, we just need to set u0 to a Float64 (which is done by the default) and dt should be a float as well.
 
 ```@example odetypes
-sol = solve(prob_ode_linear, Tsit5())
+sol = DE.solve(prob_ode_linear, DE.Tsit5())
 ```
 
 Notice that both the times and the solutions were saved as Float64. Let's change the state
 to use `BigFloat` values. We do this by changing the `u0` to use `BigFloat`s like:
 
 ```@example odetypes
-prob_ode_linear_bigu = ODEProblem(f, big(1 / 2), (0.0, 1.0), 1.01);
-sol = solve(prob_ode_linear_bigu, Tsit5())
+prob_ode_linear_bigu = DE.ODEProblem(f, big(1 / 2), (0.0, 1.0), 1.01);
+sol = DE.solve(prob_ode_linear_bigu, DE.Tsit5())
 ```
 
 Now we see that `u` is in arbitrary precision `BigFloat`s, while `t` is in `Float64`. We
@@ -74,8 +74,8 @@ can then change `t` to be arbitrary precision `BigFloat`s by changing the types 
 `tspan` like:
 
 ```@example odetypes
-prob_ode_linear_big = ODEProblem(f, big(1 / 2), (big(0.0), big(1.0)), 1.01);
-sol = solve(prob_ode_linear_big, Tsit5())
+prob_ode_linear_big = DE.ODEProblem(f, big(1 / 2), (big(0.0), big(1.0)), 1.01);
+sol = DE.solve(prob_ode_linear_big, DE.Tsit5())
 ```
 
 Now let's send it into the bizarre territory. Let's use rational values for everything.
@@ -85,8 +85,8 @@ time stepping since they do not have an L2 norm (this can be worked around by de
 off adaptivity as well. Thus the following is a valid use of rational time (and parameter):
 
 ```@example odetypes
-prob = ODEProblem(f, 1 / 2, (0 // 1, 1 // 1), 101 // 100);
-sol = solve(prob, RK4(), dt = 1 // 2^(6), adaptive = false)
+prob = DE.ODEProblem(f, 1 / 2, (0 // 1, 1 // 1), 101 // 100);
+sol = DE.solve(prob, DE.RK4(), dt = 1 // 2^(6), adaptive = false)
 ```
 
 Now let's change the state to use `Rational{BigInt}`. You will see that we will need to
@@ -94,8 +94,8 @@ use the arbitrary-sized integers because... well... there's a reason people use
 floating-point numbers with ODE solvers:
 
 ```@example odetypes
-prob = ODEProblem(f, BigInt(1) // BigInt(2), (0 // 1, 1 // 1), 101 // 100);
-sol = solve(prob, RK4(), dt = 1 // 2^(6), adaptive = false)
+prob = DE.ODEProblem(f, BigInt(1) // BigInt(2), (0 // 1, 1 // 1), 101 // 100);
+sol = DE.solve(prob, DE.RK4(), dt = 1 // 2^(6), adaptive = false)
 ```
 
 Yeah...
@@ -127,15 +127,15 @@ To use Unitful, you need to have the package installed. Then you can add units t
 variables. For example:
 
 ```@example odetypes
-using Unitful
-t = 1.0u"s"
+import Unitful
+t = 1.0Unitful.u"s"
 ```
 
 Notice that `t` is a variable with units in seconds. If we make another value with seconds,
 they can add:
 
 ```@example odetypes
-t2 = 1.02u"s"
+t2 = 1.02Unitful.u"s"
 t + t2
 ```
 
@@ -165,11 +165,11 @@ specifying the units of the initial condition and the timespan. For example, to 
 linear ODE where the variable has units of Newton's and `t` is in seconds, we would use:
 
 ```@example odetypes
-using DifferentialEquations
+import DifferentialEquations as DE
 f(u, p, t) = 0.5 * u
-u0 = 1.5u"N"
-prob = ODEProblem(f, u0, (0.0u"s", 1.0u"s"))
-#sol = solve(prob,Tsit5())
+u0 = 1.5Unitful.u"N"
+prob = DE.ODEProblem(f, u0, (0.0Unitful.u"s", 1.0Unitful.u"s"))
+#sol = DE.solve(prob,DE.Tsit5())
 ```
 
 Notice that we received a unit mismatch error. This is correctly so! Remember that for an
@@ -184,9 +184,9 @@ fix the units of `f` in our example to be `N/s`. Notice that we then do not rece
 error if we do the following:
 
 ```@example odetypes
-f(y, p, t) = 0.5 * y / 3.0u"s"
-prob = ODEProblem(f, u0, (0.0u"s", 1.0u"s"))
-sol = solve(prob, Tsit5())
+f(y, p, t) = 0.5 * y / 3.0Unitful.u"s"
+prob = DE.ODEProblem(f, u0, (0.0Unitful.u"s", 1.0Unitful.u"s"))
+sol = DE.solve(prob, DE.Tsit5())
 ```
 
 This gives a normal solution object. Notice that the values are all with the correct units:
@@ -198,9 +198,9 @@ print(sol[:])
 And when we plot the solution, it automatically adds the units:
 
 ```@example odetypes
-using Plots
-gr()
-plot(sol, lw = 3)
+import Plots
+Plots.gr()
+Plots.Plots.plot(sol, lw = 3)
 ```
 
 # Measurements.jl: Numbers with Linear Uncertainty Propagation
@@ -223,7 +223,7 @@ Before going on with the tutorial, we must point up a subtlety of `Measurements.
 you should be aware of:
 
 ```@example odetypes
-using Measurements
+using Measurements: ±
 5.23 ± 0.14 === 5.23 ± 0.14
 ```
 
@@ -257,7 +257,7 @@ x - x
 x / x
 ```
 
-With that in mind, let's start using Measurements.jl for realsies.
+With that in mind, let's start by importing Measurements.jl for realsies.
 
 ### Automated UQ on an ODE: Radioactive Decay of Carbon-14
 
@@ -285,8 +285,8 @@ tspan = (0.0, 10000.0)
 radioactivedecay(u, p, t) = -u / τ
 
 #Pass to solver
-prob = ODEProblem(radioactivedecay, u₀, tspan)
-sol = solve(prob, Tsit5(), reltol = 1e-8)
+prob = DE.ODEProblem(radioactivedecay, u₀, tspan)
+sol = DE.solve(prob, DE.Tsit5(), reltol = 1e-8)
 ```
 
 And bingo: numbers with uncertainty went in, so numbers with uncertainty came out. But can
@@ -302,8 +302,8 @@ u = exp.(-sol.t / τ)
 How do the two solutions compare?
 
 ```@example odetypes
-plot(sol.t, sol.u, label = "Numerical", xlabel = "Years", ylabel = "Fraction of Carbon-14")
-plot!(sol.t, u, label = "Analytic")
+Plots.plot(sol.t, sol.u, label = "Numerical", xlabel = "Years", ylabel = "Fraction of Carbon-14")
+Plots.plot!(sol.t, u, label = "Analytic")
 ```
 
 The two curves are perfectly superimposed, indicating that the numerical solution matches
@@ -341,7 +341,8 @@ When you set up the problem for `DifferentialEquations.jl` remember to define th
 measurements as variables, as seen above.
 
 ```@example odetypes
-using DifferentialEquations, Measurements, Plots
+import DifferentialEquations as DE, Plots
+using Measurements: ±
 
 g = 9.79 ± 0.02; # Gravitational constants
 L = 1.00 ± 0.01; # Length of the pendulum
@@ -359,8 +360,8 @@ function simplependulum(du, u, p, t)
 end
 
 #Pass to solvers
-prob = ODEProblem(simplependulum, u₀, tspan)
-sol = solve(prob, Tsit5(), reltol = 1e-6)
+prob = DE.ODEProblem(simplependulum, u₀, tspan)
+sol = DE.solve(prob, DE.Tsit5(), reltol = 1e-6)
 ```
 
 And that's it! What about comparing it this time to the analytical solution?
@@ -368,8 +369,8 @@ And that's it! What about comparing it this time to the analytical solution?
 ```@example odetypes
 u = u₀[2] .* cos.(sqrt(g / L) .* sol.t)
 
-plot(sol.t, getindex.(sol.u, 2), label = "Numerical")
-plot!(sol.t, u, label = "Analytic")
+Plots.plot(sol.t, getindex.(sol.u, 2), label = "Numerical")
+Plots.plot!(sol.t, u, label = "Analytic")
 ```
 
 Bingo. Also in this case there is a perfect superimposition between the two curves,
@@ -378,7 +379,7 @@ including their uncertainties.
 We can also have a look at the difference between the two solutions:
 
 ```@example odetypes
-plot(sol.t, getindex.(sol.u, 2) .- u, label = "")
+Plots.plot(sol.t, getindex.(sol.u, 2) .- u, label = "")
 ```
 
 Tiny difference on the order of the chosen `1e-6` tolerance.
@@ -412,10 +413,10 @@ function simplependulum(du, u, p, t)
 end
 
 #Pass to solvers
-prob = ODEProblem(simplependulum, u₀, tspan)
-sol = solve(prob, Tsit5(), reltol = 1e-6)
+prob = DE.ODEProblem(simplependulum, u₀, tspan)
+sol = DE.solve(prob, DE.Tsit5(), reltol = 1e-6)
 
-plot(sol.t, getindex.(sol.u, 2), label = "Numerical")
+Plots.plot(sol.t, getindex.(sol.u, 2), label = "Numerical")
 ```
 
 ### Warning about Linear Uncertainty Propagation

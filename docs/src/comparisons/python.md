@@ -63,9 +63,9 @@ The following chart will help you get quickly acquainted with Julia's SciML Tool
 | `scipy.special`              | [SpecialFunctions](https://github.com/JuliaMath/SpecialFunctions.jl)                                                                                                    |
 | `scipy.linalg.solve`         | [LinearSolve](https://linearsolve.sciml.ai/dev/)                                                                                                                        |
 | `scipy.integrate`            | [Integrals](https://docs.sciml.ai/Integrals/stable/)                                                                                                                    |
-| `scipy.optimize`             | [Optimization](https://optimization.sciml.ai/)                                                                                                                          |
-| `scipy.optimize.fsolve`      | [NonlinearSolve](https://nonlinearsolve.sciml.ai/)                                                                                                                      |
-| `scipy.interpolate`          | [DataInterpolations](https://docs.sciml.ai/DataInterpolations/)                                                                                                         |
+| `scipy.optimize`             | [Optimization](https://optimization.sciml.ai/stable/)                                                                                                                   |
+| `scipy.optimize.fsolve`      | [NonlinearSolve](https://nonlinearsolve.sciml.ai/stable/)                                                                                                               |
+| `scipy.interpolate`          | [DataInterpolations](https://docs.sciml.ai/DataInterpolations/stable/)                                                                                                  |
 | `scipy.fft`                  | [FFTW](https://github.com/JuliaMath/FFTW.jl)                                                                                                                            |
 | `scipy.linalg`               | [Julia's Built-In Linear Algebra](https://docs.julialang.org/en/v1/stdlib/LinearAlgebra/)                                                                               |
 | `scipy.sparse`               | [SparseArrays](https://docs.julialang.org/en/v1/stdlib/SparseArrays/#Sparse-Arrays), [ARPACK](https://github.com/JuliaLinearAlgebra/Arpack.jl)                          |

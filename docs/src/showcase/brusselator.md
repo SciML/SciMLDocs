@@ -68,7 +68,12 @@ We wish to obtain the solution to this PDE on a timespan of ``t \in [0,11.5]``.
 With `ModelingToolkit.jl`, we first symbolically define the system, see also the docs for [`PDESystem`](https://docs.sciml.ai/ModelingToolkit/stable/systems/PDESystem/):
 
 ```@example bruss
-using ModelingToolkit, MethodOfLines, OrdinaryDiffEq, LinearSolve, DomainSets
+import ModelingToolkit as MTK
+import MethodOfLines
+import OrdinaryDiffEq as ODE
+import LinearSolve as LS
+import DomainSets
+using ModelingToolkit: @parameters, @variables, Differential, Interval, PDESystem
 
 @parameters x y t
 @variables u(..) v(..)
@@ -96,9 +101,9 @@ eq = [
                      α * ∇²(u(x, y, t)) + brusselator_f(x, y, t),
     Dt(v(x, y, t)) ~ 3.4 * u(x, y, t) - v(x, y, t) * u(x, y, t)^2 + α * ∇²(v(x, y, t))]
 
-domains = [x ∈ Interval(x_min, x_max),
-    y ∈ Interval(y_min, y_max),
-    t ∈ Interval(t_min, t_max)]
+domains = [x ∈ DomainSets.Interval(x_min, x_max),
+    y ∈ DomainSets.Interval(y_min, y_max),
+    t ∈ DomainSets.Interval(t_min, t_max)]
 
 # Periodic BCs
 bcs = [u(x, y, 0) ~ u0(x, y, 0),
@@ -146,14 +151,14 @@ dy = (y_max - y_min) / N
 
 order = 2
 
-discretization = MOLFiniteDifference([x => dx, y => dy], t, approx_order = order,
-    grid_align = center_align)
+discretization = MethodOfLines.MOLFiniteDifference([x => dx, y => dy], t, approx_order = order,
+    grid_align = MethodOfLines.center_align)
 ```
 
 Next, we `discretize` the system, converting the `PDESystem` in to an `ODEProblem`:
 
 ```@example bruss
-prob = discretize(pdesys, discretization);
+prob = MethodOfLines.discretize(pdesys, discretization);
 ```
 
 ## Solving the PDE
@@ -163,7 +168,7 @@ DifferentialEquations.jl usage, though we'll return to this point in a bit to ta
 efficiency:
 
 ```@example bruss
-sol = solve(prob, TRBDF2(), saveat = 0.1);
+sol = ODE.solve(prob, ODE.TRBDF2(), saveat = 0.1);
 ```
 
 ## Examining Results via the Symbolic Solution Interface
@@ -207,11 +212,11 @@ Using this high-level indexing, we can create an animation of the solution of th
 Brusselator as follows. For `u` we receive:
 
 ```julia
-using Plots
-anim = @animate for k in 1:length(discrete_t)
-    heatmap(solu[2:end, 2:end, k], title = "$(discrete_t[k])") # 2:end since end = 1, periodic condition
+import Plots
+anim = Plots.@animate for k in 1:length(discrete_t)
+    Plots.heatmap(solu[2:end, 2:end, k], title = "$(discrete_t[k])") # 2:end since end = 1, periodic condition
 end
-gif(anim, "plots/Brusselator2Dsol_u.gif", fps = 8)
+Plots.gif(anim, "plots/Brusselator2Dsol_u.gif", fps = 8)
 ```
 
 ![Brusselator2Dsol_u](https://user-images.githubusercontent.com/9698054/159934498-e5c21b13-c63b-4cd2-9149-49e521765141.gif)
@@ -219,10 +224,10 @@ gif(anim, "plots/Brusselator2Dsol_u.gif", fps = 8)
 and for `v`:
 
 ```julia
-anim = @animate for k in 1:length(discrete_t)
-    heatmap(solv[2:end, 2:end, k], title = "$(discrete_t[k])")
+anim = Plots.@animate for k in 1:length(discrete_t)
+    Plots.heatmap(solv[2:end, 2:end, k], title = "$(discrete_t[k])")
 end
-gif(anim, "plots/Brusselator2Dsol_v.gif", fps = 8)
+Plots.gif(anim, "plots/Brusselator2Dsol_v.gif", fps = 8)
 ```
 
 ![Brusselator2Dsol_v](https://i.imgur.com/3kQNMI3.gif)
@@ -244,43 +249,43 @@ construction options to the `discretize` call. This looks like:
 
 ```@example bruss
 # Analytical Jacobian expression and sparse Jacobian
-prob_sparse = discretize(pdesys, discretization; jac = true, sparse = true)
+prob_sparse = MethodOfLines.discretize(pdesys, discretization; jac = true, sparse = true)
 ```
 
 Now when we solve the problem it will be a lot faster. We can use BenchmarkTools.jl to
 assess this performance difference:
 
 ```@example bruss
-using BenchmarkTools
-@benchmark sol = solve(prob, TRBDF2(), saveat = 0.1);
+import BenchmarkTools as BT
+BT.@btime sol = ODE.solve(prob, ODE.TRBDF2(), saveat = 0.1);
 ```
 ```@example bruss
-@benchmark sol = solve(prob_sparse, TRBDF2(), saveat = 0.1);
+BT.@btime sol = ODE.solve(prob_sparse, ODE.TRBDF2(), saveat = 0.1);
 ```
 
 But we can further improve this as well. Instead of just using the default linear solver,
 we can change this to a Newton-Krylov method by passing in the GMRES method:
 
 ```@example bruss
-@benchmark sol = solve(prob_sparse, TRBDF2(linsolve = KrylovJL_GMRES()), saveat = 0.1);
+BT.@btime sol = ODE.solve(prob_sparse, ODE.TRBDF2(linsolve = LS.KrylovJL_GMRES()), saveat = 0.1);
 ```
 
 But to further improve performance, we can use an iLU preconditioner. This looks like
 as follows:
 
 ```@example bruss
-using IncompleteLU
+import IncompleteLU
 function incompletelu(W, du, u, p, t, newW, Plprev, Prprev, solverdata)
     if newW === nothing || newW
-        Pl = ilu(convert(AbstractMatrix, W), τ = 50.0)
+        Pl = IncompleteLU.ilu(convert(AbstractMatrix, W), τ = 50.0)
     else
         Pl = Plprev
     end
     Pl, nothing
 end
 
-@benchmark solve(prob_sparse,
-    TRBDF2(linsolve = KrylovJL_GMRES(), precs = incompletelu, concrete_jac = true),
+BT.@btime ODE.solve(prob_sparse,
+    ODE.TRBDF2(linsolve = LS.KrylovJL_GMRES(), precs = incompletelu, concrete_jac = true),
     save_everystep = false);
 ```
 

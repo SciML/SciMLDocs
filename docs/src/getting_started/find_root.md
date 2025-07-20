@@ -38,7 +38,9 @@ With the parameter values ``\sigma = 10.0``, ``\rho = 26.0``, ``\beta = 8/3``.
 
 ```@example
 # Import the packages
-using ModelingToolkit, NonlinearSolve
+import ModelingToolkit as MTK
+import NonlinearSolve as NLS
+import ModelingToolkit: @variables, @parameters, @mtkbuild
 
 # Define the nonlinear system
 @variables x=1.0 y=0.0 z=0.0
@@ -47,13 +49,13 @@ using ModelingToolkit, NonlinearSolve
 eqs = [0 ~ σ * (y - x),
     0 ~ x * (ρ - z) - y,
     0 ~ x * y - β * z]
-@mtkbuild ns = NonlinearSystem(eqs, [x, y, z], [σ, ρ, β])
+@mtkbuild ns = MTK.NonlinearSystem(eqs, [x, y, z], [σ, ρ, β])
 
 # Convert the symbolic system into a numerical system
-prob = NonlinearProblem(ns, [])
+prob = NLS.NonlinearProblem(ns, [])
 
 # Solve the numerical problem
-sol = solve(prob, NewtonRaphson())
+sol = NLS.solve(prob, NLS.NewtonRaphson())
 
 # Analyze the solution
 @show sol[[x, y, z]], sol.resid
@@ -71,7 +73,7 @@ To do this tutorial, we will need a few components:
 To start, let's add these packages [as demonstrated in the installation tutorial](@ref installation):
 
 ```julia
-using Pkg
+import Pkg
 Pkg.add(["ModelingToolkit", "NonlinearSolve"])
 ```
 
@@ -79,7 +81,9 @@ Now we're ready. Let's load in these packages:
 
 ```@example first_rootfind
 # Import the packages
-using ModelingToolkit, NonlinearSolve
+import ModelingToolkit as MTK
+import NonlinearSolve as NLS
+import ModelingToolkit: @variables, @parameters, @mtkbuild
 ```
 
 ### Step 2: Define the Nonlinear System
@@ -122,7 +126,7 @@ Finally, we bring these pieces together, the equation along with its states and 
 define our `NonlinearSystem`:
 
 ```@example first_rootfind
-@mtkbuild ns = NonlinearSystem(eqs, [x, y, z], [σ, ρ, β])
+@mtkbuild ns = MTK.NonlinearSystem(eqs, [x, y, z], [σ, ρ, β])
 ```
 
 ### Step 3: Convert the Symbolic Problem to a Numerical Problem
@@ -138,7 +142,7 @@ blank override `[]`. This looks like:
 
 ```@example first_rootfind
 # Convert the symbolic system into a numerical system
-prob = NonlinearProblem(ns, [])
+prob = NLS.NonlinearProblem(ns, [])
 ```
 
 If we did want to change the initial condition of `x`
@@ -146,7 +150,7 @@ to `2.0` and the parameter `σ` to `4.0`, we would do `[x => 2.0, σ => 4.0]`. T
 like:
 
 ```@example first_rootfind
-prob2 = NonlinearProblem(ns, [x => 2.0, σ => 4.0])
+prob2 = NLS.NonlinearProblem(ns, [x => 2.0, σ => 4.0])
 ```
 
 ### Step 4: Solve the Numerical Problem
@@ -157,7 +161,7 @@ We will choose `NewtonRaphson` as follows:
 
 ```@example first_rootfind
 # Solve the numerical problem
-sol = solve(prob, NewtonRaphson())
+sol = NLS.solve(prob, NLS.NewtonRaphson())
 ```
 
 ### Step 5: Analyze the Solution

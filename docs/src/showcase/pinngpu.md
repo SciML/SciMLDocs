@@ -20,21 +20,26 @@ our packages look like:
 
 ```@example pinn
 # High Level Interface
-using NeuralPDE
-import ModelingToolkit: Interval
+import NeuralPDE
+import ModelingToolkit as MTK
+using MTK: @parameters, @variables, Differential, Interval, PDESystem
 
 # Optimization Libraries
-using Optimization, OptimizationOptimisers
+import Optimization as OPT
+import OptimizationOptimisers
 
 # Machine Learning Libraries and Helpers
-using Lux, LuxCUDA, ComponentArrays
-const gpud = gpu_device() # allocate a GPU device
+import Lux
+import LuxCUDA
+import ComponentArrays
+const gpud = LuxCUDA.gpu_device() # allocate a GPU device
 
 # Standard Libraries
-using Printf, Random
+import Printf
+import Random
 
 # Plotting
-using Plots
+import Plots
 ```
 
 ## Problem Setup
@@ -95,9 +100,9 @@ bcs = [u(t_min, x, y) ~ analytic_sol_func(t_min, x, y),
     u(t, x, y_max) ~ analytic_sol_func(t, x, y_max)]
 
 # Space and time domains
-domains = [t ∈ Interval(t_min, t_max),
-    x ∈ Interval(x_min, x_max),
-    y ∈ Interval(y_min, y_max)]
+domains = [t ∈ MTK.Interval(t_min, t_max),
+    x ∈ MTK.Interval(x_min, x_max),
+    y ∈ MTK.Interval(y_min, y_max)]
 
 @named pde_system = PDESystem(eq, bcs, domains, [t, x, y], [u(t, x, y)])
 ```
@@ -114,13 +119,12 @@ Now let's define the neural network that will act as our solution.
 We will use a simple multi-layer perceptron, like:
 
 ```@example pinn
-using Lux
 inner = 25
-chain = Chain(Dense(3, inner, Lux.σ),
-    Dense(inner, inner, Lux.σ),
-    Dense(inner, inner, Lux.σ),
-    Dense(inner, inner, Lux.σ),
-    Dense(inner, 1))
+chain = Lux.Chain(Lux.Dense(3, inner, Lux.σ),
+    Lux.Dense(inner, inner, Lux.σ),
+    Lux.Dense(inner, inner, Lux.σ),
+    Lux.Dense(inner, inner, Lux.σ),
+    Lux.Dense(inner, 1))
 ps = Lux.setup(Random.default_rng(), chain)[1]
 ```
 
@@ -132,17 +136,17 @@ on the GPU. This is done by using the `gpud` function (i.e. the GPU
 device we created at the start) on the initial parameters, like:
 
 ```@example pinn
-ps = ps |> ComponentArray |> gpud .|> Float64
+ps = ps |> ComponentArrays.ComponentArray |> gpud .|> Float64
 ```
 
 ## Step 5: Discretize the PDE via a PINN Training Strategy
 
 ```@example pinn
-strategy = GridTraining(0.05)
-discretization = PhysicsInformedNN(chain,
+strategy = NeuralPDE.GridTraining(0.05)
+discretization = NeuralPDE.PhysicsInformedNN(chain,
     strategy,
     init_params = ps)
-prob = discretize(pde_system, discretization)
+prob = NeuralPDE.discretize(pde_system, discretization)
 ```
 
 ## Step 6: Solve the Optimization Problem
@@ -153,15 +157,15 @@ callback = function (state, l)
     return false
 end
 
-res = Optimization.solve(prob, Adam(0.01); callback = callback, maxiters = 2500);
+res = OPT.solve(prob, OptimizationOptimisers.Adam(0.01); callback = callback, maxiters = 2500);
 ```
 
 We then use the `remake` function to rebuild the PDE problem to start a new
 optimization at the optimized parameters, and continue with a lower learning rate:
 
 ```@example pinn
-prob = remake(prob, u0 = res.u)
-res = Optimization.solve(prob, Adam(0.001); callback = callback, maxiters = 2500);
+prob = OPT.remake(prob, u0 = res.u)
+res = OPT.solve(prob, OptimizationOptimisers.Adam(0.001); callback = callback, maxiters = 2500);
 ```
 
 ## Step 7: Inspect the PINN's Solution

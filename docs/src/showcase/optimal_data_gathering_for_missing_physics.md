@@ -10,16 +10,19 @@ To this end, we will rely on the following packages:
 ```@example DoE
 using Random; Random.seed!(984519674645)
 using StableRNGs; rng = StableRNG(845652695)
-using ModelingToolkit
-using ModelingToolkit: t_nounits as t, D_nounits as D
-using ModelingToolkitNeuralNets
-using OrdinaryDiffEqRosenbrock
-using SymbolicIndexingInterface
+import ModelingToolkit as MTK
+import ModelingToolkit: t_nounits as t, D_nounits as D
+import ModelingToolkitNeuralNets
+import OrdinaryDiffEqRosenbrock as ODE
+import SymbolicIndexingInterface
 using Plots
-using Optimization, OptimizationOptimisers, OptimizationBBO, OptimizationNLopt
-using SciMLStructures
-using SciMLStructures: Tunable
-using SciMLSensitivity
+import Optimization as OPT
+import OptimizationOptimisers as OptOptim
+import OptimizationBBO as OptBBO
+import OptimizationNLopt as OptNL
+import SciMLStructures
+import SciMLStructures: Tunable
+import SciMLSensitivity as SMS
 using Statistics
 using SymbolicRegression
 using LuxCore
@@ -55,11 +58,11 @@ This can be implemented in MTK as:
         y_x_s = 0.777
         m = 0.0
     end
-    @parameters begin
+    MTK.@parameters begin
         controls[1:length(optimization_state)-1] = optimization_state[2:end], [tunable = false] # optimization_state is defined further below
         Q_in = optimization_initial, [tunable = false] # similar for optimization state
     end
-    @variables begin
+    MTK.@variables begin
         C_s(t) = 1.0
         C_x(t) = 1.0
         V(t) = 7.0
@@ -103,7 +106,7 @@ We thus extend the bioreactor MTK model with this equation:
 ```@example DoE
 @mtkmodel TrueBioreactor begin
     @extend Bioreactor()
-    @parameters begin
+    MTK.@parameters begin
         μ_max = 0.421
         K_s = 0.439*10
     end
@@ -143,12 +146,12 @@ We also add some noise to the simulated data, to make it more realistic:
 optimization_state =  zeros(15)
 optimization_initial = optimization_state[1] # HACK CAN'T GET THIS TO WORK WITHOUT SEPARATE SCALAR
 @mtkbuild true_bioreactor = TrueBioreactor()
-prob = ODEProblem(true_bioreactor, [], (0.0, 15.0), [], tstops = 0:15, save_everystep=false)
-sol = solve(prob, Rodas5P())
+prob = ODE.ODEProblem(true_bioreactor, [], (0.0, 15.0), [], tstops = 0:15, save_everystep=false)
+sol = ODE.solve(prob, ODE.Rodas5P())
 
 @mtkbuild  ude_bioreactor = UDEBioreactor()
-ude_prob = ODEProblem(ude_bioreactor, [], (0.0, 15.0), [], tstops = 0:15, save_everystep=false)
-ude_sol = solve(ude_prob, Rodas5P())
+ude_prob = ODE.ODEProblem(ude_bioreactor, [], (0.0, 15.0), [], tstops = 0:15, save_everystep=false)
+ude_sol = ODE.solve(ude_prob, ODE.Rodas5P())
 
 data = DataFrame(sol)
 data = data[1:2:end, :] # HACK TO GET ONLY THE MEASUREMENTS WE NEED; MTK ALWAYS SAVES BEFORE AND AFTER CALLBACK; WITH NO OPTION TO DISABLE
@@ -180,7 +183,7 @@ function loss(x, (probs, get_varss, datas))
         data = datas[i]
         new_p = SciMLStructures.replace(Tunable(), prob.p, x)
         new_prob = remake(prob, p=new_p, u0=eltype(x).(prob.u0))
-        new_sol = solve(new_prob, Rodas5P())
+        new_sol = ODE.solve(new_prob, ODE.Rodas5P())
         for (i, j) in enumerate(1:2:length(new_sol.t)) # HACK TO DEAL WITH DOUBLE SAVE
             loss += sum(abs2.(get_vars(new_sol, j) .- data[!, "C_s(t)"][i]))
         end
@@ -191,16 +194,16 @@ function loss(x, (probs, get_varss, datas))
     end
     loss
 end
-of = OptimizationFunction{true}(loss, AutoZygote())
+of = OPT.OptimizationFunction{true}(loss, SMS.AutoZygote())
 x0 = reduce(vcat, getindex.((default_values(ude_bioreactor),), tunable_parameters(ude_bioreactor)))
 get_vars = getu(ude_bioreactor, [ude_bioreactor.C_s])
 ps = ([ude_prob], [get_vars], [data]);
-op = OptimizationProblem(of, x0, ps)
-res = solve(op, Optimization.LBFGS(), maxiters=1000)
+op = OPT.OptimizationProblem(of, x0, ps)
+res = OPT.solve(op, OptOptim.LBFGS(), maxiters=1000)
 
 new_p = SciMLStructures.replace(Tunable(), ude_prob.p, res.u)
 res_prob = remake(ude_prob, p=new_p)
-res_sol = solve(res_prob, Rodas5P())
+res_sol = ODE.solve(res_prob, ODE.Rodas5P())
 
 extracted_chain = arguments(equations(ude_bioreactor.nn)[1].rhs)[1]
 T = defaults(ude_bioreactor)[ude_bioreactor.nn.T]
@@ -281,7 +284,7 @@ function get_probs_and_caches(model_structures)
             end
         end
         @mtkbuild plausible_bioreactor = PlausibleBioreactor()
-        plausible_prob = ODEProblem(plausible_bioreactor, [], (0.0, 15.0), [], tstops=0:15, saveat=0:15)
+        plausible_prob = ODE.ODEProblem(plausible_bioreactor, [], (0.0, 15.0), [], tstops=0:15, saveat=0:15)
         probs_plausible[i] = plausible_prob
 
         callback_controls = plausible_bioreactor.controls
@@ -298,7 +301,7 @@ plts = plot(), plot(), plot(), plot()
 for i in 1:length(model_structures)
     plot!(plts[4],  C_s_range_plot, model_structures[i].( C_s_range_plot);c=i+2,lw=1,ls=:dash)
     plausible_prob = probs_plausible[i]
-    sol_plausible = solve(plausible_prob, Rodas5P())
+    sol_plausible = ODE.solve(plausible_prob, ODE.Rodas5P())
     # plot!(sol_plausible; label=["Cₛ(g/L)" "Cₓ(g/L)" "V(L)"], xlabel="t(h)", lw=3)
     plot!(plts[1], sol_plausible, idxs=:C_s, lw=1,ls=:dash,c=i+2)
     plot!(plts[2], sol_plausible, idxs=:C_x, lw=1,ls=:dash,c=i+2)
@@ -345,7 +348,7 @@ function S_criterion(optimization_state, (probs_plausible, syms_cache))
         callback_controls, initial_control, C_s = syms_cache[i]
         plausible_prob.ps[callback_controls] = optimization_state[2:end]
         plausible_prob.ps[initial_control] = optimization_state[1]
-        sol_plausible = solve(plausible_prob, Rodas5P())
+        sol_plausible = ODE.solve(plausible_prob, ODE.Rodas5P())
         if !(SciMLBase.successful_retcode(sol_plausible))
             return 0.0
         end
@@ -366,8 +369,8 @@ end
 lb = zeros(15)
 ub = 10 * ones(15)
 
-design_prob = OptimizationProblem(S_criterion, optimization_state, (probs_plausible, syms_cache), lb=lb, ub=ub)
-control_pars_opt = solve(design_prob, BBO_adaptive_de_rand_1_bin_radiuslimited(), maxtime=100.0)
+design_prob = OPT.OptimizationProblem(S_criterion, optimization_state, (probs_plausible, syms_cache), lb=lb, ub=ub)
+control_pars_opt = OPT.solve(design_prob, OptBBO.BBO_adaptive_de_rand_1_bin_radiuslimited(), maxtime=100.0)
 
 optimization_state = control_pars_opt.u
 optimization_initial = optimization_initial2 = optimization_state[1]
@@ -387,7 +390,7 @@ for i in 1:length(model_structures)
     callback_controls, initial_control, C_s = syms_cache[i]
     plausible_prob.ps[callback_controls] = control_pars_opt[2:end]
     plausible_prob.ps[initial_control] = control_pars_opt[1]
-    sol_plausible = solve(plausible_prob, Rodas5P())
+    sol_plausible = ODE.solve(plausible_prob, ODE.Rodas5P())
     plot!(plts[2], sol_plausible, idxs=:C_s, lw=3,ls=:dash,c=i+2)
 end
 plot!(plts[2],xlabel="t(h)",ylabel="Cₛ(g/L)")
@@ -399,14 +402,14 @@ This causes the two aforementioned groups in the model structures to be easily d
 We now gather a second dataset and perform the same exercise.
 ```@example DoE
 @mtkbuild true_bioreactor2 = TrueBioreactor()
-prob2 = ODEProblem(true_bioreactor2, [], (0.0, 15.0), [], tstops=0:15, save_everystep=false)
-sol2 = solve(prob2, Rodas5P())
+prob2 = ODE.ODEProblem(true_bioreactor2, [], (0.0, 15.0), [], tstops=0:15, save_everystep=false)
+sol2 = ODE.solve(prob2, ODE.Rodas5P())
 @mtkbuild ude_bioreactor2 = UDEBioreactor()
-ude_prob2 = ODEProblem(ude_bioreactor2, [], (0.0, 15.0), [ude_bioreactor2.Q_in => optimization_initial], tstops=0:15, save_everystep=false)
-ude_sol2 = solve(ude_prob2, Rodas5P())
+ude_prob2 = ODE.ODEProblem(ude_bioreactor2, [], (0.0, 15.0), [ude_bioreactor2.Q_in => optimization_initial], tstops=0:15, save_everystep=false)
+ude_sol2 = ODE.solve(ude_prob2, ODE.Rodas5P())
 plot(ude_sol2[3,:])
 ude_prob_remake = remake(ude_prob, p=ude_prob2.p)
-sol_remake = solve(ude_prob_remake, Rodas5P())
+sol_remake = ODE.solve(ude_prob_remake, ODE.Rodas5P())
 plot(sol_remake[3,:])
 x0 = reduce(vcat, getindex.((default_values(ude_bioreactor),), tunable_parameters(ude_bioreactor)))
 
@@ -417,14 +420,14 @@ data2 = data2[1:2:end, :]
 data2[!, "C_s(t)"] += sd_cs * randn(size(data2, 1))
 
 ps = ([ude_prob, ude_prob2], [get_vars, get_vars2], [data, data2]);
-op = OptimizationProblem(of, x0, ps)
-res = solve(op, NLopt.LN_BOBYQA, maxiters=5_000)
+op = OPT.OptimizationProblem(of, x0, ps)
+res = OPT.solve(op, OptNL.NLopt.LN_BOBYQA, maxiters=5_000)
 
 new_p = SciMLStructures.replace(Tunable(), ude_prob2.p, res.u)
 res_prob = remake(ude_prob2, p=new_p)
 callback_controls, initial_control, C_s = syms_cache[1]
 res_prob.ps[initial_control] = optimization_initial2
-res_sol = solve(res_prob, Rodas5P())
+res_sol = ODE.solve(res_prob, ODE.Rodas5P())
 extracted_chain = arguments(equations(ude_bioreactor2.nn)[1].rhs)[1]
 T = defaults(ude_bioreactor2)[ude_bioreactor2.nn.T]
 μ_predicted_plot2 = [only(stateless_apply(extracted_chain, [C_s], convert(T,res.u))) for C_s in C_s_range_plot]
@@ -442,7 +445,7 @@ plts = plot(), plot(), plot(), plot()
 for i in 1:length(model_structures)
     plot!(plts[4],  C_s_range_plot, model_structures[i].( C_s_range_plot);c=i+2,lw=1,ls=:dash)
     plausible_prob = probs_plausible[i]
-    sol_plausible = solve(plausible_prob, Rodas5P())
+    sol_plausible = ODE.solve(plausible_prob, ODE.Rodas5P())
     # plot!(sol_plausible; label=["Cₛ(g/L)" "Cₓ(g/L)" "V(L)"], xlabel="t(h)", lw=3)
     plot!(plts[1], sol_plausible, idxs=:C_s, lw=1,ls=:dash,c=i+2)
     plot!(plts[2], sol_plausible, idxs=:C_x, lw=1,ls=:dash,c=i+2)
@@ -474,8 +477,8 @@ This causes there to be substantial disagreement between the plausible model str
 
 We now optimize the controls for a third experiment:
 ```@example DoE
-prob = OptimizationProblem(S_criterion, zeros(15), (probs_plausible, syms_cache), lb=lb, ub=ub)
-control_pars_opt = solve(prob, BBO_adaptive_de_rand_1_bin_radiuslimited(), maxtime=60.0)
+prob = OPT.OptimizationProblem(S_criterion, zeros(15), (probs_plausible, syms_cache), lb=lb, ub=ub)
+control_pars_opt = OPT.solve(prob, OptBBO.BBO_adaptive_de_rand_1_bin_radiuslimited(), maxtime=60.0)
 
 optimization_state = control_pars_opt.u
 optimization_initial = optimization_state[1]
@@ -495,7 +498,7 @@ for i in 1:length(model_structures)
     callback_controls, initial_control, C_s = syms_cache[i]
     plausible_prob.ps[callback_controls] = control_pars_opt[2:end]
     plausible_prob.ps[initial_control] = control_pars_opt[1]
-    sol_plausible = solve(plausible_prob, Rodas5P())
+    sol_plausible = ODE.solve(plausible_prob, ODE.Rodas5P())
     plot!(plts[2], sol_plausible, idxs=:C_s, lw=3,ls=:dash,c=i+2)
 end
 plot!(plts[2],xlabel="t(h)",ylabel="Cₛ(g/L)")
@@ -514,10 +517,10 @@ Some model structures decrease more rapidly in substrate concentration than othe
 
 ```@example DoE
 @mtkbuild true_bioreactor3 = TrueBioreactor()
-prob3 = ODEProblem(true_bioreactor3, [], (0.0, 15.0), [], tstops=0:15, save_everystep=false)
-sol3 = solve(prob3, Rodas5P())
+prob3 = ODE.ODEProblem(true_bioreactor3, [], (0.0, 15.0), [], tstops=0:15, save_everystep=false)
+sol3 = ODE.solve(prob3, ODE.Rodas5P())
 @mtkbuild ude_bioreactor3 = UDEBioreactor()
-ude_prob3 = ODEProblem(ude_bioreactor3, [], (0.0, 15.0), tstops=0:15, save_everystep=false)
+ude_prob3 = ODE.ODEProblem(ude_bioreactor3, [], (0.0, 15.0), tstops=0:15, save_everystep=false)
 
 x0 = reduce(vcat, getindex.((default_values(ude_bioreactor3),), tunable_parameters(ude_bioreactor3)))
 
@@ -528,8 +531,8 @@ data3 = data3[1:2:end, :]
 data3[!, "C_s(t)"] += sd_cs * randn(size(data3, 1))
 
 ps = ([ude_prob, ude_prob2, ude_prob3], [get_vars, get_vars2, get_vars3], [data, data2, data3]);
-op = OptimizationProblem(of, x0, ps)
-res = solve(op, Optimization.LBFGS(), maxiters=10_000)
+op = OPT.OptimizationProblem(of, x0, ps)
+res = OPT.solve(op, OptOptim.LBFGS(), maxiters=10_000)
 extracted_chain = arguments(equations(ude_bioreactor3.nn)[1].rhs)[1]
 T = defaults(ude_bioreactor3)[ude_bioreactor3.nn.T]
 

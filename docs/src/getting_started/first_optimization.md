@@ -44,17 +44,19 @@ What should ``u = [u_1,u_2]`` be to achieve this goal? Let's dive in!
 
 ```@example
 # Import the package
-using Optimization, OptimizationNLopt, ForwardDiff
+import Optimization as OPT
+import OptimizationNLopt
+import ForwardDiff
 
 # Define the problem to optimize
 L(u, p) = (p[1] - u[1])^2 + p[2] * (u[2] - u[1]^2)^2
 u0 = zeros(2)
 p = [1.0, 100.0]
-optfun = OptimizationFunction(L, Optimization.AutoForwardDiff())
-prob = OptimizationProblem(optfun, u0, p, lb = [-1.0, -1.0], ub = [1.0, 1.0])
+optfun = OPT.OptimizationFunction(L, OPT.AutoForwardDiff())
+prob = OPT.OptimizationProblem(optfun, u0, p, lb = [-1.0, -1.0], ub = [1.0, 1.0])
 
 # Solve the optimization problem
-sol = solve(prob, NLopt.LD_LBFGS())
+sol = OPT.solve(prob, OptimizationNLopt.NLopt.LD_LBFGS())
 
 # Analyze the solution
 @show sol.u, L(sol.u, p)
@@ -88,7 +90,9 @@ Pkg.add(["Optimization", "OptimizationNLopt", "ForwardDiff"])
 Now we're ready. Let's load in these packages:
 
 ```@example first_opt
-using Optimization, OptimizationNLopt, ForwardDiff
+import Optimization as OPT
+import OptimizationNLopt
+import ForwardDiff
 ```
 
 ### Step 2: Define the Optimization Problem
@@ -108,7 +112,7 @@ package for creating the gradient and other derivatives required by the optimize
 
 ```@example first_opt
 #Create the OptimizationFunction
-optfun = OptimizationFunction(L, Optimization.AutoForwardDiff())
+optfun = OPT.OptimizationFunction(L, OPT.AutoForwardDiff())
 ```
 
 Now we need to define our `OptimizationProblem`. If you need help remembering how to define
@@ -124,7 +128,7 @@ optimization as follows:
 ```@example first_opt
 u0 = zeros(2)
 p = [1.0, 100.0]
-prob = OptimizationProblem(optfun, u0, p, lb = [-1.0, -1.0], ub = [1.0, 1.0])
+prob = OPT.OptimizationProblem(optfun, u0, p, lb = [-1.0, -1.0], ub = [1.0, 1.0])
 ```
 
 #### Note about defining uniform bounds
@@ -135,7 +139,7 @@ Thus for example, `ones(2)` is equivalent to `[1.0,1.0]`. Therefore `-1 * ones(2
 equivalent to `[-1.0,-1.0]`, meaning we could have written our problem as follows:
 
 ```@example first_opt
-prob = OptimizationProblem(optfun, u0, p, lb = -1 * ones(2), ub = ones(2))
+prob = OPT.OptimizationProblem(optfun, u0, p, lb = -1 * ones(2), ub = ones(2))
 ```
 
 ### Step 3: Solve the Optimization Problem
@@ -150,7 +154,7 @@ performance. To perform this solve, we do the following:
 
 ```@example first_opt
 # Solve the optimization problem
-sol = solve(prob, NLopt.LD_LBFGS())
+sol = OPT.solve(prob, OptimizationNLopt.NLopt.LD_LBFGS())
 ```
 
 ### Step 4: Analyze the Solution
