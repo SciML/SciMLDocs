@@ -1,12 +1,12 @@
 name = "SciMLDocs"
 uuid = "9802be14-e95c-4933-b545-e41021dbf0cf"
 authors = ["SciML"]
-version = "1.6.0"
+version = "1.7.0"
 
 [deps]
 
 [compat]
-julia = "1.6"
+julia = "1.10"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
