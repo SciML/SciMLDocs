@@ -52,7 +52,7 @@ Let's solve the linear ODE. First, define an easy way to get `ODEProblem`s for t
 ```@example odetypes
 import DifferentialEquations as DE
 f(u, p, t) = p * u
-prob_ode_linear = DE.DE.ODEProblem(f, 1 / 2, (0.0, 1.0), 1.01);
+prob_ode_linear = DE.ODEProblem(f, 1 / 2, (0.0, 1.0), 1.01);
 ```
 
 Next, let's solve it using Float64s. To do so, we just need to set u0 to a Float64 (which is done by the default) and dt should be a float as well.
