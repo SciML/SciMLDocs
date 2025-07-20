@@ -142,7 +142,7 @@ Plots.plot(Chain_Spiral)
 Now we check the autocorrelation plot:
 
 ```@example bnode
-StatsPlots.autocorplot(Chain_Spiral)
+MCMCChains.autocorplot(Chain_Spiral)
 ```
 
 As another diagnostic, let's check the result on retrodicted data. To do this, we generate
