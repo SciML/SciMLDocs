@@ -84,7 +84,7 @@ Note that the `f64` is required to put the Lux neural network into Float64 preci
 
 ```@example bnode
 function predict_neuralode(p)
-    p = p isa ComponentArray ? p : convert(typeof(_p), p)
+    p = p isa ComponentArrays.ComponentArray ? p : convert(typeof(_p), p)
     Array(prob_neuralode(u0, p))
 end
 function loss_neuralode(p)
