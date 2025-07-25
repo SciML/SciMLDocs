@@ -53,7 +53,7 @@ import DifferentialEquations as DE
 import ModelingToolkit as MTK
 import Plots
 import ModelingToolkit: t_nounits as t, D_nounits as D,
-                        @variables, @parameters, @named, @mtkbuild
+                        @variables, @parameters, @named, @mtkcompile, mtkcompile
 
 # Define our state variables: state(t) = initial condition
 @variables x(t)=1 y(t)=1 z(t)
@@ -67,7 +67,7 @@ eqs = [D(x) ~ α * x - β * x * y
        z ~ x + y]
 
 # Bring these pieces together into an ODESystem with independent variable t
-@mtkbuild sys = MTK.ODESystem(eqs, t)
+@mtkcompile sys = MTK.ODESystem(eqs, t)
 
 # Convert from a symbolic to a numerical problem to simulate
 tspan = (0.0, 10.0)
@@ -106,7 +106,7 @@ Now we're ready. Let's load in these packages:
 import DifferentialEquations as DE
 import ModelingToolkit as MTK
 import Plots
-import ModelingToolkit: t_nounits as t, D_nounits as D, @variables, @parameters, @named, @mtkbuild
+import ModelingToolkit: t_nounits as t, D_nounits as D, @variables, @parameters, @named, @mtkcompile, mtkcompile
 ```
 
 ### Step 2: Define our ODE Equations
@@ -170,7 +170,7 @@ to represent an `ODESystem` with the following:
 
 ```@example first_sim
 # Bring these pieces together into an ODESystem with independent variable t
-@mtkbuild sys = MTK.ODESystem(eqs, t)
+@mtkcompile sys = MTK.ODESystem(eqs, t)
 ```
 
 Notice that in our equations we have an algebraic equation `z ~ x + y`. This is not a
@@ -274,7 +274,7 @@ D = MTK.Differential(t)
 eqs = [D(🐰) ~ α * 🐰 - β * 🐰 * 🐺,
     D(🐺) ~ -γ * 🐺 + δ * 🐰 * 🐺]
 
-@mtkbuild sys = MTK.ODESystem(eqs, t)
+@mtkcompile sys = MTK.ODESystem(eqs, t)
 prob = DE.ODEProblem(sys, [], (0.0, 10.0))
 sol = DE.solve(prob)
 ```
