@@ -19,7 +19,7 @@ end
 struct ProductsUsedComponent <: MultiDocumenter.DropdownComponent end
 
 PRODUCTNAME_IMAGE_LINK = [
-    (; product = "JuliaSim", logo = "https://juliahub.com/ui/juliasim-logo.notext.svg", link = "https://juliahub.com/products/juliasim"),
+    (; product = "Dyad", logo = "https://help.juliahub.com/dyad/dev/dyad_logo_light.svg", link = "https://juliahub.com/products/dyad"),
     (; product = "Pumas", logo = "https://juliahub.com/ui/Pumas%20Logomark.svg", link = "https://pumas.ai/"),
     (; product = "Cedar EDA", logo = "https://juliahub.com/ui/cedar_eda.svg", link = "https://juliahub.com/products/cedar-eda"),
     (; product = "Neuroblox", logo = "https://juliahub.com/ui/Neuroblox-logo-400-300-dark.png", link = "https://www.neuroblox.org/"),
