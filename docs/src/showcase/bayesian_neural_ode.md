@@ -110,7 +110,7 @@ function dldθ(θ)
     return x, grad
 end
 
-metric = AdvancedHMC.DiagEuclideanMetric(length(p))
+metric = AdvancedHMC.DiagEuclideanMetric(oneunit.(p))
 h = AdvancedHMC.Hamiltonian(metric, l, dldθ)
 ```
 
