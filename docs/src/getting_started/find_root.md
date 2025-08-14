@@ -40,7 +40,7 @@ With the parameter values ``\sigma = 10.0``, ``\rho = 26.0``, ``\beta = 8/3``.
 # Import the packages
 import ModelingToolkit as MTK
 import NonlinearSolve as NLS
-import ModelingToolkit: @variables, @parameters, @mtkbuild
+import ModelingToolkit: @variables, @parameters, @mtkcompile, mtkcompile
 
 # Define the nonlinear system
 @variables x=1.0 y=0.0 z=0.0
@@ -49,7 +49,7 @@ import ModelingToolkit: @variables, @parameters, @mtkbuild
 eqs = [0 ~ σ * (y - x),
     0 ~ x * (ρ - z) - y,
     0 ~ x * y - β * z]
-@mtkbuild ns = MTK.NonlinearSystem(eqs, [x, y, z], [σ, ρ, β])
+@mtkcompile ns = MTK.NonlinearSystem(eqs, [x, y, z], [σ, ρ, β])
 
 # Convert the symbolic system into a numerical system
 prob = NLS.NonlinearProblem(ns, [])
@@ -83,7 +83,7 @@ Now we're ready. Let's load in these packages:
 # Import the packages
 import ModelingToolkit as MTK
 import NonlinearSolve as NLS
-import ModelingToolkit: @variables, @parameters, @mtkbuild
+import ModelingToolkit: @variables, @parameters, @mtkcompile, mtkcompile
 ```
 
 ### Step 2: Define the Nonlinear System
@@ -126,7 +126,7 @@ Finally, we bring these pieces together, the equation along with its states and 
 define our `NonlinearSystem`:
 
 ```@example first_rootfind
-@mtkbuild ns = MTK.NonlinearSystem(eqs, [x, y, z], [σ, ρ, β])
+@mtkcompile ns = MTK.NonlinearSystem(eqs, [x, y, z], [σ, ρ, β])
 ```
 
 ### Step 3: Convert the Symbolic Problem to a Numerical Problem

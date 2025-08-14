@@ -11,7 +11,7 @@ To this end, we will rely on the following packages:
 using Random; Random.seed!(984519674645)
 using StableRNGs; rng = StableRNG(845652695)
 import ModelingToolkit as MTK
-import ModelingToolkit: t_nounits as t, D_nounits as D
+import ModelingToolkit: t_nounits as t, D_nounits as D, @mtkcompile, mtkcompile
 import ModelingToolkitNeuralNets
 import OrdinaryDiffEqRosenbrock as ODE
 import SymbolicIndexingInterface
@@ -145,11 +145,11 @@ We also add some noise to the simulated data, to make it more realistic:
 ```@example DoE
 optimization_state =  zeros(15)
 optimization_initial = optimization_state[1] # HACK CAN'T GET THIS TO WORK WITHOUT SEPARATE SCALAR
-@mtkbuild true_bioreactor = TrueBioreactor()
+@mtkcompile true_bioreactor = TrueBioreactor()
 prob = ODE.ODEProblem(true_bioreactor, [], (0.0, 15.0), [], tstops = 0:15, save_everystep=false)
 sol = ODE.solve(prob, ODE.Rodas5P())
 
-@mtkbuild  ude_bioreactor = UDEBioreactor()
+@mtkcompile  ude_bioreactor = UDEBioreactor()
 ude_prob = ODE.ODEProblem(ude_bioreactor, [], (0.0, 15.0), [], tstops = 0:15, save_everystep=false)
 ude_sol = ODE.solve(ude_prob, ODE.Rodas5P())
 
@@ -283,7 +283,7 @@ function get_probs_and_caches(model_structures)
                 μ ~ model_structures[i](C_s)
             end
         end
-        @mtkbuild plausible_bioreactor = PlausibleBioreactor()
+        @mtkcompile plausible_bioreactor = PlausibleBioreactor()
         plausible_prob = ODE.ODEProblem(plausible_bioreactor, [], (0.0, 15.0), [], tstops=0:15, saveat=0:15)
         probs_plausible[i] = plausible_prob
 
@@ -401,10 +401,10 @@ This causes the two aforementioned groups in the model structures to be easily d
 
 We now gather a second dataset and perform the same exercise.
 ```@example DoE
-@mtkbuild true_bioreactor2 = TrueBioreactor()
+@mtkcompile true_bioreactor2 = TrueBioreactor()
 prob2 = ODE.ODEProblem(true_bioreactor2, [], (0.0, 15.0), [], tstops=0:15, save_everystep=false)
 sol2 = ODE.solve(prob2, ODE.Rodas5P())
-@mtkbuild ude_bioreactor2 = UDEBioreactor()
+@mtkcompile ude_bioreactor2 = UDEBioreactor()
 ude_prob2 = ODE.ODEProblem(ude_bioreactor2, [], (0.0, 15.0), [ude_bioreactor2.Q_in => optimization_initial], tstops=0:15, save_everystep=false)
 ude_sol2 = ODE.solve(ude_prob2, ODE.Rodas5P())
 plot(ude_sol2[3,:])
@@ -516,10 +516,10 @@ After the staircase reaches the maximal control value, a zero control is used.
 Some model structures decrease more rapidly in substrate concentration than others.
 
 ```@example DoE
-@mtkbuild true_bioreactor3 = TrueBioreactor()
+@mtkcompile true_bioreactor3 = TrueBioreactor()
 prob3 = ODE.ODEProblem(true_bioreactor3, [], (0.0, 15.0), [], tstops=0:15, save_everystep=false)
 sol3 = ODE.solve(prob3, ODE.Rodas5P())
-@mtkbuild ude_bioreactor3 = UDEBioreactor()
+@mtkcompile ude_bioreactor3 = UDEBioreactor()
 ude_prob3 = ODE.ODEProblem(ude_bioreactor3, [], (0.0, 15.0), tstops=0:15, save_everystep=false)
 
 x0 = reduce(vcat, getindex.((default_values(ude_bioreactor3),), tunable_parameters(ude_bioreactor3)))
