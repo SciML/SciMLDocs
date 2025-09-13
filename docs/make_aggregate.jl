@@ -16,7 +16,7 @@ docsmodules = [
             "CellMLToolkit", "SBMLToolkit",
             "BaseModelica",
             "ReactionNetworkImporters"],
-        "Symbolic Tools" => ["ModelOrderReduction", "Symbolics", "SymbolicUtils", "SymbolicIntegration", "SymbolicLimits"], #="MetaTheory"=#
+        "Symbolic Tools" => ["ModelOrderReduction", "Symbolics", "SymbolicUtils", "SymbolicIntegration", "SymbolicSMT", "SymbolicLimits"], #="MetaTheory"=#
         #=
         "Third-Party Modeling Tools" => ["MomentClosure", "Agents", "Unitful",
             "ReactionMechanismSimulator",
