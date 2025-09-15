@@ -2,6 +2,7 @@ using Documenter, LibGit2, Pkg
 using MultiDocumenter
 
 include("CommercialSupportComponent.jl")
+
 clonedir = joinpath(@__DIR__, "cloned")
 
 # Ordering Matters!
@@ -16,7 +17,7 @@ docsmodules = [
             "CellMLToolkit", "SBMLToolkit",
             "BaseModelica",
             "ReactionNetworkImporters"],
-        "Symbolic Tools" => ["ModelOrderReduction", "Symbolics", "SymbolicUtils", "SymbolicIntegration", "SymbolicLimits"], #="MetaTheory"=#
+        "Symbolic Tools" => ["ModelOrderReduction", "Symbolics", "SymbolicUtils", "SymbolicIntegration", "SymbolicSMT", "SymbolicLimits"], #="MetaTheory"=#
         #=
         "Third-Party Modeling Tools" => ["MomentClosure", "Agents", "Unitful",
             "ReactionMechanismSimulator",
@@ -136,6 +137,7 @@ external_urls = Dict("Enzyme" => "https://github.com/EnzymeAD/Enzyme.jl",
                      "ApproxFun" => "https://github.com/JuliaApproximation/ApproxFun.jl",
                      "VoronoiFVM" => "https://github.com/j-fu/VoronoiFVM.jl",
                      "Symbolics" => "https://github.com/JuliaSymbolics/Symbolics.jl",
+                     "SymbolicSMT" => "https://github.com/JuliaSymbolics/SymbolicSMT.jl",
                      "SymbolicIntegration" => "https://github.com/JuliaSymbolics/SymbolicIntegration.jl",
                      "SymbolicUtils" => "https://github.com/JuliaSymbolics/SymbolicUtils.jl",
                      "TermInterface" => "https://github.com/JuliaSymbolics/TermInterface.jl",
