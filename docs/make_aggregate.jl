@@ -92,6 +92,7 @@ docsmodules = [
         "High-Level Interfaces" => [
             "SciMLBase",
             "SciMLStructures",
+            "SciMLLogging",
             "ADTypes",
             "SymbolicIndexingInterface",
             "TermInterface",
