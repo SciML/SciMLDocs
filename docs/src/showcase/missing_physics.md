@@ -270,7 +270,7 @@ Thus we first solve the optimization problem with ADAM. Choosing a learning rate
 (tuned to be as high as possible that doesn't tend to make the loss shoot up), we see:
 
 ```@example ude
-res1 = ODE.solve(
+res1 = OPT.solve(
     optprob, OptimizationOptimisers.Adam(), callback = callback, maxiters = 5000)
 println("Training loss after $(length(losses)) iterations: $(losses[end])")
 ```
@@ -488,9 +488,9 @@ function parameter_loss(p)
     sum(abs2, Ŷ .- Y)
 end
 
-optf = Optimization.OptimizationFunction((x, p) -> parameter_loss(x), adtype)
-optprob = Optimization.OptimizationProblem(optf, DataDrivenDiffEq.get_parameter_values(nn_eqs))
-parameter_res = Optimization.OPT.solve(optprob, Optim.LBFGS(), maxiters = 1000)
+optf = OPT.OptimizationFunction((x, p) -> parameter_loss(x), adtype)
+optprob = OPT.OptimizationProblem(optf, DataDrivenDiffEq.get_parameter_values(nn_eqs))
+parameter_res = OPT.solve(optprob, OptimizationOptimJL.LBFGS(), maxiters = 1000)
 ```
 
 ## Simulation
