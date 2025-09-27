@@ -119,10 +119,10 @@ We use the NUTS sampler with an acceptance ratio of δ= 0.45 in this example. In
 We sample using 500 warmup samples and 500 posterior samples.
 
 ```@example bnode
-integrator = AdvancedHMC.Leapfrog(AdvancedHMC.find_good_stepsize(h, Array(p)))
+integrator = AdvancedHMC.Leapfrog(AdvancedHMC.find_good_stepsize(h, p))
 kernel = AdvancedHMC.HMCKernel(AdvancedHMC.Trajectory{AdvancedHMC.MultinomialTS}(integrator, AdvancedHMC.GeneralisedNoUTurn()))
 adaptor = AdvancedHMC.StanHMCAdaptor(AdvancedHMC.MassMatrixAdaptor(metric), AdvancedHMC.StepSizeAdaptor(0.45, integrator))
-samples, stats = AdvancedHMC.sample(h, kernel, Array(p), 500, adaptor, 500; progress = true)
+samples, stats = AdvancedHMC.sample(h, kernel, p, 500, adaptor, 500; progress = true)
 ```
 
 ## Step 5: Plot diagnostics
