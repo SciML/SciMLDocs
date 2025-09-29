@@ -23,7 +23,7 @@ high-dimensional function approximators:
   - Inverse-distance
   - Polynomial expansions
   - Variable fidelity
-  - Mixture of experts (Waiting GaussianMixtures package to work on v1.5)
+  - Mixture of experts
   - Earth
   - Gradient Enhanced Kriging
 
