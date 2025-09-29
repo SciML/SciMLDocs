@@ -234,6 +234,10 @@ Plots.gif(anim, "plots/Brusselator2Dsol_v.gif", fps = 8)
 
 ## Improving the Solution Process
 
+!!! warn
+    This section was disabled temporarily and will be re-enabled after major improvements
+    with SymbolicUtils v4.
+
 Now, if all we needed was a single solution, then we're done. Budda bing budda boom, we
 got a solution, we're outta here. But if for example we're solving an inverse problem
 on a PDE, or we need to bump it up to higher accuracy, then we will need to make sure
@@ -247,7 +251,7 @@ let's do that!
 In order to enable such options, we simply need to pass the ModelingToolkit.jl problem
 construction options to the `discretize` call. This looks like:
 
-```@example bruss
+```julia
 # Analytical Jacobian expression and sparse Jacobian
 prob_sparse = MethodOfLines.discretize(pdesys, discretization; jac = true, sparse = true)
 ```
@@ -255,25 +259,25 @@ prob_sparse = MethodOfLines.discretize(pdesys, discretization; jac = true, spars
 Now when we solve the problem it will be a lot faster. We can use BenchmarkTools.jl to
 assess this performance difference:
 
-```@example bruss
+```julia
 import BenchmarkTools as BT
 BT.@btime sol = ODE.solve(prob, ODE.TRBDF2(), saveat = 0.1);
 ```
-```@example bruss
+```julia
 BT.@btime sol = ODE.solve(prob_sparse, ODE.TRBDF2(), saveat = 0.1);
 ```
 
 But we can further improve this as well. Instead of just using the default linear solver,
 we can change this to a Newton-Krylov method by passing in the GMRES method:
 
-```@example bruss
+```julia
 BT.@btime sol = ODE.solve(prob_sparse, ODE.TRBDF2(linsolve = LS.KrylovJL_GMRES()), saveat = 0.1);
 ```
 
 But to further improve performance, we can use an iLU preconditioner. This looks like
 as follows:
 
-```@example bruss
+```julia
 import IncompleteLU
 function incompletelu(W, du, u, p, t, newW, Plprev, Prprev, solverdata)
     if newW === nothing || newW
