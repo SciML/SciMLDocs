@@ -144,7 +144,7 @@ To do this, we use the `MOLFiniteDifference` construct of
 [MethodOfLines.jl](https://docs.sciml.ai/MethodOfLines/stable/) as follows:
 
 ```@example bruss
-N = 16
+N = 32
 
 dx = (x_max - x_min) / N
 dy = (y_max - y_min) / N
