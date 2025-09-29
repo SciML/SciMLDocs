@@ -6,7 +6,7 @@
 import ModelingToolkit as MTK
 import Plots
 import ModelingToolkit: t_nounits as t, D_nounits as D,
-                        @variables, @parameters, @named, @mtkbuild
+                        @variables, @parameters, @named, @mtkcompile, mtkcompile
 
 # Define our state variables: state(t) = initial condition
 @variables x(t)=1 y(t)=1 z(t)
@@ -20,7 +20,7 @@ eqs = [D(x) ~ α * x - β * x * y
        z ~ x + y]
 
 # Bring these pieces together into an ODESystem with independent variable t
-@mtkbuild sys = MTK.ODESystem(eqs, t)
+@mtkcompile sys = MTK.ODESystem(eqs, t)
 
 # Convert from a symbolic to a numerical problem to simulate
 tspan = (0.0, 10.0)
@@ -33,11 +33,11 @@ sol = DE.solve(prob)
 p1 = Plots.plot(sol, title = &quot;Rabbits vs Wolves&quot;)
 p2 = Plots.plot(sol, idxs = z, title = &quot;Total Animals&quot;)
 
-Plots.plot(p1, p2, layout = (2, 1))</code></pre><img src="e4166d30.svg" alt="Example block output"/><h2 id="Step-by-Step-Solution"><a class="docs-heading-anchor" href="#Step-by-Step-Solution">Step-by-Step Solution</a><a id="Step-by-Step-Solution-1"></a><a class="docs-heading-anchor-permalink" href="#Step-by-Step-Solution" title="Permalink"></a></h2><h3 id="Step-1:-Install-and-Import-the-Required-Packages"><a class="docs-heading-anchor" href="#Step-1:-Install-and-Import-the-Required-Packages">Step 1: Install and Import the Required Packages</a><a id="Step-1:-Install-and-Import-the-Required-Packages-1"></a><a class="docs-heading-anchor-permalink" href="#Step-1:-Install-and-Import-the-Required-Packages" title="Permalink"></a></h3><p>To do this tutorial, we will need a few components:</p><ul><li><a href="https://docs.sciml.ai/ModelingToolkit/stable/">ModelingToolkit.jl, our modeling environment</a></li><li><a href="https://docs.sciml.ai/DiffEqDocs/stable/">DifferentialEquations.jl, the differential equation solvers</a></li><li><a href="https://docs.juliaplots.org/stable/">Plots.jl, our visualization tool</a></li></ul><p>To start, let&#39;s add these packages <a href="../installation/#installation">as demonstrated in the installation tutorial</a>:</p><pre><code class="language-julia hljs">using Pkg
+Plots.plot(p1, p2, layout = (2, 1))</code></pre><img src="7d7e14dc.svg" alt="Example block output"/><h2 id="Step-by-Step-Solution"><a class="docs-heading-anchor" href="#Step-by-Step-Solution">Step-by-Step Solution</a><a id="Step-by-Step-Solution-1"></a><a class="docs-heading-anchor-permalink" href="#Step-by-Step-Solution" title="Permalink"></a></h2><h3 id="Step-1:-Install-and-Import-the-Required-Packages"><a class="docs-heading-anchor" href="#Step-1:-Install-and-Import-the-Required-Packages">Step 1: Install and Import the Required Packages</a><a id="Step-1:-Install-and-Import-the-Required-Packages-1"></a><a class="docs-heading-anchor-permalink" href="#Step-1:-Install-and-Import-the-Required-Packages" title="Permalink"></a></h3><p>To do this tutorial, we will need a few components:</p><ul><li><a href="https://docs.sciml.ai/ModelingToolkit/stable/">ModelingToolkit.jl, our modeling environment</a></li><li><a href="https://docs.sciml.ai/DiffEqDocs/stable/">DifferentialEquations.jl, the differential equation solvers</a></li><li><a href="https://docs.juliaplots.org/stable/">Plots.jl, our visualization tool</a></li></ul><p>To start, let&#39;s add these packages <a href="../installation/#installation">as demonstrated in the installation tutorial</a>:</p><pre><code class="language-julia hljs">using Pkg
 Pkg.add([&quot;ModelingToolkit&quot;, &quot;DifferentialEquations&quot;, &quot;Plots&quot;])</code></pre><p>Now we&#39;re ready. Let&#39;s load in these packages:</p><pre><code class="language-julia hljs">import DifferentialEquations as DE
 import ModelingToolkit as MTK
 import Plots
-import ModelingToolkit: t_nounits as t, D_nounits as D, @variables, @parameters, @named, @mtkbuild</code></pre><h3 id="Step-2:-Define-our-ODE-Equations"><a class="docs-heading-anchor" href="#Step-2:-Define-our-ODE-Equations">Step 2: Define our ODE Equations</a><a id="Step-2:-Define-our-ODE-Equations-1"></a><a class="docs-heading-anchor-permalink" href="#Step-2:-Define-our-ODE-Equations" title="Permalink"></a></h3><p>Now let&#39;s define our ODEs. We use the <code>ModelingToolkit.@variabes</code> statement to declare our variables. We have the independent variable time <code>t</code>, and then define our 3 state variables:</p><pre><code class="language-julia hljs"># Define our state variables: state(t) = initial condition
+import ModelingToolkit: t_nounits as t, D_nounits as D, @variables, @parameters, @named, @mtkcompile, mtkcompile</code></pre><h3 id="Step-2:-Define-our-ODE-Equations"><a class="docs-heading-anchor" href="#Step-2:-Define-our-ODE-Equations">Step 2: Define our ODE Equations</a><a id="Step-2:-Define-our-ODE-Equations-1"></a><a class="docs-heading-anchor-permalink" href="#Step-2:-Define-our-ODE-Equations" title="Permalink"></a></h3><p>Now let&#39;s define our ODEs. We use the <code>ModelingToolkit.@variabes</code> statement to declare our variables. We have the independent variable time <code>t</code>, and then define our 3 state variables:</p><pre><code class="language-julia hljs"># Define our state variables: state(t) = initial condition
 @variables x(t)=1 y(t)=1 z(t)</code></pre><p class="math-container">\[ \begin{equation}
 \left[
 \begin{array}{c}
@@ -68,9 +68,9 @@ z\left( t \right) &amp;= x\left( t \right) + y\left( t \right)
 \end{align}
  \]</p><p>Notice that in the display, it will automatically generate LaTeX. If one is interested in generating this LaTeX locally, one can simply do:</p><pre><code class="language-julia hljs">using Latexify # add the package first
 latexify(eqs)</code></pre><h2 id="Step-3:-Define-the-ODEProblem"><a class="docs-heading-anchor" href="#Step-3:-Define-the-ODEProblem">Step 3: Define the ODEProblem</a><a id="Step-3:-Define-the-ODEProblem-1"></a><a class="docs-heading-anchor-permalink" href="#Step-3:-Define-the-ODEProblem" title="Permalink"></a></h2><p>Now we bring these pieces together. In ModelingToolkit, we can bring these pieces together to represent an <code>ODESystem</code> with the following:</p><pre><code class="language-julia hljs"># Bring these pieces together into an ODESystem with independent variable t
-@mtkbuild sys = MTK.ODESystem(eqs, t)</code></pre><p class="math-container">\[ \begin{align}
-\frac{\mathrm{d} x\left( t \right)}{\mathrm{d}t} &amp;= x\left( t \right) \alpha - x\left( t \right) y\left( t \right) \beta \\
-\frac{\mathrm{d} y\left( t \right)}{\mathrm{d}t} &amp;=  - y\left( t \right) \gamma + x\left( t \right) y\left( t \right) \delta
+@mtkcompile sys = MTK.ODESystem(eqs, t)</code></pre><p class="math-container">\[ \begin{align}
+\frac{\mathrm{d} y\left( t \right)}{\mathrm{d}t} &amp;=  - y\left( t \right) \gamma + x\left( t \right) y\left( t \right) \delta \\
+\frac{\mathrm{d} x\left( t \right)}{\mathrm{d}t} &amp;= x\left( t \right) \alpha - x\left( t \right) y\left( t \right) \beta
 \end{align}
  \]</p><p>Notice that in our equations we have an algebraic equation <code>z ~ x + y</code>. This is not a differential equation but an algebraic equation, and thus we call this set of equations a Differential-Algebraic Equation (DAE). The symbolic system of ModelingToolkit can eliminate such equations to return simpler forms to numerically approximate.</p><p>Notice that what is returned is an <code>ODESystem</code>, but now with the simplified set of equations. <code>z</code> has been turned into an “observable”, i.e. a state that is not computed but can be constructed on-demand. This is one of the ways that SciML reaches its speed: you can have 100,000 equations, but solve only 1,000 to then automatically reconstruct the full set. Here, it&#39;s just 3 equations to 2, but as models get more complex, the symbolic system will find ever more clever interactions!</p><p>Now that we have simplified our system, let&#39;s turn it into a numerical problem to approximate. This is done with the <code>ODEProblem</code> constructor, that transforms it from a symbolic <code>ModelingToolkit</code> representation to a numerical <code>DifferentialEquations</code> representation. We need to tell it the numerical details now:</p><ol><li>Whether to override any of the default values for the initial conditions and parameters.</li><li>What is the initial time point.</li><li>How long to integrate it for.</li></ol><p>In this case, we will use the default values for all our variables, so we will pass a blank override <code>[]</code>. If for example we did want to change the initial condition of <code>x</code> to <code>2.0</code> and <code>α</code> to <code>4.0</code>, we would do <code>[x =&gt; 2.0, α =&gt; 4.0]</code>. Then secondly, we pass a tuple for the time span, <code>(0.0,10.0)</code> meaning start at <code>0.0</code> and end at <code>10.0</code>. This looks like:</p><pre><code class="language-julia hljs"># Convert from a symbolic to a numerical problem to simulate
 tspan = (0.0, 10.0)
@@ -106,25 +106,25 @@ t: 34-element Vector{Float64}:
  10.0
 u: 34-element Vector{Vector{Float64}}:
  [1.0, 1.0]
- [1.0454942346944578, 0.8576684823217128]
- [1.1758715885890039, 0.6394595702308831]
- [1.419680958026516, 0.45699626144050703]
- [1.8767193976262215, 0.3247334288460738]
- [2.5882501035146133, 0.26336255403957304]
- [3.860709084797009, 0.27944581878759106]
- [5.750813064347339, 0.5220073551361045]
- [6.814978696356636, 1.917783405671627]
- [4.392997771045279, 4.194671543390719]
+ [0.8576684823217128, 1.0454942346944578]
+ [0.6394595702308831, 1.1758715885890039]
+ [0.45699626144050703, 1.419680958026516]
+ [0.3247334288460738, 1.8767193976262215]
+ [0.26336255403957304, 2.5882501035146133]
+ [0.27944581878759106, 3.860709084797009]
+ [0.5220073551361045, 5.750813064347339]
+ [1.917783405671627, 6.814978696356636]
+ [4.194671543390719, 4.392997771045279]
  ⋮
- [2.6142510825026886, 0.2641695435004172]
- [4.241070648057757, 0.30512326533052475]
- [6.79112182569163, 1.13452538354883]
- [6.265374940295053, 2.7416885955953294]
- [3.7807688120520893, 4.431164521488331]
- [1.8164214705302744, 4.064057991958618]
- [1.146502825635759, 2.791173034823897]
- [0.955798652853089, 1.623563316340748]
- [1.0337581330572414, 0.9063703732075853]</code></pre><h3 id="Step-5:-Visualize-the-Solution"><a class="docs-heading-anchor" href="#Step-5:-Visualize-the-Solution">Step 5: Visualize the Solution</a><a id="Step-5:-Visualize-the-Solution-1"></a><a class="docs-heading-anchor-permalink" href="#Step-5:-Visualize-the-Solution" title="Permalink"></a></h3><p>Now let&#39;s visualize the solution! Notice that our solution only has two states. If we recall, the simplified system only has two states: <code>z</code> was symbolically eliminated. We can access any of the values, even the eliminated values, using the symbolic variable as the index. For example:</p><pre><code class="language-julia hljs">sol[z]</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">34-element Vector{Float64}:
+ [0.2641695435004172, 2.6142510825026886]
+ [0.30512326533052475, 4.241070648057757]
+ [1.13452538354883, 6.79112182569163]
+ [2.7416885955953294, 6.265374940295053]
+ [4.431164521488331, 3.7807688120520893]
+ [4.064057991958618, 1.8164214705302744]
+ [2.791173034823897, 1.146502825635759]
+ [1.623563316340748, 0.955798652853089]
+ [0.9063703732075853, 1.0337581330572414]</code></pre><h3 id="Step-5:-Visualize-the-Solution"><a class="docs-heading-anchor" href="#Step-5:-Visualize-the-Solution">Step 5: Visualize the Solution</a><a id="Step-5:-Visualize-the-Solution-1"></a><a class="docs-heading-anchor-permalink" href="#Step-5:-Visualize-the-Solution" title="Permalink"></a></h3><p>Now let&#39;s visualize the solution! Notice that our solution only has two states. If we recall, the simplified system only has two states: <code>z</code> was symbolically eliminated. We can access any of the values, even the eliminated values, using the symbolic variable as the index. For example:</p><pre><code class="language-julia hljs">sol[z]</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">34-element Vector{Float64}:
  2.0
  1.9031627170161705
  1.815331158819887
@@ -145,7 +145,7 @@ u: 34-element Vector{Vector{Float64}}:
  3.937675860459656
  2.5793619691938368
  1.9401285062648266</code></pre><p>returns the time series of the observable <code>z</code> at time points corresponding to <code>sol.t</code>. We can use this with the automated plotting functionality. First let&#39;s create a plot of <code>x</code> and <code>y</code> over time using <code>plot(sol)</code> which will plot all of the states. Then next, we will explicitly tell it to make a plot with the index being <code>z</code>, i.e. <code>idxs=z</code>.</p><div class="admonition is-info" id="Note-88b158f1cd52861d"><header class="admonition-header">Note<a class="admonition-anchor" href="#Note-88b158f1cd52861d" title="Permalink"></a></header><div class="admonition-body"><p>Note that one can pass an array of indices as well, so <code>idxs=[x,y,z]</code> would make a plot with all three lines together!</p></div></div><pre><code class="language-julia hljs"># Plot the solution
-p1 = Plots.plot(sol, title = &quot;Rabbits vs Wolves&quot;)</code></pre><img src="3ce230bf.svg" alt="Example block output"/><pre><code class="language-julia hljs">p2 = Plots.plot(sol, idxs = z, title = &quot;Total Animals&quot;)</code></pre><img src="a8d4ab89.svg" alt="Example block output"/><p>Finally, let&#39;s make a plot where we merge these two plot elements. To do so, we can take our two plot objects, <code>p1</code> and <code>p2</code>, and make a plot with both of them. Then we tell Plots to do a layout of <code>(2,1)</code>, or 2 rows and 1 columns. Let&#39;s see what happens when we bring these together:</p><pre><code class="language-julia hljs">Plots.plot(p1, p2, layout = (2, 1))</code></pre><img src="2a3a7388.svg" alt="Example block output"/><p>And tada, we have a full analysis of our ecosystem!</p><h2 id="Bonus-Step:-Emoji-Variables"><a class="docs-heading-anchor" href="#Bonus-Step:-Emoji-Variables">Bonus Step: Emoji Variables</a><a id="Bonus-Step:-Emoji-Variables-1"></a><a class="docs-heading-anchor-permalink" href="#Bonus-Step:-Emoji-Variables" title="Permalink"></a></h2><p>If you made it this far, then congrats, you get to learn a fun fact! Since Julia code can use Unicode, emojis work for variable names. Here&#39;s the simulation using emojis of rabbits and wolves to define the system:</p><pre><code class="language- hljs">import DifferentialEquations as DE
+p1 = Plots.plot(sol, title = &quot;Rabbits vs Wolves&quot;)</code></pre><img src="f0ed704d.svg" alt="Example block output"/><pre><code class="language-julia hljs">p2 = Plots.plot(sol, idxs = z, title = &quot;Total Animals&quot;)</code></pre><img src="678f8701.svg" alt="Example block output"/><p>Finally, let&#39;s make a plot where we merge these two plot elements. To do so, we can take our two plot objects, <code>p1</code> and <code>p2</code>, and make a plot with both of them. Then we tell Plots to do a layout of <code>(2,1)</code>, or 2 rows and 1 columns. Let&#39;s see what happens when we bring these together:</p><pre><code class="language-julia hljs">Plots.plot(p1, p2, layout = (2, 1))</code></pre><img src="ebe1d69b.svg" alt="Example block output"/><p>And tada, we have a full analysis of our ecosystem!</p><h2 id="Bonus-Step:-Emoji-Variables"><a class="docs-heading-anchor" href="#Bonus-Step:-Emoji-Variables">Bonus Step: Emoji Variables</a><a id="Bonus-Step:-Emoji-Variables-1"></a><a class="docs-heading-anchor-permalink" href="#Bonus-Step:-Emoji-Variables" title="Permalink"></a></h2><p>If you made it this far, then congrats, you get to learn a fun fact! Since Julia code can use Unicode, emojis work for variable names. Here&#39;s the simulation using emojis of rabbits and wolves to define the system:</p><pre><code class="language- hljs">import DifferentialEquations as DE
 import ModelingToolkit as MTK
 import ModelingToolkit: t_nounits as t, D_nounits as D, @variables, @parameters, @named
 @parameters α=1.5 β=1.0 γ=3.0 δ=1.0
@@ -154,6 +154,6 @@ D = MTK.Differential(t)
 eqs = [D(🐰) ~ α * 🐰 - β * 🐰 * 🐺,
     D(🐺) ~ -γ * 🐺 + δ * 🐰 * 🐺]
 
-@mtkbuild sys = MTK.ODESystem(eqs, t)
+@mtkcompile sys = MTK.ODESystem(eqs, t)
 prob = DE.ODEProblem(sys, [], (0.0, 10.0))
-sol = DE.solve(prob)</code></pre><p>Now go make your professor mad that they have to grade a fully emojified code. I&#39;ll vouch for you: the documentation told you to do this.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../installation/">« Installing SciML Software</a><a class="docs-footer-nextpage" href="../first_optimization/">Solve your first optimization problem »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.14.1 on <span class="colophon-date" title="Tuesday 12 August 2025 17:27">Tuesday 12 August 2025</span>. Using Julia version 1.11.6.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+sol = DE.solve(prob)</code></pre><p>Now go make your professor mad that they have to grade a fully emojified code. I&#39;ll vouch for you: the documentation told you to do this.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../installation/">« Installing SciML Software</a><a class="docs-footer-nextpage" href="../first_optimization/">Solve your first optimization problem »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.14.1 on <span class="colophon-date" title="Monday 29 September 2025 22:56">Monday 29 September 2025</span>. Using Julia version 1.11.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
