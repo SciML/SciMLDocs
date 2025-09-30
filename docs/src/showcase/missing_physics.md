@@ -281,7 +281,7 @@ second optimization, and run it with BFGS. This looks like:
 ```@example ude
 optprob2 = OPT.OptimizationProblem(optf, res1.u)
 res2 = OPT.solve(
-    optprob2, OptimizationOptimJL.LBFGS(linesearch = LineSearches.BackTracking()), callback = callback, maxiters = 1000)
+    optprob2, OptimizationOptimJL.BFGS(linesearch = LineSearches.BackTracking()), callback = callback, maxiters = 1000)
 println("Final training loss after $(length(losses)) iterations: $(losses[end])")
 
 # Rename the best candidate
@@ -299,7 +299,7 @@ How well did our neural network do? Let's take a look:
 pl_losses = Plots.Plots.plot(1:5000, losses[1:5000], yaxis = :log10, xaxis = :log10,
     xlabel = "Iterations", ylabel = "Loss", label = "ADAM", color = :blue)
 Plots.Plots.plot!(5001:length(losses), losses[5001:end], yaxis = :log10, xaxis = :log10,
-    xlabel = "Iterations", ylabel = "Loss", label = "LBFGS", color = :red)
+    xlabel = "Iterations", ylabel = "Loss", label = "BFGS", color = :red)
 ```
 
 Next, we compare the original data to the output of the UDE predictor. Note that we can even create more samples from the underlying model by simply adjusting the time steps!
