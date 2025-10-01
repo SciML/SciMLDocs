@@ -19,7 +19,7 @@ end
 
 ground_condition(u, t, integrator) = u[3]
 ground_affect!(integrator) = integrator.u[4] = -integrator.p[2] * integrator.u[4]
-ground_cb = DE.DE.ContinuousCallback(ground_condition, ground_affect!)
+ground_cb = DE.ContinuousCallback(ground_condition, ground_affect!)
 
 u0 = [0.0, 2.0, 50.0, 0.0]
 tspan = (0.0, 50.0)

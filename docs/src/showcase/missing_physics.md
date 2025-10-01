@@ -414,7 +414,7 @@ options = DataDrivenDiffEq.DataDrivenCommonOptions(maxiters = 10_000,
     data_processing = DataDrivenDiffEq.DataProcessing(split = 0.9,
         batchsize = 30,
         shuffle = true,
-        rng = StableRNG(1111)))
+        rng = StableRNGs.StableRNG(1111)))
 
 full_res = DataDrivenDiffEq.solve(full_problem, basis, opt, options = options)
 full_eqs = DataDrivenDiffEq.get_basis(full_res)
@@ -428,7 +428,7 @@ options = DataDrivenDiffEq.DataDrivenCommonOptions(maxiters = 10_000,
     data_processing = DataDrivenDiffEq.DataProcessing(split = 0.9,
         batchsize = 30,
         shuffle = true,
-        rng = StableRNG(1111)))
+        rng = StableRNGs.StableRNG(1111)))
 
 ideal_res = DataDrivenDiffEq.solve(ideal_problem, basis, opt, options = options)
 ideal_eqs = DataDrivenDiffEq.get_basis(ideal_res)
@@ -442,7 +442,7 @@ options = DataDrivenDiffEq.DataDrivenCommonOptions(maxiters = 10_000,
     data_processing = DataDrivenDiffEq.DataProcessing(split = 0.9,
         batchsize = 30,
         shuffle = true,
-        rng = StableRNG(1111)))
+        rng = StableRNGs.StableRNG(1111)))
 
 nn_res = DataDrivenDiffEq.solve(nn_problem, basis, opt, options = options)
 nn_eqs = DataDrivenDiffEq.get_basis(nn_res)
