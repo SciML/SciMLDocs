@@ -525,7 +525,7 @@ p1 = Plots.plot(t, abs.(Array(solution) .- estimate)' .+ eps(Float32),
     legend = :topright)
 
 # Plot L₂
-p2 = plot3d(X̂[1, :], X̂[2, :], Ŷ[2, :], lw = 3,
+p2 = Plots.plot3d(X̂[1, :], X̂[2, :], Ŷ[2, :], lw = 3,
     title = "Neural Network Fit of U2(t)", color = c1,
     label = "Neural Network", xaxis = "x", yaxis = "y",
     titlefont = "Helvetica", legendfont = "Helvetica",
