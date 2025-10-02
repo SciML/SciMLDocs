@@ -410,7 +410,7 @@ regressions:
 ```@example ude
 options = DataDrivenDiffEq.DataDrivenCommonOptions(maxiters = 10_000,
     normalize = DataDrivenDiffEq.DataNormalization(DataDrivenDiffEq.ZScoreTransform),
-    selector = bic, digits = 1,
+    selector = DataDrivenDiffEq.bic, digits = 1,
     data_processing = DataDrivenDiffEq.DataProcessing(split = 0.9,
         batchsize = 30,
         shuffle = true,
@@ -424,7 +424,7 @@ println(full_res)
 ```@example ude
 options = DataDrivenDiffEq.DataDrivenCommonOptions(maxiters = 10_000,
     normalize = DataDrivenDiffEq.DataNormalization(DataDrivenDiffEq.ZScoreTransform),
-    selector = bic, digits = 1,
+    selector = DataDrivenDiffEq.bic, digits = 1,
     data_processing = DataDrivenDiffEq.DataProcessing(split = 0.9,
         batchsize = 30,
         shuffle = true,
@@ -438,7 +438,7 @@ println(ideal_res)
 ```@example ude
 options = DataDrivenDiffEq.DataDrivenCommonOptions(maxiters = 10_000,
     normalize = DataDrivenDiffEq.DataNormalization(DataDrivenDiffEq.ZScoreTransform),
-    selector = bic, digits = 1,
+    selector = DataDrivenDiffEq.bic, digits = 1,
     data_processing = DataDrivenDiffEq.DataProcessing(split = 0.9,
         batchsize = 30,
         shuffle = true,
