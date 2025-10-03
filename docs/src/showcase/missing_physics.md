@@ -532,7 +532,7 @@ p2 = Plots.plot3d(X̂[1, :], X̂[2, :], Ŷ[2, :], lw = 3,
     legend = :bottomright)
 Plots.plot!(X̂[1, :], X̂[2, :], Ȳ[2, :], lw = 3, label = "True Missing Term", color = c2)
 
-p3 = scatter(solution, color = [c1 c2], label = ["x data" "y data"],
+p3 = Plots.scatter(solution, color = [c1 c2], label = ["x data" "y data"],
     title = "Extrapolated Fit From Short Training Data",
     titlefont = "Helvetica", legendfont = "Helvetica",
     markersize = 5)
@@ -542,8 +542,8 @@ Plots.plot!(p3, true_solution_long, color = [c1 c2], linestyle = :dot, lw = 5,
 Plots.plot!(p3, estimate_long, color = [c3 c4], lw = 1,
     label = ["Estimated x(t)" "Estimated y(t)"])
 Plots.plot!(p3, [2.99, 3.01], [0.0, 10.0], lw = 1, color = :black, label = nothing)
-annotate!([(1.5, 13, text("Training \nData", 10, :center, :top, :black, "Helvetica"))])
-l = @layout [grid(1, 2)
-             grid(1, 1)]
+Plots.annotate!([(1.5, 13, text("Training \nData", 10, :center, :top, :black, "Helvetica"))])
+l = Plots.@layout [Plots.grid(1, 2)
+                   Plots.grid(1, 1)]
 Plots.plot(p1, p2, p3, layout = l)
 ```
