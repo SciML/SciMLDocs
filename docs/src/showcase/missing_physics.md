@@ -542,7 +542,7 @@ Plots.plot!(p3, true_solution_long, color = [c1 c2], linestyle = :dot, lw = 5,
 Plots.plot!(p3, estimate_long, color = [c3 c4], lw = 1,
     label = ["Estimated x(t)" "Estimated y(t)"])
 Plots.plot!(p3, [2.99, 3.01], [0.0, 10.0], lw = 1, color = :black, label = nothing)
-Plots.annotate!([(1.5, 13, text("Training \nData", 10, :center, :top, :black, "Helvetica"))])
+Plots.annotate!([(1.5, 13, Plots.text("Training \nData", 10, :center, :top, :black, "Helvetica"))])
 l = Plots.@layout [Plots.grid(1, 2)
                    Plots.grid(1, 1)]
 Plots.plot(p1, p2, p3, layout = l)
