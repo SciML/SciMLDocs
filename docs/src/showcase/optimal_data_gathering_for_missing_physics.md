@@ -58,11 +58,11 @@ This can be implemented in MTK as:
         y_x_s = 0.777
         m = 0.0
     end
-    MTK.@parameters begin
+    @parameters begin
         controls[1:length(optimization_state)-1] = optimization_state[2:end], [tunable = false] # optimization_state is defined further below
         Q_in = optimization_initial, [tunable = false] # similar for optimization state
     end
-    MTK.@variables begin
+    @variables begin
         C_s(t) = 1.0
         C_x(t) = 1.0
         V(t) = 7.0
