@@ -32,7 +32,8 @@ import OptimizationOptimisers
 import Lux
 import LuxCUDA
 import ComponentArrays
-const gpud = LuxCUDA.gpu_device() # allocate a GPU device
+import MLDataDevices
+const gpud = MLDataDevices.gpu_device() # allocate a GPU device
 
 # Standard Libraries
 import Printf
