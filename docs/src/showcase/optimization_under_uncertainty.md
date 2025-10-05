@@ -34,8 +34,8 @@ For this particular problem, we wish to measure the impact distance from a point
 
 ```@example control
 stop_condition(u, t, integrator) = u[1] - 25.0
-stop_cb = DE.DE.ContinuousCallback(stop_condition, DE.terminate!)
-cbs = DE.DE.CallbackSet(ground_cb, stop_cb)
+stop_cb = DE.ContinuousCallback(stop_condition, DE.terminate!)
+cbs = DE.CallbackSet(ground_cb, stop_cb)
 
 tspan = (0.0, 1500.0)
 prob = DE.ODEProblem(ball!, u0, tspan, p)
@@ -68,9 +68,9 @@ import Distributions
 cor_dist = Distributions.truncated(Distributions.Normal(0.9, 0.02), 0.9 - 3 * 0.02, 1.0)
 trajectories = 100
 
-prob_func(prob, i, repeat) = DE.DE.remake(prob, p = [p[1], rand(cor_dist)])
-ensemble_prob = DE.DE.EnsembleProblem(prob, prob_func = prob_func)
-ensemblesol = DE.solve(ensemble_prob, DE.Tsit5(), DE.DE.EnsembleThreads(), trajectories = trajectories,
+prob_func(prob, i, repeat) = DE.remake(prob, p = [p[1], rand(cor_dist)])
+ensemble_prob = DE.EnsembleProblem(prob, prob_func = prob_func)
+ensemblesol = DE.solve(ensemble_prob, DE.Tsit5(), DE.EnsembleThreads(), trajectories = trajectories,
     callback = cbs)
 
 begin # plot
