@@ -11,7 +11,7 @@ few useful/interesting types that can be used:
 | ArbFloat                 | [ArbNumerics.jl](https://github.com/JeffreySarnoff/ArbNumerics.jl)                         | More efficient higher precision solutions                       |
 | Measurement              | [Measurements.jl](https://github.com/JuliaPhysics/Measurements.jl)                    | Uncertainty propagation                                         |
 | Particles                | [MonteCarloMeasurements.jl](https://github.com/baggepinnen/MonteCarloMeasurements.jl) | Uncertainty propagation                                         |
-| Unitful                  | [Unitful.jl](https://painterqubits.github.io/Unitful.jl/stable/)                      | Unit-checked arithmetic                                         |
+| Unitful                  | [Unitful.jl](https://juliaphysics.github.io/Unitful.jl/stable/)                      | Unit-checked arithmetic                                         |
 | Quaternion               | [Quaternions.jl](https://juliageometry.github.io/Quaternions.jl/stable/)              | Quaternions, duh.                                               |
 | Fun                      | [ApproxFun.jl](https://juliaapproximation.github.io/ApproxFun.jl/latest/)             | Representing PDEs as ODEs in function spaces                    |
 | AbstractOrthoPoly        | [PolyChaos.jl](https://docs.sciml.ai/PolyChaos/stable/)                               | Polynomial Chaos Expansion (PCE) for uncertainty quantification |
