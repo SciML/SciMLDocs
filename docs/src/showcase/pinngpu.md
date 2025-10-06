@@ -22,7 +22,8 @@ our packages look like:
 # High Level Interface
 import NeuralPDE
 import ModelingToolkit as MTK
-using ModelingToolkit: @parameters, @variables, Differential, Interval, PDESystem
+using ModelingToolkit: @parameters, @variables, Differential, PDESystem
+using DomainSets: Interval
 
 # Optimization Libraries
 import Optimization as OPT
