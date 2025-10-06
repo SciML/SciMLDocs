@@ -9,6 +9,7 @@ First let's consider a 2D bouncing ball, where the states are the horizontal pos
 ```@example control
 import DifferentialEquations as DE
 import Plots
+import Statistics
 
 function ball!(du, u, p, t)
     du[1] = u[2]
@@ -97,7 +98,7 @@ obs(sol, p) = abs2(sol[3, end] - 25)
 With the observable defined, we can compute the expected squared miss distance from our Monte Carlo simulation results as
 
 ```@example control
-mean_ensemble = mean([obs(sol, p) for sol in ensemblesol])
+mean_ensemble = Statistics.mean([obs(sol, p) for sol in ensemblesol])
 ```
 
 Alternatively, we can use the `Koopman()` algorithm in SciMLExpectations.jl to compute this expectation much more efficiently as
@@ -230,8 +231,8 @@ end
 Using the previously computed optimal initial conditions, let's compute the probability of hitting this wall
 
 ```@example control
-sm = SystemMap(DE.remake(prob, u0 = make_u0(minx)), DE.Tsit5(), callback = cbs)
-exprob = ExpectationProblem(sm, constraint_obs, h, gd; nout = 1)
+sm = SciMLExpectations.SystemMap(DE.remake(prob, u0 = make_u0(minx)), DE.Tsit5(), callback = cbs)
+exprob = SciMLExpectations.ExpectationProblem(sm, constraint_obs, h, gd; nout = 1)
 sol = DE.solve(exprob, Koopman(), ireltol = 1e-5)
 sol.u
 ```
@@ -241,8 +242,8 @@ We then set up the constraint function for NLopt just as before.
 ```@example control
 function 𝔼_constraint(res, θ, pars)
     prob = DE.ODEProblem(ball!, make_u0(θ), tspan, p)
-    sm = SystemMap(prob, DE.Tsit5(), callback = cbs)
-    exprob = ExpectationProblem(sm, constraint_obs, h, gd; nout = 1)
+    sm = SciMLExpectations.SystemMap(prob, DE.Tsit5(), callback = cbs)
+    exprob = SciMLExpectations.ExpectationProblem(sm, constraint_obs, h, gd; nout = 1)
     sol = DE.solve(exprob, Koopman(), ireltol = 1e-5)
     res .= sol.u
 end
@@ -250,8 +251,8 @@ opt_lcons = [-Inf]
 opt_ucons = [0.01]
 optimizer = OptimizationMOI.MOI.OptimizerWithAttributes(NLopt.Optimizer,
     "algorithm" => :LD_MMA)
-opt_f = OptimizationFunction(𝔼_loss, Optimization.AutoForwardDiff(), cons = 𝔼_constraint)
-opt_prob = OptimizationProblem(opt_f, opt_ini; lb = opt_lb, ub = opt_ub, lcons = opt_lcons,
+opt_f = OPT.OptimizationFunction(𝔼_loss, Optimization.AutoForwardDiff(), cons = 𝔼_constraint)
+opt_prob = OPT.OptimizationProblem(opt_f, opt_ini; lb = opt_lb, ub = opt_ub, lcons = opt_lcons,
     ucons = opt_ucons)
 opt_sol = DE.solve(opt_prob, optimizer)
 minx2 = opt_sol.u
