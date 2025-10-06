@@ -101,7 +101,7 @@ With the observable defined, we can compute the expected squared miss distance f
 mean_ensemble = Statistics.mean([obs(sol, p) for sol in ensemblesol])
 ```
 
-Alternatively, we can use the `Koopman()` algorithm in SciMLExpectations.jl to compute this expectation much more efficiently as
+Alternatively, we can use the `SciMLExpectations.Koopman()` algorithm in SciMLExpectations.jl to compute this expectation much more efficiently as
 
 ```@example control
 import SciMLExpectations
@@ -233,7 +233,7 @@ Using the previously computed optimal initial conditions, let's compute the prob
 ```@example control
 sm = SciMLExpectations.SystemMap(DE.remake(prob, u0 = make_u0(minx)), DE.Tsit5(), callback = cbs)
 exprob = SciMLExpectations.ExpectationProblem(sm, constraint_obs, h, gd; nout = 1)
-sol = DE.solve(exprob, Koopman(), ireltol = 1e-5)
+sol = DE.solve(exprob, SciMLExpectations.Koopman(), ireltol = 1e-5)
 sol.u
 ```
 
@@ -244,7 +244,7 @@ function 𝔼_constraint(res, θ, pars)
     prob = DE.ODEProblem(ball!, make_u0(θ), tspan, p)
     sm = SciMLExpectations.SystemMap(prob, DE.Tsit5(), callback = cbs)
     exprob = SciMLExpectations.ExpectationProblem(sm, constraint_obs, h, gd; nout = 1)
-    sol = DE.solve(exprob, Koopman(), ireltol = 1e-5)
+    sol = DE.solve(exprob, SciMLExpectations.Koopman(), ireltol = 1e-5)
     res .= sol.u
 end
 opt_lcons = [-Inf]
