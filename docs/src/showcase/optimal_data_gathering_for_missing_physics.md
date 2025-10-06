@@ -107,7 +107,7 @@ We thus extend the bioreactor MTK model with this equation:
 ```@example DoE
 @mtkmodel TrueBioreactor begin
     @extend Bioreactor()
-    MTK.@parameters begin
+    @parameters begin
         μ_max = 0.421
         K_s = 0.439*10
     end
