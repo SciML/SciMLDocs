@@ -12,6 +12,7 @@ using Random; Random.seed!(984519674645)
 using StableRNGs; rng = StableRNG(845652695)
 import ModelingToolkit as MTK
 import ModelingToolkit: t_nounits as t, D_nounits as D, @mtkmodel, @mtkcompile, mtkcompile
+using ModelingToolkit
 import ModelingToolkitNeuralNets
 import OrdinaryDiffEqRosenbrock as ODE
 import SymbolicIndexingInterface
