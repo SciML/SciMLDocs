@@ -101,9 +101,9 @@ bcs = [u(t_min, x, y) ~ analytic_sol_func(t_min, x, y),
     u(t, x, y_max) ~ analytic_sol_func(t, x, y_max)]
 
 # Space and time domains
-domains = [t ∈ MTK.Interval(t_min, t_max),
-    x ∈ MTK.Interval(x_min, x_max),
-    y ∈ MTK.Interval(y_min, y_max)]
+domains = [t ∈ Interval(t_min, t_max),
+    x ∈ Interval(x_min, x_max),
+    y ∈ Interval(y_min, y_max)]
 
 @named pde_system = PDESystem(eq, bcs, domains, [t, x, y], [u(t, x, y)])
 ```
