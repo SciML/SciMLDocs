@@ -46,7 +46,7 @@ Plots.plot(sol, vars = (1, 3), label = nothing, xlabel = "x", ylabel = "y")
 To help visualize this problem, we plot as follows, where the star indicates a desired impact location
 
 ```@example control
-rectangle(xc, yc, w, h) = Shape(xc .+ [-w, w, w, -w] ./ 2.0, yc .+ [-h, -h, h, h] ./ 2.0)
+rectangle(xc, yc, w, h) = Plots.Shape(xc .+ [-w, w, w, -w] ./ 2.0, yc .+ [-h, -h, h, h] ./ 2.0)
 
 begin
     Plots.plot(sol, vars = (1, 3), label = nothing, lw = 3, c = :black)
