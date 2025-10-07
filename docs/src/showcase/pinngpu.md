@@ -106,7 +106,7 @@ domains = [t ∈ Interval(t_min, t_max),
     x ∈ Interval(x_min, x_max),
     y ∈ Interval(y_min, y_max)]
 
-@named pde_system = PDESystem(eq, bcs, domains, [t, x, y], [u(t, x, y)])
+MTK.@named pde_system = PDESystem(eq, bcs, domains, [t, x, y], [u(t, x, y)])
 ```
 
 !!! note
