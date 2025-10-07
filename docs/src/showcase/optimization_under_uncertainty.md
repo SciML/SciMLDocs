@@ -249,7 +249,7 @@ function 𝔼_constraint(res, θ, pars)
 end
 opt_lcons = [-Inf]
 opt_ucons = [0.01]
-optimizer = OptimizationMOI.MOI.OptimizerWithAttributes(NLopt.Optimizer,
+optimizer = OptimizationMOI.MOI.OptimizerWithAttributes(OptimizationNLopt.NLopt.Optimizer,
     "algorithm" => :LD_MMA)
 opt_f = OPT.OptimizationFunction(𝔼_loss, Optimization.AutoForwardDiff(), cons = 𝔼_constraint)
 opt_prob = OPT.OptimizationProblem(opt_f, opt_ini; lb = opt_lb, ub = opt_ub, lcons = opt_lcons,
