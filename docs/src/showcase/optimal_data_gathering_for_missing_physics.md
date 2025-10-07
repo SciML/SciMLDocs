@@ -131,8 +131,8 @@ Similarly, we can extend the bioreactor with a neural network to represent this 
         nn = ModelingToolkitNeuralNets.NeuralNetworkBlock(; n_input=1, n_output=1, chain, rng)
     end
     @equations begin
-        nn.output.u[1] ~ μ
-        nn.input.u[1] ~ C_s
+        nn.outputs[1] ~ μ
+        nn.inputs[1] ~ C_s
     end
 end
 nothing # hide
