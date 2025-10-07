@@ -251,7 +251,7 @@ opt_lcons = [-Inf]
 opt_ucons = [0.01]
 optimizer = OptimizationMOI.MOI.OptimizerWithAttributes(OptimizationNLopt.NLopt.Optimizer,
     "algorithm" => :LD_MMA)
-opt_f = OPT.OptimizationFunction(𝔼_loss, Optimization.AutoForwardDiff(), cons = 𝔼_constraint)
+opt_f = OPT.OptimizationFunction(𝔼_loss, OPT.AutoForwardDiff(), cons = 𝔼_constraint)
 opt_prob = OPT.OptimizationProblem(opt_f, opt_ini; lb = opt_lb, ub = opt_ub, lcons = opt_lcons,
     ucons = opt_ucons)
 opt_sol = DE.solve(opt_prob, optimizer)
