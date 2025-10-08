@@ -196,7 +196,7 @@ function loss(x, (probs, get_varss, datas))
     loss
 end
 of = OPT.OptimizationFunction{true}(loss, SMS.AutoZygote())
-x0 = reduce(vcat, getindex.((default_values(ude_bioreactor),), tunable_parameters(ude_bioreactor)))
+x0 = reduce(vcat, getindex.((MTK.default_values(ude_bioreactor),), MTK.tunable_parameters(ude_bioreactor)))
 get_vars = getu(ude_bioreactor, [ude_bioreactor.C_s])
 ps = ([ude_prob], [get_vars], [data]);
 op = OPT.OptimizationProblem(of, x0, ps)
@@ -412,7 +412,7 @@ plot(ude_sol2[3,:])
 ude_prob_remake = remake(ude_prob, p=ude_prob2.p)
 sol_remake = ODE.solve(ude_prob_remake, ODE.Rodas5P())
 plot(sol_remake[3,:])
-x0 = reduce(vcat, getindex.((default_values(ude_bioreactor),), tunable_parameters(ude_bioreactor)))
+x0 = reduce(vcat, getindex.((MTK.default_values(ude_bioreactor),), MTK.tunable_parameters(ude_bioreactor)))
 
 get_vars2 = getu(ude_bioreactor2, [ude_bioreactor2.C_s])
 
@@ -523,7 +523,7 @@ sol3 = ODE.solve(prob3, ODE.Rodas5P())
 @mtkcompile ude_bioreactor3 = UDEBioreactor()
 ude_prob3 = ODE.ODEProblem(ude_bioreactor3, [], (0.0, 15.0), tstops=0:15, save_everystep=false)
 
-x0 = reduce(vcat, getindex.((default_values(ude_bioreactor3),), tunable_parameters(ude_bioreactor3)))
+x0 = reduce(vcat, getindex.((MTK.default_values(ude_bioreactor3),), MTK.tunable_parameters(ude_bioreactor3)))
 
 get_vars3 = getu(ude_bioreactor3, [ude_bioreactor3.C_s])
 
