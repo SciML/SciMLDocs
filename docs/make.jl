@@ -31,6 +31,7 @@ makedocs(sitename = "Overview of Julia's SciML",
         "https://github.com/JuliaDiff/ForwardDiff.jl/blob/master/docs/src/dev/how_it_works.md",
         "https://github.com/SciML/Optimization.jl/blob/master/lib/OptimizationPolyalgorithms/src/OptimizationPolyalgorithms.jl",
         "http://www.scholarpedia.org/article/Differential-algebraic_equations",
+        "https://computing.llnl.gov/projects/sundials"
         ],
     format = Documenter.HTML(assets = ["assets/favicon.ico"],
         canonical = "https://docs.sciml.ai/stable/",
