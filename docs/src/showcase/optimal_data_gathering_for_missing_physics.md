@@ -11,7 +11,8 @@ To this end, we will rely on the following packages:
 using Random; Random.seed!(984519674645)
 using StableRNGs; rng = StableRNG(845652695)
 import ModelingToolkit as MTK
-import ModelingToolkit: t_nounits as t, D_nounits as D, @mtkcompile, mtkcompile
+import ModelingToolkit: t_nounits as t, D_nounits as D, @mtkmodel, @mtkcompile, mtkcompile
+using ModelingToolkit
 import ModelingToolkitNeuralNets
 import OrdinaryDiffEqRosenbrock as ODE
 import SymbolicIndexingInterface
@@ -58,11 +59,11 @@ This can be implemented in MTK as:
         y_x_s = 0.777
         m = 0.0
     end
-    MTK.@parameters begin
+    @parameters begin
         controls[1:length(optimization_state)-1] = optimization_state[2:end], [tunable = false] # optimization_state is defined further below
         Q_in = optimization_initial, [tunable = false] # similar for optimization state
     end
-    MTK.@variables begin
+    @variables begin
         C_s(t) = 1.0
         C_x(t) = 1.0
         V(t) = 7.0
@@ -106,7 +107,7 @@ We thus extend the bioreactor MTK model with this equation:
 ```@example DoE
 @mtkmodel TrueBioreactor begin
     @extend Bioreactor()
-    MTK.@parameters begin
+    @parameters begin
         μ_max = 0.421
         K_s = 0.439*10
     end
@@ -127,11 +128,11 @@ Similarly, we can extend the bioreactor with a neural network to represent this 
                           Lux.Dense(5, 1, x->1*sigmoid(x)))
     end
     @components begin
-        nn = NeuralNetworkBlock(; n_input=1, n_output=1, chain, rng)
+        nn = ModelingToolkitNeuralNets.NeuralNetworkBlock(; n_input=1, n_output=1, chain, rng)
     end
     @equations begin
-        nn.output.u[1] ~ μ
-        nn.input.u[1] ~ C_s
+        nn.outputs[1] ~ μ
+        nn.inputs[1] ~ C_s
     end
 end
 nothing # hide
@@ -195,7 +196,7 @@ function loss(x, (probs, get_varss, datas))
     loss
 end
 of = OPT.OptimizationFunction{true}(loss, SMS.AutoZygote())
-x0 = reduce(vcat, getindex.((default_values(ude_bioreactor),), tunable_parameters(ude_bioreactor)))
+x0 = reduce(vcat, getindex.((MTK.default_values(ude_bioreactor),), MTK.tunable_parameters(ude_bioreactor)))
 get_vars = getu(ude_bioreactor, [ude_bioreactor.C_s])
 ps = ([ude_prob], [get_vars], [data]);
 op = OPT.OptimizationProblem(of, x0, ps)
@@ -411,7 +412,7 @@ plot(ude_sol2[3,:])
 ude_prob_remake = remake(ude_prob, p=ude_prob2.p)
 sol_remake = ODE.solve(ude_prob_remake, ODE.Rodas5P())
 plot(sol_remake[3,:])
-x0 = reduce(vcat, getindex.((default_values(ude_bioreactor),), tunable_parameters(ude_bioreactor)))
+x0 = reduce(vcat, getindex.((MTK.default_values(ude_bioreactor),), MTK.tunable_parameters(ude_bioreactor)))
 
 get_vars2 = getu(ude_bioreactor2, [ude_bioreactor2.C_s])
 
@@ -522,7 +523,7 @@ sol3 = ODE.solve(prob3, ODE.Rodas5P())
 @mtkcompile ude_bioreactor3 = UDEBioreactor()
 ude_prob3 = ODE.ODEProblem(ude_bioreactor3, [], (0.0, 15.0), tstops=0:15, save_everystep=false)
 
-x0 = reduce(vcat, getindex.((default_values(ude_bioreactor3),), tunable_parameters(ude_bioreactor3)))
+x0 = reduce(vcat, getindex.((MTK.default_values(ude_bioreactor3),), MTK.tunable_parameters(ude_bioreactor3)))
 
 get_vars3 = getu(ude_bioreactor3, [ude_bioreactor3.C_s])
 

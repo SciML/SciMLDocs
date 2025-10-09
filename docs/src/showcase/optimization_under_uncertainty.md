@@ -9,6 +9,7 @@ First let's consider a 2D bouncing ball, where the states are the horizontal pos
 ```@example control
 import DifferentialEquations as DE
 import Plots
+import Statistics
 
 function ball!(du, u, p, t)
     du[1] = u[2]
@@ -19,7 +20,7 @@ end
 
 ground_condition(u, t, integrator) = u[3]
 ground_affect!(integrator) = integrator.u[4] = -integrator.p[2] * integrator.u[4]
-ground_cb = DE.DE.ContinuousCallback(ground_condition, ground_affect!)
+ground_cb = DE.ContinuousCallback(ground_condition, ground_affect!)
 
 u0 = [0.0, 2.0, 50.0, 0.0]
 tspan = (0.0, 50.0)
@@ -34,8 +35,8 @@ For this particular problem, we wish to measure the impact distance from a point
 
 ```@example control
 stop_condition(u, t, integrator) = u[1] - 25.0
-stop_cb = DE.DE.ContinuousCallback(stop_condition, DE.terminate!)
-cbs = DE.DE.CallbackSet(ground_cb, stop_cb)
+stop_cb = DE.ContinuousCallback(stop_condition, DE.terminate!)
+cbs = DE.CallbackSet(ground_cb, stop_cb)
 
 tspan = (0.0, 1500.0)
 prob = DE.ODEProblem(ball!, u0, tspan, p)
@@ -46,7 +47,7 @@ Plots.plot(sol, vars = (1, 3), label = nothing, xlabel = "x", ylabel = "y")
 To help visualize this problem, we plot as follows, where the star indicates a desired impact location
 
 ```@example control
-rectangle(xc, yc, w, h) = Shape(xc .+ [-w, w, w, -w] ./ 2.0, yc .+ [-h, -h, h, h] ./ 2.0)
+rectangle(xc, yc, w, h) = Plots.Shape(xc .+ [-w, w, w, -w] ./ 2.0, yc .+ [-h, -h, h, h] ./ 2.0)
 
 begin
     Plots.plot(sol, vars = (1, 3), label = nothing, lw = 3, c = :black)
@@ -68,9 +69,9 @@ import Distributions
 cor_dist = Distributions.truncated(Distributions.Normal(0.9, 0.02), 0.9 - 3 * 0.02, 1.0)
 trajectories = 100
 
-prob_func(prob, i, repeat) = DE.DE.remake(prob, p = [p[1], rand(cor_dist)])
-ensemble_prob = DE.DE.EnsembleProblem(prob, prob_func = prob_func)
-ensemblesol = DE.solve(ensemble_prob, DE.Tsit5(), DE.DE.EnsembleThreads(), trajectories = trajectories,
+prob_func(prob, i, repeat) = DE.remake(prob, p = [p[1], rand(cor_dist)])
+ensemble_prob = DE.EnsembleProblem(prob, prob_func = prob_func)
+ensemblesol = DE.solve(ensemble_prob, DE.Tsit5(), DE.EnsembleThreads(), trajectories = trajectories,
     callback = cbs)
 
 begin # plot
@@ -97,10 +98,10 @@ obs(sol, p) = abs2(sol[3, end] - 25)
 With the observable defined, we can compute the expected squared miss distance from our Monte Carlo simulation results as
 
 ```@example control
-mean_ensemble = mean([obs(sol, p) for sol in ensemblesol])
+mean_ensemble = Statistics.mean([obs(sol, p) for sol in ensemblesol])
 ```
 
-Alternatively, we can use the `Koopman()` algorithm in SciMLExpectations.jl to compute this expectation much more efficiently as
+Alternatively, we can use the `SciMLExpectations.Koopman()` algorithm in SciMLExpectations.jl to compute this expectation much more efficiently as
 
 ```@example control
 import SciMLExpectations
@@ -230,9 +231,9 @@ end
 Using the previously computed optimal initial conditions, let's compute the probability of hitting this wall
 
 ```@example control
-sm = SystemMap(DE.remake(prob, u0 = make_u0(minx)), DE.Tsit5(), callback = cbs)
-exprob = ExpectationProblem(sm, constraint_obs, h, gd; nout = 1)
-sol = DE.solve(exprob, Koopman(), ireltol = 1e-5)
+sm = SciMLExpectations.SystemMap(DE.remake(prob, u0 = make_u0(minx)), DE.Tsit5(), callback = cbs)
+exprob = SciMLExpectations.ExpectationProblem(sm, constraint_obs, h, gd; nout = 1)
+sol = DE.solve(exprob, SciMLExpectations.Koopman(), ireltol = 1e-5)
 sol.u
 ```
 
@@ -241,17 +242,17 @@ We then set up the constraint function for NLopt just as before.
 ```@example control
 function 𝔼_constraint(res, θ, pars)
     prob = DE.ODEProblem(ball!, make_u0(θ), tspan, p)
-    sm = SystemMap(prob, DE.Tsit5(), callback = cbs)
-    exprob = ExpectationProblem(sm, constraint_obs, h, gd; nout = 1)
-    sol = DE.solve(exprob, Koopman(), ireltol = 1e-5)
+    sm = SciMLExpectations.SystemMap(prob, DE.Tsit5(), callback = cbs)
+    exprob = SciMLExpectations.ExpectationProblem(sm, constraint_obs, h, gd; nout = 1)
+    sol = DE.solve(exprob, SciMLExpectations.Koopman(), ireltol = 1e-5)
     res .= sol.u
 end
 opt_lcons = [-Inf]
 opt_ucons = [0.01]
-optimizer = OptimizationMOI.MOI.OptimizerWithAttributes(NLopt.Optimizer,
+optimizer = OptimizationMOI.MOI.OptimizerWithAttributes(OptimizationNLopt.NLopt.Optimizer,
     "algorithm" => :LD_MMA)
-opt_f = OptimizationFunction(𝔼_loss, Optimization.AutoForwardDiff(), cons = 𝔼_constraint)
-opt_prob = OptimizationProblem(opt_f, opt_ini; lb = opt_lb, ub = opt_ub, lcons = opt_lcons,
+opt_f = OPT.OptimizationFunction(𝔼_loss, OPT.AutoForwardDiff(), cons = 𝔼_constraint)
+opt_prob = OPT.OptimizationProblem(opt_f, opt_ini; lb = opt_lb, ub = opt_ub, lcons = opt_lcons,
     ucons = opt_ucons)
 opt_sol = DE.solve(opt_prob, optimizer)
 minx2 = opt_sol.u

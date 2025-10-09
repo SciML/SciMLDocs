@@ -269,8 +269,7 @@ import DifferentialEquations as DE
 import ModelingToolkit as MTK
 import ModelingToolkit: t_nounits as t, D_nounits as D, @variables, @parameters, @named
 @parameters α=1.5 β=1.0 γ=3.0 δ=1.0
-@variables t 🐰(t)=1.0 🐺(t)=1.0
-D = MTK.Differential(t)
+@variables 🐰(t)=1.0 🐺(t)=1.0
 eqs = [D(🐰) ~ α * 🐰 - β * 🐰 * 🐺,
     D(🐺) ~ -γ * 🐺 + δ * 🐰 * 🐺]
 

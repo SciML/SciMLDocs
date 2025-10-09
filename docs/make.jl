@@ -26,7 +26,13 @@ makedocs(sitename = "Overview of Julia's SciML",
         "https://bkamins.github.io/julialang/2020/12/24/minilanguage.html",
         "https://arxiv.org/abs/2109.06786",
         "https://arxiv.org/abs/2001.04385",
-        "https://code.visualstudio.com/"],
+        "https://code.visualstudio.com/",
+        "https://www.biorxiv.org/content/10.1101/2020.11.28.402297v2",
+        "https://github.com/JuliaDiff/ForwardDiff.jl/blob/master/docs/src/dev/how_it_works.md",
+        "https://github.com/SciML/Optimization.jl/blob/master/lib/OptimizationPolyalgorithms/src/OptimizationPolyalgorithms.jl",
+        "http://www.scholarpedia.org/article/Differential-algebraic_equations",
+        "https://computing.llnl.gov/projects/sundials"
+        ],
     format = Documenter.HTML(assets = ["assets/favicon.ico"],
         canonical = "https://docs.sciml.ai/stable/",
         mathengine = mathengine),
@@ -79,7 +85,6 @@ makedocs(sitename = "Overview of Julia's SciML",
                 "highlevels/developer_documentation.md"],
             "Extra Learning Resources" => ["highlevels/learning_resources.md"]
         ]],
-    warnonly = true,
 )
 
 deploydocs(repo = "github.com/SciML/SciMLDocs")

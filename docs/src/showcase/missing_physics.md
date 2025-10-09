@@ -410,11 +410,11 @@ regressions:
 ```@example ude
 options = DataDrivenDiffEq.DataDrivenCommonOptions(maxiters = 10_000,
     normalize = DataDrivenDiffEq.DataNormalization(DataDrivenDiffEq.ZScoreTransform),
-    selector = bic, digits = 1,
+    selector = DataDrivenDiffEq.bic, digits = 1,
     data_processing = DataDrivenDiffEq.DataProcessing(split = 0.9,
         batchsize = 30,
         shuffle = true,
-        rng = StableRNG(1111)))
+        rng = StableRNGs.StableRNG(1111)))
 
 full_res = DataDrivenDiffEq.solve(full_problem, basis, opt, options = options)
 full_eqs = DataDrivenDiffEq.get_basis(full_res)
@@ -424,11 +424,11 @@ println(full_res)
 ```@example ude
 options = DataDrivenDiffEq.DataDrivenCommonOptions(maxiters = 10_000,
     normalize = DataDrivenDiffEq.DataNormalization(DataDrivenDiffEq.ZScoreTransform),
-    selector = bic, digits = 1,
+    selector = DataDrivenDiffEq.bic, digits = 1,
     data_processing = DataDrivenDiffEq.DataProcessing(split = 0.9,
         batchsize = 30,
         shuffle = true,
-        rng = StableRNG(1111)))
+        rng = StableRNGs.StableRNG(1111)))
 
 ideal_res = DataDrivenDiffEq.solve(ideal_problem, basis, opt, options = options)
 ideal_eqs = DataDrivenDiffEq.get_basis(ideal_res)
@@ -438,11 +438,11 @@ println(ideal_res)
 ```@example ude
 options = DataDrivenDiffEq.DataDrivenCommonOptions(maxiters = 10_000,
     normalize = DataDrivenDiffEq.DataNormalization(DataDrivenDiffEq.ZScoreTransform),
-    selector = bic, digits = 1,
+    selector = DataDrivenDiffEq.bic, digits = 1,
     data_processing = DataDrivenDiffEq.DataProcessing(split = 0.9,
         batchsize = 30,
         shuffle = true,
-        rng = StableRNG(1111)))
+        rng = StableRNGs.StableRNG(1111)))
 
 nn_res = DataDrivenDiffEq.solve(nn_problem, basis, opt, options = options)
 nn_eqs = DataDrivenDiffEq.get_basis(nn_res)
@@ -525,14 +525,14 @@ p1 = Plots.plot(t, abs.(Array(solution) .- estimate)' .+ eps(Float32),
     legend = :topright)
 
 # Plot L₂
-p2 = plot3d(X̂[1, :], X̂[2, :], Ŷ[2, :], lw = 3,
+p2 = Plots.plot3d(X̂[1, :], X̂[2, :], Ŷ[2, :], lw = 3,
     title = "Neural Network Fit of U2(t)", color = c1,
     label = "Neural Network", xaxis = "x", yaxis = "y",
     titlefont = "Helvetica", legendfont = "Helvetica",
     legend = :bottomright)
 Plots.plot!(X̂[1, :], X̂[2, :], Ȳ[2, :], lw = 3, label = "True Missing Term", color = c2)
 
-p3 = scatter(solution, color = [c1 c2], label = ["x data" "y data"],
+p3 = Plots.scatter(solution, color = [c1 c2], label = ["x data" "y data"],
     title = "Extrapolated Fit From Short Training Data",
     titlefont = "Helvetica", legendfont = "Helvetica",
     markersize = 5)
@@ -542,8 +542,8 @@ Plots.plot!(p3, true_solution_long, color = [c1 c2], linestyle = :dot, lw = 5,
 Plots.plot!(p3, estimate_long, color = [c3 c4], lw = 1,
     label = ["Estimated x(t)" "Estimated y(t)"])
 Plots.plot!(p3, [2.99, 3.01], [0.0, 10.0], lw = 1, color = :black, label = nothing)
-annotate!([(1.5, 13, text("Training \nData", 10, :center, :top, :black, "Helvetica"))])
-l = @layout [grid(1, 2)
-             grid(1, 1)]
+Plots.annotate!([(1.5, 13, Plots.text("Training \nData", 10, :center, :top, :black, "Helvetica"))])
+l = Plots.@layout [Plots.grid(1, 2)
+                   Plots.grid(1, 1)]
 Plots.plot(p1, p2, p3, layout = l)
 ```

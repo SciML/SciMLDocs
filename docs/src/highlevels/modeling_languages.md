@@ -80,7 +80,7 @@ making it a solid foundation for any agent-based model.
 ## Unitful.jl: A Julia package for physical units
 
 Supports not only SI units, but also any other unit system.
-[Unitful.jl](https://painterqubits.github.io/Unitful.jl/stable/) has minimal run-time penalty of units.
+[Unitful.jl](https://juliaphysics.github.io/Unitful.jl/stable/) has minimal run-time penalty of units.
 Includes facilities for dimensional analysis, and integrates easily with the usual mathematical operations and collections that are defined in Julia.
 
 ## ReactionMechanismSimulator.jl: Simulation and Analysis of Large Chemical Reaction Systems
