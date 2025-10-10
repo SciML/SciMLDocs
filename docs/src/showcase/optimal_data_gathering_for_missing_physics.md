@@ -197,7 +197,7 @@ function loss(x, (probs, get_varss, datas))
 end
 of = OPT.OptimizationFunction{true}(loss, SMS.AutoZygote())
 x0 = reduce(vcat, getindex.((MTK.default_values(ude_bioreactor),), MTK.tunable_parameters(ude_bioreactor)))
-get_vars = getu(ude_bioreactor, [ude_bioreactor.C_s])
+get_vars = SymbolicIndexingInterface.getu(ude_bioreactor, [ude_bioreactor.C_s])
 ps = ([ude_prob], [get_vars], [data]);
 op = OPT.OptimizationProblem(of, x0, ps)
 res = OPT.solve(op, OptOptim.LBFGS(), maxiters=1000)
@@ -414,7 +414,7 @@ sol_remake = ODE.solve(ude_prob_remake, ODE.Rodas5P())
 plot(sol_remake[3,:])
 x0 = reduce(vcat, getindex.((MTK.default_values(ude_bioreactor),), MTK.tunable_parameters(ude_bioreactor)))
 
-get_vars2 = getu(ude_bioreactor2, [ude_bioreactor2.C_s])
+get_vars2 = SymbolicIndexingInterface.getu(ude_bioreactor2, [ude_bioreactor2.C_s])
 
 data2 = DataFrame(sol2)
 data2 = data2[1:2:end, :]
@@ -525,7 +525,7 @@ ude_prob3 = ODE.ODEProblem(ude_bioreactor3, [], (0.0, 15.0), tstops=0:15, save_e
 
 x0 = reduce(vcat, getindex.((MTK.default_values(ude_bioreactor3),), MTK.tunable_parameters(ude_bioreactor3)))
 
-get_vars3 = getu(ude_bioreactor3, [ude_bioreactor3.C_s])
+get_vars3 = SymbolicIndexingInterface.getu(ude_bioreactor3, [ude_bioreactor3.C_s])
 
 data3 = DataFrame(sol3)
 data3 = data3[1:2:end, :]
