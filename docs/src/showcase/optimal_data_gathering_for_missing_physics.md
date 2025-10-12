@@ -7,7 +7,7 @@ High quality data is needed to ensure the true dynamics are recovered.
 In this tutorial, we look at an efficient data gathering technique for SciML models,
 using a bioreactor example.
 To this end, we will rely on the following packages:
-```@example DoE
+```julia
 using Random; Random.seed!(984519674645)
 using StableRNGs; rng = StableRNG(845652695)
 import ModelingToolkit as MTK
@@ -52,7 +52,7 @@ This pumped substrate has known concentration $C_{s_{in}}$.
 The goal is to optimize the control action $Q_{in}(t)$, such that $μ(t)$ can be estimated as precisely as possible.
 We restrict $Q_{in}(t)$ to piecewise constant functions.
 This can be implemented in MTK as:
-```@example DoE
+```julia
 @mtkmodel Bioreactor begin
     @constants begin
         C_s_in = 50.0
@@ -104,7 +104,7 @@ The true value of $μ(t)$, which must be recovered is the Monod equation.
 \end{equation*}
 ```
 We thus extend the bioreactor MTK model with this equation:
-```@example DoE
+```julia
 @mtkmodel TrueBioreactor begin
     @extend Bioreactor()
     @parameters begin
@@ -119,7 +119,7 @@ nothing # hide
 ```
 
 Similarly, we can extend the bioreactor with a neural network to represent this missing physics.
-```@example DoE
+```julia
 @mtkmodel UDEBioreactor begin
     @extend Bioreactor()
     @structural_parameters begin
@@ -143,7 +143,7 @@ Because we don't yet know anything about the missing physics,
 we arbitrarily pick the zero control action.
 The only state we measure is $C_s$
 We also add some noise to the simulated data, to make it more realistic:
-```@example DoE
+```julia
 optimization_state =  zeros(15)
 optimization_initial = optimization_state[1] # HACK CAN'T GET THIS TO WORK WITHOUT SEPARATE SCALAR
 @mtkcompile true_bioreactor = TrueBioreactor()
@@ -175,7 +175,7 @@ plot(plts..., layout = 4, tickfontsize=10, guidefontsize=12, legendfontsize=14, 
 ```
 
 Now we can train the neural network to match this data:
-```@example DoE
+```julia
 function loss(x, (probs, get_varss, datas))
     loss = zero(eltype(x))
     for i in eachindex(probs)
@@ -197,7 +197,7 @@ function loss(x, (probs, get_varss, datas))
 end
 of = OPT.OptimizationFunction{true}(loss, SMS.AutoZygote())
 x0 = reduce(vcat, getindex.((MTK.default_values(ude_bioreactor),), MTK.tunable_parameters(ude_bioreactor)))
-get_vars = getu(ude_bioreactor, [ude_bioreactor.C_s])
+get_vars = SymbolicIndexingInterface.getu(ude_bioreactor, [ude_bioreactor.C_s])
 ps = ([ude_prob], [get_vars], [data]);
 op = OPT.OptimizationProblem(of, x0, ps)
 res = OPT.solve(op, OptOptim.LBFGS(), maxiters=1000)
@@ -234,7 +234,7 @@ However, the fit is poor at higher substrate concentrations,
 where we do not have data.
 
 We continue by making the neural network interpretable using symbolic regression.
-```@example DoE
+```julia
 options = SymbolicRegression.Options(
     unary_operators=(exp, sin, cos),
     binary_operators=(+, *, /, -),
@@ -247,7 +247,7 @@ hall_of_fame = equation_search(collect(data[!, "C_s(t)"])', μ_predicted_data; o
 ```
 Next, we extract the 10 model structures which symbolic regression thinks are best,
 and predict the system with them.
-```@example DoE
+```julia
 n_best = 10
 function get_model_structures(hall_of_fame, options, n_best)
     best_models = []
@@ -340,7 +340,7 @@ The criterion then calculates the average distance between all model structures.
 Collecting measurements where the plausible model structures differ greatly in predictions,
 will cause at least some of the model structures to become unlikely,
 and thus cause new model structures to enter the top 10 plausible model structures.
-```@example DoE
+```julia
 function S_criterion(optimization_state, (probs_plausible, syms_cache))
     n_structures = length(probs_plausible)
     sols = Array{Any}(undef, n_structures)
@@ -401,7 +401,7 @@ The above figure shows that a maximal control action is generally preferred.
 This causes the two aforementioned groups in the model structures to be easily discriminated from one another.
 
 We now gather a second dataset and perform the same exercise.
-```@example DoE
+```julia
 @mtkcompile true_bioreactor2 = TrueBioreactor()
 prob2 = ODE.ODEProblem(true_bioreactor2, [], (0.0, 15.0), [], tstops=0:15, save_everystep=false)
 sol2 = ODE.solve(prob2, ODE.Rodas5P())
@@ -414,7 +414,7 @@ sol_remake = ODE.solve(ude_prob_remake, ODE.Rodas5P())
 plot(sol_remake[3,:])
 x0 = reduce(vcat, getindex.((MTK.default_values(ude_bioreactor),), MTK.tunable_parameters(ude_bioreactor)))
 
-get_vars2 = getu(ude_bioreactor2, [ude_bioreactor2.C_s])
+get_vars2 = SymbolicIndexingInterface.getu(ude_bioreactor2, [ude_bioreactor2.C_s])
 
 data2 = DataFrame(sol2)
 data2 = data2[1:2:end, :]
@@ -477,7 +477,7 @@ However, we do not have any measurements at substrate concentrations between the
 This causes there to be substantial disagreement between the plausible model structures in the medium substrate concentration range.
 
 We now optimize the controls for a third experiment:
-```@example DoE
+```julia
 prob = OPT.OptimizationProblem(S_criterion, zeros(15), (probs_plausible, syms_cache), lb=lb, ub=ub)
 control_pars_opt = OPT.solve(prob, OptBBO.BBO_adaptive_de_rand_1_bin_radiuslimited(), maxtime=60.0)
 
@@ -516,7 +516,7 @@ This explains the staircase with increasing step heights form of the control fun
 After the staircase reaches the maximal control value, a zero control is used.
 Some model structures decrease more rapidly in substrate concentration than others.
 
-```@example DoE
+```julia
 @mtkcompile true_bioreactor3 = TrueBioreactor()
 prob3 = ODE.ODEProblem(true_bioreactor3, [], (0.0, 15.0), [], tstops=0:15, save_everystep=false)
 sol3 = ODE.solve(prob3, ODE.Rodas5P())
@@ -525,7 +525,7 @@ ude_prob3 = ODE.ODEProblem(ude_bioreactor3, [], (0.0, 15.0), tstops=0:15, save_e
 
 x0 = reduce(vcat, getindex.((MTK.default_values(ude_bioreactor3),), MTK.tunable_parameters(ude_bioreactor3)))
 
-get_vars3 = getu(ude_bioreactor3, [ude_bioreactor3.C_s])
+get_vars3 = SymbolicIndexingInterface.getu(ude_bioreactor3, [ude_bioreactor3.C_s])
 
 data3 = DataFrame(sol3)
 data3 = data3[1:2:end, :]
