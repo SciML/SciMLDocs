@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>SciML: Open Source Software for Scientific Machine Learning with Julia · Overview of Julia&#39;s SciML</title><meta name="title" content="SciML: Open Source Software for Scientific Machine Learning with Julia · Overview of Julia&#39;s SciML"/><meta property="og:title" content="SciML: Open Source Software for Scientific Machine Learning with Julia · Overview of Julia&#39;s SciML"/><meta property="twitter:title" content="SciML: Open Source Software for Scientific Machine Learning with Julia · Overview of Julia&#39;s SciML"/><meta name="description" content="Documentation for Overview of Julia&#39;s SciML."/><meta property="og:description" content="Documentation for Overview of Julia&#39;s SciML."/><meta property="twitter:description" content="Documentation for Overview of Julia&#39;s SciML."/><meta property="og:url" content="https://docs.sciml.ai/stable/"/><meta property="twitter:url" content="https://docs.sciml.ai/stable/"/><link rel="canonical" href="https://docs.sciml.ai/stable/"/><script data-outdated-warner src="assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="assets/documenter.js"></script><script src="search_index.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="assets/themeswap.js"></script><link href="assets/favicon.ico" rel="icon" type="image/x-icon"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href><img src="assets/logo.png" alt="Overview of Julia&#39;s SciML logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href>Overview of Julia&#39;s SciML</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li class="is-active"><a class="tocitem" href>SciML: Open Source Software for Scientific Machine Learning with Julia</a><ul class="internal"><li><a class="tocitem" href="#Where-to-Start?"><span>Where to Start?</span></a></li><li><a class="tocitem" href="#Reproducibility"><span>Reproducibility</span></a></li></ul></li><li><span class="tocitem">Getting Started</span><ul><li><a class="tocitem" href="getting_started/getting_started/">Getting Started with Julia&#39;s SciML</a></li><li><input class="collapse-toggle" id="menuitem-2-2" type="checkbox"/><label class="tocitem" for="menuitem-2-2"><span class="docs-label">New User Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="getting_started/installation/">Installing SciML Software</a></li><li><a class="tocitem" href="getting_started/first_simulation/">Build and run your first simulation with Julia&#39;s SciML</a></li><li><a class="tocitem" href="getting_started/first_optimization/">Solve your first optimization problem</a></li><li><a class="tocitem" href="getting_started/fit_simulation/">Fit a simulation to a dataset</a></li><li><a class="tocitem" href="getting_started/find_root/">Find the root of an equation (i.e. solve f(u)=0)</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-3" type="checkbox"/><label class="tocitem" for="menuitem-2-3"><span class="docs-label">Comparison With Other Tools</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="comparisons/python/">Getting Started with Julia&#39;s SciML for the Python User</a></li><li><a class="tocitem" href="comparisons/matlab/">Getting Started with Julia&#39;s SciML for the MATLAB User</a></li><li><a class="tocitem" href="comparisons/r/">Getting Started with Julia&#39;s SciML for the R User</a></li><li><a class="tocitem" href="comparisons/cppfortran/">Getting Started with Julia&#39;s SciML for the C++/Fortran User</a></li></ul></li></ul></li><li><span class="tocitem">Showcase of Cool Examples</span><ul><li><a class="tocitem" href="showcase/showcase/">The SciML Showcase</a></li><li><input class="collapse-toggle" id="menuitem-3-2" type="checkbox"/><label class="tocitem" for="menuitem-3-2"><span class="docs-label">Automated Model Discovery</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="showcase/missing_physics/">Automatically Discover Missing Physics by Embedding Machine Learning into Differential Equations</a></li><li><a class="tocitem" href="showcase/bayesian_neural_ode/">Uncertainty Quantified Deep Bayesian Model Discovery</a></li><li><a class="tocitem" href="showcase/optimal_data_gathering_for_missing_physics/">Optimal Data Gathering for Missing Physics</a></li><li><a class="tocitem" href="showcase/blackhole/">Discovering the Relativistic Corrections to Binary Black Hole Dynamics</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-3" type="checkbox"/><label class="tocitem" for="menuitem-3-3"><span class="docs-label">Solving Difficult Equations Efficiently</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="showcase/brusselator/">Automated Efficient Solution of Nonlinear Partial Differential Equations</a></li><li><a class="tocitem" href="showcase/pinngpu/">GPU-Accelerated Physics-Informed Neural Network (PINN) PDE Solvers</a></li><li><a class="tocitem" href="showcase/massively_parallel_gpu/">Massively Data-Parallel ODE Solving on GPUs</a></li><li><a class="tocitem" href="showcase/gpu_spde/">GPU-Accelerated Stochastic Partial Differential Equations</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-4" type="checkbox"/><label class="tocitem" for="menuitem-3-4"><span class="docs-label">Useful Cool Wonky Things</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="showcase/ode_types/">Automatic Uncertainty Quantification, Arbitrary Precision, and Unit Checking in ODE Solutions using Julia&#39;s Type System</a></li><li><a class="tocitem" href="showcase/symbolic_analysis/">Symbolic-Numeric Analysis of Parameter Identifiability and Model Stability</a></li><li><a class="tocitem" href="showcase/optimization_under_uncertainty/">Optimization Under Uncertainty</a></li></ul></li></ul></li><li><span class="tocitem">What is SciML?</span><ul><li><a class="tocitem" href="overview/">Detailed Overview of the SciML Software Ecosystem</a></li><li><input class="collapse-toggle" id="menuitem-4-2" type="checkbox"/><label class="tocitem" for="menuitem-4-2"><span class="docs-label">Solvers</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="highlevels/equation_solvers/">Equation Solvers</a></li><li><a class="tocitem" href="highlevels/inverse_problems/">Parameter Estimation, Bayesian Analysis, and Inverse Problems</a></li><li><a class="tocitem" href="highlevels/partial_differential_equation_solvers/">Partial Differential Equations (PDE)</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-3" type="checkbox"/><label class="tocitem" for="menuitem-4-3"><span class="docs-label">Modeling Tools</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="highlevels/modeling_languages/">Modeling Languages</a></li><li><a class="tocitem" href="highlevels/model_libraries_and_importers/">Model Libraries and Importers</a></li><li><a class="tocitem" href="highlevels/symbolic_tools/">Symbolic Model Tooling and JuliaSymbolics</a></li><li><a class="tocitem" href="highlevels/array_libraries/">Modeling Array Libraries</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-4" type="checkbox"/><label class="tocitem" for="menuitem-4-4"><span class="docs-label">Simulation Analysis</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="highlevels/parameter_analysis/">Parameter Analysis Utilities</a></li><li><a class="tocitem" href="highlevels/uncertainty_quantification/">Uncertainty Quantification</a></li><li><a class="tocitem" href="highlevels/plots_visualization/">SciML-Supported Plotting and Visualization Libraries</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-5" type="checkbox"/><label class="tocitem" for="menuitem-4-5"><span class="docs-label">Machine Learning</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="highlevels/function_approximation/">Function Approximation</a></li><li><a class="tocitem" href="highlevels/implicit_layers/">Implicit Layer Deep Learning</a></li><li><a class="tocitem" href="highlevels/symbolic_learning/">Symbolic Learning and Artificial Intelligence</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-6" type="checkbox"/><label class="tocitem" for="menuitem-4-6"><span class="docs-label">Developer Tools</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="highlevels/numerical_utilities/">SciML Numerical Utility Libraries</a></li><li><a class="tocitem" href="highlevels/interfaces/">The SciML Interface Libraries</a></li><li><a class="tocitem" href="highlevels/developer_documentation/">Developer Documentation</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-7" type="checkbox"/><label class="tocitem" for="menuitem-4-7"><span class="docs-label">Extra Learning Resources</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="highlevels/learning_resources/">Curated Learning, Teaching, and Training Resources</a></li></ul></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>SciML: Open Source Software for Scientific Machine Learning with Julia</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>SciML: Open Source Software for Scientific Machine Learning with Julia</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/SciML/SciMLDocs" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/SciML/SciMLDocs/blob/main/docs/src/index.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="SciML:-Differentiable-Modeling-and-Simulation-Combined-with-Machine-Learning"><a class="docs-heading-anchor" href="#SciML:-Differentiable-Modeling-and-Simulation-Combined-with-Machine-Learning">SciML: Differentiable Modeling and Simulation Combined with Machine Learning</a><a id="SciML:-Differentiable-Modeling-and-Simulation-Combined-with-Machine-Learning-1"></a><a class="docs-heading-anchor-permalink" href="#SciML:-Differentiable-Modeling-and-Simulation-Combined-with-Machine-Learning" title="Permalink"></a></h1><p>The SciML organization is a collection of tools for solving equations and modeling systems developed in the Julia programming language with bindings to other languages such as R and Python. The organization provides well-maintained tools which compose together as a coherent ecosystem. It has a coherent development principle, unified APIs over large collections of equation solvers, pervasive differentiability and sensitivity analysis, and features many of the highest performance and parallel implementations one can find.</p><p><strong>Scientific Machine Learning (SciML) = Scientific Computing + Machine Learning</strong></p><h2 id="Where-to-Start?"><a class="docs-heading-anchor" href="#Where-to-Start?">Where to Start?</a><a id="Where-to-Start?-1"></a><a class="docs-heading-anchor-permalink" href="#Where-to-Start?" title="Permalink"></a></h2><ul><li>Want to get started running some code? Check out the <a href="getting_started/getting_started/#getting_started">Getting Started tutorials</a>.</li><li>What is SciML? Check out our <a href="overview/#overview">Overview</a>.</li><li>Want to see some cool end-to-end examples? Check out the <a href="showcase/showcase/#showcase">SciML Showcase</a>.</li><li>Curious about our performance claims? Check out <a href="https://benchmarks.sciml.ai/dev/">the SciML Open Benchmarks</a>.</li><li>Want to learn more about how SciML does scientific machine learning? Check out the <a href="https://book.sciml.ai/">SciML Book (from MIT&#39;s 18.337 graduate course)</a>.</li><li>Want to chat with someone? Check out <a href="https://julialang.zulipchat.com/#narrow/stream/279055-sciml-bridged">our chat room</a> and <a href="https://discourse.julialang.org/">forums</a>.</li><li>Want to see our code? Check out <a href="https://github.com/SciML">the SciML GitHub organization</a>.</li></ul><p>And for diving into the details, use the bar on the top to navigate to the submodule of interest!</p><h2 id="Reproducibility"><a class="docs-heading-anchor" href="#Reproducibility">Reproducibility</a><a id="Reproducibility-1"></a><a class="docs-heading-anchor-permalink" href="#Reproducibility" title="Permalink"></a></h2><details><summary>The documentation of the <a href="showcase/showcase/#showcase">SciML Showcase</a> was built using these direct dependencies,</summary><pre class="documenter-example-output"><code class="nohighlight hljs ansi"><span class="sgr32"><span class="sgr1">Status</span></span> `/var/lib/buildkite-agent/builds/gpuci-11/julialang/scimldocs/docs/Project.toml`
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>SciML: Open Source Software for Scientific Machine Learning with Julia · Overview of Julia&#39;s SciML</title><meta name="title" content="SciML: Open Source Software for Scientific Machine Learning with Julia · Overview of Julia&#39;s SciML"/><meta property="og:title" content="SciML: Open Source Software for Scientific Machine Learning with Julia · Overview of Julia&#39;s SciML"/><meta property="twitter:title" content="SciML: Open Source Software for Scientific Machine Learning with Julia · Overview of Julia&#39;s SciML"/><meta name="description" content="Documentation for Overview of Julia&#39;s SciML."/><meta property="og:description" content="Documentation for Overview of Julia&#39;s SciML."/><meta property="twitter:description" content="Documentation for Overview of Julia&#39;s SciML."/><meta property="og:url" content="https://docs.sciml.ai/stable/"/><meta property="twitter:url" content="https://docs.sciml.ai/stable/"/><link rel="canonical" href="https://docs.sciml.ai/stable/"/><script data-outdated-warner src="assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="assets/documenter.js"></script><script src="search_index.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="assets/themeswap.js"></script><link href="assets/favicon.ico" rel="icon" type="image/x-icon"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href><img src="assets/logo.png" alt="Overview of Julia&#39;s SciML logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href>Overview of Julia&#39;s SciML</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li class="is-active"><a class="tocitem" href>SciML: Open Source Software for Scientific Machine Learning with Julia</a><ul class="internal"><li><a class="tocitem" href="#Where-to-Start?"><span>Where to Start?</span></a></li><li><a class="tocitem" href="#Reproducibility"><span>Reproducibility</span></a></li></ul></li><li><span class="tocitem">Getting Started</span><ul><li><a class="tocitem" href="getting_started/getting_started/">Getting Started with Julia&#39;s SciML</a></li><li><input class="collapse-toggle" id="menuitem-2-2" type="checkbox"/><label class="tocitem" for="menuitem-2-2"><span class="docs-label">New User Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="getting_started/installation/">Installing SciML Software</a></li><li><a class="tocitem" href="getting_started/first_simulation/">Build and run your first simulation with Julia&#39;s SciML</a></li><li><a class="tocitem" href="getting_started/first_optimization/">Solve your first optimization problem</a></li><li><a class="tocitem" href="getting_started/fit_simulation/">Fit a simulation to a dataset</a></li><li><a class="tocitem" href="getting_started/find_root/">Find the root of an equation (i.e. solve f(u)=0)</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-3" type="checkbox"/><label class="tocitem" for="menuitem-2-3"><span class="docs-label">Comparison With Other Tools</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="comparisons/python/">Getting Started with Julia&#39;s SciML for the Python User</a></li><li><a class="tocitem" href="comparisons/matlab/">Getting Started with Julia&#39;s SciML for the MATLAB User</a></li><li><a class="tocitem" href="comparisons/r/">Getting Started with Julia&#39;s SciML for the R User</a></li><li><a class="tocitem" href="comparisons/cppfortran/">Getting Started with Julia&#39;s SciML for the C++/Fortran User</a></li></ul></li></ul></li><li><span class="tocitem">Showcase of Cool Examples</span><ul><li><a class="tocitem" href="showcase/showcase/">The SciML Showcase</a></li><li><input class="collapse-toggle" id="menuitem-3-2" type="checkbox"/><label class="tocitem" for="menuitem-3-2"><span class="docs-label">Automated Model Discovery</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="showcase/missing_physics/">Automatically Discover Missing Physics by Embedding Machine Learning into Differential Equations</a></li><li><a class="tocitem" href="showcase/bayesian_neural_ode/">Uncertainty Quantified Deep Bayesian Model Discovery</a></li><li><a class="tocitem" href="showcase/optimal_data_gathering_for_missing_physics/">Optimal Data Gathering for Missing Physics</a></li><li><a class="tocitem" href="showcase/blackhole/">Discovering the Relativistic Corrections to Binary Black Hole Dynamics</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-3" type="checkbox"/><label class="tocitem" for="menuitem-3-3"><span class="docs-label">Solving Difficult Equations Efficiently</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="showcase/brusselator/">Automated Efficient Solution of Nonlinear Partial Differential Equations</a></li><li><a class="tocitem" href="showcase/pinngpu/">GPU-Accelerated Physics-Informed Neural Network (PINN) PDE Solvers</a></li><li><a class="tocitem" href="showcase/massively_parallel_gpu/">Massively Data-Parallel ODE Solving on GPUs</a></li><li><a class="tocitem" href="showcase/gpu_spde/">GPU-Accelerated Stochastic Partial Differential Equations</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-4" type="checkbox"/><label class="tocitem" for="menuitem-3-4"><span class="docs-label">Useful Cool Wonky Things</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="showcase/ode_types/">Automatic Uncertainty Quantification, Arbitrary Precision, and Unit Checking in ODE Solutions using Julia&#39;s Type System</a></li><li><a class="tocitem" href="showcase/symbolic_analysis/">Symbolic-Numeric Analysis of Parameter Identifiability and Model Stability</a></li><li><a class="tocitem" href="showcase/optimization_under_uncertainty/">Optimization Under Uncertainty</a></li></ul></li></ul></li><li><span class="tocitem">What is SciML?</span><ul><li><a class="tocitem" href="overview/">Detailed Overview of the SciML Software Ecosystem</a></li><li><input class="collapse-toggle" id="menuitem-4-2" type="checkbox"/><label class="tocitem" for="menuitem-4-2"><span class="docs-label">Solvers</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="highlevels/equation_solvers/">Equation Solvers</a></li><li><a class="tocitem" href="highlevels/inverse_problems/">Parameter Estimation, Bayesian Analysis, and Inverse Problems</a></li><li><a class="tocitem" href="highlevels/partial_differential_equation_solvers/">Partial Differential Equations (PDE)</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-3" type="checkbox"/><label class="tocitem" for="menuitem-4-3"><span class="docs-label">Modeling Tools</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="highlevels/modeling_languages/">Modeling Languages</a></li><li><a class="tocitem" href="highlevels/model_libraries_and_importers/">Model Libraries and Importers</a></li><li><a class="tocitem" href="highlevels/symbolic_tools/">Symbolic Model Tooling and JuliaSymbolics</a></li><li><a class="tocitem" href="highlevels/array_libraries/">Modeling Array Libraries</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-4" type="checkbox"/><label class="tocitem" for="menuitem-4-4"><span class="docs-label">Simulation Analysis</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="highlevels/parameter_analysis/">Parameter Analysis Utilities</a></li><li><a class="tocitem" href="highlevels/uncertainty_quantification/">Uncertainty Quantification</a></li><li><a class="tocitem" href="highlevels/plots_visualization/">SciML-Supported Plotting and Visualization Libraries</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-5" type="checkbox"/><label class="tocitem" for="menuitem-4-5"><span class="docs-label">Machine Learning</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="highlevels/function_approximation/">Function Approximation</a></li><li><a class="tocitem" href="highlevels/implicit_layers/">Implicit Layer Deep Learning</a></li><li><a class="tocitem" href="highlevels/symbolic_learning/">Symbolic Learning and Artificial Intelligence</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-6" type="checkbox"/><label class="tocitem" for="menuitem-4-6"><span class="docs-label">Developer Tools</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="highlevels/numerical_utilities/">SciML Numerical Utility Libraries</a></li><li><a class="tocitem" href="highlevels/interfaces/">The SciML Interface Libraries</a></li><li><a class="tocitem" href="highlevels/developer_documentation/">Developer Documentation</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-7" type="checkbox"/><label class="tocitem" for="menuitem-4-7"><span class="docs-label">Extra Learning Resources</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="highlevels/learning_resources/">Curated Learning, Teaching, and Training Resources</a></li></ul></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>SciML: Open Source Software for Scientific Machine Learning with Julia</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>SciML: Open Source Software for Scientific Machine Learning with Julia</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/SciML/SciMLDocs" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/SciML/SciMLDocs/blob/main/docs/src/index.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="SciML:-Differentiable-Modeling-and-Simulation-Combined-with-Machine-Learning"><a class="docs-heading-anchor" href="#SciML:-Differentiable-Modeling-and-Simulation-Combined-with-Machine-Learning">SciML: Differentiable Modeling and Simulation Combined with Machine Learning</a><a id="SciML:-Differentiable-Modeling-and-Simulation-Combined-with-Machine-Learning-1"></a><a class="docs-heading-anchor-permalink" href="#SciML:-Differentiable-Modeling-and-Simulation-Combined-with-Machine-Learning" title="Permalink"></a></h1><p>The SciML organization is a collection of tools for solving equations and modeling systems developed in the Julia programming language with bindings to other languages such as R and Python. The organization provides well-maintained tools which compose together as a coherent ecosystem. It has a coherent development principle, unified APIs over large collections of equation solvers, pervasive differentiability and sensitivity analysis, and features many of the highest performance and parallel implementations one can find.</p><p><strong>Scientific Machine Learning (SciML) = Scientific Computing + Machine Learning</strong></p><h2 id="Where-to-Start?"><a class="docs-heading-anchor" href="#Where-to-Start?">Where to Start?</a><a id="Where-to-Start?-1"></a><a class="docs-heading-anchor-permalink" href="#Where-to-Start?" title="Permalink"></a></h2><ul><li>Want to get started running some code? Check out the <a href="getting_started/getting_started/#getting_started">Getting Started tutorials</a>.</li><li>What is SciML? Check out our <a href="overview/#overview">Overview</a>.</li><li>Want to see some cool end-to-end examples? Check out the <a href="showcase/showcase/#showcase">SciML Showcase</a>.</li><li>Curious about our performance claims? Check out <a href="https://benchmarks.sciml.ai/dev/">the SciML Open Benchmarks</a>.</li><li>Want to learn more about how SciML does scientific machine learning? Check out the <a href="https://book.sciml.ai/">SciML Book (from MIT&#39;s 18.337 graduate course)</a>.</li><li>Want to chat with someone? Check out <a href="https://julialang.zulipchat.com/#narrow/stream/279055-sciml-bridged">our chat room</a> and <a href="https://discourse.julialang.org/">forums</a>.</li><li>Want to see our code? Check out <a href="https://github.com/SciML">the SciML GitHub organization</a>.</li></ul><p>And for diving into the details, use the bar on the top to navigate to the submodule of interest!</p><h2 id="Reproducibility"><a class="docs-heading-anchor" href="#Reproducibility">Reproducibility</a><a id="Reproducibility-1"></a><a class="docs-heading-anchor-permalink" href="#Reproducibility" title="Permalink"></a></h2><details><summary>The documentation of the <a href="showcase/showcase/#showcase">SciML Showcase</a> was built using these direct dependencies,</summary><pre class="documenter-example-output"><code class="nohighlight hljs ansi"><span class="sgr32"><span class="sgr1">Status</span></span> `/var/lib/buildkite-agent/builds/gpuci-17/julialang/scimldocs/docs/Project.toml`
   <span class="sgr90">[0bf59076] </span>AdvancedHMC v0.8.2
   <span class="sgr90">[6e4b80f9] </span>BenchmarkTools v1.6.0
   <span class="sgr90">[336ed68f] </span>CSV v0.10.15
-<span class="sgr33">⌅</span> <span class="sgr90">[052768ef] </span>CUDA v5.8.4
+<span class="sgr33">⌅</span> <span class="sgr90">[052768ef] </span>CUDA v5.8.5
   <span class="sgr90">[b0b7db55] </span>ComponentArrays v0.15.29
-  <span class="sgr90">[2445eb08] </span>DataDrivenDiffEq v1.9.1
+  <span class="sgr90">[2445eb08] </span>DataDrivenDiffEq v1.10.0
   <span class="sgr90">[5b588203] </span>DataDrivenSparse v0.1.3
   <span class="sgr90">[a93c6f00] </span>DataFrames v1.8.0
   <span class="sgr90">[071ae1c0] </span>DiffEqGPU v3.8.0
   <span class="sgr90">[0c46a032] </span>DifferentialEquations v7.16.1
-  <span class="sgr90">[31c24e10] </span>Distributions v0.25.120
+  <span class="sgr90">[31c24e10] </span>Distributions v0.25.122
   <span class="sgr90">[e30172f5] </span>Documenter v1.14.1
   <span class="sgr90">[5b8099bc] </span>DomainSets v0.7.16
   <span class="sgr90">[587475ba] </span>Flux v0.16.5
@@ -18,30 +18,31 @@
   <span class="sgr90">[40713840] </span>IncompleteLU v0.2.1
   <span class="sgr90">[de52edbc] </span>Integrals v4.7.0
   <span class="sgr90">[d3d80556] </span>LineSearches v7.4.0
-  <span class="sgr90">[7ed4a6bd] </span>LinearSolve v3.40.2
+  <span class="sgr90">[7ed4a6bd] </span>LinearSolve v3.43.0
 <span class="sgr32">⌃</span> <span class="sgr90">[b2108857] </span>Lux v1.21.1
   <span class="sgr90">[d0bbae9a] </span>LuxCUDA v0.3.4
   <span class="sgr90">[bb33d45b] </span>LuxCore v1.4.2
-  <span class="sgr90">[c7f686f2] </span>MCMCChains v7.4.0
+  <span class="sgr90">[c7f686f2] </span>MCMCChains v7.5.0
+  <span class="sgr90">[7e8f7934] </span>MLDataDevices v1.13.0
   <span class="sgr90">[eff96d63] </span>Measurements v2.14.0
   <span class="sgr90">[94925ecb] </span>MethodOfLines v0.11.9
-  <span class="sgr90">[961ee093] </span>ModelingToolkit v10.23.0
-  <span class="sgr90">[f162e290] </span>ModelingToolkitNeuralNets v2.1.0
+  <span class="sgr90">[961ee093] </span>ModelingToolkit v10.25.0
+  <span class="sgr90">[f162e290] </span>ModelingToolkitNeuralNets v2.2.0
   <span class="sgr90">[87ed4bf0] </span>MultiDocumenter v0.8.0
   <span class="sgr90">[315f7962] </span>NeuralPDE v5.20.0
-  <span class="sgr90">[8913a72c] </span>NonlinearSolve v4.11.0
-  <span class="sgr90">[7f7a1694] </span>Optimization v4.7.0
-  <span class="sgr90">[3e6eede4] </span>OptimizationBBO v0.4.1
-  <span class="sgr90">[fd9f6733] </span>OptimizationMOI v0.5.6
-  <span class="sgr90">[4e6fcdb7] </span>OptimizationNLopt v0.3.3
-  <span class="sgr90">[36348300] </span>OptimizationOptimJL v0.4.4
-  <span class="sgr90">[42dfb2eb] </span>OptimizationOptimisers v0.3.10
-  <span class="sgr90">[500b13db] </span>OptimizationPolyalgorithms v0.3.0
+  <span class="sgr90">[8913a72c] </span>NonlinearSolve v4.12.0
+  <span class="sgr90">[7f7a1694] </span>Optimization v4.8.0
+<span class="sgr32">⌃</span> <span class="sgr90">[3e6eede4] </span>OptimizationBBO v0.4.2
+<span class="sgr32">⌃</span> <span class="sgr90">[fd9f6733] </span>OptimizationMOI v0.5.7
+<span class="sgr32">⌃</span> <span class="sgr90">[4e6fcdb7] </span>OptimizationNLopt v0.3.4
+<span class="sgr32">⌃</span> <span class="sgr90">[36348300] </span>OptimizationOptimJL v0.4.5
+<span class="sgr32">⌃</span> <span class="sgr90">[42dfb2eb] </span>OptimizationOptimisers v0.3.11
+  <span class="sgr90">[500b13db] </span>OptimizationPolyalgorithms v0.3.1
   <span class="sgr90">[1dea7af3] </span>OrdinaryDiffEq v6.102.1
   <span class="sgr90">[43230ef6] </span>OrdinaryDiffEqRosenbrock v1.18.1
   <span class="sgr90">[91a5bcdd] </span>Plots v1.41.1
   <span class="sgr90">[afe9f18d] </span>SciMLExpectations v2.3.0
-  <span class="sgr90">[1ed8b502] </span>SciMLSensitivity v7.89.0
+  <span class="sgr90">[1ed8b502] </span>SciMLSensitivity v7.90.0
   <span class="sgr90">[53ae85a6] </span>SciMLStructures v1.7.0
   <span class="sgr90">[860ef19b] </span>StableRNGs v1.0.3
   <span class="sgr90">[90137ffa] </span>StaticArrays v1.9.15
@@ -72,11 +73,11 @@ Environment:
   JULIA_DEBUG = Documenter
   JULIA_DEPOT_PATH = /root/.cache/julia-buildkite-plugin/depots/0183cc98-c3b4-4959-aaaa-6c0d5f351407
   LD_LIBRARY_PATH = /usr/local/nvidia/lib:/usr/local/nvidia/lib64
-  JULIA_PKG_SERVER =</code></pre></details><details><summary>A more complete overview of all dependencies and their versions is also provided.</summary><pre class="documenter-example-output"><code class="nohighlight hljs ansi"><span class="sgr32"><span class="sgr1">Status</span></span> `/var/lib/buildkite-agent/builds/gpuci-11/julialang/scimldocs/docs/Manifest.toml`
+  JULIA_PKG_SERVER =</code></pre></details><details><summary>A more complete overview of all dependencies and their versions is also provided.</summary><pre class="documenter-example-output"><code class="nohighlight hljs ansi"><span class="sgr32"><span class="sgr1">Status</span></span> `/var/lib/buildkite-agent/builds/gpuci-17/julialang/scimldocs/docs/Manifest.toml`
   <span class="sgr90">[47edcb42] </span>ADTypes v1.18.0
   <span class="sgr90">[a4c015fc] </span>ANSIColoredPrinters v0.0.1
   <span class="sgr90">[621f4979] </span>AbstractFFTs v1.5.0
-  <span class="sgr90">[80f14c24] </span>AbstractMCMC v5.8.0
+  <span class="sgr90">[80f14c24] </span>AbstractMCMC v5.8.2
   <span class="sgr90">[1520ce14] </span>AbstractTrees v0.4.5
   <span class="sgr90">[7d9f7c33] </span>Accessors v0.1.42
   <span class="sgr90">[79e6a3ab] </span>Adapt v4.4.0
@@ -87,12 +88,12 @@ Environment:
   <span class="sgr90">[ec485272] </span>ArnoldiMethod v0.4.0
   <span class="sgr90">[7d9fca2a] </span>Arpack v0.5.4
   <span class="sgr90">[4fba245c] </span>ArrayInterface v7.20.0
-  <span class="sgr90">[4c555306] </span>ArrayLayouts v1.11.2
+  <span class="sgr90">[4c555306] </span>ArrayLayouts v1.12.0
   <span class="sgr90">[a9b6321e] </span>Atomix v1.1.2
   <span class="sgr90">[13072b0f] </span>AxisAlgorithms v1.1.0
   <span class="sgr90">[39de3d68] </span>AxisArrays v0.4.8
-  <span class="sgr90">[ab4f0b2a] </span>BFloat16s v0.5.1
-  <span class="sgr90">[aae01518] </span>BandedMatrices v1.9.4
+<span class="sgr33">⌅</span> <span class="sgr90">[ab4f0b2a] </span>BFloat16s v0.5.1
+  <span class="sgr90">[aae01518] </span>BandedMatrices v1.9.5
   <span class="sgr90">[198e06fe] </span>BangBang v0.4.4
   <span class="sgr90">[9718e550] </span>Baselet v0.1.1
   <span class="sgr90">[6e4b80f9] </span>BenchmarkTools v1.6.0
@@ -108,16 +109,16 @@ Environment:
   <span class="sgr90">[1a22d4ce] </span>BoundaryValueDiffEqMIRK v1.9.0
   <span class="sgr90">[9255f1d6] </span>BoundaryValueDiffEqMIRKN v1.8.0
   <span class="sgr90">[ed55bfe0] </span>BoundaryValueDiffEqShooting v1.9.0
-  <span class="sgr90">[70df07ce] </span>BracketingNonlinearSolve v1.4.0
+  <span class="sgr90">[70df07ce] </span>BracketingNonlinearSolve v1.5.0
   <span class="sgr90">[fa961155] </span>CEnum v0.5.0
   <span class="sgr90">[2a0fbf3d] </span>CPUSummary v0.2.7
   <span class="sgr90">[a9c8d775] </span>CPUTime v1.0.0
   <span class="sgr90">[336ed68f] </span>CSV v0.10.15
-<span class="sgr33">⌅</span> <span class="sgr90">[052768ef] </span>CUDA v5.8.4
+<span class="sgr33">⌅</span> <span class="sgr90">[052768ef] </span>CUDA v5.8.5
   <span class="sgr90">[1af6417a] </span>CUDA_Runtime_Discovery v1.0.0
   <span class="sgr90">[49dc2e85] </span>Calculus v0.5.2
   <span class="sgr90">[7057c7e9] </span>Cassette v0.3.14
-  <span class="sgr90">[082447d4] </span>ChainRules v1.72.5
+  <span class="sgr90">[082447d4] </span>ChainRules v1.72.6
   <span class="sgr90">[d360d2e6] </span>ChainRulesCore v1.26.0
   <span class="sgr90">[fb6a15b2] </span>CloseOpenIntervals v0.1.13
   <span class="sgr90">[aaaa29a8] </span>Clustering v0.15.8
@@ -132,7 +133,7 @@ Environment:
   <span class="sgr90">[38540f10] </span>CommonSolve v0.2.4
   <span class="sgr90">[bbf7d656] </span>CommonSubexpressions v0.3.1
   <span class="sgr90">[f70d9fcc] </span>CommonWorldInvalidations v1.0.0
-  <span class="sgr90">[34da2185] </span>Compat v4.18.0
+  <span class="sgr90">[34da2185] </span>Compat v4.18.1
   <span class="sgr90">[b0b7db55] </span>ComponentArrays v0.15.29
   <span class="sgr90">[b152e2b5] </span>CompositeTypes v0.1.4
   <span class="sgr90">[a33af91c] </span>CompositionsBase v0.1.2
@@ -146,26 +147,26 @@ Environment:
   <span class="sgr90">[a8cc5b0e] </span>Crayons v4.1.1
   <span class="sgr90">[667455a9] </span>Cubature v1.5.1
   <span class="sgr90">[9a962f9c] </span>DataAPI v1.16.0
-  <span class="sgr90">[2445eb08] </span>DataDrivenDiffEq v1.9.1
+  <span class="sgr90">[2445eb08] </span>DataDrivenDiffEq v1.10.0
   <span class="sgr90">[5b588203] </span>DataDrivenSparse v0.1.3
   <span class="sgr90">[a93c6f00] </span>DataFrames v1.8.0
-  <span class="sgr90">[82cc6244] </span>DataInterpolations v8.6.0
+<span class="sgr32">⌃</span> <span class="sgr90">[82cc6244] </span>DataInterpolations v8.6.0
 <span class="sgr33">⌅</span> <span class="sgr90">[864edb3b] </span>DataStructures v0.18.22
   <span class="sgr90">[e2d170a0] </span>DataValueInterfaces v1.0.0
   <span class="sgr90">[244e2a9f] </span>DefineSingletons v0.1.2
   <span class="sgr90">[bcd4f6db] </span>DelayDiffEq v5.61.0
   <span class="sgr90">[8bb1440f] </span>DelimitedFiles v1.9.1
   <span class="sgr90">[2b5f629d] </span>DiffEqBase v6.190.2
-  <span class="sgr90">[459566f4] </span>DiffEqCallbacks v4.9.0
+  <span class="sgr90">[459566f4] </span>DiffEqCallbacks v4.10.1
   <span class="sgr90">[071ae1c0] </span>DiffEqGPU v3.8.0
   <span class="sgr90">[77a26b50] </span>DiffEqNoiseProcess v5.24.1
   <span class="sgr90">[163ba53b] </span>DiffResults v1.1.0
   <span class="sgr90">[b552c78f] </span>DiffRules v1.15.1
   <span class="sgr90">[0c46a032] </span>DifferentialEquations v7.16.1
-  <span class="sgr90">[a0c0ee7d] </span>DifferentiationInterface v0.7.7
+  <span class="sgr90">[a0c0ee7d] </span>DifferentiationInterface v0.7.9
   <span class="sgr90">[8d63f2c5] </span>DispatchDoctor v0.4.26
   <span class="sgr90">[b4f34e82] </span>Distances v0.10.12
-  <span class="sgr90">[31c24e10] </span>Distributions v0.25.120
+  <span class="sgr90">[31c24e10] </span>Distributions v0.25.122
   <span class="sgr90">[ffbed154] </span>DocStringExtensions v0.9.5
   <span class="sgr90">[e30172f5] </span>Documenter v1.14.1
   <span class="sgr90">[5b8099bc] </span>DomainSets v0.7.16
@@ -174,7 +175,7 @@ Environment:
 <span class="sgr32">⌃</span> <span class="sgr90">[7c1d4256] </span>DynamicPolynomials v0.6.3
   <span class="sgr90">[06fc5a27] </span>DynamicQuantities v1.10.0
   <span class="sgr90">[4e289a0a] </span>EnumX v1.0.5
-  <span class="sgr90">[7da242da] </span>Enzyme v0.13.82
+  <span class="sgr90">[7da242da] </span>Enzyme v0.13.86
   <span class="sgr90">[f151be2c] </span>EnzymeCore v0.8.14
   <span class="sgr90">[460bff9d] </span>ExceptionUnwrapping v0.1.11
   <span class="sgr90">[d4d017d3] </span>ExponentialUtilities v1.27.0
@@ -192,7 +193,7 @@ Environment:
   <span class="sgr90">[48062228] </span>FilePathsBase v0.9.24
   <span class="sgr90">[1a297f60] </span>FillArrays v1.14.0
   <span class="sgr90">[64ca27bc] </span>FindFirstFunctions v1.4.2
-  <span class="sgr90">[6a86dc24] </span>FiniteDiff v2.28.1
+  <span class="sgr90">[6a86dc24] </span>FiniteDiff v2.29.0
   <span class="sgr90">[53c48c17] </span>FixedPointNumbers v0.8.5
   <span class="sgr90">[587475ba] </span>Flux v0.16.5
   <span class="sgr90">[1fa38f19] </span>Format v1.3.7
@@ -201,19 +202,19 @@ Environment:
   <span class="sgr90">[069b7b12] </span>FunctionWrappers v1.1.3
   <span class="sgr90">[77dc65aa] </span>FunctionWrappersWrappers v0.1.3
   <span class="sgr90">[d9f16b24] </span>Functors v0.5.2
-  <span class="sgr90">[0c68f7d7] </span>GPUArrays v11.2.5
+  <span class="sgr90">[0c68f7d7] </span>GPUArrays v11.2.6
   <span class="sgr90">[46192b85] </span>GPUArraysCore v0.2.0
-  <span class="sgr90">[61eb1bfa] </span>GPUCompiler v1.6.2
-  <span class="sgr90">[096a3bc2] </span>GPUToolbox v0.3.0
+  <span class="sgr90">[61eb1bfa] </span>GPUCompiler v1.7.2
+<span class="sgr33">⌅</span> <span class="sgr90">[096a3bc2] </span>GPUToolbox v0.3.0
   <span class="sgr90">[28b8d3ca] </span>GR v0.73.17
-  <span class="sgr90">[c145ed77] </span>GenericSchur v0.5.5
+  <span class="sgr90">[c145ed77] </span>GenericSchur v0.5.6
   <span class="sgr90">[d7ba0133] </span>Git v1.5.0
   <span class="sgr90">[c27321d9] </span>Glob v1.3.1
   <span class="sgr90">[86223c79] </span>Graphs v1.13.1
   <span class="sgr90">[42e2da0e] </span>Grisu v1.0.2
   <span class="sgr90">[708ec375] </span>Gumbo v0.8.3
   <span class="sgr90">[19dc6840] </span>HCubature v1.7.0
-  <span class="sgr90">[cd3eb016] </span>HTTP v1.10.17
+  <span class="sgr90">[cd3eb016] </span>HTTP v1.10.19
   <span class="sgr90">[076d061b] </span>HashArrayMappedTries v0.2.0
   <span class="sgr90">[3e5b6fbb] </span>HostCPUFeatures v0.1.17
   <span class="sgr90">[34004b35] </span>HypergeometricFunctions v0.3.28
@@ -238,7 +239,7 @@ Environment:
   <span class="sgr90">[82899510] </span>IteratorInterfaceExtensions v1.0.0
   <span class="sgr90">[1019f520] </span>JLFzf v0.1.11
   <span class="sgr90">[692b3bcd] </span>JLLWrappers v1.7.1
-  <span class="sgr90">[682c06a0] </span>JSON v0.21.4
+<span class="sgr33">⌅</span> <span class="sgr90">[682c06a0] </span>JSON v0.21.4
   <span class="sgr90">[0f8b85d8] </span>JSON3 v1.14.3
   <span class="sgr90">[ae98c720] </span>Jieko v0.2.1
   <span class="sgr90">[98e50ef6] </span>JuliaFormatter v2.1.6
@@ -249,29 +250,29 @@ Environment:
   <span class="sgr90">[5ab0869b] </span>KernelDensity v0.6.10
   <span class="sgr90">[ba0b0d4f] </span>Krylov v0.10.2
   <span class="sgr90">[5be7bae1] </span>LBFGSB v0.4.1
-  <span class="sgr90">[929cbde3] </span>LLVM v9.4.2
+  <span class="sgr90">[929cbde3] </span>LLVM v9.4.4
   <span class="sgr90">[8b046642] </span>LLVMLoopInfo v1.0.0
   <span class="sgr90">[b964fa9f] </span>LaTeXStrings v1.4.0
   <span class="sgr90">[23fbe1c1] </span>Latexify v0.16.10
   <span class="sgr90">[73f95e8e] </span>LatticeRules v0.0.1
   <span class="sgr90">[10f19ff3] </span>LayoutPointers v0.1.17
   <span class="sgr90">[0e77f7df] </span>LazilyInitializedFields v1.3.0
-  <span class="sgr90">[5078a376] </span>LazyArrays v2.6.3
+  <span class="sgr90">[5078a376] </span>LazyArrays v2.8.0
   <span class="sgr90">[1d6d02ad] </span>LeftChildRightSiblingTrees v0.2.1
   <span class="sgr90">[2d8b4e74] </span>LevyArea v1.0.0
   <span class="sgr90">[87fe0de2] </span>LineSearch v0.1.4
   <span class="sgr90">[d3d80556] </span>LineSearches v7.4.0
-  <span class="sgr90">[7ed4a6bd] </span>LinearSolve v3.40.2
+  <span class="sgr90">[7ed4a6bd] </span>LinearSolve v3.43.0
   <span class="sgr90">[6fdf6af0] </span>LogDensityProblems v2.1.2
   <span class="sgr90">[996a588d] </span>LogDensityProblemsAD v1.13.1
   <span class="sgr90">[2ab3a3ac] </span>LogExpFunctions v0.3.29
-  <span class="sgr90">[e6f89c97] </span>LoggingExtras v1.1.0
+  <span class="sgr90">[e6f89c97] </span>LoggingExtras v1.2.0
   <span class="sgr90">[30fc2ffe] </span>LossFunctions v1.1.1
 <span class="sgr32">⌃</span> <span class="sgr90">[b2108857] </span>Lux v1.21.1
   <span class="sgr90">[d0bbae9a] </span>LuxCUDA v0.3.4
   <span class="sgr90">[bb33d45b] </span>LuxCore v1.4.2
   <span class="sgr90">[82251201] </span>LuxLib v1.12.1
-  <span class="sgr90">[c7f686f2] </span>MCMCChains v7.4.0
+  <span class="sgr90">[c7f686f2] </span>MCMCChains v7.5.0
   <span class="sgr90">[be115224] </span>MCMCDiagnosticTools v0.3.15
   <span class="sgr90">[c2834f40] </span>MLCore v1.0.0
   <span class="sgr90">[7e8f7934] </span>MLDataDevices v1.13.0
@@ -282,7 +283,7 @@ Environment:
   <span class="sgr90">[d125e4d3] </span>ManualMemory v0.1.8
   <span class="sgr90">[d0879d2d] </span>MarkdownAST v0.1.2
   <span class="sgr90">[b8f27783] </span>MathOptInterface v1.45.0
-  <span class="sgr90">[a3b82374] </span>MatrixFactorizations v3.0.1
+  <span class="sgr90">[a3b82374] </span>MatrixFactorizations v3.1.0
   <span class="sgr90">[bb5d69b7] </span>MaybeInplace v0.1.4
   <span class="sgr90">[739be429] </span>MbedTLS v1.1.9
   <span class="sgr90">[eff96d63] </span>Measurements v2.14.0
@@ -290,8 +291,8 @@ Environment:
   <span class="sgr90">[94925ecb] </span>MethodOfLines v0.11.9
   <span class="sgr90">[128add7d] </span>MicroCollections v0.2.0
   <span class="sgr90">[e1d29d7a] </span>Missings v1.2.0
-  <span class="sgr90">[961ee093] </span>ModelingToolkit v10.23.0
-  <span class="sgr90">[f162e290] </span>ModelingToolkitNeuralNets v2.1.0
+  <span class="sgr90">[961ee093] </span>ModelingToolkit v10.25.0
+  <span class="sgr90">[f162e290] </span>ModelingToolkitNeuralNets v2.2.0
   <span class="sgr90">[4886b29c] </span>MonteCarloIntegration v0.2.0
   <span class="sgr90">[0987c9cc] </span>MonteCarloMeasurements v1.5.1
   <span class="sgr90">[2e0e35c7] </span>Moshi v0.3.7
@@ -311,11 +312,11 @@ Environment:
   <span class="sgr90">[b8a86587] </span>NearestNeighbors v0.4.22
 <span class="sgr33">⌅</span> <span class="sgr90">[ea5c82af] </span>NeuralOperators v0.5.3
   <span class="sgr90">[315f7962] </span>NeuralPDE v5.20.0
-  <span class="sgr90">[8913a72c] </span>NonlinearSolve v4.11.0
-  <span class="sgr90">[be0214bd] </span>NonlinearSolveBase v1.16.1
-  <span class="sgr90">[5959db7a] </span>NonlinearSolveFirstOrder v1.8.0
-  <span class="sgr90">[9a2c21bd] </span>NonlinearSolveQuasiNewton v1.9.0
-  <span class="sgr90">[26075421] </span>NonlinearSolveSpectralMethods v1.4.0
+  <span class="sgr90">[8913a72c] </span>NonlinearSolve v4.12.0
+  <span class="sgr90">[be0214bd] </span>NonlinearSolveBase v2.0.0
+  <span class="sgr90">[5959db7a] </span>NonlinearSolveFirstOrder v1.9.0
+  <span class="sgr90">[9a2c21bd] </span>NonlinearSolveQuasiNewton v1.10.0
+  <span class="sgr90">[26075421] </span>NonlinearSolveSpectralMethods v1.5.0
   <span class="sgr90">[d8793406] </span>ObjectFile v0.5.0
   <span class="sgr90">[510215fc] </span>Observables v0.5.5
   <span class="sgr90">[6fe1bfb0] </span>OffsetArrays v1.17.0
@@ -323,19 +324,19 @@ Environment:
   <span class="sgr90">[4d8831e6] </span>OpenSSL v1.5.0
   <span class="sgr90">[429524aa] </span>Optim v1.13.2
   <span class="sgr90">[3bd65402] </span>Optimisers v0.4.6
-  <span class="sgr90">[7f7a1694] </span>Optimization v4.7.0
-  <span class="sgr90">[3e6eede4] </span>OptimizationBBO v0.4.1
-  <span class="sgr90">[bca83a33] </span>OptimizationBase v2.11.0
-  <span class="sgr90">[fd9f6733] </span>OptimizationMOI v0.5.6
-  <span class="sgr90">[4e6fcdb7] </span>OptimizationNLopt v0.3.3
-  <span class="sgr90">[36348300] </span>OptimizationOptimJL v0.4.4
-  <span class="sgr90">[42dfb2eb] </span>OptimizationOptimisers v0.3.10
-  <span class="sgr90">[500b13db] </span>OptimizationPolyalgorithms v0.3.0
+  <span class="sgr90">[7f7a1694] </span>Optimization v4.8.0
+<span class="sgr32">⌃</span> <span class="sgr90">[3e6eede4] </span>OptimizationBBO v0.4.2
+<span class="sgr33">⌅</span> <span class="sgr90">[bca83a33] </span>OptimizationBase v2.12.0
+<span class="sgr32">⌃</span> <span class="sgr90">[fd9f6733] </span>OptimizationMOI v0.5.7
+<span class="sgr32">⌃</span> <span class="sgr90">[4e6fcdb7] </span>OptimizationNLopt v0.3.4
+<span class="sgr32">⌃</span> <span class="sgr90">[36348300] </span>OptimizationOptimJL v0.4.5
+<span class="sgr32">⌃</span> <span class="sgr90">[42dfb2eb] </span>OptimizationOptimisers v0.3.11
+  <span class="sgr90">[500b13db] </span>OptimizationPolyalgorithms v0.3.1
   <span class="sgr90">[bac558e1] </span>OrderedCollections v1.8.1
   <span class="sgr90">[1dea7af3] </span>OrdinaryDiffEq v6.102.1
   <span class="sgr90">[89bda076] </span>OrdinaryDiffEqAdamsBashforthMoulton v1.5.0
   <span class="sgr90">[6ad6398a] </span>OrdinaryDiffEqBDF v1.10.1
-  <span class="sgr90">[bbf590c4] </span>OrdinaryDiffEqCore v1.34.0
+  <span class="sgr90">[bbf590c4] </span>OrdinaryDiffEqCore v1.36.0
   <span class="sgr90">[50262376] </span>OrdinaryDiffEqDefault v1.8.0
   <span class="sgr90">[4302a76b] </span>OrdinaryDiffEqDifferentiation v1.16.1
   <span class="sgr90">[9286f039] </span>OrdinaryDiffEqExplicitRK v1.4.0
@@ -349,7 +350,7 @@ Environment:
   <span class="sgr90">[521117fe] </span>OrdinaryDiffEqLinear v1.6.0
   <span class="sgr90">[1344f307] </span>OrdinaryDiffEqLowOrderRK v1.6.0
   <span class="sgr90">[b0944070] </span>OrdinaryDiffEqLowStorageRK v1.7.0
-  <span class="sgr90">[127b3ac7] </span>OrdinaryDiffEqNonlinearSolve v1.14.1
+  <span class="sgr90">[127b3ac7] </span>OrdinaryDiffEqNonlinearSolve v1.15.0
   <span class="sgr90">[c9986a66] </span>OrdinaryDiffEqNordsieck v1.4.0
   <span class="sgr90">[5dd0a6cf] </span>OrdinaryDiffEqPDIRK v1.6.0
   <span class="sgr90">[5b33eab2] </span>OrdinaryDiffEqPRK v1.4.0
@@ -370,7 +371,7 @@ Environment:
   <span class="sgr90">[ccf2f8ad] </span>PlotThemes v3.3.0
   <span class="sgr90">[995b91a9] </span>PlotUtils v1.4.3
   <span class="sgr90">[91a5bcdd] </span>Plots v1.41.1
-  <span class="sgr90">[e409e4f3] </span>PoissonRandom v0.4.6
+  <span class="sgr90">[e409e4f3] </span>PoissonRandom v0.4.7
   <span class="sgr90">[f517fe37] </span>Polyester v0.7.18
   <span class="sgr90">[1d0040c9] </span>PolyesterWeave v0.2.2
   <span class="sgr90">[2dfb63ee] </span>PooledArrays v1.4.3
@@ -402,15 +403,15 @@ Environment:
   <span class="sgr90">[37e2e3b7] </span>ReverseDiff v1.16.1
   <span class="sgr90">[79098fc4] </span>Rmath v0.8.0
   <span class="sgr90">[7e49a35a] </span>RuntimeGeneratedFunctions v0.5.15
-  <span class="sgr90">[9dfe8606] </span>SCCNonlinearSolve v1.5.0
+  <span class="sgr90">[9dfe8606] </span>SCCNonlinearSolve v1.6.0
   <span class="sgr90">[94e857df] </span>SIMDTypes v0.1.0
   <span class="sgr90">[476501e8] </span>SLEEFPirates v0.6.43
   <span class="sgr90">[0bca4576] </span>SciMLBase v2.120.0
   <span class="sgr90">[afe9f18d] </span>SciMLExpectations v2.3.0
   <span class="sgr90">[19f34311] </span>SciMLJacobianOperators v0.1.11
-  <span class="sgr90">[c0aeaf25] </span>SciMLOperators v1.7.2
+  <span class="sgr90">[c0aeaf25] </span>SciMLOperators v1.9.0
   <span class="sgr90">[431bcebd] </span>SciMLPublic v1.0.0
-  <span class="sgr90">[1ed8b502] </span>SciMLSensitivity v7.89.0
+  <span class="sgr90">[1ed8b502] </span>SciMLSensitivity v7.90.0
   <span class="sgr90">[53ae85a6] </span>SciMLStructures v1.7.0
   <span class="sgr90">[30f210dd] </span>ScientificTypesBase v3.0.0
   <span class="sgr90">[7e506255] </span>ScopedValues v1.5.0
@@ -421,16 +422,16 @@ Environment:
   <span class="sgr90">[992d4aef] </span>Showoff v1.0.3
   <span class="sgr90">[777ac1f9] </span>SimpleBufferStream v1.2.0
   <span class="sgr90">[05bca326] </span>SimpleDiffEq v1.12.0
-  <span class="sgr90">[727e6d20] </span>SimpleNonlinearSolve v2.8.0
+  <span class="sgr90">[727e6d20] </span>SimpleNonlinearSolve v2.9.0
   <span class="sgr90">[699a6c99] </span>SimpleTraits v0.9.5
   <span class="sgr90">[ce78b400] </span>SimpleUnPack v1.1.0
   <span class="sgr90">[ed01d8cd] </span>Sobol v1.5.0
   <span class="sgr90">[a2af1166] </span>SortingAlgorithms v1.2.2
-  <span class="sgr90">[9f842d2f] </span>SparseConnectivityTracer v1.1.0
+  <span class="sgr90">[9f842d2f] </span>SparseConnectivityTracer v1.1.1
   <span class="sgr90">[dc90abb0] </span>SparseInverseSubset v0.1.2
   <span class="sgr90">[0a514795] </span>SparseMatrixColorings v0.4.21
   <span class="sgr90">[d4ead438] </span>SpatialIndexing v0.1.6
-  <span class="sgr90">[276daf66] </span>SpecialFunctions v2.5.1
+  <span class="sgr90">[276daf66] </span>SpecialFunctions v2.6.1
   <span class="sgr90">[171d559e] </span>SplittablesBase v0.1.15
   <span class="sgr90">[860ef19b] </span>StableRNGs v1.0.3
   <span class="sgr90">[aedffcd0] </span>Static v1.3.0
@@ -443,8 +444,8 @@ Environment:
   <span class="sgr90">[2913bbd2] </span>StatsBase v0.34.6
   <span class="sgr90">[4c63d2b9] </span>StatsFuns v1.5.0
   <span class="sgr90">[f3b207a7] </span>StatsPlots v0.15.8
-  <span class="sgr90">[9672c7b4] </span>SteadyStateDiffEq v2.5.0
-  <span class="sgr90">[789caeaf] </span>StochasticDiffEq v6.82.0
+  <span class="sgr90">[9672c7b4] </span>SteadyStateDiffEq v2.7.0
+  <span class="sgr90">[789caeaf] </span>StochasticDiffEq v6.83.0
   <span class="sgr90">[7792a7ef] </span>StrideArraysCore v0.5.8
   <span class="sgr90">[892a3eda] </span>StringManipulation v0.4.1
   <span class="sgr90">[09ab397b] </span>StructArrays v0.7.1
@@ -497,7 +498,7 @@ Environment:
   <span class="sgr90">[83423d85] </span>Cairo_jll v1.18.5+0
   <span class="sgr90">[7bc98958] </span>Cubature_jll v1.0.5+0
   <span class="sgr90">[ee1fde0b] </span>Dbus_jll v1.16.2+0
-  <span class="sgr90">[7cc45869] </span>Enzyme_jll v0.0.201+0
+  <span class="sgr90">[7cc45869] </span>Enzyme_jll v0.0.203+1
   <span class="sgr90">[2702e6a9] </span>EpollShim_jll v0.0.20230411+1
   <span class="sgr90">[2e619515] </span>Expat_jll v2.7.1+0
   <span class="sgr90">[b22a6f82] </span>FFMPEG_jll v7.1.1+0
@@ -520,7 +521,7 @@ Environment:
   <span class="sgr90">[9c1d0b0a] </span>JuliaNVTXCallbacks_jll v0.2.1+0
   <span class="sgr90">[c1c5ebd0] </span>LAME_jll v3.100.3+0
   <span class="sgr90">[88015f11] </span>LERC_jll v4.0.1+0
-  <span class="sgr90">[dad2f222] </span>LLVMExtra_jll v0.0.37+2
+  <span class="sgr90">[dad2f222] </span>LLVMExtra_jll v0.0.38+0
   <span class="sgr90">[1d63c593] </span>LLVMOpenMP_jll v18.1.8+0
   <span class="sgr90">[dd4b983a] </span>LZO_jll v2.10.3+0
   <span class="sgr90">[81d17ec3] </span>L_BFGS_B_jll v3.0.1+0
@@ -536,16 +537,16 @@ Environment:
   <span class="sgr90">[e98f9f5b] </span>NVTX_jll v3.2.2+0
   <span class="sgr90">[8fca9ca2] </span>NodeJS_22_jll v22.15.0+0
   <span class="sgr90">[e7412a2a] </span>Ogg_jll v1.3.6+0
-  <span class="sgr90">[9bd350c2] </span>OpenSSH_jll v10.0.2+0
-  <span class="sgr90">[458c3c95] </span>OpenSSL_jll v3.5.2+0
+  <span class="sgr90">[9bd350c2] </span>OpenSSH_jll v10.1.1+0
+  <span class="sgr90">[458c3c95] </span>OpenSSL_jll v3.5.4+0
   <span class="sgr90">[efe28fd5] </span>OpenSpecFun_jll v0.5.6+0
   <span class="sgr90">[91d4177d] </span>Opus_jll v1.5.2+0
   <span class="sgr90">[36c8627f] </span>Pango_jll v1.56.4+0
 <span class="sgr33">⌅</span> <span class="sgr90">[30392449] </span>Pixman_jll v0.44.2+0
-  <span class="sgr90">[c0090381] </span>Qt6Base_jll v6.8.2+1
+  <span class="sgr90">[c0090381] </span>Qt6Base_jll v6.8.2+2
   <span class="sgr90">[629bc702] </span>Qt6Declarative_jll v6.8.2+1
   <span class="sgr90">[ce943373] </span>Qt6ShaderTools_jll v6.8.2+1
-  <span class="sgr90">[e99dba38] </span>Qt6Wayland_jll v6.8.2+1
+  <span class="sgr90">[e99dba38] </span>Qt6Wayland_jll v6.8.2+2
   <span class="sgr90">[f50d1b31] </span>Rmath_jll v0.5.1+0
 <span class="sgr33">⌅</span> <span class="sgr90">[fb77eaff] </span>Sundials_jll v5.2.3+0
   <span class="sgr90">[a44049a8] </span>Vulkan_Loader_jll v1.3.243+0
@@ -578,7 +579,7 @@ Environment:
   <span class="sgr90">[1e29f10c] </span>demumble_jll v1.3.0+0
   <span class="sgr90">[35ca27e7] </span>eudev_jll v3.2.14+0
   <span class="sgr90">[214eeab7] </span>fzf_jll v0.61.1+0
-  <span class="sgr90">[a4ae2306] </span>libaom_jll v3.12.1+0
+  <span class="sgr90">[a4ae2306] </span>libaom_jll v3.13.1+0
   <span class="sgr90">[0ac62f75] </span>libass_jll v0.17.4+0
   <span class="sgr90">[1183f4f0] </span>libdecor_jll v0.2.2+0
   <span class="sgr90">[2db6ffa8] </span>libevdev_jll v1.13.4+0
@@ -640,4 +641,4 @@ Environment:
   <span class="sgr90">[8e850b90] </span>libblastrampoline_jll v5.11.0+0
   <span class="sgr90">[8e850ede] </span>nghttp2_jll v1.59.0+0
   <span class="sgr90">[3f19e933] </span>p7zip_jll v17.4.0+2
-<span class="sgr36"><span class="sgr1">Info</span></span> Packages marked with <span class="sgr32">⌃</span> and <span class="sgr33">⌅</span> have new versions available. Those with <span class="sgr32">⌃</span> may be upgradable, but those with <span class="sgr33">⌅</span> are restricted by compatibility constraints from upgrading. To see why use `status --outdated -m`</code></pre></details><p>You can also download the <a href="https://github.com/SciML/SciMLDocs.jl/tree/gh-pages/v1.7.0/assets/Manifest.toml">manifest</a> file and the <a href="https://github.com/SciML/SciMLDocs.jl/tree/gh-pages/v1.7.0/assets/Project.toml">project</a> file.</p></article><nav class="docs-footer"><a class="docs-footer-nextpage" href="getting_started/getting_started/">Getting Started with Julia&#39;s SciML »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.14.1 on <span class="colophon-date" title="Monday 29 September 2025 22:56">Monday 29 September 2025</span>. Using Julia version 1.11.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+<span class="sgr36"><span class="sgr1">Info</span></span> Packages marked with <span class="sgr32">⌃</span> and <span class="sgr33">⌅</span> have new versions available. Those with <span class="sgr32">⌃</span> may be upgradable, but those with <span class="sgr33">⌅</span> are restricted by compatibility constraints from upgrading. To see why use `status --outdated -m`</code></pre></details><p>You can also download the <a href="https://github.com/SciML/SciMLDocs.jl/tree/gh-pages/v1.7.0/assets/Manifest.toml">manifest</a> file and the <a href="https://github.com/SciML/SciMLDocs.jl/tree/gh-pages/v1.7.0/assets/Project.toml">project</a> file.</p></article><nav class="docs-footer"><a class="docs-footer-nextpage" href="getting_started/getting_started/">Getting Started with Julia&#39;s SciML »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.14.1 on <span class="colophon-date" title="Sunday 12 October 2025 20:19">Sunday 12 October 2025</span>. Using Julia version 1.11.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
