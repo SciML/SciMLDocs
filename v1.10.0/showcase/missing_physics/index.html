@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Automatically Discover Missing Physics by Embedding Machine Learning into Differential Equations · Overview of Julia&#39;s SciML</title><meta name="title" content="Automatically Discover Missing Physics by Embedding Machine Learning into Differential Equations · Overview of Julia&#39;s SciML"/><meta property="og:title" content="Automatically Discover Missing Physics by Embedding Machine Learning into Differential Equations · Overview of Julia&#39;s SciML"/><meta property="twitter:title" content="Automatically Discover Missing Physics by Embedding Machine Learning into Differential Equations · Overview of Julia&#39;s SciML"/><meta name="description" content="Documentation for Overview of Julia&#39;s SciML."/><meta property="og:description" content="Documentation for Overview of Julia&#39;s SciML."/><meta property="twitter:description" content="Documentation for Overview of Julia&#39;s SciML."/><meta property="og:url" content="https://docs.sciml.ai/stable/showcase/missing_physics/"/><meta property="twitter:url" content="https://docs.sciml.ai/stable/showcase/missing_physics/"/><link rel="canonical" href="https://docs.sciml.ai/stable/showcase/missing_physics/"/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script><link href="../../assets/favicon.ico" rel="icon" type="image/x-icon"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../"><img src="../../assets/logo.png" alt="Overview of Julia&#39;s SciML logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../../">Overview of Julia&#39;s SciML</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">SciML: Open Source Software for Scientific Machine Learning with Julia</a></li><li><span class="tocitem">Getting Started</span><ul><li><a class="tocitem" href="../../getting_started/getting_started/">Getting Started with Julia&#39;s SciML</a></li><li><input class="collapse-toggle" id="menuitem-2-2" type="checkbox"/><label class="tocitem" for="menuitem-2-2"><span class="docs-label">New User Tutorials</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../getting_started/installation/">Installing SciML Software</a></li><li><a class="tocitem" href="../../getting_started/first_simulation/">Build and run your first simulation with Julia&#39;s SciML</a></li><li><a class="tocitem" href="../../getting_started/first_optimization/">Solve your first optimization problem</a></li><li><a class="tocitem" href="../../getting_started/fit_simulation/">Fit a simulation to a dataset</a></li><li><a class="tocitem" href="../../getting_started/find_root/">Find the root of an equation (i.e. solve f(u)=0)</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-2-3" type="checkbox"/><label class="tocitem" for="menuitem-2-3"><span class="docs-label">Comparison With Other Tools</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../comparisons/python/">Getting Started with Julia&#39;s SciML for the Python User</a></li><li><a class="tocitem" href="../../comparisons/matlab/">Getting Started with Julia&#39;s SciML for the MATLAB User</a></li><li><a class="tocitem" href="../../comparisons/r/">Getting Started with Julia&#39;s SciML for the R User</a></li><li><a class="tocitem" href="../../comparisons/cppfortran/">Getting Started with Julia&#39;s SciML for the C++/Fortran User</a></li></ul></li></ul></li><li><span class="tocitem">Showcase of Cool Examples</span><ul><li><a class="tocitem" href="../showcase/">The SciML Showcase</a></li><li><input class="collapse-toggle" id="menuitem-3-2" type="checkbox" checked/><label class="tocitem" for="menuitem-3-2"><span class="docs-label">Automated Model Discovery</span><i class="docs-chevron"></i></label><ul class="collapsed"><li class="is-active"><a class="tocitem" href>Automatically Discover Missing Physics by Embedding Machine Learning into Differential Equations</a><ul class="internal"><li><a class="tocitem" href="#Starting-Point:-The-Packages-To-Use"><span>Starting Point: The Packages To Use</span></a></li><li><a class="tocitem" href="#Problem-Setup"><span>Problem Setup</span></a></li><li><a class="tocitem" href="#Generating-the-Training-Data"><span>Generating the Training Data</span></a></li><li><a class="tocitem" href="#Definition-of-the-Universal-Differential-Equation"><span>Definition of the Universal Differential Equation</span></a></li><li><a class="tocitem" href="#Setting-Up-the-Training-Loop"><span>Setting Up the Training Loop</span></a></li><li><a class="tocitem" href="#Training"><span>Training</span></a></li><li><a class="tocitem" href="#Visualizing-the-Trained-UDE"><span>Visualizing the Trained UDE</span></a></li><li><a class="tocitem" href="#Symbolic-regression-via-sparse-regression-(SINDy-based)"><span>Symbolic regression via sparse regression (SINDy based)</span></a></li><li><a class="tocitem" href="#Simulation"><span>Simulation</span></a></li><li><a class="tocitem" href="#Post-Processing-and-Plots"><span>Post Processing and Plots</span></a></li></ul></li><li><a class="tocitem" href="../bayesian_neural_ode/">Uncertainty Quantified Deep Bayesian Model Discovery</a></li><li><a class="tocitem" href="../optimal_data_gathering_for_missing_physics/">Optimal Data Gathering for Missing Physics</a></li><li><a class="tocitem" href="../blackhole/">Discovering the Relativistic Corrections to Binary Black Hole Dynamics</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-3" type="checkbox"/><label class="tocitem" for="menuitem-3-3"><span class="docs-label">Solving Difficult Equations Efficiently</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../brusselator/">Automated Efficient Solution of Nonlinear Partial Differential Equations</a></li><li><a class="tocitem" href="../pinngpu/">GPU-Accelerated Physics-Informed Neural Network (PINN) PDE Solvers</a></li><li><a class="tocitem" href="../massively_parallel_gpu/">Massively Data-Parallel ODE Solving on GPUs</a></li><li><a class="tocitem" href="../gpu_spde/">GPU-Accelerated Stochastic Partial Differential Equations</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3-4" type="checkbox"/><label class="tocitem" for="menuitem-3-4"><span class="docs-label">Useful Cool Wonky Things</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../ode_types/">Automatic Uncertainty Quantification, Arbitrary Precision, and Unit Checking in ODE Solutions using Julia&#39;s Type System</a></li><li><a class="tocitem" href="../symbolic_analysis/">Symbolic-Numeric Analysis of Parameter Identifiability and Model Stability</a></li><li><a class="tocitem" href="../optimization_under_uncertainty/">Optimization Under Uncertainty</a></li></ul></li></ul></li><li><span class="tocitem">What is SciML?</span><ul><li><a class="tocitem" href="../../overview/">Detailed Overview of the SciML Software Ecosystem</a></li><li><input class="collapse-toggle" id="menuitem-4-2" type="checkbox"/><label class="tocitem" for="menuitem-4-2"><span class="docs-label">Solvers</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../highlevels/equation_solvers/">Equation Solvers</a></li><li><a class="tocitem" href="../../highlevels/inverse_problems/">Parameter Estimation, Bayesian Analysis, and Inverse Problems</a></li><li><a class="tocitem" href="../../highlevels/partial_differential_equation_solvers/">Partial Differential Equations (PDE)</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-3" type="checkbox"/><label class="tocitem" for="menuitem-4-3"><span class="docs-label">Modeling Tools</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../highlevels/modeling_languages/">Modeling Languages</a></li><li><a class="tocitem" href="../../highlevels/model_libraries_and_importers/">Model Libraries and Importers</a></li><li><a class="tocitem" href="../../highlevels/symbolic_tools/">Symbolic Model Tooling and JuliaSymbolics</a></li><li><a class="tocitem" href="../../highlevels/array_libraries/">Modeling Array Libraries</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-4" type="checkbox"/><label class="tocitem" for="menuitem-4-4"><span class="docs-label">Simulation Analysis</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../highlevels/parameter_analysis/">Parameter Analysis Utilities</a></li><li><a class="tocitem" href="../../highlevels/uncertainty_quantification/">Uncertainty Quantification</a></li><li><a class="tocitem" href="../../highlevels/plots_visualization/">SciML-Supported Plotting and Visualization Libraries</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-5" type="checkbox"/><label class="tocitem" for="menuitem-4-5"><span class="docs-label">Machine Learning</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../highlevels/function_approximation/">Function Approximation</a></li><li><a class="tocitem" href="../../highlevels/implicit_layers/">Implicit Layer Deep Learning</a></li><li><a class="tocitem" href="../../highlevels/symbolic_learning/">Symbolic Learning and Artificial Intelligence</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-6" type="checkbox"/><label class="tocitem" for="menuitem-4-6"><span class="docs-label">Developer Tools</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../highlevels/numerical_utilities/">SciML Numerical Utility Libraries</a></li><li><a class="tocitem" href="../../highlevels/interfaces/">The SciML Interface Libraries</a></li><li><a class="tocitem" href="../../highlevels/developer_documentation/">Developer Documentation</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-7" type="checkbox"/><label class="tocitem" for="menuitem-4-7"><span class="docs-label">Extra Learning Resources</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../highlevels/learning_resources/">Curated Learning, Teaching, and Training Resources</a></li></ul></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Showcase of Cool Examples</a></li><li><a class="is-disabled">Automated Model Discovery</a></li><li class="is-active"><a href>Automatically Discover Missing Physics by Embedding Machine Learning into Differential Equations</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Automatically Discover Missing Physics by Embedding Machine Learning into Differential Equations</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/SciML/SciMLDocs" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/SciML/SciMLDocs/blob/main/docs/src/showcase/missing_physics.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="autocomplete"><a class="docs-heading-anchor" href="#autocomplete">Automatically Discover Missing Physics by Embedding Machine Learning into Differential Equations</a><a id="autocomplete-1"></a><a class="docs-heading-anchor-permalink" href="#autocomplete" title="Permalink"></a></h1><p>One of the most time-consuming parts of modeling is building the model. How do you know when your model is correct? When you solve an inverse problem to calibrate your model to data, who you gonna call if there are no parameters that make the model the data? This is the problem that the Universal Differential Equation (UDE) approach solves: the ability to start from the model you have, and suggest minimal mechanistic extensions that would allow the model to fit the data. In this showcase, we will show how to take a partially correct model and auto-complete it to find the missing physics.</p><div class="admonition is-info" id="Note-4f13746db959bcfd"><header class="admonition-header">Note<a class="admonition-anchor" href="#Note-4f13746db959bcfd" title="Permalink"></a></header><div class="admonition-body"><p>For a scientific background on the universal differential equation approach, check out <a href="https://arxiv.org/abs/2001.04385">Universal Differential Equations for Scientific Machine Learning</a></p></div></div><h2 id="Starting-Point:-The-Packages-To-Use"><a class="docs-heading-anchor" href="#Starting-Point:-The-Packages-To-Use">Starting Point: The Packages To Use</a><a id="Starting-Point:-The-Packages-To-Use-1"></a><a class="docs-heading-anchor-permalink" href="#Starting-Point:-The-Packages-To-Use" title="Permalink"></a></h2><p>There are many packages which are used as part of this showcase. Let&#39;s detail what they are and how they are used. For the neural network training:</p><table><tr><th style="text-align: left">Module</th><th style="text-align: left">Description</th></tr><tr><td style="text-align: left"><a href="https://docs.sciml.ai/DiffEqDocs/stable/">OrdinaryDiffEq.jl</a> (DifferentialEquations.jl)</td><td style="text-align: left">The numerical differential equation solvers</td></tr><tr><td style="text-align: left"><a href="https://docs.sciml.ai/SciMLSensitivity/stable/">SciMLSensitivity.jl</a></td><td style="text-align: left">The adjoint methods, defines gradients of ODE solvers</td></tr><tr><td style="text-align: left"><a href="https://docs.sciml.ai/Optimization/stable/">Optimization.jl</a></td><td style="text-align: left">The optimization library</td></tr><tr><td style="text-align: left"><a href="https://docs.sciml.ai/Optimization/stable/optimization_packages/optimisers/">OptimizationOptimisers.jl</a></td><td style="text-align: left">The optimization solver package with <code>Adam</code></td></tr><tr><td style="text-align: left"><a href="https://docs.sciml.ai/Optimization/stable/optimization_packages/optim/">OptimizationOptimJL.jl</a></td><td style="text-align: left">The optimization solver package with <code>LBFGS</code></td></tr><tr><td style="text-align: left"><a href="https://julianlsolvers.github.io/LineSearches.jl/latest/index.html">LineSearches.jl</a></td><td style="text-align: left">Line search algorithms package to be used with <code>LBFGS</code></td></tr><tr><td style="text-align: left"><a href="https://docs.sciml.ai/ComponentArrays/stable/">ComponentArrays.jl</a></td><td style="text-align: left">For the <code>ComponentArray</code> type to match Lux to SciML</td></tr></table><p>For the symbolic model discovery:</p><table><tr><th style="text-align: left">Module</th><th style="text-align: left">Description</th></tr><tr><td style="text-align: left"><a href="https://docs.sciml.ai/ModelingToolkit/stable/">ModelingToolkit.jl</a></td><td style="text-align: left">The symbolic modeling environment</td></tr><tr><td style="text-align: left"><a href="https://docs.sciml.ai/DataDrivenDiffEq/stable/">DataDrivenDiffEq.jl</a></td><td style="text-align: left">The symbolic regression interface</td></tr><tr><td style="text-align: left"><a href="https://docs.sciml.ai/DataDrivenDiffEq/stable/libs/datadrivensparse/sparse_regression/">DataDrivenSparse.jl</a></td><td style="text-align: left">The sparse regression symbolic regression solvers</td></tr><tr><td style="text-align: left"><a href="https://fluxml.ai/Zygote.jl/stable/">Zygote.jl</a></td><td style="text-align: left">The automatic differentiation library for fast gradients</td></tr></table><p>Julia standard libraries:</p><table><tr><th style="text-align: left">Module</th><th style="text-align: left">Description</th></tr><tr><td style="text-align: left">LinearAlgebra</td><td style="text-align: left">Required for the <code>norm</code> function</td></tr><tr><td style="text-align: left">Statistics</td><td style="text-align: left">Required for the <code>mean</code> function</td></tr></table><p>And external libraries:</p><table><tr><th style="text-align: left">Module</th><th style="text-align: left">Description</th></tr><tr><td style="text-align: left"><a href="https://lux.csail.mit.edu/stable/">Lux.jl</a></td><td style="text-align: left">The deep learning (neural network) framework</td></tr><tr><td style="text-align: left"><a href="https://docs.juliaplots.org/stable/">Plots.jl</a></td><td style="text-align: left">The plotting and visualization library</td></tr><tr><td style="text-align: left"><a href="https://docs.juliaplots.org/stable/">StableRNGs.jl</a></td><td style="text-align: left">Stable random seeding</td></tr></table><div class="admonition is-info" id="Note-6b67ab2fa2a4b3a4"><header class="admonition-header">Note<a class="admonition-anchor" href="#Note-6b67ab2fa2a4b3a4" title="Permalink"></a></header><div class="admonition-body"><p>The deep learning framework <a href="https://fluxml.ai/">Flux.jl</a> could be used in place of Lux, though most tutorials in SciML generally prefer Lux.jl due to its explicit parameter interface, leading to nicer code. Both share the same internal implementations of core kernels, and thus have very similar feature support and performance.</p></div></div><pre><code class="language-julia hljs"># SciML Tools
+import OrdinaryDiffEq as ODE
+import ModelingToolkit as MTK
+import DataDrivenDiffEq
+import SciMLSensitivity as SMS
+import DataDrivenSparse
+import Optimization as OPT
+import OptimizationOptimisers
+import OptimizationOptimJL
+import LineSearches
+
+# Standard Libraries
+import LinearAlgebra
+import Statistics
+
+# External Libraries
+import ComponentArrays
+import Lux
+import Zygote
+import Plots
+import StableRNGs
+Plots.gr()
+
+# Set a random seed for reproducible behaviour
+rng = StableRNGs.StableRNG(1111)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">StableRNGs.LehmerRNG(state=0x000000000000000000000000000008af)</code></pre><h2 id="Problem-Setup"><a class="docs-heading-anchor" href="#Problem-Setup">Problem Setup</a><a id="Problem-Setup-1"></a><a class="docs-heading-anchor-permalink" href="#Problem-Setup" title="Permalink"></a></h2><p>In order to know that we have automatically discovered the correct model, we will use generated data from a known model. This model will be the Lotka-Volterra equations. These equations are given by:</p><p class="math-container">\[\begin{aligned}
+\frac{dx}{dt} &amp;= \alpha x - \beta x y      \\
+\frac{dy}{dt} &amp;= -\delta y + \gamma x y    \\
+\end{aligned}\]</p><p>This is a model of rabbits and wolves. <span>$\alpha x$</span> is the exponential growth of rabbits in isolation, <span>$-\beta x y$</span> and <span>$\gamma x y$</span> are the interaction effects of wolves eating rabbits, and <span>$-\delta y$</span> is the term for how wolves die hungry in isolation.</p><p>Now assume that we have never seen rabbits and wolves in the same room. We only know the two effects <span>$\alpha x$</span> and <span>$-\delta y$</span>. Can we use Scientific Machine Learning to automatically discover an extension to what we already know? That is what we will solve with the universal differential equation.</p><h2 id="Generating-the-Training-Data"><a class="docs-heading-anchor" href="#Generating-the-Training-Data">Generating the Training Data</a><a id="Generating-the-Training-Data-1"></a><a class="docs-heading-anchor-permalink" href="#Generating-the-Training-Data" title="Permalink"></a></h2><p>First, let&#39;s generate training data from the Lotka-Volterra equations. This is straightforward and standard DifferentialEquations.jl usage. Our sample data is thus generated as follows:</p><pre><code class="language-julia hljs">function lotka!(du, u, p, t)
+    α, β, γ, δ = p
+    du[1] = α * u[1] - β * u[2] * u[1]
+    du[2] = γ * u[1] * u[2] - δ * u[2]
+end
+
+# Define the experimental parameter
+tspan = (0.0, 5.0)
+u0 = 5.0f0 * rand(rng, 2)
+p_ = [1.3, 0.9, 0.8, 1.8]
+prob = ODE.ODEProblem(lotka!, u0, tspan, p_)
+solution = ODE.solve(prob, ODE.Vern7(), abstol = 1e-12, reltol = 1e-12, saveat = 0.25)
+
+# Add noise in terms of the mean
+X = Array(solution)
+t = solution.t
+
+x̄ = Statistics.mean(X, dims = 2)
+noise_magnitude = 5e-3
+Xₙ = X .+ (noise_magnitude * x̄) .* randn(rng, eltype(X), size(X))
+
+Plots.Plots.plot(solution, alpha = 0.75, color = :black, label = [&quot;True Data&quot; nothing])
+Plots.scatter!(t, transpose(Xₙ), color = :red, label = [&quot;Noisy Data&quot; nothing])</code></pre><img src="4264a0b9.svg" alt="Example block output"/><h2 id="Definition-of-the-Universal-Differential-Equation"><a class="docs-heading-anchor" href="#Definition-of-the-Universal-Differential-Equation">Definition of the Universal Differential Equation</a><a id="Definition-of-the-Universal-Differential-Equation-1"></a><a class="docs-heading-anchor-permalink" href="#Definition-of-the-Universal-Differential-Equation" title="Permalink"></a></h2><p>Now let&#39;s define our UDE. We will use Lux.jl to define the neural network as follows:</p><pre><code class="language-julia hljs">rbf(x) = exp.(-(x .^ 2))
+
+# Multilayer FeedForward
+const U = Lux.Chain(Lux.Dense(2, 5, rbf), Lux.Dense(5, 5, rbf), Lux.Dense(5, 5, rbf),
+    Lux.Dense(5, 2))
+# Get the initial parameters and state variables of the model
+p, st = Lux.setup(rng, U)
+const _st = st</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">(layer_1 = NamedTuple(), layer_2 = NamedTuple(), layer_3 = NamedTuple(), layer_4 = NamedTuple())</code></pre><p>We then define the UDE as a dynamical system that is <code>u&#39; = known(u) + NN(u)</code> like:</p><pre><code class="language-julia hljs"># Define the hybrid model
+function ude_dynamics!(du, u, p, t, p_true)
+    û = U(u, p, _st)[1] # Network prediction
+    du[1] = p_true[1] * u[1] + û[1]
+    du[2] = -p_true[4] * u[2] + û[2]
+end
+
+# Closure with the known parameter
+nn_dynamics!(du, u, p, t) = ude_dynamics!(du, u, p, t, p_)
+# Define the problem
+prob_nn = ODE.ODEProblem(nn_dynamics!, Xₙ[:, 1], tspan, p)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi"><span class="sgr38_2" style="color:#56b6c2">ODEProblem</span> with uType <span class="sgr38_2" style="color:#56b6c2">Vector{Float64}</span> and tType <span class="sgr38_2" style="color:#56b6c2">Float64</span>. In-place: <span class="sgr38_2" style="color:#56b6c2">true</span>
+Non-trivial mass matrix: <span class="sgr38_2" style="color:#56b6c2">false</span>
+timespan: (0.0, 5.0)
+u0: 2-element Vector{Float64}:
+ 3.1463924566781167
+ 1.5423300037202512</code></pre><p>Notice that the most important part of this is that the neural network does not have hard-coded weights. The weights of the neural network are the parameters of the ODE system. This means that if we change the parameters of the ODE system, then we will have updated the internal neural networks to new weights. Keep that in mind for the next part.</p><p>... and tada: now we have a neural network integrated into our dynamical system!</p><div class="admonition is-info" id="Note-1326722d7fa1533e"><header class="admonition-header">Note<a class="admonition-anchor" href="#Note-1326722d7fa1533e" title="Permalink"></a></header><div class="admonition-body"><p>Even if the known physics is only approximate or correct, it can be helpful to improve the fitting process! Check out <a href="https://www.youtube.com/watch?v=lCDrCqqnPto">this JuliaCon talk</a> which dives into this issue.</p></div></div><h2 id="Setting-Up-the-Training-Loop"><a class="docs-heading-anchor" href="#Setting-Up-the-Training-Loop">Setting Up the Training Loop</a><a id="Setting-Up-the-Training-Loop-1"></a><a class="docs-heading-anchor-permalink" href="#Setting-Up-the-Training-Loop" title="Permalink"></a></h2><p>Now let&#39;s build a training loop around our UDE. First, let&#39;s make a function <code>predict</code> which runs our simulation at new neural network weights. Recall that the weights of the neural network are the parameters of the ODE, so what we need to do in <code>predict</code> is update our ODE to our new parameters and then run it.</p><p>For this update step, we will use the <code>remake</code> function from the <a href="https://docs.sciml.ai/DiffEqDocs/stable/basics/problem/#Modification-of-problem-types">SciMLProblem interface</a>. <code>remake</code> works by specifying <code>key = value</code> pairs to update in the problem fields. Thus to update <code>u0</code>, we would add a keyword argument <code>u0 = ...</code>. To update the parameters, we&#39;d do <code>p = ...</code>. The field names can be acquired from the <a href="https://docs.sciml.ai/DiffEqDocs/stable/types/ode_types/">problem documentation</a> (or the docstrings!).</p><p>Knowing this, our <code>predict</code> function looks like:</p><pre><code class="language-julia hljs">function predict(θ, X = Xₙ[:, 1], T = t)
+    _prob = ODE.remake(prob_nn, u0 = X, tspan = (T[1], T[end]), p = θ)
+    Array(ODE.solve(_prob, ODE.Vern7(), saveat = T,
+        abstol = 1e-6, reltol = 1e-6,
+        sensealg = SMS.QuadratureAdjoint(autojacvec = SMS.ReverseDiffVJP(true))))
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">predict (generic function with 3 methods)</code></pre><p>There are many choices for the combination of sensitivity algorithm and automatic differentiation library (see <a href="https://docs.sciml.ai/SciMLSensitivity/stable/manual/differential_equation_sensitivities/#Choosing-a-Sensitivity-Algorithm">Choosing a Sensitivity Algorithm</a>. For example, you could have used <code>sensealg=ForwardDiffSensitivity()</code>.</p><p>Now, for our loss function, we solve the ODE at our new parameters and check its L2 loss against the dataset. Using our <code>predict</code> function, this looks like:</p><pre><code class="language-julia hljs">function loss(θ)
+    X̂ = predict(θ)
+    Statistics.mean(abs2, Xₙ .- X̂)
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">loss (generic function with 1 method)</code></pre><p>Lastly, what we will need to track our optimization is to define a callback as <a href="https://docs.sciml.ai/Optimization/stable/API/solve/">defined by the OptimizationProblem&#39;s solve interface</a>. Because our function only returns one value, the loss <code>l</code>, the callback will be a function of the current parameters <code>θ</code> and <code>l</code>. Let&#39;s setup a callback prints every 50 steps the current loss:</p><pre><code class="language-julia hljs">losses = Float64[]
+
+callback = function (state, l)
+    push!(losses, l)
+    if length(losses) % 50 == 0
+        println(&quot;Current loss after $(length(losses)) iterations: $(losses[end])&quot;)
+    end
+    return false
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">#1 (generic function with 1 method)</code></pre><h2 id="Training"><a class="docs-heading-anchor" href="#Training">Training</a><a id="Training-1"></a><a class="docs-heading-anchor-permalink" href="#Training" title="Permalink"></a></h2><p>Now we&#39;re ready to train! To run the training process, we will need to build an <a href="https://docs.sciml.ai/Optimization/stable/API/optimization_problem/"><code>OptimizationProblem</code></a>. Because we have a lot of parameters, we will use <a href="https://fluxml.ai/Zygote.jl/dev/">Zygote.jl</a>. Optimization.jl makes the choice of automatic differentiation easy, just by specifying an <code>adtype</code> in the <a href="https://docs.sciml.ai/Optimization/stable/API/optimization_function/"><code>OptimizationFunction</code> construction</a></p><p>Knowing this, we can build our <code>OptimizationProblem</code> as follows:</p><pre><code class="language-julia hljs">adtype = OPT.AutoZygote()
+optf = OPT.OptimizationFunction((x, p) -&gt; loss(x), adtype)
+optprob = OPT.OptimizationProblem(optf, ComponentArrays.ComponentVector{Float64}(p))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi"><span class="sgr38_2" style="color:#56b6c2">OptimizationProblem</span>. In-place: <span class="sgr38_2" style="color:#56b6c2">true</span>
+u0: ComponentVector{Float64}(layer_1 = (weight = [0.6538559794425964 0.7530555129051208; 0.5314245820045471 -1.146309733390808; … ; 0.6230413317680359 -0.9949618577957153; -0.267433762550354 -0.42296043038368225], bias = [0.6228184700012207, -0.36390432715415955, 0.5564076900482178, -0.6573317050933838, 0.0013557798229157925]), layer_2 = (weight = [-0.6952740550041199 -0.17967918515205383 … 0.24313241243362427 0.0011237671133130789; -0.17176461219787598 -0.6643869876861572 … 0.18968746066093445 0.04383227229118347; … ; -0.6787673234939575 -0.4131874740123749 … 0.1658746749162674 -0.5179172158241272; -0.10373303294181824 -0.49185651540756226 … -0.043933477252721786 -0.2150842249393463], bias = [0.0037434629630297422, -0.18621833622455597, -0.20786269009113312, -0.3489077389240265, 0.14812849462032318]), layer_3 = (weight = [-0.5676549077033997 0.2754976451396942 … 0.597773551940918 -0.04514681175351143; 0.7638720273971558 0.09472294896841049 … -0.47445687651634216 -0.6932666301727295; … ; -0.03054356575012207 -0.18625909090042114 … -0.33154675364494324 0.035615935921669006; 0.5577947497367859 0.5849692821502686 … 0.20916324853897095 0.7067036032676697], bias = [-0.25027230381965637, 0.0903530940413475, 0.41296181082725525, 0.19502975046634674, -0.20660826563835144]), layer_4 = (weight = [0.22668682038784027 0.28912562131881714 … -0.4954346716403961 -0.13401342928409576; 0.6387283802032471 0.011346816085278988 … 0.20840884745121002 -0.3841484785079956], bias = [-0.30624446272850037, 0.07177023589611053]))</code></pre><p>Now... we optimize it. We will use a mixed strategy. First, let&#39;s do some iterations of ADAM because it&#39;s better at finding a good general area of parameter space, but then we will move to BFGS which will quickly hone in on a local minimum. Note that if we only use ADAM it will take a ton of iterations, and if we only use BFGS we normally end up in a bad local minimum, so this combination tends to be a good one for UDEs.</p><p>Thus we first solve the optimization problem with ADAM. Choosing a learning rate of 0.1 (tuned to be as high as possible that doesn&#39;t tend to make the loss shoot up), we see:</p><pre><code class="language-julia hljs">res1 = OPT.solve(
+    optprob, OptimizationOptimisers.Adam(), callback = callback, maxiters = 5000)
+println(&quot;Training loss after $(length(losses)) iterations: $(losses[end])&quot;)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi"><span class="sgr33"><span class="sgr1">┌ Warning: </span></span>Lux.apply(m::AbstractLuxLayer, x::AbstractArray{&lt;:ReverseDiff.TrackedReal}, ps, st) input was corrected to Lux.apply(m::AbstractLuxLayer, x::ReverseDiff.TrackedArray}, ps, st).
+<span class="sgr33"><span class="sgr1">│ </span></span>
+<span class="sgr33"><span class="sgr1">│ </span></span>1. If this was not the desired behavior overload the dispatch on `m`.
+<span class="sgr33"><span class="sgr1">│ </span></span>
+<span class="sgr33"><span class="sgr1">│ </span></span>2. This might have performance implications. Check which layer was causing this problem using `Lux.Experimental.@debug_mode`.
+<span class="sgr33"><span class="sgr1">└ </span></span><span class="sgr90">@ LuxCoreArrayInterfaceReverseDiffExt ~/.cache/julia-buildkite-plugin/depots/0183cc98-c3b4-4959-aaaa-6c0d5f351407/packages/LuxCore/qsnGJ/ext/LuxCoreArrayInterfaceReverseDiffExt.jl:9</span>
+Current loss after 50 iterations: 124231.93947253352
+Current loss after 100 iterations: 99525.7912250509
+Current loss after 150 iterations: 73986.99307317383
+Current loss after 200 iterations: 57253.85527792851
+Current loss after 250 iterations: 46433.63757404527
+Current loss after 300 iterations: 37891.222961761225
+Current loss after 350 iterations: 30743.91412909595
+Current loss after 400 iterations: 24605.350888306395
+Current loss after 450 iterations: 19422.920435539316
+Current loss after 500 iterations: 14986.693879908406
+Current loss after 550 iterations: 11212.357475234903
+Current loss after 600 iterations: 8098.753432721511
+Current loss after 650 iterations: 5665.968969125532
+Current loss after 700 iterations: 3872.1477982952993
+Current loss after 750 iterations: 2601.3618497260677
+Current loss after 800 iterations: 1721.953335645981
+Current loss after 850 iterations: 1122.8663468306293
+Current loss after 900 iterations: 720.5491377374871
+Current loss after 950 iterations: 454.51848154150804
+Current loss after 1000 iterations: 281.58421640772445
+Current loss after 1050 iterations: 171.2253663204164
+Current loss after 1100 iterations: 102.16452240312645
+Current loss after 1150 iterations: 59.821864785138146
+Current loss after 1200 iterations: 34.403779014609796
+Current loss after 1250 iterations: 19.473604782635398
+Current loss after 1300 iterations: 10.89706391202782
+Current loss after 1350 iterations: 6.081246258172685
+Current loss after 1400 iterations: 3.4392043920696125
+Current loss after 1450 iterations: 2.0237190777703837
+Current loss after 1500 iterations: 1.2836008251646471
+Current loss after 1550 iterations: 0.9062386095349372
+Current loss after 1600 iterations: 0.7193556611937931
+Current loss after 1650 iterations: 0.6285326091341307
+Current loss after 1700 iterations: 0.5853885038479755
+Current loss after 1750 iterations: 0.565429077784553
+Current loss after 1800 iterations: 0.5564062505814009
+Current loss after 1850 iterations: 0.5523966264461394
+Current loss after 1900 iterations: 0.5506224111503284
+Current loss after 1950 iterations: 0.5498169377113952
+Current loss after 2000 iterations: 0.5494185520638127
+Current loss after 2050 iterations: 0.5491853237261208
+Current loss after 2100 iterations: 0.5490161393136587
+Current loss after 2150 iterations: 0.5488700454073362
+Current loss after 2200 iterations: 0.5487309892272899
+Current loss after 2250 iterations: 0.5485928923842467
+Current loss after 2300 iterations: 0.5484535394063981
+Current loss after 2350 iterations: 0.548312160243209
+Current loss after 2400 iterations: 0.5481685074246099
+Current loss after 2450 iterations: 0.5480225164958645
+Current loss after 2500 iterations: 0.5478741857460743
+Current loss after 2550 iterations: 0.5477235352822736
+Current loss after 2600 iterations: 0.5475705937003627
+Current loss after 2650 iterations: 0.547415393970266
+Current loss after 2700 iterations: 0.5472579722693673
+Current loss after 2750 iterations: 0.5470983677173928
+Current loss after 2800 iterations: 0.5469366223728243
+Current loss after 2850 iterations: 0.5467727812996694
+Current loss after 2900 iterations: 0.5466068926499916
+Current loss after 2950 iterations: 0.5464390077472584
+Current loss after 3000 iterations: 0.5462691811663684
+Current loss after 3050 iterations: 0.5460974708090633
+Current loss after 3100 iterations: 0.5459239379740524
+Current loss after 3150 iterations: 0.5457486474213259
+Current loss after 3200 iterations: 0.5455716674300622
+Current loss after 3250 iterations: 0.5453930698496244
+Current loss after 3300 iterations: 0.5452129301429779
+Current loss after 3350 iterations: 0.5450313274219692
+Current loss after 3400 iterations: 0.544848344473809
+Current loss after 3450 iterations: 0.5446640677781054
+Current loss after 3500 iterations: 0.5444785875138118
+Current loss after 3550 iterations: 0.5442919975553948
+Current loss after 3600 iterations: 0.5441043954575882
+Current loss after 3650 iterations: 0.5439158824280179
+Current loss after 3700 iterations: 0.5437265632870852
+Current loss after 3750 iterations: 0.5435365464143845
+Current loss after 3800 iterations: 0.5433459436811056
+Current loss after 3850 iterations: 0.5431548703677215
+Current loss after 3900 iterations: 0.542963445066398
+Current loss after 3950 iterations: 0.5427717895675648
+Current loss after 4000 iterations: 0.5425800287301125
+Current loss after 4050 iterations: 0.5423882903347559
+Current loss after 4100 iterations: 0.542196704920132
+Current loss after 4150 iterations: 0.5420054056012591
+Current loss after 4200 iterations: 0.5418145278700793
+Current loss after 4250 iterations: 0.5416242093778663
+Current loss after 4300 iterations: 0.5414345896993931
+Current loss after 4350 iterations: 0.5412458100787794
+Current loss after 4400 iterations: 0.5410580131571349
+Current loss after 4450 iterations: 0.540871342682164
+Current loss after 4500 iterations: 0.5406859432000329
+Current loss after 4550 iterations: 0.5405019597299352
+Current loss after 4600 iterations: 0.5403195374219274
+Current loss after 4650 iterations: 0.5401388211987421
+Current loss after 4700 iterations: 0.5399599553696524
+Current loss after 4750 iterations: 0.5397830832723818
+Current loss after 4800 iterations: 0.5396083468631031
+Current loss after 4850 iterations: 0.5394358862863134
+Current loss after 4900 iterations: 0.5392658394639462
+Current loss after 4950 iterations: 0.5390983416645116
+Current loss after 5000 iterations: 0.5389335250658762
+Training loss after 5001 iterations: 0.5389335250658762</code></pre><p>Now we use the optimization result of the first run as the initial condition of the second optimization, and run it with BFGS. This looks like:</p><pre><code class="language-julia hljs">optprob2 = OPT.OptimizationProblem(optf, res1.u)
+res2 = OPT.solve(
+    optprob2, OptimizationOptimJL.BFGS(linesearch = LineSearches.BackTracking()), callback = callback, maxiters = 1000)
+println(&quot;Final training loss after $(length(losses)) iterations: $(losses[end])&quot;)
+
+# Rename the best candidate
+p_trained = res2.u</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">ComponentVector{Float64}(layer_1 = (weight = [0.7578969173057113 0.8692266904272811; 0.5655647316591214 -0.8154403667840756; … ; -0.4811727291664737 -1.142738129368355; -1.299961251159792 -1.03879824468723], bias = [0.731023574745378, -0.007828819836542827, 0.46953595988176106, -0.7232676809612779, -0.4447912743078758]), layer_2 = (weight = [-0.5478763448635744 0.27708978320166505 … 0.8536165461958506 0.3943624467838292; -0.22296674056548857 0.5022147910224051 … -0.149670824499818 -0.2584786291201948; … ; -0.6720846512325249 0.2896527105632095 … 0.2170442294294408 -0.4107734472514823; -0.06371010072377248 -0.7664904723448986 … -0.18384940880826522 0.767294701249526], bias = [1.3647703141603549, 0.1879928565416788, -1.4902445607056967, 0.5808832642362283, 0.8550018121972541]), layer_3 = (weight = [0.30160171480146897 0.9695953482715188 … -0.17272567762279953 0.24469646826302172; 0.1566060761333285 -0.2911579354662512 … -0.6264029452609399 2.146177920832776; … ; -0.0069636578215904995 -1.516857970853521 … 0.10670706247845912 -0.3240524042853424; 0.2676268947709762 0.5243561821337813 … -1.5289864427774205 1.5420437648533407], bias = [-0.012646991713093622, -1.1233258501533943, 1.549425872454573, 1.815990692872698, -2.004181198106545]), layer_4 = (weight = [0.37119485129431157 -1.3457092023977928 … -0.6650045411605727 -2.9196712801129623; 2.071567831316967 1.0675368522138822 … -2.3584914447894665 -0.7288686153718467], bias = [-0.8035728194205481, 2.1051408058838965]))</code></pre><p>and bingo, we have a trained UDE.</p><h2 id="Visualizing-the-Trained-UDE"><a class="docs-heading-anchor" href="#Visualizing-the-Trained-UDE">Visualizing the Trained UDE</a><a id="Visualizing-the-Trained-UDE-1"></a><a class="docs-heading-anchor-permalink" href="#Visualizing-the-Trained-UDE" title="Permalink"></a></h2><p>How well did our neural network do? Let&#39;s take a look:</p><pre><code class="language-julia hljs"># Plot the losses
+pl_losses = Plots.Plots.plot(1:5000, losses[1:5000], yaxis = :log10, xaxis = :log10,
+    xlabel = &quot;Iterations&quot;, ylabel = &quot;Loss&quot;, label = &quot;ADAM&quot;, color = :blue)
+Plots.Plots.plot!(5001:length(losses), losses[5001:end], yaxis = :log10, xaxis = :log10,
+    xlabel = &quot;Iterations&quot;, ylabel = &quot;Loss&quot;, label = &quot;BFGS&quot;, color = :red)</code></pre><img src="d47a7fed.svg" alt="Example block output"/><p>Next, we compare the original data to the output of the UDE predictor. Note that we can even create more samples from the underlying model by simply adjusting the time steps!</p><pre><code class="language-julia hljs">## Analysis of the trained network
+# Plot the data and the approximation
+ts = first(solution.t):(Statistics.mean(diff(solution.t)) / 2):last(solution.t)
+X̂ = predict(p_trained, Xₙ[:, 1], ts)
+# Trained on noisy data vs real solution
+pl_trajectory = Plots.Plots.plot(ts, transpose(X̂), xlabel = &quot;t&quot;, ylabel = &quot;x(t), y(t)&quot;, color = :red,
+    label = [&quot;UDE Approximation&quot; nothing])
+Plots.scatter!(solution.t, transpose(Xₙ), color = :black, label = [&quot;Measurements&quot; nothing])</code></pre><img src="674f7d6d.svg" alt="Example block output"/><p>Let&#39;s see how well the unknown term has been approximated:</p><pre><code class="language-julia hljs"># Ideal unknown interactions of the predictor
+Ȳ = [-p_[2] * (X̂[1, :] .* X̂[2, :])&#39;; p_[3] * (X̂[1, :] .* X̂[2, :])&#39;]
+# Neural network guess
+Ŷ = U(X̂, p_trained, st)[1]
+
+pl_reconstruction = Plots.plot(ts, transpose(Ŷ), xlabel = &quot;t&quot;, ylabel = &quot;U(x,y)&quot;, color = :red,
+    label = [&quot;UDE Approximation&quot; nothing])
+Plots.plot!(ts, transpose(Ȳ), color = :black, label = [&quot;True Interaction&quot; nothing])</code></pre><img src="da72e28b.svg" alt="Example block output"/><p>And have a nice look at all the information:</p><pre><code class="language-julia hljs"># Plot the error
+pl_reconstruction_error = Plots.plot(ts, LinearAlgebra.norm.(eachcol(Ȳ - Ŷ)), yaxis = :log, xlabel = &quot;t&quot;,
+    ylabel = &quot;L2-Error&quot;, label = nothing, color = :red)
+pl_missing = Plots.plot(pl_reconstruction, pl_reconstruction_error, layout = (2, 1))
+
+pl_overall = Plots.plot(pl_trajectory, pl_missing)</code></pre><img src="fcc4d038.svg" alt="Example block output"/><p>That looks pretty good. And if we are happy with deep learning, we can leave it at that: we have trained a neural network to capture our missing dynamics.</p><p>But...</p><p>Can we also make it print out the LaTeX for what the missing equations were? Find out more after the break!</p><h2 id="Symbolic-regression-via-sparse-regression-(SINDy-based)"><a class="docs-heading-anchor" href="#Symbolic-regression-via-sparse-regression-(SINDy-based)">Symbolic regression via sparse regression (SINDy based)</a><a id="Symbolic-regression-via-sparse-regression-(SINDy-based)-1"></a><a class="docs-heading-anchor-permalink" href="#Symbolic-regression-via-sparse-regression-(SINDy-based)" title="Permalink"></a></h2><h4 id="This-part-of-the-showcase-is-still-a-work-in-progress...-shame-on-us.-But-be-back-in-a-jiffy-and-we&#39;ll-have-it-done."><a class="docs-heading-anchor" href="#This-part-of-the-showcase-is-still-a-work-in-progress...-shame-on-us.-But-be-back-in-a-jiffy-and-we&#39;ll-have-it-done.">This part of the showcase is still a work in progress... shame on us. But be back in a jiffy and we&#39;ll have it done.</a><a id="This-part-of-the-showcase-is-still-a-work-in-progress...-shame-on-us.-But-be-back-in-a-jiffy-and-we&#39;ll-have-it-done.-1"></a><a class="docs-heading-anchor-permalink" href="#This-part-of-the-showcase-is-still-a-work-in-progress...-shame-on-us.-But-be-back-in-a-jiffy-and-we&#39;ll-have-it-done." title="Permalink"></a></h4><p>Okay, that was a quick break, and that&#39;s good because this next part is pretty cool. Let&#39;s use <a href="https://docs.sciml.ai/DataDrivenDiffEq/stable/">DataDrivenDiffEq.jl</a> to transform our trained neural network from machine learning mumbo jumbo into predictions of missing mechanistic equations. To do this, we first generate a symbolic basis that represents the space of mechanistic functions we believe this neural network should map to. Let&#39;s choose a bunch of polynomial functions:</p><pre><code class="language-julia hljs">MTK.@variables u[1:2]
+b = DataDrivenDiffEq.polynomial_basis(u, 4)
+basis = DataDrivenDiffEq.Basis(b, u);</code></pre><p class="math-container">\[ \begin{align}
+\mathtt{\varphi{_1}} &amp;= 1 \\
+\mathtt{\varphi{_2}} &amp;= u_{1} \\
+\mathtt{\varphi{_3}} &amp;= \left( u_{1} \right)^{2} \\
+\mathtt{\varphi{_4}} &amp;= \left( u_{1} \right)^{3} \\
+\mathtt{\varphi{_5}} &amp;= \left( u_{1} \right)^{4} \\
+\mathtt{\varphi{_6}} &amp;= u_{2} \\
+\mathtt{\varphi{_7}} &amp;= u_{1} u_{2} \\
+\mathtt{\varphi{_8}} &amp;= \left( u_{1} \right)^{2} u_{2} \\
+\mathtt{\varphi{_9}} &amp;= \left( u_{1} \right)^{3} u_{2} \\
+\mathtt{\varphi{_{1 0}}} &amp;= \left( u_{2} \right)^{2} \\
+\mathtt{\varphi{_{1 1}}} &amp;= \left( u_{2} \right)^{2} u_{1} \\
+\mathtt{\varphi{_{1 2}}} &amp;= \left( u_{2} \right)^{2} \left( u_{1} \right)^{2} \\
+\mathtt{\varphi{_{1 3}}} &amp;= \left( u_{2} \right)^{3} \\
+\mathtt{\varphi{_{1 4}}} &amp;= \left( u_{2} \right)^{3} u_{1} \\
+\mathtt{\varphi{_{1 5}}} &amp;= \left( u_{2} \right)^{4}
+\end{align}
+ \]</p><p>Now let&#39;s define our <code>DataDrivenProblem</code>s for the sparse regressions. To assess the capability of the sparse regression, we will look at 3 cases:</p><ul><li>What if we trained no neural network and tried to automatically uncover the equations from the original noisy data? This is the approach in the literature known as structural identification of dynamical systems (SINDy). We will call this the full problem. This will assess whether this incorporation of prior information was helpful.</li><li>What if we trained the neural network using the ideal right-hand side missing derivative functions? This is the value computed in the plots above as <code>Ȳ</code>. This will tell us whether the symbolic discovery could work in ideal situations.</li><li>Do the symbolic regression directly on the function <code>y = NN(x)</code>, i.e. the trained learned neural network. This is what we really want, and will tell us how to extend our known equations.</li></ul><p>To define the full problem, we need to define a <code>DataDrivenProblem</code> that has the time series of the solution <code>X</code>, the time points of the solution <code>t</code>, and the derivative at each time point of the solution, obtained by the ODE solution&#39;s interpolation. We can just use an interpolation to get the derivative:</p><pre><code class="language-julia hljs">full_problem = DataDrivenDiffEq.ContinuousDataDrivenProblem(Xₙ, t)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Continuous DataDrivenProblem{Float64} ##DDProblem#2605 in 2 dimensions and 21 samples</code></pre><p>Now for the other two symbolic regressions, we are regressing input/outputs of the missing terms, and thus we directly define the datasets as the input/output mappings like:</p><pre><code class="language-julia hljs">ideal_problem = DataDrivenDiffEq.DirectDataDrivenProblem(X̂, Ȳ)
+nn_problem = DataDrivenDiffEq.DirectDataDrivenProblem(X̂, Ŷ)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Direct DataDrivenProblem{Float64} ##DDProblem#2607 in 2 dimensions and 41 samples</code></pre><p>Let&#39;s solve the data-driven problems using sparse regression. We will use the <code>ADMM</code> method, which requires we define a set of shrinking cutoff values <code>λ</code>, and we do this like:</p><pre><code class="language-julia hljs">λ = 1e-1
+opt = DataDrivenSparse.ADMM(λ)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">DataDrivenSparse.ADMM{Float64, Float64}(0.1, 1.0)</code></pre><p>This is one of many methods for sparse regression, consult the <a href="https://docs.sciml.ai/DataDrivenDiffEq/stable/">DataDrivenDiffEq.jl documentation</a> for more information on the algorithm choices. Taking this, let&#39;s solve each of the sparse regressions:</p><pre><code class="language-julia hljs">options = DataDrivenDiffEq.DataDrivenCommonOptions(maxiters = 10_000,
+    normalize = DataDrivenDiffEq.DataNormalization(DataDrivenDiffEq.ZScoreTransform),
+    selector = DataDrivenDiffEq.bic, digits = 1,
+    data_processing = DataDrivenDiffEq.DataProcessing(split = 0.9,
+        batchsize = 30,
+        shuffle = true,
+        rng = StableRNGs.StableRNG(1111)))
+
+full_res = DataDrivenDiffEq.solve(full_problem, basis, opt, options = options)
+full_eqs = DataDrivenDiffEq.get_basis(full_res)
+println(full_res)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi"><span class="sgr33"><span class="sgr1">┌ Warning: </span></span>Number of observations less than batch-size, decreasing the batch-size to 19
+<span class="sgr33"><span class="sgr1">└ </span></span><span class="sgr90">@ MLUtils ~/.cache/julia-buildkite-plugin/depots/0183cc98-c3b4-4959-aaaa-6c0d5f351407/packages/MLUtils/5jDrc/src/batchview.jl:104</span>
+&quot;DataDrivenSolution{Float64}&quot; with 2 equations and 4 parameters.
+Returncode: Success
+Residual sum of squares: 84.99147506548839</code></pre><pre><code class="language-julia hljs">options = DataDrivenDiffEq.DataDrivenCommonOptions(maxiters = 10_000,
+    normalize = DataDrivenDiffEq.DataNormalization(DataDrivenDiffEq.ZScoreTransform),
+    selector = DataDrivenDiffEq.bic, digits = 1,
+    data_processing = DataDrivenDiffEq.DataProcessing(split = 0.9,
+        batchsize = 30,
+        shuffle = true,
+        rng = StableRNGs.StableRNG(1111)))
+
+ideal_res = DataDrivenDiffEq.solve(ideal_problem, basis, opt, options = options)
+ideal_eqs = DataDrivenDiffEq.get_basis(ideal_res)
+println(ideal_res)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">&quot;DataDrivenSolution{Float64}&quot; with 2 equations and 2 parameters.
+Returncode: Success
+Residual sum of squares: 12.257484590736038</code></pre><pre><code class="language-julia hljs">options = DataDrivenDiffEq.DataDrivenCommonOptions(maxiters = 10_000,
+    normalize = DataDrivenDiffEq.DataNormalization(DataDrivenDiffEq.ZScoreTransform),
+    selector = DataDrivenDiffEq.bic, digits = 1,
+    data_processing = DataDrivenDiffEq.DataProcessing(split = 0.9,
+        batchsize = 30,
+        shuffle = true,
+        rng = StableRNGs.StableRNG(1111)))
+
+nn_res = DataDrivenDiffEq.solve(nn_problem, basis, opt, options = options)
+nn_eqs = DataDrivenDiffEq.get_basis(nn_res)
+println(nn_res)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">&quot;DataDrivenSolution{Float64}&quot; with 2 equations and 2 parameters.
+Returncode: Success
+Residual sum of squares: 12.321618840485996</code></pre><p>Note that we passed the identical options into each of the <code>solve</code> calls to get the same data for each call.</p><p>We already saw that the full problem has failed to identify the correct equations of motion. To have a closer look, we can inspect the corresponding equations:</p><pre><code class="language-julia hljs">for eqs in (full_eqs, ideal_eqs, nn_eqs)
+    println(eqs)
+    println(DataDrivenDiffEq.get_parameter_map(eqs))
+    println()
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi"><span class="sgr1">Model ##Basis#2608 with 2 equations</span>
+States : u[1] u[2]
+Parameters : p₁ p₂ p₃ p₄
+Independent variable: t
+Equations
+Differential(t)(u[1]) = p₁*u[1] + p₂*u[2] + p₃*(u[2]^2)
+Differential(t)(u[2]) = p₄*u[2]
+
+Pair{SymbolicUtils.BasicSymbolic{Real}, Float64}[p₁ =&gt; 0.8, p₂ =&gt; -0.2, p₃ =&gt; -0.4, p₄ =&gt; -0.9]
+
+<span class="sgr1">Model ##Basis#2612 with 2 equations</span>
+States : u[1] u[2]
+Parameters : p₁ p₂
+Independent variable: t
+Equations
+φ₁ = p₁*u[1]*u[2]
+φ₂ = p₂*u[1]*u[2]
+
+Pair{SymbolicUtils.BasicSymbolic{Real}, Float64}[p₁ =&gt; -0.8, p₂ =&gt; 0.7]
+
+<span class="sgr1">Model ##Basis#2616 with 2 equations</span>
+States : u[1] u[2]
+Parameters : p₁ p₂
+Independent variable: t
+Equations
+φ₁ = p₁*u[1]*u[2]
+φ₂ = p₂*u[1]*u[2]
+
+Pair{SymbolicUtils.BasicSymbolic{Real}, Float64}[p₁ =&gt; -0.8, p₂ =&gt; 0.7]</code></pre><p>Next, we want to predict with our model. To do so, we embed the basis into a function like before:</p><pre><code class="language-julia hljs"># Define the recovered, hybrid model
+function recovered_dynamics!(du, u, p, t)
+    û = nn_eqs(u, p) # Recovered equations
+    du[1] = p_[1] * u[1] + û[1]
+    du[2] = -p_[4] * u[2] + û[2]
+end
+
+estimation_prob = ODE.ODEProblem(recovered_dynamics!, u0, tspan, DataDrivenDiffEq.get_parameter_values(nn_eqs))
+estimate = ODE.solve(estimation_prob, ODE.Tsit5(), saveat = solution.t)
+
+# Plot
+Plots.plot(solution)
+Plots.plot!(estimate)</code></pre><img src="75e19fe5.svg" alt="Example block output"/><p>We are still a bit off, so we fine tune the parameters by simply minimizing the residuals between the UDE predictor and our recovered parametrized equations:</p><pre><code class="language-julia hljs">function parameter_loss(p)
+    Y = reduce(hcat, map(Base.Fix2(nn_eqs, p), eachcol(X̂)))
+    sum(abs2, Ŷ .- Y)
+end
+
+optf = OPT.OptimizationFunction((x, p) -&gt; parameter_loss(x), adtype)
+optprob = OPT.OptimizationProblem(optf, DataDrivenDiffEq.get_parameter_values(nn_eqs))
+parameter_res = OPT.solve(optprob, OptimizationOptimJL.LBFGS(), maxiters = 1000)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">retcode: Success
+u: 2-element Vector{Float64}:
+ -0.8998247043541393
+  0.8003091524154001</code></pre><h2 id="Simulation"><a class="docs-heading-anchor" href="#Simulation">Simulation</a><a id="Simulation-1"></a><a class="docs-heading-anchor-permalink" href="#Simulation" title="Permalink"></a></h2><pre><code class="language-julia hljs"># Look at long term prediction
+t_long = (0.0, 50.0)
+estimation_prob = ODE.ODEProblem(recovered_dynamics!, u0, t_long, parameter_res)
+estimate_long = ODE.solve(estimation_prob, ODE.Tsit5(), saveat = 0.1) # Using higher tolerances here results in exit of julia
+Plots.plot(estimate_long)</code></pre><img src="268c8f78.svg" alt="Example block output"/><pre><code class="language-julia hljs">true_prob = ODE.ODEProblem(lotka!, u0, t_long, p_)
+true_solution_long = ODE.solve(true_prob, ODE.Tsit5(), saveat = estimate_long.t)
+Plots.plot!(true_solution_long)</code></pre><img src="ba880b80.svg" alt="Example block output"/><h2 id="Post-Processing-and-Plots"><a class="docs-heading-anchor" href="#Post-Processing-and-Plots">Post Processing and Plots</a><a id="Post-Processing-and-Plots-1"></a><a class="docs-heading-anchor-permalink" href="#Post-Processing-and-Plots" title="Permalink"></a></h2><pre><code class="language-julia hljs">c1 = 3 # RGBA(174/255,192/255,201/255,1) # Maroon
+c2 = :orange # RGBA(132/255,159/255,173/255,1) # Red
+c3 = :blue # RGBA(255/255,90/255,0,1) # Orange
+c4 = :purple # RGBA(153/255,50/255,204/255,1) # Purple
+
+p1 = Plots.plot(t, abs.(Array(solution) .- estimate)&#39; .+ eps(Float32),
+    lw = 3, yaxis = :log, title = &quot;Timeseries of UODE Error&quot;,
+    color = [3 :orange], xlabel = &quot;t&quot;,
+    label = [&quot;x(t)&quot; &quot;y(t)&quot;],
+    titlefont = &quot;Helvetica&quot;, legendfont = &quot;Helvetica&quot;,
+    legend = :topright)
+
+# Plot L₂
+p2 = Plots.plot3d(X̂[1, :], X̂[2, :], Ŷ[2, :], lw = 3,
+    title = &quot;Neural Network Fit of U2(t)&quot;, color = c1,
+    label = &quot;Neural Network&quot;, xaxis = &quot;x&quot;, yaxis = &quot;y&quot;,
+    titlefont = &quot;Helvetica&quot;, legendfont = &quot;Helvetica&quot;,
+    legend = :bottomright)
+Plots.plot!(X̂[1, :], X̂[2, :], Ȳ[2, :], lw = 3, label = &quot;True Missing Term&quot;, color = c2)
+
+p3 = Plots.scatter(solution, color = [c1 c2], label = [&quot;x data&quot; &quot;y data&quot;],
+    title = &quot;Extrapolated Fit From Short Training Data&quot;,
+    titlefont = &quot;Helvetica&quot;, legendfont = &quot;Helvetica&quot;,
+    markersize = 5)
+
+Plots.plot!(p3, true_solution_long, color = [c1 c2], linestyle = :dot, lw = 5,
+    label = [&quot;True x(t)&quot; &quot;True y(t)&quot;])
+Plots.plot!(p3, estimate_long, color = [c3 c4], lw = 1,
+    label = [&quot;Estimated x(t)&quot; &quot;Estimated y(t)&quot;])
+Plots.plot!(p3, [2.99, 3.01], [0.0, 10.0], lw = 1, color = :black, label = nothing)
+Plots.annotate!([(1.5, 13, Plots.text(&quot;Training \nData&quot;, 10, :center, :top, :black, &quot;Helvetica&quot;))])
+l = Plots.@layout [Plots.grid(1, 2)
+                   Plots.grid(1, 1)]
+Plots.plot(p1, p2, p3, layout = l)</code></pre><img src="f40ebde7.svg" alt="Example block output"/></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../showcase/">« The SciML Showcase</a><a class="docs-footer-nextpage" href="../bayesian_neural_ode/">Uncertainty Quantified Deep Bayesian Model Discovery »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.14.1 on <span class="colophon-date" title="Monday 13 October 2025 06:58">Monday 13 October 2025</span>. Using Julia version 1.11.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
