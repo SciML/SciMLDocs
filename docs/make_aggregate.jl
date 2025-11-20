@@ -83,7 +83,7 @@ docsmodules = [
         "Numerical Utilities" => ["ExponentialUtilities", "DiffEqNoiseProcess",
             "PreallocationTools", "EllipsisNotation", "DataInterpolations", "NDInterpolations",
             "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro", "FindFirstFunctions",
-            "SparseDiffTools"],
+            "SparseDiffTools", "BipartiteGraphs"],
         #=
         "Third-Party Numerical Utilities" => ["FFTW", "Distributions",
             "SpecialFunctions", "LoopVectorization",
