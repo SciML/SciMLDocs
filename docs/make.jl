@@ -7,21 +7,29 @@ cp("./docs/Project.toml", "./docs/src/assets/Project.toml", force = true)
 ENV["GKSwstype"] = "100"
 using Plots
 
-mathengine = MathJax3(Dict(:loader => Dict("load" => ["[tex]/require", "[tex]/mathtools"]),
-    :tex => Dict("inlineMath" => [["\$", "\$"], ["\\(", "\\)"]],
-        "packages" => [
-            "base",
-            "ams",
-            "autoload",
-            "mathtools",
-            "require"
-        ])))
+mathengine = MathJax3(
+    Dict(
+        :loader => Dict("load" => ["[tex]/require", "[tex]/mathtools"]),
+        :tex => Dict(
+            "inlineMath" => [["\$", "\$"], ["\\(", "\\)"]],
+            "packages" => [
+                "base",
+                "ams",
+                "autoload",
+                "mathtools",
+                "require",
+            ]
+        )
+    )
+)
 
-makedocs(sitename = "Overview of Julia's SciML",
+makedocs(
+    sitename = "Overview of Julia's SciML",
     authors = "Chris Rackauckas",
     modules = Module[],
     clean = true, doctest = false, linkcheck = true,
-    linkcheck_ignore = ["https://twitter.com/ChrisRackauckas/status/1477274812460449793",
+    linkcheck_ignore = [
+        "https://twitter.com/ChrisRackauckas/status/1477274812460449793",
         "https://epubs.siam.org/doi/10.1137/0903023",
         "https://bkamins.github.io/julialang/2020/12/24/minilanguage.html",
         "https://arxiv.org/abs/2109.06786",
@@ -31,11 +39,13 @@ makedocs(sitename = "Overview of Julia's SciML",
         "https://github.com/JuliaDiff/ForwardDiff.jl/blob/master/docs/src/dev/how_it_works.md",
         "https://github.com/SciML/Optimization.jl/blob/master/lib/OptimizationPolyalgorithms/src/OptimizationPolyalgorithms.jl",
         "http://www.scholarpedia.org/article/Differential-algebraic_equations",
-        "https://computing.llnl.gov/projects/sundials"
-        ],
-    format = Documenter.HTML(assets = ["assets/favicon.ico"],
+        "https://computing.llnl.gov/projects/sundials",
+    ],
+    format = Documenter.HTML(
+        assets = ["assets/favicon.ico"],
         canonical = "https://docs.sciml.ai/stable/",
-        mathengine = mathengine),
+        mathengine = mathengine
+    ),
     pages = [
         "SciML: Open Source Software for Scientific Machine Learning with Julia" => "index.md",
         "Getting Started" => [
@@ -45,46 +55,66 @@ makedocs(sitename = "Overview of Julia's SciML",
                 "getting_started/first_simulation.md",
                 "getting_started/first_optimization.md",
                 "getting_started/fit_simulation.md",
-                "getting_started/find_root.md"
+                "getting_started/find_root.md",
             ],
             "Comparison With Other Tools" => [
                 "comparisons/python.md",
                 "comparisons/matlab.md",
                 "comparisons/r.md",
-                "comparisons/cppfortran.md"
-            ]
+                "comparisons/cppfortran.md",
+            ],
         ],
-        "Showcase of Cool Examples" => Any["showcase/showcase.md",
-            "Automated Model Discovery" => Any["showcase/missing_physics.md",
+        "Showcase of Cool Examples" => Any[
+            "showcase/showcase.md",
+            "Automated Model Discovery" => Any[
+                "showcase/missing_physics.md",
                 "showcase/bayesian_neural_ode.md",
                 "showcase/optimal_data_gathering_for_missing_physics.md",
-                "showcase/blackhole.md"],
-            "Solving Difficult Equations Efficiently" => Any["showcase/brusselator.md",
+                "showcase/blackhole.md",
+            ],
+            "Solving Difficult Equations Efficiently" => Any[
+                "showcase/brusselator.md",
                 "showcase/pinngpu.md",
                 "showcase/massively_parallel_gpu.md",
-                "showcase/gpu_spde.md"],
-            "Useful Cool Wonky Things" => Any["showcase/ode_types.md",
+                "showcase/gpu_spde.md",
+            ],
+            "Useful Cool Wonky Things" => Any[
+                "showcase/ode_types.md",
                 "showcase/symbolic_analysis.md",
-                "showcase/optimization_under_uncertainty.md"]],
-        "What is SciML?" => ["overview.md",
-            "Solvers" => ["highlevels/equation_solvers.md",
+                "showcase/optimization_under_uncertainty.md",
+            ],
+        ],
+        "What is SciML?" => [
+            "overview.md",
+            "Solvers" => [
+                "highlevels/equation_solvers.md",
                 "highlevels/inverse_problems.md",
-                "highlevels/partial_differential_equation_solvers.md"],
-            "Modeling Tools" => ["highlevels/modeling_languages.md",
+                "highlevels/partial_differential_equation_solvers.md",
+            ],
+            "Modeling Tools" => [
+                "highlevels/modeling_languages.md",
                 "highlevels/model_libraries_and_importers.md",
                 "highlevels/symbolic_tools.md",
-                "highlevels/array_libraries.md"],
-            "Simulation Analysis" => ["highlevels/parameter_analysis.md",
+                "highlevels/array_libraries.md",
+            ],
+            "Simulation Analysis" => [
+                "highlevels/parameter_analysis.md",
                 "highlevels/uncertainty_quantification.md",
-                "highlevels/plots_visualization.md"],
-            "Machine Learning" => ["highlevels/function_approximation.md",
+                "highlevels/plots_visualization.md",
+            ],
+            "Machine Learning" => [
+                "highlevels/function_approximation.md",
                 "highlevels/implicit_layers.md",
-                "highlevels/symbolic_learning.md"],
-            "Developer Tools" => ["highlevels/numerical_utilities.md",
+                "highlevels/symbolic_learning.md",
+            ],
+            "Developer Tools" => [
+                "highlevels/numerical_utilities.md",
                 "highlevels/interfaces.md",
-                "highlevels/developer_documentation.md"],
-            "Extra Learning Resources" => ["highlevels/learning_resources.md"]
-        ]],
+                "highlevels/developer_documentation.md",
+            ],
+            "Extra Learning Resources" => ["highlevels/learning_resources.md"],
+        ],
+    ],
 )
 
 deploydocs(repo = "github.com/SciML/SciMLDocs")
