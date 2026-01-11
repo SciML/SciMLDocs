@@ -1,4 +1,6 @@
-using Documenter, LibGit2, Pkg
+using Documenter: Documenter, HTML
+using LibGit2
+using Pkg
 using MultiDocumenter
 
 include("CommercialSupportComponent.jl")
@@ -255,7 +257,7 @@ MultiDocumenter.make(
     ),
     custom_scripts = [
         "https://www.googletagmanager.com/gtag/js?id=G-Q3FE4BYYHQ",
-        Docs.HTML(
+        HTML(
             """
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}

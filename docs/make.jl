@@ -1,4 +1,4 @@
-using Documenter
+using Documenter: Documenter, makedocs, deploydocs, MathJax3, HTML
 
 cp("./docs/Manifest.toml", "./docs/src/assets/Manifest.toml", force = true)
 cp("./docs/Project.toml", "./docs/src/assets/Project.toml", force = true)
@@ -41,7 +41,7 @@ makedocs(
         "http://www.scholarpedia.org/article/Differential-algebraic_equations",
         "https://computing.llnl.gov/projects/sundials",
     ],
-    format = Documenter.HTML(
+    format = HTML(
         assets = ["assets/favicon.ico"],
         canonical = "https://docs.sciml.ai/stable/",
         mathengine = mathengine
