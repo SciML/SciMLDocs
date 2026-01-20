@@ -175,7 +175,6 @@ external_urls = Dict(
     "ReachabilityAnalysis" => "https://github.com/JuliaReach/ReachabilityAnalysis.jl",
     "ControlSystems" => "https://github.com/JuliaControl/ControlSystems.jl",
     "Flux" => "https://github.com/FluxML/Flux.jl",
-    "Lux" => "https://github.com/LuxDL/Lux.jl",
     "SimpleChains" => "https://github.com/PumasAI/SimpleChains.jl",
     "NNlib" => "https://github.com/FluxML/NNlib.jl",
     "SymbolicRegression" => "https://github.com/MilesCranmer/SymbolicRegression.jl",
