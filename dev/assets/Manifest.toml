@@ -1373,9 +1373,9 @@ version = "0.2.0"
 
 [[deps.GPUCompiler]]
 deps = ["ExprTools", "InteractiveUtils", "LLVM", "Libdl", "Logging", "PrecompileTools", "Preferences", "Scratch", "Serialization", "TOML", "Tracy", "UUIDs"]
-git-tree-sha1 = "fd1f41573e76b42074748cea676c1a524f071488"
+git-tree-sha1 = "7237207d87760307c92c260565f706688229cf6e"
 uuid = "61eb1bfa-7361-4325-ad38-22787b887f55"
-version = "1.8.0"
+version = "1.8.1"
 
 [[deps.GPUToolbox]]
 deps = ["LLVM"]
