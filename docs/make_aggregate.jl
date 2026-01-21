@@ -54,6 +54,7 @@ docsmodules = [
             "MethodOfLines", "NeuralPDE",
             "NeuralOperators", "FEniCS",
             "HighDimPDE", "DiffEqOperators",
+            "FiniteVolumeMethod", "FiniteVolumeMethod1D",
         ],
         #=
         "Third-Party PDE Solvers" => [
@@ -81,7 +82,7 @@ docsmodules = [
     ],
     "Machine Learning" => [
         "Function Approximation" => ["Surrogates", "ReservoirComputing"],
-        "Implicit Layer Deep Learning" => ["DiffEqFlux", "DeepEquilibriumNetworks"],
+        "Implicit Layer Deep Learning" => ["DiffEqFlux", "DeepEquilibriumNetworks", "NeuralLyapunov"],
         #= "Third-Party Implicit Layer Deep Learning" => ["Flux", "Lux", "SimpleChains"], =#
         "Symbolic Learning" => ["DataDrivenDiffEq", "SymbolicNumericIntegration"],
         #= "Third-Party Symbolic Learning" => ["SymbolicRegression"], =#
@@ -94,7 +95,7 @@ docsmodules = [
     "Developer Tools" => [
         "Numerical Utilities" => [
             "ExponentialUtilities", "DiffEqNoiseProcess",
-            "PreallocationTools", "EllipsisNotation", "DataInterpolations", "NDInterpolations",
+            "PreallocationTools", "EllipsisNotation", "DataInterpolations", "DataInterpolationsND",
             "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro", "FindFirstFunctions",
             "SparseDiffTools", "BipartiteGraphs",
         ],
