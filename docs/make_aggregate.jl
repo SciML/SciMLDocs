@@ -48,7 +48,7 @@ docsmodules = [
         ],
         =#
         "Inverse Problems / Estimation" => [
-            "SciMLSensitivity", "DiffEqParamEstim", "DiffEqBayes",
+            "CurveFit", "SciMLSensitivity", "DiffEqParamEstim", "DiffEqBayes",
         ],
         "PDE Solvers" => [
             "MethodOfLines", "NeuralPDE",
