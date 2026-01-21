@@ -1,4 +1,4 @@
-using Documenter: Documenter, HTML
+using Documenter: Documenter
 using LibGit2
 using Pkg
 using MultiDocumenter
@@ -256,7 +256,7 @@ MultiDocumenter.make(
     ),
     custom_scripts = [
         "https://www.googletagmanager.com/gtag/js?id=G-Q3FE4BYYHQ",
-        HTML(
+        Docs.HTML(
             """
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
