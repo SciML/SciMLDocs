@@ -3411,9 +3411,9 @@ version = "0.6.12"
 
 [[deps.RecursiveArrayTools]]
 deps = ["Adapt", "ArrayInterface", "DocStringExtensions", "GPUArraysCore", "LinearAlgebra", "PrecompileTools", "RecipesBase", "StaticArraysCore", "SymbolicIndexingInterface"]
-git-tree-sha1 = "31b3d7b7e14faad39583475b89aadbd9c3e7ef8b"
+git-tree-sha1 = "def840f3dcda344117fd77830313ed6c923fc721"
 uuid = "731186ca-8d62-57ce-b412-fbd966d074cd"
-version = "3.44.0"
+version = "3.45.0"
 weakdeps = ["FastBroadcast", "ForwardDiff", "KernelAbstractions", "Measurements", "MonteCarloMeasurements", "ReverseDiff", "SparseArrays", "Statistics", "StructArrays", "Tables", "Tracker", "Zygote"]
 
     [deps.RecursiveArrayTools.extensions]
