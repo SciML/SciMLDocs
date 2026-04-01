@@ -246,16 +246,24 @@ push!(
 
 outpath = joinpath(@__DIR__, "build")
 
-# Strip NUL bytes from cloned HTML files to avoid Gumbo.jl parse errors
-# (e.g. SymbolicSMT v1.0.0 has a corrupted HTML file with embedded NULs)
-for (root, dirs, files) in walkdir(clonedir)
-    for f in files
-        endswith(f, ".html") || continue
-        path = joinpath(root, f)
-        content = read(path)
-        if 0x00 in content
-            @warn "Stripping NUL bytes from $path"
-            write(path, filter(!=(0x00), content))
+# Pre-clone all MultiDocRef repos and strip NUL bytes from HTML files.
+# Gumbo.jl (used by MultiDocumenter) crashes on embedded NUL bytes.
+# e.g. SymbolicSMT v1.0.0 has a corrupted HTML file with an embedded NUL.
+let all_docs = MultiDocumenter.flatten_dropdowncomponents(docs)
+    MultiDocumenter.maybe_clone(all_docs)
+    for doc in all_docs
+        doc isa MultiDocumenter.MultiDocRef || continue
+        isdir(doc.upstream) || continue
+        for (root, _, files) in walkdir(doc.upstream)
+            for f in files
+                endswith(f, ".html") || continue
+                path = joinpath(root, f)
+                content = read(path)
+                if 0x00 in content
+                    @warn "Stripping NUL bytes from $path"
+                    write(path, filter(!=(0x00), content))
+                end
+            end
         end
     end
 end
