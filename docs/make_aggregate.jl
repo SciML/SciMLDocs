@@ -246,6 +246,20 @@ push!(
 
 outpath = joinpath(@__DIR__, "build")
 
+# Strip NUL bytes from cloned HTML files to avoid Gumbo.jl parse errors
+# (e.g. SymbolicSMT v1.0.0 has a corrupted HTML file with embedded NULs)
+for (root, dirs, files) in walkdir(clonedir)
+    for f in files
+        endswith(f, ".html") || continue
+        path = joinpath(root, f)
+        content = read(path)
+        if 0x00 in content
+            @warn "Stripping NUL bytes from $path"
+            write(path, filter(!=(0x00), content))
+        end
+    end
+end
+
 MultiDocumenter.make(
     outpath, docs;
     assets_dir = "docs/src/assets",
