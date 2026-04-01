@@ -48,7 +48,7 @@ noise_magnitude = 5e-3
 Xₙ = X .+ (noise_magnitude * x̄) .* randn(rng, eltype(X), size(X))
 
 Plots.Plots.plot(solution, alpha = 0.75, color = :black, label = [&quot;True Data&quot; nothing])
-Plots.scatter!(t, transpose(Xₙ), color = :red, label = [&quot;Noisy Data&quot; nothing])</code></pre><img src="6acb61af.svg" alt="Example block output"/><h2 id="Definition-of-the-Universal-Differential-Equation"><a class="docs-heading-anchor" href="#Definition-of-the-Universal-Differential-Equation">Definition of the Universal Differential Equation</a><a id="Definition-of-the-Universal-Differential-Equation-1"></a><a class="docs-heading-anchor-permalink" href="#Definition-of-the-Universal-Differential-Equation" title="Permalink"></a></h2><p>Now let&#39;s define our UDE. We will use Lux.jl to define the neural network as follows:</p><pre><code class="language-julia hljs">rbf(x) = exp.(-(x .^ 2))
+Plots.scatter!(t, transpose(Xₙ), color = :red, label = [&quot;Noisy Data&quot; nothing])</code></pre><img src="70d1f767.svg" alt="Example block output"/><h2 id="Definition-of-the-Universal-Differential-Equation"><a class="docs-heading-anchor" href="#Definition-of-the-Universal-Differential-Equation">Definition of the Universal Differential Equation</a><a id="Definition-of-the-Universal-Differential-Equation-1"></a><a class="docs-heading-anchor-permalink" href="#Definition-of-the-Universal-Differential-Equation" title="Permalink"></a></h2><p>Now let&#39;s define our UDE. We will use Lux.jl to define the neural network as follows:</p><pre><code class="language-julia hljs">rbf(x) = exp.(-(x .^ 2))
 
 # Multilayer FeedForward
 const U = Lux.Chain(Lux.Dense(2, 5, rbf), Lux.Dense(5, 5, rbf), Lux.Dense(5, 5, rbf),
@@ -91,12 +91,12 @@ optf = OPT.OptimizationFunction((x, p) -&gt; loss(x), adtype)
 optprob = OPT.OptimizationProblem(optf, ComponentArrays.ComponentVector{Float64}(p))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi"><span class="sgr38_2" style="color:#56b6c2">OptimizationProblem</span>. In-place: <span class="sgr38_2" style="color:#56b6c2">true</span>
 u0: ComponentVector{Float64}(layer_1 = (weight = [0.6538559794425964 0.7530555129051208; 0.5314245820045471 -1.146309733390808; … ; 0.6230413317680359 -0.9949618577957153; -0.267433762550354 -0.42296043038368225], bias = [0.6228184700012207, -0.36390432715415955, 0.5564076900482178, -0.6573317050933838, 0.0013557798229157925]), layer_2 = (weight = [-0.6952740550041199 -0.17967918515205383 … 0.24313241243362427 0.0011237671133130789; -0.17176461219787598 -0.6643869876861572 … 0.18968746066093445 0.04383227229118347; … ; -0.6787673234939575 -0.4131874740123749 … 0.1658746749162674 -0.5179172158241272; -0.10373303294181824 -0.49185651540756226 … -0.043933477252721786 -0.2150842249393463], bias = [0.0037434629630297422, -0.18621833622455597, -0.20786269009113312, -0.3489077389240265, 0.14812849462032318]), layer_3 = (weight = [-0.5676549077033997 0.2754976451396942 … 0.597773551940918 -0.04514681175351143; 0.7638720273971558 0.09472294896841049 … -0.47445687651634216 -0.6932666301727295; … ; -0.03054356575012207 -0.18625909090042114 … -0.33154675364494324 0.035615935921669006; 0.5577947497367859 0.5849692821502686 … 0.20916324853897095 0.7067036032676697], bias = [-0.25027230381965637, 0.0903530940413475, 0.41296181082725525, 0.19502975046634674, -0.20660826563835144]), layer_4 = (weight = [0.22668682038784027 0.28912562131881714 … -0.4954346716403961 -0.13401342928409576; 0.6387283802032471 0.011346816085278988 … 0.20840884745121002 -0.3841484785079956], bias = [-0.30624446272850037, 0.07177023589611053]))</code></pre><p>Now... we optimize it. We will use a mixed strategy. First, let&#39;s do some iterations of ADAM because it&#39;s better at finding a good general area of parameter space, but then we will move to BFGS which will quickly hone in on a local minimum. Note that if we only use ADAM it will take a ton of iterations, and if we only use BFGS we normally end up in a bad local minimum, so this combination tends to be a good one for UDEs.</p><p>Thus we first solve the optimization problem with ADAM. Choosing a learning rate of 0.1 (tuned to be as high as possible that doesn&#39;t tend to make the loss shoot up), we see:</p><pre><code class="language-julia hljs">res1 = OPT.solve(
     optprob, OptimizationOptimisers.Adam(), callback = callback, maxiters = 5000)
-println(&quot;Training loss after $(length(losses)) iterations: $(losses[end])&quot;)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi"><span class="sgr33"><span class="sgr1">┌ Warning: </span></span>Lux.apply(m::AbstractLuxLayer, x::AbstractArray{&lt;:ReverseDiff.TrackedReal}, ps, st) input was corrected to Lux.apply(m::AbstractLuxLayer, x::ReverseDiff.TrackedArray}, ps, st).
-<span class="sgr33"><span class="sgr1">│ </span></span>
-<span class="sgr33"><span class="sgr1">│ </span></span>1. If this was not the desired behavior overload the dispatch on `m`.
-<span class="sgr33"><span class="sgr1">│ </span></span>
-<span class="sgr33"><span class="sgr1">│ </span></span>2. This might have performance implications. Check which layer was causing this problem using `Lux.Experimental.@debug_mode`.
-<span class="sgr33"><span class="sgr1">└ </span></span><span class="sgr90">@ ArrayInterfaceReverseDiffExt ~/.cache/julia-buildkite-plugin/depots/0183cc98-c3b4-4959-aaaa-6c0d5f351407/packages/LuxCore/kQC9S/ext/ArrayInterfaceReverseDiffExt.jl:9</span>
+println(&quot;Training loss after $(length(losses)) iterations: $(losses[end])&quot;)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">┌ Warning: Lux.apply(m::AbstractLuxLayer, x::AbstractArray{&lt;:ReverseDiff.TrackedReal}, ps, st) input was corrected to Lux.apply(m::AbstractLuxLayer, x::ReverseDiff.TrackedArray}, ps, st).
+│
+│ 1. If this was not the desired behavior overload the dispatch on `m`.
+│
+│ 2. This might have performance implications. Check which layer was causing this problem using `Lux.Experimental.@debug_mode`.
+└ @ ArrayInterfaceReverseDiffExt ~/github-runners/arctic1-1/.julia/packages/LuxCore/kQC9S/ext/ArrayInterfaceReverseDiffExt.jl:9
 Current loss after 50 iterations: 124231.93947253352
 Current loss after 100 iterations: 99525.7912250509
 Current loss after 150 iterations: 73986.99307317383
@@ -203,30 +203,30 @@ res2 = OPT.solve(
 println(&quot;Final training loss after $(length(losses)) iterations: $(losses[end])&quot;)
 
 # Rename the best candidate
-p_trained = res2.u</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">ComponentVector{Float64}(layer_1 = (weight = [0.7578969173057113 0.8692266904272811; 0.5655647316591214 -0.8154403667840756; … ; -0.4811727291664737 -1.142738129368355; -1.299961251159792 -1.03879824468723], bias = [0.731023574745378, -0.007828819836542827, 0.46953595988176106, -0.7232676809612779, -0.4447912743078758]), layer_2 = (weight = [-0.5478763448635744 0.27708978320166505 … 0.8536165461958506 0.3943624467838292; -0.22296674056548857 0.5022147910224051 … -0.149670824499818 -0.2584786291201948; … ; -0.6720846512325249 0.2896527105632095 … 0.2170442294294408 -0.4107734472514823; -0.06371010072377248 -0.7664904723448986 … -0.18384940880826522 0.767294701249526], bias = [1.3647703141603549, 0.1879928565416788, -1.4902445607056967, 0.5808832642362283, 0.8550018121972541]), layer_3 = (weight = [0.30160171480146897 0.9695953482715188 … -0.17272567762279953 0.24469646826302172; 0.1566060761333285 -0.2911579354662512 … -0.6264029452609399 2.146177920832776; … ; -0.0069636578215904995 -1.516857970853521 … 0.10670706247845912 -0.3240524042853424; 0.2676268947709762 0.5243561821337813 … -1.5289864427774205 1.5420437648533407], bias = [-0.012646991713093622, -1.1233258501533943, 1.549425872454573, 1.815990692872698, -2.004181198106545]), layer_4 = (weight = [0.37119485129431157 -1.3457092023977928 … -0.6650045411605727 -2.9196712801129623; 2.071567831316967 1.0675368522138822 … -2.3584914447894665 -0.7288686153718467], bias = [-0.8035728194205481, 2.1051408058838965]))</code></pre><p>and bingo, we have a trained UDE.</p><h2 id="Visualizing-the-Trained-UDE"><a class="docs-heading-anchor" href="#Visualizing-the-Trained-UDE">Visualizing the Trained UDE</a><a id="Visualizing-the-Trained-UDE-1"></a><a class="docs-heading-anchor-permalink" href="#Visualizing-the-Trained-UDE" title="Permalink"></a></h2><p>How well did our neural network do? Let&#39;s take a look:</p><pre><code class="language-julia hljs"># Plot the losses
+p_trained = res2.u</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">ComponentVector{Float64}(layer_1 = (weight = [0.6550360542206157 0.6649632739768416; -1.2079766763758135 -1.7683184924399178; … ; 0.18705620536745304 -0.9650695057326966; -1.6879046076595088 -1.2723216675364977], bias = [0.6263129738001625, -0.7831131240184304, 0.24649664140974936, -1.6384663924246405, -0.6143681178550662]), layer_2 = (weight = [-0.5395100285519829 0.12704112750939187 … -1.530868855256914 0.3459224599924991; -0.2123177448169582 -0.43440119821009404 … 0.1705626573461368 -0.2869185037061098; … ; -0.7047675173472311 -0.2557168327617591 … 2.1420146794107033 -0.3709570997826139; -0.06783566113311332 -0.7127481355181361 … -1.4396016642048552 1.0221970914839793], bias = [-0.545767518610191, -1.092470869749489, -0.912909657298425, -1.0587652229185427, 2.4605331481600285]), layer_3 = (weight = [1.1673253451524954 -0.07999389699864601 … 0.740617413966438 -0.5678364400004152; 0.3273482786628889 0.23637560373403346 … -1.7143097442980706 0.5822730921345702; … ; -0.4843498552450776 -2.3183802107929017 … 1.942548692536213 0.3343653709139547; 1.047266392098811 0.2607244818433996 … -2.1484095149855538 0.31299933186405016], bias = [-0.3411815420807183, -0.055462514040940214, 1.7744586745681683, 1.6433186776238908, -1.5904332192823443]), layer_4 = (weight = [-1.5612576886624239 -2.867644362156008 … 1.1938059753566934 -3.091147955981247; -0.5817821798594399 3.879224860751866 … 1.5674518852527681 2.7541957480351136], bias = [-0.7885959000780182, -1.1436745400740365]))</code></pre><p>and bingo, we have a trained UDE.</p><h2 id="Visualizing-the-Trained-UDE"><a class="docs-heading-anchor" href="#Visualizing-the-Trained-UDE">Visualizing the Trained UDE</a><a id="Visualizing-the-Trained-UDE-1"></a><a class="docs-heading-anchor-permalink" href="#Visualizing-the-Trained-UDE" title="Permalink"></a></h2><p>How well did our neural network do? Let&#39;s take a look:</p><pre><code class="language-julia hljs"># Plot the losses
 pl_losses = Plots.Plots.plot(1:5000, losses[1:5000], yaxis = :log10, xaxis = :log10,
     xlabel = &quot;Iterations&quot;, ylabel = &quot;Loss&quot;, label = &quot;ADAM&quot;, color = :blue)
 Plots.Plots.plot!(5001:length(losses), losses[5001:end], yaxis = :log10, xaxis = :log10,
-    xlabel = &quot;Iterations&quot;, ylabel = &quot;Loss&quot;, label = &quot;BFGS&quot;, color = :red)</code></pre><img src="b5e14a9b.svg" alt="Example block output"/><p>Next, we compare the original data to the output of the UDE predictor. Note that we can even create more samples from the underlying model by simply adjusting the time steps!</p><pre><code class="language-julia hljs">## Analysis of the trained network
+    xlabel = &quot;Iterations&quot;, ylabel = &quot;Loss&quot;, label = &quot;BFGS&quot;, color = :red)</code></pre><img src="9105df04.svg" alt="Example block output"/><p>Next, we compare the original data to the output of the UDE predictor. Note that we can even create more samples from the underlying model by simply adjusting the time steps!</p><pre><code class="language-julia hljs">## Analysis of the trained network
 # Plot the data and the approximation
 ts = first(solution.t):(Statistics.mean(diff(solution.t)) / 2):last(solution.t)
 X̂ = predict(p_trained, Xₙ[:, 1], ts)
 # Trained on noisy data vs real solution
 pl_trajectory = Plots.Plots.plot(ts, transpose(X̂), xlabel = &quot;t&quot;, ylabel = &quot;x(t), y(t)&quot;, color = :red,
     label = [&quot;UDE Approximation&quot; nothing])
-Plots.scatter!(solution.t, transpose(Xₙ), color = :black, label = [&quot;Measurements&quot; nothing])</code></pre><img src="f538354d.svg" alt="Example block output"/><p>Let&#39;s see how well the unknown term has been approximated:</p><pre><code class="language-julia hljs"># Ideal unknown interactions of the predictor
+Plots.scatter!(solution.t, transpose(Xₙ), color = :black, label = [&quot;Measurements&quot; nothing])</code></pre><img src="e3e00ae1.svg" alt="Example block output"/><p>Let&#39;s see how well the unknown term has been approximated:</p><pre><code class="language-julia hljs"># Ideal unknown interactions of the predictor
 Ȳ = [-p_[2] * (X̂[1, :] .* X̂[2, :])&#39;; p_[3] * (X̂[1, :] .* X̂[2, :])&#39;]
 # Neural network guess
 Ŷ = U(X̂, p_trained, st)[1]
 
 pl_reconstruction = Plots.plot(ts, transpose(Ŷ), xlabel = &quot;t&quot;, ylabel = &quot;U(x,y)&quot;, color = :red,
     label = [&quot;UDE Approximation&quot; nothing])
-Plots.plot!(ts, transpose(Ȳ), color = :black, label = [&quot;True Interaction&quot; nothing])</code></pre><img src="6ef597a5.svg" alt="Example block output"/><p>And have a nice look at all the information:</p><pre><code class="language-julia hljs"># Plot the error
+Plots.plot!(ts, transpose(Ȳ), color = :black, label = [&quot;True Interaction&quot; nothing])</code></pre><img src="026b6e73.svg" alt="Example block output"/><p>And have a nice look at all the information:</p><pre><code class="language-julia hljs"># Plot the error
 pl_reconstruction_error = Plots.plot(ts, LinearAlgebra.norm.(eachcol(Ȳ - Ŷ)), yaxis = :log, xlabel = &quot;t&quot;,
     ylabel = &quot;L2-Error&quot;, label = nothing, color = :red)
 pl_missing = Plots.plot(pl_reconstruction, pl_reconstruction_error, layout = (2, 1))
 
-pl_overall = Plots.plot(pl_trajectory, pl_missing)</code></pre><img src="b51f9aad.svg" alt="Example block output"/><p>That looks pretty good. And if we are happy with deep learning, we can leave it at that: we have trained a neural network to capture our missing dynamics.</p><p>But...</p><p>Can we also make it print out the LaTeX for what the missing equations were? Find out more after the break!</p><h2 id="Symbolic-regression-via-sparse-regression-(SINDy-based)"><a class="docs-heading-anchor" href="#Symbolic-regression-via-sparse-regression-(SINDy-based)">Symbolic regression via sparse regression (SINDy based)</a><a id="Symbolic-regression-via-sparse-regression-(SINDy-based)-1"></a><a class="docs-heading-anchor-permalink" href="#Symbolic-regression-via-sparse-regression-(SINDy-based)" title="Permalink"></a></h2><h4 id="This-part-of-the-showcase-is-still-a-work-in-progress...-shame-on-us.-But-be-back-in-a-jiffy-and-we&#39;ll-have-it-done."><a class="docs-heading-anchor" href="#This-part-of-the-showcase-is-still-a-work-in-progress...-shame-on-us.-But-be-back-in-a-jiffy-and-we&#39;ll-have-it-done.">This part of the showcase is still a work in progress... shame on us. But be back in a jiffy and we&#39;ll have it done.</a><a id="This-part-of-the-showcase-is-still-a-work-in-progress...-shame-on-us.-But-be-back-in-a-jiffy-and-we&#39;ll-have-it-done.-1"></a><a class="docs-heading-anchor-permalink" href="#This-part-of-the-showcase-is-still-a-work-in-progress...-shame-on-us.-But-be-back-in-a-jiffy-and-we&#39;ll-have-it-done." title="Permalink"></a></h4><p>Okay, that was a quick break, and that&#39;s good because this next part is pretty cool. Let&#39;s use <a href="https://docs.sciml.ai/DataDrivenDiffEq/stable/">DataDrivenDiffEq.jl</a> to transform our trained neural network from machine learning mumbo jumbo into predictions of missing mechanistic equations. To do this, we first generate a symbolic basis that represents the space of mechanistic functions we believe this neural network should map to. Let&#39;s choose a bunch of polynomial functions:</p><pre><code class="language-julia hljs">MTK.@variables u[1:2]
+pl_overall = Plots.plot(pl_trajectory, pl_missing)</code></pre><img src="1f6f8e6d.svg" alt="Example block output"/><p>That looks pretty good. And if we are happy with deep learning, we can leave it at that: we have trained a neural network to capture our missing dynamics.</p><p>But...</p><p>Can we also make it print out the LaTeX for what the missing equations were? Find out more after the break!</p><h2 id="Symbolic-regression-via-sparse-regression-(SINDy-based)"><a class="docs-heading-anchor" href="#Symbolic-regression-via-sparse-regression-(SINDy-based)">Symbolic regression via sparse regression (SINDy based)</a><a id="Symbolic-regression-via-sparse-regression-(SINDy-based)-1"></a><a class="docs-heading-anchor-permalink" href="#Symbolic-regression-via-sparse-regression-(SINDy-based)" title="Permalink"></a></h2><h4 id="This-part-of-the-showcase-is-still-a-work-in-progress...-shame-on-us.-But-be-back-in-a-jiffy-and-we&#39;ll-have-it-done."><a class="docs-heading-anchor" href="#This-part-of-the-showcase-is-still-a-work-in-progress...-shame-on-us.-But-be-back-in-a-jiffy-and-we&#39;ll-have-it-done.">This part of the showcase is still a work in progress... shame on us. But be back in a jiffy and we&#39;ll have it done.</a><a id="This-part-of-the-showcase-is-still-a-work-in-progress...-shame-on-us.-But-be-back-in-a-jiffy-and-we&#39;ll-have-it-done.-1"></a><a class="docs-heading-anchor-permalink" href="#This-part-of-the-showcase-is-still-a-work-in-progress...-shame-on-us.-But-be-back-in-a-jiffy-and-we&#39;ll-have-it-done." title="Permalink"></a></h4><p>Okay, that was a quick break, and that&#39;s good because this next part is pretty cool. Let&#39;s use <a href="https://docs.sciml.ai/DataDrivenDiffEq/stable/">DataDrivenDiffEq.jl</a> to transform our trained neural network from machine learning mumbo jumbo into predictions of missing mechanistic equations. To do this, we first generate a symbolic basis that represents the space of mechanistic functions we believe this neural network should map to. Let&#39;s choose a bunch of polynomial functions:</p><pre><code class="language-julia hljs">MTK.@variables u[1:2]
 b = DataDrivenDiffEq.polynomial_basis(u, 4)
 basis = DataDrivenDiffEq.Basis(b, u);</code></pre><p class="math-container">\[ \begin{align}
 \mathtt{\varphi{_1}} &amp;= 1 \\
@@ -235,18 +235,18 @@ basis = DataDrivenDiffEq.Basis(b, u);</code></pre><p class="math-container">\[ \
 \mathtt{\varphi{_4}} &amp;= \left( u_{1} \right)^{3} \\
 \mathtt{\varphi{_5}} &amp;= \left( u_{1} \right)^{4} \\
 \mathtt{\varphi{_6}} &amp;= u_{2} \\
-\mathtt{\varphi{_7}} &amp;= u_{1} u_{2} \\
-\mathtt{\varphi{_8}} &amp;= \left( u_{1} \right)^{2} u_{2} \\
-\mathtt{\varphi{_9}} &amp;= \left( u_{1} \right)^{3} u_{2} \\
+\mathtt{\varphi{_7}} &amp;= u_{1} ~ u_{2} \\
+\mathtt{\varphi{_8}} &amp;= \left( u_{1} \right)^{2} ~ u_{2} \\
+\mathtt{\varphi{_9}} &amp;= \left( u_{1} \right)^{3} ~ u_{2} \\
 \mathtt{\varphi{_{1 0}}} &amp;= \left( u_{2} \right)^{2} \\
-\mathtt{\varphi{_{1 1}}} &amp;= \left( u_{2} \right)^{2} u_{1} \\
-\mathtt{\varphi{_{1 2}}} &amp;= \left( u_{2} \right)^{2} \left( u_{1} \right)^{2} \\
+\mathtt{\varphi{_{1 1}}} &amp;= \left( u_{2} \right)^{2} ~ u_{1} \\
+\mathtt{\varphi{_{1 2}}} &amp;= \left( u_{2} \right)^{2} ~ \left( u_{1} \right)^{2} \\
 \mathtt{\varphi{_{1 3}}} &amp;= \left( u_{2} \right)^{3} \\
-\mathtt{\varphi{_{1 4}}} &amp;= \left( u_{2} \right)^{3} u_{1} \\
+\mathtt{\varphi{_{1 4}}} &amp;= \left( u_{2} \right)^{3} ~ u_{1} \\
 \mathtt{\varphi{_{1 5}}} &amp;= \left( u_{2} \right)^{4}
 \end{align}
- \]</p><p>Now let&#39;s define our <code>DataDrivenProblem</code>s for the sparse regressions. To assess the capability of the sparse regression, we will look at 3 cases:</p><ul><li>What if we trained no neural network and tried to automatically uncover the equations from the original noisy data? This is the approach in the literature known as structural identification of dynamical systems (SINDy). We will call this the full problem. This will assess whether this incorporation of prior information was helpful.</li><li>What if we trained the neural network using the ideal right-hand side missing derivative functions? This is the value computed in the plots above as <code>Ȳ</code>. This will tell us whether the symbolic discovery could work in ideal situations.</li><li>Do the symbolic regression directly on the function <code>y = NN(x)</code>, i.e. the trained learned neural network. This is what we really want, and will tell us how to extend our known equations.</li></ul><p>To define the full problem, we need to define a <code>DataDrivenProblem</code> that has the time series of the solution <code>X</code>, the time points of the solution <code>t</code>, and the derivative at each time point of the solution, obtained by the ODE solution&#39;s interpolation. We can just use an interpolation to get the derivative:</p><pre><code class="language-julia hljs">full_problem = DataDrivenDiffEq.ContinuousDataDrivenProblem(Xₙ, t)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Continuous DataDrivenProblem{Float64} ##DDProblem#2596 in 2 dimensions and 21 samples</code></pre><p>Now for the other two symbolic regressions, we are regressing input/outputs of the missing terms, and thus we directly define the datasets as the input/output mappings like:</p><pre><code class="language-julia hljs">ideal_problem = DataDrivenDiffEq.DirectDataDrivenProblem(X̂, Ȳ)
-nn_problem = DataDrivenDiffEq.DirectDataDrivenProblem(X̂, Ŷ)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Direct DataDrivenProblem{Float64} ##DDProblem#2598 in 2 dimensions and 41 samples</code></pre><p>Let&#39;s solve the data-driven problems using sparse regression. We will use the <code>ADMM</code> method, which requires we define a set of shrinking cutoff values <code>λ</code>, and we do this like:</p><pre><code class="language-julia hljs">λ = 1e-1
+ \]</p><p>Now let&#39;s define our <code>DataDrivenProblem</code>s for the sparse regressions. To assess the capability of the sparse regression, we will look at 3 cases:</p><ul><li>What if we trained no neural network and tried to automatically uncover the equations from the original noisy data? This is the approach in the literature known as structural identification of dynamical systems (SINDy). We will call this the full problem. This will assess whether this incorporation of prior information was helpful.</li><li>What if we trained the neural network using the ideal right-hand side missing derivative functions? This is the value computed in the plots above as <code>Ȳ</code>. This will tell us whether the symbolic discovery could work in ideal situations.</li><li>Do the symbolic regression directly on the function <code>y = NN(x)</code>, i.e. the trained learned neural network. This is what we really want, and will tell us how to extend our known equations.</li></ul><p>To define the full problem, we need to define a <code>DataDrivenProblem</code> that has the time series of the solution <code>X</code>, the time points of the solution <code>t</code>, and the derivative at each time point of the solution, obtained by the ODE solution&#39;s interpolation. We can just use an interpolation to get the derivative:</p><pre><code class="language-julia hljs">full_problem = DataDrivenDiffEq.ContinuousDataDrivenProblem(Xₙ, t)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Continuous DataDrivenProblem{Float64} ##DDProblem#2647 in 2 dimensions and 21 samples</code></pre><p>Now for the other two symbolic regressions, we are regressing input/outputs of the missing terms, and thus we directly define the datasets as the input/output mappings like:</p><pre><code class="language-julia hljs">ideal_problem = DataDrivenDiffEq.DirectDataDrivenProblem(X̂, Ȳ)
+nn_problem = DataDrivenDiffEq.DirectDataDrivenProblem(X̂, Ŷ)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Direct DataDrivenProblem{Float64} ##DDProblem#2649 in 2 dimensions and 41 samples</code></pre><p>Let&#39;s solve the data-driven problems using sparse regression. We will use the <code>ADMM</code> method, which requires we define a set of shrinking cutoff values <code>λ</code>, and we do this like:</p><pre><code class="language-julia hljs">λ = 1e-1
 opt = DataDrivenSparse.ADMM(λ)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">DataDrivenSparse.ADMM{Float64, Float64}(0.1, 1.0)</code></pre><p>This is one of many methods for sparse regression, consult the <a href="https://docs.sciml.ai/DataDrivenDiffEq/stable/">DataDrivenDiffEq.jl documentation</a> for more information on the algorithm choices. Taking this, let&#39;s solve each of the sparse regressions:</p><pre><code class="language-julia hljs">options = DataDrivenDiffEq.DataDrivenCommonOptions(maxiters = 10_000,
     normalize = DataDrivenDiffEq.DataNormalization(DataDrivenDiffEq.ZScoreTransform),
     selector = DataDrivenDiffEq.bic, digits = 1,
@@ -257,8 +257,8 @@ opt = DataDrivenSparse.ADMM(λ)</code></pre><pre class="documenter-example-outpu
 
 full_res = DataDrivenDiffEq.solve(full_problem, basis, opt, options = options)
 full_eqs = DataDrivenDiffEq.get_basis(full_res)
-println(full_res)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi"><span class="sgr33"><span class="sgr1">┌ Warning: </span></span>Number of observations less than batch-size, decreasing the batch-size to 19
-<span class="sgr33"><span class="sgr1">└ </span></span><span class="sgr90">@ MLUtils ~/.cache/julia-buildkite-plugin/depots/0183cc98-c3b4-4959-aaaa-6c0d5f351407/packages/MLUtils/5jDrc/src/batchview.jl:104</span>
+println(full_res)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">┌ Warning: Number of observations less than batch-size, decreasing the batch-size to 19
+└ @ MLUtils ~/github-runners/arctic1-1/.julia/packages/MLUtils/5jDrc/src/batchview.jl:104
 &quot;DataDrivenSolution{Float64}&quot; with 2 equations and 4 parameters.
 Returncode: Success
 Residual sum of squares: 84.99147506548839</code></pre><pre><code class="language-julia hljs">options = DataDrivenDiffEq.DataDrivenCommonOptions(maxiters = 10_000,
@@ -273,7 +273,7 @@ ideal_res = DataDrivenDiffEq.solve(ideal_problem, basis, opt, options = options)
 ideal_eqs = DataDrivenDiffEq.get_basis(ideal_res)
 println(ideal_res)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">&quot;DataDrivenSolution{Float64}&quot; with 2 equations and 2 parameters.
 Returncode: Success
-Residual sum of squares: 12.257484590736038</code></pre><pre><code class="language-julia hljs">options = DataDrivenDiffEq.DataDrivenCommonOptions(maxiters = 10_000,
+Residual sum of squares: 12.258718190808269</code></pre><pre><code class="language-julia hljs">options = DataDrivenDiffEq.DataDrivenCommonOptions(maxiters = 10_000,
     normalize = DataDrivenDiffEq.DataNormalization(DataDrivenDiffEq.ZScoreTransform),
     selector = DataDrivenDiffEq.bic, digits = 1,
     data_processing = DataDrivenDiffEq.DataProcessing(split = 0.9,
@@ -285,21 +285,21 @@ nn_res = DataDrivenDiffEq.solve(nn_problem, basis, opt, options = options)
 nn_eqs = DataDrivenDiffEq.get_basis(nn_res)
 println(nn_res)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">&quot;DataDrivenSolution{Float64}&quot; with 2 equations and 2 parameters.
 Returncode: Success
-Residual sum of squares: 12.321618840485996</code></pre><p>Note that we passed the identical options into each of the <code>solve</code> calls to get the same data for each call.</p><p>We already saw that the full problem has failed to identify the correct equations of motion. To have a closer look, we can inspect the corresponding equations:</p><pre><code class="language-julia hljs">for eqs in (full_eqs, ideal_eqs, nn_eqs)
+Residual sum of squares: 12.299661933628023</code></pre><p>Note that we passed the identical options into each of the <code>solve</code> calls to get the same data for each call.</p><p>We already saw that the full problem has failed to identify the correct equations of motion. To have a closer look, we can inspect the corresponding equations:</p><pre><code class="language-julia hljs">for eqs in (full_eqs, ideal_eqs, nn_eqs)
     println(eqs)
     println(DataDrivenDiffEq.get_parameter_map(eqs))
     println()
-end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi"><span class="sgr1">Model ##Basis#2599 with 2 equations</span>
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Model ##Basis#2650 with 2 equations
 States : u[1] u[2]
 Parameters : p₁ p₂ p₃ p₄
 Independent variable: t
 Equations
-Differential(t)(u[1]) = p₁*u[1] + p₂*u[2] + p₃*(u[2]^2)
-Differential(t)(u[2]) = p₄*u[2]
+Differential(t, 1)(u[1]) = p₁*u[1] + p₂*u[2] + p₃*(u[2]^2)
+Differential(t, 1)(u[2]) = p₄*u[2]
 
-Pair{SymbolicUtils.BasicSymbolic{Real}, Float64}[p₁ =&gt; 0.8, p₂ =&gt; -0.2, p₃ =&gt; -0.4, p₄ =&gt; -0.9]
+Pair{SymbolicUtils.BasicSymbolicImpl.var&quot;typeof(BasicSymbolicImpl)&quot;{SymbolicUtils.SymReal}, Float64}[p₁ =&gt; 0.8, p₂ =&gt; -0.2, p₃ =&gt; -0.4, p₄ =&gt; -0.9]
 
-<span class="sgr1">Model ##Basis#2603 with 2 equations</span>
+Model ##Basis#2654 with 2 equations
 States : u[1] u[2]
 Parameters : p₁ p₂
 Independent variable: t
@@ -307,9 +307,9 @@ Equations
 φ₁ = p₁*u[1]*u[2]
 φ₂ = p₂*u[1]*u[2]
 
-Pair{SymbolicUtils.BasicSymbolic{Real}, Float64}[p₁ =&gt; -0.8, p₂ =&gt; 0.7]
+Pair{SymbolicUtils.BasicSymbolicImpl.var&quot;typeof(BasicSymbolicImpl)&quot;{SymbolicUtils.SymReal}, Float64}[p₁ =&gt; -0.8, p₂ =&gt; 0.7]
 
-<span class="sgr1">Model ##Basis#2607 with 2 equations</span>
+Model ##Basis#2658 with 2 equations
 States : u[1] u[2]
 Parameters : p₁ p₂
 Independent variable: t
@@ -317,7 +317,7 @@ Equations
 φ₁ = p₁*u[1]*u[2]
 φ₂ = p₂*u[1]*u[2]
 
-Pair{SymbolicUtils.BasicSymbolic{Real}, Float64}[p₁ =&gt; -0.8, p₂ =&gt; 0.7]</code></pre><p>Next, we want to predict with our model. To do so, we embed the basis into a function like before:</p><pre><code class="language-julia hljs"># Define the recovered, hybrid model
+Pair{SymbolicUtils.BasicSymbolicImpl.var&quot;typeof(BasicSymbolicImpl)&quot;{SymbolicUtils.SymReal}, Float64}[p₁ =&gt; -0.8, p₂ =&gt; 0.7]</code></pre><p>Next, we want to predict with our model. To do so, we embed the basis into a function like before:</p><pre><code class="language-julia hljs"># Define the recovered, hybrid model
 function recovered_dynamics!(du, u, p, t)
     û = nn_eqs(u, p) # Recovered equations
     du[1] = p_[1] * u[1] + û[1]
@@ -329,7 +329,7 @@ estimate = ODE.solve(estimation_prob, ODE.Tsit5(), saveat = solution.t)
 
 # Plot
 Plots.plot(solution)
-Plots.plot!(estimate)</code></pre><img src="1317eca1.svg" alt="Example block output"/><p>We are still a bit off, so we fine tune the parameters by simply minimizing the residuals between the UDE predictor and our recovered parametrized equations:</p><pre><code class="language-julia hljs">function parameter_loss(p)
+Plots.plot!(estimate)</code></pre><img src="d424decb.svg" alt="Example block output"/><p>We are still a bit off, so we fine tune the parameters by simply minimizing the residuals between the UDE predictor and our recovered parametrized equations:</p><pre><code class="language-julia hljs">function parameter_loss(p)
     Y = reduce(hcat, map(Base.Fix2(nn_eqs, p), eachcol(X̂)))
     sum(abs2, Ŷ .- Y)
 end
@@ -338,14 +338,14 @@ optf = OPT.OptimizationFunction((x, p) -&gt; parameter_loss(x), adtype)
 optprob = OPT.OptimizationProblem(optf, DataDrivenDiffEq.get_parameter_values(nn_eqs))
 parameter_res = OPT.solve(optprob, OptimizationOptimJL.LBFGS(), maxiters = 1000)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">retcode: Success
 u: 2-element Vector{Float64}:
- -0.8998247043541393
-  0.8003091524154001</code></pre><h2 id="Simulation"><a class="docs-heading-anchor" href="#Simulation">Simulation</a><a id="Simulation-1"></a><a class="docs-heading-anchor-permalink" href="#Simulation" title="Permalink"></a></h2><pre><code class="language-julia hljs"># Look at long term prediction
+ -0.8995689594711468
+  0.8004445727815692</code></pre><h2 id="Simulation"><a class="docs-heading-anchor" href="#Simulation">Simulation</a><a id="Simulation-1"></a><a class="docs-heading-anchor-permalink" href="#Simulation" title="Permalink"></a></h2><pre><code class="language-julia hljs"># Look at long term prediction
 t_long = (0.0, 50.0)
 estimation_prob = ODE.ODEProblem(recovered_dynamics!, u0, t_long, parameter_res)
 estimate_long = ODE.solve(estimation_prob, ODE.Tsit5(), saveat = 0.1) # Using higher tolerances here results in exit of julia
-Plots.plot(estimate_long)</code></pre><img src="80c2e7bf.svg" alt="Example block output"/><pre><code class="language-julia hljs">true_prob = ODE.ODEProblem(lotka!, u0, t_long, p_)
+Plots.plot(estimate_long)</code></pre><img src="4344ef64.svg" alt="Example block output"/><pre><code class="language-julia hljs">true_prob = ODE.ODEProblem(lotka!, u0, t_long, p_)
 true_solution_long = ODE.solve(true_prob, ODE.Tsit5(), saveat = estimate_long.t)
-Plots.plot!(true_solution_long)</code></pre><img src="89bc7dd5.svg" alt="Example block output"/><h2 id="Post-Processing-and-Plots"><a class="docs-heading-anchor" href="#Post-Processing-and-Plots">Post Processing and Plots</a><a id="Post-Processing-and-Plots-1"></a><a class="docs-heading-anchor-permalink" href="#Post-Processing-and-Plots" title="Permalink"></a></h2><pre><code class="language-julia hljs">c1 = 3 # RGBA(174/255,192/255,201/255,1) # Maroon
+Plots.plot!(true_solution_long)</code></pre><img src="6b76d9be.svg" alt="Example block output"/><h2 id="Post-Processing-and-Plots"><a class="docs-heading-anchor" href="#Post-Processing-and-Plots">Post Processing and Plots</a><a id="Post-Processing-and-Plots-1"></a><a class="docs-heading-anchor-permalink" href="#Post-Processing-and-Plots" title="Permalink"></a></h2><pre><code class="language-julia hljs">c1 = 3 # RGBA(174/255,192/255,201/255,1) # Maroon
 c2 = :orange # RGBA(132/255,159/255,173/255,1) # Red
 c3 = :blue # RGBA(255/255,90/255,0,1) # Orange
 c4 = :purple # RGBA(153/255,50/255,204/255,1) # Purple
@@ -378,4 +378,4 @@ Plots.plot!(p3, [2.99, 3.01], [0.0, 10.0], lw = 1, color = :black, label = nothi
 Plots.annotate!([(1.5, 13, Plots.text(&quot;Training \nData&quot;, 10, :center, :top, :black, &quot;Helvetica&quot;))])
 l = Plots.@layout [Plots.grid(1, 2)
                    Plots.grid(1, 1)]
-Plots.plot(p1, p2, p3, layout = l)</code></pre><img src="deef0ec6.svg" alt="Example block output"/></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../showcase/">« The SciML Showcase</a><a class="docs-footer-nextpage" href="../bayesian_neural_ode/">Uncertainty Quantified Deep Bayesian Model Discovery »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.16.1 on <span class="colophon-date" title="Wednesday 21 January 2026 18:32">Wednesday 21 January 2026</span>. Using Julia version 1.11.8.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+Plots.plot(p1, p2, p3, layout = l)</code></pre><img src="36f79fd8.svg" alt="Example block output"/></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../showcase/">« The SciML Showcase</a><a class="docs-footer-nextpage" href="../bayesian_neural_ode/">Uncertainty Quantified Deep Bayesian Model Discovery »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.17.0 on <span class="colophon-date" title="Wednesday 1 April 2026 18:10">Wednesday 1 April 2026</span>. Using Julia version 1.11.9.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
