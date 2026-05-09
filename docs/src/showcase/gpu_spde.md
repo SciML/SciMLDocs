@@ -474,8 +474,9 @@ end
 Now we just define and solve the system of SDEs:
 
 ```@example spde
-prob = DE.SDEProblem(f, g, u0, (0.0, 100.0))
-@time sol = DE.solve(prob, DE.SRIW1());
+import StochasticDiffEq as SDE
+prob = SDE.SDEProblem(f, g, u0, (0.0, 100.0))
+@time sol = SDE.solve(prob, SDE.SRIW1());
 ```
 
 ```@example spde
