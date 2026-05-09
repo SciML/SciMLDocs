@@ -69,7 +69,7 @@ import Distributions
 cor_dist = Distributions.truncated(Distributions.Normal(0.9, 0.02), 0.9 - 3 * 0.02, 1.0)
 trajectories = 100
 
-prob_func(prob, i, repeat) = DE.remake(prob, p = [p[1], rand(cor_dist)])
+prob_func(prob, ctx) = DE.remake(prob, p = [p[1], rand(cor_dist)])
 ensemble_prob = DE.EnsembleProblem(prob, prob_func = prob_func)
 ensemblesol = DE.solve(ensemble_prob, DE.Tsit5(), DE.EnsembleThreads(), trajectories = trajectories,
     callback = cbs)

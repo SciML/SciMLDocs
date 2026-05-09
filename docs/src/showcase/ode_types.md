@@ -312,7 +312,7 @@ numerical solution:
 
 ```@example odetypes
 println("Quantity of carbon-14 after ", sol.t[11], " years:")
-println("Numerical: ", sol[11])
+println("Numerical: ", sol.u[11])
 println("Analytic:  ", u[11])
 ```
 
