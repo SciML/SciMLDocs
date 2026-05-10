@@ -17,7 +17,7 @@ For this example, we will need the following libraries:
 ```@example bnode
 # SciML Libraries
 import SciMLSensitivity as SMS
-import DifferentialEquations as DE
+import OrdinaryDiffEq as ODE
 
 # ML Tools
 import Lux
@@ -46,8 +46,8 @@ function trueODEfunc(du, u, p, t)
     true_A = [-0.1 2.0; -2.0 -0.1]
     du .= ((u .^ 3)'true_A)'
 end
-prob_trueode = DE.ODEProblem(trueODEfunc, u0, tspan)
-ode_data = Array(DE.solve(prob_trueode, DE.Tsit5(), saveat = tsteps))
+prob_trueode = ODE.ODEProblem(trueODEfunc, u0, tspan)
+ode_data = Array(ODE.solve(prob_trueode, ODE.Tsit5(), saveat = tsteps))
 ```
 
 We will want to train a neural network to capture the dynamics that fit `ode_data`.
@@ -71,8 +71,8 @@ function neuralodefunc(u, p, t)
     dudt2(u, p, _st)[1]
 end
 function prob_neuralode(u0, p)
-    prob = DE.ODEProblem(neuralodefunc, u0, tspan, p)
-    sol = DE.solve(prob, DE.Tsit5(), saveat = tsteps)
+    prob = ODE.ODEProblem(neuralodefunc, u0, tspan, p)
+    sol = ODE.solve(prob, ODE.Tsit5(), saveat = tsteps)
 end
 p = ComponentArrays.ComponentArray{Float64}(p)
 const _p = p

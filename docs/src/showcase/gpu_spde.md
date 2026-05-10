@@ -188,14 +188,15 @@ the diffusion matrix multiplications and using mul!, but let's ignore that for n
 Together, the ODE which defines our PDE is thus:
 
 ```@example spde
-import DifferentialEquations as DE
+import OrdinaryDiffEq as ODE
+import OrdinaryDiffEqStabilizedRK
 
-prob = DE.ODEProblem(f, u0, (0.0, 100.0))
-@time sol = DE.solve(prob, DE.ROCK2());
+prob = ODE.ODEProblem(f, u0, (0.0, 100.0))
+@time sol = ODE.solve(prob, OrdinaryDiffEqStabilizedRK.ROCK2());
 ```
 
 ```@example spde
-@time sol = DE.solve(prob, DE.ROCK2());
+@time sol = ODE.solve(prob, OrdinaryDiffEqStabilizedRK.ROCK2());
 ```
 
 if I want to solve it on ``t \in [0,100]``. Done! The solution gives back our tensors (and
@@ -333,6 +334,7 @@ As a summary, here's a full PDE code:
 
 ```@example
 import OrdinaryDiffEq as ODE
+import OrdinaryDiffEqStabilizedRK
 import LinearAlgebra as LA
 
 # Define the constants for the PDE
@@ -384,7 +386,7 @@ end
 
 # Solve the ODE
 prob = ODE.ODEProblem(f, u0, (0.0, 100.0))
-sol = ODE.solve(prob, ODE.ROCK2(), progress = true, save_everystep = false, save_start = false)
+sol = ODE.solve(prob, OrdinaryDiffEqStabilizedRK.ROCK2(), progress = true, save_everystep = false, save_start = false)
 
 import Plots;
 Plots.gr();
@@ -438,14 +440,14 @@ function gf(du, u, p, t)
     @. dC = α₃ - β₃ * C + r₁ * A * B - r₂ * C
 end
 
-prob2 = DE.ODEProblem(gf, gu0, (0.0, 100.0))
+prob2 = ODE.ODEProblem(gf, gu0, (0.0, 100.0))
 CUDA.allowscalar(false) # makes sure none of the slow fallbacks are used
-@time sol = DE.solve(prob2, DE.ROCK2(), progress = true, dt = 0.003, save_everystep = false,
+@time sol = ODE.solve(prob2, OrdinaryDiffEqStabilizedRK.ROCK2(), progress = true, dt = 0.003, save_everystep = false,
     save_start = false);
 ```
 
 ```@example spde
-@time sol = DE.solve(prob2, DE.ROCK2(), progress = true, dt = 0.003, save_everystep = false,
+@time sol = ODE.solve(prob2, OrdinaryDiffEqStabilizedRK.ROCK2(), progress = true, dt = 0.003, save_everystep = false,
     save_start = false);
 ```
 
