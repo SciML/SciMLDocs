@@ -204,9 +204,9 @@ interpolates to create new ones if you use sol(t)). We can plot it in Plots.jl:
 
 ```@example spde
 import Plots
-p1 = Plots.surface(X, Y, sol[end][:, :, 1], title = "[A]")
-p2 = Plots.surface(X, Y, sol[end][:, :, 2], title = "[B]")
-p3 = Plots.surface(X, Y, sol[end][:, :, 3], title = "[C]")
+p1 = Plots.surface(X, Y, sol.u[end][:, :, 1], title = "[A]")
+p2 = Plots.surface(X, Y, sol.u[end][:, :, 2], title = "[B]")
+p3 = Plots.surface(X, Y, sol.u[end][:, :, 3], title = "[C]")
 Plots.plot(p1, p2, p3, layout = Plots.grid(3, 1))
 ```
 
@@ -390,9 +390,9 @@ sol = ODE.solve(prob, OrdinaryDiffEqStabilizedRK.ROCK2(), progress = true, save_
 
 import Plots;
 Plots.gr();
-p1 = Plots.surface(X, Y, sol[end][:, :, 1], title = "[A]")
-p2 = Plots.surface(X, Y, sol[end][:, :, 2], title = "[B]")
-p3 = Plots.surface(X, Y, sol[end][:, :, 3], title = "[C]")
+p1 = Plots.surface(X, Y, sol.u[end][:, :, 1], title = "[A]")
+p2 = Plots.surface(X, Y, sol.u[end][:, :, 2], title = "[B]")
+p3 = Plots.surface(X, Y, sol.u[end][:, :, 3], title = "[C]")
 Plots.plot(p1, p2, p3, layout = Plots.grid(3, 1))
 ```
 
@@ -485,9 +485,9 @@ prob = SDE.SDEProblem(f, g, u0, (0.0, 100.0))
 Plots.gr();
 
 # Use `Array` to transform the result back into a CPU-based `Array` for plotting
-p1 = Plots.surface(X, Y, Array(sol[end][:, :, 1]), title = "[A]")
-p2 = Plots.surface(X, Y, Array(sol[end][:, :, 2]), title = "[B]")
-p3 = Plots.surface(X, Y, Array(sol[end][:, :, 3]), title = "[C]")
+p1 = Plots.surface(X, Y, Array(sol.u[end][:, :, 1]), title = "[A]")
+p2 = Plots.surface(X, Y, Array(sol.u[end][:, :, 2]), title = "[B]")
+p3 = Plots.surface(X, Y, Array(sol.u[end][:, :, 3]), title = "[C]")
 Plots.plot(p1, p2, p3, layout = Plots.grid(3, 1))
 ```
 

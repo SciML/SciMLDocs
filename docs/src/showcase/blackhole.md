@@ -50,6 +50,7 @@ And external libraries:
 ```@example ude
 # SciML Tools
 import OrdinaryDiffEq as ODE
+import OrdinaryDiffEqLowOrderRK
 import ModelingToolkit as MTK
 import DataDrivenDiffEq
 import SciMLSensitivity as SMS
@@ -447,7 +448,7 @@ and demonstrate the gravitational waveform:
 
 ```@example ude
 prob = ODE.ODEProblem(RelativisticOrbitModel, u0, tspan, model_params)
-soln = Array(ODE.solve(prob, ODE.RK4(), saveat = tsteps, dt = dt, adaptive = false))
+soln = Array(ODE.solve(prob, OrdinaryDiffEqLowOrderRK.RK4(), saveat = tsteps, dt = dt, adaptive = false))
 waveform = compute_waveform(dt_data, soln, mass_ratio, model_params)[1]
 plt = Plots.plot(tsteps, waveform,
     markershape = :circle, markeralpha = 0.25,
@@ -481,7 +482,7 @@ Next, we can compute the orbital trajectory and gravitational waveform using the
 ```@example ude
 prob_nn = ODE.ODEProblem(ODE_model, u0, tspan, NN_params)
 soln_nn = Array(ODE.solve(
-    prob_nn, ODE.RK4(), u0 = u0, p = NN_params, saveat = tsteps, dt = dt, adaptive = false))
+    prob_nn, OrdinaryDiffEqLowOrderRK.RK4(), u0 = u0, p = NN_params, saveat = tsteps, dt = dt, adaptive = false))
 waveform_nn = compute_waveform(dt_data, soln_nn, mass_ratio, model_params)[1]
 Plots.plot!(plt, tsteps, waveform_nn,
     markershape = :circle, markeralpha = 0.25,
@@ -501,7 +502,7 @@ function loss(NN_params)
     obs_to_use_for_training = first_obs_to_use_for_training:last_obs_to_use_for_training
 
     pred = Array(ODE.solve(
-        prob_nn, ODE.RK4(), u0 = u0, p = NN_params, saveat = tsteps, dt = dt, adaptive = false))
+        prob_nn, OrdinaryDiffEqLowOrderRK.RK4(), u0 = u0, p = NN_params, saveat = tsteps, dt = dt, adaptive = false))
     pred_waveform = compute_waveform(dt_data, pred, mass_ratio, model_params)[1]
 
     loss = ( sum(abs2, view(waveform,obs_to_use_for_training) .- view(pred_waveform,obs_to_use_for_training) ) )
@@ -570,16 +571,16 @@ Now, we'll plot the learned solutions of the neural ODE and compare them to our 
 
 ```@example ude
 reference_solution = ODE.solve(ODE.remake(prob, p = model_params, saveat = tsteps, tspan = tspan),
-    ODE.RK4(), dt = dt, adaptive = false)
+    OrdinaryDiffEqLowOrderRK.RK4(), dt = dt, adaptive = false)
 
 optimized_solution = ODE.solve(
     ODE.remake(prob_nn, p = res2.minimizer, saveat = tsteps, tspan = tspan),
-    ODE.RK4(), dt = dt, adaptive = false)
+    OrdinaryDiffEqLowOrderRK.RK4(), dt = dt, adaptive = false)
 Newtonian_prob = ODE.ODEProblem(NewtonianOrbitModel, u0, tspan, model_params)
 
 Newtonian_solution = ODE.solve(
     ODE.remake(Newtonian_prob, p = model_params, saveat = tsteps, tspan = tspan),
-    ODE.RK4(), dt = dt, adaptive = false)
+    OrdinaryDiffEqLowOrderRK.RK4(), dt = dt, adaptive = false)
 
 true_orbit = soln2orbit(reference_solution, model_params)
 pred_orbit = soln2orbit(optimized_solution, model_params)
@@ -614,15 +615,15 @@ extended_tspan = (tspan[1], factor * tspan[2])
 extended_tsteps = range(tspan[1], factor * tspan[2], length = factor * datasize)
 reference_solution = ODE.solve(
     ODE.remake(prob, p = model_params, saveat = extended_tsteps, tspan = extended_tspan),
-    ODE.RK4(), dt = dt, adaptive = false)
+    OrdinaryDiffEqLowOrderRK.RK4(), dt = dt, adaptive = false)
 optimized_solution = ODE.solve(
     ODE.remake(prob_nn, p = res2.minimizer, saveat = extended_tsteps, tspan = extended_tspan),
-    ODE.RK4(), dt = dt, adaptive = false)
+    OrdinaryDiffEqLowOrderRK.RK4(), dt = dt, adaptive = false)
 Newtonian_prob = ODE.ODEProblem(NewtonianOrbitModel, u0, tspan, model_params)
 Newtonian_solution = ODE.solve(
     ODE.remake(
         Newtonian_prob, p = model_params, saveat = extended_tsteps, tspan = extended_tspan),
-    ODE.RK4(), dt = dt, adaptive = false)
+    OrdinaryDiffEqLowOrderRK.RK4(), dt = dt, adaptive = false)
 true_orbit = soln2orbit(reference_solution, model_params)
 pred_orbit = soln2orbit(optimized_solution, model_params)
 Newt_orbit = soln2orbit(Newtonian_solution, model_params)
