@@ -83,7 +83,7 @@ Now, from this problem, we build an `EnsembleProblem` as per the DifferentialEqu
 specification. A `prob_func` jiggles the parameters and we solve 10_000 trajectories:
 
 ```@example diffeqgpu
-prob_func = (prob, i, repeat) -> ODE.remake(prob, p = (StaticArrays.@SVector rand(Float32, 3)) .* p)
+prob_func = (prob, ctx) -> ODE.remake(prob, p = (StaticArrays.@SVector rand(Float32, 3)) .* p)
 monteprob = DiffEqGPU.EnsembleProblem(prob, prob_func = prob_func, safetycopy = false)
 sol = ODE.solve(monteprob, ODE.Tsit5(), DiffEqGPU.EnsembleThreads(), trajectories = 10_000, saveat = 1.0f0)
 ```
