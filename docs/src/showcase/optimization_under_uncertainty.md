@@ -76,7 +76,7 @@ ensemblesol = ODE.solve(ensemble_prob, ODE.Tsit5(), SciMLBase.EnsembleThreads(),
     callback = cbs)
 
 begin # plot
-    Plots.plot(ensemblesol, idxs = (1, 3), lw = 1)
+    Plots.plot(ensemblesol, idxs = (1, 3), lw = 1, trajectories = 1:length(ensemblesol.u))
     Plots.xlabel!("x [m]")
     Plots.ylabel!("y [m]")
     Plots.plot!(rectangle(27.5, 25, 5, 50), c = :red, label = nothing)
@@ -149,7 +149,7 @@ ensemblesol = ODE.solve(ensembleprob, ODE.Tsit5(), SciMLBase.EnsembleThreads(), 
     callback = cbs)
 
 begin
-    Plots.plot(ensemblesol, idxs = (1, 3), lw = 1, alpha = 0.1)
+    Plots.plot(ensemblesol, idxs = (1, 3), lw = 1, alpha = 0.1, trajectories = 1:length(ensemblesol.u))
     Plots.plot!(ODE.solve(ODE.remake(prob, u0 = make_u0(minx)), ODE.Tsit5(), callback = cbs),
         idxs = (1, 3), label = nothing, c = :black, lw = 3, ls = :dash)
     Plots.xlabel!("x [m]")
@@ -204,7 +204,7 @@ ensemblesol = ODE.solve(ensembleprob, ODE.Tsit5(), SciMLBase.EnsembleThreads(), 
     callback = constraint_cbs)
 
 begin
-    Plots.plot(ensemblesol, idxs = (1, 3), lw = 1, alpha = 0.1)
+    Plots.plot(ensemblesol, idxs = (1, 3), lw = 1, alpha = 0.1, trajectories = 1:length(ensemblesol.u))
     Plots.plot!(ODE.solve(ODE.remake(prob, u0 = make_u0(minx)), ODE.Tsit5(), callback = constraint_cbs),
         idxs = (1, 3), label = nothing, c = :black, lw = 3, ls = :dash)
 
@@ -281,7 +281,7 @@ ensemblesol = ODE.solve(ensembleprob, ODE.Tsit5(), SciMLBase.EnsembleThreads(),
     trajectories = 500, callback = constraint_cbs)
 
 begin
-    Plots.plot(ensemblesol, idxs = (1, 3), lw = 1, alpha = 0.1)
+    Plots.plot(ensemblesol, idxs = (1, 3), lw = 1, alpha = 0.1, trajectories = 1:length(ensemblesol.u))
     Plots.plot!(ODE.solve(ODE.remake(prob, u0 = make_u0(minx2)), ODE.Tsit5(), callback = constraint_cbs),
         idxs = (1, 3), label = nothing, c = :black, lw = 3, ls = :dash)
     Plots.plot!([constraint[1], constraint[1]], [0.0, constraint[2]], lw = 5, c = :black)
