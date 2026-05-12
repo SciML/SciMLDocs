@@ -29,7 +29,7 @@ p = [9.807, 0.9]
 
 prob = ODE.ODEProblem(ball!, u0, tspan, p)
 sol = ODE.solve(prob, ODE.Tsit5(), callback = ground_cb)
-Plots.plot(sol, vars = (1, 3), label = nothing, xlabel = "x", ylabel = "y")
+Plots.plot(sol, idxs = (1, 3), label = nothing, xlabel = "x", ylabel = "y")
 ```
 
 For this particular problem, we wish to measure the impact distance from a point $y=25$ on a wall at $x=25$. So, we introduce an additional callback that terminates the simulation on wall impact.
@@ -42,7 +42,7 @@ cbs = ODE.CallbackSet(ground_cb, stop_cb)
 tspan = (0.0, 1500.0)
 prob = ODE.ODEProblem(ball!, u0, tspan, p)
 sol = ODE.solve(prob, ODE.Tsit5(), callback = cbs)
-Plots.plot(sol, vars = (1, 3), label = nothing, xlabel = "x", ylabel = "y")
+Plots.plot(sol, idxs = (1, 3), label = nothing, xlabel = "x", ylabel = "y")
 ```
 
 To help visualize this problem, we plot as follows, where the star indicates a desired impact location
@@ -51,7 +51,7 @@ To help visualize this problem, we plot as follows, where the star indicates a d
 rectangle(xc, yc, w, h) = Plots.Shape(xc .+ [-w, w, w, -w] ./ 2.0, yc .+ [-h, -h, h, h] ./ 2.0)
 
 begin
-    Plots.plot(sol, vars = (1, 3), label = nothing, lw = 3, c = :black)
+    Plots.plot(sol, idxs = (1, 3), label = nothing, lw = 3, c = :black)
     Plots.xlabel!("x [m]")
     Plots.ylabel!("y [m]")
     Plots.plot!(rectangle(27.5, 25, 5, 50), c = :red, label = nothing)
@@ -76,12 +76,12 @@ ensemblesol = ODE.solve(ensemble_prob, ODE.Tsit5(), SciMLBase.EnsembleThreads(),
     callback = cbs)
 
 begin # plot
-    Plots.plot(ensemblesol, vars = (1, 3), lw = 1)
+    Plots.plot(ensemblesol, idxs = (1, 3), lw = 1)
     Plots.xlabel!("x [m]")
     Plots.ylabel!("y [m]")
     Plots.plot!(rectangle(27.5, 25, 5, 50), c = :red, label = nothing)
     Plots.scatter!([25], [25], marker = :star, ms = 10, label = nothing, c = :green)
-    Plots.plot!(sol, vars = (1, 3), label = nothing, lw = 3, c = :black, ls = :dash)
+    Plots.plot!(sol, idxs = (1, 3), label = nothing, lw = 3, c = :black, ls = :dash)
     Plots.xlims!(0.0, 27.5)
 end
 ```
@@ -99,7 +99,7 @@ obs(sol, p) = abs2(sol[3, end] - 25)
 With the observable defined, we can compute the expected squared miss distance from our Monte Carlo simulation results as
 
 ```@example control
-mean_ensemble = Statistics.mean([obs(sol, p) for sol in ensemblesol])
+mean_ensemble = Statistics.mean([obs(sol, p) for sol in ensemblesol.u])
 ```
 
 Alternatively, we can use the `SciMLExpectations.Koopman()` algorithm in SciMLExpectations.jl to compute this expectation much more efficiently as
@@ -149,9 +149,9 @@ ensemblesol = ODE.solve(ensembleprob, ODE.Tsit5(), SciMLBase.EnsembleThreads(), 
     callback = cbs)
 
 begin
-    Plots.plot(ensemblesol, vars = (1, 3), lw = 1, alpha = 0.1)
+    Plots.plot(ensemblesol, idxs = (1, 3), lw = 1, alpha = 0.1)
     Plots.plot!(ODE.solve(ODE.remake(prob, u0 = make_u0(minx)), ODE.Tsit5(), callback = cbs),
-        vars = (1, 3), label = nothing, c = :black, lw = 3, ls = :dash)
+        idxs = (1, 3), label = nothing, c = :black, lw = 3, ls = :dash)
     Plots.xlabel!("x [m]")
     Plots.ylabel!("y [m]")
     Plots.plot!(rectangle(27.5, 25, 5, 50), c = :red, label = nothing)
@@ -204,9 +204,9 @@ ensemblesol = ODE.solve(ensembleprob, ODE.Tsit5(), SciMLBase.EnsembleThreads(), 
     callback = constraint_cbs)
 
 begin
-    Plots.plot(ensemblesol, vars = (1, 3), lw = 1, alpha = 0.1)
+    Plots.plot(ensemblesol, idxs = (1, 3), lw = 1, alpha = 0.1)
     Plots.plot!(ODE.solve(ODE.remake(prob, u0 = make_u0(minx)), ODE.Tsit5(), callback = constraint_cbs),
-        vars = (1, 3), label = nothing, c = :black, lw = 3, ls = :dash)
+        idxs = (1, 3), label = nothing, c = :black, lw = 3, ls = :dash)
 
     Plots.xlabel!("x [m]")
     Plots.ylabel!("y [m]")
@@ -281,9 +281,9 @@ ensemblesol = ODE.solve(ensembleprob, ODE.Tsit5(), SciMLBase.EnsembleThreads(),
     trajectories = 500, callback = constraint_cbs)
 
 begin
-    Plots.plot(ensemblesol, vars = (1, 3), lw = 1, alpha = 0.1)
+    Plots.plot(ensemblesol, idxs = (1, 3), lw = 1, alpha = 0.1)
     Plots.plot!(ODE.solve(ODE.remake(prob, u0 = make_u0(minx2)), ODE.Tsit5(), callback = constraint_cbs),
-        vars = (1, 3), label = nothing, c = :black, lw = 3, ls = :dash)
+        idxs = (1, 3), label = nothing, c = :black, lw = 3, ls = :dash)
     Plots.plot!([constraint[1], constraint[1]], [0.0, constraint[2]], lw = 5, c = :black)
 
     Plots.xlabel!("x [m]")

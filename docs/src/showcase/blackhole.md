@@ -574,7 +574,7 @@ reference_solution = ODE.solve(ODE.remake(prob, p = model_params, saveat = tstep
     OrdinaryDiffEqLowOrderRK.RK4(), dt = dt, adaptive = false)
 
 optimized_solution = ODE.solve(
-    ODE.remake(prob_nn, p = res2.minimizer, saveat = tsteps, tspan = tspan),
+    ODE.remake(prob_nn, p = res2.u, saveat = tsteps, tspan = tspan),
     OrdinaryDiffEqLowOrderRK.RK4(), dt = dt, adaptive = false)
 Newtonian_prob = ODE.ODEProblem(NewtonianOrbitModel, u0, tspan, model_params)
 
@@ -617,7 +617,7 @@ reference_solution = ODE.solve(
     ODE.remake(prob, p = model_params, saveat = extended_tsteps, tspan = extended_tspan),
     OrdinaryDiffEqLowOrderRK.RK4(), dt = dt, adaptive = false)
 optimized_solution = ODE.solve(
-    ODE.remake(prob_nn, p = res2.minimizer, saveat = extended_tsteps, tspan = extended_tspan),
+    ODE.remake(prob_nn, p = res2.u, saveat = extended_tsteps, tspan = extended_tspan),
     OrdinaryDiffEqLowOrderRK.RK4(), dt = dt, adaptive = false)
 Newtonian_prob = ODE.ODEProblem(NewtonianOrbitModel, u0, tspan, model_params)
 Newtonian_solution = ODE.solve(
