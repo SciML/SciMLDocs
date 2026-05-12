@@ -71,6 +71,7 @@ With `ModelingToolkit.jl`, we first symbolically define the system, see also the
 import ModelingToolkit as MTK
 import MethodOfLines
 import OrdinaryDiffEq as ODE
+import OrdinaryDiffEqSDIRK
 import LinearSolve as LS
 import DomainSets
 using ModelingToolkit: @named, @parameters, @variables, Differential, Interval, PDESystem
@@ -168,7 +169,7 @@ DifferentialEquations.jl usage, though we'll return to this point in a bit to ta
 efficiency:
 
 ```@example bruss
-sol = ODE.solve(prob, ODE.TRBDF2(), saveat = 0.1);
+sol = ODE.solve(prob, OrdinaryDiffEqSDIRK.TRBDF2(), saveat = 0.1);
 ```
 
 ## Examining Results via the Symbolic Solution Interface
@@ -261,17 +262,17 @@ assess this performance difference:
 
 ```julia
 import BenchmarkTools as BT
-BT.@btime sol = ODE.solve(prob, ODE.TRBDF2(), saveat = 0.1);
+BT.@btime sol = ODE.solve(prob, OrdinaryDiffEqSDIRK.TRBDF2(), saveat = 0.1);
 ```
 ```julia
-BT.@btime sol = ODE.solve(prob_sparse, ODE.TRBDF2(), saveat = 0.1);
+BT.@btime sol = ODE.solve(prob_sparse, OrdinaryDiffEqSDIRK.TRBDF2(), saveat = 0.1);
 ```
 
 But we can further improve this as well. Instead of just using the default linear solver,
 we can change this to a Newton-Krylov method by passing in the GMRES method:
 
 ```julia
-BT.@btime sol = ODE.solve(prob_sparse, ODE.TRBDF2(linsolve = LS.KrylovJL_GMRES()), saveat = 0.1);
+BT.@btime sol = ODE.solve(prob_sparse, OrdinaryDiffEqSDIRK.TRBDF2(linsolve = LS.KrylovJL_GMRES()), saveat = 0.1);
 ```
 
 But to further improve performance, we can use an iLU preconditioner. This looks like
@@ -289,7 +290,7 @@ function incompletelu(W, du, u, p, t, newW, Plprev, Prprev, solverdata)
 end
 
 BT.@btime ODE.solve(prob_sparse,
-    ODE.TRBDF2(linsolve = LS.KrylovJL_GMRES(), precs = incompletelu, concrete_jac = true),
+    OrdinaryDiffEqSDIRK.TRBDF2(linsolve = LS.KrylovJL_GMRES(), precs = incompletelu, concrete_jac = true),
     save_everystep = false);
 ```
 

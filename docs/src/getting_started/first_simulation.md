@@ -49,7 +49,7 @@ number of animals at each time?
 ## Solution as Copy-Pastable Code
 
 ```@example
-import DifferentialEquations as DE
+import OrdinaryDiffEq as ODE
 import ModelingToolkit as MTK
 import Plots
 import ModelingToolkit: t_nounits as t, D_nounits as D,
@@ -71,10 +71,10 @@ eqs = [D(x) ~ α * x - β * x * y
 
 # Convert from a symbolic to a numerical problem to simulate
 tspan = (0.0, 10.0)
-prob = DE.ODEProblem(sys, [], tspan)
+prob = ODE.ODEProblem(sys, [], tspan)
 
 # Solve the ODE
-sol = DE.solve(prob)
+sol = ODE.solve(prob)
 
 # Plot the solution
 p1 = Plots.plot(sol, title = "Rabbits vs Wolves")
@@ -90,20 +90,20 @@ Plots.plot(p1, p2, layout = (2, 1))
 To do this tutorial, we will need a few components:
 
   - [ModelingToolkit.jl, our modeling environment](https://docs.sciml.ai/ModelingToolkit/stable/)
-  - [DifferentialEquations.jl, the differential equation solvers](https://docs.sciml.ai/DiffEqDocs/stable/)
+  - [OrdinaryDiffEq.jl, the ODE solvers (sub-package of DifferentialEquations.jl)](https://docs.sciml.ai/DiffEqDocs/stable/)
   - [Plots.jl, our visualization tool](https://docs.juliaplots.org/stable/)
 
 To start, let's add these packages [as demonstrated in the installation tutorial](@ref installation):
 
 ```julia
 using Pkg
-Pkg.add(["ModelingToolkit", "DifferentialEquations", "Plots"])
+Pkg.add(["ModelingToolkit", "OrdinaryDiffEq", "Plots"])
 ```
 
 Now we're ready. Let's load in these packages:
 
 ```@example first_sim
-import DifferentialEquations as DE
+import OrdinaryDiffEq as ODE
 import ModelingToolkit as MTK
 import Plots
 import ModelingToolkit: t_nounits as t, D_nounits as D, @variables, @parameters, @named, @mtkcompile, mtkcompile
@@ -203,7 +203,7 @@ like:
 ```@example first_sim
 # Convert from a symbolic to a numerical problem to simulate
 tspan = (0.0, 10.0)
-prob = DE.ODEProblem(sys, [], tspan)
+prob = ODE.ODEProblem(sys, [], tspan)
 ```
 
 ### Step 4: Solve the ODE System
@@ -214,7 +214,7 @@ to solve:
 
 ```@example first_sim
 # Solve the ODE
-sol = DE.solve(prob)
+sol = ODE.solve(prob)
 ```
 
 ### Step 5: Visualize the Solution
@@ -265,7 +265,7 @@ use Unicode, emojis work for variable names. Here's the simulation using emojis 
 and wolves to define the system:
 
 ```@example first_sim
-import DifferentialEquations as DE
+import OrdinaryDiffEq as ODE
 import ModelingToolkit as MTK
 import ModelingToolkit: t_nounits as t, D_nounits as D, @variables, @parameters, @named
 @parameters α=1.5 β=1.0 γ=3.0 δ=1.0
@@ -274,8 +274,8 @@ eqs = [D(🐰) ~ α * 🐰 - β * 🐰 * 🐺,
     D(🐺) ~ -γ * 🐺 + δ * 🐰 * 🐺]
 
 @mtkcompile sys = MTK.ODESystem(eqs, t)
-prob = DE.ODEProblem(sys, [], (0.0, 10.0))
-sol = DE.solve(prob)
+prob = ODE.ODEProblem(sys, [], (0.0, 10.0))
+sol = ODE.solve(prob)
 ```
 
 Now go make your professor mad that they have to grade a fully emojified code. I'll vouch

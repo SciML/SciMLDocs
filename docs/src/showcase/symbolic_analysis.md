@@ -59,7 +59,7 @@ traced_sys = MTK.modelingtoolkitize(pendulum_prob)
 pendulum_sys = MTK.structural_simplify(MTK.dae_index_lowering(traced_sys))
 prob = ODE.ODEProblem(pendulum_sys, [], tspan)
 sol = ODE.solve(prob, ODE.Rodas5P(), abstol = 1e-8, reltol = 1e-8)
-Plots.plot(sol, vars = MTK.unknowns(traced_sys))
+Plots.plot(sol, idxs = MTK.unknowns(traced_sys))
 ```
 
 ## Explanation
@@ -182,7 +182,7 @@ pendulum_sys = MTK.structural_simplify(traced_sys)
 prob = ODE.ODEProblem(pendulum_sys, Pair[], tspan)
 sol = ODE.solve(prob, ODE.Rodas5P())
 
-Plots.plot(sol, vars = MTK.unknowns(traced_sys))
+Plots.plot(sol, idxs = MTK.unknowns(traced_sys))
 ```
 
 Note that plotting using `unknowns(traced_sys)` is done so that any
@@ -200,7 +200,7 @@ traced_sys = MTK.modelingtoolkitize(pendulum_prob)
 pendulum_sys = MTK.structural_simplify(MTK.dae_index_lowering(traced_sys))
 prob = ODE.ODEProblem(pendulum_sys, Pair[], tspan)
 sol = ODE.solve(prob, ODE.Rodas5P(), abstol = 1e-8, reltol = 1e-8)
-Plots.plot(sol, vars = MTK.unknowns(traced_sys))
+Plots.plot(sol, idxs = MTK.unknowns(traced_sys))
 ```
 
 And there you go: this has transformed the model from being too hard to

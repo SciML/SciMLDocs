@@ -7,7 +7,8 @@ This tutorial showcases how to leverage the efficient Koopman expectation method
 First let's consider a 2D bouncing ball, where the states are the horizontal position $x$, horizontal velocity $\dot{x}$, vertical position $y$, and vertical velocity $\dot{y}$. This model has two system parameters, acceleration due to gravity and coefficient of restitution (models energy loss when the ball impacts the ground). We can simulate such a system using `ContinuousCallback` as
 
 ```@example control
-import DifferentialEquations as DE
+import OrdinaryDiffEq as ODE
+import SciMLBase
 import Plots
 import Statistics
 
@@ -20,28 +21,28 @@ end
 
 ground_condition(u, t, integrator) = u[3]
 ground_affect!(integrator) = integrator.u[4] = -integrator.p[2] * integrator.u[4]
-ground_cb = DE.ContinuousCallback(ground_condition, ground_affect!)
+ground_cb = ODE.ContinuousCallback(ground_condition, ground_affect!)
 
 u0 = [0.0, 2.0, 50.0, 0.0]
 tspan = (0.0, 50.0)
 p = [9.807, 0.9]
 
-prob = DE.ODEProblem(ball!, u0, tspan, p)
-sol = DE.solve(prob, DE.Tsit5(), callback = ground_cb)
-Plots.plot(sol, vars = (1, 3), label = nothing, xlabel = "x", ylabel = "y")
+prob = ODE.ODEProblem(ball!, u0, tspan, p)
+sol = ODE.solve(prob, ODE.Tsit5(), callback = ground_cb)
+Plots.plot(sol, idxs = (1, 3), label = nothing, xlabel = "x", ylabel = "y")
 ```
 
 For this particular problem, we wish to measure the impact distance from a point $y=25$ on a wall at $x=25$. So, we introduce an additional callback that terminates the simulation on wall impact.
 
 ```@example control
 stop_condition(u, t, integrator) = u[1] - 25.0
-stop_cb = DE.ContinuousCallback(stop_condition, DE.terminate!)
-cbs = DE.CallbackSet(ground_cb, stop_cb)
+stop_cb = ODE.ContinuousCallback(stop_condition, SciMLBase.terminate!)
+cbs = ODE.CallbackSet(ground_cb, stop_cb)
 
 tspan = (0.0, 1500.0)
-prob = DE.ODEProblem(ball!, u0, tspan, p)
-sol = DE.solve(prob, DE.Tsit5(), callback = cbs)
-Plots.plot(sol, vars = (1, 3), label = nothing, xlabel = "x", ylabel = "y")
+prob = ODE.ODEProblem(ball!, u0, tspan, p)
+sol = ODE.solve(prob, ODE.Tsit5(), callback = cbs)
+Plots.plot(sol, idxs = (1, 3), label = nothing, xlabel = "x", ylabel = "y")
 ```
 
 To help visualize this problem, we plot as follows, where the star indicates a desired impact location
@@ -50,7 +51,7 @@ To help visualize this problem, we plot as follows, where the star indicates a d
 rectangle(xc, yc, w, h) = Plots.Shape(xc .+ [-w, w, w, -w] ./ 2.0, yc .+ [-h, -h, h, h] ./ 2.0)
 
 begin
-    Plots.plot(sol, vars = (1, 3), label = nothing, lw = 3, c = :black)
+    Plots.plot(sol, idxs = (1, 3), label = nothing, lw = 3, c = :black)
     Plots.xlabel!("x [m]")
     Plots.ylabel!("y [m]")
     Plots.plot!(rectangle(27.5, 25, 5, 50), c = :red, label = nothing)
@@ -69,18 +70,18 @@ import Distributions
 cor_dist = Distributions.truncated(Distributions.Normal(0.9, 0.02), 0.9 - 3 * 0.02, 1.0)
 trajectories = 100
 
-prob_func(prob, i, repeat) = DE.remake(prob, p = [p[1], rand(cor_dist)])
-ensemble_prob = DE.EnsembleProblem(prob, prob_func = prob_func)
-ensemblesol = DE.solve(ensemble_prob, DE.Tsit5(), DE.EnsembleThreads(), trajectories = trajectories,
+prob_func(prob, ctx) = ODE.remake(prob, p = [p[1], rand(cor_dist)])
+ensemble_prob = SciMLBase.EnsembleProblem(prob, prob_func = prob_func)
+ensemblesol = ODE.solve(ensemble_prob, ODE.Tsit5(), SciMLBase.EnsembleThreads(), trajectories = trajectories,
     callback = cbs)
 
 begin # plot
-    Plots.plot(ensemblesol, vars = (1, 3), lw = 1)
+    Plots.plot(ensemblesol, idxs = (1, 3), lw = 1, trajectories = 1:length(ensemblesol.u))
     Plots.xlabel!("x [m]")
     Plots.ylabel!("y [m]")
     Plots.plot!(rectangle(27.5, 25, 5, 50), c = :red, label = nothing)
     Plots.scatter!([25], [25], marker = :star, ms = 10, label = nothing, c = :green)
-    Plots.plot!(sol, vars = (1, 3), label = nothing, lw = 3, c = :black, ls = :dash)
+    Plots.plot!(sol, idxs = (1, 3), label = nothing, lw = 3, c = :black, ls = :dash)
     Plots.xlims!(0.0, 27.5)
 end
 ```
@@ -98,7 +99,7 @@ obs(sol, p) = abs2(sol[3, end] - 25)
 With the observable defined, we can compute the expected squared miss distance from our Monte Carlo simulation results as
 
 ```@example control
-mean_ensemble = Statistics.mean([obs(sol, p) for sol in ensemblesol])
+mean_ensemble = Statistics.mean([obs(sol, p) for sol in ensemblesol.u])
 ```
 
 Alternatively, we can use the `SciMLExpectations.Koopman()` algorithm in SciMLExpectations.jl to compute this expectation much more efficiently as
@@ -107,7 +108,7 @@ Alternatively, we can use the `SciMLExpectations.Koopman()` algorithm in SciMLEx
 import SciMLExpectations
 gd = SciMLExpectations.GenericDistribution(cor_dist)
 h(x, u, p) = u, [p[1]; x[1]]
-sm = SciMLExpectations.SystemMap(prob, DE.Tsit5(), callback = cbs)
+sm = SciMLExpectations.SystemMap(prob, ODE.Tsit5(), callback = cbs)
 exprob = SciMLExpectations.ExpectationProblem(sm, obs, h, gd; nout = 1)
 sol = SciMLExpectations.solve(exprob, SciMLExpectations.Koopman(), ireltol = 1e-5)
 sol.u
@@ -123,8 +124,8 @@ import OptimizationNLopt
 import OptimizationMOI
 make_u0(θ) = [θ[1], θ[2], θ[3], 0.0]
 function 𝔼_loss(θ, pars)
-    prob = DE.ODEProblem(ball!, make_u0(θ), tspan, p)
-    sm = SciMLExpectations.SystemMap(prob, DE.Tsit5(), callback = cbs)
+    prob = ODE.ODEProblem(ball!, make_u0(θ), tspan, p)
+    sm = SciMLExpectations.SystemMap(prob, ODE.Tsit5(), callback = cbs)
     exprob = SciMLExpectations.ExpectationProblem(sm, obs, h, gd; nout = 1)
     sol = SciMLExpectations.solve(exprob, SciMLExpectations.Koopman(), ireltol = 1e-5)
     sol.u
@@ -143,14 +144,14 @@ minx = opt_sol.u
 Let's now visualize 100 Monte Carlo simulations
 
 ```@example control
-ensembleprob = DE.EnsembleProblem(DE.remake(prob, u0 = make_u0(minx)), prob_func = prob_func)
-ensemblesol = DE.solve(ensembleprob, DE.Tsit5(), DE.EnsembleThreads(), trajectories = 100,
+ensembleprob = SciMLBase.EnsembleProblem(ODE.remake(prob, u0 = make_u0(minx)), prob_func = prob_func)
+ensemblesol = ODE.solve(ensembleprob, ODE.Tsit5(), SciMLBase.EnsembleThreads(), trajectories = 100,
     callback = cbs)
 
 begin
-    Plots.plot(ensemblesol, vars = (1, 3), lw = 1, alpha = 0.1)
-    Plots.plot!(DE.solve(DE.remake(prob, u0 = make_u0(minx)), DE.Tsit5(), callback = cbs),
-        vars = (1, 3), label = nothing, c = :black, lw = 3, ls = :dash)
+    Plots.plot(ensemblesol, idxs = (1, 3), lw = 1, alpha = 0.1, trajectories = 1:length(ensemblesol.u))
+    Plots.plot!(ODE.solve(ODE.remake(prob, u0 = make_u0(minx)), ODE.Tsit5(), callback = cbs),
+        idxs = (1, 3), label = nothing, c = :black, lw = 3, ls = :dash)
     Plots.xlabel!("x [m]")
     Plots.ylabel!("y [m]")
     Plots.plot!(rectangle(27.5, 25, 5, 50), c = :red, label = nothing)
@@ -163,7 +164,7 @@ end
 Looks pretty good! But, how long did it take? Let's benchmark.
 
 ```@example control
-@time DE.solve(opt_prob, optimizer)
+@time ODE.solve(opt_prob, optimizer)
 ```
 
 Not bad for bound constrained optimization under uncertainty of a hybrid system!
@@ -193,19 +194,19 @@ To do this, we first introduce a new callback and solve the system using the pre
 ```@example control
 constraint_condition(u, t, integrator) = u[1] - constraint[1]
 function constraint_affect!(integrator)
-    integrator.u[3] < constraint[2] ? DE.terminate!(integrator) : nothing
+    integrator.u[3] < constraint[2] ? SciMLBase.terminate!(integrator) : nothing
 end
-constraint_cb = DE.ContinuousCallback(constraint_condition, constraint_affect!,
+constraint_cb = ODE.ContinuousCallback(constraint_condition, constraint_affect!,
     save_positions = (true, false));
-constraint_cbs = DE.CallbackSet(ground_cb, stop_cb, constraint_cb)
+constraint_cbs = ODE.CallbackSet(ground_cb, stop_cb, constraint_cb)
 
-ensemblesol = DE.solve(ensembleprob, DE.Tsit5(), DE.EnsembleThreads(), trajectories = 500,
+ensemblesol = ODE.solve(ensembleprob, ODE.Tsit5(), SciMLBase.EnsembleThreads(), trajectories = 500,
     callback = constraint_cbs)
 
 begin
-    Plots.plot(ensemblesol, vars = (1, 3), lw = 1, alpha = 0.1)
-    Plots.plot!(DE.solve(DE.remake(prob, u0 = make_u0(minx)), DE.Tsit5(), callback = constraint_cbs),
-        vars = (1, 3), label = nothing, c = :black, lw = 3, ls = :dash)
+    Plots.plot(ensemblesol, idxs = (1, 3), lw = 1, alpha = 0.1, trajectories = 1:length(ensemblesol.u))
+    Plots.plot!(ODE.solve(ODE.remake(prob, u0 = make_u0(minx)), ODE.Tsit5(), callback = constraint_cbs),
+        idxs = (1, 3), label = nothing, c = :black, lw = 3, ls = :dash)
 
     Plots.xlabel!("x [m]")
     Plots.ylabel!("y [m]")
@@ -231,9 +232,9 @@ end
 Using the previously computed optimal initial conditions, let's compute the probability of hitting this wall
 
 ```@example control
-sm = SciMLExpectations.SystemMap(DE.remake(prob, u0 = make_u0(minx)), DE.Tsit5(), callback = cbs)
+sm = SciMLExpectations.SystemMap(ODE.remake(prob, u0 = make_u0(minx)), ODE.Tsit5(), callback = cbs)
 exprob = SciMLExpectations.ExpectationProblem(sm, constraint_obs, h, gd; nout = 1)
-sol = DE.solve(exprob, SciMLExpectations.Koopman(), ireltol = 1e-5)
+sol = ODE.solve(exprob, SciMLExpectations.Koopman(), ireltol = 1e-5)
 sol.u
 ```
 
@@ -241,10 +242,10 @@ We then set up the constraint function for NLopt just as before.
 
 ```@example control
 function 𝔼_constraint(res, θ, pars)
-    prob = DE.ODEProblem(ball!, make_u0(θ), tspan, p)
-    sm = SciMLExpectations.SystemMap(prob, DE.Tsit5(), callback = cbs)
+    prob = ODE.ODEProblem(ball!, make_u0(θ), tspan, p)
+    sm = SciMLExpectations.SystemMap(prob, ODE.Tsit5(), callback = cbs)
     exprob = SciMLExpectations.ExpectationProblem(sm, constraint_obs, h, gd; nout = 1)
-    sol = DE.solve(exprob, SciMLExpectations.Koopman(), ireltol = 1e-5)
+    sol = ODE.solve(exprob, SciMLExpectations.Koopman(), ireltol = 1e-5)
     res .= sol.u
 end
 opt_lcons = [-Inf]
@@ -254,7 +255,7 @@ optimizer = OptimizationMOI.MOI.OptimizerWithAttributes(OptimizationNLopt.NLopt.
 opt_f = OPT.OptimizationFunction(𝔼_loss, OPT.AutoForwardDiff(), cons = 𝔼_constraint)
 opt_prob = OPT.OptimizationProblem(opt_f, opt_ini; lb = opt_lb, ub = opt_ub, lcons = opt_lcons,
     ucons = opt_ucons)
-opt_sol = DE.solve(opt_prob, optimizer)
+opt_sol = ODE.solve(opt_prob, optimizer)
 minx2 = opt_sol.u
 ```
 
@@ -275,14 +276,14 @@ We can check if this is within tolerance by
 Again, we plot some Monte Carlo simulations from this result as follows
 
 ```@example control
-ensembleprob = DE.EnsembleProblem(DE.remake(prob, u0 = make_u0(minx2)), prob_func = prob_func)
-ensemblesol = DE.solve(ensembleprob, DE.Tsit5(), DE.EnsembleThreads(),
+ensembleprob = SciMLBase.EnsembleProblem(ODE.remake(prob, u0 = make_u0(minx2)), prob_func = prob_func)
+ensemblesol = ODE.solve(ensembleprob, ODE.Tsit5(), SciMLBase.EnsembleThreads(),
     trajectories = 500, callback = constraint_cbs)
 
 begin
-    Plots.plot(ensemblesol, vars = (1, 3), lw = 1, alpha = 0.1)
-    Plots.plot!(DE.solve(DE.remake(prob, u0 = make_u0(minx2)), DE.Tsit5(), callback = constraint_cbs),
-        vars = (1, 3), label = nothing, c = :black, lw = 3, ls = :dash)
+    Plots.plot(ensemblesol, idxs = (1, 3), lw = 1, alpha = 0.1, trajectories = 1:length(ensemblesol.u))
+    Plots.plot!(ODE.solve(ODE.remake(prob, u0 = make_u0(minx2)), ODE.Tsit5(), callback = constraint_cbs),
+        idxs = (1, 3), label = nothing, c = :black, lw = 3, ls = :dash)
     Plots.plot!([constraint[1], constraint[1]], [0.0, constraint[2]], lw = 5, c = :black)
 
     Plots.xlabel!("x [m]")

@@ -55,7 +55,7 @@ Can we figure out what the parameter values should be directly from the data?
 ## Solution as Copy-Pastable Code
 
 ```@example
-import DifferentialEquations as DE
+import OrdinaryDiffEq as ODE
 import Optimization as OPT
 import OptimizationPolyalgorithms
 import SciMLSensitivity
@@ -89,10 +89,10 @@ tspan = (0.0, 10.0)
 pguess = [1.0, 1.2, 2.5, 1.2]
 
 # Set up the ODE problem with our guessed parameter values
-prob = DE.ODEProblem(lotka_volterra!, u0, tspan, pguess)
+prob = ODE.ODEProblem(lotka_volterra!, u0, tspan, pguess)
 
 # Solve the ODE problem with our guessed parameter values
-initial_sol = DE.solve(prob, saveat = 1)
+initial_sol = ODE.solve(prob, saveat = 1)
 
 # View the guessed model solution
 plt = Plots.plot(initial_sol, label = ["x Prediction" "y Prediction"])
@@ -100,8 +100,8 @@ Plots.scatter!(plt, t_data, xy_data', label = ["x Data" "y Data"])
 
 # Define a loss metric function to be minimized
 function loss(newp)
-    newprob = DE.remake(prob, p = newp)
-    sol = DE.solve(newprob, saveat = 1)
+    newprob = ODE.remake(prob, p = newp)
+    sol = ODE.solve(newprob, saveat = 1)
     loss = sum(abs2, sol .- xy_data)
     return loss
 end
@@ -109,8 +109,8 @@ end
 # Define a callback function to monitor optimization progress
 function callback(state, l)
     display(l)
-    newprob = DE.remake(prob, p = state.u)
-    sol = DE.solve(newprob, saveat = 1)
+    newprob = ODE.remake(prob, p = state.u)
+    sol = ODE.solve(newprob, saveat = 1)
     plt = Plots.plot(sol, ylim = (0, 6), label = ["Current x Prediction" "Current y Prediction"])
     Plots.scatter!(plt, t_data, xy_data', label = ["x Data" "y Data"])
     display(plt)
@@ -139,7 +139,7 @@ To do this tutorial, we will need a few components. This is done using the Julia
 ```julia
 using Pkg
 Pkg.add([
-    "DifferentialEquations",
+    "OrdinaryDiffEq",
     "Optimization",
     "OptimizationPolyalgorithms",
     "SciMLSensitivity",
@@ -151,7 +151,7 @@ Pkg.add([
 Now we're ready. Let's load in these packages:
 
 ```@example odefit
-import DifferentialEquations as DE
+import OrdinaryDiffEq as ODE
 import Optimization as OPT
 import OptimizationPolyalgorithms
 import SciMLSensitivity
@@ -235,10 +235,10 @@ so that it saves a point at every ``\Delta t = 1`` to match our experimental dat
 
 ```@example odefit
 # Set up the ODE problem with our guessed parameter values
-prob = DE.ODEProblem(lotka_volterra!, u0, tspan, pguess)
+prob = ODE.ODEProblem(lotka_volterra!, u0, tspan, pguess)
 
 # Solve the ODE problem with our guessed parameter values
-initial_sol = DE.solve(prob, saveat = 1)
+initial_sol = ODE.solve(prob, saveat = 1)
 
 # View the guessed model solution
 plt = Plots.plot(initial_sol, label = ["x Prediction" "y Prediction"])
@@ -285,8 +285,8 @@ Using this information, our loss function looks like:
 
 ```@example odefit
 function loss(newp)
-    newprob = DE.remake(prob, p = newp)
-    sol = DE.solve(newprob, saveat = 1)
+    newprob = ODE.remake(prob, p = newp)
+    sol = ODE.solve(newprob, saveat = 1)
     l = sum(abs2, sol .- xy_data)
     return l
 end
@@ -321,8 +321,8 @@ More details about callbacks in Optimization.jl can be found
 ```@example odefit
 function callback(state, l)
     display(l)
-    newprob = DE.remake(prob, p = state.u)
-    sol = DE.solve(newprob, saveat = 1)
+    newprob = ODE.remake(prob, p = state.u)
+    sol = ODE.solve(newprob, saveat = 1)
     plt = Plots.plot(sol, ylim = (0, 6), label = ["Current x Prediction" "Current y Prediction"])
     Plots.scatter!(plt, t_data, xy_data', label = ["x Data" "y Data"])
     display(plt)
