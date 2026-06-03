@@ -251,7 +251,7 @@ function orbit2tensor(orbit, component, mass = 1.0)
     #=
         Construct trace-free moment tensor Ι(t) for orbit from BH orbit (x(t),y(t))
 
-        component defines the Cartesion indices in x,y. For example,
+        component defines the Cartesian indices in x,y. For example,
         I_{22} is the yy component of the moment tensor.
     =#
     x = orbit[1, :]

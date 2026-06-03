@@ -30,7 +30,7 @@ for solving `LinearProblem`s. It includes:
 [NonlinearSolve.jl](https://github.com/SciML/NonlinearSolve.jl) is the canonical library
 for solving `NonlinearProblem`s. It includes:
 
-  - Fast non-allocating implementations on static arrays of common methods (Newton-Rhapson)
+  - Fast non-allocating implementations on static arrays of common methods (Newton-Raphson)
   - Bracketing methods (Bisection, Falsi) for methods with known upper and lower bounds (`IntervalNonlinearProblem`)
   - Wrappers to common other solvers (NLsolve.jl, MINPACK, KINSOL from Sundials) for trust
     region methods, line search-based approaches, etc.
