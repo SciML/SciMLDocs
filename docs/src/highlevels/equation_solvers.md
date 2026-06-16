@@ -95,7 +95,6 @@ covers:
 
   - OptimizationBBO for [BlackBoxOptim.jl](https://github.com/robertfeldt/BlackBoxOptim.jl)
   - OptimizationEvolutionary for [Evolutionary.jl](https://github.com/wildart/Evolutionary.jl)
-    (see also [this documentation](https://wildart.github.io/Evolutionary.jl/dev/))
   - OptimizationGCMAES for [GCMAES.jl](https://github.com/AStupidBear/GCMAES.jl)
   - OptimizationMOI for [MathOptInterface.jl](https://github.com/jump-dev/MathOptInterface.jl)
     (usage of algorithm via MathOptInterface API; see also the API
