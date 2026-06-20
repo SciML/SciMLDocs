@@ -41,6 +41,8 @@ makedocs(
         "http://www.scholarpedia.org/article/Differential-algebraic_equations",
         "https://computing.llnl.gov/projects/sundials",
         "https://github.com/timholy/QuadDIRECT.jl",
+        # readthedocs.io rate-limits CI runners and returns HTTP 429
+        "https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/",
     ],
     format = HTML(
         assets = ["assets/favicon.ico"],
