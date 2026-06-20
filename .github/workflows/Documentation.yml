@@ -22,7 +22,7 @@ jobs:
       JULIA_DEBUG: "Documenter"
       JULIA_PKG_SERVER: ""
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: julia-actions/setup-julia@v3
         with:
           version: "1.11"
@@ -50,7 +50,7 @@ jobs:
     env:
       JULIA_PKG_SERVER: ""
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: julia-actions/setup-julia@v3
         with:
           version: "1.11"
