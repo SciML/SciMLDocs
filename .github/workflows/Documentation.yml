@@ -1,10 +1,10 @@
 name: "Documentation"
 
 on:
-  # Daily rebuild so downstream package gh-pages updates propagate to docs.sciml.ai
+  # Rebuild every 6 hours so downstream package gh-pages updates propagate to docs.sciml.ai
   # (restores the scheduled deploy that Buildkite ran before the 2026-03 GHA migration).
   schedule:
-    - cron: '0 6 * * *'
+    - cron: '0 */6 * * *'
   workflow_dispatch:
   pull_request:
     branches:
