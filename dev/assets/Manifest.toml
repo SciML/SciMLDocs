@@ -508,9 +508,9 @@ uuid = "861a8166-3701-5b0c-9a16-15d98fcdc6aa"
 version = "1.0.2"
 
 [[deps.CommonSolve]]
-git-tree-sha1 = "1bfa3e601ae1a441408f13ceec9a66cad88be4c4"
+git-tree-sha1 = "99ee296f88c12485402e37c2fd025f95ae097637"
 uuid = "38540f10-b2f7-11e9-35d8-d573e4eb0ff2"
-version = "0.2.8"
+version = "0.2.9"
 
 [[deps.CommonSubexpressions]]
 deps = ["MacroTools"]
@@ -3394,9 +3394,9 @@ version = "0.6.46"
 
 [[deps.SciMLBase]]
 deps = ["ADTypes", "Accessors", "Adapt", "ArrayInterface", "CommonSolve", "ConstructionBase", "Distributed", "DocStringExtensions", "EnumX", "FunctionWrappersWrappers", "IteratorInterfaceExtensions", "LinearAlgebra", "Logging", "Markdown", "PreallocationTools", "PrecompileTools", "Preferences", "Printf", "Random", "RecipesBase", "RecursiveArrayTools", "Reexport", "RuntimeGeneratedFunctions", "SciMLLogging", "SciMLOperators", "SciMLPublic", "SciMLStructures", "StaticArraysCore", "Statistics", "SymbolicIndexingInterface"]
-git-tree-sha1 = "1a8d0bf58315e044e0713fde6f355c3d0cc210e6"
+git-tree-sha1 = "2c75f6e7f27f92bb4f11b9b4de6f153432b89ee6"
 uuid = "0bca4576-84f4-4d90-8ffe-ffa030f20462"
-version = "3.23.0"
+version = "3.24.0"
 
     [deps.SciMLBase.extensions]
     SciMLBaseChainRulesCoreExt = "ChainRulesCore"
@@ -3931,9 +3931,9 @@ version = "4.35.7"
 
 [[deps.Symbolics]]
 deps = ["ADTypes", "AbstractPlutoDingetjes", "ArrayInterface", "Bijections", "CommonWorldInvalidations", "ConstructionBase", "DataStructures", "DiffRules", "DocStringExtensions", "DomainSets", "DynamicPolynomials", "Libdl", "LinearAlgebra", "LogExpFunctions", "MacroTools", "Markdown", "Moshi", "MultivariatePolynomials", "MutableArithmetics", "NaNMath", "PrecompileTools", "Preferences", "Primes", "RecipesBase", "Reexport", "RuntimeGeneratedFunctions", "SciMLPublic", "Setfield", "SparseArrays", "SpecialFunctions", "StaticArraysCore", "SymbolicIndexingInterface", "SymbolicLimits", "SymbolicUtils", "TermInterface"]
-git-tree-sha1 = "b73e4cb4d1514b9faa0d7db296589167560bad20"
+git-tree-sha1 = "a9b4771dc78c000ace2ab1649bf03ffebb8514c7"
 uuid = "0c5d862f-8b57-4792-8d23-62f2024744c7"
-version = "7.28.1"
+version = "7.29.0"
 
     [deps.Symbolics.extensions]
     SymbolicsD3TreesExt = "D3Trees"
