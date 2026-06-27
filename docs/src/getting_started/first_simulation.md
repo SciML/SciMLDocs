@@ -3,7 +3,7 @@
 In this tutorial, we will build and run our first simulation with SciML!
 
 !!! note
-    
+
     This tutorial assumes that you have already installed Julia on your system. If you have
     not done so already, please [follow the installation tutorial first](@ref installation).
 
@@ -111,7 +111,7 @@ import ModelingToolkit: t_nounits as t, D_nounits as D, @variables, @parameters,
 
 ### Step 2: Define our ODE Equations
 
-Now let's define our ODEs. We use the `ModelingToolkit.@variabes` statement to declare
+Now let's define our ODEs. We use the `ModelingToolkit.@variables` statement to declare
 our variables. We have the independent variable time `t`, and then define our 3 state
 variables:
 
@@ -132,7 +132,7 @@ This is then done similarly for parameters, where the default value is now the p
 ```
 
 !!! note
-    
+
     Julia's text editors like VS Code are compatible with Unicode defined in a LaTeX form.
     Thus if you write `\alpha` into your REPL and then press `Tab`, it will auto-complete
     that into the α symbol. That can make your code look a lot more like the mathematical
@@ -141,7 +141,7 @@ This is then done similarly for parameters, where the default value is now the p
 Next, we define our set of differential equations.
 
 !!! note
-    
+
     Note that in ModelingToolkit and Symbolics, `~` is used for equation equality. This is
     separate from `=` which is the “assignment operator” in the Julia programming language.
     For example, `x = x + 1` is a valid assignment in a programming language, and it is
@@ -234,7 +234,7 @@ We can use this with the automated plotting functionality. First let's create a 
 we will explicitly tell it to make a plot with the index being `z`, i.e. `idxs=z`.
 
 !!! note
-    
+
     Note that one can pass an array of indices as well, so `idxs=[x,y,z]` would make a plot
     with all three lines together!
 
