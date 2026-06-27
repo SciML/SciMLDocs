@@ -45,7 +45,7 @@ The bioreactor consists of 3 states: substrate concentration $C_s(t)$, biomass c
 The substrate is eaten by the biomass, causing the biomass to grow.
 The rate by which the biomass grows $μ(t)$ is an unknown function (missing physics),
 which must be estimated from experimental data.
-The rate by which the substrate is consumed $σ(t)$ is dependent on $μ(t)$, trough a yield factor $y_{x:s}$ and a maintenance term $m$,
+The rate by which the substrate is consumed $σ(t)$ is dependent on $μ(t)$, through a yield factor $y_{x:s}$ and a maintenance term $m$,
 where are assumed to be known parameters.
 More substrate can be pumped into the reactor  with pumping speed $Q_{in}(t)$.
 This pumped substrate has known concentration $C_{s_{in}}$.
@@ -112,7 +112,7 @@ We thus extend the bioreactor MTK model with this equation:
         K_s = 0.439*10
     end
     @equations begin
-        μ ~ μ_max * C_s / (K_s + C_s) 
+        μ ~ μ_max * C_s / (K_s + C_s)
     end
 end
 nothing # hide

@@ -88,7 +88,7 @@ import ModelingToolkit: @variables, @parameters, @mtkcompile, mtkcompile
 
 ### Step 2: Define the Nonlinear System
 
-Now let's define our nonlinear system. We use the `ModelingToolkit.@variabes` statement to
+Now let's define our nonlinear system. We use the `ModelingToolkit.@variables` statement to
 declare our 3 state variables:
 
 ```@example first_rootfind
@@ -109,7 +109,7 @@ Now we create an array of equations to define our nonlinear system that must be 
 This looks as follows:
 
 !!! note
-    
+
     Note that in ModelingToolkit and Symbolics, `~` is used for equation equality. This is
     separate from `=` which is the “assignment operator” in the Julia programming language.
     For example, `x = x + 1` is a valid assignment in a programming language, and it is
