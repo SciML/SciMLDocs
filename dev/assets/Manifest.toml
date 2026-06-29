@@ -1011,9 +1011,9 @@ version = "1.0.7"
 
 [[deps.Enzyme]]
 deps = ["CEnum", "EnzymeCore", "Enzyme_jll", "GPUCompiler", "InteractiveUtils", "LLVM", "Libdl", "LinearAlgebra", "ObjectFile", "PrecompileTools", "Preferences", "Printf", "Random", "SparseArrays"]
-git-tree-sha1 = "2c98a47449c800eca4d8f33e2bd1aa040c52c79f"
+git-tree-sha1 = "31b44f3b7e29d09546f1836b1808e545c2e688f5"
 uuid = "7da242da-08ed-463a-9acd-ee780be4f1d9"
-version = "0.13.171"
+version = "0.13.172"
 weakdeps = ["ADTypes", "BFloat16s", "ChainRulesCore", "GPUArraysCore", "LogExpFunctions", "SpecialFunctions", "StaticArrays"]
 
     [deps.Enzyme.extensions]
@@ -1036,9 +1036,9 @@ weakdeps = ["Adapt", "ChainRulesCore"]
 
 [[deps.Enzyme_jll]]
 deps = ["Artifacts", "JLLWrappers", "LazyArtifacts", "Libdl", "TOML"]
-git-tree-sha1 = "b91d5517a946df245d970e7dea67c8f0f9059aea"
+git-tree-sha1 = "db3445ee0edbbc080b2b46b002748eafe2297b43"
 uuid = "7cc45869-7501-5eee-bdea-0790c847d4ef"
-version = "0.0.276+0"
+version = "0.0.277+0"
 
 [[deps.EpollShim_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
@@ -3685,9 +3685,9 @@ version = "0.3.0"
 
 [[deps.StateSelection]]
 deps = ["BipartiteGraphs", "DocStringExtensions", "FindFirstFunctions", "Graphs", "LinearAlgebra", "OrderedCollections", "Setfield", "SparseArrays"]
-git-tree-sha1 = "79d6676ce0e285668fa9899e3d9d90e68f21e154"
+git-tree-sha1 = "2fecea0e7fcbcf21fb4b2f742dd31b83f77e5688"
 uuid = "64909d44-ed92-46a8-bbd9-f047dfbdc84b"
-version = "1.10.0"
+version = "1.10.1"
 
     [deps.StateSelection.extensions]
     StateSelectionDeepDiffsExt = "DeepDiffs"
