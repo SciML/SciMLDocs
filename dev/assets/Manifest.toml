@@ -2395,9 +2395,9 @@ version = "2.5.3"
 
 [[deps.ModelingToolkitTearing]]
 deps = ["BipartiteGraphs", "CommonSolve", "DocStringExtensions", "Graphs", "LinearAlgebra", "ModelingToolkitBase", "Moshi", "OffsetArrays", "OrderedCollections", "SciMLBase", "Setfield", "SparseArrays", "StateSelection", "SymbolicIndexingInterface", "SymbolicUtils", "Symbolics", "UUIDs"]
-git-tree-sha1 = "bacdb9c4b392e31b117f68db7b7de53f8f86acf4"
+git-tree-sha1 = "309abaf6408d8a8dfa5fa9a56cd16d4f289f8c72"
 uuid = "6bb917b9-1269-42b9-9f7c-b0dca72083ab"
-version = "1.17.1"
+version = "1.17.2"
 
 [[deps.MonteCarloIntegration]]
 deps = ["Distributions", "QuasiMonteCarlo", "Random"]
@@ -3917,9 +3917,9 @@ version = "1.13.2"
 
 [[deps.SymbolicUtils]]
 deps = ["AbstractTrees", "ArrayInterface", "Combinatorics", "ConstructionBase", "DataStructures", "DocStringExtensions", "DynamicPolynomials", "EnumX", "ExproniconLite", "Graphs", "LinearAlgebra", "MacroTools", "Moshi", "MultivariatePolynomials", "MutableArithmetics", "NaNMath", "PrecompileTools", "ReadOnlyArrays", "SciMLPublic", "Setfield", "SparseArrays", "SpecialFunctions", "StaticArraysCore", "SymbolicIndexingInterface", "TaskLocalValues", "TermInterface", "WeakCacheSets"]
-git-tree-sha1 = "de5918e14850d99670e76b1a68b1ac4e5fb9f879"
+git-tree-sha1 = "57d542e95ff7c2944a90e9c4e9f0c7ae3ec5c2af"
 uuid = "d1185830-fcd6-423d-90d6-eec64667417b"
-version = "4.37.1"
+version = "4.37.2"
 
     [deps.SymbolicUtils.extensions]
     SymbolicUtilsChainRulesCoreExt = "ChainRulesCore"
