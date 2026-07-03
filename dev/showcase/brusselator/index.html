@@ -73,24 +73,24 @@ Non-trivial mass matrix: <span class="sgr38_2" style="color:#56b6c2">false</span
 timespan: (0.0, 11.5)
 u0: 2048-element Vector{Float64}:
  0.0
- 0.1422185904446023
- 0.3829487927768564
- 0.668640545523243
- 0.9766542925609525
- 1.2924521756218903
- 1.605464573318729
- 1.9075279151581102
- 2.1921268033293604
- 2.453970555156994
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
  ⋮
- 0.11588181443634263
- 0.11588181443634263
- 0.11588181443634263
- 0.11588181443634263
- 0.11588181443634263
- 0.11588181443634263
- 0.11588181443634263
- 0.11588181443634263
+ 1.9995315634612543
+ 1.7861773953054048
+ 1.5542820049436454
+ 1.3081563190004457
+ 1.0531091801363552
+ 0.7957923865311465
+ 0.544818222278198
+ 0.31203234967003113
  0.11588181443634263</code></pre><h2 id="Solving-the-PDE"><a class="docs-heading-anchor" href="#Solving-the-PDE">Solving the PDE</a><a id="Solving-the-PDE-1"></a><a class="docs-heading-anchor-permalink" href="#Solving-the-PDE" title="Permalink"></a></h2><p>Now your problem can be solved with an appropriate ODE solver. This is just your standard DifferentialEquations.jl usage, though we&#39;ll return to this point in a bit to talk about efficiency:</p><pre><code class="language-julia hljs">sol = ODE.solve(prob, OrdinaryDiffEqSDIRK.TRBDF2(), saveat = 0.1);</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">retcode: Success
 Interpolation: Dict{Symbolics.Num, Interpolations.GriddedInterpolation{Float64, 3, Array{Float64, 3}, Interpolations.Gridded{Interpolations.Linear{Interpolations.Throw{Interpolations.OnGrid}}}, Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}}}}
 t: 116-element Vector{Float64}:
@@ -296,4 +296,4 @@ end
 
 BT.@btime ODE.solve(prob_sparse,
     OrdinaryDiffEqSDIRK.TRBDF2(linsolve = LS.KrylovJL_GMRES(), precs = incompletelu, concrete_jac = true),
-    save_everystep = false);</code></pre><p>And now we&#39;re zooming! For more information on these performance improvements, check out the deeper dive in <a href="https://docs.sciml.ai/DiffEqDocs/stable/tutorials/advanced_ode_example/">the DifferentialEquations.jl tutorials</a>.</p><p>If you&#39;re interested in figuring out what&#39;s the fastest current solver for this kind of PDE, check out the <a href="https://docs.sciml.ai/SciMLBenchmarksOutput/stable/StiffODE/Bruss/">Brusselator benchmark in SciMLBenchmarks.jl</a></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../blackhole/">« Discovering the Relativistic Corrections to Binary Black Hole Dynamics</a><a class="docs-footer-nextpage" href="../pinngpu/">GPU-Accelerated Physics-Informed Neural Network (PINN) PDE Solvers »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.17.0 on <span class="colophon-date" title="Wednesday 1 July 2026 18:24">Wednesday 1 July 2026</span>. Using Julia version 1.11.9.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+    save_everystep = false);</code></pre><p>And now we&#39;re zooming! For more information on these performance improvements, check out the deeper dive in <a href="https://docs.sciml.ai/DiffEqDocs/stable/tutorials/advanced_ode_example/">the DifferentialEquations.jl tutorials</a>.</p><p>If you&#39;re interested in figuring out what&#39;s the fastest current solver for this kind of PDE, check out the <a href="https://docs.sciml.ai/SciMLBenchmarksOutput/stable/StiffODE/Bruss/">Brusselator benchmark in SciMLBenchmarks.jl</a></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../blackhole/">« Discovering the Relativistic Corrections to Binary Black Hole Dynamics</a><a class="docs-footer-nextpage" href="../pinngpu/">GPU-Accelerated Physics-Informed Neural Network (PINN) PDE Solvers »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.17.0 on <span class="colophon-date" title="Friday 3 July 2026 18:22">Friday 3 July 2026</span>. Using Julia version 1.11.9.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
