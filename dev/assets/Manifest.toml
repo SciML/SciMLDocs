@@ -1017,9 +1017,9 @@ version = "1.0.7"
 
 [[deps.Enzyme]]
 deps = ["CEnum", "EnzymeCore", "Enzyme_jll", "GPUCompiler", "InteractiveUtils", "LLVM", "Libdl", "LinearAlgebra", "ObjectFile", "PrecompileTools", "Preferences", "Printf", "Random", "SparseArrays"]
-git-tree-sha1 = "1d1fafadef3cc57d18d61f3d9e1971e1542011d3"
+git-tree-sha1 = "21d4a076cb603f9a51cf34673af4ae6f381d7287"
 uuid = "7da242da-08ed-463a-9acd-ee780be4f1d9"
-version = "0.13.173"
+version = "0.13.174"
 weakdeps = ["ADTypes", "BFloat16s", "ChainRulesCore", "GPUArraysCore", "LogExpFunctions", "SpecialFunctions", "StaticArrays"]
 
     [deps.Enzyme.extensions]
@@ -1274,9 +1274,9 @@ version = "1.1.3"
 
 [[deps.FunctionWrappersWrappers]]
 deps = ["FunctionWrappers", "PrecompileTools", "TruncatedStacktraces"]
-git-tree-sha1 = "9760060160c6d7f642308eed67a40a1ffe3f028c"
+git-tree-sha1 = "ffa0d00178e2004db4da70d96e17ee02e85e8966"
 uuid = "77dc65aa-8811-40c2-897b-53d922fa7daf"
-version = "1.9.3"
+version = "1.10.0"
 
     [deps.FunctionWrappersWrappers.extensions]
     FunctionWrappersWrappersEnzymeExt = ["Enzyme", "EnzymeCore"]
@@ -1662,9 +1662,9 @@ version = "0.2.1"
 
 [[deps.JpegTurbo_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
-git-tree-sha1 = "c0c9b76f3520863909825cbecdef58cd63de705a"
+git-tree-sha1 = "1dae3057da6f2b9c857afef03177bbdc7c4afe92"
 uuid = "aacddb02-875f-59d6-b918-886e6ef4fbf8"
-version = "3.1.5+0"
+version = "3.2.0+0"
 
 [[deps.JuliaNVTXCallbacks_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
@@ -1742,9 +1742,9 @@ version = "1.0.0"
 
 [[deps.LLVMOpenMP_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
-git-tree-sha1 = "eb62a3deb62fc6d8822c0c4bef73e4412419c5d8"
+git-tree-sha1 = "14ba0de921ee03ab5a8e4d2cbd7a27d1bbd5bbb9"
 uuid = "1d63c593-3942-5779-bab2-d838dc0a180e"
-version = "18.1.8+0"
+version = "20.1.8+0"
 
 [[deps.LaTeXStrings]]
 git-tree-sha1 = "dda21b8cbd6a6c40d9d02a73230f9d70fed6918c"
@@ -2412,9 +2412,9 @@ version = "2.5.3"
 
 [[deps.ModelingToolkitTearing]]
 deps = ["BipartiteGraphs", "CommonSolve", "DocStringExtensions", "Graphs", "LinearAlgebra", "ModelingToolkitBase", "Moshi", "OffsetArrays", "OrderedCollections", "SciMLBase", "Setfield", "SparseArrays", "StateSelection", "SymbolicIndexingInterface", "SymbolicUtils", "Symbolics", "UUIDs"]
-git-tree-sha1 = "40858de57e4ba155dfd7592cdea982ade0a25092"
+git-tree-sha1 = "4c64e3fcac18adab0877a5c81449c1e8c7a2f43b"
 uuid = "6bb917b9-1269-42b9-9f7c-b0dca72083ab"
-version = "1.18.0"
+version = "1.18.1"
 
 [[deps.MonteCarloIntegration]]
 deps = ["Distributions", "QuasiMonteCarlo", "Random"]
@@ -2650,9 +2650,9 @@ version = "4.20.2"
 
 [[deps.NonlinearSolveBase]]
 deps = ["ADTypes", "Adapt", "ArrayInterface", "CommonSolve", "Compat", "ConcreteStructs", "DifferentiationInterface", "EnzymeCore", "FastClosures", "FunctionWrappers", "FunctionWrappersWrappers", "LinearAlgebra", "LogExpFunctions", "Markdown", "MaybeInplace", "PreallocationTools", "PrecompileTools", "Preferences", "Printf", "RecursiveArrayTools", "SciMLBase", "SciMLJacobianOperators", "SciMLLogging", "SciMLOperators", "SciMLStructures", "Setfield", "StaticArraysCore", "SymbolicIndexingInterface", "TimerOutputs"]
-git-tree-sha1 = "613a4ae094f9433f7796b3c53f539f6d9e65cc34"
+git-tree-sha1 = "70e128636da33678ef4aa088e47e0c4ad7c86d92"
 uuid = "be0214bd-f91f-a760-ac4e-3421ce2b2da0"
-version = "2.32.0"
+version = "2.33.0"
 
     [deps.NonlinearSolveBase.extensions]
     NonlinearSolveBaseBandedMatricesExt = "BandedMatrices"
@@ -3710,9 +3710,9 @@ version = "0.3.0"
 
 [[deps.StateSelection]]
 deps = ["BipartiteGraphs", "DocStringExtensions", "FindFirstFunctions", "Graphs", "LinearAlgebra", "OrderedCollections", "Setfield", "SparseArrays"]
-git-tree-sha1 = "3370d1327d012dd9cb8917feff7a78b7ff984a49"
+git-tree-sha1 = "527f91dbcd111658846158f6f7d93b57a1c8c6fd"
 uuid = "64909d44-ed92-46a8-bbd9-f047dfbdc84b"
-version = "1.10.2"
+version = "1.10.4"
 
     [deps.StateSelection.extensions]
     StateSelectionDeepDiffsExt = "DeepDiffs"
