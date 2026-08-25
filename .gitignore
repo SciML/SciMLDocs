@@ -4,6 +4,7 @@
 /docs/build/
 /docs/cloned/
 /docs/src/modules
+/docs/src/assets/Project.toml
 Manifest.toml
 *.swp
 
