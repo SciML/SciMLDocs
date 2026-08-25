@@ -27,12 +27,12 @@ using DomainSets: Interval
 
 # Optimization Libraries
 import Optimization as OPT
-import OptimizationOptimisers
+import OptimizationOptimisers: Adam
 
 # Machine Learning Libraries and Helpers
 import Lux
 import LuxCUDA
-import ComponentArrays
+import ComponentArrays: ComponentArray
 import MLDataDevices
 const gpud = MLDataDevices.gpu_device() # allocate a GPU device
 
@@ -95,16 +95,20 @@ eq = Dt(u(t, x, y)) ~ Dxx(u(t, x, y)) + Dyy(u(t, x, y))
 
 analytic_sol_func(t, x, y) = exp(x + y) * cos(x + y + 4t)
 # Initial and boundary conditions
-bcs = [u(t_min, x, y) ~ analytic_sol_func(t_min, x, y),
+bcs = [
+    u(t_min, x, y) ~ analytic_sol_func(t_min, x, y),
     u(t, x_min, y) ~ analytic_sol_func(t, x_min, y),
     u(t, x_max, y) ~ analytic_sol_func(t, x_max, y),
     u(t, x, y_min) ~ analytic_sol_func(t, x, y_min),
-    u(t, x, y_max) ~ analytic_sol_func(t, x, y_max)]
+    u(t, x, y_max) ~ analytic_sol_func(t, x, y_max),
+]
 
 # Space and time domains
-domains = [t ∈ Interval(t_min, t_max),
+domains = [
+    t ∈ Interval(t_min, t_max),
     x ∈ Interval(x_min, x_max),
-    y ∈ Interval(y_min, y_max)]
+    y ∈ Interval(y_min, y_max),
+]
 
 MTK.@named pde_system = PDESystem(eq, bcs, domains, [t, x, y], [u(t, x, y)])
 ```
@@ -122,11 +126,13 @@ We will use a simple multi-layer perceptron, like:
 
 ```@example pinn
 inner = 25
-chain = Lux.Chain(Lux.Dense(3, inner, Lux.σ),
+chain = Lux.Chain(
+    Lux.Dense(3, inner, Lux.σ),
     Lux.Dense(inner, inner, Lux.σ),
     Lux.Dense(inner, inner, Lux.σ),
     Lux.Dense(inner, inner, Lux.σ),
-    Lux.Dense(inner, 1))
+    Lux.Dense(inner, 1)
+)
 ps = Lux.setup(Random.default_rng(), chain)[1]
 ```
 
@@ -138,7 +144,7 @@ on the GPU. This is done by using the `gpud` function (i.e. the GPU
 device we created at the start) on the initial parameters, like:
 
 ```@example pinn
-ps = ps |> ComponentArrays.ComponentArray |> gpud .|> Float64
+ps = ps |> ComponentArray |> gpud .|> Float64
 ```
 
 ## Step 5: Discretize the PDE via a PINN Training Strategy
@@ -148,9 +154,11 @@ import CUDA # hide
 CUDA.reclaim() # hide
 GC.gc() # hide
 strategy = NeuralPDE.GridTraining(0.1)
-discretization = NeuralPDE.PhysicsInformedNN(chain,
+discretization = NeuralPDE.PhysicsInformedNN(
+    chain,
     strategy,
-    init_params = ps)
+    init_params = ps
+)
 prob = NeuralPDE.discretize(pde_system, discretization)
 ```
 
@@ -162,7 +170,7 @@ callback = function (state, l)
     return false
 end
 
-res = OPT.solve(prob, OptimizationOptimisers.Adam(0.01); callback = callback, maxiters = 2500);
+res = OPT.solve(prob, Adam(0.01); callback, maxiters = 2500);
 ```
 
 We then use the `remake` function to rebuild the PDE problem to start a new
@@ -170,7 +178,7 @@ optimization at the optimized parameters, and continue with a lower learning rat
 
 ```@example pinn
 prob = OPT.remake(prob, u0 = res.u)
-res = OPT.solve(prob, OptimizationOptimisers.Adam(0.001); callback = callback, maxiters = 2500);
+res = OPT.solve(prob, Adam(0.001); callback, maxiters = 2500);
 ```
 
 ## Step 7: Inspect the PINN's Solution
@@ -187,10 +195,14 @@ function plot_(res)
     # Animate
     anim = @animate for (i, t) in enumerate(0:0.05:t_max)
         @info "Animating frame $i..."
-        u_real = reshape([analytic_sol_func(t, x, y) for x in xs for y in ys],
-            (length(xs), length(ys)))
-        u_predict = reshape([Array(phi([t, x, y], res.u))[1] for x in xs for y in ys],
-            length(xs), length(ys))
+        u_real = reshape(
+            [analytic_sol_func(t, x, y) for x in xs for y in ys],
+            (length(xs), length(ys))
+        )
+        u_predict = reshape(
+            [Array(phi([t, x, y], res.u))[1] for x in xs for y in ys],
+            length(xs), length(ys)
+        )
         u_error = abs.(u_predict .- u_real)
         title = @sprintf("predict, t = %.3f", t)
         p1 = plot(xs, ys, u_predict, st = :surface, label = "", title = title)
@@ -200,7 +212,7 @@ function plot_(res)
         p3 = plot(xs, ys, u_error, st = :contourf, label = "", title = title)
         plot(p1, p2, p3)
     end
-    gif(anim, "3pde.gif", fps = 10)
+    return gif(anim, "3pde.gif", fps = 10)
 end
 
 plot_(res)

@@ -53,18 +53,20 @@ import OrdinaryDiffEq as ODE
 import ModelingToolkit as MTK
 import Plots
 import ModelingToolkit: t_nounits as t, D_nounits as D,
-                        @variables, @parameters, @named, @mtkcompile, mtkcompile
+    @variables, @parameters, @named, @mtkcompile, mtkcompile
 
 # Define our state variables: state(t) = initial condition
-@variables x(t)=1 y(t)=1 z(t)
+@variables x(t) = 1 y(t) = 1 z(t)
 
 # Define our parameters
-@parameters α=1.5 β=1.0 γ=3.0 δ=1.0
+@parameters α = 1.5 β = 1.0 γ = 3.0 δ = 1.0
 
 # Define the differential equations
-eqs = [D(x) ~ α * x - β * x * y
-       D(y) ~ -γ * y + δ * x * y
-       z ~ x + y]
+eqs = [
+    D(x) ~ α * x - β * x * y
+    D(y) ~ -γ * y + δ * x * y
+    z ~ x + y
+]
 
 # Bring these pieces together into an ODESystem with independent variable t
 @mtkcompile sys = MTK.ODESystem(eqs, t)
@@ -117,7 +119,7 @@ variables:
 
 ```@example first_sim
 # Define our state variables: state(t) = initial condition
-@variables x(t)=1 y(t)=1 z(t)
+@variables x(t) = 1 y(t) = 1 z(t)
 ```
 
 Notice here that we use the form `state = default`, where on the right-hand side the default
@@ -128,7 +130,7 @@ This is then done similarly for parameters, where the default value is now the p
 
 ```@example first_sim
 # Define our parameters
-@parameters α=1.5 β=1.0 γ=3.0 δ=1.0
+@parameters α = 1.5 β = 1.0 γ = 3.0 δ = 1.0
 ```
 
 !!! note
@@ -150,9 +152,11 @@ Next, we define our set of differential equations.
 
 ```@example first_sim
 # Define the differential equations
-eqs = [D(x) ~ α * x - β * x * y
-       D(y) ~ -γ * y + δ * x * y
-       z ~ x + y]
+eqs = [
+    D(x) ~ α * x - β * x * y
+    D(y) ~ -γ * y + δ * x * y
+    z ~ x + y
+]
 ```
 
 Notice that in the display, it will automatically generate LaTeX. If one is interested in
@@ -268,10 +272,12 @@ and wolves to define the system:
 import OrdinaryDiffEq as ODE
 import ModelingToolkit as MTK
 import ModelingToolkit: t_nounits as t, D_nounits as D, @variables, @parameters, @named
-@parameters α=1.5 β=1.0 γ=3.0 δ=1.0
-@variables 🐰(t)=1.0 🐺(t)=1.0
-eqs = [D(🐰) ~ α * 🐰 - β * 🐰 * 🐺,
-    D(🐺) ~ -γ * 🐺 + δ * 🐰 * 🐺]
+@parameters α = 1.5 β = 1.0 γ = 3.0 δ = 1.0
+@variables 🐰(t) = 1.0 🐺(t) = 1.0
+eqs = [
+    D(🐰) ~ α * 🐰 - β * 🐰 * 🐺,
+    D(🐺) ~ -γ * 🐺 + δ * 🐰 * 🐺,
+]
 
 @mtkcompile sys = MTK.ODESystem(eqs, t)
 prob = ODE.ODEProblem(sys, [], (0.0, 10.0))

@@ -44,7 +44,7 @@ tspan = (0.0, 1)
 tsteps = range(tspan[1], tspan[2], length = datasize)
 function trueODEfunc(du, u, p, t)
     true_A = [-0.1 2.0; -2.0 -0.1]
-    du .= ((u .^ 3)'true_A)'
+    return du .= ((u .^ 3)'true_A)'
 end
 prob_trueode = ODE.ODEProblem(trueODEfunc, u0, tspan)
 ode_data = Array(ODE.solve(prob_trueode, ODE.Tsit5(), saveat = tsteps))
@@ -60,19 +60,21 @@ better at prediction/forecasting than a 50 unit architecture. On the other hand,
 complicated architecture can take a huge computational time without increasing performance.
 
 ```@example bnode
-dudt2 = Lux.Chain(x -> x .^ 3,
+dudt2 = Lux.Chain(
+    x -> x .^ 3,
     Lux.Dense(2, 50, tanh),
-    Lux.Dense(50, 2))
+    Lux.Dense(50, 2)
+)
 
 rng = Random.default_rng()
 p, st = Lux.setup(rng, dudt2)
 const _st = st
 function neuralodefunc(u, p, t)
-    dudt2(u, p, _st)[1]
+    return dudt2(u, p, _st)[1]
 end
 function prob_neuralode(u0, p)
     prob = ODE.ODEProblem(neuralodefunc, u0, tspan, p)
-    sol = ODE.solve(prob, ODE.Tsit5(), saveat = tsteps)
+    return sol = ODE.solve(prob, ODE.Tsit5(), saveat = tsteps)
 end
 p = ComponentArrays.ComponentArray{Float64}(p)
 const _p = p
@@ -85,7 +87,7 @@ Note that the `f64` is required to put the Lux neural network into Float64 preci
 ```@example bnode
 function predict_neuralode(p)
     p = p isa ComponentArrays.ComponentArray ? p : convert(typeof(_p), p)
-    Array(prob_neuralode(u0, p))
+    return Array(prob_neuralode(u0, p))
 end
 function loss_neuralode(p)
     pred = predict_neuralode(p)
@@ -150,8 +152,10 @@ solutions of the Neural ODE on samples of the neural network parameters, and che
 results of the predictions against the data. Let's start by looking at the time series:
 
 ```@example bnode
-pl = Plots.scatter(tsteps, ode_data[1, :], color = :red, label = "Data: Var1", xlabel = "t",
-    title = "Spiral Neural ODE")
+pl = Plots.scatter(
+    tsteps, ode_data[1, :], color = :red, label = "Data: Var1", xlabel = "t",
+    title = "Spiral Neural ODE"
+)
 Plots.scatter!(tsteps, ode_data[2, :], color = :blue, label = "Data: Var2")
 for k in 1:300
     resol = predict_neuralode(samples[:, 100:end][:, rand(1:400)])
@@ -163,19 +167,25 @@ losses = map(x -> loss_neuralode(x)[1], eachcol(samples))
 idx = findmin(losses)[2]
 prediction = predict_neuralode(samples[:, idx])
 Plots.plot!(tsteps, prediction[1, :], color = :black, w = 2, label = "")
-Plots.plot!(tsteps, prediction[2, :], color = :black, w = 2, label = "Best fit prediction",
-    ylims = (-2.5, 3.5))
+Plots.plot!(
+    tsteps, prediction[2, :], color = :black, w = 2, label = "Best fit prediction",
+    ylims = (-2.5, 3.5)
+)
 ```
 
 That showed the time series form. We can similarly do a phase-space plot:
 
 ```@example bnode
-pl = Plots.scatter(ode_data[1, :], ode_data[2, :], color = :red, label = "Data", xlabel = "Var1",
-    ylabel = "Var2", title = "Spiral Neural ODE")
+pl = Plots.scatter(
+    ode_data[1, :], ode_data[2, :], color = :red, label = "Data", xlabel = "Var1",
+    ylabel = "Var2", title = "Spiral Neural ODE"
+)
 for k in 1:300
     resol = predict_neuralode(samples[:, 100:end][:, rand(1:400)])
     Plots.plot!(resol[1, :], resol[2, :], alpha = 0.04, color = :red, label = "")
 end
-Plots.plot!(prediction[1, :], prediction[2, :], color = :black, w = 2,
-    label = "Best fit prediction", ylims = (-2.5, 3))
+Plots.plot!(
+    prediction[1, :], prediction[2, :], color = :black, w = 2,
+    label = "Best fit prediction", ylims = (-2.5, 3)
+)
 ```

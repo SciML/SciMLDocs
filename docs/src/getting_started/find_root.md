@@ -43,12 +43,14 @@ import NonlinearSolve as NLS
 import ModelingToolkit: @variables, @parameters, @mtkcompile, mtkcompile
 
 # Define the nonlinear system
-@variables x=1.0 y=0.0 z=0.0
-@parameters σ=10.0 ρ=26.0 β=8 / 3
+@variables x = 1.0 y = 0.0 z = 0.0
+@parameters σ = 10.0 ρ = 26.0 β = 8 / 3
 
-eqs = [0 ~ σ * (y - x),
+eqs = [
+    0 ~ σ * (y - x),
     0 ~ x * (ρ - z) - y,
-    0 ~ x * y - β * z]
+    0 ~ x * y - β * z,
+]
 @mtkcompile ns = MTK.NonlinearSystem(eqs, [x, y, z], [σ, ρ, β])
 
 # Convert the symbolic system into a numerical system
@@ -93,7 +95,7 @@ declare our 3 state variables:
 
 ```@example first_rootfind
 # Define the nonlinear system
-@variables x=1.0 y=0.0 z=0.0
+@variables x = 1.0 y = 0.0 z = 0.0
 ```
 
 Notice that we are using the form `state = initial condition`. This is a nice shorthand
@@ -102,7 +104,7 @@ which we can associate default values via the form `parameter = default value`. 
 like:
 
 ```@example first_rootfind
-@parameters σ=10.0 ρ=26.0 β=8 / 3
+@parameters σ = 10.0 ρ = 26.0 β = 8 / 3
 ```
 
 Now we create an array of equations to define our nonlinear system that must be satisfied.
@@ -117,9 +119,11 @@ This looks as follows:
     is used!
 
 ```@example first_rootfind
-eqs = [0 ~ σ * (y - x),
+eqs = [
+    0 ~ σ * (y - x),
     0 ~ x * (ρ - z) - y,
-    0 ~ x * y - β * z]
+    0 ~ x * y - β * z,
+]
 ```
 
 Finally, we bring these pieces together, the equation along with its states and parameters,

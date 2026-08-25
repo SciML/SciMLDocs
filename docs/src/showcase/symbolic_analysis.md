@@ -58,7 +58,7 @@ pendulum_prob = ODE.ODEProblem(pendulum_fun!, u0, tspan, p)
 traced_sys = MTK.modelingtoolkitize(pendulum_prob)
 pendulum_sys = MTK.structural_simplify(MTK.dae_index_lowering(traced_sys))
 prob = ODE.ODEProblem(pendulum_sys, [], tspan)
-sol = ODE.solve(prob, ODE.Rodas5P(), abstol = 1e-8, reltol = 1e-8)
+sol = ODE.solve(prob, ODE.Rodas5P(), abstol = 1.0e-8, reltol = 1.0e-8)
 Plots.plot(sol, idxs = MTK.unknowns(traced_sys))
 ```
 
@@ -93,6 +93,7 @@ function pendulum!(du, u, p, t)
     du[3] = dy
     du[4] = T * y - g
     du[5] = x^2 + y^2 - L^2
+    return
 end
 pendulum_fun! = ODE.ODEFunction(pendulum!, mass_matrix = LinearAlgebra.Diagonal([1, 1, 1, 1, 0]))
 u0 = [1.0, 0, 0, 0, 0];
@@ -199,7 +200,7 @@ which can be solved via:
 traced_sys = MTK.modelingtoolkitize(pendulum_prob)
 pendulum_sys = MTK.structural_simplify(MTK.dae_index_lowering(traced_sys))
 prob = ODE.ODEProblem(pendulum_sys, Pair[], tspan)
-sol = ODE.solve(prob, ODE.Rodas5P(), abstol = 1e-8, reltol = 1e-8)
+sol = ODE.solve(prob, ODE.Rodas5P(), abstol = 1.0e-8, reltol = 1.0e-8)
 Plots.plot(sol, idxs = MTK.unknowns(traced_sys))
 ```
 
@@ -258,7 +259,7 @@ eqs = [
     D(x4) ~ -k5 * x4 / (k6 + x4),
     D(x5) ~ k5 * x4 / (k6 + x4) - k7 * x5 / (k8 + x5 + x6),
     D(x6) ~ k7 * x5 / (k8 + x5 + x6) - k9 * x6 * (k10 - x6) / k10,
-    D(x7) ~ k9 * x6 * (k10 - x6) / k10
+    D(x7) ~ k9 * x6 * (k10 - x6) / k10,
 ]
 
 # define the output functions (quantities that can be measured)
@@ -273,8 +274,9 @@ After that, we are ready to check the system for local identifiability:
 ```julia
 # query local identifiability
 # we pass the ode-system
-local_id_all = StructuralIdentifiability.assess_local_identifiability(de, measured_quantities = measured_quantities,
-    p = 0.99)
+local_id_all = StructuralIdentifiability.assess_local_identifiability(
+    de; measured_quantities, p = 0.99
+)
 # [ Info: Preproccessing `ModelingToolkit.ODESystem` object
 # 6-element Vector{Bool}:
 #  1
@@ -291,8 +293,9 @@ Let's try to check specific parameters and their combinations
 
 ```julia
 to_check = [k5, k7, k10 / k9, k5 + k6]
-local_id_some = StructuralIdentifiability.assess_local_identifiability(de, measured_quantities = measured_quantities,
-    funcs_to_check = to_check, p = 0.99)
+local_id_some = StructuralIdentifiability.assess_local_identifiability(
+    de; measured_quantities, funcs_to_check = to_check, p = 0.99
+)
 # 4-element Vector{Bool}:
 #  1
 #  1
@@ -336,7 +339,7 @@ eqs = [
     D(x1) ~ -b * x1 + 1 / (c + x4),
     D(x2) ~ a * x1 - beta * x2,
     D(x3) ~ g * x2 - delta * x3,
-    D(x4) ~ sigma * x4 * (g * x2 - delta * x3) / x3
+    D(x4) ~ sigma * x4 * (g * x2 - delta * x3) / x3,
 ]
 
 measured_quantities = [y1 ~ x1 + x2, y2 ~ x2]
@@ -371,7 +374,7 @@ eqs = [
     D(x1) ~ -b * x1 + 1 / (c + x4),
     D(x2) ~ a * x1 - beta * x2 - u1,
     D(x3) ~ g * x2 - delta * x3 + u2,
-    D(x4) ~ sigma * x4 * (g * x2 - delta * x3) / x3
+    D(x4) ~ sigma * x4 * (g * x2 - delta * x3) / x3,
 ]
 measured_quantities = [y1 ~ x1 + x2, y2 ~ x2]
 
@@ -380,8 +383,9 @@ to_check = [b, c]
 
 ode = MTK.ODESystem(eqs, t, name = :GoodwinOsc)
 
-global_id = StructuralIdentifiability.assess_identifiability(ode, measured_quantities = measured_quantities,
-    funcs_to_check = to_check, p = 0.9)
+global_id = StructuralIdentifiability.assess_identifiability(
+    ode; measured_quantities, funcs_to_check = to_check, p = 0.9
+)
 # Dict{Num, Symbol} with 2 entries:
 #   b => :globally
 #   c => :globally
