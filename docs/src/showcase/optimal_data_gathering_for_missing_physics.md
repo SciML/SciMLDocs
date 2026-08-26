@@ -238,12 +238,14 @@ where we do not have data.
 We continue by making the neural network interpretable using symbolic regression.
 ```julia
 options = SymbolicRegression.Options(
-    unary_operators = (exp, sin, cos),
-    binary_operators = (+, *, /, -),
+    operators = OperatorEnum(1 => (exp, sin, cos), 2 => (+, *, /, -)),
     seed = 123,
     deterministic = true,
     save_to_file = false,
-    defaults = v"0.24.5"
+    defaults = v"0.24.5",
+    default_plugins = (
+        SimulatedAnnealingPlugin(; alpha = 3.17), AdaptiveParsimonyPlugin(),
+    )
 )
 hall_of_fame = equation_search(collect(data[!, "C_s(t)"])', μ_predicted_data; options, niterations = 1000, runtests = false, parallelism = :serial)
 ```
@@ -268,7 +270,7 @@ function get_model_structures(hall_of_fame, options, n_best)
     model_structures = []
     @syms x
     for i in 1:n_best
-        eqn = node_to_symbolic(best_models[i].tree, options, varMap = ["x"])
+        eqn = node_to_symbolic(best_models[i].tree, options; variable_names = ["x"])
         fi = build_function(eqn, x, expression = Val{false})
         push!(model_structures, fi)
     end
