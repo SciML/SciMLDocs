@@ -12,19 +12,19 @@ Want to see some cool things that you can do with SciML? Check out the following
 
   - Scientific machine learning: incorporating prior physics into automated model discovery
     
-      + [Auto-complete mechanistic models by embedding machine learning into differential equations](@ref autocomplete)
-      + [Bayesian automated model discovery with quantified uncertainties and probability estimates](@ref bnode)
-      + [Efficiently gathering data to fill in missing physics](@ref srmf)
-      + [Discovering the Relativistic Corrections to Binary Black Hole Dynamics](@ref blackhole)
+    + [Auto - complete mechanistic models by embedding machine learning into differential equations](@ref autocomplete)
+    + [Bayesian automated model discovery with quantified uncertainties and probability estimates](@ref bnode)
+    + [Efficiently gathering data to fill in missing physics](@ref srmf)
+    + [Discovering the Relativistic Corrections to Binary Black Hole Dynamics](@ref blackhole)
 
   - Solving big difficult equations with parallelism, speed, and accuracy
     
-      + [Automated Efficient Solution of Nonlinear Partial Differential Equations](@ref brusselator)
-      + [GPU-Accelerated Physics-Informed Neural Network PDE Solvers](@ref pinngpu)
-      + [Massively Data-Parallel ODE Solving on GPUs](@ref datagpu)
-      + [GPU-Accelerated Stochastic Partial Differential Equations](@ref gpuspde)
+    + [Automated Efficient Solution of Nonlinear Partial Differential Equations](@ref brusselator)
+    + [GPU - Accelerated Physics - Informed Neural Network PDE Solvers](@ref pinngpu)
+    + [Massively Data - Parallel ODE Solving on GPUs](@ref datagpu)
+    + [GPU - Accelerated Stochastic Partial Differential Equations](@ref gpuspde)
   - Useful cool wonky things that are hard to find anywhere else
     
-      + [Automatic Uncertainty Quantification, Arbitrary Precision, and Unit Checking in ODE Solutions using Julia's Type System](@ref ode_types)
-      + [Symbolic-Numeric Analysis of Parameter Identifiability and Model Stability](@ref symbolic_analysis)
-      + [Optimization Under Uncertainty](@ref optimization_under_uncertainty)
+    + [Automatic Uncertainty Quantification, Arbitrary Precision, and Unit Checking in ODE Solutions using Julia's Type System](@ref ode_types)
+    + [Symbolic-Numeric Analysis of Parameter Identifiability and Model Stability](@ref symbolic_analysis)
+    + [Optimization Under Uncertainty](@ref optimization_under_uncertainty)

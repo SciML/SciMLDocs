@@ -71,9 +71,9 @@ With `ModelingToolkit.jl`, we first symbolically define the system, see also the
 import ModelingToolkit as MTK
 import MethodOfLines
 import OrdinaryDiffEq as ODE
-import OrdinaryDiffEqSDIRK
-import LinearSolve as LS
-import DomainSets
+import OrdinaryDiffEqSDIRK: TRBDF2
+import LinearSolve: KrylovJL_GMRES
+import DomainSets: Interval
 using ModelingToolkit: @named, @parameters, @variables, Differential, Interval, PDESystem
 
 @parameters x y t
@@ -99,19 +99,24 @@ v0(x, y, t) = 27(x * (1 - x))^(3 / 2)
 
 eq = [
     Dt(u(x, y, t)) ~ 1.0 + v(x, y, t) * u(x, y, t)^2 - 4.4 * u(x, y, t) +
-                     α * ∇²(u(x, y, t)) + brusselator_f(x, y, t),
-    Dt(v(x, y, t)) ~ 3.4 * u(x, y, t) - v(x, y, t) * u(x, y, t)^2 + α * ∇²(v(x, y, t))]
+        α * ∇²(u(x, y, t)) + brusselator_f(x, y, t),
+    Dt(v(x, y, t)) ~ 3.4 * u(x, y, t) - v(x, y, t) * u(x, y, t)^2 + α * ∇²(v(x, y, t)),
+]
 
-domains = [x ∈ DomainSets.Interval(x_min, x_max),
-    y ∈ DomainSets.Interval(y_min, y_max),
-    t ∈ DomainSets.Interval(t_min, t_max)]
+domains = [
+    x ∈ Interval(x_min, x_max),
+    y ∈ Interval(y_min, y_max),
+    t ∈ Interval(t_min, t_max),
+]
 
 # Periodic BCs
-bcs = [u(x, y, 0) ~ u0(x, y, 0),
+bcs = [
+    u(x, y, 0) ~ u0(x, y, 0),
     u(0, y, t) ~ u(1, y, t),
     u(x, 0, t) ~ u(x, 1, t), v(x, y, 0) ~ v0(x, y, 0),
     v(0, y, t) ~ v(1, y, t),
-    v(x, 0, t) ~ v(x, 1, t)]
+    v(x, 0, t) ~ v(x, 1, t),
+]
 
 @named pdesys = PDESystem(eq, bcs, domains, [x, y, t], [u(x, y, t), v(x, y, t)])
 ```
@@ -138,7 +143,7 @@ solvers in the SciML ecosystem! Here we will demonstrate one of the most classic
 the finite difference method. Since the Brusselator is a time-dependent PDE with heavy
 stiffness in the time-domain, we will leave time undiscretized, which means that we will
 use the finite difference method in the `x` and `y` domains to obtain a representation of
-the equation at ``u_i = u(x_i,y_i)`grid point values, obtaining an ODE`u_i' = \ldots`
+the equation at ``u_i = u(x_i,y_i)`` grid point values, obtaining an ODE`u_i' = \ldots`
 that defines how the values at the grid points evolve over time.
 
 To do this, we use the `MOLFiniteDifference` construct of
@@ -152,8 +157,10 @@ dy = (y_max - y_min) / N
 
 order = 2
 
-discretization = MethodOfLines.MOLFiniteDifference([x => dx, y => dy], t, approx_order = order,
-    grid_align = MethodOfLines.center_align)
+discretization = MethodOfLines.MOLFiniteDifference(
+    [x => dx, y => dy], t, approx_order = order,
+    grid_align = MethodOfLines.center_align
+)
 ```
 
 Next, we `discretize` the system, converting the `PDESystem` in to an `ODEProblem`:
@@ -169,7 +176,7 @@ DifferentialEquations.jl usage, though we'll return to this point in a bit to ta
 efficiency:
 
 ```@example bruss
-sol = ODE.solve(prob, OrdinaryDiffEqSDIRK.TRBDF2(), saveat = 0.1);
+sol = ODE.solve(prob, TRBDF2(), saveat = 0.1);
 ```
 
 ## Examining Results via the Symbolic Solution Interface
@@ -262,17 +269,17 @@ assess this performance difference:
 
 ```julia
 import BenchmarkTools as BT
-BT.@btime sol = ODE.solve(prob, OrdinaryDiffEqSDIRK.TRBDF2(), saveat = 0.1);
+BT.@btime sol = ODE.solve(prob, TRBDF2(), saveat = 0.1);
 ```
 ```julia
-BT.@btime sol = ODE.solve(prob_sparse, OrdinaryDiffEqSDIRK.TRBDF2(), saveat = 0.1);
+BT.@btime sol = ODE.solve(prob_sparse, TRBDF2(), saveat = 0.1);
 ```
 
 But we can further improve this as well. Instead of just using the default linear solver,
 we can change this to a Newton-Krylov method by passing in the GMRES method:
 
 ```julia
-BT.@btime sol = ODE.solve(prob_sparse, OrdinaryDiffEqSDIRK.TRBDF2(linsolve = LS.KrylovJL_GMRES()), saveat = 0.1);
+BT.@btime sol = ODE.solve(prob_sparse, TRBDF2(linsolve = KrylovJL_GMRES()), saveat = 0.1);
 ```
 
 But to further improve performance, we can use an iLU preconditioner. This looks like
@@ -286,12 +293,14 @@ function incompletelu(W, du, u, p, t, newW, Plprev, Prprev, solverdata)
     else
         Pl = Plprev
     end
-    Pl, nothing
+    return Pl, nothing
 end
 
-BT.@btime ODE.solve(prob_sparse,
-    OrdinaryDiffEqSDIRK.TRBDF2(linsolve = LS.KrylovJL_GMRES(), precs = incompletelu, concrete_jac = true),
-    save_everystep = false);
+BT.@btime ODE.solve(
+    prob_sparse,
+    TRBDF2(linsolve = KrylovJL_GMRES(), precs = incompletelu, concrete_jac = true),
+    save_everystep = false
+);
 ```
 
 And now we're zooming! For more information on these performance improvements, check out

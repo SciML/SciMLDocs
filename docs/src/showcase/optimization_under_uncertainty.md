@@ -17,6 +17,7 @@ function ball!(du, u, p, t)
     du[2] = 0.0
     du[3] = u[4]
     du[4] = -p[1]
+    return
 end
 
 ground_condition(u, t, integrator) = u[3]
@@ -72,8 +73,10 @@ trajectories = 100
 
 prob_func(prob, ctx) = ODE.remake(prob, p = [p[1], rand(cor_dist)])
 ensemble_prob = SciMLBase.EnsembleProblem(prob, prob_func = prob_func)
-ensemblesol = ODE.solve(ensemble_prob, ODE.Tsit5(), SciMLBase.EnsembleThreads(), trajectories = trajectories,
-    callback = cbs)
+ensemblesol = ODE.solve(
+    ensemble_prob, ODE.Tsit5(), SciMLBase.EnsembleThreads(); trajectories,
+    callback = cbs
+)
 
 begin # plot
     Plots.plot(ensemblesol, idxs = (1, 3), lw = 1, trajectories = 1:length(ensemblesol.u))
@@ -110,7 +113,7 @@ gd = SciMLExpectations.GenericDistribution(cor_dist)
 h(x, u, p) = u, [p[1]; x[1]]
 sm = SciMLExpectations.SystemMap(prob, ODE.Tsit5(), callback = cbs)
 exprob = SciMLExpectations.ExpectationProblem(sm, obs, h, gd; nout = 1)
-sol = SciMLExpectations.solve(exprob, SciMLExpectations.Koopman(), ireltol = 1e-5)
+sol = SciMLExpectations.solve(exprob, SciMLExpectations.Koopman(), ireltol = 1.0e-5)
 sol.u
 ```
 
@@ -127,16 +130,18 @@ function 𝔼_loss(θ, pars)
     prob = ODE.ODEProblem(ball!, make_u0(θ), tspan, p)
     sm = SciMLExpectations.SystemMap(prob, ODE.Tsit5(), callback = cbs)
     exprob = SciMLExpectations.ExpectationProblem(sm, obs, h, gd; nout = 1)
-    sol = SciMLExpectations.solve(exprob, SciMLExpectations.Koopman(), ireltol = 1e-5)
-    sol.u
+    sol = SciMLExpectations.solve(exprob, SciMLExpectations.Koopman(), ireltol = 1.0e-5)
+    return sol.u
 end
 opt_f = OPT.OptimizationFunction(𝔼_loss, OPT.AutoForwardDiff())
 opt_ini = [-1.0, 2.0, 50.0]
 opt_lb = [-100.0, 1.0, 10.0]
 opt_ub = [0.0, 3.0, 50.0]
 opt_prob = OPT.OptimizationProblem(opt_f, opt_ini; lb = opt_lb, ub = opt_ub)
-optimizer = OptimizationMOI.MOI.OptimizerWithAttributes(OptimizationNLopt.NLopt.Optimizer,
-    "algorithm" => :LD_MMA)
+optimizer = OptimizationMOI.MOI.OptimizerWithAttributes(
+    OptimizationNLopt.NLopt.Optimizer,
+    "algorithm" => :LD_MMA
+)
 opt_sol = OPT.solve(opt_prob, optimizer)
 minx = opt_sol.u
 ```
@@ -145,13 +150,17 @@ Let's now visualize 100 Monte Carlo simulations
 
 ```@example control
 ensembleprob = SciMLBase.EnsembleProblem(ODE.remake(prob, u0 = make_u0(minx)), prob_func = prob_func)
-ensemblesol = ODE.solve(ensembleprob, ODE.Tsit5(), SciMLBase.EnsembleThreads(), trajectories = 100,
-    callback = cbs)
+ensemblesol = ODE.solve(
+    ensembleprob, ODE.Tsit5(), SciMLBase.EnsembleThreads(), trajectories = 100,
+    callback = cbs
+)
 
 begin
     Plots.plot(ensemblesol, idxs = (1, 3), lw = 1, alpha = 0.1, trajectories = 1:length(ensemblesol.u))
-    Plots.plot!(ODE.solve(ODE.remake(prob, u0 = make_u0(minx)), ODE.Tsit5(), callback = cbs),
-        idxs = (1, 3), label = nothing, c = :black, lw = 3, ls = :dash)
+    Plots.plot!(
+        ODE.solve(ODE.remake(prob, u0 = make_u0(minx)), ODE.Tsit5(), callback = cbs),
+        idxs = (1, 3), label = nothing, c = :black, lw = 3, ls = :dash
+    )
     Plots.xlabel!("x [m]")
     Plots.ylabel!("y [m]")
     Plots.plot!(rectangle(27.5, 25, 5, 50), c = :red, label = nothing)
@@ -179,8 +188,10 @@ begin
     Plots.plot(rectangle(27.5, 25, 5, 50), c = :red, label = nothing)
     Plots.xlabel!("x [m]")
     Plots.ylabel!("y [m]")
-    Plots.plot!([constraint[1], constraint[1]], [0.0, constraint[2]], lw = 5, c = :black,
-        label = nothing)
+    Plots.plot!(
+        [constraint[1], constraint[1]], [0.0, constraint[2]], lw = 5, c = :black,
+        label = nothing
+    )
     Plots.scatter!([25], [25], marker = :star, ms = 10, label = nothing, c = :green)
     Plots.ylims!(0.0, 50.0)
     Plots.xlims!(minx[1], 27.5)
@@ -194,19 +205,25 @@ To do this, we first introduce a new callback and solve the system using the pre
 ```@example control
 constraint_condition(u, t, integrator) = u[1] - constraint[1]
 function constraint_affect!(integrator)
-    integrator.u[3] < constraint[2] ? SciMLBase.terminate!(integrator) : nothing
+    return integrator.u[3] < constraint[2] ? SciMLBase.terminate!(integrator) : nothing
 end
-constraint_cb = ODE.ContinuousCallback(constraint_condition, constraint_affect!,
-    save_positions = (true, false));
+constraint_cb = ODE.ContinuousCallback(
+    constraint_condition, constraint_affect!,
+    save_positions = (true, false)
+);
 constraint_cbs = ODE.CallbackSet(ground_cb, stop_cb, constraint_cb)
 
-ensemblesol = ODE.solve(ensembleprob, ODE.Tsit5(), SciMLBase.EnsembleThreads(), trajectories = 500,
-    callback = constraint_cbs)
+ensemblesol = ODE.solve(
+    ensembleprob, ODE.Tsit5(), SciMLBase.EnsembleThreads(), trajectories = 500,
+    callback = constraint_cbs
+)
 
 begin
     Plots.plot(ensemblesol, idxs = (1, 3), lw = 1, alpha = 0.1, trajectories = 1:length(ensemblesol.u))
-    Plots.plot!(ODE.solve(ODE.remake(prob, u0 = make_u0(minx)), ODE.Tsit5(), callback = constraint_cbs),
-        idxs = (1, 3), label = nothing, c = :black, lw = 3, ls = :dash)
+    Plots.plot!(
+        ODE.solve(ODE.remake(prob, u0 = make_u0(minx)), ODE.Tsit5(), callback = constraint_cbs),
+        idxs = (1, 3), label = nothing, c = :black, lw = 3, ls = :dash
+    )
 
     Plots.xlabel!("x [m]")
     Plots.ylabel!("y [m]")
@@ -224,8 +241,8 @@ We now need a second observable for the system. To compute a probability of impa
 
 ```@example control
 function constraint_obs(sol, p)
-    sol((constraint[1] - sol[1, 1]) / sol[2, 1])[3] <= constraint[2] ? one(sol[1, end]) :
-    zero(sol[1, end])
+    return sol((constraint[1] - sol[1, 1]) / sol[2, 1])[3] <= constraint[2] ? one(sol[1, end]) :
+        zero(sol[1, end])
 end
 ```
 
@@ -234,7 +251,7 @@ Using the previously computed optimal initial conditions, let's compute the prob
 ```@example control
 sm = SciMLExpectations.SystemMap(ODE.remake(prob, u0 = make_u0(minx)), ODE.Tsit5(), callback = cbs)
 exprob = SciMLExpectations.ExpectationProblem(sm, constraint_obs, h, gd; nout = 1)
-sol = ODE.solve(exprob, SciMLExpectations.Koopman(), ireltol = 1e-5)
+sol = ODE.solve(exprob, SciMLExpectations.Koopman(), ireltol = 1.0e-5)
 sol.u
 ```
 
@@ -245,16 +262,20 @@ function 𝔼_constraint(res, θ, pars)
     prob = ODE.ODEProblem(ball!, make_u0(θ), tspan, p)
     sm = SciMLExpectations.SystemMap(prob, ODE.Tsit5(), callback = cbs)
     exprob = SciMLExpectations.ExpectationProblem(sm, constraint_obs, h, gd; nout = 1)
-    sol = ODE.solve(exprob, SciMLExpectations.Koopman(), ireltol = 1e-5)
-    res .= sol.u
+    sol = ODE.solve(exprob, SciMLExpectations.Koopman(), ireltol = 1.0e-5)
+    return res .= sol.u
 end
 opt_lcons = [-Inf]
 opt_ucons = [0.01]
-optimizer = OptimizationMOI.MOI.OptimizerWithAttributes(OptimizationNLopt.NLopt.Optimizer,
-    "algorithm" => :LD_MMA)
+optimizer = OptimizationMOI.MOI.OptimizerWithAttributes(
+    OptimizationNLopt.NLopt.Optimizer,
+    "algorithm" => :LD_MMA
+)
 opt_f = OPT.OptimizationFunction(𝔼_loss, OPT.AutoForwardDiff(), cons = 𝔼_constraint)
-opt_prob = OPT.OptimizationProblem(opt_f, opt_ini; lb = opt_lb, ub = opt_ub, lcons = opt_lcons,
-    ucons = opt_ucons)
+opt_prob = OPT.OptimizationProblem(
+    opt_f, opt_ini; lb = opt_lb, ub = opt_ub, lcons = opt_lcons,
+    ucons = opt_ucons
+)
 opt_sol = ODE.solve(opt_prob, optimizer)
 minx2 = opt_sol.u
 ```
@@ -270,20 +291,24 @@ container = zeros(1)
 We can check if this is within tolerance by
 
 ```@example control
-λ <= 0.01 + 1e-5
+λ <= 0.01 + 1.0e-5
 ```
 
 Again, we plot some Monte Carlo simulations from this result as follows
 
 ```@example control
 ensembleprob = SciMLBase.EnsembleProblem(ODE.remake(prob, u0 = make_u0(minx2)), prob_func = prob_func)
-ensemblesol = ODE.solve(ensembleprob, ODE.Tsit5(), SciMLBase.EnsembleThreads(),
-    trajectories = 500, callback = constraint_cbs)
+ensemblesol = ODE.solve(
+    ensembleprob, ODE.Tsit5(), SciMLBase.EnsembleThreads(),
+    trajectories = 500, callback = constraint_cbs
+)
 
 begin
     Plots.plot(ensemblesol, idxs = (1, 3), lw = 1, alpha = 0.1, trajectories = 1:length(ensemblesol.u))
-    Plots.plot!(ODE.solve(ODE.remake(prob, u0 = make_u0(minx2)), ODE.Tsit5(), callback = constraint_cbs),
-        idxs = (1, 3), label = nothing, c = :black, lw = 3, ls = :dash)
+    Plots.plot!(
+        ODE.solve(ODE.remake(prob, u0 = make_u0(minx2)), ODE.Tsit5(), callback = constraint_cbs),
+        idxs = (1, 3), label = nothing, c = :black, lw = 3, ls = :dash
+    )
     Plots.plot!([constraint[1], constraint[1]], [0.0, constraint[2]], lw = 5, c = :black)
 
     Plots.xlabel!("x [m]")

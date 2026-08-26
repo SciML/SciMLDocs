@@ -286,7 +286,7 @@ radioactivedecay(u, p, t) = -u / τ
 
 #Pass to solver
 prob = ODE.ODEProblem(radioactivedecay, u₀, tspan)
-sol = ODE.solve(prob, ODE.Tsit5(), reltol = 1e-8)
+sol = ODE.solve(prob, ODE.Tsit5(), reltol = 1.0e-8)
 ```
 
 And bingo: numbers with uncertainty went in, so numbers with uncertainty came out. But can
@@ -345,7 +345,7 @@ import OrdinaryDiffEq as ODE, Plots
 using Measurements: ±
 
 g = 9.79 ± 0.02; # Gravitational constants
-L = 1.00 ± 0.01; # Length of the pendulum
+L = 1.0 ± 0.01; # Length of the pendulum
 
 #Initial Conditions
 u₀ = [0 ± 0, π / 60 ± 0.01] # Initial speed and initial angle
@@ -357,11 +357,12 @@ function simplependulum(du, u, p, t)
     dθ = u[2]
     du[1] = dθ
     du[2] = -(g / L) * θ
+    return
 end
 
 #Pass to solvers
 prob = ODE.ODEProblem(simplependulum, u₀, tspan)
-sol = ODE.solve(prob, ODE.Tsit5(), reltol = 1e-6)
+sol = ODE.solve(prob, ODE.Tsit5(), reltol = 1.0e-6)
 ```
 
 And that's it! What about comparing it this time to the analytical solution?
@@ -398,7 +399,7 @@ That would be done via:
 
 ```@example odetypes
 g = 9.79 ± 0.02; # Gravitational constants
-L = 1.00 ± 0.01; # Length of the pendulum
+L = 1.0 ± 0.01; # Length of the pendulum
 
 #Initial Conditions
 u₀ = [0 ± 0, π / 3 ± 0.02] # Initial speed and initial angle
@@ -410,11 +411,12 @@ function simplependulum(du, u, p, t)
     dθ = u[2]
     du[1] = dθ
     du[2] = -(g / L) * sin(θ)
+    return
 end
 
 #Pass to solvers
 prob = ODE.ODEProblem(simplependulum, u₀, tspan)
-sol = ODE.solve(prob, ODE.Tsit5(), reltol = 1e-6)
+sol = ODE.solve(prob, ODE.Tsit5(), reltol = 1.0e-6)
 
 Plots.plot(sol.t, getindex.(sol.u, 2), label = "Numerical")
 ```

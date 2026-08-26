@@ -50,28 +50,28 @@ And external libraries:
 ```@example ude
 # SciML Tools
 import OrdinaryDiffEq as ODE
-import OrdinaryDiffEqLowOrderRK
+import OrdinaryDiffEqLowOrderRK: RK4
 import ModelingToolkit as MTK
 import DataDrivenDiffEq
 import SciMLSensitivity as SMS
 import DataDrivenSparse
 import Optimization as OPT
-import OptimizationOptimisers
-import OptimizationOptimJL
+import OptimizationOptimisers: Adam
+import OptimizationOptimJL: BFGS
 
 # Standard Libraries
 import LinearAlgebra
 import Statistics
 
 # External Libraries
-import ComponentArrays
+import ComponentArrays: ComponentArray, ComponentVector
 import Lux
 import Zygote
 import Plots
 import StableRNGs
 import DataFrames
 import CSV
-import LineSearches
+import LineSearches: BackTracking
 Plots.gr()
 
 # Set a random seed for reproducible behaviour
@@ -168,9 +168,11 @@ function AbstractNNOrbitModel(u, model_params, t; NN = nothing, NN_params = noth
     return [χ̇, ϕ̇]
 end
 
-function AbstractNROrbitModel(u, model_params, t;
+function AbstractNROrbitModel(
+        u, model_params, t;
         NN_chiphi = nothing, NN_chiphi_params = nothing,
-        NN_pe = nothing, NN_pe_params = nothing)
+        NN_pe = nothing, NN_pe_params = nothing
+    )
     #=
         Defines system of odes which describes motion of
         point like particle with Newtonian physics, uses
@@ -333,7 +335,7 @@ end
 function h_22_strain_two_body(dt, orbit1, mass1, orbit2, mass2)
     # compute (2,2) mode strain from orbits of BH 1 of mass1 and BH2 of mass 2
 
-    @assert abs(mass1 + mass2 - 1.0)<1e-12 "Masses do not sum to unity"
+    @assert abs(mass1 + mass2 - 1.0) < 1.0e-12 "Masses do not sum to unity"
 
     h11, h12, h22 = h_22_quadrupole_two_body(dt, orbit1, mass1, orbit2, mass2)
 
@@ -361,8 +363,8 @@ function one2two(path, m1, m2)
 end
 
 function compute_waveform(dt, soln, mass_ratio, model_params = nothing)
-    @assert mass_ratio<=1.0 "mass_ratio must be <= 1"
-    @assert mass_ratio>=0.0 "mass_ratio must be non-negative"
+    @assert mass_ratio <= 1.0 "mass_ratio must be <= 1"
+    @assert mass_ratio >= 0.0 "mass_ratio must be non-negative"
 
     orbit = soln2orbit(soln, model_params)
     if mass_ratio > 0
@@ -378,7 +380,7 @@ function compute_waveform(dt, soln, mass_ratio, model_params = nothing)
 end
 
 function interpolate_time_series(tsteps, tdata, fdata)
-    @assert length(tdata)==length(fdata) "lengths of tdata and fdata must match"
+    @assert length(tdata) == length(fdata) "lengths of tdata and fdata must match"
 
     interp_fdata = zeros(length(tsteps))
     for j in 1:length(tsteps)
@@ -448,12 +450,14 @@ and demonstrate the gravitational waveform:
 
 ```@example ude
 prob = ODE.ODEProblem(RelativisticOrbitModel, u0, tspan, model_params)
-soln = Array(ODE.solve(prob, OrdinaryDiffEqLowOrderRK.RK4(), saveat = tsteps, dt = dt, adaptive = false))
+soln = Array(ODE.solve(prob, RK4(); saveat = tsteps, dt, adaptive = false))
 waveform = compute_waveform(dt_data, soln, mass_ratio, model_params)[1]
-plt = Plots.plot(tsteps, waveform,
+plt = Plots.plot(
+    tsteps, waveform,
     markershape = :circle, markeralpha = 0.25,
     linewidth = 2, alpha = 0.5,
-    label = "waveform data", xlabel = "Time", ylabel = "Waveform")
+    label = "waveform data", xlabel = "Time", ylabel = "Waveform"
+)
 ```
 
 Looks great!
@@ -464,15 +468,17 @@ Now let's learn the relativistic corrections directly from the data. To define t
 a Lux neural network and pass it into our Newtonian Physics + Neural Network ODE definition from above:
 
 ```@example ude
-NN = Lux.Chain((x) -> cos.(x),
+NN = Lux.Chain(
+    (x) -> cos.(x),
     Lux.Dense(1, 32, cos),
     Lux.Dense(32, 32, cos),
-    Lux.Dense(32, 2))
+    Lux.Dense(32, 2)
+)
 p, st = Lux.setup(rng, NN)
-NN_params = ComponentArrays.ComponentArray{Float64}(p)
+NN_params = ComponentArray{Float64}(p)
 
 function ODE_model(u, NN_params, t)
-    du = AbstractNNOrbitModel(u, model_params, t, NN = NN, NN_params = NN_params)
+    du = AbstractNNOrbitModel(u, model_params, t; NN, NN_params)
     return du
 end
 ```
@@ -481,13 +487,18 @@ Next, we can compute the orbital trajectory and gravitational waveform using the
 
 ```@example ude
 prob_nn = ODE.ODEProblem(ODE_model, u0, tspan, NN_params)
-soln_nn = Array(ODE.solve(
-    prob_nn, OrdinaryDiffEqLowOrderRK.RK4(), u0 = u0, p = NN_params, saveat = tsteps, dt = dt, adaptive = false))
+soln_nn = Array(
+    ODE.solve(
+        prob_nn, RK4(); u0, p = NN_params, saveat = tsteps, dt, adaptive = false
+    )
+)
 waveform_nn = compute_waveform(dt_data, soln_nn, mass_ratio, model_params)[1]
-Plots.plot!(plt, tsteps, waveform_nn,
+Plots.plot!(
+    plt, tsteps, waveform_nn,
     markershape = :circle, markeralpha = 0.25,
     linewidth = 2, alpha = 0.5,
-    label = "waveform NN")
+    label = "waveform NN"
+)
 display(plt)
 ```
 
@@ -501,11 +512,14 @@ function loss(NN_params)
     last_obs_to_use_for_training = length(waveform)
     obs_to_use_for_training = first_obs_to_use_for_training:last_obs_to_use_for_training
 
-    pred = Array(ODE.solve(
-        prob_nn, OrdinaryDiffEqLowOrderRK.RK4(), u0 = u0, p = NN_params, saveat = tsteps, dt = dt, adaptive = false))
+    pred = Array(
+        ODE.solve(
+            prob_nn, RK4(); u0, p = NN_params, saveat = tsteps, dt, adaptive = false
+        )
+    )
     pred_waveform = compute_waveform(dt_data, pred, mass_ratio, model_params)[1]
 
-    loss = ( sum(abs2, view(waveform,obs_to_use_for_training) .- view(pred_waveform,obs_to_use_for_training) ) )
+    loss = (sum(abs2, view(waveform, obs_to_use_for_training) .- view(pred_waveform, obs_to_use_for_training)))
     return loss
 end
 ```
@@ -552,17 +566,19 @@ Training uses the BFGS optimizers.  This seems to give good results because the 
 
 ```@example ude
 NN_params = NN_params .* 0 +
-            Float64(1e-4) * randn(StableRNGs.StableRNG(2031), eltype(NN_params), size(NN_params))
+    Float64(1.0e-4) * randn(StableRNGs.StableRNG(2031), eltype(NN_params), size(NN_params))
 
 adtype = OPT.AutoZygote()
 optf = OPT.OptimizationFunction((x, p) -> loss(x), adtype)
-optprob = OPT.OptimizationProblem(optf, ComponentArrays.ComponentVector{Float64}(NN_params))
+optprob = OPT.OptimizationProblem(optf, ComponentVector{Float64}(NN_params))
 res1 = OPT.solve(
-    optprob, OptimizationOptimisers.Adam(0.001f0), callback = callback, maxiters = 100)
+    optprob, Adam(0.001f0); callback, maxiters = 100
+)
 optprob = OPT.OptimizationProblem(optf, res1.u)
 res2 = OPT.solve(
-    optprob, OptimizationOptimJL.BFGS(initial_stepnorm = 0.01, linesearch = LineSearches.BackTracking()),
-    callback = callback, maxiters = 20)
+    optprob, BFGS(initial_stepnorm = 0.01, linesearch = BackTracking());
+    callback, maxiters = 20
+)
 ```
 
 ## Result Analysis
@@ -570,17 +586,21 @@ res2 = OPT.solve(
 Now, we'll plot the learned solutions of the neural ODE and compare them to our full physical model and the Newtonian model.
 
 ```@example ude
-reference_solution = ODE.solve(ODE.remake(prob, p = model_params, saveat = tsteps, tspan = tspan),
-    OrdinaryDiffEqLowOrderRK.RK4(), dt = dt, adaptive = false)
+reference_solution = ODE.solve(
+    ODE.remake(prob; p = model_params, saveat = tsteps, tspan),
+    RK4(); dt, adaptive = false
+)
 
 optimized_solution = ODE.solve(
-    ODE.remake(prob_nn, p = res2.u, saveat = tsteps, tspan = tspan),
-    OrdinaryDiffEqLowOrderRK.RK4(), dt = dt, adaptive = false)
+    ODE.remake(prob_nn; p = res2.u, saveat = tsteps, tspan),
+    RK4(); dt, adaptive = false
+)
 Newtonian_prob = ODE.ODEProblem(NewtonianOrbitModel, u0, tspan, model_params)
 
 Newtonian_solution = ODE.solve(
-    ODE.remake(Newtonian_prob, p = model_params, saveat = tsteps, tspan = tspan),
-    OrdinaryDiffEqLowOrderRK.RK4(), dt = dt, adaptive = false)
+    ODE.remake(Newtonian_prob; p = model_params, saveat = tsteps, tspan),
+    RK4(); dt, adaptive = false
+)
 
 true_orbit = soln2orbit(reference_solution, model_params)
 pred_orbit = soln2orbit(optimized_solution, model_params)
@@ -594,14 +614,18 @@ true_orbit = soln2orbit(reference_solution, model_params)
 pred_orbit = soln2orbit(optimized_solution, model_params)
 Newt_orbit = soln2orbit(Newtonian_solution, model_params)
 plt = Plots.plot(true_orbit[1, :], true_orbit[2, :], linewidth = 2, label = "truth")
-Plots.plot!(plt, pred_orbit[1, :], pred_orbit[2, :],
-    linestyle = :dash, linewidth = 2, label = "prediction")
+Plots.plot!(
+    plt, pred_orbit[1, :], pred_orbit[2, :],
+    linestyle = :dash, linewidth = 2, label = "prediction"
+)
 Plots.plot!(plt, Newt_orbit[1, :], Newt_orbit[2, :], linewidth = 2, label = "Newtonian")
 ```
 
 ```@example ude
-plt = Plots.plot(tsteps, true_waveform, linewidth = 2, label = "truth",
-    xlabel = "Time", ylabel = "Waveform")
+plt = Plots.plot(
+    tsteps, true_waveform, linewidth = 2, label = "truth",
+    xlabel = "Time", ylabel = "Waveform"
+)
 Plots.plot!(plt, tsteps, pred_waveform, linestyle = :dash, linewidth = 2, label = "prediction")
 Plots.plot!(plt, tsteps, Newt_waveform, linewidth = 2, label = "Newtonian")
 ```
@@ -615,21 +639,27 @@ extended_tspan = (tspan[1], factor * tspan[2])
 extended_tsteps = range(tspan[1], factor * tspan[2], length = factor * datasize)
 reference_solution = ODE.solve(
     ODE.remake(prob, p = model_params, saveat = extended_tsteps, tspan = extended_tspan),
-    OrdinaryDiffEqLowOrderRK.RK4(), dt = dt, adaptive = false)
+    RK4(); dt, adaptive = false
+)
 optimized_solution = ODE.solve(
     ODE.remake(prob_nn, p = res2.u, saveat = extended_tsteps, tspan = extended_tspan),
-    OrdinaryDiffEqLowOrderRK.RK4(), dt = dt, adaptive = false)
+    RK4(); dt, adaptive = false
+)
 Newtonian_prob = ODE.ODEProblem(NewtonianOrbitModel, u0, tspan, model_params)
 Newtonian_solution = ODE.solve(
     ODE.remake(
-        Newtonian_prob, p = model_params, saveat = extended_tsteps, tspan = extended_tspan),
-    OrdinaryDiffEqLowOrderRK.RK4(), dt = dt, adaptive = false)
+        Newtonian_prob, p = model_params, saveat = extended_tsteps, tspan = extended_tspan
+    ),
+    RK4(); dt, adaptive = false
+)
 true_orbit = soln2orbit(reference_solution, model_params)
 pred_orbit = soln2orbit(optimized_solution, model_params)
 Newt_orbit = soln2orbit(Newtonian_solution, model_params)
 plt = Plots.plot(true_orbit[1, :], true_orbit[2, :], linewidth = 2, label = "truth")
-Plots.plot!(plt, pred_orbit[1, :], pred_orbit[2, :],
-    linestyle = :dash, linewidth = 2, label = "prediction")
+Plots.plot!(
+    plt, pred_orbit[1, :], pred_orbit[2, :],
+    linestyle = :dash, linewidth = 2, label = "prediction"
+)
 Plots.plot!(plt, Newt_orbit[1, :], Newt_orbit[2, :], linewidth = 2, label = "Newtonian")
 ```
 
@@ -637,9 +667,13 @@ Plots.plot!(plt, Newt_orbit[1, :], Newt_orbit[2, :], linewidth = 2, label = "New
 true_waveform = compute_waveform(dt_data, reference_solution, mass_ratio, model_params)[1]
 pred_waveform = compute_waveform(dt_data, optimized_solution, mass_ratio, model_params)[1]
 Newt_waveform = compute_waveform(dt_data, Newtonian_solution, mass_ratio, model_params)[1]
-plt = Plots.plot(extended_tsteps, true_waveform, linewidth = 2,
-    label = "truth", xlabel = "Time", ylabel = "Waveform")
-Plots.plot!(plt, extended_tsteps, pred_waveform, linestyle = :dash,
-    linewidth = 2, label = "prediction")
+plt = Plots.plot(
+    extended_tsteps, true_waveform, linewidth = 2,
+    label = "truth", xlabel = "Time", ylabel = "Waveform"
+)
+Plots.plot!(
+    plt, extended_tsteps, pred_waveform, linestyle = :dash,
+    linewidth = 2, label = "prediction"
+)
 Plots.plot!(plt, extended_tsteps, Newt_waveform, linewidth = 2, label = "Newtonian")
 ```

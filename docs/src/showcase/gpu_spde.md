@@ -107,8 +107,11 @@ const X = reshape([i for i in 1:100 for j in 1:100], N, N)
 const Y = reshape([j for i in 1:100 for j in 1:100], N, N)
 const α₁ = 1.0 .* (X .>= 80)
 
-const Mx = LA.Tridiagonal([1.0 for i in 1:(N - 1)], [-2.0 for i in 1:N],
-    [1.0 for i in 1:(N - 1)])
+const Mx = LA.Tridiagonal(
+    [1.0 for i in 1:(N - 1)],
+    [-2.0 for i in 1:N],
+    [1.0 for i in 1:(N - 1)]
+)
 const My = copy(Mx)
 # Do the reflections, different for x and y operators
 Mx[2, 1] = 2.0
@@ -178,6 +181,7 @@ function f(du, u, p, t)
     @. dA = DA + α₁ - β₁ * A - r₁ * A * B + r₂ * C
     @. dB = α₂ - β₂ * B - r₁ * A * B + r₂ * C
     @. dC = α₃ - β₃ * C + r₁ * A * B - r₂ * C
+    return
 end
 ```
 
@@ -189,14 +193,14 @@ Together, the ODE which defines our PDE is thus:
 
 ```@example spde
 import OrdinaryDiffEq as ODE
-import OrdinaryDiffEqStabilizedRK
+import OrdinaryDiffEqStabilizedRK: ROCK2
 
 prob = ODE.ODEProblem(f, u0, (0.0, 100.0))
-@time sol = ODE.solve(prob, OrdinaryDiffEqStabilizedRK.ROCK2());
+@time sol = ODE.solve(prob, ROCK2());
 ```
 
 ```@example spde
-@time sol = ODE.solve(prob, OrdinaryDiffEqStabilizedRK.ROCK2());
+@time sol = ODE.solve(prob, ROCK2());
 ```
 
 if I want to solve it on ``t \in [0,100]``. Done! The solution gives back our tensors (and
@@ -239,6 +243,7 @@ function f(du, u, p, t)
     @. dA = DA + α₁ - β₁ * A - r₁ * A * B + r₂ * C
     @. dB = α₂ - β₂ * B - r₁ * A * B + r₂ * C
     @. dC = α₃ - β₃ * C + r₁ * A * B - r₂ * C
+    return
 end
 ```
 
@@ -261,6 +266,7 @@ function f_full(du, u, p, t, MyA, AMx, DA)
     @. dA = DA + α₁ - β₁ * A - r₁ * A * B + r₂ * C
     @. dB = α₂ - β₂ * B - r₁ * A * B + r₂ * C
     @. dC = α₃ - β₃ * C + r₁ * A * B - r₂ * C
+    return
 end
 f(du, u, p, t) = f_full(du, u, p, t, MyA, AMx, DA)
 ```
@@ -289,6 +295,7 @@ function (ff::MyFunction)(du, u, p, t)
     @. dA = f.DA + α₁ - β₁ * A - r₁ * A * B + r₂ * C
     @. dB = α₂ - β₂ * B - r₁ * A * B + r₂ * C
     @. dC = α₃ - β₃ * C + r₁ * A * B - r₂ * C
+    return
 end
 
 MyA = zeros(N, N)
@@ -307,10 +314,14 @@ the [output controls from DifferentialEquations.jl](https://docs.sciml.ai/DiffEq
 
 ```julia
 prob = ODEProblem(f, u0, (0.0, 100.0))
-@time sol = solve(prob, ROCK2(), progress = true, save_everystep = false,
-    save_start = false);
-@time sol = solve(prob, ROCK2(), progress = true, save_everystep = false,
-    save_start = false);
+@time sol = solve(
+    prob, ROCK2(), progress = true, save_everystep = false,
+    save_start = false
+);
+@time sol = solve(
+    prob, ROCK2(), progress = true, save_everystep = false,
+    save_start = false
+);
 ```
 
 Around 0.4 seconds. Much better. Also, if you're using VS Code, this'll give you a nice
@@ -334,7 +345,7 @@ As a summary, here's a full PDE code:
 
 ```@example
 import OrdinaryDiffEq as ODE
-import OrdinaryDiffEqStabilizedRK
+import OrdinaryDiffEqStabilizedRK: ROCK2
 import LinearAlgebra as LA
 
 # Define the constants for the PDE
@@ -354,8 +365,13 @@ const X = reshape([i for i in 1:100 for j in 1:100], N, N)
 const Y = reshape([j for i in 1:100 for j in 1:100], N, N)
 const α₁ = 1.0 .* (X .>= 80)
 
-const Mx = Array(LA.Tridiagonal([1.0 for i in 1:(N - 1)], [-2.0 for i in 1:N],
-    [1.0 for i in 1:(N - 1)]))
+const Mx = Array(
+    LA.Tridiagonal(
+        [1.0 for i in 1:(N - 1)],
+        [-2.0 for i in 1:N],
+        [1.0 for i in 1:(N - 1)]
+    )
+)
 const My = copy(Mx)
 Mx[2, 1] = 2.0
 Mx[end - 1, end] = 2.0
@@ -382,11 +398,12 @@ function f(du, u, p, t)
     @. dA = DA + α₁ - β₁ * A - r₁ * A * B + r₂ * C
     @. dB = α₂ - β₂ * B - r₁ * A * B + r₂ * C
     @. dC = α₃ - β₃ * C + r₁ * A * B - r₂ * C
+    return
 end
 
 # Solve the ODE
 prob = ODE.ODEProblem(f, u0, (0.0, 100.0))
-sol = ODE.solve(prob, OrdinaryDiffEqStabilizedRK.ROCK2(), progress = true, save_everystep = false, save_start = false)
+sol = ODE.solve(prob, ROCK2(), progress = true, save_everystep = false, save_start = false)
 
 import Plots;
 Plots.gr();
@@ -438,17 +455,22 @@ function gf(du, u, p, t)
     @. dA = gDA + gα₁ - β₁ * A - r₁ * A * B + r₂ * C
     @. dB = α₂ - β₂ * B - r₁ * A * B + r₂ * C
     @. dC = α₃ - β₃ * C + r₁ * A * B - r₂ * C
+    return
 end
 
 prob2 = ODE.ODEProblem(gf, gu0, (0.0, 100.0))
 CUDA.allowscalar(false) # makes sure none of the slow fallbacks are used
-@time sol = ODE.solve(prob2, OrdinaryDiffEqStabilizedRK.ROCK2(), progress = true, dt = 0.003, save_everystep = false,
-    save_start = false);
+@time sol = ODE.solve(
+    prob2, ROCK2(), progress = true, dt = 0.003, save_everystep = false,
+    save_start = false
+);
 ```
 
 ```@example spde
-@time sol = ODE.solve(prob2, OrdinaryDiffEqStabilizedRK.ROCK2(), progress = true, dt = 0.003, save_everystep = false,
-    save_start = false);
+@time sol = ODE.solve(
+    prob2, ROCK2(), progress = true, dt = 0.003, save_everystep = false,
+    save_start = false
+);
 ```
 
 Go have fun.
@@ -470,6 +492,7 @@ function g(du, u, p, t)
     @. dA = γ₁ * A
     @. dB = γ₂ * A
     @. dC = γ₃ * A
+    return
 end
 ```
 

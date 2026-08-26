@@ -65,11 +65,11 @@ import OrdinaryDiffEq as ODE
 import ModelingToolkit as MTK
 import DataDrivenDiffEq
 import SciMLSensitivity as SMS
-import DataDrivenSparse
+import DataDrivenSparse: ADMM
 import Optimization as OPT
-import OptimizationOptimisers
-import OptimizationOptimJL
-import LineSearches
+import OptimizationOptimisers: Adam
+import OptimizationOptimJL: BFGS, LBFGS
+import LineSearches: BackTracking
 
 # Standard Libraries
 import LinearAlgebra
@@ -120,6 +120,7 @@ function lotka!(du, u, p, t)
     α, β, γ, δ = p
     du[1] = α * u[1] - β * u[2] * u[1]
     du[2] = γ * u[1] * u[2] - δ * u[2]
+    return
 end
 
 # Define the experimental parameter
@@ -127,14 +128,14 @@ tspan = (0.0, 5.0)
 u0 = 5.0f0 * rand(rng, 2)
 p_ = [1.3, 0.9, 0.8, 1.8]
 prob = ODE.ODEProblem(lotka!, u0, tspan, p_)
-solution = ODE.solve(prob, ODE.Vern7(), abstol = 1e-12, reltol = 1e-12, saveat = 0.25)
+solution = ODE.solve(prob, ODE.Vern7(), abstol = 1.0e-12, reltol = 1.0e-12, saveat = 0.25)
 
 # Add noise in terms of the mean
 X = Array(solution)
 t = solution.t
 
 x̄ = Statistics.mean(X, dims = 2)
-noise_magnitude = 5e-3
+noise_magnitude = 5.0e-3
 Xₙ = X .+ (noise_magnitude * x̄) .* randn(rng, eltype(X), size(X))
 
 Plots.Plots.plot(solution, alpha = 0.75, color = :black, label = ["True Data" nothing])
@@ -149,8 +150,10 @@ Now let's define our UDE. We will use Lux.jl to define the neural network as fol
 rbf(x) = exp.(-(x .^ 2))
 
 # Multilayer FeedForward
-const U = Lux.Chain(Lux.Dense(2, 5, rbf), Lux.Dense(5, 5, rbf), Lux.Dense(5, 5, rbf),
-    Lux.Dense(5, 2))
+const U = Lux.Chain(
+    Lux.Dense(2, 5, rbf), Lux.Dense(5, 5, rbf), Lux.Dense(5, 5, rbf),
+    Lux.Dense(5, 2)
+)
 # Get the initial parameters and state variables of the model
 p, st = Lux.setup(rng, U)
 const _st = st
@@ -164,6 +167,7 @@ function ude_dynamics!(du, u, p, t, p_true)
     û = U(u, p, _st)[1] # Network prediction
     du[1] = p_true[1] * u[1] + û[1]
     du[2] = -p_true[4] * u[2] + û[2]
+    return
 end
 
 # Closure with the known parameter
@@ -207,9 +211,13 @@ Knowing this, our `predict` function looks like:
 ```@example ude
 function predict(θ, X = Xₙ[:, 1], T = t)
     _prob = ODE.remake(prob_nn, u0 = X, tspan = (T[1], T[end]), p = θ)
-    Array(ODE.solve(_prob, ODE.Vern7(), saveat = T,
-        abstol = 1e-6, reltol = 1e-6,
-        sensealg = SMS.QuadratureAdjoint(autojacvec = SMS.ReverseDiffVJP(true))))
+    return Array(
+        ODE.solve(
+            _prob, ODE.Vern7(), saveat = T,
+            abstol = 1.0e-6, reltol = 1.0e-6,
+            sensealg = SMS.QuadratureAdjoint(autojacvec = SMS.ReverseDiffVJP(true))
+        )
+    )
 end
 ```
 
@@ -221,7 +229,7 @@ against the dataset. Using our `predict` function, this looks like:
 ```@example ude
 function loss(θ)
     X̂ = predict(θ)
-    Statistics.mean(abs2, Xₙ .- X̂)
+    return Statistics.mean(abs2, Xₙ .- X̂)
 end
 ```
 
@@ -270,8 +278,7 @@ Thus we first solve the optimization problem with ADAM. Choosing a learning rate
 (tuned to be as high as possible that doesn't tend to make the loss shoot up), we see:
 
 ```@example ude
-res1 = OPT.solve(
-    optprob, OptimizationOptimisers.Adam(), callback = callback, maxiters = 5000)
+res1 = OPT.solve(optprob, Adam(); callback, maxiters = 5000)
 println("Training loss after $(length(losses)) iterations: $(losses[end])")
 ```
 
@@ -281,7 +288,8 @@ second optimization, and run it with BFGS. This looks like:
 ```@example ude
 optprob2 = OPT.OptimizationProblem(optf, res1.u)
 res2 = OPT.solve(
-    optprob2, OptimizationOptimJL.BFGS(linesearch = LineSearches.BackTracking()), callback = callback, maxiters = 1000)
+    optprob2, BFGS(linesearch = BackTracking()); callback, maxiters = 1000
+)
 println("Final training loss after $(length(losses)) iterations: $(losses[end])")
 
 # Rename the best candidate
@@ -296,10 +304,14 @@ How well did our neural network do? Let's take a look:
 
 ```@example ude
 # Plot the losses
-pl_losses = Plots.Plots.plot(1:5000, losses[1:5000], yaxis = :log10, xaxis = :log10,
-    xlabel = "Iterations", ylabel = "Loss", label = "ADAM", color = :blue)
-Plots.Plots.plot!(5001:length(losses), losses[5001:end], yaxis = :log10, xaxis = :log10,
-    xlabel = "Iterations", ylabel = "Loss", label = "BFGS", color = :red)
+pl_losses = Plots.Plots.plot(
+    1:5000, losses[1:5000], yaxis = :log10, xaxis = :log10,
+    xlabel = "Iterations", ylabel = "Loss", label = "ADAM", color = :blue
+)
+Plots.Plots.plot!(
+    5001:length(losses), losses[5001:end], yaxis = :log10, xaxis = :log10,
+    xlabel = "Iterations", ylabel = "Loss", label = "BFGS", color = :red
+)
 ```
 
 Next, we compare the original data to the output of the UDE predictor. Note that we can even create more samples from the underlying model by simply adjusting the time steps!
@@ -310,8 +322,10 @@ Next, we compare the original data to the output of the UDE predictor. Note that
 ts = first(solution.t):(Statistics.mean(diff(solution.t)) / 2):last(solution.t)
 X̂ = predict(p_trained, Xₙ[:, 1], ts)
 # Trained on noisy data vs real solution
-pl_trajectory = Plots.Plots.plot(ts, transpose(X̂), xlabel = "t", ylabel = "x(t), y(t)", color = :red,
-    label = ["UDE Approximation" nothing])
+pl_trajectory = Plots.Plots.plot(
+    ts, transpose(X̂), xlabel = "t", ylabel = "x(t), y(t)", color = :red,
+    label = ["UDE Approximation" nothing]
+)
 Plots.scatter!(solution.t, transpose(Xₙ), color = :black, label = ["Measurements" nothing])
 ```
 
@@ -323,8 +337,10 @@ Ȳ = [-p_[2] * (X̂[1, :] .* X̂[2, :])'; p_[3] * (X̂[1, :] .* X̂[2, :])']
 # Neural network guess
 Ŷ = U(X̂, p_trained, st)[1]
 
-pl_reconstruction = Plots.plot(ts, transpose(Ŷ), xlabel = "t", ylabel = "U(x,y)", color = :red,
-    label = ["UDE Approximation" nothing])
+pl_reconstruction = Plots.plot(
+    ts, transpose(Ŷ), xlabel = "t", ylabel = "U(x,y)", color = :red,
+    label = ["UDE Approximation" nothing]
+)
 Plots.plot!(ts, transpose(Ȳ), color = :black, label = ["True Interaction" nothing])
 ```
 
@@ -332,8 +348,10 @@ And have a nice look at all the information:
 
 ```@example ude
 # Plot the error
-pl_reconstruction_error = Plots.plot(ts, LinearAlgebra.norm.(eachcol(Ȳ - Ŷ)), yaxis = :log, xlabel = "t",
-    ylabel = "L2-Error", label = nothing, color = :red)
+pl_reconstruction_error = Plots.plot(
+    ts, LinearAlgebra.norm.(eachcol(Ȳ - Ŷ)), yaxis = :log, xlabel = "t",
+    ylabel = "L2-Error", label = nothing, color = :red
+)
 pl_missing = Plots.plot(pl_reconstruction, pl_reconstruction_error, layout = (2, 1))
 
 pl_overall = Plots.plot(pl_trajectory, pl_missing)
@@ -398,8 +416,8 @@ Let's solve the data-driven problems using sparse regression. We will use the `A
 method, which requires we define a set of shrinking cutoff values `λ`, and we do this like:
 
 ```@example ude
-λ = 1e-1
-opt = DataDrivenSparse.ADMM(λ)
+λ = 0.1
+opt = ADMM(λ)
 ```
 
 This is one of many methods for sparse regression, consult the
@@ -408,43 +426,55 @@ more information on the algorithm choices. Taking this, let's solve each of the 
 regressions:
 
 ```@example ude
-options = DataDrivenDiffEq.DataDrivenCommonOptions(maxiters = 10_000,
+options = DataDrivenDiffEq.DataDrivenCommonOptions(
+    maxiters = 10_000,
     normalize = DataDrivenDiffEq.DataNormalization(DataDrivenDiffEq.ZScoreTransform),
     selector = DataDrivenDiffEq.bic, digits = 1,
-    data_processing = DataDrivenDiffEq.DataProcessing(split = 0.9,
+    data_processing = DataDrivenDiffEq.DataProcessing(
+        split = 0.9,
         batchsize = 30,
         shuffle = true,
-        rng = StableRNGs.StableRNG(1111)))
+        rng = StableRNGs.StableRNG(1111)
+    )
+)
 
-full_res = DataDrivenDiffEq.solve(full_problem, basis, opt, options = options)
+full_res = DataDrivenDiffEq.solve(full_problem, basis, opt; options)
 full_eqs = DataDrivenDiffEq.get_basis(full_res)
 println(full_res)
 ```
 
 ```@example ude
-options = DataDrivenDiffEq.DataDrivenCommonOptions(maxiters = 10_000,
+options = DataDrivenDiffEq.DataDrivenCommonOptions(
+    maxiters = 10_000,
     normalize = DataDrivenDiffEq.DataNormalization(DataDrivenDiffEq.ZScoreTransform),
     selector = DataDrivenDiffEq.bic, digits = 1,
-    data_processing = DataDrivenDiffEq.DataProcessing(split = 0.9,
+    data_processing = DataDrivenDiffEq.DataProcessing(
+        split = 0.9,
         batchsize = 30,
         shuffle = true,
-        rng = StableRNGs.StableRNG(1111)))
+        rng = StableRNGs.StableRNG(1111)
+    )
+)
 
-ideal_res = DataDrivenDiffEq.solve(ideal_problem, basis, opt, options = options)
+ideal_res = DataDrivenDiffEq.solve(ideal_problem, basis, opt; options)
 ideal_eqs = DataDrivenDiffEq.get_basis(ideal_res)
 println(ideal_res)
 ```
 
 ```@example ude
-options = DataDrivenDiffEq.DataDrivenCommonOptions(maxiters = 10_000,
+options = DataDrivenDiffEq.DataDrivenCommonOptions(
+    maxiters = 10_000,
     normalize = DataDrivenDiffEq.DataNormalization(DataDrivenDiffEq.ZScoreTransform),
     selector = DataDrivenDiffEq.bic, digits = 1,
-    data_processing = DataDrivenDiffEq.DataProcessing(split = 0.9,
+    data_processing = DataDrivenDiffEq.DataProcessing(
+        split = 0.9,
         batchsize = 30,
         shuffle = true,
-        rng = StableRNGs.StableRNG(1111)))
+        rng = StableRNGs.StableRNG(1111)
+    )
+)
 
-nn_res = DataDrivenDiffEq.solve(nn_problem, basis, opt, options = options)
+nn_res = DataDrivenDiffEq.solve(nn_problem, basis, opt; options)
 nn_eqs = DataDrivenDiffEq.get_basis(nn_res)
 println(nn_res)
 ```
@@ -470,6 +500,7 @@ function recovered_dynamics!(du, u, p, t)
     û = nn_eqs(u, p) # Recovered equations
     du[1] = p_[1] * u[1] + û[1]
     du[2] = -p_[4] * u[2] + û[2]
+    return
 end
 
 estimation_prob = ODE.ODEProblem(recovered_dynamics!, u0, tspan, DataDrivenDiffEq.get_parameter_values(nn_eqs))
@@ -485,12 +516,12 @@ We are still a bit off, so we fine tune the parameters by simply minimizing the 
 ```@example ude
 function parameter_loss(p)
     Y = reduce(hcat, map(Base.Fix2(nn_eqs, p), eachcol(X̂)))
-    sum(abs2, Ŷ .- Y)
+    return sum(abs2, Ŷ .- Y)
 end
 
 optf = OPT.OptimizationFunction((x, p) -> parameter_loss(x), adtype)
 optprob = OPT.OptimizationProblem(optf, DataDrivenDiffEq.get_parameter_values(nn_eqs))
-parameter_res = OPT.solve(optprob, OptimizationOptimJL.LBFGS(), maxiters = 1000)
+parameter_res = OPT.solve(optprob, LBFGS(), maxiters = 1000)
 ```
 
 ## Simulation
@@ -517,33 +548,45 @@ c2 = :orange # RGBA(132/255,159/255,173/255,1) # Red
 c3 = :blue # RGBA(255/255,90/255,0,1) # Orange
 c4 = :purple # RGBA(153/255,50/255,204/255,1) # Purple
 
-p1 = Plots.plot(t, abs.(Array(solution) .- estimate)' .+ eps(Float32),
+p1 = Plots.plot(
+    t, abs.(Array(solution) .- estimate)' .+ eps(Float32),
     lw = 3, yaxis = :log, title = "Timeseries of UODE Error",
     color = [3 :orange], xlabel = "t",
     label = ["x(t)" "y(t)"],
     titlefont = "Helvetica", legendfont = "Helvetica",
-    legend = :topright)
+    legend = :topright
+)
 
 # Plot L₂
-p2 = Plots.plot3d(X̂[1, :], X̂[2, :], Ŷ[2, :], lw = 3,
+p2 = Plots.plot3d(
+    X̂[1, :], X̂[2, :], Ŷ[2, :], lw = 3,
     title = "Neural Network Fit of U2(t)", color = c1,
     label = "Neural Network", xaxis = "x", yaxis = "y",
     titlefont = "Helvetica", legendfont = "Helvetica",
-    legend = :bottomright)
+    legend = :bottomright
+)
 Plots.plot!(X̂[1, :], X̂[2, :], Ȳ[2, :], lw = 3, label = "True Missing Term", color = c2)
 
-p3 = Plots.scatter(solution, color = [c1 c2], label = ["x data" "y data"],
+p3 = Plots.scatter(
+    solution, color = [c1 c2], label = ["x data" "y data"],
     title = "Extrapolated Fit From Short Training Data",
     titlefont = "Helvetica", legendfont = "Helvetica",
-    markersize = 5)
+    markersize = 5
+)
 
-Plots.plot!(p3, true_solution_long, color = [c1 c2], linestyle = :dot, lw = 5,
-    label = ["True x(t)" "True y(t)"])
-Plots.plot!(p3, estimate_long, color = [c3 c4], lw = 1,
-    label = ["Estimated x(t)" "Estimated y(t)"])
+Plots.plot!(
+    p3, true_solution_long, color = [c1 c2], linestyle = :dot, lw = 5,
+    label = ["True x(t)" "True y(t)"]
+)
+Plots.plot!(
+    p3, estimate_long, color = [c3 c4], lw = 1,
+    label = ["Estimated x(t)" "Estimated y(t)"]
+)
 Plots.plot!(p3, [2.99, 3.01], [0.0, 10.0], lw = 1, color = :black, label = nothing)
 Plots.annotate!([(1.5, 13, Plots.text("Training \nData", 10, :center, :top, :black, "Helvetica"))])
-l = Plots.@layout [Plots.grid(1, 2)
-                   Plots.grid(1, 1)]
+l = Plots.@layout [
+    Plots.grid(1, 2)
+    Plots.grid(1, 1)
+]
 Plots.plot(p1, p2, p3, layout = l)
 ```

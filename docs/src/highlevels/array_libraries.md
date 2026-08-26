@@ -24,6 +24,7 @@ function lorenz_f(du, u, p, t)
     du.x = p.σ * (u.y - u.x)
     du.y = u.x * (p.ρ - u.z) - u.y
     du.z = u.x * u.y - p.β * u.z
+    return
 end
 ```
 

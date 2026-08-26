@@ -57,15 +57,15 @@ Can we figure out what the parameter values should be directly from the data?
 ```@example
 import OrdinaryDiffEq as ODE
 import Optimization as OPT
-import OptimizationPolyalgorithms
+import OptimizationPolyalgorithms: PolyOpt
 import SciMLSensitivity
 import ForwardDiff
 import Plots
 
 # Define experimental data
 t_data = 0:10
-x_data = [1.000 2.773 6.773 0.971 1.886 6.101 1.398 1.335 4.353 3.247 1.034]
-y_data = [1.000 0.259 2.015 1.908 0.323 0.629 3.458 0.508 0.314 4.547 0.906]
+x_data = [1.0 2.773 6.773 0.971 1.886 6.101 1.398 1.335 4.353 3.247 1.034]
+y_data = [1.0 0.259 2.015 1.908 0.323 0.629 3.458 0.508 0.314 4.547 0.906]
 xy_data = vcat(x_data, y_data)
 
 # Plot the provided data
@@ -77,6 +77,7 @@ function lotka_volterra!(du, u, p, t)
     α, β, δ, γ = p
     du[1] = dx = α * x - β * x * y
     du[2] = dy = -δ * y + γ * x * y
+    return
 end
 
 # Initial condition
@@ -124,9 +125,7 @@ optf = OPT.OptimizationFunction((x, _) -> loss(x), adtype)
 optprob = OPT.OptimizationProblem(optf, pguess)
 
 # Optimize the ODE parameters for best fit to our data
-pfinal = OPT.solve(optprob, OptimizationPolyalgorithms.PolyOpt(),
-    callback = callback,
-    maxiters = 200)
+pfinal = OPT.solve(optprob, PolyOpt(); callback, maxiters = 200)
 α, β, γ, δ = round.(pfinal, digits = 1)
 ```
 
@@ -138,14 +137,16 @@ To do this tutorial, we will need a few components. This is done using the Julia
 
 ```julia
 using Pkg
-Pkg.add([
-    "OrdinaryDiffEq",
-    "Optimization",
-    "OptimizationPolyalgorithms",
-    "SciMLSensitivity",
-    "ForwardDiff",
-    "Plots"
-])
+Pkg.add(
+    [
+        "OrdinaryDiffEq",
+        "Optimization",
+        "OptimizationPolyalgorithms",
+        "SciMLSensitivity",
+        "ForwardDiff",
+        "Plots",
+    ]
+)
 ```
 
 Now we're ready. Let's load in these packages:
@@ -153,7 +154,7 @@ Now we're ready. Let's load in these packages:
 ```@example odefit
 import OrdinaryDiffEq as ODE
 import Optimization as OPT
-import OptimizationPolyalgorithms
+import OptimizationPolyalgorithms: PolyOpt
 import SciMLSensitivity
 import ForwardDiff
 import Plots
@@ -168,8 +169,8 @@ Let's make that the training data for our Lotka-Volterra dynamical system model.
 ```@example odefit
 # Define experimental data
 t_data = 0:10
-x_data = [1.000 2.773 6.773 0.971 1.886 6.101 1.398 1.335 4.353 3.247 1.034]
-y_data = [1.000 0.259 2.015 1.908 0.323 0.629 3.458 0.508 0.314 4.547 0.906]
+x_data = [1.0 2.773 6.773 0.971 1.886 6.101 1.398 1.335 4.353 3.247 1.034]
+y_data = [1.0 0.259 2.015 1.908 0.323 0.629 3.458 0.508 0.314 4.547 0.906]
 xy_data = vcat(x_data, y_data)
 
 # Plot the provided data
@@ -209,6 +210,7 @@ function lotka_volterra!(du, u, p, t)
     α, β, δ, γ = p
     du[1] = dx = α * x - β * x * y
     du[2] = dy = -δ * y + γ * x * y
+    return
 end
 ```
 
@@ -350,10 +352,7 @@ optf = OPT.OptimizationFunction((x, _) -> loss(x), adtype)
 optprob = OPT.OptimizationProblem(optf, pguess)
 
 # Optimize the ODE parameters for best fit to our data
-pfinal = OPT.solve(optprob,
-    OptimizationPolyalgorithms.PolyOpt(),
-    callback = callback,
-    maxiters = 200)
+pfinal = OPT.solve(optprob, PolyOpt(); callback, maxiters = 200)
 α, β, γ, δ = round.(pfinal, digits = 1)
 ```
 
