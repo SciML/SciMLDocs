@@ -120,7 +120,7 @@ highlight include:
     have high-level context-dependent mathematical knowledge. Julia's SciML makes
     [extensive use of customized symbolic-based compiler transformations](https://twitter.com/ChrisRackauckas/status/1477274812460449793)
     to improve performance with context-based code optimizations. Things like
-    [sparsity patterns are automatically deduced from code and optimized on](https://openreview.net/pdf?id=rJlPdcY38B). [Nonlinear equations are symbolically-torn](https://www.youtube.com/watch?v=ZFoQihr3xLs), changing large nonlinear systems into sequential solving of much smaller
+    [sparsity patterns are automatically deduced from code and optimized on](https://openreview.net/forum?id=rJlPdcY38B). [Nonlinear equations are symbolically-torn](https://www.youtube.com/watch?v=ZFoQihr3xLs), changing large nonlinear systems into sequential solving of much smaller
     systems and benefiting from an O(n^3) cost reduction. These can be orders of magnitude
     cost reductions which come for free, and unless you know every trick in the book it will
     be difficult to match SciML's performance!
