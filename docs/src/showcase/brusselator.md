@@ -21,7 +21,6 @@ The following parts of the SciML Ecosystem will be used in this tutorial:
 | [ModelingToolkit.jl](https://docs.sciml.ai/ModelingToolkit/stable/)  | The symbolic modeling environment           |
 | [MethodOfLines.jl](https://docs.sciml.ai/MethodOfLines/stable/)      | The symbolic PDE discretization tooling     |
 | [DifferentialEquations.jl](https://docs.sciml.ai/DiffEqDocs/stable/) | The numerical differential equation solvers |
-| [LinearSolve.jl](https://docs.sciml.ai/LinearSolve/stable/)          | The numerical linear solvers                |
 
 ## Problem Setup
 
@@ -68,13 +67,11 @@ We wish to obtain the solution to this PDE on a timespan of ``t \in [0,11.5]``.
 With `ModelingToolkit.jl`, we first symbolically define the system, see also the docs for [`PDESystem`](https://docs.sciml.ai/ModelingToolkit/stable/API/PDESystem/):
 
 ```@example bruss
-import ModelingToolkit as MTK
 import MethodOfLines
 import OrdinaryDiffEq as ODE
-import OrdinaryDiffEqSDIRK: TRBDF2
-import LinearSolve: KrylovJL_GMRES
+import SciMLBase
 import DomainSets: Interval
-using ModelingToolkit: @named, @parameters, @variables, Differential, Interval, PDESystem
+using ModelingToolkit: @named, @parameters, @variables, Differential, PDESystem
 
 @parameters x y t
 @variables u(..) v(..)
@@ -132,7 +129,7 @@ partial differential equation transforms it into a new numerical problem. For ex
 | Discretization Form                                                                                            | Numerical Problem Type                                  |
 |:-------------------------------------------------------------------------------------------------------------- |:------------------------------------------------------- |
 | Finite Difference, Finite Volume, Finite Element, discretizing all variables                                   | `NonlinearProblem`                                      |
-| Finite Difference, Finite Volume, Finite Element, discretizing all variables except time                       | `ODEProblem`/`DAEProblem`                               |
+| MethodOfLines finite differences, discretizing all variables except time                                       | Array-form `DAEProblem`                                 |
 | Physics-Informed Neural Network                                                                                | `OptimizationProblem`                                   |
 | Feynman-Kac Formula                                                                                            | `SDEProblem`                                            |
 | Universal Stochastic Differential Equation ([High dimensional PDEs](https://docs.sciml.ai/HighDimPDE/stable/)) | `OptimizationProblem` inverse problem over `SDEProblem` |
@@ -141,10 +138,10 @@ Thus the process of solving a PDE is fundamentally about transforming its symbol
 to a standard numerical problem and solving the standard numerical problem using one of the
 solvers in the SciML ecosystem! Here we will demonstrate one of the most classic methods:
 the finite difference method. Since the Brusselator is a time-dependent PDE with heavy
-stiffness in the time-domain, we will leave time undiscretized, which means that we will
-use the finite difference method in the `x` and `y` domains to obtain a representation of
-the equation at ``u_i = u(x_i,y_i)`` grid point values, obtaining an ODE`u_i' = \ldots`
-that defines how the values at the grid points evolve over time.
+stiffness in the time domain, we will leave time undiscretized. MethodOfLines discretizes
+the `x` and `y` domains while representing operations over the complete arrays of grid
+values. The result is a differential-algebraic equation (DAE) for how those values evolve
+over time.
 
 To do this, we use the `MOLFiniteDifference` construct of
 [MethodOfLines.jl](https://docs.sciml.ai/MethodOfLines/stable/) as follows:
@@ -163,29 +160,35 @@ discretization = MethodOfLines.MOLFiniteDifference(
 )
 ```
 
-Next, we `discretize` the system, converting the `PDESystem` in to an `ODEProblem`:
+Next, we `discretize` the system. MethodOfLines v1 constructs an array-form `DAEProblem`
+for supported time-dependent systems. The `fallback = false` keyword enforces that array
+form so this tutorial fails if the PDE is not supported by it:
 
 ```@example bruss
-prob = MethodOfLines.discretize(pdesys, discretization);
+prob = MethodOfLines.discretize(pdesys, discretization; fallback = false)
+@assert prob isa SciMLBase.DAEProblem
 ```
+
+The symbolic equations operate on whole array slices rather than generating one scalar
+equation per grid point. For a fixed PDE system, this keeps symbolic compilation independent
+of the spatial grid size. Discretization, storage, and numerical solution still scale with
+the number of grid points.
 
 ## Solving the PDE
 
-Now your problem can be solved with an appropriate ODE solver. This is just your standard
-DifferentialEquations.jl usage, though we'll return to this point in a bit to talk about
-efficiency:
+Calling `solve` without an explicit algorithm lets OrdinaryDiffEq select its default DAE
+solver and preserves the array-form compilation path:
 
 ```@example bruss
-sol = ODE.solve(prob, TRBDF2(), saveat = 0.1);
+sol = ODE.solve(prob; saveat = 0.1);
 ```
 
 ## Examining Results via the Symbolic Solution Interface
 
-Now that we have solved the ODE representation of the PDE, we have an `PDETimeSeriesSolution`
-that wraps an `ODESolution`, which we can get with `sol.original_sol`. If we look at the original
-sol, it represents ``u_i' = \ldots`` at each of the grid points. If you check `sol.original_sol.u` inside the
-solution, that's those values... but that's not very helpful. How do you interpret `original_sol[1]`?
-How do you interpret `original_sol[1,:]`?
+Now that we have solved the DAE representation of the PDE, we have a `PDETimeSeriesSolution`
+that wraps the numerical DAE solution, which we can get with `sol.original_sol`. The raw
+solver state stores the grid values in its numerical ordering, but that ordering is not the
+most useful way to interpret a PDE solution.
 
 To make the handling of such cases a lot simpler, MethodOfLines.jl implements a
 symbolic interface for the solution object that allows for interpreting the computation
@@ -240,71 +243,13 @@ Plots.gif(anim, "plots/Brusselator2Dsol_v.gif", fps = 8)
 
 ![Brusselator2Dsol_v](https://i.imgur.com/3kQNMI3.gif)
 
-## Improving the Solution Process
+## Why Keep the Array-Form DAE?
 
-!!! warn
-    This section was disabled temporarily and will be re-enabled after major improvements
-    with SymbolicUtils v4.
-
-Now, if all we needed was a single solution, then we're done. Budda bing budda boom, we
-got a solution, we're outta here. But if for example we're solving an inverse problem
-on a PDE, or we need to bump it up to higher accuracy, then we will need to make sure
-we solve this puppy more efficiently. So let's dive into how this can be done.
-
-First of all, large PDEs generally are stiff and thus require an implicit solver. However,
-their stiffness is generally governed by a nonlinear system which as a sparse Jacobian.
-Handling that implicit system with sparsity is key to solving the system efficiently, so
-let's do that!
-
-In order to enable such options, we simply need to pass the ModelingToolkit.jl problem
-construction options to the `discretize` call. This looks like:
-
-```julia
-# Analytical Jacobian expression and sparse Jacobian
-prob_sparse = MethodOfLines.discretize(pdesys, discretization; jac = true, sparse = true)
-```
-
-Now when we solve the problem it will be a lot faster. We can use BenchmarkTools.jl to
-assess this performance difference:
-
-```julia
-import BenchmarkTools as BT
-BT.@btime sol = ODE.solve(prob, TRBDF2(), saveat = 0.1);
-```
-```julia
-BT.@btime sol = ODE.solve(prob_sparse, TRBDF2(), saveat = 0.1);
-```
-
-But we can further improve this as well. Instead of just using the default linear solver,
-we can change this to a Newton-Krylov method by passing in the GMRES method:
-
-```julia
-BT.@btime sol = ODE.solve(prob_sparse, TRBDF2(linsolve = KrylovJL_GMRES()), saveat = 0.1);
-```
-
-But to further improve performance, we can use an iLU preconditioner. This looks like
-as follows:
-
-```julia
-import IncompleteLU
-function incompletelu(W, du, u, p, t, newW, Plprev, Prprev, solverdata)
-    if newW === nothing || newW
-        Pl = IncompleteLU.ilu(convert(AbstractMatrix, W), τ = 50.0)
-    else
-        Pl = Plprev
-    end
-    return Pl, nothing
-end
-
-BT.@btime ODE.solve(
-    prob_sparse,
-    TRBDF2(linsolve = KrylovJL_GMRES(), precs = incompletelu, concrete_jac = true),
-    save_everystep = false
-);
-```
-
-And now we're zooming! For more information on these performance improvements, check out
-the deeper dive in [the DifferentialEquations.jl tutorials](https://docs.sciml.ai/DiffEqDocs/stable/tutorials/advanced_ode_example/).
+MethodOfLines keeps the spatial operations as array-slice equations when it constructs the
+`DAEProblem`. Code generation therefore follows the array representation instead of
+generating a separate scalar expression for every grid point. Keep this array-form problem
+and solve it with a [DAE solver](https://docs.sciml.ai/DiffEqDocs/stable/solvers/dae_solve/)
+to retain grid-independent symbolic compilation.
 
 If you're interested in figuring out what's the fastest current solver for this kind of
 PDE, check out the
