@@ -48,12 +48,6 @@ including astrophysical and molecular dynamics. It uses the DifferentialEquation
 choose between a large variety of symplectic integration schemes. It implements many of the thermostats required for
 doing standard molecular dynamics approximations.
 
-## DiffEqFinancial.jl: Financial models for use in the DifferentialEquations ecosystem
-
-The goal of [DiffEqFinancial.jl](https://github.com/SciML/DiffEqFinancial.jl/) is to be a feature-complete set
-of solvers for the types of problems found in libraries like QuantLib, such as the Heston process or the
-Black-Scholes model.
-
 ## ParameterizedFunctions.jl: Simple Differential Equation Definitions Made Easy
 
 ![](https://user-images.githubusercontent.com/1814174/172001045-b9e35b8d-0d40-41af-b606-95b81bb1194d.png)
@@ -68,11 +62,6 @@ solving a stochastic model thousands of times to find the mean and variance, thi
 deterministic equations for how the mean and variance evolve in order to be solved in a single run. MomentClosure.jl
 uses Catalyst `ReactionSystem` and ModelingToolkit `SDESystem` types as the input for its symbolic generation
 processes.
-
-## Corleone.jl: Optimal Control
-
-[Corleone.jl](https://github.com/SciML/Corleone.jl) connects optimal control to the SciML solver and
-modeling stack.
 
 ## ProcessSimulator.jl: Process Simulation
 

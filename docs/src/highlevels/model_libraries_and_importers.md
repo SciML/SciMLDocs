@@ -63,6 +63,12 @@ Julia objects and converts them to ModelingToolkit systems.
 [DiffEqPhysics.jl](https://github.com/SciML/DiffEqPhysics.jl) builds differential-equation
 problems from physical descriptions such as Hamiltonians, for use with the DiffEq solvers.
 
+## DiffEqFinancial.jl: Financial Models
+
+The goal of [DiffEqFinancial.jl](https://github.com/SciML/DiffEqFinancial.jl/) is to be a feature-complete set
+of models for the types of problems found in libraries like QuantLib, such as the Heston process or the
+Black-Scholes model.
+
 ## PubChem.jl and PubChemReactions.jl: Chemical Data Import
 
 [PubChem.jl](https://github.com/SciML/PubChem.jl) attaches PubChem metadata to Catalyst species.

@@ -110,6 +110,12 @@ category = "Equation Solvers"
 blurb = "Deterministic and stochastic difference equations and state-space likelihoods."
 dropdown = "DifferenceEquations"
 
+[packages."Corleone.jl"]
+placement = "dropdown"
+category = "Equation Solvers"
+blurb = "Optimal control with SciML."
+dropdown = "Corleone"
+
 [packages."Evolutionary.jl"]
 placement = "dropdown"
 category = "Equation Solvers"
@@ -374,15 +380,9 @@ category = "Modeling Languages"
 blurb = "Chemical reaction networks and systems biology."
 dropdown = "Catalyst"
 
-[packages."Corleone.jl"]
-placement = "dropdown"
-category = "Modeling Languages"
-blurb = "Optimal control with SciML."
-dropdown = "Corleone"
-
 [packages."DiffEqFinancial.jl"]
 placement = "dropdown"
-category = "Modeling Languages"
+category = "Model Libraries and Importers"
 blurb = "Financial models (Heston, Black–Scholes, …) on DifferentialEquations."
 dropdown = "DiffEqFinancial"
 

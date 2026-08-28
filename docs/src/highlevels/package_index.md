@@ -54,6 +54,7 @@ for those docs rather than a second copy in the navigation bar.
 
 | Package | Where | Summary |
 | --- | --- | --- |
+| [Corleone.jl](https://github.com/SciML/Corleone.jl) | Navigation → Equation Solvers | Optimal control with SciML. |
 | [DiffEqDocs.jl](https://github.com/SciML/DiffEqDocs.jl) | Navigation → Equation Solvers | DifferentialEquations.jl documentation (umbrella for the DiffEq solvers). |
 | [DifferenceEquations.jl](https://github.com/SciML/DifferenceEquations.jl) | Navigation → Equation Solvers | Deterministic and stochastic difference equations and state-space likelihoods. |
 | [Evolutionary.jl](https://github.com/SciML/Evolutionary.jl) | Navigation → Equation Solvers | Evolutionary and genetic algorithms. |
@@ -120,6 +121,7 @@ for those docs rather than a second copy in the navigation bar.
 | [BaseModelica.jl](https://github.com/SciML/BaseModelica.jl) | Navigation → Model Libraries and Importers | Base Modelica importer for ModelingToolkit. |
 | [CellMLToolkit.jl](https://github.com/SciML/CellMLToolkit.jl) | Navigation → Model Libraries and Importers | CellML importer for ModelingToolkit. |
 | [DiffEqCallbacks.jl](https://github.com/SciML/DiffEqCallbacks.jl) | Navigation → Model Libraries and Importers | Premade callbacks for hybrid differential-equation models. |
+| [DiffEqFinancial.jl](https://github.com/SciML/DiffEqFinancial.jl) | Navigation → Model Libraries and Importers | Financial models (Heston, Black–Scholes, …) on DifferentialEquations. |
 | [DiffEqPhysics.jl](https://github.com/SciML/DiffEqPhysics.jl) | Navigation → Model Libraries and Importers | Hamiltonian and physics-based DiffEq problem constructors. |
 | [FiniteStateProjection.jl](https://github.com/SciML/FiniteStateProjection.jl) | Navigation → Model Libraries and Importers | Finite-state projection of chemical master equations. |
 | [MathML.jl](https://github.com/SciML/MathML.jl) | Navigation → Model Libraries and Importers | MathML parser into Symbolics expressions. |
@@ -135,8 +137,6 @@ for those docs rather than a second copy in the navigation bar.
 | Package | Where | Summary |
 | --- | --- | --- |
 | [Catalyst.jl](https://github.com/SciML/Catalyst.jl) | Navigation → Modeling Languages | Chemical reaction networks and systems biology. |
-| [Corleone.jl](https://github.com/SciML/Corleone.jl) | Navigation → Modeling Languages | Optimal control with SciML. |
-| [DiffEqFinancial.jl](https://github.com/SciML/DiffEqFinancial.jl) | Navigation → Modeling Languages | Financial models (Heston, Black–Scholes, …) on DifferentialEquations. |
 | [ModelingToolkit.jl](https://github.com/SciML/ModelingToolkit.jl) | Navigation → Modeling Languages | Acausal symbolic modeling. |
 | [MomentClosure.jl](https://github.com/SciML/MomentClosure.jl) | Navigation → Modeling Languages | Moment-closure equations for chemical master equations and SDEs. |
 | [NBodySimulator.jl](https://github.com/SciML/NBodySimulator.jl) | Navigation → Modeling Languages | N-body, astrophysical, and molecular dynamics. |

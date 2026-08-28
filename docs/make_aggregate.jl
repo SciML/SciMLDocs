@@ -13,8 +13,7 @@ docsmodules = [
         "Modeling Languages" => [
             "ModelingToolkit", "Catalyst", "NBodySimulator",
             "ParameterizedFunctions",
-            "Corleone", "ProcessSimulator", "MomentClosure",
-            "DiffEqFinancial",
+            "ProcessSimulator", "MomentClosure",
         ],
         "Model Libraries and Importers" => [
             "ModelingToolkitStandardLibrary",
@@ -24,7 +23,8 @@ docsmodules = [
             "CellMLToolkit", "SBMLToolkit",
             "BaseModelica",
             "ReactionNetworkImporters",
-            "DiffEqPhysics", "PubChem", "Pyomo", "MathML",
+            "DiffEqPhysics", "DiffEqFinancial",
+            "PubChem", "Pyomo", "MathML",
         ],
         "Symbolic Tools" => [
             "ModelOrderReduction", "Symbolics", "SymbolicUtils",
@@ -46,7 +46,7 @@ docsmodules = [
         "Equation Solvers" => [
             "LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals",
             "DifferenceEquations", "Optimization", "JumpProcesses", "LineSearch",
-            "Evolutionary", "NeuralLinearSolve",
+            "Evolutionary", "NeuralLinearSolve", "Corleone",
         ],
         #=
         "Third-Party Equation Solvers" => [

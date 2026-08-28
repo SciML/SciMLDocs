@@ -192,6 +192,11 @@ black-box methods such as differential evolution. Both are available through Opt
 from its sparsity pattern and recommends UMFPACK, KLU, or Pardiso. It is a companion to
 LinearSolve.jl rather than a replacement for the `LinearProblem` interface.
 
+## Corleone.jl: Optimal Control
+
+[Corleone.jl](https://github.com/SciML/Corleone.jl) is an optimal-control solver that composes with
+the SciML equation-solver stack.
+
 ## Differential Equation Solver Packages (including those documented in DiffEqDocs)
 
 OrdinaryDiffEq.jl, BoundaryValueDiffEq.jl, and DiffEqGPU.jl have their own Documenter sites
