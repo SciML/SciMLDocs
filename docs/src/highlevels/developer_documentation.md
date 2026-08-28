@@ -49,6 +49,17 @@ StochasticDiffEq.jl, and DelayDiffEq.jl. This section of the documentation descr
 internal systems of these packages and how they are used to quickly write efficient
 solvers.
 
+## SciMLTesting.jl: Shared Test Harness
+
+[SciMLTesting.jl](https://github.com/SciML/SciMLTesting.jl) is the shared `GROUP`-based
+test runner used across SciML packages (Aqua, ExplicitImports, JET, and the curated `"All"`
+subset).
+
+## OrgMaintenanceScripts.jl: Organization Maintenance
+
+[OrgMaintenanceScripts.jl](https://github.com/SciML/OrgMaintenanceScripts.jl) collects
+scripts used to maintain the SciML GitHub organization.
+
 # Third-Party Libraries to Note
 
 ## Documenter.jl

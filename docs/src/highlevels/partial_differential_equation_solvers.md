@@ -52,6 +52,19 @@ defining finite difference operators to easily perform manual FDM semi-discretiz
 of partial differential equations. This library is fairly incomplete and most cases
 should receive better performance using MethodOflines.jl.
 
+## FiniteVolumeMethod.jl and FiniteVolumeMethod1D.jl: Finite Volume Discretizations
+
+[FiniteVolumeMethod.jl](https://github.com/SciML/FiniteVolumeMethod.jl) solves two-dimensional
+conservation laws with the finite volume method.
+[FiniteVolumeMethod1D.jl](https://github.com/SciML/FiniteVolumeMethod1D.jl) is the corresponding
+one-dimensional implementation.
+
+## PDEBase.jl and PDESystemLibrary.jl
+
+[PDEBase.jl](https://github.com/SciML/PDEBase.jl) holds shared types for ModelingToolkit
+`PDESystem` discretizers. [PDESystemLibrary.jl](https://github.com/SciML/PDESystemLibrary.jl)
+is a library of example `PDESystem`s.
+
 # Third-Party Libraries to Note
 
 A more exhaustive list of Julia PDE packages can be found here: https://github.com/JuliaPDE/SurveyofPDEPackages

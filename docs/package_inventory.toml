@@ -1,0 +1,988 @@
+# Complete inventory of SciML repositories tracked by SciMLDocs.
+# placement = dropdown | embedded | overview | extra | infra
+# Tested by test/package_coverage.jl.
+
+[packages."BoundaryValueDiffEq.jl"]
+placement = "dropdown"
+category = "Advanced Solver APIs"
+blurb = "Boundary-value problem solvers."
+dropdown = "BoundaryValueDiffEq"
+
+[packages."DiffEqGPU.jl"]
+placement = "dropdown"
+category = "Advanced Solver APIs"
+blurb = "GPU ensemble acceleration for DiffEq."
+dropdown = "DiffEqGPU"
+
+[packages."IRKGaussLegendre.jl"]
+placement = "dropdown"
+category = "Advanced Solver APIs"
+blurb = "16th-order implicit RK Gauss–Legendre."
+dropdown = "IRKGaussLegendre"
+
+[packages."MATLABDiffEq.jl"]
+placement = "dropdown"
+category = "Advanced Solver APIs"
+blurb = "MATLAB ODE solver wrappers on the SciML interface."
+dropdown = "MATLABDiffEq"
+
+[packages."OrdinaryDiffEq.jl"]
+placement = "dropdown"
+category = "Advanced Solver APIs"
+blurb = "High-performance ODE/DAE solvers; API also embedded in DiffEqDocs."
+dropdown = "OrdinaryDiffEq"
+
+[packages."OrdinaryDiffEqOperatorSplitting.jl"]
+placement = "dropdown"
+category = "Advanced Solver APIs"
+blurb = "Operator-splitting solvers for split ODE/DAE formulations."
+dropdown = "OrdinaryDiffEqOperatorSplitting"
+
+[packages."QuantumNLDiffEq.jl"]
+placement = "dropdown"
+category = "Advanced Solver APIs"
+blurb = "Differential quantum circuits for nonlinear DEs."
+dropdown = "QuantumNLDiffEq"
+
+[packages."SteadyStateDiffEq.jl"]
+placement = "dropdown"
+category = "Advanced Solver APIs"
+blurb = "Steady-state solvers for DiffEq; API also in DiffEqDocs."
+dropdown = "SteadyStateDiffEq"
+
+[packages."ComponentArrays.jl"]
+placement = "dropdown"
+category = "Array Libraries"
+blurb = "Arrays with arbitrarily nested named components."
+dropdown = "ComponentArrays"
+
+[packages."LabelledArrays.jl"]
+placement = "dropdown"
+category = "Array Libraries"
+blurb = "Named elements on arrays without overhead."
+dropdown = "LabelledArrays"
+
+[packages."MultiScaleArrays.jl"]
+placement = "dropdown"
+category = "Array Libraries"
+blurb = "Multiscale array types that compose with equation solvers."
+dropdown = "MultiScaleArrays"
+
+[packages."RecursiveArrayTools.jl"]
+placement = "dropdown"
+category = "Array Libraries"
+blurb = "Nested arrays compatible with SciML solvers."
+dropdown = "RecursiveArrayTools"
+
+[packages."ColPrac"]
+placement = "dropdown"
+category = "Developer Documentation"
+blurb = "Collaborative practices for community packages."
+dropdown = "ColPrac"
+
+[packages."DiffEqDevDocs.jl"]
+placement = "dropdown"
+category = "Developer Documentation"
+blurb = "DiffEq developer documentation (archived repo, still published)."
+dropdown = "DiffEqDevDocs"
+
+[packages."OrgMaintenanceScripts.jl"]
+placement = "dropdown"
+category = "Developer Documentation"
+blurb = "Scripts for maintaining a large GitHub organization."
+dropdown = "OrgMaintenanceScripts"
+
+[packages."SciMLStyle"]
+placement = "dropdown"
+category = "Developer Documentation"
+blurb = "SciML Julia style guide."
+dropdown = "SciMLStyle"
+
+[packages."DiffEqDocs.jl"]
+placement = "dropdown"
+category = "Equation Solvers"
+blurb = "DifferentialEquations.jl documentation (umbrella for the DiffEq solvers)."
+dropdown = "DiffEqDocs"
+
+[packages."DifferenceEquations.jl"]
+placement = "dropdown"
+category = "Equation Solvers"
+blurb = "Deterministic and stochastic difference equations and state-space likelihoods."
+dropdown = "DifferenceEquations"
+
+[packages."Evolutionary.jl"]
+placement = "dropdown"
+category = "Equation Solvers"
+blurb = "Evolutionary and genetic algorithms."
+dropdown = "Evolutionary"
+
+[packages."Integrals.jl"]
+placement = "dropdown"
+category = "Equation Solvers"
+blurb = "Unified interface for quadrature."
+dropdown = "Integrals"
+
+[packages."JumpProcesses.jl"]
+placement = "dropdown"
+category = "Equation Solvers"
+blurb = "Jump processes, Gillespie SSAs, and jump-diffusions."
+dropdown = "JumpProcesses"
+
+[packages."LinearSolve.jl"]
+placement = "dropdown"
+category = "Equation Solvers"
+blurb = "Unified interface for linear solvers."
+dropdown = "LinearSolve"
+
+[packages."LineSearch.jl"]
+placement = "dropdown"
+category = "Equation Solvers"
+blurb = "Unified line-search interface."
+dropdown = "LineSearch"
+
+[packages."NeuralLinearSolve.jl"]
+placement = "dropdown"
+category = "Equation Solvers"
+blurb = "CNN that picks UMFPACK/KLU/Pardiso for a sparse matrix."
+dropdown = "NeuralLinearSolve"
+
+[packages."NonlinearSolve.jl"]
+placement = "dropdown"
+category = "Equation Solvers"
+blurb = "Unified interface for nonlinear solvers and bracketing."
+dropdown = "NonlinearSolve"
+
+[packages."Optimization.jl"]
+placement = "dropdown"
+category = "Equation Solvers"
+blurb = "Unified interface for mathematical optimization."
+dropdown = "Optimization"
+
+[packages."ModelingToolkitCourse"]
+placement = "dropdown"
+category = "Extra Resources"
+blurb = "ModelingToolkit course notes."
+dropdown = "ModelingToolkitCourse"
+
+[packages."SciMLBenchmarksOutput"]
+placement = "dropdown"
+category = "Extra Resources"
+blurb = "Rendered SciML benchmarks site."
+dropdown = "SciMLBenchmarksOutput"
+
+[packages."SciMLTutorialsOutput"]
+placement = "dropdown"
+category = "Extra Resources"
+blurb = "Rendered extended tutorials (archived repo, still published)."
+dropdown = "SciMLTutorialsOutput"
+
+[packages."SciMLWorkshop.jl"]
+placement = "dropdown"
+category = "Extra Resources"
+blurb = "Workshop materials for SciML training."
+dropdown = "SciMLWorkshop"
+
+[packages."ReservoirComputing.jl"]
+placement = "dropdown"
+category = "Function Approximation"
+blurb = "Reservoir computing."
+dropdown = "ReservoirComputing"
+
+[packages."Surrogates.jl"]
+placement = "dropdown"
+category = "Function Approximation"
+blurb = "Surrogate modeling and optimization."
+dropdown = "Surrogates"
+
+[packages."ADTypes.jl"]
+placement = "dropdown"
+category = "High-Level Interfaces"
+blurb = "Automatic-differentiation backend types."
+dropdown = "ADTypes"
+
+[packages."CommonSolve.jl"]
+placement = "dropdown"
+category = "High-Level Interfaces"
+blurb = "Shared `solve` / `init` / `solve!` definition."
+dropdown = "CommonSolve"
+
+[packages."SciMLBase.jl"]
+placement = "dropdown"
+category = "High-Level Interfaces"
+blurb = "Core SciML problem/algorithm/solution interfaces."
+dropdown = "SciMLBase"
+
+[packages."SciMLIterators.jl"]
+placement = "dropdown"
+category = "High-Level Interfaces"
+blurb = "Iterators over SciML solutions and integrators."
+dropdown = "SciMLIterators"
+
+[packages."SciMLLogging.jl"]
+placement = "dropdown"
+category = "High-Level Interfaces"
+blurb = "Verbosity and logging for SciML solvers."
+dropdown = "SciMLLogging"
+
+[packages."SciMLOperators.jl"]
+placement = "dropdown"
+category = "High-Level Interfaces"
+blurb = "Matrix-free linear and affine operators."
+dropdown = "SciMLOperators"
+
+[packages."SciMLStructures.jl"]
+placement = "dropdown"
+category = "High-Level Interfaces"
+blurb = "Queryable structure interface for user data and parameters."
+dropdown = "SciMLStructures"
+
+[packages."Static.jl"]
+placement = "dropdown"
+category = "High-Level Interfaces"
+blurb = "Statically parameterized types for compile-time computation."
+dropdown = "Static"
+
+[packages."SurrogatesBase.jl"]
+placement = "dropdown"
+category = "High-Level Interfaces"
+blurb = "API for deterministic and stochastic surrogates."
+dropdown = "SurrogatesBase"
+
+[packages."SymbolicIndexingInterface.jl"]
+placement = "dropdown"
+category = "High-Level Interfaces"
+blurb = "Symbolic indexing of SciML objects."
+dropdown = "SymbolicIndexingInterface"
+
+[packages."DeepEquilibriumNetworks.jl"]
+placement = "dropdown"
+category = "Implicit Layer Deep Learning"
+blurb = "Deep equilibrium networks."
+dropdown = "DeepEquilibriumNetworks"
+
+[packages."DiffEqFlux.jl"]
+placement = "dropdown"
+category = "Implicit Layer Deep Learning"
+blurb = "Prebuilt implicit deep-learning architectures (Neural ODEs, …)."
+dropdown = "DiffEqFlux"
+
+[packages."NeuralLyapunov.jl"]
+placement = "dropdown"
+category = "Implicit Layer Deep Learning"
+blurb = "Search for neural Lyapunov functions."
+dropdown = "NeuralLyapunov"
+
+[packages."CurveFit.jl"]
+placement = "dropdown"
+category = "Inverse Problems / Estimation"
+blurb = "Least-squares and curve fitting on the CommonSolve interface."
+dropdown = "CurveFit"
+
+[packages."DiffEqBayes.jl"]
+placement = "dropdown"
+category = "Inverse Problems / Estimation"
+blurb = "Simplified Bayesian estimation of DiffEq parameters."
+dropdown = "DiffEqBayes"
+
+[packages."DiffEqParamEstim.jl"]
+placement = "dropdown"
+category = "Inverse Problems / Estimation"
+blurb = "Simplified parameter-estimation loss functions."
+dropdown = "DiffEqParamEstim"
+
+[packages."SciMLSensitivity.jl"]
+placement = "dropdown"
+category = "Inverse Problems / Estimation"
+blurb = "Local sensitivity, adjoints, and AD of solvers."
+dropdown = "SciMLSensitivity"
+
+[packages."BaseModelica.jl"]
+placement = "dropdown"
+category = "Model Libraries and Importers"
+blurb = "Base Modelica importer for ModelingToolkit."
+dropdown = "BaseModelica"
+
+[packages."CellMLToolkit.jl"]
+placement = "dropdown"
+category = "Model Libraries and Importers"
+blurb = "CellML importer for ModelingToolkit."
+dropdown = "CellMLToolkit"
+
+[packages."DiffEqCallbacks.jl"]
+placement = "dropdown"
+category = "Model Libraries and Importers"
+blurb = "Premade callbacks for hybrid differential-equation models."
+dropdown = "DiffEqCallbacks"
+
+[packages."DiffEqPhysics.jl"]
+placement = "dropdown"
+category = "Model Libraries and Importers"
+blurb = "Hamiltonian and physics-based DiffEq problem constructors."
+dropdown = "DiffEqPhysics"
+
+[packages."FiniteStateProjection.jl"]
+placement = "dropdown"
+category = "Model Libraries and Importers"
+blurb = "Finite-state projection of chemical master equations."
+dropdown = "FiniteStateProjection"
+
+[packages."MathML.jl"]
+placement = "dropdown"
+category = "Model Libraries and Importers"
+blurb = "MathML parser into Symbolics expressions."
+dropdown = "MathML"
+
+[packages."ModelingToolkitNeuralNets.jl"]
+placement = "dropdown"
+category = "Model Libraries and Importers"
+blurb = "Neural-network blocks for universal differential equations in MTK."
+dropdown = "ModelingToolkitNeuralNets"
+
+[packages."ModelingToolkitStandardLibrary.jl"]
+placement = "dropdown"
+category = "Model Libraries and Importers"
+blurb = "Standard component library for ModelingToolkit."
+dropdown = "ModelingToolkitStandardLibrary"
+
+[packages."PubChem.jl"]
+placement = "dropdown"
+category = "Model Libraries and Importers"
+blurb = "PubChem metadata attached to Catalyst species."
+dropdown = "PubChem"
+
+[packages."Pyomo.jl"]
+placement = "dropdown"
+category = "Model Libraries and Importers"
+blurb = "Pyomo interface via Symbolics.jl."
+dropdown = "Pyomo"
+
+[packages."ReactionNetworkImporters.jl"]
+placement = "dropdown"
+category = "Model Libraries and Importers"
+blurb = "BioNetGen and stoichiometry-matrix importers."
+dropdown = "ReactionNetworkImporters"
+
+[packages."SBMLToolkit.jl"]
+placement = "dropdown"
+category = "Model Libraries and Importers"
+blurb = "SBML importer for Catalyst and ModelingToolkit."
+dropdown = "SBMLToolkit"
+
+[packages."Catalyst.jl"]
+placement = "dropdown"
+category = "Modeling Languages"
+blurb = "Chemical reaction networks and systems biology."
+dropdown = "Catalyst"
+
+[packages."Corleone.jl"]
+placement = "dropdown"
+category = "Modeling Languages"
+blurb = "Optimal control with SciML."
+dropdown = "Corleone"
+
+[packages."DiffEqFinancial.jl"]
+placement = "dropdown"
+category = "Modeling Languages"
+blurb = "Financial models (Heston, Black–Scholes, …) on DifferentialEquations."
+dropdown = "DiffEqFinancial"
+
+[packages."ModelingToolkit.jl"]
+placement = "dropdown"
+category = "Modeling Languages"
+blurb = "Acausal symbolic modeling."
+dropdown = "ModelingToolkit"
+
+[packages."MomentClosure.jl"]
+placement = "dropdown"
+category = "Modeling Languages"
+blurb = "Moment-closure equations for chemical master equations and SDEs."
+dropdown = "MomentClosure"
+
+[packages."NBodySimulator.jl"]
+placement = "dropdown"
+category = "Modeling Languages"
+blurb = "N-body, astrophysical, and molecular dynamics."
+dropdown = "NBodySimulator"
+
+[packages."ParameterizedFunctions.jl"]
+placement = "dropdown"
+category = "Modeling Languages"
+blurb = "Simple DSL for defining differential equations."
+dropdown = "ParameterizedFunctions"
+
+[packages."ProcessSimulator.jl"]
+placement = "dropdown"
+category = "Modeling Languages"
+blurb = "Process simulation on ModelingToolkit."
+dropdown = "ProcessSimulator"
+
+[packages."BipartiteGraphs.jl"]
+placement = "dropdown"
+category = "Numerical Utilities"
+blurb = "Bipartite graph types and utilities."
+dropdown = "BipartiteGraphs"
+
+[packages."ConcreteStructs.jl"]
+placement = "dropdown"
+category = "Numerical Utilities"
+blurb = "Macros for concrete struct field types."
+dropdown = "ConcreteStructs"
+
+[packages."DataInterpolations.jl"]
+placement = "dropdown"
+category = "Numerical Utilities"
+blurb = "1D interpolation and smoothing."
+dropdown = "DataInterpolations"
+
+[packages."DataInterpolationsND.jl"]
+placement = "dropdown"
+category = "Numerical Utilities"
+blurb = "N-dimensional interpolation on hyperrectangles."
+dropdown = "DataInterpolationsND"
+
+[packages."DiffEqNoiseProcess.jl"]
+placement = "dropdown"
+category = "Numerical Utilities"
+blurb = "Noise processes for SDEs and related solvers."
+dropdown = "DiffEqNoiseProcess"
+
+[packages."EllipsisNotation.jl"]
+placement = "dropdown"
+category = "Numerical Utilities"
+blurb = "`..` ellipsis indexing."
+dropdown = "EllipsisNotation"
+
+[packages."ExponentialUtilities.jl"]
+placement = "dropdown"
+category = "Numerical Utilities"
+blurb = "Matrix exponentials, KIOPS, expmv, φ-functions."
+dropdown = "ExponentialUtilities"
+
+[packages."FastAlmostBandedMatrices.jl"]
+placement = "dropdown"
+category = "Numerical Utilities"
+blurb = "Almost-banded matrices (used by BoundaryValueDiffEq)."
+dropdown = "FastAlmostBandedMatrices"
+
+[packages."FastBroadcast.jl"]
+placement = "dropdown"
+category = "Numerical Utilities"
+blurb = "`@..` broadcast that compiles to tight loops."
+dropdown = "FastBroadcast"
+
+[packages."FindFirstFunctions.jl"]
+placement = "dropdown"
+category = "Numerical Utilities"
+blurb = "Faster specialized `findfirst`."
+dropdown = "FindFirstFunctions"
+
+[packages."FunctionWrappersWrappers.jl"]
+placement = "dropdown"
+category = "Numerical Utilities"
+blurb = "Double FunctionWrappers layer used in solver internals."
+dropdown = "FunctionWrappersWrappers"
+
+[packages."LHLFactorization.jl"]
+placement = "dropdown"
+category = "Numerical Utilities"
+blurb = "Hessenberg reduction for families of shifted linear systems."
+dropdown = "LHLFactorization"
+
+[packages."LightweightStats.jl"]
+placement = "dropdown"
+category = "Numerical Utilities"
+blurb = "Basic statistics with minimal dependencies."
+dropdown = "LightweightStats"
+
+[packages."MuladdMacro.jl"]
+placement = "dropdown"
+category = "Numerical Utilities"
+blurb = "`@muladd` fused multiply-add rewriting."
+dropdown = "MuladdMacro"
+
+[packages."PoissonRandom.jl"]
+placement = "dropdown"
+category = "Numerical Utilities"
+blurb = "Fast Poisson random numbers."
+dropdown = "PoissonRandom"
+
+[packages."PreallocationTools.jl"]
+placement = "dropdown"
+category = "Numerical Utilities"
+blurb = "Caches compatible with automatic differentiation."
+dropdown = "PreallocationTools"
+
+[packages."PureGebal.jl"]
+placement = "dropdown"
+category = "Numerical Utilities"
+blurb = "Pure-Julia LAPACK xGEBAL-style matrix balancing."
+dropdown = "PureGebal"
+
+[packages."PureKLU.jl"]
+placement = "dropdown"
+category = "Numerical Utilities"
+blurb = "Pure-Julia KLU sparse LU, no SuiteSparse_jll."
+dropdown = "PureKLU"
+
+[packages."PureUMFPACK.jl"]
+placement = "dropdown"
+category = "Numerical Utilities"
+blurb = "Pure-Julia UMFPACK-style sparse LU."
+dropdown = "PureUMFPACK"
+
+[packages."QuasiMonteCarlo.jl"]
+placement = "dropdown"
+category = "Numerical Utilities"
+blurb = "Quasi-Monte Carlo sequences."
+dropdown = "QuasiMonteCarlo"
+
+[packages."RespecializeParams.jl"]
+placement = "dropdown"
+category = "Numerical Utilities"
+blurb = "Type-stable opaque parameter containers for solvers."
+dropdown = "RespecializeParams"
+
+[packages."RootedTrees.jl"]
+placement = "dropdown"
+category = "Numerical Utilities"
+blurb = "Rooted trees and Runge–Kutta order conditions."
+dropdown = "RootedTrees"
+
+[packages."RuntimeGeneratedFunctions.jl"]
+placement = "dropdown"
+category = "Numerical Utilities"
+blurb = "Runtime-generated functions without world-age issues."
+dropdown = "RuntimeGeneratedFunctions"
+
+[packages."SparseBandedMatrices.jl"]
+placement = "dropdown"
+category = "Numerical Utilities"
+blurb = "Sparse banded matrices."
+dropdown = "SparseBandedMatrices"
+
+[packages."DiffEqOperators.jl"]
+placement = "dropdown"
+category = "PDE Solvers"
+blurb = "Archived FDM operator library; prefer MethodOfLines."
+dropdown = "DiffEqOperators"
+
+[packages."FEniCS.jl"]
+placement = "dropdown"
+category = "PDE Solvers"
+blurb = "FEniCS finite-element wrappers."
+dropdown = "FEniCS"
+
+[packages."FiniteVolumeMethod.jl"]
+placement = "dropdown"
+category = "PDE Solvers"
+blurb = "2D finite-volume method for conservation laws."
+dropdown = "FiniteVolumeMethod"
+
+[packages."FiniteVolumeMethod1D.jl"]
+placement = "dropdown"
+category = "PDE Solvers"
+blurb = "1D finite-volume method."
+dropdown = "FiniteVolumeMethod1D"
+
+[packages."HighDimPDE.jl"]
+placement = "dropdown"
+category = "PDE Solvers"
+blurb = "High-dimensional PDE solvers (Deep BSDE, Feynman–Kac)."
+dropdown = "HighDimPDE"
+
+[packages."MethodOfLines.jl"]
+placement = "dropdown"
+category = "PDE Solvers"
+blurb = "Automated finite-difference discretization of PDESystem."
+dropdown = "MethodOfLines"
+
+[packages."NeuralOperators.jl"]
+placement = "dropdown"
+category = "PDE Solvers"
+blurb = "Fourier neural operators, DeepONets, and related operator learning."
+dropdown = "NeuralOperators"
+
+[packages."NeuralPDE.jl"]
+placement = "dropdown"
+category = "PDE Solvers"
+blurb = "Physics-informed neural network PDE solvers."
+dropdown = "NeuralPDE"
+
+[packages."CatalystNetworkAnalysis.jl"]
+placement = "dropdown"
+category = "Parameter Analysis"
+blurb = "Network-analysis algorithms on Catalyst reaction networks."
+dropdown = "CatalystNetworkAnalysis"
+
+[packages."EasyModelAnalysis.jl"]
+placement = "dropdown"
+category = "Parameter Analysis"
+blurb = "High-level queries on simulation output."
+dropdown = "EasyModelAnalysis"
+
+[packages."GlobalSensitivity.jl"]
+placement = "dropdown"
+category = "Parameter Analysis"
+blurb = "Global sensitivity analysis (Sobol, Morris, eFAST, …)."
+dropdown = "GlobalSensitivity"
+
+[packages."MinimallyDisruptiveCurves.jl"]
+placement = "dropdown"
+category = "Parameter Analysis"
+blurb = "Curves in parameter space that leave the solution nearly unchanged."
+dropdown = "MinimallyDisruptiveCurves"
+
+[packages."StructuralIdentifiability.jl"]
+placement = "dropdown"
+category = "Parameter Analysis"
+blurb = "Structural identifiability of ODE models."
+dropdown = "StructuralIdentifiability"
+
+[packages."DataDrivenDiffEq.jl"]
+placement = "dropdown"
+category = "Symbolic Learning"
+blurb = "Data-driven dynamical systems and equation discovery."
+dropdown = "DataDrivenDiffEq"
+
+[packages."SymbolicNumericIntegration.jl"]
+placement = "dropdown"
+category = "Symbolic Learning"
+blurb = "Symbolic-numeric integration."
+dropdown = "SymbolicNumericIntegration"
+
+[packages."FunctionProperties.jl"]
+placement = "dropdown"
+category = "Symbolic Tools"
+blurb = "Detects function properties (branches, etc.) for compiler/AD optimizations."
+dropdown = "FunctionProperties"
+
+[packages."ModelOrderReduction.jl"]
+placement = "dropdown"
+category = "Symbolic Tools"
+blurb = "Automated model-order reduction on ModelingToolkit systems."
+dropdown = "ModelOrderReduction"
+
+[packages."SymbolicAnalysis.jl"]
+placement = "dropdown"
+category = "Symbolic Tools"
+blurb = "Disciplined-programming property propagation for optimization."
+dropdown = "SymbolicAnalysis"
+
+[packages."SymbolicLimits.jl"]
+placement = "dropdown"
+category = "Symbolic Tools"
+blurb = "Symbolic limits and zero-equivalence of log-exp functions."
+dropdown = "SymbolicLimits"
+
+[packages."OptimalUncertaintyQuantification.jl"]
+placement = "dropdown"
+category = "Uncertainty Quantification"
+blurb = "Bounds on expectations without a fully specified input distribution."
+dropdown = "OptimalUncertaintyQuantification"
+
+[packages."PolyChaos.jl"]
+placement = "dropdown"
+category = "Uncertainty Quantification"
+blurb = "Polynomial chaos expansions."
+dropdown = "PolyChaos"
+
+[packages."SciMLExpectations.jl"]
+placement = "dropdown"
+category = "Uncertainty Quantification"
+blurb = "Fast expectations of equation solutions."
+dropdown = "SciMLExpectations"
+
+[packages."DASKR.jl"]
+placement = "embedded"
+category = "Equation Solvers"
+blurb = "DASKR DAE solver wrapper."
+embedded_in = "DiffEqDocs"
+
+[packages."DASSL.jl"]
+placement = "embedded"
+category = "Equation Solvers"
+blurb = "DASSL BDF DAE solver."
+embedded_in = "DiffEqDocs"
+
+[packages."deSolveDiffEq.jl"]
+placement = "embedded"
+category = "Equation Solvers"
+blurb = "R deSolve wrappers on the SciML interface."
+embedded_in = "DiffEqDocs"
+
+[packages."DifferentialEquations.jl"]
+placement = "embedded"
+category = "Equation Solvers"
+blurb = "Umbrella DiffEq package; documented as DiffEqDocs."
+embedded_in = "DiffEqDocs"
+
+[packages."GeometricIntegratorsDiffEq.jl"]
+placement = "embedded"
+category = "Equation Solvers"
+blurb = "GeometricIntegrators.jl wrappers on the SciML interface."
+embedded_in = "DiffEqDocs"
+
+[packages."ODEInterfaceDiffEq.jl"]
+placement = "embedded"
+category = "Equation Solvers"
+blurb = "Hairer Fortran ODEInterface wrappers."
+embedded_in = "DiffEqDocs"
+
+[packages."SciPyDiffEq.jl"]
+placement = "embedded"
+category = "Equation Solvers"
+blurb = "SciPy ODE wrappers on the SciML interface."
+embedded_in = "DiffEqDocs"
+
+[packages."SimpleBoundaryValueDiffEq.jl"]
+placement = "embedded"
+category = "Equation Solvers"
+blurb = "Minimal BVP solvers."
+embedded_in = "DiffEqDocs"
+
+[packages."SimpleDiffEq.jl"]
+placement = "embedded"
+category = "Equation Solvers"
+blurb = "Minimal no-cruft ODE solvers."
+embedded_in = "DiffEqDocs"
+
+[packages."Sundials.jl"]
+placement = "embedded"
+category = "Equation Solvers"
+blurb = "CVODE, ARKODE, IDA, and KINSOL wrappers."
+embedded_in = "DiffEqDocs"
+
+[packages."SciMLTesting.jl"]
+placement = "overview"
+category = "Developer Documentation"
+blurb = "Shared GROUP-based test harness for SciML packages."
+
+[packages."BlackBoxOptim.jl"]
+placement = "overview"
+category = "Equation Solvers"
+blurb = "Derivative-free global/black-box optimization (OptimizationBBO)."
+
+[packages."ComplementaritySolve.jl"]
+placement = "overview"
+category = "Equation Solvers"
+blurb = "Complementarity problems with ChainRules-compatible gradients."
+
+[packages."ParallelParticleSwarms.jl"]
+placement = "overview"
+category = "Equation Solvers"
+blurb = "GPU-accelerated particle-swarm optimization."
+
+[packages."SpatialBranchAndBound.jl"]
+placement = "overview"
+category = "Equation Solvers"
+blurb = "Spatial branch-and-bound."
+
+[packages."YOLOWeights.jl"]
+placement = "overview"
+category = "Function Approximation"
+blurb = "Pinned, checksummed Ultralytics YOLO ONNX weights."
+
+[packages."SciMLPublic.jl"]
+placement = "overview"
+category = "High-Level Interfaces"
+blurb = "`@public` backport of Julia 1.11's `public` keyword."
+
+[packages."CasADi.jl"]
+placement = "overview"
+category = "Model Libraries and Importers"
+blurb = "CasADi interface via PythonCall (fork of ichatzinikolaidis/CasADi.jl)."
+
+[packages."DiffEqProblemLibrary.jl"]
+placement = "overview"
+category = "Model Libraries and Importers"
+blurb = "Premade DiffEq problems for examples and testing."
+
+[packages."PubChemReactions.jl"]
+placement = "overview"
+category = "Model Libraries and Importers"
+blurb = "Reaction-network generation from PubChem data."
+
+[packages."SBMLToolkitTestSuite.jl"]
+placement = "overview"
+category = "Model Libraries and Importers"
+blurb = "Runner for the SBML Test Suite against SBMLToolkit."
+
+[packages."BinaryHeaps.jl"]
+placement = "overview"
+category = "Numerical Utilities"
+blurb = "Invalidation-free binary heaps extracted from DataStructures.jl."
+
+[packages."CommonWorldInvalidations.jl"]
+placement = "overview"
+category = "Numerical Utilities"
+blurb = "Pre-invalidates common MethodError paths to cut latency."
+
+[packages."FastPower.jl"]
+placement = "overview"
+category = "Numerical Utilities"
+blurb = "Faster, slightly less accurate floating-point power."
+
+[packages."MaybeInplace.jl"]
+placement = "overview"
+category = "Numerical Utilities"
+blurb = "Bang-bang macros that pick in-place vs out-of-place by array mutability."
+
+[packages."ResettableStacks.jl"]
+placement = "overview"
+category = "Numerical Utilities"
+blurb = "Stacks with `reset!` that avoid GC in solver internals."
+
+[packages."SIMDRK.jl"]
+placement = "overview"
+category = "Numerical Utilities"
+blurb = "Generation of SIMD-compatible Runge–Kutta tableaus."
+
+[packages."SimpleNorm.jl"]
+placement = "overview"
+category = "Numerical Utilities"
+blurb = "`norm` without a LinearAlgebra/BLAS dependency."
+
+[packages."SparseColumnPivotedQR.jl"]
+placement = "overview"
+category = "Numerical Utilities"
+blurb = "Rank-revealing column-pivoted Householder QR for SparseMatrixCSR."
+
+[packages."SparseMatrixIdentification.jl"]
+placement = "overview"
+category = "Numerical Utilities"
+blurb = "Sparse matrix structure identification."
+
+[packages."SparseWithDenseRowColMatrices.jl"]
+placement = "overview"
+category = "Numerical Utilities"
+blurb = "Sparse plus dense row/column matrices with Sherman–Morrison–Woodbury."
+
+[packages."SpecializingFactorizations.jl"]
+placement = "overview"
+category = "Numerical Utilities"
+blurb = "Type-stable detection of dense-matrix structure with specialized factorizations."
+
+[packages."TupleLU.jl"]
+placement = "overview"
+category = "Numerical Utilities"
+blurb = "LU factorization on tuple-based small matrices."
+
+[packages."PDEBase.jl"]
+placement = "overview"
+category = "PDE Solvers"
+blurb = "Shared types and interface for ModelingToolkit PDE discretizers."
+
+[packages."PDESystemLibrary.jl"]
+placement = "overview"
+category = "PDE Solvers"
+blurb = "Library of ModelingToolkit PDESystem examples."
+
+[packages."DimensionalPlotRecipes.jl"]
+placement = "overview"
+category = "Plots and Visualization"
+blurb = "Plot recipes for high-dimensional numbers and reductions."
+
+[packages."DataCollocations.jl"]
+placement = "overview"
+category = "Symbolic Learning"
+blurb = "Non-parametric collocation for smoothing timeseries and estimating derivatives."
+
+[packages."2025-JuliaCon-DifferentialEquations-Workshop"]
+placement = "extra"
+category = "Extra Resources"
+blurb = "JuliaCon 2025 DifferentialEquations workshop."
+
+[packages."Catalyst_PLOS_COMPBIO_2023"]
+placement = "extra"
+category = "Extra Resources"
+blurb = "Companion notebooks for the 2023 Catalyst PLOS Comp Bio paper."
+
+[packages."GeiloInverseProblemWorkshop"]
+placement = "extra"
+category = "Extra Resources"
+blurb = "Geilo inverse-problems workshop notes."
+
+[packages."Julia_Modeling_Workshop"]
+placement = "extra"
+category = "Extra Resources"
+blurb = "High-performance scientific modeling workshop."
+
+[packages."ModelingToolkitWorkshop_JuliaCon2024"]
+placement = "extra"
+category = "Extra Resources"
+blurb = "JuliaCon 2024 ModelingToolkit workshop materials."
+
+[packages."Scientific_Modeling_Cheatsheet"]
+placement = "extra"
+category = "Extra Resources"
+blurb = "MATLAB / Python / Julia scientific-modeling cheatsheet."
+
+[packages."SciMLBenchmarks.jl"]
+placement = "extra"
+category = "Extra Resources"
+blurb = "Benchmark sources; rendered output is SciMLBenchmarksOutput."
+
+[packages."SciMLBook"]
+placement = "extra"
+category = "Extra Resources"
+blurb = "Parallel Computing and Scientific Machine Learning lecture notes (MIT 18.337)."
+
+[packages."diffeqpy"]
+placement = "extra"
+category = "Language Bindings"
+blurb = "Python bindings for DifferentialEquations.jl."
+
+[packages."diffeqr"]
+placement = "extra"
+category = "Language Bindings"
+blurb = "R bindings for DifferentialEquations.jl."
+
+[packages."juliatorch"]
+placement = "extra"
+category = "Language Bindings"
+blurb = "Wrap Julia functions as PyTorch autograd functions."
+
+[packages.".github"]
+placement = "infra"
+category = "Infrastructure"
+blurb = "Organization-wide GitHub Actions and metadata."
+
+[packages."demo-repository"]
+placement = "infra"
+category = "Infrastructure"
+blurb = "GitHub demo repository, not a SciML package."
+
+[packages."LinearSolveAutotuneResults.jl"]
+placement = "infra"
+category = "Infrastructure"
+blurb = "Stored LinearSolve autotune results, not a solver package."
+
+[packages."ModelDiscovery.jl"]
+placement = "infra"
+category = "Infrastructure"
+blurb = "Empty placeholder repository."
+
+[packages."OptimalUncertaintyQuantification-DEV.jl"]
+placement = "infra"
+category = "Infrastructure"
+blurb = "Development duplicate of OptimalUncertaintyQuantification.jl."
+
+[packages."PropertyModels.jl"]
+placement = "infra"
+category = "Infrastructure"
+blurb = "Empty placeholder repository."
+
+[packages."sciml.ai"]
+placement = "infra"
+category = "Infrastructure"
+blurb = "Organization website."
+
+[packages."SciMLAssets"]
+placement = "infra"
+category = "Infrastructure"
+blurb = "Shared website/assets."
+
+[packages."SciMLDocs"]
+placement = "infra"
+category = "Infrastructure"
+blurb = "This documentation aggregator (Home in the nav)."

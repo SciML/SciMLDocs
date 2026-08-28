@@ -61,6 +61,12 @@ methods and regression techniques for handling noisy data. Its methods include:
 
 These interpolations match the SciML interfaces and have direct support for packages like ModelingToolkit.jl.
 
+## DataInterpolationsND.jl: High-Dimensional Interpolation
+
+[DataInterpolationsND.jl](https://github.com/SciML/DataInterpolationsND.jl) interpolates
+arbitrarily high-dimensional array data on a hyperrectangle, including batched evaluation
+through KernelAbstractions.jl. For 1D data, use DataInterpolations.jl.
+
 ## PoissonRandom.jl: Fast Poisson Random Number Generation
 
 [PoissonRandom.jl](https://github.com/SciML/PoissonRandom.jl) is just fast Poisson random number generation
@@ -83,6 +89,29 @@ such as ModelingToolkit.jl to allow for runtime code generation for improved per
 array slicing notation for Julia. It uses `..` as a catch-all for “all dimensions”, allowing for indexing
 like `[..,1]` to mean `[:,:,:,1]` on four dimensional arrays, in a way that is generic to the number
 of dimensions in the underlying array.
+
+## MuladdMacro.jl, FindFirstFunctions.jl, and BipartiteGraphs.jl
+
+[MuladdMacro.jl](https://github.com/SciML/MuladdMacro.jl) rewrites multiplications and additions
+into `muladd`/`fma` calls. [FindFirstFunctions.jl](https://github.com/SciML/FindFirstFunctions.jl)
+specializes `findfirst` on dense vectors. [BipartiteGraphs.jl](https://github.com/SciML/BipartiteGraphs.jl)
+provides bipartite graph types used by symbolic tearing and related structural algorithms.
+
+## Additional Numerical Utilities
+
+These libraries support solver internals and high-performance kernels. They appear in the
+top navigation under Developer Tools → Numerical Utilities when they have an independent
+Documenter site; otherwise they are listed only in the [Package Index](@ref package_index).
+
+  - [FastBroadcast.jl](https://github.com/SciML/FastBroadcast.jl) — `@..` broadcast that compiles to loops
+  - [FastPower.jl](https://github.com/SciML/FastPower.jl) — faster, slightly less accurate `^`
+  - [FastAlmostBandedMatrices.jl](https://github.com/SciML/FastAlmostBandedMatrices.jl) — almost-banded matrices, used by BoundaryValueDiffEq
+  - [SparseBandedMatrices.jl](https://github.com/SciML/SparseBandedMatrices.jl) — sparse banded matrices
+  - [PureKLU.jl](https://github.com/SciML/PureKLU.jl), [PureUMFPACK.jl](https://github.com/SciML/PureUMFPACK.jl), [PureGebal.jl](https://github.com/SciML/PureGebal.jl) — pure-Julia KLU, UMFPACK-style LU, and matrix balancing
+  - [LHLFactorization.jl](https://github.com/SciML/LHLFactorization.jl) — Hessenberg reduction for shifted linear systems
+  - [RootedTrees.jl](https://github.com/SciML/RootedTrees.jl) — rooted trees and Runge–Kutta order conditions
+  - [ConcreteStructs.jl](https://github.com/SciML/ConcreteStructs.jl), [MaybeInplace.jl](https://github.com/SciML/MaybeInplace.jl), [RespecializeParams.jl](https://github.com/SciML/RespecializeParams.jl), [FunctionWrappersWrappers.jl](https://github.com/SciML/FunctionWrappersWrappers.jl) — type-stability and in-place/out-of-place helpers
+  - [BinaryHeaps.jl](https://github.com/SciML/BinaryHeaps.jl), [ResettableStacks.jl](https://github.com/SciML/ResettableStacks.jl), [LightweightStats.jl](https://github.com/SciML/LightweightStats.jl), [SimpleNorm.jl](https://github.com/SciML/SimpleNorm.jl), [CommonWorldInvalidations.jl](https://github.com/SciML/CommonWorldInvalidations.jl)
 
 # Third-Party Libraries to Note
 

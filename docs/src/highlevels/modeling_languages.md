@@ -60,16 +60,26 @@ Black-Scholes model.
 
 This image that went viral is actually runnable code from [ParameterizedFunctions.jl](https://docs.sciml.ai/ParameterizedFunctions/stable/). Define equations and models using a very simple high-level syntax and let the code generation tools build symbolic fast Jacobian, gradient, etc. functions for you.
 
-# Third-Party Tools of Note
-
 ## MomentClosure.jl: Automated Generation of Moment Closure Equations
 
-[MomentClosure.jl](https://github.com/augustinas1/MomentClosure.jl) is a library for generating the moment
+[MomentClosure.jl](https://github.com/SciML/MomentClosure.jl) is a library for generating the moment
 closure equations for a given chemical master equation or stochastic differential equation. Thus instead of
 solving a stochastic model thousands of times to find the mean and variance, this library can generate the
 deterministic equations for how the mean and variance evolve in order to be solved in a single run. MomentClosure.jl
 uses Catalyst `ReactionSystem` and ModelingToolkit `SDESystem` types as the input for its symbolic generation
 processes.
+
+## Corleone.jl: Optimal Control
+
+[Corleone.jl](https://github.com/SciML/Corleone.jl) connects optimal control to the SciML solver and
+modeling stack.
+
+## ProcessSimulator.jl: Process Simulation
+
+[ProcessSimulator.jl](https://github.com/SciML/ProcessSimulator.jl) is a process-simulation library
+built on ModelingToolkit.
+
+# Third-Party Tools of Note
 
 ## Agents.jl: Agent-Based Modeling Framework in Julia
 

@@ -20,7 +20,8 @@ features many of the highest performance and parallel implementations one can fi
   - Want to see our code? Check out [the SciML GitHub organization](https://github.com/SciML).
 
 And for diving into the details, use the bar on the top to navigate to the submodule of
-interest!
+interest! The complete list of SciML repositories and where each one is documented is
+in the [Package Index](@ref package_index).
 
 ## Reproducibility
 

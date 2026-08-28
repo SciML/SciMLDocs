@@ -1,5 +1,11 @@
 # Parameter Analysis Utilities
 
+## EasyModelAnalysis.jl: High-Level Queries on Simulation Output
+
+[EasyModelAnalysis.jl](https://github.com/SciML/EasyModelAnalysis.jl) wraps common analysis
+questions — first crossing times, event probabilities, parameter sensitivities — so they
+can be asked directly of a simulated model without assembling the underlying solver calls.
+
 ## GlobalSensitivity.jl: Global Sensitivity Analysis
 
 Derivatives calculate the local sensitivity of a model, i.e. the change in the simulation's outcome if
@@ -39,6 +45,12 @@ For more information on what StructuralIdentifiability.jl is all about, see the
 
 [MinimallyDisruptiveCurves.jl](https://github.com/SciML/MinimallyDisruptiveCurves.jl) is a library for
 finding relationships between parameters of models, finding the curves on which the solution is constant.
+
+## CatalystNetworkAnalysis.jl: Reaction Network Analysis
+
+[CatalystNetworkAnalysis.jl](https://github.com/SciML/CatalystNetworkAnalysis.jl) analyzes Catalyst
+reaction networks for dynamical properties such as multistationarity, concentration robustness,
+and persistence.
 
 # Third-Party Libraries to Note
 

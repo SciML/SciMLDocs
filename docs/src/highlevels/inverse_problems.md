@@ -11,6 +11,7 @@ present the relevant packages that facilitate parameter estimation, namely:
   - [DataDrivenDiffEq.jl](https://docs.sciml.ai/DataDrivenDiffEq/stable/)
   - [DiffEqParamEstim.jl](https://docs.sciml.ai/DiffEqParamEstim/)
   - [DiffEqBayes.jl](https://docs.sciml.ai/DiffEqBayes/)
+  - [CurveFit.jl](https://docs.sciml.ai/CurveFit/stable/)
 
 We also provide information regarding the respective strengths of these packages
 so that you can easily decide which one suits your needs best.
@@ -62,6 +63,17 @@ conjunction with [Turing.jl](https://turinglang.org/),
 as flexible as direct usage of DiffEqFlux.jl or Turing.jl, DiffEqBayes.jl can
 be an approachable interface for those not familiar with Bayesian estimation,
 and provides a nice way to use Stan from pure Julia.
+
+## CurveFit.jl: Least Squares and Curve Fitting
+
+[CurveFit.jl](https://github.com/SciML/CurveFit.jl) provides linear, polynomial, special-function,
+and nonlinear least-squares fitting on the CommonSolve `solve` interface.
+
+## DataCollocations.jl: Smoothing and Derivative Estimation
+
+[DataCollocations.jl](https://github.com/SciML/DataCollocations.jl) is non-parametric collocation
+for smoothing timeseries and estimating derivatives, used as a preprocessing step for equation
+discovery and parameter estimation.
 
 # Third-Party Tools of Note
 
