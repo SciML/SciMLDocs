@@ -29,3 +29,8 @@ is a library of optimized layer implementations for Deep Equilibrium Models (DEQ
 special training techniques such as implicit-explicit regularization in order to accelerate
 the convergence over traditional implementations, all while using the optimized and flexible
 SciML libraries under the hood.
+
+## NeuralLyapunov.jl: Neural Lyapunov Functions
+
+[NeuralLyapunov.jl](https://github.com/SciML/NeuralLyapunov.jl) searches for Lyapunov functions
+parameterized by neural networks, using SciML solvers and Optimization.jl.

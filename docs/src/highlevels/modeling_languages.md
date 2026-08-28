@@ -48,28 +48,27 @@ including astrophysical and molecular dynamics. It uses the DifferentialEquation
 choose between a large variety of symplectic integration schemes. It implements many of the thermostats required for
 doing standard molecular dynamics approximations.
 
-## DiffEqFinancial.jl: Financial models for use in the DifferentialEquations ecosystem
-
-The goal of [DiffEqFinancial.jl](https://github.com/SciML/DiffEqFinancial.jl/) is to be a feature-complete set
-of solvers for the types of problems found in libraries like QuantLib, such as the Heston process or the
-Black-Scholes model.
-
 ## ParameterizedFunctions.jl: Simple Differential Equation Definitions Made Easy
 
 ![](https://user-images.githubusercontent.com/1814174/172001045-b9e35b8d-0d40-41af-b606-95b81bb1194d.png)
 
 This image that went viral is actually runnable code from [ParameterizedFunctions.jl](https://docs.sciml.ai/ParameterizedFunctions/stable/). Define equations and models using a very simple high-level syntax and let the code generation tools build symbolic fast Jacobian, gradient, etc. functions for you.
 
-# Third-Party Tools of Note
-
 ## MomentClosure.jl: Automated Generation of Moment Closure Equations
 
-[MomentClosure.jl](https://github.com/augustinas1/MomentClosure.jl) is a library for generating the moment
+[MomentClosure.jl](https://github.com/SciML/MomentClosure.jl) is a library for generating the moment
 closure equations for a given chemical master equation or stochastic differential equation. Thus instead of
 solving a stochastic model thousands of times to find the mean and variance, this library can generate the
 deterministic equations for how the mean and variance evolve in order to be solved in a single run. MomentClosure.jl
 uses Catalyst `ReactionSystem` and ModelingToolkit `SDESystem` types as the input for its symbolic generation
 processes.
+
+## ProcessSimulator.jl: Process Simulation
+
+[ProcessSimulator.jl](https://github.com/SciML/ProcessSimulator.jl) is a process-simulation library
+built on ModelingToolkit.
+
+# Third-Party Tools of Note
 
 ## Agents.jl: Agent-Based Modeling Framework in Julia
 

@@ -116,6 +116,7 @@ makedocs(
                 "highlevels/developer_documentation.md",
             ],
             "Extra Learning Resources" => ["highlevels/learning_resources.md"],
+            "Package Index" => "highlevels/package_index.md",
         ],
     ],
 )

@@ -27,6 +27,12 @@ expectations without requiring the propagation of uncertainties through a solver
 effectively performing the adjoint of uncertainty quantification and being much more
 efficient in the process.
 
+## OptimalUncertaintyQuantification.jl: Bounds Without a Fully Specified Distribution
+
+[OptimalUncertaintyQuantification.jl](https://github.com/SciML/OptimalUncertaintyQuantification.jl)
+computes bounds on expectations of quantities of interest when the input probability distribution
+is only partially known.
+
 # Third-Party Libraries to Note
 
 ## Measurements.jl: Automated Linear Error Propagation

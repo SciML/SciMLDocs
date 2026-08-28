@@ -93,8 +93,8 @@ for solving `OptimizationProblem`s. It includes wrappers of most of the Julia no
 optimization ecosystem, allowing one syntax to use all packages in a uniform manner. This
 covers:
 
-  - OptimizationBBO for [BlackBoxOptim.jl](https://github.com/robertfeldt/BlackBoxOptim.jl)
-  - OptimizationEvolutionary for [Evolutionary.jl](https://github.com/wildart/Evolutionary.jl)
+  - OptimizationBBO for [BlackBoxOptim.jl](https://github.com/SciML/BlackBoxOptim.jl)
+  - OptimizationEvolutionary for [Evolutionary.jl](https://github.com/SciML/Evolutionary.jl)
   - OptimizationGCMAES for [GCMAES.jl](https://github.com/AStupidBear/GCMAES.jl)
   - OptimizationMOI for [MathOptInterface.jl](https://github.com/jump-dev/MathOptInterface.jl)
     (usage of algorithm via MathOptInterface API; see also the API
@@ -164,6 +164,61 @@ and differential equations driven by Levy processes.
 
 In addition, JumpProcesses's interfaces allow for solving with regular jump methods,
 such as adaptive Tau-Leaping.
+
+## DifferenceEquations.jl: Deterministic and Stochastic Difference Equations
+
+[DifferenceEquations.jl](https://github.com/SciML/DifferenceEquations.jl) solves initial-value
+problems for deterministic and stochastic difference equations, including models with a
+separate observation equation. It also provides likelihoods for standard filters used to
+estimate state-space models.
+
+## LineSearch.jl: Unified Line Search Interface
+
+[LineSearch.jl](https://github.com/SciML/LineSearch.jl) is a common interface over Julia line
+search algorithms, including its own high-performance methods. NonlinearSolve.jl and related
+solvers use it to swap line search implementations without changing the rest of the solver
+stack.
+
+## Evolutionary.jl and BlackBoxOptim.jl: Derivative-Free Global Optimization
+
+[Evolutionary.jl](https://github.com/SciML/Evolutionary.jl) implements evolutionary and genetic
+algorithms. [BlackBoxOptim.jl](https://github.com/SciML/BlackBoxOptim.jl) implements stochastic
+black-box methods such as differential evolution. Both are available through Optimization.jl
+(`OptimizationEvolutionary`, `OptimizationBBO`) and can be used directly.
+
+## NeuralLinearSolve.jl: Learned Sparse Direct-Solver Selection
+
+[NeuralLinearSolve.jl](https://github.com/SciML/NeuralLinearSolve.jl) classifies a sparse matrix
+from its sparsity pattern and recommends UMFPACK, KLU, or Pardiso. It is a companion to
+LinearSolve.jl rather than a replacement for the `LinearProblem` interface.
+
+## Corleone.jl: Optimal Control
+
+[Corleone.jl](https://github.com/SciML/Corleone.jl) is an optimal-control solver that composes with
+the SciML equation-solver stack.
+
+## Differential Equation Solver Packages (including those documented in DiffEqDocs)
+
+OrdinaryDiffEq.jl, BoundaryValueDiffEq.jl, and DiffEqGPU.jl have their own Documenter sites
+and also appear under Advanced Solver APIs in the top navigation. Many other DiffEq solver
+packages document their algorithms inside
+[DiffEqDocs](https://docs.sciml.ai/DiffEqDocs/stable/) instead of a second standalone site:
+
+  - [Sundials.jl](https://github.com/SciML/Sundials.jl) — CVODE, ARKODE, IDA, and KINSOL
+  - [DASKR.jl](https://github.com/SciML/DASKR.jl) and [DASSL.jl](https://github.com/SciML/DASSL.jl) — classic DAE codes
+  - [ODEInterfaceDiffEq.jl](https://github.com/SciML/ODEInterfaceDiffEq.jl) — Hairer's Fortran solvers
+  - [SimpleDiffEq.jl](https://github.com/SciML/SimpleDiffEq.jl) and [SimpleBoundaryValueDiffEq.jl](https://github.com/SciML/SimpleBoundaryValueDiffEq.jl) — minimal solvers without events or extra features
+  - [MATLABDiffEq.jl](https://github.com/SciML/MATLABDiffEq.jl), [SciPyDiffEq.jl](https://github.com/SciML/SciPyDiffEq.jl), and [deSolveDiffEq.jl](https://github.com/SciML/deSolveDiffEq.jl) — wrappers for MATLAB, SciPy, and R deSolve on the SciML interface
+  - [GeometricIntegratorsDiffEq.jl](https://github.com/SciML/GeometricIntegratorsDiffEq.jl) — GeometricIntegrators.jl wrappers
+  - [SteadyStateDiffEq.jl](https://github.com/SciML/SteadyStateDiffEq.jl) — steady-state solvers
+  - [OrdinaryDiffEqOperatorSplitting.jl](https://github.com/SciML/OrdinaryDiffEqOperatorSplitting.jl) — operator splitting for split ODE/DAE formulations
+  - [IRKGaussLegendre.jl](https://github.com/SciML/IRKGaussLegendre.jl) — 16th-order implicit Runge–Kutta Gauss–Legendre
+  - [QuantumNLDiffEq.jl](https://github.com/SciML/QuantumNLDiffEq.jl) — differential quantum circuits for nonlinear DEs
+  - [ComplementaritySolve.jl](https://github.com/SciML/ComplementaritySolve.jl) — complementarity problems with ChainRules-compatible gradients
+  - [ParallelParticleSwarms.jl](https://github.com/SciML/ParallelParticleSwarms.jl) — GPU-accelerated particle swarm optimization
+
+The full list of SciML repositories and where each one is documented is in the
+[Package Index](@ref package_index).
 
 # Third-Party Libraries to Note
 

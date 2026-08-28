@@ -13,6 +13,7 @@ docsmodules = [
         "Modeling Languages" => [
             "ModelingToolkit", "Catalyst", "NBodySimulator",
             "ParameterizedFunctions",
+            "ProcessSimulator", "MomentClosure",
         ],
         "Model Libraries and Importers" => [
             "ModelingToolkitStandardLibrary",
@@ -22,10 +23,16 @@ docsmodules = [
             "CellMLToolkit", "SBMLToolkit",
             "BaseModelica",
             "ReactionNetworkImporters",
+            "DiffEqPhysics", "DiffEqFinancial",
+            "PubChem", "Pyomo", "MathML",
         ],
-        "Symbolic Tools" => ["ModelOrderReduction", "Symbolics", "SymbolicUtils", "SymbolicIntegration", "SymbolicSMT", "SymbolicLimits", "SymbolicAnalysis"], #="MetaTheory"=#
+        "Symbolic Tools" => [
+            "ModelOrderReduction", "Symbolics", "SymbolicUtils",
+            "SymbolicIntegration", "SymbolicSMT", "SymbolicLimits",
+            "SymbolicAnalysis", "FunctionProperties",
+        ], #="MetaTheory"=#
         #=
-        "Third-Party Modeling Tools" => ["MomentClosure", "Agents", "Unitful",
+        "Third-Party Modeling Tools" => ["Agents", "Unitful",
             "ReactionMechanismSimulator",
             "AlgebraicPetri"],
         =#
@@ -39,6 +46,7 @@ docsmodules = [
         "Equation Solvers" => [
             "LinearSolve", "NonlinearSolve", "DiffEqDocs", "Integrals",
             "DifferenceEquations", "Optimization", "JumpProcesses", "LineSearch",
+            "Evolutionary", "NeuralLinearSolve", "Corleone",
         ],
         #=
         "Third-Party Equation Solvers" => [
@@ -65,14 +73,23 @@ docsmodules = [
             "VoronoiFVM",
         ],
         =#
-        "Advanced Solver APIs" => ["OrdinaryDiffEq", "BoundaryValueDiffEq", "DiffEqGPU"],
+        "Advanced Solver APIs" => [
+            "OrdinaryDiffEq", "BoundaryValueDiffEq", "DiffEqGPU",
+            "SteadyStateDiffEq", "OrdinaryDiffEqOperatorSplitting",
+            "IRKGaussLegendre", "MATLABDiffEq", "QuantumNLDiffEq",
+        ],
     ],
     "Analysis" => [
         #= "Plots and Visualization" => ["Makie"], #="PlotDocs",=# =#
-        "Parameter Analysis" => ["EasyModelAnalysis", "GlobalSensitivity", "StructuralIdentifiability"],
+        "Parameter Analysis" => [
+            "EasyModelAnalysis", "GlobalSensitivity", "StructuralIdentifiability",
+            "MinimallyDisruptiveCurves", "CatalystNetworkAnalysis",
+        ],
         "Third-Party Parameter Analysis" => ["BifurcationKit"],
         #= "DynamicalSystems", "ControlSystems", "ReachabilityAnalysis"], =#
-        "Uncertainty Quantification" => ["PolyChaos", "SciMLExpectations"],
+        "Uncertainty Quantification" => [
+            "PolyChaos", "SciMLExpectations", "OptimalUncertaintyQuantification",
+        ],
         #=
         "Third-Party Uncertainty Quantification" => ["Measurements",
             "MonteCarloMeasurements",
@@ -98,6 +115,11 @@ docsmodules = [
             "PreallocationTools", "EllipsisNotation", "DataInterpolations", "DataInterpolationsND",
             "PoissonRandom", "QuasiMonteCarlo", "RuntimeGeneratedFunctions", "MuladdMacro", "FindFirstFunctions",
             "SparseDiffTools", "BipartiteGraphs",
+            "FastAlmostBandedMatrices", "FastBroadcast", "FunctionWrappersWrappers",
+            "LHLFactorization", "LightweightStats",
+            "PureGebal", "PureKLU", "PureUMFPACK",
+            "RootedTrees", "SparseBandedMatrices", "RespecializeParams",
+            "ConcreteStructs",
         ],
         #=
         "Third-Party Numerical Utilities" => ["FFTW", "Distributions",
@@ -114,11 +136,15 @@ docsmodules = [
             "SciMLOperators",
             "SurrogatesBase",
             "CommonSolve",
+            "SciMLIterators",
+            "Static",
         ],
         "Third-Party Interfaces" => ["ArrayInterface", "StaticArrayInterface" #= "AbstractFFTs",
             "GPUArrays", #= "Adapt", =#
             "Tables" =#],                                 #= "RecipesBase", =#
-        "Developer Documentation" => ["SciMLStyle", "ColPrac", "DiffEqDevDocs"],
+        "Developer Documentation" => [
+            "SciMLStyle", "ColPrac", "DiffEqDevDocs", "OrgMaintenanceScripts",
+        ],
         "Extra Resources" => [
             "SciMLWorkshop",
             "SciMLTutorialsOutput",
@@ -149,7 +175,6 @@ external_urls = Dict(
     "FractionalDiffEq" => "https://github.com/SciFracX/FractionalDiffEq.jl",
     "Agents" => "https://github.com/JuliaDynamics/Agents.jl",
     "LowRankIntegrators" => "https://github.com/FHoltorf/LowRankIntegrators.jl",
-    "MomentClosure" => "https://github.com/augustinas1/MomentClosure.jl",
     "Trixi" => "https://github.com/trixi-framework/Trixi.jl",
     "Gridap" => "https://github.com/gridap/Gridap.jl",
     "Ferrite" => "https://github.com/Ferrite-FEM/Ferrite.jl",
@@ -192,7 +217,6 @@ external_urls = Dict(
     "Tables" => "https://github.com/JuliaData/Tables.jl",
     "Unitful" => "https://github.com/PainterQubits/Unitful.jl",
     "ReactionMechanismSimulator" => "https://github.com/ReactionMechanismGenerator/ReactionMechanismSimulator.jl",
-    "FiniteStateProjection" => "https://github.com/kaandocal/FiniteStateProjection.jl",
     "AlgebraicPetri" => "https://github.com/AlgebraicJulia/AlgebraicPetri.jl"
 )
 

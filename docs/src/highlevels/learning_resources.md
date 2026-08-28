@@ -24,6 +24,28 @@ It contains a walkthrough of many of the methods implemented in the SciML librar
 of the functionality at a deeper level. This course was intended for MIT graduate students in engineering, computer science,
 and mathematics and thus may have a high prerequisite requirement than many other resources.
 
+## Scientific Modeling Cheatsheet
+
+The [Scientific Modeling Cheatsheet](https://github.com/SciML/Scientific_Modeling_Cheatsheet)
+is a MATLAB / Python / Julia quick reference for common scientific-modeling tasks.
+
+## Workshops
+
+Workshop materials in the SciML organization include:
+
+  - [SciMLWorkshop.jl](https://github.com/SciML/SciMLWorkshop.jl)
+  - [ModelingToolkitCourse](https://github.com/SciML/ModelingToolkitCourse)
+  - [2025 JuliaCon DifferentialEquations Workshop](https://github.com/SciML/2025-JuliaCon-DifferentialEquations-Workshop)
+  - [ModelingToolkit workshop at JuliaCon 2024](https://github.com/SciML/ModelingToolkitWorkshop_JuliaCon2024)
+  - [Geilo Inverse Problem Workshop](https://github.com/SciML/GeiloInverseProblemWorkshop)
+  - [Julia Modeling Workshop](https://github.com/SciML/Julia_Modeling_Workshop)
+
+## Language bindings
+
+  - [diffeqpy](https://github.com/SciML/diffeqpy) — DifferentialEquations.jl from Python
+  - [diffeqr](https://github.com/SciML/diffeqr) — DifferentialEquations.jl from R
+  - [juliatorch](https://github.com/SciML/juliatorch) — Julia functions as PyTorch autograd functions
+
 ## sir-julia: Various implementations of the classical SIR model in Julia
 
 For those who like to learn by example, the repository [sir-julia](https://github.com/epirecipes/sir-julia) is a great

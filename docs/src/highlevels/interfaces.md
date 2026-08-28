@@ -29,6 +29,43 @@ equation solvers. It's defined as an extremely lightweight library so that other
 ecosystems can build on the same `solve` definition without clashing with SciML
 when both export.
 
+## SciMLStructures.jl: Queryable Parameter and User-Data Layouts
+
+[SciMLStructures.jl](https://github.com/SciML/SciMLStructures.jl) defines how solvers and
+estimation tools read and write fields of user parameter objects without depending on a
+single concrete type.
+
+## SciMLLogging.jl: Verbosity Control
+
+[SciMLLogging.jl](https://github.com/SciML/SciMLLogging.jl) is the shared verbosity and
+logging system for SciML solvers.
+
+## ADTypes.jl: Automatic Differentiation Backend Types
+
+[ADTypes.jl](https://github.com/SciML/ADTypes.jl) is a multi-valued choice of automatic
+differentiation backend and its options, used across SciML and JuliaDiff.
+
+## SymbolicIndexingInterface.jl: Symbolic Indexing of SciML Objects
+
+[SymbolicIndexingInterface.jl](https://github.com/SciML/SymbolicIndexingInterface.jl)
+is the interface for indexing solutions, integrators, and problems by symbolic variables
+defined in DSLs such as ModelingToolkit and Catalyst.
+
+## SurrogatesBase.jl: Surrogate Model API
+
+[SurrogatesBase.jl](https://github.com/SciML/SurrogatesBase.jl) is the shared API for
+deterministic and stochastic surrogates used by Surrogates.jl.
+
+## SciMLIterators.jl: Iterators over Solutions and Integrators
+
+[SciMLIterators.jl](https://github.com/SciML/SciMLIterators.jl) provides convenience
+iterators for stepping through SciML solutions and integrators.
+
+## SciMLPublic.jl: The `@public` Compatibility Shim
+
+[SciMLPublic.jl](https://github.com/SciML/SciMLPublic.jl) backports Julia 1.11's `public`
+keyword so packages can mark API as public without exporting it.
+
 ## Static.jl: A Shared Interface for Static Compile-Time Computation
 
 [Static.jl](https://github.com/SciML/Static.jl) is a set of statically parameterized types

@@ -45,3 +45,46 @@ There are several hundred biological models available in the
 [ReactionNetworkImporters.jl](https://github.com/SciML/ReactionNetworkImporters.jl) is a library
 for reading [BioNetGen .net files](https://bionetgen.org/) and various stoichiometry matrix representations
 into the standard formats for Catalyst.jl and ModelingToolkit.jl.
+
+## ModelingToolkitNeuralNets.jl: Neural Network Blocks in Acausal Models
+
+[ModelingToolkitNeuralNets.jl](https://github.com/SciML/ModelingToolkitNeuralNets.jl) provides
+neural-network components in the style of ModelingToolkitStandardLibrary, so a universal
+differential equation can be wired into part of an `ODESystem` through `RealInputArray` /
+`RealOutputArray` connectors.
+
+## BaseModelica.jl: Base Modelica Import
+
+[BaseModelica.jl](https://github.com/SciML/BaseModelica.jl) parses Base Modelica models into
+Julia objects and converts them to ModelingToolkit systems.
+
+## DiffEqPhysics.jl: Hamiltonian and Physics-Based Problem Constructors
+
+[DiffEqPhysics.jl](https://github.com/SciML/DiffEqPhysics.jl) builds differential-equation
+problems from physical descriptions such as Hamiltonians, for use with the DiffEq solvers.
+
+## DiffEqFinancial.jl: Financial Models
+
+The goal of [DiffEqFinancial.jl](https://github.com/SciML/DiffEqFinancial.jl/) is to be a feature-complete set
+of models for the types of problems found in libraries like QuantLib, such as the Heston process or the
+Black-Scholes model.
+
+## PubChem.jl and PubChemReactions.jl: Chemical Data Import
+
+[PubChem.jl](https://github.com/SciML/PubChem.jl) attaches PubChem metadata to Catalyst species.
+[PubChemReactions.jl](https://github.com/SciML/PubChemReactions.jl) generates reaction networks
+from PubChem data.
+
+## Pyomo.jl: Pyomo via Symbolics.jl
+
+[Pyomo.jl](https://github.com/SciML/Pyomo.jl) is a Julia interface to Pyomo that builds
+expressions through Symbolics.jl, so nonlinear optimization and DAE models defined in Pyomo
+can interoperate with the Julia symbolic stack.
+
+## MathML.jl: MathML Parser
+
+[MathML.jl](https://github.com/SciML/MathML.jl) parses MathML into Symbolics.jl expressions.
+
+## CasADi.jl: CasADi Interface
+
+[CasADi.jl](https://github.com/SciML/CasADi.jl) is a Julia interface to CasADi via PythonCall.

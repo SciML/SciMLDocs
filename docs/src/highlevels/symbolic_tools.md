@@ -35,3 +35,20 @@ library and rule-based rewriting language on which Symbolics.jl is developed. Sy
 standardized type and rule definitions built using SymbolicUtils.jl. However, if non-standard
 types are required, such as [symbolic computing over Fock algebras](https://github.com/qojulia/QuantumCumulants.jl),
 then SymbolicUtils.jl is the library from which the new symbolic types can be implemented.
+
+## SymbolicAnalysis.jl: Function Property Propagation for Optimization
+
+[SymbolicAnalysis.jl](https://github.com/SciML/SymbolicAnalysis.jl) implements disciplined
+programming on Symbolics.jl expressions, propagating convexity and related properties for
+optimization.
+
+## SymbolicLimits.jl: Symbolic Limits
+
+[SymbolicLimits.jl](https://github.com/SciML/SymbolicLimits.jl) computes symbolic limits,
+including a reduction used for zero-equivalence of log-exp functions.
+
+## FunctionProperties.jl: Compiler-Facing Function Queries
+
+[FunctionProperties.jl](https://github.com/SciML/FunctionProperties.jl) answers questions
+about Julia functions that the symbolic-numeric compilers need, for example whether `f`
+contains branches that would block a given AD or simplification path.
