@@ -20,30 +20,26 @@ concurrency:
 jobs:
   docs:
     name: "Build Documentation"
+    if: github.event_name != 'schedule'
     runs-on: [self-hosted, Linux, X64, gpu]
     timeout-minutes: 2000
     env:
       DATADEPS_ALWAYS_ACCEPT: true
       JULIA_DEBUG: "Documenter"
-      JULIA_PKG_SERVER: ""
+      JULIA_NUM_PRECOMPILE_TASKS: 2
     steps:
       - uses: actions/checkout@v7
       - uses: julia-actions/setup-julia@v3
         with:
           version: "1.11"
-      - name: "Build Documentation"
+      - uses: julia-actions/cache@v3
+      - name: "Instantiate documentation environment"
         run: |
           git remote set-branches origin 'gh-pages'
           git fetch --depth=1 origin gh-pages
-          julia --project -e '
-            println("--- Instantiating project")
-            using Pkg
-            Pkg.instantiate()
-            Pkg.activate("docs")
-            Pkg.instantiate()
-            push!(LOAD_PATH, @__DIR__)
-            println("+++ Building documentation")
-            include("docs/make.jl")'
+          julia --project=docs -e 'using Pkg; Pkg.instantiate()'
+      - name: "Build Documentation"
+        run: julia --project=docs docs/make.jl
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
@@ -52,18 +48,17 @@ jobs:
     name: "Build and Deploy Aggregate Documentation"
     runs-on: [self-hosted, Linux, X64, gpu]
     timeout-minutes: 2000
-    env:
-      JULIA_PKG_SERVER: ""
     steps:
       - uses: actions/checkout@v7
       - uses: julia-actions/setup-julia@v3
         with:
           version: "1.11"
+      - uses: julia-actions/cache@v3
       - name: "Build Aggregate Documentation"
         run: |
           julia --version
-          julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
-          julia --project=docs/ docs/make_aggregate.jl
+          julia --project=docs/aggregate -e 'using Pkg; Pkg.instantiate()'
+          julia --project=docs/aggregate docs/make_aggregate.jl
         env:
           DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
       - name: "Prune broken symlinks"

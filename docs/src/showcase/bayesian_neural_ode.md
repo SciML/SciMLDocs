@@ -67,6 +67,7 @@ dudt2 = Lux.Chain(
 )
 
 rng = Random.default_rng()
+Random.seed!(rng, 100)
 p, st = Lux.setup(rng, dudt2)
 const _st = st
 function neuralodefunc(u, p, t)
@@ -118,13 +119,17 @@ h = AdvancedHMC.Hamiltonian(metric, l, dldθ)
 
 We use the NUTS sampler with an acceptance ratio of δ= 0.45 in this example. In addition, we use Nesterov Dual Averaging for the Step Size adaptation.
 
-We sample using 500 warmup samples and 500 posterior samples.
+We use 50 warmup samples and 50 posterior samples so that the executable tutorial remains
+tractable. For an inference result, increase both counts and verify convergence with the
+diagnostics below.
 
 ```@example bnode
 integrator = AdvancedHMC.Leapfrog(AdvancedHMC.find_good_stepsize(h, p))
 kernel = AdvancedHMC.HMCKernel(AdvancedHMC.Trajectory{AdvancedHMC.MultinomialTS}(integrator, AdvancedHMC.GeneralisedNoUTurn()))
 adaptor = AdvancedHMC.StanHMCAdaptor(AdvancedHMC.MassMatrixAdaptor(metric), AdvancedHMC.StepSizeAdaptor(0.45, integrator))
-samples, stats = AdvancedHMC.sample(h, kernel, p, 500, adaptor, 500; progress = true)
+n_samples = 50
+n_adapts = 50
+samples, stats = AdvancedHMC.sample(h, kernel, p, n_samples, adaptor, n_adapts; progress = true)
 ```
 
 ## Step 5: Plot diagnostics
@@ -136,7 +141,7 @@ recipes from ????
 ```@example bnode
 samples = hcat(samples...)
 samples_reduced = samples[1:5, :]
-samples_reshape = reshape(samples_reduced, (500, 5, 1))
+samples_reshape = reshape(permutedims(samples_reduced), (n_samples, 5, 1))
 Chain_Spiral = MCMCChains.Chains(samples_reshape)
 Plots.plot(Chain_Spiral)
 ```
@@ -157,8 +162,9 @@ pl = Plots.scatter(
     title = "Spiral Neural ODE"
 )
 Plots.scatter!(tsteps, ode_data[2, :], color = :blue, label = "Data: Var2")
-for k in 1:300
-    resol = predict_neuralode(samples[:, 100:end][:, rand(1:400)])
+posterior_samples = @view samples[:, max(1, n_samples ÷ 5):end]
+for _ in 1:min(30, size(posterior_samples, 2))
+    resol = predict_neuralode(posterior_samples[:, rand(axes(posterior_samples, 2))])
     Plots.plot!(tsteps, resol[1, :], alpha = 0.04, color = :red, label = "")
     Plots.plot!(tsteps, resol[2, :], alpha = 0.04, color = :blue, label = "")
 end
@@ -180,8 +186,8 @@ pl = Plots.scatter(
     ode_data[1, :], ode_data[2, :], color = :red, label = "Data", xlabel = "Var1",
     ylabel = "Var2", title = "Spiral Neural ODE"
 )
-for k in 1:300
-    resol = predict_neuralode(samples[:, 100:end][:, rand(1:400)])
+for _ in 1:min(30, size(posterior_samples, 2))
+    resol = predict_neuralode(posterior_samples[:, rand(axes(posterior_samples, 2))])
     Plots.plot!(resol[1, :], resol[2, :], alpha = 0.04, color = :red, label = "")
 end
 Plots.plot!(
