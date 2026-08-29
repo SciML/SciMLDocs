@@ -29,12 +29,12 @@ PRODUCTNAME_IMAGE_LINK = [
 function MultiDocumenter.render(c::ProductsUsedComponent, doc, thispage, prettyurls)
     strings = [
         MultiDocumenter.@htl """
-            <li>
-                <a href=$(product.link) class="nav-link nav-item">
-                    $(product.product)
-                </a>
-            </li>
-            """ for product in PRODUCTNAME_IMAGE_LINK
+        <li>
+            <a href=$(product.link) class="nav-link nav-item">
+                $(product.product)
+            </a>
+        </li>
+        """ for product in PRODUCTNAME_IMAGE_LINK
     ]
 
     return MultiDocumenter.@htl """
