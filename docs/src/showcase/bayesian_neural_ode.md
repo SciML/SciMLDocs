@@ -119,16 +119,14 @@ h = AdvancedHMC.Hamiltonian(metric, l, dldθ)
 
 We use the NUTS sampler with an acceptance ratio of δ= 0.45 in this example. In addition, we use Nesterov Dual Averaging for the Step Size adaptation.
 
-We use 50 warmup samples and 50 posterior samples so that the executable tutorial remains
-tractable. For an inference result, increase both counts and verify convergence with the
-diagnostics below.
+We sample using 500 warmup samples and 500 posterior samples.
 
 ```@example bnode
 integrator = AdvancedHMC.Leapfrog(AdvancedHMC.find_good_stepsize(h, p))
 kernel = AdvancedHMC.HMCKernel(AdvancedHMC.Trajectory{AdvancedHMC.MultinomialTS}(integrator, AdvancedHMC.GeneralisedNoUTurn()))
 adaptor = AdvancedHMC.StanHMCAdaptor(AdvancedHMC.MassMatrixAdaptor(metric), AdvancedHMC.StepSizeAdaptor(0.45, integrator))
-n_samples = 50
-n_adapts = 50
+n_samples = 500
+n_adapts = 500
 samples, stats = AdvancedHMC.sample(h, kernel, p, n_samples, adaptor, n_adapts; progress = true)
 ```
 
