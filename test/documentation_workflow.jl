@@ -15,7 +15,7 @@
     @test aggregate_job !== nothing
     if aggregate_job !== nothing
         @test occursin(
-            "runs-on: [self-hosted, Linux, X64, high-memory]",
+            "runs-on: [self-hosted, Linux, X64, gpu, high-memory]",
             aggregate_job.match,
         )
     end
