@@ -10,6 +10,15 @@
     end
     @test occursin("--project=docs/aggregate", workflow)
     @test occursin("if: github.event_name != 'schedule'", workflow)
+
+    aggregate_job = match(r"(?ms)^  aggregate:.*?(?=^  \w+:|\z)", workflow)
+    @test aggregate_job !== nothing
+    if aggregate_job !== nothing
+        @test occursin(
+            "runs-on: [self-hosted, Linux, X64, high-memory]",
+            aggregate_job.match,
+        )
+    end
 end
 
 @testset "Executable documentation workload" begin

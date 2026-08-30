@@ -46,7 +46,7 @@ jobs:
 
   aggregate:
     name: "Build and Deploy Aggregate Documentation"
-    runs-on: [self-hosted, Linux, X64, gpu]
+    runs-on: [self-hosted, Linux, X64, high-memory]
     timeout-minutes: 2000
     steps:
       - uses: actions/checkout@v7
