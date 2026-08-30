@@ -20,8 +20,7 @@ concurrency:
 jobs:
   docs:
     name: "Build Documentation"
-    if: github.event_name != 'schedule'
-    runs-on: [self-hosted, Linux, X64, gpu]
+    runs-on: [self-hosted, Linux, X64, gpu, high-memory]
     timeout-minutes: 2000
     env:
       DATADEPS_ALWAYS_ACCEPT: true
