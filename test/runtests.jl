@@ -9,4 +9,3 @@ using TOML
 end
 
 include("package_coverage.jl")
-include("documentation_workflow.jl")
