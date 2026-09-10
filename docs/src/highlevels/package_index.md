@@ -118,6 +118,7 @@ for those docs rather than a second copy in the navigation bar.
 
 | Package | Where | Summary |
 | --- | --- | --- |
+| [AudioPlugins.jl](https://github.com/SciML/AudioPlugins.jl) | Navigation → Model Libraries and Importers | Headless hosting of CLAP and LV2 audio plugins behind a C ABI. |
 | [BaseModelica.jl](https://github.com/SciML/BaseModelica.jl) | Navigation → Model Libraries and Importers | Base Modelica importer for ModelingToolkit. |
 | [CellMLToolkit.jl](https://github.com/SciML/CellMLToolkit.jl) | Navigation → Model Libraries and Importers | CellML importer for ModelingToolkit. |
 | [DiffEqCallbacks.jl](https://github.com/SciML/DiffEqCallbacks.jl) | Navigation → Model Libraries and Importers | Premade callbacks for hybrid differential-equation models. |

@@ -21,7 +21,7 @@ docsmodules = [
             "DiffEqCallbacks",
             "FiniteStateProjection",
             "CellMLToolkit", "SBMLToolkit",
-            "BaseModelica",
+            "BaseModelica", "AudioPlugins",
             "ReactionNetworkImporters",
             "DiffEqPhysics", "DiffEqFinancial",
             "PubChem", "Pyomo", "MathML",

@@ -302,6 +302,12 @@ category = "Inverse Problems / Estimation"
 blurb = "Local sensitivity, adjoints, and AD of solvers."
 dropdown = "SciMLSensitivity"
 
+[packages."AudioPlugins.jl"]
+placement = "dropdown"
+category = "Model Libraries and Importers"
+blurb = "Headless hosting of CLAP and LV2 audio plugins behind a C ABI."
+dropdown = "AudioPlugins"
+
 [packages."BaseModelica.jl"]
 placement = "dropdown"
 category = "Model Libraries and Importers"
