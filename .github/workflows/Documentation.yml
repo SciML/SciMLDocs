@@ -1,10 +1,13 @@
 name: "Documentation"
 
 on:
-  # Rebuild every 6 hours so downstream package gh-pages updates propagate to docs.sciml.ai
+  # Rebuild daily so downstream package gh-pages updates propagate to docs.sciml.ai
   # (restores the scheduled deploy that Buildkite ran before the 2026-03 GHA migration).
+  # Daily (not every 6h): the full+aggregate build takes >6h, so a 6h schedule
+  # guarantees overlap. With cancel-in-progress enabled for main, each new
+  # schedule cancelled the previous build and nothing ever finished.
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: '0 0 * * *'
   workflow_dispatch:
   pull_request:
     branches:
@@ -15,7 +18,10 @@ on:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: ${{ github.ref_name != github.event.repository.default_branch || github.ref != 'refs/tags/v*' }}
+  # Only cancel PR runs. The previous `|| github.ref != 'refs/tags/v*'` was
+  # always true (`v*` is a literal, not a glob), so every schedule cancelled
+  # the in-progress main build and docs.sciml.ai never deployed.
+  cancel-in-progress: ${{ github.ref_name != github.event.repository.default_branch && github.ref_type != 'tag' }}
 
 jobs:
   docs:
