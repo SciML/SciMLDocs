@@ -16,12 +16,11 @@ For this example, we will need the following libraries:
 
 ```@example bnode
 # SciML Libraries
-import SciMLSensitivity as SMS
 import OrdinaryDiffEq as ODE
 
 # ML Tools
 import Lux
-import Zygote
+import ForwardDiff
 
 # External Tools
 import Random
@@ -86,7 +85,8 @@ Note that the `f64` is required to put the Lux neural network into Float64 preci
 
 ```@example bnode
 function predict_neuralode(p)
-    p = p isa ComponentArrays.ComponentArray ? p : convert(typeof(_p), p)
+    p = p isa ComponentArrays.ComponentArray ? p :
+        ComponentArrays.ComponentArray(p, ComponentArrays.getaxes(_p))
     return Array(prob_neuralode(u0, p))
 end
 function loss_neuralode(p)
@@ -100,17 +100,13 @@ end
 
 The AdvancedHMC interface requires us to specify: (a) the Hamiltonian log density and its gradient , (b) the sampler and (c) the step size adaptor function.
 
-For the Hamiltonian log density, we use the loss function. The θ*θ term denotes the use of Gaussian priors.
+For the Hamiltonian log density, we use the loss function. The θ*θ term denotes the use of Gaussian priors. The gradient is computed with forward-mode automatic differentiation: with only a few hundred parameters and a two-state ODE, `ForwardDiff` through the solver is several times cheaper per gradient than a reverse-mode adjoint.
 
 The user can make several modifications to Step 4. The user can try different acceptance ratios, warmup samples and posterior samples. One can also use the Variational Inference (ADVI) framework, which doesn't work quite as well as NUTS. The SGLD (Stochastic Gradient Langevin Descent) sampler is seen to have a better performance than NUTS. Have a look at https://sebastiancallh.github.io/post/langevin/ for a brief introduction to SGLD.
 
 ```@example bnode
 l(θ) = -sum(abs2, ode_data .- predict_neuralode(θ)) - sum(θ .* θ)
-function dldθ(θ)
-    x, lambda = Zygote.pullback(l, θ)
-    grad = first(lambda(1))
-    return x, grad
-end
+dldθ(θ) = (l(θ), ForwardDiff.gradient(l, θ))
 
 metric = AdvancedHMC.DiagEuclideanMetric(oneunit.(p))
 h = AdvancedHMC.Hamiltonian(metric, l, dldθ)
@@ -118,13 +114,13 @@ h = AdvancedHMC.Hamiltonian(metric, l, dldθ)
 
 We use the NUTS sampler with an acceptance ratio of δ= 0.45 in this example. In addition, we use Nesterov Dual Averaging for the Step Size adaptation.
 
-We sample using 500 warmup samples and 500 posterior samples.
+We run 500 iterations in total: the first 200 are warmup (adaptation) steps, and `drop_warmup = true` discards them so that `samples` contains only the 300 posterior draws from the adapted chain.
 
 ```@example bnode
 integrator = AdvancedHMC.Leapfrog(AdvancedHMC.find_good_stepsize(h, p))
 kernel = AdvancedHMC.HMCKernel(AdvancedHMC.Trajectory{AdvancedHMC.MultinomialTS}(integrator, AdvancedHMC.GeneralisedNoUTurn()))
 adaptor = AdvancedHMC.StanHMCAdaptor(AdvancedHMC.MassMatrixAdaptor(metric), AdvancedHMC.StepSizeAdaptor(0.45, integrator))
-samples, stats = AdvancedHMC.sample(h, kernel, p, 500, adaptor, 500; progress = true)
+samples, stats = AdvancedHMC.sample(h, kernel, p, 500, adaptor, 200; drop_warmup = true, progress = true)
 ```
 
 ## Step 5: Plot diagnostics
@@ -136,7 +132,7 @@ recipes from ????
 ```@example bnode
 samples = hcat(samples...)
 samples_reduced = samples[1:5, :]
-samples_reshape = reshape(samples_reduced, (500, 5, 1))
+samples_reshape = reshape(samples_reduced, (300, 5, 1))
 Chain_Spiral = MCMCChains.Chains(samples_reshape)
 Plots.plot(Chain_Spiral)
 ```
@@ -158,7 +154,7 @@ pl = Plots.scatter(
 )
 Plots.scatter!(tsteps, ode_data[2, :], color = :blue, label = "Data: Var2")
 for k in 1:300
-    resol = predict_neuralode(samples[:, 100:end][:, rand(1:400)])
+    resol = predict_neuralode(samples[:, rand(1:size(samples, 2))])
     Plots.plot!(tsteps, resol[1, :], alpha = 0.04, color = :red, label = "")
     Plots.plot!(tsteps, resol[2, :], alpha = 0.04, color = :blue, label = "")
 end
@@ -181,7 +177,7 @@ pl = Plots.scatter(
     ylabel = "Var2", title = "Spiral Neural ODE"
 )
 for k in 1:300
-    resol = predict_neuralode(samples[:, 100:end][:, rand(1:400)])
+    resol = predict_neuralode(samples[:, rand(1:size(samples, 2))])
     Plots.plot!(resol[1, :], resol[2, :], alpha = 0.04, color = :red, label = "")
 end
 Plots.plot!(
