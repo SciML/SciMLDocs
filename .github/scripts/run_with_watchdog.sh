@@ -6,9 +6,9 @@
 # cause gets recorded.
 set -uo pipefail
 
-interval=${WATCHDOG_INTERVAL_SEC:-60}
+interval=${WATCHDOG_INTERVAL_SEC:-15}
 min_disk_mb=${WATCHDOG_MIN_DISK_MB:-5120}
-mem_pct=${WATCHDOG_MEM_KILL_PCT:-95}
+mem_pct=${WATCHDOG_MEM_KILL_PCT:-90}
 paths=("$PWD" "${JULIA_DEPOT_PATH:-$HOME/.julia}" "${TMPDIR:-/tmp}")
 
 # echoes "anon file limit" in bytes. `anon` is unreclaimable memory and is what
@@ -31,11 +31,19 @@ avail_mb() { df -m --output=avail "$1" | tail -1 | tr -d ' '; }
 check() {
     local anon file limit line reason=""
     read -r anon file limit < <(mem_status)
+    local current=$((anon + file))
     if [ -z "$limit" ] || [ "$limit" = max ] || [ "$limit" -gt 1000000000000000 ]; then
         line="anon=$((anon / 1048576))MB file=$((file / 1048576))MB limit=unlimited"
     else
         line="anon=$((anon / 1048576))MB file=$((file / 1048576))MB limit=$((limit / 1048576))MB"
-        [ $((anon * 100)) -ge $((limit * mem_pct)) ] && reason="anonymous memory at ${mem_pct}% of cgroup limit"
+        # kill on real anon pressure, or on a pinned ceiling that is mostly not
+        # page cache - the kernel OOMs on current, and log lines are only a few
+        # seconds stale at this poll interval
+        if [ $((anon * 100)) -ge $((limit * mem_pct)) ]; then
+            reason="anonymous memory at ${mem_pct}% of cgroup limit"
+        elif [ $((current * 100)) -ge $((limit * 97)) ] && [ $((anon * 100)) -ge $((limit * 70)) ]; then
+            reason="memory pinned at 97% of cgroup limit and mostly not page cache"
+        fi
     fi
     for p in "${paths[@]}"; do
         [ -e "$p" ] || continue
