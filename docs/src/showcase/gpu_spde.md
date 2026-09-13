@@ -501,7 +501,7 @@ Now we just define and solve the system of SDEs:
 ```@example spde
 import StochasticDiffEq as SDE
 prob = SDE.SDEProblem(f, g, u0, (0.0, 100.0))
-@time sol = SDE.solve(prob, SDE.SRIW1());
+@time sol = SDE.solve(prob, SDE.SRIW1(); saveat = 0.5);
 ```
 
 ```@example spde
