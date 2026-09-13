@@ -6,18 +6,22 @@
 # cause gets recorded.
 set -uo pipefail
 
-interval=${WATCHDOG_INTERVAL_SEC:-60}
+interval=${WATCHDOG_INTERVAL_SEC:-15}
 min_disk_mb=${WATCHDOG_MIN_DISK_MB:-5120}
-mem_pct=${WATCHDOG_MEM_KILL_PCT:-95}
+mem_pct=${WATCHDOG_MEM_KILL_PCT:-90}
 paths=("$PWD" "${JULIA_DEPOT_PATH:-$HOME/.julia}" "${TMPDIR:-/tmp}")
 
+# echoes "anon file limit" in bytes. `anon` is unreclaimable memory and is what
+# actually trips a cgroup OOM; `file` is page cache, which the kernel reclaims.
 mem_status() {
-    if [ -r /sys/fs/cgroup/memory.max ]; then
-        echo "$(cat /sys/fs/cgroup/memory.current) $(cat /sys/fs/cgroup/memory.max)"
-    elif [ -r /sys/fs/cgroup/memory/memory.limit_in_bytes ]; then
-        echo "$(cat /sys/fs/cgroup/memory/memory.usage_in_bytes) $(cat /sys/fs/cgroup/memory/memory.limit_in_bytes)"
+    if [ -r /sys/fs/cgroup/memory.stat ]; then
+        local limit; limit=$(cat /sys/fs/cgroup/memory.max 2>/dev/null)
+        echo "$(awk '/^anon /{print $2; exit}' /sys/fs/cgroup/memory.stat) $(awk '/^file /{print $2; exit}' /sys/fs/cgroup/memory.stat) ${limit:-max}"
+    elif [ -r /sys/fs/cgroup/memory/memory.stat ]; then
+        local limit; limit=$(cat /sys/fs/cgroup/memory/memory.limit_in_bytes 2>/dev/null)
+        echo "$(awk '/^rss /{print $2; exit}' /sys/fs/cgroup/memory/memory.stat) $(awk '/^cache /{print $2; exit}' /sys/fs/cgroup/memory/memory.stat) ${limit:-max}"
     else
-        free -b | awk '/Mem:/{print $3, $2}'
+        free -b | awk '/Mem:/{print $3, 0, $2}'
     fi
 }
 
@@ -25,13 +29,21 @@ avail_mb() { df -m --output=avail "$1" | tail -1 | tr -d ' '; }
 
 # prints one status line; returns 1 if a kill threshold is crossed
 check() {
-    local used limit line reason=""
-    read -r used limit < <(mem_status)
-    if [ "$limit" = max ] || [ "$limit" -gt 1000000000000000 ]; then
-        line="mem=$((used / 1048576))MB/unlimited"
+    local anon file limit line reason=""
+    read -r anon file limit < <(mem_status)
+    local current=$((anon + file))
+    if [ -z "$limit" ] || [ "$limit" = max ] || [ "$limit" -gt 1000000000000000 ]; then
+        line="anon=$((anon / 1048576))MB file=$((file / 1048576))MB limit=unlimited"
     else
-        line="mem=$((used / 1048576))MB/$((limit / 1048576))MB"
-        [ $((used * 100)) -ge $((limit * mem_pct)) ] && reason="memory at ${mem_pct}% of cgroup limit"
+        line="anon=$((anon / 1048576))MB file=$((file / 1048576))MB limit=$((limit / 1048576))MB"
+        # kill on real anon pressure, or on a pinned ceiling that is mostly not
+        # page cache - the kernel OOMs on current, and log lines are only a few
+        # seconds stale at this poll interval
+        if [ $((anon * 100)) -ge $((limit * mem_pct)) ]; then
+            reason="anonymous memory at ${mem_pct}% of cgroup limit"
+        elif [ $((current * 100)) -ge $((limit * 97)) ] && [ $((anon * 100)) -ge $((limit * 70)) ]; then
+            reason="memory pinned at 97% of cgroup limit and mostly not page cache"
+        fi
     fi
     for p in "${paths[@]}"; do
         [ -e "$p" ] || continue
@@ -45,7 +57,7 @@ check() {
     return 1
 }
 
-echo "[watchdog] nproc=$(nproc) $(free -h | awk '/Mem:/{print "host_mem="$2}') cgroup_limit=$(mem_status | cut -d' ' -f2)"
+echo "[watchdog] nproc=$(nproc) $(free -h | awk '/Mem:/{print "host_mem="$2}') cgroup_limit=$(mem_status | cut -d' ' -f3)"
 df -h "${paths[@]}" 2>/dev/null
 
 "$@" &
