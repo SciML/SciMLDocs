@@ -26,7 +26,7 @@ concurrency:
 jobs:
   docs:
     name: "Build Documentation"
-    runs-on: [self-hosted, Linux, X64, gpu, high-memory]
+    runs-on: [self-hosted, Linux, X64, gpu]
     timeout-minutes: 2000
     env:
       DATADEPS_ALWAYS_ACCEPT: true
@@ -44,14 +44,14 @@ jobs:
           git fetch --depth=1 origin gh-pages
           julia --project=docs -e 'using Pkg; Pkg.instantiate()'
       - name: "Build Documentation"
-        run: julia --project=docs docs/make.jl
+        run: bash .github/scripts/run_with_watchdog.sh julia --project=docs docs/make.jl
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
 
   aggregate:
     name: "Build and Deploy Aggregate Documentation"
-    runs-on: [self-hosted, Linux, X64, gpu, high-memory]
+    runs-on: [self-hosted, Linux, X64, gpu]
     timeout-minutes: 2000
     steps:
       - uses: actions/checkout@v7
@@ -63,7 +63,7 @@ jobs:
         run: |
           julia --version
           julia --project=docs/aggregate -e 'using Pkg; Pkg.instantiate()'
-          julia --project=docs/aggregate docs/make_aggregate.jl
+          bash .github/scripts/run_with_watchdog.sh julia --project=docs/aggregate docs/make_aggregate.jl
         env:
           DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
       - name: "Prune broken symlinks"
