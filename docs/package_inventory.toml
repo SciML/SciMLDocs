@@ -778,11 +778,6 @@ placement = "overview"
 category = "Equation Solvers"
 blurb = "GPU-accelerated particle-swarm optimization."
 
-[packages."SpatialBranchAndBound.jl"]
-placement = "overview"
-category = "Equation Solvers"
-blurb = "Spatial branch-and-bound."
-
 [packages."YOLOWeights.jl"]
 placement = "overview"
 category = "Function Approximation"
@@ -837,11 +832,6 @@ blurb = "Bang-bang macros that pick in-place vs out-of-place by array mutability
 placement = "overview"
 category = "Numerical Utilities"
 blurb = "Stacks with `reset!` that avoid GC in solver internals."
-
-[packages."SIMDRK.jl"]
-placement = "overview"
-category = "Numerical Utilities"
-blurb = "Generation of SIMD-compatible Runge–Kutta tableaus."
 
 [packages."SimpleNorm.jl"]
 placement = "overview"
@@ -952,26 +942,6 @@ blurb = "Wrap Julia functions as PyTorch autograd functions."
 placement = "infra"
 category = "Infrastructure"
 blurb = "Organization-wide GitHub Actions and metadata."
-
-[packages."demo-repository"]
-placement = "infra"
-category = "Infrastructure"
-blurb = "GitHub demo repository, not a SciML package."
-
-[packages."LinearSolveAutotuneResults.jl"]
-placement = "infra"
-category = "Infrastructure"
-blurb = "Stored LinearSolve autotune results, not a solver package."
-
-[packages."ModelDiscovery.jl"]
-placement = "infra"
-category = "Infrastructure"
-blurb = "Empty placeholder repository."
-
-[packages."OptimalUncertaintyQuantification-DEV.jl"]
-placement = "infra"
-category = "Infrastructure"
-blurb = "Development duplicate of OptimalUncertaintyQuantification.jl."
 
 [packages."PropertyModels.jl"]
 placement = "infra"

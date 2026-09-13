@@ -252,7 +252,6 @@ for those docs rather than a second copy in the navigation bar.
 | [BlackBoxOptim.jl](https://github.com/SciML/BlackBoxOptim.jl) | Overview pages | Derivative-free global/black-box optimization (OptimizationBBO). |
 | [ComplementaritySolve.jl](https://github.com/SciML/ComplementaritySolve.jl) | Overview pages | Complementarity problems with ChainRules-compatible gradients. |
 | [ParallelParticleSwarms.jl](https://github.com/SciML/ParallelParticleSwarms.jl) | Overview pages | GPU-accelerated particle-swarm optimization. |
-| [SpatialBranchAndBound.jl](https://github.com/SciML/SpatialBranchAndBound.jl) | Overview pages | Spatial branch-and-bound. |
 
 ### Function Approximation
 
@@ -284,7 +283,6 @@ for those docs rather than a second copy in the navigation bar.
 | [FastPower.jl](https://github.com/SciML/FastPower.jl) | Overview pages | Faster, slightly less accurate floating-point power. |
 | [MaybeInplace.jl](https://github.com/SciML/MaybeInplace.jl) | Overview pages | Bang-bang macros that pick in-place vs out-of-place by array mutability. |
 | [ResettableStacks.jl](https://github.com/SciML/ResettableStacks.jl) | Overview pages | Stacks with `reset!` that avoid GC in solver internals. |
-| [SIMDRK.jl](https://github.com/SciML/SIMDRK.jl) | Overview pages | Generation of SIMD-compatible Runge–Kutta tableaus. |
 | [SimpleNorm.jl](https://github.com/SciML/SimpleNorm.jl) | Overview pages | `norm` without a LinearAlgebra/BLAS dependency. |
 | [SparseColumnPivotedQR.jl](https://github.com/SciML/SparseColumnPivotedQR.jl) | Overview pages | Rank-revealing column-pivoted Householder QR for SparseMatrixCSR. |
 | [SparseMatrixIdentification.jl](https://github.com/SciML/SparseMatrixIdentification.jl) | Overview pages | Sparse matrix structure identification. |
@@ -341,10 +339,6 @@ for those docs rather than a second copy in the navigation bar.
 | Package | Where | Summary |
 | --- | --- | --- |
 | [.github](https://github.com/SciML/.github) | Not documented as a package | Organization-wide GitHub Actions and metadata. |
-| [demo-repository](https://github.com/SciML/demo-repository) | Not documented as a package | GitHub demo repository, not a SciML package. |
-| [LinearSolveAutotuneResults.jl](https://github.com/SciML/LinearSolveAutotuneResults.jl) | Not documented as a package | Stored LinearSolve autotune results, not a solver package. |
-| [ModelDiscovery.jl](https://github.com/SciML/ModelDiscovery.jl) | Not documented as a package | Empty placeholder repository. |
-| [OptimalUncertaintyQuantification-DEV.jl](https://github.com/SciML/OptimalUncertaintyQuantification-DEV.jl) | Not documented as a package | Development duplicate of OptimalUncertaintyQuantification.jl. |
 | [PropertyModels.jl](https://github.com/SciML/PropertyModels.jl) | Not documented as a package | Empty placeholder repository. |
 | [sciml.ai](https://github.com/SciML/sciml.ai) | Not documented as a package | Organization website. |
 | [SciMLAssets](https://github.com/SciML/SciMLAssets) | Not documented as a package | Shared website/assets. |
