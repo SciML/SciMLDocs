@@ -196,11 +196,11 @@ import OrdinaryDiffEq as ODE
 import OrdinaryDiffEqStabilizedRK: ROCK2
 
 prob = ODE.ODEProblem(f, u0, (0.0, 100.0))
-@time sol = ODE.solve(prob, ROCK2());
+@time sol = ODE.solve(prob, ROCK2(); saveat = 0.5);
 ```
 
 ```@example spde
-@time sol = ODE.solve(prob, ROCK2());
+@time sol = ODE.solve(prob, ROCK2(); saveat = 0.5);
 ```
 
 if I want to solve it on ``t \in [0,100]``. Done! The solution gives back our tensors (and
