@@ -220,23 +220,15 @@ external_urls = Dict(
     "AlgebraicPetri" => "https://github.com/AlgebraicJulia/AlgebraicPetri.jl"
 )
 
-# The runner pods are evicted once their ephemeral storage grows past a few
-# tens of GiB, and `git clone --depth 1` of ~126 gh-pages branches lands ~54
-# GiB on disk between worktrees and .git packs, which is what gets the pod
-# killed mid-clone. Fetching a codeload tarball per repository and keeping
-# only the root files and the version directories each MultiDocRef selects
-# shrinks that to ~10 GiB and skips .git entirely; maybe_clone uses an
-# existing upstream directory as-is when it has no .git.
-function site_url(giturl)
-    m = match(r"^https://github\.com/([^/]+)/(.+?)(?:\.git)?$", giturl)
-    return m === nothing ? nothing : "https://$(lowercase(m[1])).github.io/$(m[2])/"
-end
-
+# Fetch each repository's documentation branch as a codeload tarball instead
+# of `git clone`: a --depth 1 clone of a gh-pages branch carries a .git pack
+# roughly the size of the exported site itself, so this halves the fetch's
+# disk and time. maybe_clone uses an existing upstream directory as-is when
+# it has no .git.
 function fetch_docs(ref::MultiDocumenter.MultiDocRef)
     (isempty(ref.giturl) || isdir(ref.upstream)) && return
     m = match(r"^https://github\.com/(.+?)(?:\.git)?$", ref.giturl)
     m === nothing && return
-    wanted = ref.versions === nothing ? nothing : Set(ref.versions.versions)
     mkpath(clonedir)
     tmp = mktempdir(clonedir)
     try
@@ -245,27 +237,12 @@ function fetch_docs(ref::MultiDocumenter.MultiDocRef)
         run(pipeline(`curl -fsSL --retry 3 $(tarball)`, `tar -xz -C $(tmp)`))
         src = only(readdir(tmp; join = true))
         mkpath(ref.upstream)
-        moved = String[]
         for entry in readdir(src)
             full = joinpath(src, entry)
-            (isfile(full) || wanted === nothing || entry in wanted) || continue
-            # stable is normally a symlink to a version directory; the link
-            # would dangle once the target is not kept, so dereference it
+            # gh-pages roots carry a `stable` symlink to a version directory;
+            # dereference so nothing in the copied tree can dangle
             real = islink(full) ? normpath(joinpath(src, readlink(full))) : full
-            ispath(real) || continue
-            dir = isdir(real)
-            mv(real, joinpath(ref.upstream, entry); force = true)
-            dir && push!(moved, entry)
-        end
-        # a selection that matched nothing upstream would leave the ref empty;
-        # keeping every directory degrades to what happens without a selection
-        if wanted !== nothing && isempty(moved)
-            for entry in readdir(src)
-                full = joinpath(src, entry)
-                isdir(full) || continue
-                real = islink(full) ? normpath(joinpath(src, readlink(full))) : full
-                ispath(real) && mv(real, joinpath(ref.upstream, entry); force = true)
-            end
+            ispath(real) && mv(real, joinpath(ref.upstream, entry); force = true)
         end
     catch e
         rm(ref.upstream; force = true, recursive = true)
@@ -282,11 +259,7 @@ home = MultiDocumenter.MultiDocRef(
     upstream = joinpath(clonedir, "Home"),
     path = "Overview",
     name = "Home",
-    giturl = "https://github.com/SciML/SciMLDocs.git",
-    versions = MultiDocumenter.VersionSelection(
-        ["Overview"];
-        all_versions_url = "https://docs.sciml.ai/"
-    )
+    giturl = "https://github.com/SciML/SciMLDocs.git"
 )
 docs = Any[home]
 refs = MultiDocumenter.MultiDocRef[home]
@@ -309,12 +282,7 @@ for group in docsmodules
                 name = mod in keys(fixnames) ? fixnames[mod] :
                     mod,
                 giturl = url,
-                branch = mod ∈ usemain ? "main" : "gh-pages",
-                versions = mod ∈ usemain ? nothing :
-                    MultiDocumenter.VersionSelection(
-                        ["stable", "dev"];
-                        all_versions_url = site_url(url)
-                    )
+                branch = mod ∈ usemain ? "main" : "gh-pages"
             )
             push!(docsites, ref)
             push!(refs, ref)
