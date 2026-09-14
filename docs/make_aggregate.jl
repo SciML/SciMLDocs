@@ -220,14 +220,49 @@ external_urls = Dict(
     "AlgebraicPetri" => "https://github.com/AlgebraicJulia/AlgebraicPetri.jl"
 )
 
-docs = Any[
-    MultiDocumenter.MultiDocRef(
-        upstream = joinpath(clonedir, "Home"),
-        path = "Overview",
-        name = "Home",
-        giturl = "https://github.com/SciML/SciMLDocs.git"
-    ),
-]
+# Fetch each repository's documentation branch as a codeload tarball instead
+# of `git clone`: a --depth 1 clone of a gh-pages branch carries a .git pack
+# roughly the size of the exported site itself, so this halves the fetch's
+# disk and time. maybe_clone uses an existing upstream directory as-is when
+# it has no .git.
+function fetch_docs(ref::MultiDocumenter.MultiDocRef)
+    (isempty(ref.giturl) || isdir(ref.upstream)) && return
+    m = match(r"^https://github\.com/(.+?)(?:\.git)?$", ref.giturl)
+    m === nothing && return
+    mkpath(clonedir)
+    tmp = mktempdir(clonedir)
+    try
+        tarball = "https://codeload.github.com/$(m[1])/tar.gz/refs/heads/$(ref.branch)"
+        @info "Fetching $(tarball) for $(ref.name)"
+        run(pipeline(`curl -fsSL --retry 3 $(tarball)`, `tar -xz -C $(tmp)`))
+        src = only(readdir(tmp; join = true))
+        mkpath(ref.upstream)
+        for entry in readdir(src)
+            full = joinpath(src, entry)
+            # gh-pages roots carry a `stable` symlink to a version directory;
+            # dereference so nothing in the copied tree can dangle
+            real = islink(full) ? normpath(joinpath(src, readlink(full))) : full
+            ispath(real) && mv(real, joinpath(ref.upstream, entry); force = true)
+        end
+    catch e
+        rm(ref.upstream; force = true, recursive = true)
+        @warn "Tarball fetch failed for $(ref.name); MultiDocumenter will `git clone` it instead" exception =
+            (e, catch_backtrace())
+    finally
+        rm(tmp; force = true, recursive = true)
+        run(`sync`)
+    end
+    return
+end
+
+home = MultiDocumenter.MultiDocRef(
+    upstream = joinpath(clonedir, "Home"),
+    path = "Overview",
+    name = "Home",
+    giturl = "https://github.com/SciML/SciMLDocs.git"
+)
+docs = Any[home]
+refs = MultiDocumenter.MultiDocRef[home]
 
 for group in docsmodules
     docgroups = []
@@ -241,17 +276,16 @@ for group in docsmodules
             else
                 "https://github.com/SciML/$mod.jl.git"
             end
-            push!(
-                docsites,
-                MultiDocumenter.MultiDocRef(
-                    upstream = joinpath(clonedir, mod),
-                    path = mod,
-                    name = mod in keys(fixnames) ? fixnames[mod] :
-                        mod,
-                    giturl = url,
-                    branch = mod ∈ usemain ? "main" : "gh-pages"
-                )
+            ref = MultiDocumenter.MultiDocRef(
+                upstream = joinpath(clonedir, mod),
+                path = mod,
+                name = mod in keys(fixnames) ? fixnames[mod] :
+                    mod,
+                giturl = url,
+                branch = mod ∈ usemain ? "main" : "gh-pages"
             )
+            push!(docsites, ref)
+            push!(refs, ref)
         end
         push!(docgroups, MultiDocumenter.Column(cat[1], docsites))
     end
@@ -267,6 +301,8 @@ push!(
         ]
     )
 )
+
+foreach(fetch_docs, refs)
 
 outpath = joinpath(@__DIR__, "build")
 
