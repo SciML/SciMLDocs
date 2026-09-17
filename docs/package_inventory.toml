@@ -773,10 +773,25 @@ placement = "overview"
 category = "Equation Solvers"
 blurb = "Complementarity problems with ChainRules-compatible gradients."
 
+[packages."MonteCarloIntegration.jl"]
+placement = "overview"
+category = "Equation Solvers"
+blurb = "Multi-dimensional Monte Carlo integration."
+
+[packages."PETScDiffEq.jl"]
+placement = "overview"
+category = "Equation Solvers"
+blurb = "PETSc timestepping (TS) wrappers on the SciML interface."
+
 [packages."ParallelParticleSwarms.jl"]
 placement = "overview"
 category = "Equation Solvers"
 blurb = "GPU-accelerated particle-swarm optimization."
+
+[packages."CacheAwareConv.jl"]
+placement = "overview"
+category = "Function Approximation"
+blurb = "Cache-blocked direct convolution for CPUs with Lux/Flux layers."
 
 [packages."YOLOWeights.jl"]
 placement = "overview"

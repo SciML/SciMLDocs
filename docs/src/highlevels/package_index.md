@@ -251,12 +251,15 @@ for those docs rather than a second copy in the navigation bar.
 | --- | --- | --- |
 | [BlackBoxOptim.jl](https://github.com/SciML/BlackBoxOptim.jl) | Overview pages | Derivative-free global/black-box optimization (OptimizationBBO). |
 | [ComplementaritySolve.jl](https://github.com/SciML/ComplementaritySolve.jl) | Overview pages | Complementarity problems with ChainRules-compatible gradients. |
+| [MonteCarloIntegration.jl](https://github.com/SciML/MonteCarloIntegration.jl) | Overview pages | Multi-dimensional Monte Carlo integration. |
+| [PETScDiffEq.jl](https://github.com/SciML/PETScDiffEq.jl) | Overview pages | PETSc timestepping (TS) wrappers on the SciML interface. |
 | [ParallelParticleSwarms.jl](https://github.com/SciML/ParallelParticleSwarms.jl) | Overview pages | GPU-accelerated particle-swarm optimization. |
 
 ### Function Approximation
 
 | Package | Where | Summary |
 | --- | --- | --- |
+| [CacheAwareConv.jl](https://github.com/SciML/CacheAwareConv.jl) | Overview pages | Cache-blocked direct convolution for CPUs with Lux/Flux layers. |
 | [YOLOWeights.jl](https://github.com/SciML/YOLOWeights.jl) | Overview pages | Pinned, checksummed Ultralytics YOLO ONNX weights. |
 
 ### High-Level Interfaces
