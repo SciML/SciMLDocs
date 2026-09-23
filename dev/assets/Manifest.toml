@@ -3039,9 +3039,9 @@ version = "10.42.0+1"
 
 [[deps.PDEBase]]
 deps = ["DomainSets", "IntervalSets", "ModelingToolkitBase", "PrecompileTools", "SciMLBase", "SciMLPublic", "SymbolicIndexingInterface", "SymbolicUtils", "Symbolics", "TermInterface"]
-git-tree-sha1 = "b4849987a45c5370970fe01fea395729caea8861"
+git-tree-sha1 = "eb4a5b82f7508ca407cbda718f73d157da03de50"
 uuid = "a7812802-0625-4b9e-961c-d332478797e5"
-version = "0.1.36"
+version = "0.1.37"
 
 [[deps.PDMats]]
 deps = ["LinearAlgebra", "SparseArrays", "SuiteSparse"]
@@ -4001,9 +4001,9 @@ version = "2.3.0"
 
 [[deps.SymbolicUtils]]
 deps = ["AbstractTrees", "ArrayInterface", "Combinatorics", "ConstructionBase", "DataStructures", "DocStringExtensions", "DynamicPolynomials", "EnumX", "ExproniconLite", "Graphs", "LinearAlgebra", "MacroTools", "Moshi", "MultivariatePolynomials", "MutableArithmetics", "NaNMath", "OrderedCollections", "PrecompileTools", "ReadOnlyArrays", "SciMLPublic", "Setfield", "SparseArrays", "SpecialFunctions", "StaticArraysCore", "SymbolicIndexingInterface", "TaskLocalValues", "TermInterface", "WeakCacheSets"]
-git-tree-sha1 = "a1c0fc89aa7d519fe70a4b56175eb0a392dbb10c"
+git-tree-sha1 = "26ba1d8e14e5c8b5b32b281389a7248e0e939062"
 uuid = "d1185830-fcd6-423d-90d6-eec64667417b"
-version = "4.47.0"
+version = "4.47.1"
 
     [deps.SymbolicUtils.extensions]
     SymbolicUtilsChainRulesCoreExt = "ChainRulesCore"
@@ -4019,9 +4019,9 @@ version = "4.47.0"
 
 [[deps.Symbolics]]
 deps = ["ADTypes", "AbstractPlutoDingetjes", "ArrayInterface", "Bijections", "CommonWorldInvalidations", "ConstructionBase", "DataStructures", "DiffRules", "DocStringExtensions", "DomainSets", "DynamicPolynomials", "IntervalSets", "Libdl", "LinearAlgebra", "LogExpFunctions", "MacroTools", "Markdown", "Moshi", "MultivariatePolynomials", "MutableArithmetics", "NaNMath", "PrecompileTools", "Preferences", "Primes", "RecipesBase", "RuntimeGeneratedFunctions", "SciMLPublic", "Setfield", "SparseArrays", "SpecialFunctions", "StaticArraysCore", "SymbolicIndexingInterface", "SymbolicLimits", "SymbolicUtils", "TermInterface"]
-git-tree-sha1 = "6aad6dde4b982514eebd29613d5fa4b2a3dcbc2c"
+git-tree-sha1 = "487eee0c1cbcc02ff9c097507692e2a76cb3d31f"
 uuid = "0c5d862f-8b57-4792-8d23-62f2024744c7"
-version = "7.40.1"
+version = "7.41.0"
 
     [deps.Symbolics.extensions]
     SymbolicsD3TreesExt = "D3Trees"
