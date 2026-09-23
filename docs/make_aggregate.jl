@@ -63,6 +63,7 @@ docsmodules = [
             "NeuralOperators", "FEniCS",
             "HighDimPDE", "DiffEqOperators",
             "FiniteVolumeMethod", "FiniteVolumeMethod1D",
+            "PDEBase",
         ],
         #=
         "Third-Party PDE Solvers" => [

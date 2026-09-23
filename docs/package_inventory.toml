@@ -879,9 +879,10 @@ category = "Numerical Utilities"
 blurb = "LU factorization on tuple-based small matrices."
 
 [packages."PDEBase.jl"]
-placement = "overview"
+placement = "dropdown"
 category = "PDE Solvers"
 blurb = "Shared types and interface for ModelingToolkit PDE discretizers."
+dropdown = "PDEBase"
 
 [packages."PDESystemLibrary.jl"]
 placement = "overview"
