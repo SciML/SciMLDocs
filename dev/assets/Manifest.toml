@@ -191,9 +191,9 @@ version = "7.30.2"
 
 [[deps.ArrayLayouts]]
 deps = ["FillArrays", "LinearAlgebra", "StaticArrays"]
-git-tree-sha1 = "bb94c6ac65c95977d66b29dbafa1af44f353fe69"
+git-tree-sha1 = "8d6c4d0a4bab1bbd0de2a4b3f525b7584319e0ab"
 uuid = "4c555306-a7a7-4459-81d9-ec55ddd5c99a"
-version = "1.12.4"
+version = "1.13.0"
 weakdeps = ["SparseArrays"]
 
     [deps.ArrayLayouts.extensions]
@@ -3301,9 +3301,9 @@ weakdeps = ["FixedPointNumbers"]
 
 [[deps.ReactantCore]]
 deps = ["ExpressionExplorer", "MacroTools"]
-git-tree-sha1 = "7ff99a4f1d30a9bca5ad786aab68458a9c46ca86"
+git-tree-sha1 = "a77cc2ced73917e291f1de06a959e4c34a35c459"
 uuid = "a3311ec8-5e00-46d5-b541-4f83e724a433"
-version = "0.1.22"
+version = "0.1.23"
 
 [[deps.ReadOnlyArrays]]
 git-tree-sha1 = "e6f7ddf48cf141cb312b078ca21cb2d29d0dc11d"
@@ -3457,9 +3457,9 @@ version = "0.5.26"
 
 [[deps.SCCNonlinearSolve]]
 deps = ["CommonSolve", "NonlinearSolveBase", "PrecompileTools", "SciMLBase", "SymbolicIndexingInterface"]
-git-tree-sha1 = "3244efe86d4fbd5817251bb5c3c93ff111e0e9f1"
+git-tree-sha1 = "e155d8404ecf51d3333c1ae8530018966a372827"
 uuid = "9dfe8606-65a1-4bb3-9748-cb89d1561431"
-version = "1.15.3"
+version = "1.15.4"
 weakdeps = ["ChainRulesCore"]
 
     [deps.SCCNonlinearSolve.extensions]
@@ -4021,9 +4021,9 @@ version = "4.48.0"
 
 [[deps.Symbolics]]
 deps = ["ADTypes", "AbstractPlutoDingetjes", "ArrayInterface", "Bijections", "CommonWorldInvalidations", "ConstructionBase", "DataStructures", "DiffRules", "DocStringExtensions", "DomainSets", "DynamicPolynomials", "IntervalSets", "Libdl", "LinearAlgebra", "LogExpFunctions", "MacroTools", "Markdown", "Moshi", "MultivariatePolynomials", "MutableArithmetics", "NaNMath", "PrecompileTools", "Preferences", "Primes", "RecipesBase", "RuntimeGeneratedFunctions", "SciMLPublic", "Setfield", "SparseArrays", "SpecialFunctions", "StaticArraysCore", "SymbolicIndexingInterface", "SymbolicLimits", "SymbolicUtils", "TermInterface"]
-git-tree-sha1 = "487eee0c1cbcc02ff9c097507692e2a76cb3d31f"
+git-tree-sha1 = "35223e123a2119c2c9da9e7db22665143bb95b05"
 uuid = "0c5d862f-8b57-4792-8d23-62f2024744c7"
-version = "7.41.0"
+version = "7.41.1"
 
     [deps.Symbolics.extensions]
     SymbolicsD3TreesExt = "D3Trees"
