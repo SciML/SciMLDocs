@@ -77,7 +77,7 @@ docsmodules = [
         "Advanced Solver APIs" => [
             "OrdinaryDiffEq", "BoundaryValueDiffEq", "DiffEqGPU",
             "SteadyStateDiffEq", "OrdinaryDiffEqOperatorSplitting",
-            "IRKGaussLegendre", "MATLABDiffEq", "QuantumNLDiffEq",
+            "IRKGaussLegendre", "MATLABDiffEq", "PETScDiffEq", "QuantumNLDiffEq",
         ],
     ],
     "Analysis" => [
