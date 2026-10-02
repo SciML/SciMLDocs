@@ -38,6 +38,12 @@ category = "Advanced Solver APIs"
 blurb = "Operator-splitting solvers for split ODE/DAE formulations."
 dropdown = "OrdinaryDiffEqOperatorSplitting"
 
+[packages."PETScDiffEq.jl"]
+placement = "dropdown"
+category = "Advanced Solver APIs"
+blurb = "PETSc timestepping (TS) wrappers on the SciML interface."
+dropdown = "PETScDiffEq"
+
 [packages."QuantumNLDiffEq.jl"]
 placement = "dropdown"
 category = "Advanced Solver APIs"
@@ -777,11 +783,6 @@ blurb = "Complementarity problems with ChainRules-compatible gradients."
 placement = "overview"
 category = "Equation Solvers"
 blurb = "Multi-dimensional Monte Carlo integration."
-
-[packages."PETScDiffEq.jl"]
-placement = "overview"
-category = "Equation Solvers"
-blurb = "PETSc timestepping (TS) wrappers on the SciML interface."
 
 [packages."ParallelParticleSwarms.jl"]
 placement = "overview"

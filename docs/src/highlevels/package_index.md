@@ -29,6 +29,7 @@ for those docs rather than a second copy in the navigation bar.
 | [MATLABDiffEq.jl](https://github.com/SciML/MATLABDiffEq.jl) | Navigation → Advanced Solver APIs | MATLAB ODE solver wrappers on the SciML interface. |
 | [OrdinaryDiffEq.jl](https://github.com/SciML/OrdinaryDiffEq.jl) | Navigation → Advanced Solver APIs | High-performance ODE/DAE solvers; API also embedded in DiffEqDocs. |
 | [OrdinaryDiffEqOperatorSplitting.jl](https://github.com/SciML/OrdinaryDiffEqOperatorSplitting.jl) | Navigation → Advanced Solver APIs | Operator-splitting solvers for split ODE/DAE formulations. |
+| [PETScDiffEq.jl](https://github.com/SciML/PETScDiffEq.jl) | Navigation → Advanced Solver APIs | PETSc timestepping (TS) wrappers on the SciML interface. |
 | [QuantumNLDiffEq.jl](https://github.com/SciML/QuantumNLDiffEq.jl) | Navigation → Advanced Solver APIs | Differential quantum circuits for nonlinear DEs. |
 | [SteadyStateDiffEq.jl](https://github.com/SciML/SteadyStateDiffEq.jl) | Navigation → Advanced Solver APIs | Steady-state solvers for DiffEq; API also in DiffEqDocs. |
 
@@ -252,7 +253,6 @@ for those docs rather than a second copy in the navigation bar.
 | [BlackBoxOptim.jl](https://github.com/SciML/BlackBoxOptim.jl) | Overview pages | Derivative-free global/black-box optimization (OptimizationBBO). |
 | [ComplementaritySolve.jl](https://github.com/SciML/ComplementaritySolve.jl) | Overview pages | Complementarity problems with ChainRules-compatible gradients. |
 | [MonteCarloIntegration.jl](https://github.com/SciML/MonteCarloIntegration.jl) | Overview pages | Multi-dimensional Monte Carlo integration. |
-| [PETScDiffEq.jl](https://github.com/SciML/PETScDiffEq.jl) | Overview pages | PETSc timestepping (TS) wrappers on the SciML interface. |
 | [ParallelParticleSwarms.jl](https://github.com/SciML/ParallelParticleSwarms.jl) | Overview pages | GPU-accelerated particle-swarm optimization. |
 
 ### Function Approximation
