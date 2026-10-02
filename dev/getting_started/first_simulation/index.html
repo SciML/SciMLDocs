@@ -35,7 +35,7 @@ sol = ODE.solve(prob)
 p1 = Plots.plot(sol, title = &quot;Rabbits vs Wolves&quot;)
 p2 = Plots.plot(sol, idxs = z, title = &quot;Total Animals&quot;)
 
-Plots.plot(p1, p2, layout = (2, 1))</code></pre><img src="e6774c95.svg" alt="Example block output"/><h2 id="Step-by-Step-Solution"><a class="docs-heading-anchor" href="#Step-by-Step-Solution">Step-by-Step Solution</a><a id="Step-by-Step-Solution-1"></a><a class="docs-heading-anchor-permalink" href="#Step-by-Step-Solution" title="Permalink"></a></h2><h3 id="Step-1:-Install-and-Import-the-Required-Packages"><a class="docs-heading-anchor" href="#Step-1:-Install-and-Import-the-Required-Packages">Step 1: Install and Import the Required Packages</a><a id="Step-1:-Install-and-Import-the-Required-Packages-1"></a><a class="docs-heading-anchor-permalink" href="#Step-1:-Install-and-Import-the-Required-Packages" title="Permalink"></a></h3><p>To do this tutorial, we will need a few components:</p><ul><li><a href="https://docs.sciml.ai/ModelingToolkit/stable/">ModelingToolkit.jl, our modeling environment</a></li><li><a href="https://docs.sciml.ai/DiffEqDocs/stable/">OrdinaryDiffEq.jl, the ODE solvers (sub-package of DifferentialEquations.jl)</a></li><li><a href="https://docs.juliaplots.org/stable/">Plots.jl, our visualization tool</a></li></ul><p>To start, let&#39;s add these packages <a href="../installation/#installation">as demonstrated in the installation tutorial</a>:</p><pre><code class="language-julia hljs">using Pkg
+Plots.plot(p1, p2, layout = (2, 1))</code></pre><img src="09b1f706.svg" alt="Example block output"/><h2 id="Step-by-Step-Solution"><a class="docs-heading-anchor" href="#Step-by-Step-Solution">Step-by-Step Solution</a><a id="Step-by-Step-Solution-1"></a><a class="docs-heading-anchor-permalink" href="#Step-by-Step-Solution" title="Permalink"></a></h2><h3 id="Step-1:-Install-and-Import-the-Required-Packages"><a class="docs-heading-anchor" href="#Step-1:-Install-and-Import-the-Required-Packages">Step 1: Install and Import the Required Packages</a><a id="Step-1:-Install-and-Import-the-Required-Packages-1"></a><a class="docs-heading-anchor-permalink" href="#Step-1:-Install-and-Import-the-Required-Packages" title="Permalink"></a></h3><p>To do this tutorial, we will need a few components:</p><ul><li><a href="https://docs.sciml.ai/ModelingToolkit/stable/">ModelingToolkit.jl, our modeling environment</a></li><li><a href="https://docs.sciml.ai/DiffEqDocs/stable/">OrdinaryDiffEq.jl, the ODE solvers (sub-package of DifferentialEquations.jl)</a></li><li><a href="https://docs.juliaplots.org/stable/">Plots.jl, our visualization tool</a></li></ul><p>To start, let&#39;s add these packages <a href="../installation/#installation">as demonstrated in the installation tutorial</a>:</p><pre><code class="language-julia hljs">using Pkg
 Pkg.add([&quot;ModelingToolkit&quot;, &quot;OrdinaryDiffEq&quot;, &quot;Plots&quot;])</code></pre><p>Now we&#39;re ready. Let&#39;s load in these packages:</p><pre><code class="language-julia hljs">import OrdinaryDiffEq as ODE
 import ModelingToolkit as MTK
 import Plots
@@ -88,61 +88,61 @@ t: 34-element Vector{Float64}:
   0.679082199936808
   0.9444046279774128
   1.2674601918628516
-  1.61929140093895
-  1.9869755481702074
-  2.2640903679981617
+  1.6192914009389499
+  1.986975548170207
+  2.264090367998161
   ⋮
-  7.5848624442719235
-  7.978067891667038
-  8.483164641366145
-  8.719247691882519
-  8.949206449510513
-  9.200184762926114
-  9.438028551201125
-  9.711807820573478
+  7.584862444271911
+  7.978067891667024
+  8.483164641366129
+  8.7192476918825
+  8.949206449510495
+  9.200184762926096
+  9.438028551201107
+  9.711807820573462
  10.0
 u: 34-element Vector{Vector{Float64}}:
  [1.0, 1.0]
  [0.8576684823217128, 1.0454942346944578]
- [0.6394595702308831, 1.1758715885890039]
- [0.45699626144050703, 1.419680958026516]
- [0.3247334288460738, 1.8767193976262215]
- [0.26336255403957304, 2.5882501035146133]
- [0.27944581878759106, 3.860709084797009]
- [0.5220073551361045, 5.750813064347339]
- [1.917783405671627, 6.814978696356636]
- [4.194671543390719, 4.392997771045279]
+ [0.6394595702308832, 1.1758715885890039]
+ [0.45699626144050676, 1.4196809580265157]
+ [0.3247334288460736, 1.8767193976262218]
+ [0.2633625540395727, 2.588250103514613]
+ [0.27944581878759034, 3.8607090847970094]
+ [0.5220073551361049, 5.750813064347343]
+ [1.9177834056716219, 6.814978696356646]
+ [4.194671543390721, 4.392997771045282]
  ⋮
- [0.2641695435004172, 2.6142510825026886]
- [0.30512326533052475, 4.241070648057757]
- [1.13452538354883, 6.79112182569163]
- [2.7416885955953294, 6.265374940295053]
- [4.431164521488331, 3.7807688120520893]
- [4.064057991958618, 1.8164214705302744]
- [2.791173034823897, 1.146502825635759]
- [1.623563316340748, 0.955798652853089]
- [0.9063703732075853, 1.0337581330572414]</code></pre><h3 id="Step-5:-Visualize-the-Solution"><a class="docs-heading-anchor" href="#Step-5:-Visualize-the-Solution">Step 5: Visualize the Solution</a><a id="Step-5:-Visualize-the-Solution-1"></a><a class="docs-heading-anchor-permalink" href="#Step-5:-Visualize-the-Solution" title="Permalink"></a></h3><p>Now let&#39;s visualize the solution! Notice that our solution only has two states. If we recall, the simplified system only has two states: <code>z</code> was symbolically eliminated. We can access any of the values, even the eliminated values, using the symbolic variable as the index. For example:</p><pre><code class="language-julia hljs">sol[z]</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">34-element Vector{Float64}:
+ [0.26416954350041055, 2.6142510825025984]
+ [0.3051232653305035, 4.2410706480576215]
+ [1.1345253835486895, 6.791121825691619]
+ [2.741688595595068, 6.265374940295349]
+ [4.4311645214882605, 3.780768812052443]
+ [4.064057991958801, 1.8164214705304005]
+ [2.7911730348240664, 1.146502825635786]
+ [1.6235633163408452, 0.9557986528530764]
+ [0.9063703732076064, 1.0337581330572176]</code></pre><h3 id="Step-5:-Visualize-the-Solution"><a class="docs-heading-anchor" href="#Step-5:-Visualize-the-Solution">Step 5: Visualize the Solution</a><a id="Step-5:-Visualize-the-Solution-1"></a><a class="docs-heading-anchor-permalink" href="#Step-5:-Visualize-the-Solution" title="Permalink"></a></h3><p>Now let&#39;s visualize the solution! Notice that our solution only has two states. If we recall, the simplified system only has two states: <code>z</code> was symbolically eliminated. We can access any of the values, even the eliminated values, using the symbolic variable as the index. For example:</p><pre><code class="language-julia hljs">sol[z]</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">34-element Vector{Float64}:
  2.0
  1.9031627170161705
  1.815331158819887
- 1.876677219467023
+ 1.8766772194670225
  2.2014528264722952
- 2.8516126575541865
+ 2.8516126575541856
  4.1401549035846
- 6.272820419483444
- 8.732762102028264
- 8.587669314435999
+ 6.272820419483448
+ 8.732762102028268
+ 8.587669314436003
  ⋮
- 2.8784206260031056
- 4.546193913388282
- 7.92564720924046
- 9.007063535890381
- 8.21193333354042
- 5.880479462488893
- 3.937675860459656
- 2.5793619691938368
- 1.9401285062648266</code></pre><p>returns the time series of the observable <code>z</code> at time points corresponding to <code>sol.t</code>. We can use this with the automated plotting functionality. First let&#39;s create a plot of <code>x</code> and <code>y</code> over time using <code>plot(sol)</code> which will plot all of the states. Then next, we will explicitly tell it to make a plot with the index being <code>z</code>, i.e. <code>idxs=z</code>.</p><div class="admonition is-info" id="Note-9f73f83a9f1b95f0"><header class="admonition-header">Note<a class="admonition-anchor" href="#Note-9f73f83a9f1b95f0" title="Permalink"></a></header><div class="admonition-body"><p>Note that one can pass an array of indices as well, so <code>idxs=[x,y,z]</code> would make a plot with all three lines together!</p></div></div><pre><code class="language-julia hljs"># Plot the solution
-p1 = Plots.plot(sol, title = &quot;Rabbits vs Wolves&quot;)</code></pre><img src="6637eb44.svg" alt="Example block output"/><pre><code class="language-julia hljs">p2 = Plots.plot(sol, idxs = z, title = &quot;Total Animals&quot;)</code></pre><img src="3db1e13c.svg" alt="Example block output"/><p>Finally, let&#39;s make a plot where we merge these two plot elements. To do so, we can take our two plot objects, <code>p1</code> and <code>p2</code>, and make a plot with both of them. Then we tell Plots to do a layout of <code>(2,1)</code>, or 2 rows and 1 columns. Let&#39;s see what happens when we bring these together:</p><pre><code class="language-julia hljs">Plots.plot(p1, p2, layout = (2, 1))</code></pre><img src="f75a56cc.svg" alt="Example block output"/><p>And tada, we have a full analysis of our ecosystem!</p><h2 id="Bonus-Step:-Emoji-Variables"><a class="docs-heading-anchor" href="#Bonus-Step:-Emoji-Variables">Bonus Step: Emoji Variables</a><a id="Bonus-Step:-Emoji-Variables-1"></a><a class="docs-heading-anchor-permalink" href="#Bonus-Step:-Emoji-Variables" title="Permalink"></a></h2><p>If you made it this far, then congrats, you get to learn a fun fact! Since Julia code can use Unicode, emojis work for variable names. Here&#39;s the simulation using emojis of rabbits and wolves to define the system:</p><pre><code class="language-julia hljs">import OrdinaryDiffEq as ODE
+ 2.8784206260030087
+ 4.546193913388125
+ 7.925647209240308
+ 9.007063535890417
+ 8.211933333540703
+ 5.880479462489202
+ 3.9376758604598523
+ 2.5793619691939216
+ 1.940128506264824</code></pre><p>returns the time series of the observable <code>z</code> at time points corresponding to <code>sol.t</code>. We can use this with the automated plotting functionality. First let&#39;s create a plot of <code>x</code> and <code>y</code> over time using <code>plot(sol)</code> which will plot all of the states. Then next, we will explicitly tell it to make a plot with the index being <code>z</code>, i.e. <code>idxs=z</code>.</p><div class="admonition is-info" id="Note-9f73f83a9f1b95f0"><header class="admonition-header">Note<a class="admonition-anchor" href="#Note-9f73f83a9f1b95f0" title="Permalink"></a></header><div class="admonition-body"><p>Note that one can pass an array of indices as well, so <code>idxs=[x,y,z]</code> would make a plot with all three lines together!</p></div></div><pre><code class="language-julia hljs"># Plot the solution
+p1 = Plots.plot(sol, title = &quot;Rabbits vs Wolves&quot;)</code></pre><img src="24ee248d.svg" alt="Example block output"/><pre><code class="language-julia hljs">p2 = Plots.plot(sol, idxs = z, title = &quot;Total Animals&quot;)</code></pre><img src="939dce55.svg" alt="Example block output"/><p>Finally, let&#39;s make a plot where we merge these two plot elements. To do so, we can take our two plot objects, <code>p1</code> and <code>p2</code>, and make a plot with both of them. Then we tell Plots to do a layout of <code>(2,1)</code>, or 2 rows and 1 columns. Let&#39;s see what happens when we bring these together:</p><pre><code class="language-julia hljs">Plots.plot(p1, p2, layout = (2, 1))</code></pre><img src="1703e501.svg" alt="Example block output"/><p>And tada, we have a full analysis of our ecosystem!</p><h2 id="Bonus-Step:-Emoji-Variables"><a class="docs-heading-anchor" href="#Bonus-Step:-Emoji-Variables">Bonus Step: Emoji Variables</a><a id="Bonus-Step:-Emoji-Variables-1"></a><a class="docs-heading-anchor-permalink" href="#Bonus-Step:-Emoji-Variables" title="Permalink"></a></h2><p>If you made it this far, then congrats, you get to learn a fun fact! Since Julia code can use Unicode, emojis work for variable names. Here&#39;s the simulation using emojis of rabbits and wolves to define the system:</p><pre><code class="language-julia hljs">import OrdinaryDiffEq as ODE
 import ModelingToolkit as MTK
 import ModelingToolkit: t_nounits as t, D_nounits as D, @variables, @parameters, @named
 @parameters α = 1.5 β = 1.0 γ = 3.0 δ = 1.0
@@ -164,37 +164,37 @@ t: 34-element Vector{Float64}:
   0.679082199936808
   0.9444046279774128
   1.2674601918628516
-  1.61929140093895
-  1.9869755481702074
-  2.2640903679981617
+  1.6192914009389499
+  1.986975548170207
+  2.264090367998161
   ⋮
-  7.5848624442719235
-  7.978067891667038
-  8.483164641366145
-  8.719247691882519
-  8.949206449510513
-  9.200184762926114
-  9.438028551201125
-  9.711807820573478
+  7.584862444271911
+  7.978067891667024
+  8.483164641366129
+  8.7192476918825
+  8.949206449510495
+  9.200184762926096
+  9.438028551201107
+  9.711807820573462
  10.0
 u: 34-element Vector{Vector{Float64}}:
  [1.0, 1.0]
  [0.8576684823217128, 1.0454942346944578]
- [0.6394595702308831, 1.1758715885890039]
- [0.45699626144050703, 1.419680958026516]
- [0.3247334288460738, 1.8767193976262215]
- [0.26336255403957304, 2.5882501035146133]
- [0.27944581878759106, 3.860709084797009]
- [0.5220073551361045, 5.750813064347339]
- [1.917783405671627, 6.814978696356636]
- [4.194671543390719, 4.392997771045279]
+ [0.6394595702308832, 1.1758715885890039]
+ [0.45699626144050676, 1.4196809580265157]
+ [0.3247334288460736, 1.8767193976262218]
+ [0.2633625540395727, 2.588250103514613]
+ [0.27944581878759034, 3.8607090847970094]
+ [0.5220073551361049, 5.750813064347343]
+ [1.9177834056716219, 6.814978696356646]
+ [4.194671543390721, 4.392997771045282]
  ⋮
- [0.2641695435004172, 2.6142510825026886]
- [0.30512326533052475, 4.241070648057757]
- [1.13452538354883, 6.79112182569163]
- [2.7416885955953294, 6.265374940295053]
- [4.431164521488331, 3.7807688120520893]
- [4.064057991958618, 1.8164214705302744]
- [2.791173034823897, 1.146502825635759]
- [1.623563316340748, 0.955798652853089]
- [0.9063703732075853, 1.0337581330572414]</code></pre><p>Now go make your professor mad that they have to grade a fully emojified code. I&#39;ll vouch for you: the documentation told you to do this.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../installation/">« Installing SciML Software</a><a class="docs-footer-nextpage" href="../first_optimization/">Solve your first optimization problem »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.19.0 on <span class="colophon-date" title="Tuesday 29 September 2026 02:02">Tuesday 29 September 2026</span>. Using Julia version 1.11.9.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+ [0.26416954350041055, 2.6142510825025984]
+ [0.3051232653305035, 4.2410706480576215]
+ [1.1345253835486895, 6.791121825691619]
+ [2.741688595595068, 6.265374940295349]
+ [4.4311645214882605, 3.780768812052443]
+ [4.064057991958801, 1.8164214705304005]
+ [2.7911730348240664, 1.146502825635786]
+ [1.6235633163408452, 0.9557986528530764]
+ [0.9063703732076064, 1.0337581330572176]</code></pre><p>Now go make your professor mad that they have to grade a fully emojified code. I&#39;ll vouch for you: the documentation told you to do this.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../installation/">« Installing SciML Software</a><a class="docs-footer-nextpage" href="../first_optimization/">Solve your first optimization problem »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.19.0 on <span class="colophon-date" title="Friday 2 October 2026 17:21">Friday 2 October 2026</span>. Using Julia version 1.11.9.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
