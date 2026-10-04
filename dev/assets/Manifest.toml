@@ -1040,9 +1040,9 @@ weakdeps = ["ADTypes", "BFloat16s", "CUDA", "ChainRulesCore", "GPUArrays", "GPUA
     EnzymeStaticArraysExt = "StaticArrays"
 
 [[deps.EnzymeCore]]
-git-tree-sha1 = "971d7831cc85f43bc9f51d615a3f7f21270c2f1d"
+git-tree-sha1 = "90ab232666984c3eafa9d14cc85f8ff51cf6c353"
 uuid = "f151be2c-9106-41f4-ab19-57ee4f262869"
-version = "0.8.21"
+version = "0.8.22"
 weakdeps = ["Adapt", "ChainRulesCore"]
 
     [deps.EnzymeCore.extensions]
@@ -1336,9 +1336,9 @@ version = "3.5.1+0"
 
 [[deps.GPUArrays]]
 deps = ["Adapt", "GPUArraysCore", "KernelAbstractions", "LLVM", "LinearAlgebra", "Printf", "Random", "Reexport", "ScopedValues", "Serialization", "SparseArrays", "Statistics"]
-git-tree-sha1 = "adddc80fa93244e40e8f5f8cb3af53a0ddabd80c"
+git-tree-sha1 = "574e443e2545f8622b716676c9358ca8a7ea57b4"
 uuid = "0c68f7d7-f131-5f86-a1c3-88cf8149b2d7"
-version = "11.5.15"
+version = "11.5.16"
 
     [deps.GPUArrays.extensions]
     JLD2Ext = "JLD2"
@@ -1364,10 +1364,9 @@ version = "1.23.0"
     NVPTX_LLVM_Backend_jll = "ef6e0fe3-e6ef-59c0-bde6-4989574699e0"
 
 [[deps.GPUToolbox]]
-deps = ["LLVM"]
-git-tree-sha1 = "70e3fe51472b6a64e864e736d9ea2afee68fa081"
+git-tree-sha1 = "ac858e66e7bee15ccc5931967260db8fe051e2a6"
 uuid = "096a3bc2-3ced-46d0-87f4-dd12716f4bfc"
-version = "3.3.2"
+version = "3.3.3"
 
 [[deps.GR]]
 deps = ["Artifacts", "Base64", "DelimitedFiles", "Downloads", "GR_jll", "JSON", "Libdl", "LinearAlgebra", "Preferences", "Printf", "Qt6Wayland_jll", "Random", "Serialization", "Sockets", "TOML", "Tar", "Test", "p7zip_jll"]
