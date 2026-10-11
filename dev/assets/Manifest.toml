@@ -1046,9 +1046,9 @@ weakdeps = ["ADTypes", "BFloat16s", "CUDA", "ChainRulesCore", "GPUArrays", "GPUA
     EnzymeStaticArraysExt = "StaticArrays"
 
 [[deps.EnzymeCore]]
-git-tree-sha1 = "90ab232666984c3eafa9d14cc85f8ff51cf6c353"
+git-tree-sha1 = "156ede9181d50b3b21b74d98a7edb08bc7bbdbf1"
 uuid = "f151be2c-9106-41f4-ab19-57ee4f262869"
-version = "0.8.22"
+version = "0.8.23"
 weakdeps = ["Adapt", "ChainRulesCore"]
 
     [deps.EnzymeCore.extensions]
@@ -1183,9 +1183,9 @@ version = "1.11.0"
 
 [[deps.FillArrays]]
 deps = ["LinearAlgebra"]
-git-tree-sha1 = "086b5fbd032baf544678cc15b52b015e4c4aceb8"
+git-tree-sha1 = "9741b45e1189f878eefe5789e6833dbdefc5adfa"
 uuid = "1a297f60-69ca-5386-bcde-b61e274b549b"
-version = "1.17.1"
+version = "1.18.0"
 weakdeps = ["PDMats", "SparseArrays", "StaticArrays", "Statistics"]
 
     [deps.FillArrays.extensions]
