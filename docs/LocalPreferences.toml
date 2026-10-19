@@ -1,6 +1,8 @@
-# The docs GPU runner has a Volta (sm_70) GPU, which the CUDA 13 toolchain no
-# longer supports. Pin the CUDA 12.9 toolkit, the newest release that still
-# accepts sm_70. Equivalent to `CUDA.set_runtime_version!(v"12.9")`.
+# The docs `gpu` runner pool mixes T4 (sm_75) and V100 (sm_70) machines that
+# share one julia-actions/cache depot. Pin the CUDA 12.9 toolkit, the newest
+# release that still accepts sm_70, so the precompiled toolkit selection does
+# not depend on which runner built the cache. Equivalent to
+# `CUDA.set_runtime_version!(v"12.9")`.
 # https://cuda.juliagpu.org/stable/installation/overview/#Specifying-the-CUDA-version
 
 [CUDA_Runtime_jll]
