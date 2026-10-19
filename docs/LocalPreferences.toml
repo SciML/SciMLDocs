@@ -1,0 +1,10 @@
+# The docs GPU runner has a Volta (sm_70) GPU, which the CUDA 13 toolchain no
+# longer supports. Pin the CUDA 12.9 toolkit, the newest release that still
+# accepts sm_70. Equivalent to `CUDA.set_runtime_version!(v"12.9")`.
+# https://cuda.juliagpu.org/stable/installation/overview/#Specifying-the-CUDA-version
+
+[CUDA_Runtime_jll]
+version = "12.9"
+
+[CUDA_Compiler_jll]
+version = "12.9"
