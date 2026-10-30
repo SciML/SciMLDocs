@@ -1,0 +1,12 @@
+# The docs `gpu` runner pool mixes T4 (sm_75) and V100 (sm_70) machines that
+# share one julia-actions/cache depot. Pin the CUDA 12.9 toolkit, the newest
+# release that still accepts sm_70, so the precompiled toolkit selection does
+# not depend on which runner built the cache. Equivalent to
+# `CUDA.set_runtime_version!(v"12.9")`.
+# https://cuda.juliagpu.org/stable/installation/overview/#Specifying-the-CUDA-version
+
+[CUDA_Runtime_jll]
+version = "12.9"
+
+[CUDA_Compiler_jll]
+version = "12.9"
