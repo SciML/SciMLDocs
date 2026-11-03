@@ -239,11 +239,12 @@ function fetch_docs(ref::MultiDocumenter.MultiDocRef)
         src = only(readdir(tmp; join = true))
         mkpath(ref.upstream)
         for entry in readdir(src)
-            full = joinpath(src, entry)
-            # gh-pages roots carry a `stable` symlink to a version directory;
-            # dereference so nothing in the copied tree can dangle
-            real = islink(full) ? normpath(joinpath(src, readlink(full))) : full
-            ispath(real) && mv(real, joinpath(ref.upstream, entry); force = true)
+            # gh-pages roots carry relative symlinks (`stable`, `vX`, `vX.Y`) to version
+            # directories. Move them as links, like a `git clone` would leave them:
+            # every entry lands in the same directory, so the links stay valid, whereas
+            # moving a link's target would drop that version directory and every other
+            # link to it. Dangling links are pruned before the S3 deploy.
+            mv(joinpath(src, entry), joinpath(ref.upstream, entry); force = true)
         end
     catch e
         rm(ref.upstream; force = true, recursive = true)
