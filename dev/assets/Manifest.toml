@@ -1029,9 +1029,9 @@ version = "1.0.7"
 
 [[deps.Enzyme]]
 deps = ["CEnum", "EnzymeCore", "Enzyme_jll", "GPUCompiler", "InteractiveUtils", "LLVM", "Libdl", "LinearAlgebra", "ObjectFile", "PrecompileTools", "Preferences", "Printf", "Random", "ScopedValues", "SparseArrays"]
-git-tree-sha1 = "74e912b796cec5fab7cd1eb982e460499d51207f"
+git-tree-sha1 = "1484ecb8720886890546187594b454ed15026add"
 uuid = "7da242da-08ed-463a-9acd-ee780be4f1d9"
-version = "0.13.216"
+version = "0.13.217"
 weakdeps = ["ADTypes", "BFloat16s", "CUDA", "ChainRulesCore", "GPUArrays", "GPUArraysCore", "LogExpFunctions", "OrderedCollections", "SpecialFunctions", "StaticArrays"]
 
     [deps.Enzyme.extensions]
@@ -1046,9 +1046,9 @@ weakdeps = ["ADTypes", "BFloat16s", "CUDA", "ChainRulesCore", "GPUArrays", "GPUA
     EnzymeStaticArraysExt = "StaticArrays"
 
 [[deps.EnzymeCore]]
-git-tree-sha1 = "04c4269956f90d8f5c9acc73b774c5293481f4d7"
+git-tree-sha1 = "d88c803e26799193db42e47f6e1e28eeb0322e4d"
 uuid = "f151be2c-9106-41f4-ab19-57ee4f262869"
-version = "0.8.26"
+version = "0.8.27"
 weakdeps = ["Adapt", "ChainRulesCore"]
 
     [deps.EnzymeCore.extensions]
@@ -1057,9 +1057,9 @@ weakdeps = ["Adapt", "ChainRulesCore"]
 
 [[deps.Enzyme_jll]]
 deps = ["Artifacts", "JLLWrappers", "LazyArtifacts", "Libdl", "TOML"]
-git-tree-sha1 = "1044bbf0dd0d642940c05f0895f651878f0ffb9e"
+git-tree-sha1 = "e2d11f4b690e9968cc17a1c49b173132ef153c4f"
 uuid = "7cc45869-7501-5eee-bdea-0790c847d4ef"
-version = "0.0.303+1"
+version = "0.0.304+0"
 
 [[deps.EpollShim_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
@@ -2922,9 +2922,9 @@ weakdeps = ["LogExpFunctions"]
 
 [[deps.OptimizationBase]]
 deps = ["ADTypes", "ArrayInterface", "DifferentiationInterface", "DocStringExtensions", "FastClosures", "LinearAlgebra", "PrecompileTools", "SciMLBase", "SciMLLogging", "SparseArrays", "SparseConnectivityTracer", "SparseMatrixColorings", "SymbolicIndexingInterface"]
-git-tree-sha1 = "fba46fdcd6e2b5ce63403749c8fe40dc065cec70"
+git-tree-sha1 = "d58d389e754d6641aab95950779a214b5e43c93a"
 uuid = "bca83a33-5cc9-4baa-983d-23429ab6bcbb"
-version = "5.10.0"
+version = "5.10.1"
 
     [deps.OptimizationBase.extensions]
     OptimizationChainRulesCoreExt = "ChainRulesCore"

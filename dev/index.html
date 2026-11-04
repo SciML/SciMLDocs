@@ -65,9 +65,9 @@ Build Info:
   Official https://julialang.org/ release
 Platform Info:
   OS: Linux (x86_64-linux-gnu)
-  CPU: 40 × Intel(R) Xeon(R) Silver 4114 CPU @ 2.20GHz
+  CPU: 128 × AMD EPYC 9354 32-Core Processor
   WORD_SIZE: 64
-  LLVM: libLLVM-16.0.6 (ORCJIT, skylake-avx512)
+  LLVM: libLLVM-16.0.6 (ORCJIT, znver4)
 Threads: 1 default, 0 interactive, 1 GC (on 8 virtual cores)
 Environment:
   JULIA_CPU_THREADS = 8
@@ -165,8 +165,8 @@ Environment:
 ⌅ [7c1d4256] DynamicPolynomials v0.6.8
   [06fc5a27] DynamicQuantities v1.13.0
   [4e289a0a] EnumX v1.0.7
-  [7da242da] Enzyme v0.13.216
-  [f151be2c] EnzymeCore v0.8.26
+  [7da242da] Enzyme v0.13.217
+  [f151be2c] EnzymeCore v0.8.27
   [e2ba6199] ExprTools v0.1.11
   [21656369] ExpressionExplorer v1.1.6
   [55351af7] ExproniconLite v0.10.14
@@ -303,7 +303,7 @@ Environment:
   [3bd65402] Optimisers v0.4.11
   [7f7a1694] Optimization v5.9.1
 ⌃ [3e6eede4] OptimizationBBO v0.4.12
-  [bca83a33] OptimizationBase v5.10.0
+  [bca83a33] OptimizationBase v5.10.1
   [fd9f6733] OptimizationMOI v1.6.1
   [4e6fcdb7] OptimizationNLopt v0.3.20
   [36348300] OptimizationOptimJL v0.4.23
@@ -469,7 +469,7 @@ Environment:
   [83423d85] Cairo_jll v1.18.8+1
   [7bc98958] Cubature_jll v1.0.5+0
   [ee1fde0b] Dbus_jll v1.16.2+0
-⌅ [7cc45869] Enzyme_jll v0.0.303+1
+  [7cc45869] Enzyme_jll v0.0.304+0
   [2702e6a9] EpollShim_jll v0.0.20230411+1
   [2e619515] Expat_jll v2.10.0+0
   [b22a6f82] FFMPEG_jll v9.0.2+0
@@ -619,4 +619,4 @@ Environment:
   [8e850b90] libblastrampoline_jll v5.11.0+0
   [8e850ede] nghttp2_jll v1.59.0+0
   [3f19e933] p7zip_jll v17.4.0+2
-Info Packages marked with ⌃ and ⌅ have new versions available. Those with ⌃ may be upgradable, but those with ⌅ are restricted by compatibility constraints from upgrading. To see why use `status --outdated -m`</code></pre></details><p>You can also download the <a href="https://github.com/SciML/SciMLDocs.jl/tree/gh-pages/v1.7.0/assets/Manifest.toml">manifest</a> file and the <a href="https://github.com/SciML/SciMLDocs.jl/tree/gh-pages/v1.7.0/assets/Project.toml">project</a> file.</p></article><nav class="docs-footer"><a class="docs-footer-nextpage" href="getting_started/getting_started/">Getting Started with Julia&#39;s SciML »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.19.0 on <span class="colophon-date" title="Wednesday 4 November 2026 01:54">Wednesday 4 November 2026</span>. Using Julia version 1.11.9.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+Info Packages marked with ⌃ and ⌅ have new versions available. Those with ⌃ may be upgradable, but those with ⌅ are restricted by compatibility constraints from upgrading. To see why use `status --outdated -m`</code></pre></details><p>You can also download the <a href="https://github.com/SciML/SciMLDocs.jl/tree/gh-pages/v1.7.0/assets/Manifest.toml">manifest</a> file and the <a href="https://github.com/SciML/SciMLDocs.jl/tree/gh-pages/v1.7.0/assets/Project.toml">project</a> file.</p></article><nav class="docs-footer"><a class="docs-footer-nextpage" href="getting_started/getting_started/">Getting Started with Julia&#39;s SciML »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.19.0 on <span class="colophon-date" title="Wednesday 4 November 2026 05:33">Wednesday 4 November 2026</span>. Using Julia version 1.11.9.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
