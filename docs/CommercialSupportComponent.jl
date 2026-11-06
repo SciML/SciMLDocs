@@ -6,14 +6,16 @@ function MultiDocumenter.render(c::JuliaHubCommercialSupportComponent, doc, this
 
     return MultiDocumenter.@htl """
     <div style="color: #fff;">
-        <a href="https://juliahub.com/products/dyad" class="nav-link nav-item">
-            <img src="/assets/juliahub-logo.svg" alt="JuliaHub" style = "padding: 10px;"/>
+        <a href="https://juliahub.com/products/dyad" class="nav-link nav-item" style="display: block; padding: 12px; border: 1px solid #5e6d6f; border-radius: 5px;">
+            <img src="/assets/dyad-logo.svg" alt="Dyad" width="64" height="64" style="color-scheme: dark;"/>
+            <p>Dyad by JuliaHub is the agentic modeling and simulation platform built on the SciML stack.</p>
+            <ul style="list-style: disc; padding-left: 1.25rem; margin: 0;">
+                <li>Component-based GUI for modeling</li>
+                <li>Modeling language and compiler stack integrated with and transparent to AI agents</li>
+            </ul>
         </a>
-        <p>Dyad by JuliaHub is the agentic modeling and simulation platform built on the SciML stack.
-        It helps you build, simulate, and validate physics-based models using natural language.</p>
-        <a href="https://juliahub.com/products/dyad" class="nav-link nav-item">Explore Dyad</a>
-        <p>JuliaHub offers commercial support for ModelingToolkit and the SciML ecosystem.</p>
-        <a href="$(c.link)" class="nav-link nav-item">Contact JuliaHub for commercial support</a>
+        <p style="margin-top: 12px;">JuliaHub offers commercial support for ModelingToolkit and the SciML ecosystem.
+        <a href="$(c.link)" class="nav-link" style="display: inline; width: auto; padding: 0; text-decoration: underline;">Contact Us</a>.</p>
     </div>
     """
 
