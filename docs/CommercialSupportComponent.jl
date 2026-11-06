@@ -5,17 +5,26 @@ end
 function MultiDocumenter.render(c::JuliaHubCommercialSupportComponent, doc, thispage, prettyurls)
 
     return MultiDocumenter.@htl """
-    <div style="color: #fff;">
-        <a href="https://juliahub.com/products/dyad" class="nav-link nav-item" style="display: block; padding: 12px; border: 1px solid #5e6d6f; border-radius: 5px;">
-            <img src="/assets/dyad-logo.svg" alt="Dyad" width="64" height="64" style="color-scheme: dark;"/>
-            <p>Dyad by JuliaHub is the agentic modeling and simulation platform built on the SciML stack.</p>
-            <ul style="list-style: disc; padding-left: 1.25rem; margin: 0;">
-                <li>Component-based GUI for modeling</li>
-                <li>Modeling language and compiler stack integrated with and transparent to AI agents</li>
-            </ul>
+    <div class="sciml-commercial-support">
+        <a href="https://juliahub.com/products/dyad" class="dyad-brand-card">
+            <div class="dyad-brand-head">
+                <img class="dyad-brand-logo" src="/assets/dyad-logo.svg" alt="" width="34" height="34"/>
+                <div>
+                    <span class="dyad-brand-title">Dyad</span>
+                    <span class="dyad-brand-by">BY JULIAHUB</span>
+                </div>
+            </div>
+            <div class="dyad-brand-body">
+                <p class="dyad-brand-intro">Dyad by JuliaHub is the agentic modeling and simulation platform built on the SciML stack.</p>
+                <ul class="dyad-brand-features">
+                    <li>Component-based GUI for modeling</li>
+                    <li>Modeling language and compiler stack integrated with and transparent to AI agents</li>
+                </ul>
+                <span class="dyad-brand-cta">Explore Dyad <span aria-hidden="true">↗</span></span>
+            </div>
         </a>
-        <p style="margin-top: 12px;">JuliaHub offers commercial support for ModelingToolkit and the SciML ecosystem.
-        <a href="$(c.link)" class="nav-link" style="display: inline; width: auto; padding: 0; text-decoration: underline;">Contact Us</a>.</p>
+        <p>JuliaHub offers commercial support for ModelingToolkit and the SciML ecosystem.
+        <a href="$(c.link)" class="nav-link">Contact Us</a>.</p>
     </div>
     """
 
@@ -43,9 +52,9 @@ function MultiDocumenter.render(c::ProductsUsedComponent, doc, thispage, prettyu
     ]
 
     return MultiDocumenter.@htl """
-    <table>
+    <ul class="sciml-products">
         $strings
-    </table>
+    </ul>
     """
 end
 

@@ -311,6 +311,7 @@ outpath = joinpath(@__DIR__, "build")
 MultiDocumenter.make(
     outpath, docs;
     assets_dir = "docs/src/assets",
+    custom_stylesheets = ["assets/commercial-support.css"],
     search_engine = MultiDocumenter.SearchConfig(
         index_versions = [
             "stable",
