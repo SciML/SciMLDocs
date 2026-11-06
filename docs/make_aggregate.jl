@@ -296,9 +296,9 @@ end
 
 push!(
     docs, MultiDocumenter.MegaDropdownNav(
-        "Commercial Support",
+        "Dyad & Support",
         [
-            MultiDocumenter.Column("Commercial Support", [JuliaHubCommercialSupportComponent("https://juliahub.com/company/contact-us-sciml-docs")]),
+            MultiDocumenter.Column("Dyad by JuliaHub", [JuliaHubCommercialSupportComponent("https://juliahub.com/company/contact-us-sciml-docs")]),
             MultiDocumenter.Column("Products built with SciML", [ProductsUsedComponent()]),
         ]
     )
