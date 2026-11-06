@@ -5,7 +5,7 @@ end
 function MultiDocumenter.render(c::JuliaHubCommercialSupportComponent, doc, thispage, prettyurls)
 
     return MultiDocumenter.@htl """
-    <div>
+    <div style="color: #fff;">
         <a href="https://juliahub.com/products/dyad" class="nav-link nav-item">
             <img src="/assets/juliahub-logo.svg" alt="JuliaHub" style = "padding: 10px;"/>
         </a>
