@@ -1,0 +1,222 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+@font-face {
+    font-family: JuliaMono;
+    src: url("https://cdn.jsdelivr.net/gh/cormullion/juliamono/webfonts/JuliaMono-Regular.woff2") format("woff2");
+    font-display: swap;
+}
+
+#multi-page-nav .sciml-commercial-support .dyad-brand-card,
+#multi-page-nav .sciml-commercial-support .dyad-brand-card * {
+    box-sizing: border-box;
+}
+
+#multi-page-nav .sciml-commercial-support a.dyad-brand-card {
+    display: block;
+    width: 100%;
+    padding: 0;
+    color: #111;
+    background: #fff;
+    border: 1px solid rgba(17, 17, 17, 0.14);
+    border-top: 2px solid #3617c7;
+    border-radius: 0;
+    text-decoration: none;
+    font-family: Inter, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    overflow: hidden;
+}
+
+#multi-page-nav .sciml-commercial-support a.dyad-brand-card:hover,
+#multi-page-nav .sciml-commercial-support a.dyad-brand-card:focus-visible {
+    color: #111;
+    text-decoration: none;
+    box-shadow: 0 0 0 2px #3617c7;
+}
+
+#multi-page-nav .sciml-commercial-support .dyad-brand-card .dyad-brand-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 14px 10px;
+}
+
+#multi-page-nav .sciml-commercial-support .dyad-brand-card .dyad-brand-logo {
+    display: block;
+    width: 34px;
+    height: 34px;
+    flex: none;
+    color-scheme: light;
+}
+
+#multi-page-nav .sciml-commercial-support .dyad-brand-card .dyad-brand-title {
+    display: block;
+    color: #111;
+    font-size: 18px;
+    line-height: 21px;
+    font-weight: 600;
+    letter-spacing: -.02em;
+}
+
+#multi-page-nav .sciml-commercial-support .dyad-brand-card .dyad-brand-by {
+    display: block;
+    margin-top: 2px;
+    color: #555;
+    font-size: 10px;
+    line-height: 13px;
+    letter-spacing: .08em;
+    font-weight: 400;
+    font-family: JuliaMono, ui-monospace, monospace;
+}
+
+#multi-page-nav .sciml-commercial-support .dyad-brand-card .dyad-brand-body {
+    padding: 0 14px 14px;
+}
+
+#multi-page-nav .sciml-commercial-support .dyad-brand-card p.dyad-brand-intro {
+    margin: 0 0 12px;
+    color: #333;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+#multi-page-nav .sciml-commercial-support .dyad-brand-card ul.dyad-brand-features {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#multi-page-nav .sciml-commercial-support .dyad-brand-card .dyad-brand-features li {
+    display: flex;
+    gap: 9px;
+    margin: 0;
+    padding: 9px 0;
+    border-top: 1px solid rgba(17, 17, 17, 0.14);
+    color: #111;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+#multi-page-nav .sciml-commercial-support .dyad-brand-card .dyad-brand-cta {
+    display: block;
+    margin-top: 4px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(17, 17, 17, 0.14);
+    color: #3617c7;
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 400;
+    font-family: JuliaMono, ui-monospace, monospace;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+}
+
+#multi-page-nav .nav-mega-dropdown-container:has(.sciml-commercial-support) {
+    background: #fff;
+    color: #111;
+    border-top: 2px solid #3617c7;
+    border-bottom: 1px solid #d8ceff;
+    box-shadow: 0 12px 24px rgba(17, 17, 17, 0.12);
+    padding: 28px 32px;
+    grid-template-columns: minmax(0, 430px) minmax(0, 300px);
+    gap: 48px;
+    justify-content: center;
+    line-height: 1.5;
+    overflow: auto;
+    color-scheme: light;
+    font-family: Inter, Arial, sans-serif;
+}
+
+#multi-page-nav .nav-mega-dropdown-container:has(.sciml-commercial-support) .nav-mega-column {
+    margin: 0;
+    min-width: 0;
+}
+
+#multi-page-nav .nav-mega-dropdown-container:has(.sciml-commercial-support) .column-header {
+    padding: 0 0 16px;
+    color: #555;
+    font-family: JuliaMono, ui-monospace, monospace;
+    font-size: 11px;
+    line-height: 18px;
+    font-weight: 400;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+#multi-page-nav .sciml-commercial-support {
+    color: #111;
+}
+
+#multi-page-nav .sciml-commercial-support > p {
+    margin: 18px 0 0;
+    padding: 16px 0 0;
+    border-top: 1px solid rgba(17, 17, 17, 0.14);
+    color: #555;
+    font-size: 14px;
+    line-height: 22px;
+}
+
+#multi-page-nav .sciml-commercial-support > p a.nav-link {
+    display: inline;
+    width: auto;
+    padding: 0;
+    color: #3617c7;
+    font-size: 14px;
+    line-height: 22px;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+#multi-page-nav .sciml-commercial-support > p a.nav-link:hover {
+    color: #2a10a5;
+    background: none;
+}
+
+#multi-page-nav .nav-mega-dropdown-container:has(.sciml-commercial-support) .column-content .sciml-products {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background: none;
+}
+
+#multi-page-nav .nav-mega-dropdown-container:has(.sciml-commercial-support) .column-content .sciml-products > li {
+    display: block;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid rgba(17, 17, 17, 0.14);
+    list-style: none;
+}
+
+#multi-page-nav .nav-mega-dropdown-container:has(.sciml-commercial-support) .column-content .sciml-products > li a.nav-link {
+    display: block;
+    width: 100%;
+    padding: 12px 10px;
+    color: #111;
+    font-size: 15px;
+    line-height: 22px;
+    text-decoration: none;
+}
+
+#multi-page-nav .nav-mega-dropdown-container:has(.sciml-commercial-support) .column-content .sciml-products > li a.nav-link:hover {
+    color: #3617c7;
+    background: #f2eeff;
+}
+
+#multi-page-nav .nav-mega-dropdown-container:has(.sciml-commercial-support) a:focus-visible {
+    outline: 2px solid #3617c7;
+    outline-offset: 2px;
+}
+
+@media (max-width: 1055px) {
+    #multi-page-nav .nav-mega-dropdown-container:has(.sciml-commercial-support) {
+        width: 100%;
+        padding: 20px;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 28px;
+        margin-top: 12px;
+    }
+    #multi-page-nav .nav-mega-dropdown-container:has(.sciml-commercial-support) .nav-mega-column {
+        margin: 0;
+    }
+}

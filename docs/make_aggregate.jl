@@ -296,9 +296,9 @@ end
 
 push!(
     docs, MultiDocumenter.MegaDropdownNav(
-        "Commercial Support",
+        "Dyad & Commercial Support",
         [
-            MultiDocumenter.Column("Commercial Support", [JuliaHubCommercialSupportComponent("https://juliahub.com/company/contact-us-sciml-docs")]),
+            MultiDocumenter.Column("Dyad by JuliaHub", [JuliaHubCommercialSupportComponent("https://juliahub.com/company/contact-us-sciml-docs")]),
             MultiDocumenter.Column("Products built with SciML", [ProductsUsedComponent()]),
         ]
     )
@@ -311,6 +311,7 @@ outpath = joinpath(@__DIR__, "build")
 MultiDocumenter.make(
     outpath, docs;
     assets_dir = "docs/src/assets",
+    custom_stylesheets = ["assets/commercial-support.css"],
     search_engine = MultiDocumenter.SearchConfig(
         index_versions = [
             "stable",
