@@ -40,9 +40,9 @@ weakdeps = ["ChainRulesCore", "Test"]
 
 [[deps.AbstractMCMC]]
 deps = ["BangBang", "ConsoleProgressMonitor", "Dates", "Distributed", "LogDensityProblems", "Logging", "LoggingExtras", "ProgressLogging", "Random", "StatsBase", "TerminalLoggers", "UUIDs"]
-git-tree-sha1 = "fbdfe3aff511a3a655073e89ac063f1703a06e1b"
+git-tree-sha1 = "024f6f21322a3f827dd3f94f57f778c011320354"
 uuid = "80f14c24-f653-4e6a-9b94-39d6b0f70001"
-version = "5.17.0"
+version = "5.18.0"
 
     [deps.AbstractMCMC.extensions]
     AbstractMCMCOnlineStatsExt = "OnlineStats"
@@ -391,9 +391,9 @@ version = "6.4.1"
 
 [[deps.CUDA_Compiler_jll]]
 deps = ["Artifacts", "CUDA_Driver_jll", "JLLWrappers", "LazyArtifacts", "Libdl", "TOML"]
-git-tree-sha1 = "d25781968aff72a9d8d5bd979b7805d154ab45a0"
+git-tree-sha1 = "0dbe33a5c6e97e64d317c18e6ee3df1610184949"
 uuid = "d1e2174e-dfdc-576e-b43e-73b79eb1aca8"
-version = "0.6.4+0"
+version = "0.6.5+0"
 
 [[deps.CUDA_Driver_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "TOML"]
@@ -439,9 +439,9 @@ version = "0.5.2"
 
 [[deps.ChainRules]]
 deps = ["Adapt", "ChainRulesCore", "Distributed", "GPUArraysCore", "IrrationalConstants", "LinearAlgebra", "Random", "RealDot", "SparseArrays", "SparseInverseSubset", "Statistics", "StructArrays"]
-git-tree-sha1 = "d2828ec13005eb4d68e16f0cccbfdd7e013fc0bb"
+git-tree-sha1 = "f3cdc9ecdea0c528f7d9e0b031b0d7ae0aa2bf3c"
 uuid = "082447d4-558c-5d27-93f4-14fc19e9eca2"
-version = "1.74.12"
+version = "1.74.13"
 
 [[deps.ChainRulesCore]]
 deps = ["LinearAlgebra"]
@@ -674,9 +674,9 @@ version = "0.2.3"
 
 [[deps.DataFrames]]
 deps = ["Compat", "DataAPI", "DataStructures", "Future", "InlineStrings", "InvertedIndices", "IteratorInterfaceExtensions", "LinearAlgebra", "Markdown", "Missings", "PooledArrays", "PrecompileTools", "PrettyTables", "Printf", "Random", "Reexport", "SentinelArrays", "SortingAlgorithms", "Statistics", "TableTraits", "Tables", "Unicode"]
-git-tree-sha1 = "5fab31e2e01e70ad66e3e24c968c264d1cf166d6"
+git-tree-sha1 = "fd798b61b03b15dda0715aac807885397e6ded88"
 uuid = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
-version = "1.8.2"
+version = "1.8.3"
 
 [[deps.DataInterpolations]]
 deps = ["EnumX", "FindFirstFunctions", "ForwardDiff", "LinearAlgebra", "PrecompileTools", "PrettyTables", "RecipesBase", "Reexport", "StaticArrays"]
@@ -1407,9 +1407,9 @@ version = "1.1.0"
 
 [[deps.GenericSchur]]
 deps = ["LinearAlgebra", "MatrixFactorizations", "Preferences", "Printf", "UUIDs"]
-git-tree-sha1 = "e3d1202ab9ae72edd4c46134ecbb6746ec420486"
+git-tree-sha1 = "dd065ad31fe9ddd52af11add0be7848b7e26484d"
 uuid = "c145ed77-6b09-5dd9-b285-bf645a82121e"
-version = "0.5.8"
+version = "0.5.9"
 
 [[deps.GettextRuntime_jll]]
 deps = ["Artifacts", "CompilerSupportLibraries_jll", "JLLWrappers", "Libdl", "Libiconv_jll"]
@@ -2622,9 +2622,9 @@ version = "2.11.0+0"
 
 [[deps.NNlib]]
 deps = ["Adapt", "Atomix", "BFloat16s", "ChainRulesCore", "GPUArraysCore", "KernelAbstractions", "LinearAlgebra", "PrecompileTools", "Random", "ScopedValues", "Statistics"]
-git-tree-sha1 = "4e0d1973b9d72c797640263497a8f92cc726cfc3"
+git-tree-sha1 = "1a2eb33f9fd33f1acf7411a6a88001554f192010"
 uuid = "872c559c-99b0-510c-b3b7-b6c96a88d5cd"
-version = "0.9.58"
+version = "0.9.59"
 
     [deps.NNlib.extensions]
     NNlibAMDGPUExt = "AMDGPU"
@@ -2863,9 +2863,9 @@ version = "0.8.5+0"
 
 [[deps.OpenSSH_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "OpenSSL_jll", "Zlib_jll"]
-git-tree-sha1 = "1f640b82a627df3dbbaaff756a201a9ceb10dd1f"
+git-tree-sha1 = "ee1c520aabde487eb82ae11815718dadb3214402"
 uuid = "9bd350c2-7e96-507f-8002-3f2e150b4e1b"
-version = "10.6.1+0"
+version = "10.6.2+0"
 
 [[deps.OpenSSL_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
@@ -3482,9 +3482,9 @@ version = "0.5.2+0"
 
 [[deps.Roots]]
 deps = ["Accessors", "CommonSolve", "Printf"]
-git-tree-sha1 = "c5e8a0a52c0d5d043214de04f11f4d9c2c6ccdb8"
+git-tree-sha1 = "15f266d7b3039ca0608d2c53bb32225b96932310"
 uuid = "f2b01f46-fcfa-551c-844a-d8ac1e96c665"
-version = "3.0.13"
+version = "3.0.14"
 
     [deps.Roots.extensions]
     RootsChainRulesCoreExt = "ChainRulesCore"
