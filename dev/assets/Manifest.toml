@@ -1330,10 +1330,10 @@ version = "1.13.0"
     Mooncake = "da2b9cff-9c12-43a0-ae48-6db2b0edb7d6"
 
 [[deps.Functors]]
-deps = ["Compat", "ConstructionBase", "LinearAlgebra", "Random"]
-git-tree-sha1 = "416b521e1158dd93cd99b3adcd872085726b36a1"
+deps = ["Compat", "ConstructionBase", "LinearAlgebra", "PrecompileTools", "Random"]
+git-tree-sha1 = "6a973ab88e731b59155f1af499e8f0a88e962c7c"
 uuid = "d9f16b24-f501-4c13-a1f2-28368ffc5196"
-version = "0.5.4"
+version = "0.5.5"
 
 [[deps.Future]]
 deps = ["Random"]
@@ -2352,10 +2352,10 @@ uuid = "e80e1ace-859a-464e-9ed9-23947d8ae3ea"
 version = "1.12.1"
 
 [[deps.MLUtils]]
-deps = ["ChainRulesCore", "CodeTracking", "Compat", "DataAPI", "DelimitedFiles", "Distributed", "InteractiveUtils", "MLCore", "Mmap", "NNlib", "Random", "ShowCases", "SimpleTraits", "Statistics", "StatsBase", "Tables"]
-git-tree-sha1 = "81ba0ccf27958ec0d9575375a42228056fe31a94"
+deps = ["ChainRulesCore", "CodeTracking", "Compat", "DataAPI", "Distributed", "InteractiveUtils", "MLCore", "Mmap", "NNlib", "PrecompileTools", "Random", "SimpleTraits", "Statistics", "StatsBase", "Tables"]
+git-tree-sha1 = "b587a36489183490ff956f4d4225311a353c164a"
 uuid = "f1d291b0-491e-4a28-83b9-f70985020b54"
-version = "0.4.15"
+version = "0.4.16"
 
 [[deps.MSVCRuntime_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
@@ -2637,9 +2637,9 @@ version = "2.11.0+0"
 
 [[deps.NNlib]]
 deps = ["Adapt", "Atomix", "BFloat16s", "ChainRulesCore", "GPUArraysCore", "KernelAbstractions", "LinearAlgebra", "PrecompileTools", "Random", "ScopedValues", "Statistics"]
-git-tree-sha1 = "cffb82e73de54644026b7b51b69f44b4c79f6d8d"
+git-tree-sha1 = "2042089e3f716e9d3c352ecb56c02e943a68afdd"
 uuid = "872c559c-99b0-510c-b3b7-b6c96a88d5cd"
-version = "0.9.60"
+version = "0.9.61"
 
     [deps.NNlib.extensions]
     NNlibAMDGPUExt = "AMDGPU"
@@ -2906,9 +2906,9 @@ weakdeps = ["MathOptInterface"]
 
 [[deps.Optimisers]]
 deps = ["ChainRulesCore", "Compat", "ConstructionBase", "Functors", "LinearAlgebra", "Random", "Statistics"]
-git-tree-sha1 = "ce02e5e508795e3df43be2f6a2220e3fd0aae206"
+git-tree-sha1 = "8064f80d831e9e8b32e6ab03124e26ee9ef7c3ac"
 uuid = "3bd65402-5787-11e9-1adc-39752487f4e2"
-version = "0.4.11"
+version = "0.4.12"
 
     [deps.Optimisers.extensions]
     OptimisersAdaptExt = ["Adapt"]
@@ -3700,11 +3700,6 @@ version = "1.2.0"
 deps = ["Distributed", "Mmap", "Random", "Serialization"]
 uuid = "1a1011a3-84de-559e-8e89-a11a2f7dc383"
 version = "1.11.0"
-
-[[deps.ShowCases]]
-git-tree-sha1 = "7f534ad62ab2bd48591bdeac81994ea8c445e4a5"
-uuid = "605ecd9f-84a6-4c9e-81e2-4798472b76a3"
-version = "0.1.0"
 
 [[deps.Showoff]]
 deps = ["Dates"]
@@ -4522,9 +4517,9 @@ version = "1.5.7+2"
 
 [[deps.Zygote]]
 deps = ["AbstractFFTs", "ChainRules", "ChainRulesCore", "DiffRules", "Distributed", "FillArrays", "ForwardDiff", "GPUArraysCore", "IRTools", "InteractiveUtils", "LinearAlgebra", "LogExpFunctions", "MacroTools", "NaNMath", "PrecompileTools", "Random", "SparseArrays", "SpecialFunctions", "Statistics", "ZygoteRules"]
-git-tree-sha1 = "125b4d8d3459c439714d7476391ee5157958c85a"
+git-tree-sha1 = "dd6c87efd0e6103d83cc1374251fd9cb2211ef02"
 uuid = "e88e6eb3-aa80-5325-afca-941959d7151f"
-version = "0.7.18"
+version = "0.7.19"
 
     [deps.Zygote.extensions]
     ZygoteAtomExt = "Atom"
