@@ -86,3 +86,12 @@ end
     end
     @test uninventoried == String[]
 end
+
+@testset "Linkcheck ignores" begin
+    make_path = joinpath(pkgdir(SciMLDocs), "docs", "make.jl")
+    make = read(make_path, String)
+    @test occursin(
+        r"linkcheck_ignore\s*=\s*\[[^\]]*\"https://www\.equalsharepress\.com/\""s,
+        make
+    )
+end
