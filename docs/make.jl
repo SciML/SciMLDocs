@@ -43,6 +43,8 @@ makedocs(
         "https://github.com/timholy/QuadDIRECT.jl",
         # readthedocs.io rate-limits CI runners and returns HTTP 429
         "https://nlopt.readthedocs.io/en/latest/NLopt_Algorithms/",
+        # equalsharepress.com intermittently exceeds the 10-second curl timeout on CI runners
+        "https://www.equalsharepress.com/",
     ],
     format = HTML(
         assets = ["assets/favicon.ico"],
