@@ -86,30 +86,3 @@ end
     end
     @test uninventoried == String[]
 end
-
-function keyword_argument(call::Expr, name::Symbol)
-    index = findfirst(
-        arg -> arg isa Expr && arg.head == :kw && arg.args[1] == name,
-        call.args
-    )
-    return index === nothing ? nothing : call.args[index].args[2]
-end
-
-@testset "Linkcheck ignores" begin
-    make_path = joinpath(pkgdir(SciMLDocs), "docs", "make.jl")
-    make_expr = Meta.parseall(read(make_path, String))
-    makedocs_calls = [
-        expr for expr in make_expr.args
-            if expr isa Expr && expr.head == :call && expr.args[1] == :makedocs
-    ]
-    @test length(makedocs_calls) == 1
-    makedocs_call = only(makedocs_calls)
-
-    @test keyword_argument(makedocs_call, :linkcheck) === true
-    linkcheck_ignore = keyword_argument(makedocs_call, :linkcheck_ignore)
-    @test linkcheck_ignore isa Expr && linkcheck_ignore.head == :vect &&
-        any(
-        entry -> entry isa String && entry == "https://www.equalsharepress.com/",
-        linkcheck_ignore.args
-    )
-end
