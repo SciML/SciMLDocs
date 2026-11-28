@@ -27,7 +27,7 @@ docsmodules = [
             "PubChem", "Pyomo", "MathML",
         ],
         "Symbolic Tools" => [
-            "ModelOrderReduction", "Symbolics", "SymbolicUtils",
+            "ModelOrderReduction", "Symbolics", "SymbolicUtils", "MatchMaker",
             "SymbolicIntegration", "SymbolicSMT", "SymbolicLimits",
             "SymbolicAnalysis", "FunctionProperties",
         ], #="MetaTheory"=#
@@ -185,6 +185,7 @@ external_urls = Dict(
     "SymbolicSMT" => "https://github.com/JuliaSymbolics/SymbolicSMT.jl",
     "SymbolicIntegration" => "https://github.com/JuliaSymbolics/SymbolicIntegration.jl",
     "SymbolicUtils" => "https://github.com/JuliaSymbolics/SymbolicUtils.jl",
+    "MatchMaker" => "https://github.com/JuliaSymbolics/MatchMaker.jl",
     "TermInterface" => "https://github.com/JuliaSymbolics/TermInterface.jl",
     "StaticArrays" => "https://github.com/JuliaArrays/StaticArrays.jl",
     "FillArrays" => "https://github.com/JuliaArrays/FillArrays.jl",
